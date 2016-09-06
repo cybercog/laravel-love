@@ -1,19 +1,22 @@
 # Laravel Likeable
 
-[![Build Status](https://travis-ci.org/cybercog/laravel-likeable.svg)](https://travis-ci.org/cybercog/laravel-likeable)
-[![Latest Stable Version](https://poser.pugx.org/cybercog/laravel-likeable/version)](https://packagist.org/packages/cybercog/laravel-likeable)
-[![License](https://poser.pugx.org/cybercog/laravel-likeable/license.svg)](https://github.com/cybercog/laravel-likeable/blob/master/LICENSE)
+[![Build Status](https://img.shields.io/travis/cybercog/laravel-likeable/master.svg?style=flat-square)](https://travis-ci.org/cybercog/laravel-likeable)
+[![StyleCI](https://styleci.io/repos/67549571/shield)](https://styleci.io/repos/67549571)
+[![Releases](https://img.shields.io/github/release/cybercog/laravel-likeable.svg?style=flat-square)](https://github.com/cybercog/laravel-likeable/releases)
+[![License](https://img.shields.io/github/license/cybercog/laravel-likeable.svg?style=flat-square)](https://github.com/cybercog/laravel-likeable/blob/master/LICENSE)
 
 Trait for Laravel Eloquent models to allow easy implementation of a `like` & `dislike` features.
 
 *Note: Likes and dislikes for one model by one user are mutually exclusive.*
+
+![cybercog-laravel-likeable](https://cloud.githubusercontent.com/assets/1849174/18293813/cf2ffafc-749d-11e6-912f-e827c3b50c50.png)
 
 ## Installation
 
 First, pull in the package through Composer.
 
 ```shell
-composer require cybercog/laravel-likeable "^1.0"
+composer require cybercog/laravel-likeable
 ```
 
 And then include the service provider within `app/config/app.php`.
@@ -24,7 +27,7 @@ And then include the service provider within `app/config/app.php`.
 ],
 ```
 
-At last you need to publish and run the migration.
+At last you need to publish and run the migrations.
 
 ```shell
 php artisan vendor:publish --provider="Cog\Likeable\Providers\LikeableServiceProvider" --tag=migrations
@@ -156,8 +159,8 @@ $article->dislikes;
 Boolean check if user disliked model
 
 ```php
-$article->disliked; // check if currently logged in user liked the article
-$article->disliked(); // check if currently logged in user liked the article
+$article->disliked; // check if currently logged in user disliked the article
+$article->disliked(); // check if currently logged in user disliked the article
 $article->disliked($user->id);
 ```
 

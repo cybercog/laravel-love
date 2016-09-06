@@ -341,7 +341,7 @@ class LikeableService implements LikeableServiceContract
      *
      * @param string $type
      * @return int
-     * @throws \Exception
+     * @throws \Cog\Likeable\Exceptions\LikeTypeInvalidException
      */
     protected function getLikeTypeId($type)
     {
