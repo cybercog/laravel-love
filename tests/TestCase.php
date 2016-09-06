@@ -66,6 +66,7 @@ abstract class TestCase extends Orchestra
     {
         $this->artisan('vendor:publish', ['--force' => '']);
     }
+
     /**
      * Delete all published package migrations.
      */

@@ -12,12 +12,6 @@
 namespace Cog\Likeable\Contracts;
 
 use Cog\Likeable\Contracts\HasLikes as HasLikesContract;
-use Cog\Likeable\Contracts\Like as LikeContract;
-use Cog\Likeable\Contracts\LikeCounter as LikeCounterContract;
-use Cog\Likeable\Enums\LikeType;
-use Cog\Likeable\Exceptions\LikerNotDefinedException;
-use Cog\Likeable\Exceptions\LikeTypeInvalidException;
-use DB;
 
 /**
  * Interface LikeableService.

@@ -18,7 +18,6 @@ use Cog\Likeable\Tests\Stubs\Models\EntityWithMorphMap;
 use Cog\Likeable\Tests\Stubs\Models\User;
 use Cog\Likeable\Tests\TestCase;
 use Illuminate\Contracts\Console\Kernel;
-use Mockery;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 
