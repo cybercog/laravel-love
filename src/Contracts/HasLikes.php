@@ -44,14 +44,14 @@ interface HasLikes
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphOne
      */
-    public function likeCounter();
+    public function likesCounter();
 
     /**
      * Counter is a record that stores the total dislikes for the morphed record.
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphOne
      */
-    public function dislikeCounter();
+    public function dislikesCounter();
 
     /**
      * Model likesCount attribute.
