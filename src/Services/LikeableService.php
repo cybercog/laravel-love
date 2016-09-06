@@ -147,7 +147,7 @@ class LikeableService implements LikeableServiceContract
      */
     public function decrementLikeCount(HasLikesContract $model)
     {
-        $counter = $model->likeCounter()->first();
+        $counter = $model->likesCounter()->first();
 
         if (!$counter) {
             return;
@@ -164,10 +164,10 @@ class LikeableService implements LikeableServiceContract
      */
     public function incrementLikeCount(HasLikesContract $model)
     {
-        $counter = $model->likeCounter()->first();
+        $counter = $model->likesCounter()->first();
 
         if (!$counter) {
-            $counter = $model->likeCounter()->create([
+            $counter = $model->likesCounter()->create([
                 'count' => 0,
                 'type_id' => LikeType::LIKE,
             ]);
@@ -184,7 +184,7 @@ class LikeableService implements LikeableServiceContract
      */
     public function decrementDislikeCount(HasLikesContract $model)
     {
-        $counter = $model->dislikeCounter()->first();
+        $counter = $model->dislikesCounter()->first();
 
         if (!$counter) {
             return;
@@ -201,10 +201,10 @@ class LikeableService implements LikeableServiceContract
      */
     public function incrementDislikeCount(HasLikesContract $model)
     {
-        $counter = $model->dislikeCounter()->first();
+        $counter = $model->dislikesCounter()->first();
 
         if (!$counter) {
-            $counter = $model->dislikeCounter()->create([
+            $counter = $model->dislikesCounter()->create([
                 'count' => 0,
                 'type_id' => LikeType::DISLIKE,
             ]);

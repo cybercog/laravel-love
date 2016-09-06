@@ -84,7 +84,7 @@ $article->likesCount;
 Get model likes counter
 
 ```php
-$article->likeCounter;
+$article->likesCounter;
 ```
 
 Get iterable `Illuminate\Database\Eloquent\Collection` of existing model likes
@@ -105,7 +105,7 @@ Find all articles liked by user
 
 ```php
 Article::whereLikedBy($user->id)
-	->with('likeCounter') // Allow eager load (optional)
+	->with('likesCounter') // Allow eager load (optional)
 	->get();
 ```
 
@@ -147,7 +147,7 @@ $article->dislikesCount;
 Get model dislikes counter
 
 ```php
-$article->dislikeCounter;
+$article->dislikesCounter;
 ```
 
 Get iterable `Illuminate\Database\Eloquent\Collection` of existing model dislikes
@@ -168,7 +168,7 @@ Find all articles disliked by user
 
 ```php
 Article::whereDislikedBy($user->id)
-	->with('likeCounter') // Allow eager load (optional)
+	->with('dislikesCounter') // Allow eager load (optional)
 	->get();
 ```
 

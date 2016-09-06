@@ -69,7 +69,7 @@ trait HasLikes
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphOne
      */
-    public function likeCounter()
+    public function likesCounter()
     {
         return $this->morphOne(app(LikeCounterContract::class), 'likeable')
             ->where('type_id', LikeType::LIKE);
@@ -80,7 +80,7 @@ trait HasLikes
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphOne
      */
-    public function dislikeCounter()
+    public function dislikesCounter()
     {
         return $this->morphOne(app(LikeCounterContract::class), 'likeable')
             ->where('type_id', LikeType::DISLIKE);
@@ -93,7 +93,7 @@ trait HasLikes
      */
     public function getLikesCountAttribute()
     {
-        return $this->likeCounter ? $this->likeCounter->count : 0;
+        return $this->likesCounter ? $this->likesCounter->count : 0;
     }
 
     /**
@@ -103,7 +103,7 @@ trait HasLikes
      */
     public function getDislikesCountAttribute()
     {
-        return $this->dislikeCounter ? $this->dislikeCounter->count : 0;
+        return $this->dislikesCounter ? $this->dislikesCounter->count : 0;
     }
 
     /**
