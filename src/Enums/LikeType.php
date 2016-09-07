@@ -18,6 +18,6 @@ namespace Cog\Likeable\Enums;
  */
 class LikeType
 {
-    const LIKE = 1;
-    const DISLIKE = 2;
+    const LIKE = 'like';
+    const DISLIKE = 'dislike';
 }
