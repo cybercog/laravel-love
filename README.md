@@ -257,3 +257,69 @@ Recount only dislikes of concrete model type (using fully qualified class name)
 ```shell
 likeable:recount --model="App\Models\Article" --type="dislike"
 ```
+
+## Extending
+
+You can override `Models\Like`, `Models\LikeCounter`, `Services\LikeableService` with your own implementations, just follow their contracts.
+
+To make it you should use container [binding interfaces to implementations](https://laravel.com/docs/master/container#binding-interfaces-to-implementations) in your application service providers.
+
+Implement your own model:
+
+```php
+$this->app->bind(
+    \Cog\Likeable\Contracts\Like::class,
+    \App\Services\CustomLike::class
+);
+```
+
+Or implement your own service class:
+
+```php
+$this->app->singleton(
+    \Cog\Likeable\Contracts\LikeableService::class,
+    \App\Services\CustomService::class
+);
+```
+
+After that your `CustomLike` and `CustomService` classes will be instantiable with helper method:
+
+```php
+$model = app(\Cog\Likeable\Contracts\Like::class);
+$service = app(\Cog\Likeable\Contracts\LikeableService::class);
+```
+
+## Testing
+
+You can run the tests with:
+
+```shell
+vendor/bin/phpunit
+```
+
+## Contributing
+
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
+## Security
+
+If you discover any security related issues, please email [support@cybercog.su](mailto:support@cybercog.su) instead of using the issue tracker.
+
+## Credits
+
+- [Anton Komarev](https://github.com/a-komarev)
+- [All Contributors](../../contributors)
+
+## Alternatives
+
+- [rtconner/laravel-likeable](https://github.com/rtconner/laravel-likeable)
+- [draperstudio/laravel-likeable](https://github.com/DraperStudio/Laravel-Likeable)
+- [sukohi/evaluation](https://github.com/SUKOHI/Evaluation)
+
+## About CyberCog
+
+CyberCog is a Social Unity of enthusiasts. Research best solutions in product & software development is our passion. [CyberCog website](http://www.cybercog.ru).
+
+## License
+
+Laravel Likeable is an open-source software licensed under the [BSD 3-Clause License](LICENSE.md).
