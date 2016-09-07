@@ -23,7 +23,7 @@ class CreateLikeCounterTable extends Migration
             $table->enum('type_id', [
                 1 => 'like',
                 2 => 'dislike',
-            ])->default(1);
+            ])->default('like');
             $table->integer('count')->unsigned()->default(0);
 
             $table->unique([

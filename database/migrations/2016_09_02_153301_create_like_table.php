@@ -24,7 +24,7 @@ class CreateLikeTable extends Migration
             $table->enum('type_id', [
                 1 => 'like',
                 2 => 'dislike',
-            ])->default(1);
+            ])->default('like');
             $table->timestamp('created_at')->nullable();
 
             $table->unique([
