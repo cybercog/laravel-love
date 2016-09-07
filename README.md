@@ -269,7 +269,7 @@ Implement your own model:
 ```php
 $this->app->bind(
     \Cog\Likeable\Contracts\Like::class,
-    \App\Services\CustomLike::class
+    \App\Models\CustomLike::class
 );
 ```
 
