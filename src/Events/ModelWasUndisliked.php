@@ -21,9 +21,9 @@ use Cog\Likeable\Contracts\HasLikes as HasLikesContract;
 class ModelWasUndisliked
 {
     /**
-     * The unliked model.
+     * The undisliked model.
      *
-     * @var \Illuminate\Database\Eloquent\Collection
+     * @var \Cog\Likeable\Contracts\HasLikes
      */
     public $model;
 

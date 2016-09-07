@@ -27,7 +27,7 @@ And then include the service provider within `app/config/app.php`.
 ],
 ```
 
-At last you need to publish and run the migrations.
+At last you need to publish and run database migrations.
 
 ```shell
 php artisan vendor:publish --provider="Cog\Likeable\Providers\LikeableServiceProvider" --tag=migrations

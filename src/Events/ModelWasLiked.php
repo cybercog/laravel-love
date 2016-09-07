@@ -23,7 +23,7 @@ class ModelWasLiked
     /**
      * The liked model.
      *
-     * @var \Illuminate\Database\Eloquent\Collection
+     * @var \Cog\Likeable\Contracts\HasLikes
      */
     public $model;
 
