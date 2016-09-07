@@ -22,8 +22,8 @@ class CreateLikeTable extends Migration
             $table->string('likeable_type', 255);
             $table->integer('user_id')->unsigned()->index();
             $table->enum('type_id', [
-                1 => 'like',
-                2 => 'dislike',
+                'like',
+                'dislike',
             ])->default('like');
             $table->timestamp('created_at')->nullable();
 

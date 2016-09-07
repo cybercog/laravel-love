@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-likeable` will be documented in this file.
 
+## 1.1.2 - 2016-09-07
+
+- Fix enum like types
+
 ## 1.1.1 - 2016-09-07
 
 - Fix likeable enums database default value

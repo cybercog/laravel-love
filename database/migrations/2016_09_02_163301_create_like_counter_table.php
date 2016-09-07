@@ -21,8 +21,8 @@ class CreateLikeCounterTable extends Migration
             $table->integer('likeable_id')->unsigned();
             $table->string('likeable_type');
             $table->enum('type_id', [
-                1 => 'like',
-                2 => 'dislike',
+                'like',
+                'dislike',
             ])->default('like');
             $table->integer('count')->unsigned()->default(0);
 
