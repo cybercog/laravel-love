@@ -23,7 +23,7 @@ class ModelWasUnliked
     /**
      * The unliked model.
      *
-     * @var \Illuminate\Database\Eloquent\Collection
+     * @var \Cog\Likeable\Contracts\HasLikes
      */
     public $model;
 
