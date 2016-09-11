@@ -148,7 +148,7 @@ class LikeableService implements LikeableServiceContract
      * @param \Cog\Likeable\Contracts\HasLikes $model
      * @return void
      */
-    public function decrementLikeCount(HasLikesContract $model)
+    public function decrementLikesCount(HasLikesContract $model)
     {
         $counter = $model->likesCounter()->first();
 
@@ -165,7 +165,7 @@ class LikeableService implements LikeableServiceContract
      * @param \Cog\Likeable\Contracts\HasLikes $model
      * @return void
      */
-    public function incrementLikeCount(HasLikesContract $model)
+    public function incrementLikesCount(HasLikesContract $model)
     {
         $counter = $model->likesCounter()->first();
 
@@ -185,7 +185,7 @@ class LikeableService implements LikeableServiceContract
      * @param \Cog\Likeable\Contracts\HasLikes $model
      * @return void
      */
-    public function decrementDislikeCount(HasLikesContract $model)
+    public function decrementDislikesCount(HasLikesContract $model)
     {
         $counter = $model->dislikesCounter()->first();
 
@@ -202,7 +202,7 @@ class LikeableService implements LikeableServiceContract
      * @param \Cog\Likeable\Contracts\HasLikes $model
      * @return void
      */
-    public function incrementDislikeCount(HasLikesContract $model)
+    public function incrementDislikesCount(HasLikesContract $model)
     {
         $counter = $model->dislikesCounter()->first();
 

@@ -36,10 +36,10 @@ class LikeObserver
     {
         if ($like->type_id == LikeType::LIKE) {
             event(new ModelWasLiked($like->likeable, $like->user_id));
-            app(LikeableServiceContract::class)->incrementLikeCount($like->likeable, $like->type_id);
+            app(LikeableServiceContract::class)->incrementLikesCount($like->likeable, $like->type_id);
         } else {
             event(new ModelWasDisliked($like->likeable, $like->user_id));
-            app(LikeableServiceContract::class)->incrementDislikeCount($like->likeable, $like->type_id);
+            app(LikeableServiceContract::class)->incrementDislikesCount($like->likeable, $like->type_id);
         }
     }
 
@@ -53,10 +53,10 @@ class LikeObserver
     {
         if ($like->type_id == LikeType::LIKE) {
             event(new ModelWasUnliked($like->likeable, $like->user_id));
-            app(LikeableServiceContract::class)->decrementLikeCount($like->likeable, $like->type_id);
+            app(LikeableServiceContract::class)->decrementLikesCount($like->likeable, $like->type_id);
         } else {
             event(new ModelWasUndisliked($like->likeable, $like->user_id));
-            app(LikeableServiceContract::class)->decrementDislikeCount($like->likeable, $like->type_id);
+            app(LikeableServiceContract::class)->decrementDislikesCount($like->likeable, $like->type_id);
         }
     }
 }

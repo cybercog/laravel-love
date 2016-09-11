@@ -36,7 +36,7 @@ php artisan migrate
 
 ## Usage
 
-### Prepare model
+### Prepare likeable model
 
 Use `HasLikes` contract in model which will get likes behavior and implement it or just use `HasLikes` trait. 
 
@@ -102,8 +102,8 @@ $article->likes;
 ##### Boolean check if user liked model
 
 ```php
-$article->liked; // check if currently logged in user liked the article
-$article->liked(); // check if currently logged in user liked the article
+$article->liked; // current user
+$article->liked(); // current user
 $article->liked($user->id);
 ```
 
@@ -171,8 +171,8 @@ $article->dislikes;
 ##### Boolean check if user disliked model
 
 ```php
-$article->disliked; // check if currently logged in user disliked the article
-$article->disliked(); // check if currently logged in user disliked the article
+$article->disliked; // current user
+$article->disliked(); // current user
 $article->disliked($user->id);
 ```
 
