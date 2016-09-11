@@ -142,6 +142,7 @@ trait HasLikes
      * @param \Illuminate\Database\Query\Builder $query
      * @param int|null $userId
      * @return \Illuminate\Database\Query\Builder
+     *
      * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
      */
     public function scopeWhereLikedBy($query, $userId = null)
@@ -155,6 +156,7 @@ trait HasLikes
      * @param \Illuminate\Database\Query\Builder $query
      * @param int|null $userId
      * @return \Illuminate\Database\Query\Builder
+     *
      * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
      */
     public function scopeWhereDislikedBy($query, $userId = null)
@@ -167,6 +169,7 @@ trait HasLikes
      *
      * @param mixed $userId If null will use currently logged in user.
      * @return void
+     *
      * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
      */
     public function like($userId = null)
@@ -179,6 +182,7 @@ trait HasLikes
      *
      * @param int|null $userId If null will use currently logged in user.
      * @return void
+     *
      * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
      */
     public function unlike($userId = null)
@@ -191,6 +195,7 @@ trait HasLikes
      *
      * @param mixed $userId If null will use currently logged in user.
      * @return void
+     *
      * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
      */
     public function likeToggle($userId = null)
@@ -224,6 +229,7 @@ trait HasLikes
      *
      * @param mixed $userId If null will use currently logged in user.
      * @return void
+     *
      * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
      */
     public function dislike($userId = null)
@@ -236,6 +242,7 @@ trait HasLikes
      *
      * @param int|null $userId If null will use currently logged in user.
      * @return void
+     *
      * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
      */
     public function undislike($userId = null)
@@ -248,6 +255,7 @@ trait HasLikes
      *
      * @param mixed $userId If null will use currently logged in user.
      * @return void
+     *
      * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
      */
     public function dislikeToggle($userId = null)
