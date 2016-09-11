@@ -44,8 +44,8 @@ class LikeableServiceTest extends TestCase
         $entity->like(1);
         $entity->like(2);
 
-        $service->decrementLikeCount($entity);
-        $service->decrementLikeCount($entity);
+        $service->decrementLikesCount($entity);
+        $service->decrementLikesCount($entity);
 
         $this->assertEquals(0, $entity->likesCount);
     }
@@ -56,7 +56,7 @@ class LikeableServiceTest extends TestCase
         $service = $this->app->make(LikeableServiceContract::class);
         $entity = factory(Entity::class)->create();
 
-        $service->decrementLikeCount($entity);
+        $service->decrementLikesCount($entity);
 
         $this->assertEquals(0, $entity->likesCount);
     }
@@ -67,8 +67,8 @@ class LikeableServiceTest extends TestCase
         $service = $this->app->make(LikeableServiceContract::class);
         $entity = factory(Entity::class)->create();
 
-        $service->incrementLikeCount($entity);
-        $service->incrementLikeCount($entity);
+        $service->incrementLikesCount($entity);
+        $service->incrementLikesCount($entity);
 
         $this->assertEquals(2, $entity->likesCount);
     }

@@ -72,7 +72,7 @@ interface LikeableService
      * @param \Cog\Likeable\Contracts\HasLikes $model
      * @return void
      */
-    public function decrementLikeCount(HasLikesContract $model);
+    public function decrementLikesCount(HasLikesContract $model);
 
     /**
      * Increment the total like count stored in the counter.
@@ -80,7 +80,7 @@ interface LikeableService
      * @param \Cog\Likeable\Contracts\HasLikes $model
      * @return void
      */
-    public function incrementLikeCount(HasLikesContract $model);
+    public function incrementLikesCount(HasLikesContract $model);
 
     /**
      * Decrement the total dislike count stored in the counter.
@@ -88,7 +88,7 @@ interface LikeableService
      * @param \Cog\Likeable\Contracts\HasLikes $model
      * @return void
      */
-    public function decrementDislikeCount(HasLikesContract $model);
+    public function decrementDislikesCount(HasLikesContract $model);
 
     /**
      * Increment the total dislike count stored in the counter.
@@ -96,7 +96,7 @@ interface LikeableService
      * @param \Cog\Likeable\Contracts\HasLikes $model
      * @return void
      */
-    public function incrementDislikeCount(HasLikesContract $model);
+    public function incrementDislikesCount(HasLikesContract $model);
 
     /**
      * Remove like counters by likeable type.
