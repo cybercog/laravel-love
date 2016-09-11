@@ -54,46 +54,52 @@ class Article extends Model implements HasLikesContract {
 
 #### Likes
 
-Like model
+##### Like model
 
 ```php
 $article->like(); // current user
 $article->like($user->id);
 ```
 
-Remove like mark from model
+##### Remove like mark from model
 
 ```php
 $article->unlike(); // current user
 $article->unlike($user->id);
 ```
 
-Toggle like mark of model
+##### Toggle like mark of model
 
 ```php
 $article->likeToggle(); // current user
 $article->likeToggle($user->id);
 ```
 
-Get model likes count
+##### Get model likes count
 
 ```php
 $article->likesCount;
 ```
 
-Get model likes counter
+##### Get model likes counter
 
 ```php
 $article->likesCounter;
 ```
 
-Get iterable `Illuminate\Database\Eloquent\Collection` of existing model likes
+##### Get likes relation
+
+```php
+$article->likes();
+```
+
+##### Get iterable `Illuminate\Database\Eloquent\Collection` of existing model likes
 
 ```php
 $article->likes;
 ```
 
-Boolean check if user liked model
+##### Boolean check if user liked model
 
 ```php
 $article->liked; // check if currently logged in user liked the article
@@ -101,7 +107,7 @@ $article->liked(); // check if currently logged in user liked the article
 $article->liked($user->id);
 ```
 
-Find all articles liked by user
+##### Find all articles liked by user
 
 ```php
 Article::whereLikedBy($user->id)
@@ -109,7 +115,7 @@ Article::whereLikedBy($user->id)
 	->get();
 ```
 
-Delete all likes for model
+##### Delete all likes for model
 
 ```php
 $article->removeLikes();
@@ -117,46 +123,52 @@ $article->removeLikes();
 
 #### Dislikes
 
-Dislike model
+##### Dislike model
 
 ```php
 $article->dislike(); // current user
 $article->dislike($user->id);
 ```
 
-Remove dislike mark from model
+##### Remove dislike mark from model
 
 ```php
 $article->undislike(); // current user
 $article->undislike($user->id);
 ```
 
-Toggle dislike mark of model
+##### Toggle dislike mark of model
 
 ```php
 $article->dislikeToggle(); // current user
 $article->dislikeToggle($user->id);
 ```
 
-Get model dislikes count
+##### Get model dislikes count
 
 ```php
 $article->dislikesCount;
 ```
 
-Get model dislikes counter
+##### Get model dislikes counter
 
 ```php
 $article->dislikesCounter;
 ```
 
-Get iterable `Illuminate\Database\Eloquent\Collection` of existing model dislikes
+##### Get dislikes relation
+
+```php
+$article->dislikes();
+```
+
+##### Get iterable `Illuminate\Database\Eloquent\Collection` of existing model dislikes
 
 ```php
 $article->dislikes;
 ```
 
-Boolean check if user disliked model
+##### Boolean check if user disliked model
 
 ```php
 $article->disliked; // check if currently logged in user disliked the article
@@ -164,7 +176,7 @@ $article->disliked(); // check if currently logged in user disliked the article
 $article->disliked($user->id);
 ```
 
-Find all articles disliked by user
+##### Find all articles disliked by user
 
 ```php
 Article::whereDislikedBy($user->id)
@@ -172,7 +184,7 @@ Article::whereDislikedBy($user->id)
 	->get();
 ```
 
-Delete all dislikes for model
+##### Delete all dislikes for model
 
 ```php
 $article->removeDislikes();
@@ -180,13 +192,19 @@ $article->removeDislikes();
 
 #### Likes and Dislikes
 
-Get difference between likes and dislikes
+##### Get difference between likes and dislikes
 
 ```php
 $article->likesDiffDislikesCount;
 ```
 
-Get iterable `Illuminate\Database\Eloquent\Collection` of existing model likes and dislikes
+##### Get likes and dislikes relation
+
+```php
+$article->likesAndDislikes();
+```
+
+##### Get iterable `Illuminate\Database\Eloquent\Collection` of existing model likes and dislikes
 
 ```php
 $article->likesAndDislikes;
@@ -204,55 +222,55 @@ On each dislike removed `\Cog\Likeable\Events\ModelWasUndisliked` event is fired
 
 ### Console commands
 
-Recount likes and dislikes of all model types
+##### Recount likes and dislikes of all model types
 
 ```shell
 likeable:recount
 ```
 
-Recount likes and dislikes of concrete model type (using morph map alias)
+##### Recount likes and dislikes of concrete model type (using morph map alias)
 
 ```shell
 likeable:recount --model="article"
 ```
 
-Recount likes and dislikes of concrete model type (using fully qualified class name)
+##### Recount likes and dislikes of concrete model type (using fully qualified class name)
 
 ```shell
 likeable:recount --model="App\Models\Article"
 ```
 
-Recount only likes of all model types
+##### Recount only likes of all model types
 
 ```shell
 likeable:recount --type="like"
 ```
 
-Recount only likes of concrete model type (using morph map alias)
+##### Recount only likes of concrete model type (using morph map alias)
 
 ```shell
 likeable:recount --model="article" --type="like"
 ```
 
-Recount only likes of concrete model type (using fully qualified class name)
+##### Recount only likes of concrete model type (using fully qualified class name)
 
 ```shell
 likeable:recount --model="App\Models\Article" --type="like"
 ```
 
-Recount only dislikes of all model types
+##### Recount only dislikes of all model types
 
 ```shell
 likeable:recount --type="dislike"
 ```
 
-Recount only dislikes of concrete model type (using morph map alias)
+##### Recount only dislikes of concrete model type (using morph map alias)
 
 ```shell
 likeable:recount --model="article" --type="dislike"
 ```
 
-Recount only dislikes of concrete model type (using fully qualified class name)
+##### Recount only dislikes of concrete model type (using fully qualified class name)
 
 ```shell
 likeable:recount --model="App\Models\Article" --type="dislike"
@@ -260,11 +278,17 @@ likeable:recount --model="App\Models\Article" --type="dislike"
 
 ## Extending
 
-You can override `Models\Like`, `Models\LikeCounter`, `Services\LikeableService` with your own implementations, just follow their contracts.
+You can override core classes of package with your own implementations:
+
+- `Models\Like`
+- `Models\LikeCounter`
+- `Services\LikeableService`
+
+*Note: Don't forget that all custom models must implement original models interfaces.*
 
 To make it you should use container [binding interfaces to implementations](https://laravel.com/docs/master/container#binding-interfaces-to-implementations) in your application service providers.
 
-Implement your own model:
+##### Use model class own implementation
 
 ```php
 $this->app->bind(
@@ -273,7 +297,7 @@ $this->app->bind(
 );
 ```
 
-Or implement your own service class:
+##### Use service class own implementation
 
 ```php
 $this->app->singleton(
@@ -282,7 +306,7 @@ $this->app->singleton(
 );
 ```
 
-After that your `CustomLike` and `CustomService` classes will be instantiable with helper method:
+After that your `CustomLike` and `CustomService` classes will be instantiable with helper method `app()`.
 
 ```php
 $model = app(\Cog\Likeable\Contracts\Like::class);
@@ -316,10 +340,12 @@ If you discover any security related issues, please email [support@cybercog.su](
 - [draperstudio/laravel-likeable](https://github.com/DraperStudio/Laravel-Likeable)
 - [sukohi/evaluation](https://github.com/SUKOHI/Evaluation)
 
-## About CyberCog
-
-CyberCog is a Social Unity of enthusiasts. Research best solutions in product & software development is our passion. [CyberCog website](http://www.cybercog.ru).
-
 ## License
 
-Laravel Likeable is an open-source software licensed under the [BSD 3-Clause License](LICENSE.md).
+Laravel Likeable is an open-source software licensed under the [BSD-3-Clause License](LICENSE).
+
+## About CyberCog
+
+[CyberCog](http://www.cybercog.ru) is a Social Unity of enthusiasts. Research best solutions in product & software development is our passion.
+
+![cybercog-logo](https://cloud.githubusercontent.com/assets/1849174/18418932/e9edb390-7860-11e6-8a43-aa3fad524664.png)

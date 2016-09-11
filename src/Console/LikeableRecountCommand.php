@@ -61,6 +61,7 @@ class LikeableRecountCommand extends Command
      *
      * @param \Illuminate\Contracts\Events\Dispatcher $events
      * @return void
+     *
      * @throws \Cog\Likeable\Exceptions\ModelInvalidException
      */
     public function handle(Dispatcher $events)
@@ -80,6 +81,7 @@ class LikeableRecountCommand extends Command
      * Recount likes of all model types.
      *
      * @return void
+     *
      * @throws \Cog\Likeable\Exceptions\ModelInvalidException
      */
     protected function recountLikesOfAllModelTypes()
@@ -95,6 +97,7 @@ class LikeableRecountCommand extends Command
      *
      * @param string $modelType
      * @return void
+     *
      * @throws \Cog\Likeable\Exceptions\ModelInvalidException
      */
     protected function recountLikesOfModelType($modelType)

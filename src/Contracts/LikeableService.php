@@ -27,6 +27,7 @@ interface LikeableService
      * @param string $type
      * @param string $userId
      * @return void
+     *
      * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
      */
     public function addLikeTo(HasLikesContract $model, $type, $userId);
@@ -38,6 +39,7 @@ interface LikeableService
      * @param string $type
      * @param int|null $userId
      * @return void
+     *
      * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
      */
     public function removeLikeFrom(HasLikesContract $model, $type, $userId);
@@ -49,6 +51,7 @@ interface LikeableService
      * @param string $type
      * @param string $userId
      * @return void
+     *
      * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
      */
     public function toggleLikeOf(HasLikesContract $model, $type, $userId);
@@ -120,6 +123,7 @@ interface LikeableService
      * @param string $type
      * @param int|null $userId
      * @return \Illuminate\Database\Query\Builder
+     *
      * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
      */
     public function scopeWhereLikedBy($query, $type, $userId);

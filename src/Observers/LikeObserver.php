@@ -16,7 +16,7 @@ use Cog\Likeable\Events\ModelWasDisliked;
 use Cog\Likeable\Events\ModelWasLiked;
 use Cog\Likeable\Events\ModelWasUndisliked;
 use Cog\Likeable\Events\ModelWasUnliked;
-use Cog\Likeable\Contracts\Like;
+use Cog\Likeable\Contracts\Like as LikeContract;
 use Cog\Likeable\Contracts\LikeableService as LikeableServiceContract;
 
 /**
@@ -32,7 +32,7 @@ class LikeObserver
      * @param \Cog\Likeable\Contracts\Like $like
      * @return void
      */
-    public function created(Like $like)
+    public function created(LikeContract $like)
     {
         if ($like->type_id == LikeType::LIKE) {
             event(new ModelWasLiked($like->likeable, $like->user_id));
@@ -49,7 +49,7 @@ class LikeObserver
      * @param \Cog\Likeable\Contracts\Like $like
      * @return void
      */
-    public function deleted(Like $like)
+    public function deleted(LikeContract $like)
     {
         if ($like->type_id == LikeType::LIKE) {
             event(new ModelWasUnliked($like->likeable, $like->user_id));
