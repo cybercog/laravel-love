@@ -1,15 +1,27 @@
-# Laravel Likeable
+![cog-laravel-likeable-3](https://cloud.githubusercontent.com/assets/1849174/21738599/f29a5428-d498-11e6-98b3-51e6511e2d4c.png)
 
-[![Build Status](https://img.shields.io/travis/cybercog/laravel-likeable/master.svg?style=flat-square)](https://travis-ci.org/cybercog/laravel-likeable)
-[![StyleCI](https://styleci.io/repos/67549571/shield)](https://styleci.io/repos/67549571)
-[![Releases](https://img.shields.io/github/release/cybercog/laravel-likeable.svg?style=flat-square)](https://github.com/cybercog/laravel-likeable/releases)
-[![License](https://img.shields.io/github/license/cybercog/laravel-likeable.svg?style=flat-square)](https://github.com/cybercog/laravel-likeable/blob/master/LICENSE)
+<p align="center">
+<a href="https://travis-ci.org/cybercog/laravel-likeable"><img src="https://img.shields.io/travis/cybercog/laravel-likeable/master.svg?style=flat-square" alt="Build Status"></a>
+<a href="https://styleci.io/repos/67549571"><img src="https://styleci.io/repos/67549571/shield" alt="StyleCI"></a>
+<a href="https://github.com/cybercog/laravel-likeable/releases"><img src="https://img.shields.io/github/release/cybercog/laravel-likeable.svg?style=flat-square" alt="Releases"></a>
+<a href="https://github.com/cybercog/laravel-likeable/blob/master/LICENSE"><img src="https://img.shields.io/github/license/cybercog/laravel-likeable.svg?style=flat-square" alt="License"></a>
+</p>
+
+## Introduction
 
 Trait for Laravel Eloquent models to allow easy implementation of a `like` & `dislike` features.
 
-*Note: Likes and dislikes for one model by one user are mutually exclusive.*
+## Features
 
-![cybercog-laravel-likeable](https://cloud.githubusercontent.com/assets/1849174/18293813/cf2ffafc-749d-11e6-912f-e827c3b50c50.png)
+- Designed to work with Laravel Eloquent models.
+- Using contracts to keep high customization capabilities.
+- Using traits to get functionality out of the box.
+- Most part of the the logic is handled by the `LikeableService`.
+- Has Artisan command `likeable:recount {model?} {type?}` to re-fetch likes counters.
+- Likeable model can has Likes and Dislikes.
+- Likes and Dislikes for one model are mutually exclusive.
+- Events for `like`, `unlike`, `dislike`, `undislike` methods.
+- Covered with unit tests.
 
 ## Installation
 
@@ -327,7 +339,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Security
 
-If you discover any security related issues, please email [support@cybercog.su](mailto:support@cybercog.su) instead of using the issue tracker.
+If you discover any security related issues, please email a.komarev@cybercog.su instead of using the issue tracker.
 
 ## Credits
 
@@ -337,12 +349,14 @@ If you discover any security related issues, please email [support@cybercog.su](
 ## Alternatives
 
 - [rtconner/laravel-likeable](https://github.com/rtconner/laravel-likeable)
-- [draperstudio/laravel-likeable](https://github.com/DraperStudio/Laravel-Likeable)
+- [faustbrian/laravel-likeable](https://github.com/faustbrian/Laravel-Likeable)
 - [sukohi/evaluation](https://github.com/SUKOHI/Evaluation)
+
+*Feel free to add more alternatives as Pull Request.*
 
 ## License
 
-Laravel Likeable is an open-source software licensed under the [BSD-3-Clause License](LICENSE).
+- `Laravel Likeable` package is open-sourced software licensed under the [MIT license](LICENSE).
 
 ## About CyberCog
 
