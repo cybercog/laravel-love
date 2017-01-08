@@ -346,6 +346,10 @@ If you discover any security related issues, please email a.komarev@cybercog.su 
 - [Anton Komarev](https://github.com/a-komarev)
 - [All Contributors](../../contributors)
 
+## Changelog
+
+Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+
 ## Alternatives
 
 - [rtconner/laravel-likeable](https://github.com/rtconner/laravel-likeable)
