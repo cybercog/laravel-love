@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-likeable` will be documented in this file.
 
+## 2.0.1 - 2017-01-11
+
+- Removed unused properties in `LikeObserver` #12
+- Foreign key in migration commented out #11
+
 ## 2.0.0 - 2016-09-11
 
 - Renamed `FollowableService` methods to follow code style consistency:
