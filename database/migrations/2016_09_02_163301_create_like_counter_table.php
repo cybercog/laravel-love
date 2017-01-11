@@ -50,6 +50,6 @@ class CreateLikeCounterTable extends Migration
      */
     public function down()
     {
-        Schema::drop('like_counter');
+        Schema::dropIfExists('like_counter');
     }
 }
