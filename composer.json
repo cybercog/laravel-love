@@ -1,6 +1,8 @@
 {
     "name": "cybercog/laravel-likeable",
     "description": "Trait for Laravel Eloquent models to allow easy implementation of a `like` & `dislike` features.",
+    "type": "library",
+    "license": "MIT",
     "keywords": [
         "trait",
         "laravel",
@@ -22,18 +24,25 @@
             "role": "Developer"
         }
     ],
-    "license": "BSD-3-Clause",
-    "type": "library",
+    "homepage": "https://github.com/cybercog/laravel-likeable",
+    "support": {
+        "email": "a.komarev@cybercog.su",
+        "issues": "https://github.com/cybercog/laravel-likeable/issues",
+        "wiki": "https://github.com/cybercog/laravel-likeable/wiki",
+        "source": "https://github.com/cybercog/laravel-likeable",
+        "docs": "https://github.com/cybercog/laravel-likeable/wiki"
+    },
     "require": {
-        "php": "^5.6|^7.0",
-        "illuminate/database": "~5.1.20|~5.2.0|~5.3.0",
-        "illuminate/support": "~5.1.20|~5.2.0|~5.3.0"
+        "illuminate/database": "~5.1.20|~5.2.0|~5.3.0|~5.4.0",
+        "illuminate/support": "~5.1.20|~5.2.0|~5.3.0|~5.4.0",
+        "php": "^5.6|^7.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.2",
-        "orchestra/testbench": "~3.0",
-        "mockery/mockery": "~0.9",
-        "friendsofphp/php-cs-fixer": "^1.11"
+        "friendsofphp/php-cs-fixer": "^1.11",
+        "mockery/mockery": "^0.9.5",
+        "orchestra/database": "~3.4.0",
+        "orchestra/testbench": "~3.4.0",
+        "phpunit/phpunit": "^5.7"
     },
     "autoload": {
         "psr-4": {
@@ -44,5 +53,10 @@
         "psr-4": {
             "Cog\\Likeable\\Tests\\": "tests/"
         }
-    }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable" : true
 }

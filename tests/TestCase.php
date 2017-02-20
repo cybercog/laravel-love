@@ -12,8 +12,8 @@
 namespace Cog\Likeable\Tests;
 
 use Cog\Likeable\Tests\Stubs\Models\EntityWithMorphMap;
-use File;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Facades\File;
 use Mockery;
 use Orchestra\Testbench\TestCase as Orchestra;
 
@@ -25,16 +25,29 @@ use Orchestra\Testbench\TestCase as Orchestra;
 abstract class TestCase extends Orchestra
 {
     /**
+     * Register a callback to be run before the application is destroyed.
+     * TODO: Remove it when will be pushed to Orchestra Testbench package.
+     *
+     * @param  callable  $callback
+     *
+     * @return void
+     */
+    protected function beforeApplicationDestroyed(callable $callback)
+    {
+        array_unshift($this->beforeApplicationDestroyedCallbacks, $callback);
+    }
+
+    /**
      * Actions to be performed on PHPUnit start.
      */
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
         $this->destroyPackageMigrations();
         $this->publishPackageMigrations();
-        $this->migrateUnitTestTables();
         $this->migratePackageTables();
+        $this->migrateUnitTestTables();
         $this->registerPackageFactories();
         $this->registerTestMorphMaps();
     }
@@ -56,6 +69,7 @@ abstract class TestCase extends Orchestra
     {
         return [
             \Cog\Likeable\Providers\LikeableServiceProvider::class,
+            \Orchestra\Database\ConsoleServiceProvider::class,
         ];
     }
 
@@ -80,8 +94,9 @@ abstract class TestCase extends Orchestra
      */
     protected function migrateUnitTestTables()
     {
-        $this->artisan('migrate', [
-            '--realpath' => realpath(__DIR__ . '/migrations'),
+        $this->loadMigrationsFrom([
+            //'--database' => 'sqlite',
+            '--realpath' => realpath(__DIR__ . '/database/migrations'),
         ]);
     }
 
@@ -90,7 +105,8 @@ abstract class TestCase extends Orchestra
      */
     protected function migratePackageTables()
     {
-        $this->artisan('migrate', [
+        $this->loadMigrationsFrom([
+            //'--database' => 'sqlite',
             '--realpath' => database_path('migrations'),
         ]);
     }
@@ -100,7 +116,7 @@ abstract class TestCase extends Orchestra
      */
     protected function registerPackageFactories()
     {
-        $pathToFactories = realpath(__DIR__ . '/factories');
+        $pathToFactories = realpath(__DIR__ . '/database/factories');
         $this->withFactories($pathToFactories);
     }
 

@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-likeable` will be documented in this file.
 
+## 2.1.0 - 2017-02-20
+
+### Added
+
+- Laravel 5.4 support.
+
 ## 2.0.1 - 2017-01-11
 
 - Removed unused properties in `LikeObserver` #12
@@ -32,3 +38,10 @@ All notable changes to `laravel-likeable` will be documented in this file.
 ## 1.0.0 - 2016-09-06
 
 - Initial release
+
+[2.1.0]: https://github.com/cybercog/laravel-likeable/compare/2.0.1...2.1.0
+[2.0.1]: https://github.com/cybercog/laravel-likeable/compare/2.0.0...2.0.1
+[2.0.0]: https://github.com/cybercog/laravel-likeable/compare/1.1.2...2.0.0
+[1.1.2]: https://github.com/cybercog/laravel-likeable/compare/1.1.1...1.1.2
+[1.1.1]: https://github.com/cybercog/laravel-likeable/compare/1.1.0...1.1.1
+[1.1.0]: https://github.com/cybercog/laravel-likeable/compare/1.0.0...1.1.0

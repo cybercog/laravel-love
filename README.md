@@ -355,6 +355,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 - [rtconner/laravel-likeable](https://github.com/rtconner/laravel-likeable)
 - [faustbrian/laravel-likeable](https://github.com/faustbrian/Laravel-Likeable)
 - [sukohi/evaluation](https://github.com/SUKOHI/Evaluation)
+- [zvermafia/lavoter](https://github.com/zvermafia/lavoter)
 
 *Feel free to add more alternatives as Pull Request.*
 
