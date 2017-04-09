@@ -6,7 +6,7 @@ All notable changes to `laravel-likeable` will be documented in this file.
 
 ### Added
 
-- `Article::sortedByLikesCount('asc')` scope for the model. Uses `desc` as default order direction.
+- `Article::orderByLikesCount('asc')` scope for the model. Uses `desc` as default order direction.
 
 ## [2.1.0] - 2017-02-20
 

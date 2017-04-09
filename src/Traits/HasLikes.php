@@ -171,13 +171,13 @@ trait HasLikes
      * Fetch records sorted by likes count.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string $sortDirection
+     * @param string $direction
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeSortedByLikesCount(Builder $query, $sortDirection = 'desc')
+    public function scopeOrderByLikesCount(Builder $query, $direction = 'desc')
     {
         return app(LikeableServiceContract::class)
-            ->scopeSortedByLikesCount($query, $sortDirection);
+            ->scopeOrderByLikesCount($query, $direction);
     }
 
     /**

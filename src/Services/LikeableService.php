@@ -286,10 +286,10 @@ class LikeableService implements LikeableServiceContract
      * Fetch records sorted by likes count.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string $sortDirection
+     * @param string $direction
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeSortedByLikesCount(Builder $query, $sortDirection = 'desc')
+    public function scopeOrderByLikesCount(Builder $query, $direction = 'desc')
     {
         $model = $query->getModel();
 
@@ -298,7 +298,7 @@ class LikeableService implements LikeableServiceContract
                 $join->on('like_counter.likeable_id', '=', "{$model->getTable()}.{$model->getKeyName()}");
                 $join->on('like_counter.likeable_type', '=', $model->getMorphClass());
             })
-            ->orderBy('like_counter.count', $sortDirection);
+            ->orderBy('like_counter.count', $direction);
     }
 
     /**

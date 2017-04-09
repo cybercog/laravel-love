@@ -462,7 +462,7 @@ class HasLikesTest extends TestCase
             $entityD->like(mt_rand(1, 9999999));
         }
 
-        $sortedEntities = Entity::sortedByLikesCount('desc')->get();
+        $sortedEntities = Entity::orderByLikesCount('desc')->get();
 
         $this->assertSame([
             $entityD->getKey() => '10',
@@ -492,7 +492,7 @@ class HasLikesTest extends TestCase
             $entityD->like(mt_rand(1, 9999999));
         }
 
-        $sortedEntities = Entity::sortedByLikesCount('asc')->get();
+        $sortedEntities = Entity::orderByLikesCount('asc')->get();
 
         $this->assertSame([
             $entityB->getKey() => '1',

@@ -248,8 +248,8 @@ $article->likesAndDislikes;
 ##### Fetch Likeable models by likes count
 
 ```php
-$sortedArticles = Article::sortedByLikesCount()->get();
-$sortedArticles = Article::sortedByLikesCount('asc')->get();
+$sortedArticles = Article::orderByLikesCount()->get();
+$sortedArticles = Article::orderByLikesCount('asc')->get();
 ```
 
 *Uses `desc` as default order direction.*

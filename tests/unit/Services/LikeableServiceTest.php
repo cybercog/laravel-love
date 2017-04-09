@@ -191,7 +191,7 @@ class LikeableServiceTest extends TestCase
         }
 
         $service = app(LikeableServiceContract::class);
-        $sortedEntities = $service->scopeSortedByLikesCount(Entity::query(), new Entity())->get();
+        $sortedEntities = $service->scopeOrderByLikesCount(Entity::query(), new Entity())->get();
 
         $this->assertSame([
             $entityD->getKey() => '10',
@@ -222,7 +222,7 @@ class LikeableServiceTest extends TestCase
         }
 
         $service = app(LikeableServiceContract::class);
-        $sortedEntities = $service->scopeSortedByLikesCount(Entity::query(), 'asc')->get();
+        $sortedEntities = $service->scopeOrderByLikesCount(Entity::query(), 'asc')->get();
 
         $this->assertSame([
             $entityB->getKey() => '1',
