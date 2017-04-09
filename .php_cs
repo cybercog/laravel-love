@@ -1,9 +1,9 @@
 <?php
 
 $finder = Symfony\Component\Finder\Finder::create()
-	->notPath('bootstrap/cache')
-	->notPath('storage')
-	->notPath('vendor')
+    ->notPath('bootstrap/cache')
+    ->notPath('storage')
+    ->notPath('vendor')
     ->in(__DIR__)
     ->name('*.php')
     ->ignoreDotFiles(true)
@@ -23,7 +23,7 @@ $fixers = [
     'list_commas',
     'multiline_array_trailing_comma',
     'namespace_no_leading_whitespace',
-	'newline_after_open_tag',
+    'newline_after_open_tag',
     'no_blank_lines_after_class_opening',
     'no_empty_lines_after_phpdocs',
     'object_operator',

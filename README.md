@@ -56,7 +56,7 @@ And then include the service provider within `app/config/app.php`.
 
 ```php
 'providers' => [
-	Cog\Likeable\Providers\LikeableServiceProvider::class,
+    Cog\Likeable\Providers\LikeableServiceProvider::class,
 ],
 ```
 
@@ -79,7 +79,7 @@ use Cog\Likeable\Traits\HasLikes;
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model implements HasLikesContract {
-	use HasLikes;
+    use HasLikes;
 }
 ```
 
@@ -144,8 +144,8 @@ $article->liked($user->id);
 
 ```php
 Article::whereLikedBy($user->id)
-	->with('likesCounter') // Allow eager load (optional)
-	->get();
+    ->with('likesCounter') // Allow eager load (optional)
+    ->get();
 ```
 
 ##### Delete all likes for model
@@ -213,8 +213,8 @@ $article->disliked($user->id);
 
 ```php
 Article::whereDislikedBy($user->id)
-	->with('dislikesCounter') // Allow eager load (optional)
-	->get();
+    ->with('dislikesCounter') // Allow eager load (optional)
+    ->get();
 ```
 
 ##### Delete all dislikes for model
