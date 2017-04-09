@@ -231,4 +231,29 @@ class LikeableServiceTest extends TestCase
             $entityD->getKey() => '10',
         ], $sortedEntities->pluck('count', 'id')->toArray());
     }
+
+    /** @test */
+    public function it_can_get_entities_without_likes_while_sort_them_by_likes_count()
+    {
+        $entityA = factory(Entity::class)->create();
+        $entityB = factory(Entity::class)->create();
+        $entityC = factory(Entity::class)->create();
+        $entityD = factory(Entity::class)->create();
+        for ($i = 0; $i < 3; $i++) {
+            $entityA->like(mt_rand(1, 9999999));
+        }
+        for ($i = 0; $i < 10; $i++) {
+            $entityD->like(mt_rand(1, 9999999));
+        }
+
+        $service = app(LikeableServiceContract::class);
+        $sortedEntities = $service->scopeOrderByLikesCount(Entity::query())->get();
+
+        $this->assertSame([
+            $entityD->getKey() => '10',
+            $entityA->getKey() => '3',
+            $entityB->getKey() => null,
+            $entityC->getKey() => null,
+        ], $sortedEntities->pluck('count', 'id')->toArray());
+    }
 }

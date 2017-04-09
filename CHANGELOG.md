@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-likeable` will be documented in this file.
 
+## [2.2.2] - 2017-04-09
+
+### Fixed
+
+- `orderByLikesCount` returns models without likes too.
+
+## [2.2.1] - 2017-04-09
+
+### Fixed
+
+- `orderByLikesCount` database query fixed.
+
 ## [2.2.0] - 2017-04-09
 
 ### Added
@@ -45,6 +57,8 @@ All notable changes to `laravel-likeable` will be documented in this file.
 
 - Initial release
 
+[2.2.2]: https://github.com/cybercog/laravel-likeable/compare/2.2.1...2.2.2
+[2.2.1]: https://github.com/cybercog/laravel-likeable/compare/2.2.0...2.2.1
 [2.2.0]: https://github.com/cybercog/laravel-likeable/compare/2.1.0...2.2.0
 [2.1.0]: https://github.com/cybercog/laravel-likeable/compare/2.0.1...2.1.0
 [2.0.1]: https://github.com/cybercog/laravel-likeable/compare/2.0.0...2.0.1
