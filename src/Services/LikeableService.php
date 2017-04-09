@@ -19,6 +19,7 @@ use Cog\Likeable\Enums\LikeType;
 use Cog\Likeable\Exceptions\LikerNotDefinedException;
 use Cog\Likeable\Exceptions\LikeTypeInvalidException;
 use DB;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class LikeableService.
@@ -262,14 +263,14 @@ class LikeableService implements LikeableServiceContract
     /**
      * Fetch records that are liked by a given user id.
      *
-     * @param \Illuminate\Database\Query\Builder $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
      * @param string $type
      * @param int|null $userId
-     * @return \Illuminate\Database\Query\Builder
+     * @return \Illuminate\Database\Eloquent\Builder
      *
      * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
      */
-    public function scopeWhereLikedBy($query, $type, $userId)
+    public function scopeWhereLikedBy(Builder $query, $type, $userId)
     {
         $userId = $this->getLikerUserId($userId);
 
@@ -279,6 +280,25 @@ class LikeableService implements LikeableServiceContract
                 'type_id' => $this->getLikeTypeId($type),
             ]);
         });
+    }
+
+    /**
+     * Fetch records sorted by likes count.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $sortDirection
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSortedByLikesCount(Builder $query, $sortDirection = 'desc')
+    {
+        $model = $query->getModel();
+
+        return $query
+            ->leftJoin('like_counter', function ($join) use ($model) {
+                $join->on('like_counter.likeable_id', '=', "{$model->getTable()}.{$model->getKeyName()}");
+                $join->on('like_counter.likeable_type', '=', $model->getMorphClass());
+            })
+            ->orderBy('like_counter.count', $sortDirection);
     }
 
     /**

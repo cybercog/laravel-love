@@ -11,6 +11,8 @@
 
 namespace Cog\Likeable\Contracts;
 
+use Illuminate\Database\Eloquent\Builder;
+
 /**
  * Interface HasLikes.
  *
@@ -91,24 +93,33 @@ interface HasLikes
     /**
      * Fetch records that are liked by a given user id.
      *
-     * @param \Illuminate\Database\Query\Builder $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
      * @param int|null $userId
-     * @return \Illuminate\Database\Query\Builder
+     * @return \Illuminate\Database\Eloquent\Builder
      *
      * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
      */
-    public function scopeWhereLikedBy($query, $userId = null);
+    public function scopeWhereLikedBy(Builder $query, $userId = null);
 
     /**
      * Fetch records that are disliked by a given user id.
      *
-     * @param \Illuminate\Database\Query\Builder $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
      * @param int|null $userId
-     * @return \Illuminate\Database\Query\Builder
+     * @return \Illuminate\Database\Eloquent\Builder
      *
      * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
      */
-    public function scopeWhereDislikedBy($query, $userId = null);
+    public function scopeWhereDislikedBy(Builder $query, $userId = null);
+
+    /**
+     * Fetch records sorted by likes count.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $sortDirection
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSortedByLikesCount(Builder $query, $sortDirection = 'desc');
 
     /**
      * Add a like for model by the given user.

@@ -12,6 +12,7 @@
 namespace Cog\Likeable\Contracts;
 
 use Cog\Likeable\Contracts\HasLikes as HasLikesContract;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Interface LikeableService.
@@ -119,14 +120,23 @@ interface LikeableService
     /**
      * Fetch records that are liked by a given user id.
      *
-     * @param \Illuminate\Database\Query\Builder $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
      * @param string $type
      * @param int|null $userId
-     * @return \Illuminate\Database\Query\Builder
+     * @return \Illuminate\Database\Eloquent\Builder
      *
      * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
      */
-    public function scopeWhereLikedBy($query, $type, $userId);
+    public function scopeWhereLikedBy(Builder $query, $type, $userId);
+
+    /**
+     * Fetch records sorted by likes count.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $sortDirection
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSortedByLikesCount(Builder $query, $sortDirection = 'desc');
 
     /**
      * Fetch likes counters data.

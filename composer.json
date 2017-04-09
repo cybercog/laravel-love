@@ -4,9 +4,11 @@
     "type": "library",
     "license": "MIT",
     "keywords": [
-        "trait",
+        "cybercog",
+        "cog",
         "laravel",
         "eloquent",
+        "trait",
         "likeable",
         "likable",
         "like",
@@ -14,7 +16,8 @@
         "favorite",
         "favourite",
         "rate",
-        "rating"
+        "rating",
+        "emotion"
     ],
     "authors": [
         {
@@ -26,7 +29,7 @@
     ],
     "homepage": "https://github.com/cybercog/laravel-likeable",
     "support": {
-        "email": "a.komarev@cybercog.su",
+        "email": "oss@cybercog.su",
         "issues": "https://github.com/cybercog/laravel-likeable/issues",
         "wiki": "https://github.com/cybercog/laravel-likeable/wiki",
         "source": "https://github.com/cybercog/laravel-likeable",
@@ -39,7 +42,7 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^1.11",
-        "mockery/mockery": "^0.9.5",
+        "mockery/mockery": "^0.9.8",
         "orchestra/database": "~3.4.0",
         "orchestra/testbench": "~3.4.0",
         "phpunit/phpunit": "^5.7"
@@ -53,6 +56,9 @@
         "psr-4": {
             "Cog\\Likeable\\Tests\\": "tests/"
         }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
     },
     "config": {
         "sort-packages": true

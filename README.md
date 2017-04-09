@@ -9,7 +9,27 @@
 
 ## Introduction
 
-Trait for Laravel Eloquent models to allow easy implementation of a `like` & `dislike` features.
+Laravel Likeable simplify management of Eloquent model's likes & dislikes. Make any model `likeable` & `dislikeable` in a minutes!
+
+## Contents
+
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+    - [Prepare likeable model](#prepare-likeable-model)
+    - [Available methods](#available-methods)
+    - [Scopes](#scopes)
+    - [Events](#events)
+    - [Console commands](#console-commands)
+- [Extending](#extending)
+- [Change log](#change-log)
+- [Contributing](#contributing)
+- [Testing](#testing)
+- [Security](#security)
+- [Credits](#credits)
+- [Alternatives](#alternatives)
+- [License](#license)
+- [About CyberCog](#about-cybercog)
 
 ## Features
 
@@ -20,6 +40,7 @@ Trait for Laravel Eloquent models to allow easy implementation of a `like` & `di
 - Has Artisan command `likeable:recount {model?} {type?}` to re-fetch likes counters.
 - Likeable model can has Likes and Dislikes.
 - Likes and Dislikes for one model are mutually exclusive.
+- Get Likeable models ordered by likes count.
 - Events for `like`, `unlike`, `dislike`, `undislike` methods.
 - Covered with unit tests.
 
@@ -27,7 +48,7 @@ Trait for Laravel Eloquent models to allow easy implementation of a `like` & `di
 
 First, pull in the package through Composer.
 
-```shell
+```sh
 composer require cybercog/laravel-likeable
 ```
 
@@ -41,7 +62,7 @@ And then include the service provider within `app/config/app.php`.
 
 At last you need to publish and run database migrations.
 
-```shell
+```sh
 php artisan vendor:publish --provider="Cog\Likeable\Providers\LikeableServiceProvider" --tag=migrations
 php artisan migrate
 ```
@@ -62,7 +83,7 @@ class Article extends Model implements HasLikesContract {
 }
 ```
 
-### Available functions
+### Available methods
 
 #### Likes
 
@@ -222,6 +243,17 @@ $article->likesAndDislikes();
 $article->likesAndDislikes;
 ```
 
+### Scopes
+
+##### Fetch Likeable models by likes count
+
+```php
+$sortedArticles = Article::sortedByLikesCount()->get();
+$sortedArticles = Article::sortedByLikesCount('asc')->get();
+```
+
+*Uses `desc` as default order direction.*
+
 ### Events
 
 On each like added `\Cog\Likeable\Events\ModelWasLiked` event is fired.
@@ -236,49 +268,49 @@ On each dislike removed `\Cog\Likeable\Events\ModelWasUndisliked` event is fired
 
 ##### Recount likes and dislikes of all model types
 
-```shell
+```sh
 likeable:recount
 ```
 
 ##### Recount likes and dislikes of concrete model type (using morph map alias)
 
-```shell
+```sh
 likeable:recount --model="article"
 ```
 
 ##### Recount likes and dislikes of concrete model type (using fully qualified class name)
 
-```shell
+```sh
 likeable:recount --model="App\Models\Article"
 ```
 
 ##### Recount only likes of all model types
 
-```shell
+```sh
 likeable:recount --type="like"
 ```
 
 ##### Recount only likes of concrete model type (using morph map alias)
 
-```shell
+```sh
 likeable:recount --model="article" --type="like"
 ```
 
 ##### Recount only likes of concrete model type (using fully qualified class name)
 
-```shell
+```sh
 likeable:recount --model="App\Models\Article" --type="like"
 ```
 
 ##### Recount only dislikes of all model types
 
-```shell
+```sh
 likeable:recount --type="dislike"
 ```
 
 ##### Recount only dislikes of concrete model type (using morph map alias)
 
-```shell
+```sh
 likeable:recount --model="article" --type="dislike"
 ```
 
@@ -325,30 +357,30 @@ $model = app(\Cog\Likeable\Contracts\Like::class);
 $service = app(\Cog\Likeable\Contracts\LikeableService::class);
 ```
 
-## Testing
+## Change log
 
-You can run the tests with:
-
-```shell
-vendor/bin/phpunit
-```
+Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
+## Testing
+
+You can run the tests with:
+
+```sh
+vendor/bin/phpunit
+```
+
 ## Security
 
-If you discover any security related issues, please email a.komarev@cybercog.su instead of using the issue tracker.
+If you discover any security related issues, please email oss@cybercog.su instead of using the issue tracker.
 
 ## Credits
 
 - [Anton Komarev](https://github.com/a-komarev)
 - [All Contributors](../../contributors)
-
-## Changelog
-
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
 ## Alternatives
 

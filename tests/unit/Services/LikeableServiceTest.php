@@ -169,4 +169,66 @@ class LikeableServiceTest extends TestCase
         $this->assertCount(1, $entity->likes);
         $this->assertEquals(1, $entity->likesCount);
     }
+
+    /** @test */
+    public function it_can_sort_entities_desc_by_likes_count()
+    {
+        $entityA = factory(Entity::class)->create();
+        $entityB = factory(Entity::class)->create();
+        $entityC = factory(Entity::class)->create();
+        $entityD = factory(Entity::class)->create();
+        for ($i = 0; $i < 3; $i++) {
+            $entityA->like(mt_rand(1, 9999999));
+        }
+        for ($i = 0; $i < 1; $i++) {
+            $entityB->like(mt_rand(1, 9999999));
+        }
+        for ($i = 0; $i < 5; $i++) {
+            $entityC->like(mt_rand(1, 9999999));
+        }
+        for ($i = 0; $i < 10; $i++) {
+            $entityD->like(mt_rand(1, 9999999));
+        }
+
+        $service = app(LikeableServiceContract::class);
+        $sortedEntities = $service->scopeSortedByLikesCount(Entity::query(), new Entity())->get();
+
+        $this->assertSame([
+            $entityD->getKey() => '10',
+            $entityC->getKey() => '5',
+            $entityA->getKey() => '3',
+            $entityB->getKey() => '1',
+        ], $sortedEntities->pluck('count', 'id')->toArray());
+    }
+
+    /** @test */
+    public function it_can_sort_entities_asc_by_likes_count()
+    {
+        $entityA = factory(Entity::class)->create();
+        $entityB = factory(Entity::class)->create();
+        $entityC = factory(Entity::class)->create();
+        $entityD = factory(Entity::class)->create();
+        for ($i = 0; $i < 3; $i++) {
+            $entityA->like(mt_rand(1, 9999999));
+        }
+        for ($i = 0; $i < 1; $i++) {
+            $entityB->like(mt_rand(1, 9999999));
+        }
+        for ($i = 0; $i < 5; $i++) {
+            $entityC->like(mt_rand(1, 9999999));
+        }
+        for ($i = 0; $i < 10; $i++) {
+            $entityD->like(mt_rand(1, 9999999));
+        }
+
+        $service = app(LikeableServiceContract::class);
+        $sortedEntities = $service->scopeSortedByLikesCount(Entity::query(), 'asc')->get();
+
+        $this->assertSame([
+            $entityB->getKey() => '1',
+            $entityA->getKey() => '3',
+            $entityC->getKey() => '5',
+            $entityD->getKey() => '10',
+        ], $sortedEntities->pluck('count', 'id')->toArray());
+    }
 }

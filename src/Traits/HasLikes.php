@@ -16,6 +16,7 @@ use Cog\Likeable\Contracts\LikeableService as LikeableServiceContract;
 use Cog\Likeable\Contracts\LikeCounter as LikeCounterContract;
 use Cog\Likeable\Enums\LikeType;
 use Cog\Likeable\Observers\ModelObserver;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class HasLikes.
@@ -139,29 +140,44 @@ trait HasLikes
     /**
      * Fetch records that are liked by a given user id.
      *
-     * @param \Illuminate\Database\Query\Builder $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
      * @param int|null $userId
-     * @return \Illuminate\Database\Query\Builder
+     * @return \Illuminate\Database\Eloquent\Builder
      *
      * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
      */
-    public function scopeWhereLikedBy($query, $userId = null)
+    public function scopeWhereLikedBy(Builder $query, $userId = null)
     {
-        return app(LikeableServiceContract::class)->scopeWhereLikedBy($query, 'like', $userId);
+        return app(LikeableServiceContract::class)
+            ->scopeWhereLikedBy($query, 'like', $userId);
     }
 
     /**
      * Fetch records that are disliked by a given user id.
      *
-     * @param \Illuminate\Database\Query\Builder $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
      * @param int|null $userId
-     * @return \Illuminate\Database\Query\Builder
+     * @return \Illuminate\Database\Eloquent\Builder
      *
      * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
      */
-    public function scopeWhereDislikedBy($query, $userId = null)
+    public function scopeWhereDislikedBy(Builder $query, $userId = null)
     {
-        return app(LikeableServiceContract::class)->scopeWhereLikedBy($query, 'dislike', $userId);
+        return app(LikeableServiceContract::class)
+            ->scopeWhereLikedBy($query, 'dislike', $userId);
+    }
+
+    /**
+     * Fetch records sorted by likes count.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $sortDirection
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSortedByLikesCount(Builder $query, $sortDirection = 'desc')
+    {
+        return app(LikeableServiceContract::class)
+            ->scopeSortedByLikesCount($query, $sortDirection);
     }
 
     /**
