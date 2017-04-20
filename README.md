@@ -140,14 +140,6 @@ $article->liked(); // current user
 $article->liked($user->id);
 ```
 
-##### Find all articles liked by user
-
-```php
-Article::whereLikedBy($user->id)
-    ->with('likesCounter') // Allow eager load (optional)
-    ->get();
-```
-
 ##### Delete all likes for model
 
 ```php
@@ -209,14 +201,6 @@ $article->disliked(); // current user
 $article->disliked($user->id);
 ```
 
-##### Find all articles disliked by user
-
-```php
-Article::whereDislikedBy($user->id)
-    ->with('dislikesCounter') // Allow eager load (optional)
-    ->get();
-```
-
 ##### Delete all dislikes for model
 
 ```php
@@ -245,11 +229,36 @@ $article->likesAndDislikes;
 
 ### Scopes
 
+##### Find all articles liked by user
+
+```php
+Article::whereLikedBy($user->id)
+    ->with('likesCounter') // Allow eager load (optional)
+    ->get();
+```
+
+##### Find all articles disliked by user
+
+```php
+Article::whereDislikedBy($user->id)
+    ->with('dislikesCounter') // Allow eager load (optional)
+    ->get();
+```
+
 ##### Fetch Likeable models by likes count
 
 ```php
 $sortedArticles = Article::orderByLikesCount()->get();
 $sortedArticles = Article::orderByLikesCount('asc')->get();
+```
+
+*Uses `desc` as default order direction.*
+
+##### Fetch Likeable models by dislikes count
+
+```php
+$sortedArticles = Article::orderByDislikesCount()->get();
+$sortedArticles = Article::orderByDislikesCount('asc')->get();
 ```
 
 *Uses `desc` as default order direction.*

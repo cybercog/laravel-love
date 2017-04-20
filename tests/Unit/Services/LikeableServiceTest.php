@@ -182,16 +182,18 @@ class LikeableServiceTest extends TestCase
         }
         for ($i = 0; $i < 1; $i++) {
             $entityB->like(mt_rand(1, 9999999));
+            $entityC->dislike(mt_rand(1, 9999999));
         }
         for ($i = 0; $i < 5; $i++) {
             $entityC->like(mt_rand(1, 9999999));
         }
         for ($i = 0; $i < 10; $i++) {
             $entityD->like(mt_rand(1, 9999999));
+            $entityA->dislike(mt_rand(1, 9999999));
         }
 
         $service = app(LikeableServiceContract::class);
-        $sortedEntities = $service->scopeOrderByLikesCount(Entity::query(), new Entity())->get();
+        $sortedEntities = $service->scopeOrderByLikesCount(Entity::query(), 'like', new Entity())->get();
 
         $this->assertSame([
             $entityD->getKey() => '10',
@@ -213,16 +215,18 @@ class LikeableServiceTest extends TestCase
         }
         for ($i = 0; $i < 1; $i++) {
             $entityB->like(mt_rand(1, 9999999));
+            $entityB->dislike(mt_rand(1, 9999999));
         }
         for ($i = 0; $i < 5; $i++) {
             $entityC->like(mt_rand(1, 9999999));
         }
         for ($i = 0; $i < 10; $i++) {
             $entityD->like(mt_rand(1, 9999999));
+            $entityD->dislike(mt_rand(1, 9999999));
         }
 
         $service = app(LikeableServiceContract::class);
-        $sortedEntities = $service->scopeOrderByLikesCount(Entity::query(), 'asc')->get();
+        $sortedEntities = $service->scopeOrderByLikesCount(Entity::query(), 'like', 'asc')->get();
 
         $this->assertSame([
             $entityB->getKey() => '1',
@@ -244,10 +248,103 @@ class LikeableServiceTest extends TestCase
         }
         for ($i = 0; $i < 10; $i++) {
             $entityD->like(mt_rand(1, 9999999));
+            $entityD->dislike(mt_rand(1, 9999999));
         }
 
         $service = app(LikeableServiceContract::class);
-        $sortedEntities = $service->scopeOrderByLikesCount(Entity::query())->get();
+        $sortedEntities = $service->scopeOrderByLikesCount(Entity::query(), 'like')->get();
+
+        $this->assertSame([
+            $entityD->getKey() => '10',
+            $entityA->getKey() => '3',
+            $entityB->getKey() => null,
+            $entityC->getKey() => null,
+        ], $sortedEntities->pluck('count', 'id')->toArray());
+    }
+
+    /** @test */
+    public function it_can_sort_entities_desc_by_dislikes_count()
+    {
+        $entityA = factory(Entity::class)->create();
+        $entityB = factory(Entity::class)->create();
+        $entityC = factory(Entity::class)->create();
+        $entityD = factory(Entity::class)->create();
+        for ($i = 0; $i < 3; $i++) {
+            $entityA->dislike(mt_rand(1, 9999999));
+        }
+        for ($i = 0; $i < 1; $i++) {
+            $entityB->dislike(mt_rand(1, 9999999));
+            $entityB->like(mt_rand(1, 9999999));
+        }
+        for ($i = 0; $i < 5; $i++) {
+            $entityC->dislike(mt_rand(1, 9999999));
+        }
+        for ($i = 0; $i < 10; $i++) {
+            $entityD->dislike(mt_rand(1, 9999999));
+            $entityD->like(mt_rand(1, 9999999));
+        }
+
+        $service = app(LikeableServiceContract::class);
+        $sortedEntities = $service->scopeOrderByLikesCount(Entity::query(), 'dislike', new Entity())->get();
+
+        $this->assertSame([
+            $entityD->getKey() => '10',
+            $entityC->getKey() => '5',
+            $entityA->getKey() => '3',
+            $entityB->getKey() => '1',
+        ], $sortedEntities->pluck('count', 'id')->toArray());
+    }
+
+    /** @test */
+    public function it_can_sort_entities_asc_by_dislikes_count()
+    {
+        $entityA = factory(Entity::class)->create();
+        $entityB = factory(Entity::class)->create();
+        $entityC = factory(Entity::class)->create();
+        $entityD = factory(Entity::class)->create();
+        for ($i = 0; $i < 3; $i++) {
+            $entityA->dislike(mt_rand(1, 9999999));
+            $entityA->like(mt_rand(1, 9999999));
+        }
+        for ($i = 0; $i < 1; $i++) {
+            $entityB->dislike(mt_rand(1, 9999999));
+        }
+        for ($i = 0; $i < 5; $i++) {
+            $entityC->dislike(mt_rand(1, 9999999));
+            $entityC->like(mt_rand(1, 9999999));
+        }
+        for ($i = 0; $i < 10; $i++) {
+            $entityD->dislike(mt_rand(1, 9999999));
+        }
+
+        $service = app(LikeableServiceContract::class);
+        $sortedEntities = $service->scopeOrderByLikesCount(Entity::query(), 'dislike', 'asc')->get();
+
+        $this->assertSame([
+            $entityB->getKey() => '1',
+            $entityA->getKey() => '3',
+            $entityC->getKey() => '5',
+            $entityD->getKey() => '10',
+        ], $sortedEntities->pluck('count', 'id')->toArray());
+    }
+
+    /** @test */
+    public function it_can_get_entities_without_likes_while_sort_them_by_dislikes_count()
+    {
+        $entityA = factory(Entity::class)->create();
+        $entityB = factory(Entity::class)->create();
+        $entityC = factory(Entity::class)->create();
+        $entityD = factory(Entity::class)->create();
+        for ($i = 0; $i < 3; $i++) {
+            $entityA->dislike(mt_rand(1, 9999999));
+        }
+        for ($i = 0; $i < 10; $i++) {
+            $entityD->like(mt_rand(1, 9999999));
+            $entityD->dislike(mt_rand(1, 9999999));
+        }
+
+        $service = app(LikeableServiceContract::class);
+        $sortedEntities = $service->scopeOrderByLikesCount(Entity::query(), 'dislike')->get();
 
         $this->assertSame([
             $entityD->getKey() => '10',
