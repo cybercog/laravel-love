@@ -296,8 +296,8 @@ class LikeableService implements LikeableServiceContract
         return $query
             ->select($model->getTable() . '.*', 'like_counter.count')
             ->leftJoin('like_counter', function ($join) use ($model) {
-                $join->on('like_counter.likeable_id', '=', "{$model->getTable()}.{$model->getKeyName()}");
-                $join->on('like_counter.likeable_type', '=', "{$model->getMorphClass()}");
+                $join->on('like_counter.likeable_id', '=', "{$model->getTable()}.{$model->getKeyName()}")
+                    ->where('like_counter.likeable_type', '=', $model->getMorphClass());
             })
             ->orderBy('like_counter.count', $direction);
     }
