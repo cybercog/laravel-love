@@ -42,6 +42,7 @@ Laravel Likeable simplify management of Eloquent model's likes & dislikes. Make 
 - Likes and Dislikes for one model are mutually exclusive.
 - Get Likeable models ordered by likes count.
 - Events for `like`, `unlike`, `dislike`, `undislike` methods.
+- Following PHP Standard Recommendations:
   - [PSR-2 (Coding Style Guide)](http://www.php-fig.org/psr/psr-2/).
   - [PSR-4 (Autoloading Standard)](http://www.php-fig.org/psr/psr-4/).
 - Covered with unit tests.
