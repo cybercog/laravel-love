@@ -2,11 +2,28 @@
 
 All notable changes to `laravel-likeable` will be documented in this file.
 
-## [2.2.3] - 2017-07-10
+## [2.2.5] - 2017-07-10
 
 ### Fixed
 
 - Event observing of custom `Like` model (#18)
+
+## [2.2.4] - 2017-04-20
+
+### Added
+
+- `orderByDislikesCount` scope added to `HasLikes` trait.
+- `scopeOrderByLikesCount` method to `LikeableService`.
+
+### Fixed
+
+- `orderByLikesCount` count only likes now.
+
+## [2.2.3] - 2017-04-20
+
+### Fixed
+
+`orderByLikesCount` work in MySQL databases.
 
 ## [2.2.2] - 2017-04-09
 
@@ -63,6 +80,8 @@ All notable changes to `laravel-likeable` will be documented in this file.
 
 - Initial release
 
+[2.2.5]: https://github.com/cybercog/laravel-likeable/compare/2.2.4...2.2.5
+[2.2.4]: https://github.com/cybercog/laravel-likeable/compare/2.2.3...2.2.4
 [2.2.3]: https://github.com/cybercog/laravel-likeable/compare/2.2.2...2.2.3
 [2.2.2]: https://github.com/cybercog/laravel-likeable/compare/2.2.1...2.2.2
 [2.2.1]: https://github.com/cybercog/laravel-likeable/compare/2.2.0...2.2.1
