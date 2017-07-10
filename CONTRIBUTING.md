@@ -22,7 +22,7 @@ Due to time constraints, we are not always able to respond as quickly as we woul
 This project comes with a configuration file for php-cs-fixer (.php_cs) that you can use to (re)format your sourcecode for compliance with this project's coding guidelines:
 
 ```sh
-vendor/bin/php-cs-fixer fix
+$ vendor/bin/php-cs-fixer fix
 ```
 
 ## PHPUnit tests
@@ -30,7 +30,7 @@ vendor/bin/php-cs-fixer fix
 The phpunit script can be used to invoke the PHPUnit test runner:
 
 ```sh
-vendor/bin/phpunit
+$ vendor/bin/phpunit
 ```
 
 ## Reporting issues

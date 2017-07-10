@@ -43,6 +43,7 @@ Laravel Likeable simplify management of Eloquent model's likes & dislikes. Make 
 - Get Likeable models ordered by likes count.
 - Events for `like`, `unlike`, `dislike`, `undislike` methods.
 - Following PHP Standard Recommendations:
+  - [PSR-1 (Basic Coding Standard)](http://www.php-fig.org/psr/psr-1/).
   - [PSR-2 (Coding Style Guide)](http://www.php-fig.org/psr/psr-2/).
   - [PSR-4 (Autoloading Standard)](http://www.php-fig.org/psr/psr-4/).
 - Covered with unit tests.
@@ -52,7 +53,7 @@ Laravel Likeable simplify management of Eloquent model's likes & dislikes. Make 
 First, pull in the package through Composer.
 
 ```sh
-composer require cybercog/laravel-likeable
+$ composer require cybercog/laravel-likeable
 ```
 
 And then include the service provider within `app/config/app.php`.
@@ -66,8 +67,8 @@ And then include the service provider within `app/config/app.php`.
 At last you need to publish and run database migrations.
 
 ```sh
-php artisan vendor:publish --provider="Cog\Likeable\Providers\LikeableServiceProvider" --tag=migrations
-php artisan migrate
+$ php artisan vendor:publish --provider="Cog\Likeable\Providers\LikeableServiceProvider" --tag=migrations
+$ php artisan migrate
 ```
 
 ## Usage
@@ -281,55 +282,55 @@ On each dislike removed `\Cog\Likeable\Events\ModelWasUndisliked` event is fired
 ##### Recount likes and dislikes of all model types
 
 ```sh
-likeable:recount
+$ likeable:recount
 ```
 
 ##### Recount likes and dislikes of concrete model type (using morph map alias)
 
 ```sh
-likeable:recount --model="article"
+$ likeable:recount --model="article"
 ```
 
 ##### Recount likes and dislikes of concrete model type (using fully qualified class name)
 
 ```sh
-likeable:recount --model="App\Models\Article"
+$ likeable:recount --model="App\Models\Article"
 ```
 
 ##### Recount only likes of all model types
 
 ```sh
-likeable:recount --type="like"
+$ likeable:recount --type="like"
 ```
 
 ##### Recount only likes of concrete model type (using morph map alias)
 
 ```sh
-likeable:recount --model="article" --type="like"
+$ likeable:recount --model="article" --type="like"
 ```
 
 ##### Recount only likes of concrete model type (using fully qualified class name)
 
 ```sh
-likeable:recount --model="App\Models\Article" --type="like"
+$ likeable:recount --model="App\Models\Article" --type="like"
 ```
 
 ##### Recount only dislikes of all model types
 
 ```sh
-likeable:recount --type="dislike"
+$ likeable:recount --type="dislike"
 ```
 
 ##### Recount only dislikes of concrete model type (using morph map alias)
 
 ```sh
-likeable:recount --model="article" --type="dislike"
+$ likeable:recount --model="article" --type="dislike"
 ```
 
 ##### Recount only dislikes of concrete model type (using fully qualified class name)
 
-```shell
-likeable:recount --model="App\Models\Article" --type="dislike"
+```sh
+$ likeable:recount --model="App\Models\Article" --type="dislike"
 ```
 
 ## Extending
@@ -382,12 +383,12 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 You can run the tests with:
 
 ```sh
-vendor/bin/phpunit
+$ vendor/bin/phpunit
 ```
 
 ## Security
 
-If you discover any security related issues, please email oss@cybercog.su instead of using the issue tracker.
+If you discover any security related issues, please email open@cybercog.su instead of using the issue tracker.
 
 ## Credits
 
