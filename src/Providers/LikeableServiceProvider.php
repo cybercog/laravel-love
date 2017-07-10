@@ -63,7 +63,6 @@ class LikeableServiceProvider extends ServiceProvider
      */
     protected function bootObservers()
     {
-        $class = $this->app->make(LikeContract::class);
-        $class::observe(new LikeObserver());
+        $this->app->make(LikeContract::class)->observe(new LikeObserver());
     }
 }
