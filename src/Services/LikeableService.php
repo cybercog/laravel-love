@@ -397,6 +397,7 @@ class LikeableService implements LikeableServiceContract
     /**
      * Get like type id from name.
      *
+     * @todo move to Enum class
      * @param string $type
      * @return int
      *
