@@ -75,15 +75,15 @@ $ php artisan migrate
 
 ### Prepare likeable model
 
-Use `HasLikes` contract in model which will get likes behavior and implement it or just use `HasLikes` trait. 
+Use `Likeable` contract in model which will get likes behavior and implement it or just use `Likeable` trait. 
 
 ```php
-use Cog\Likeable\Contracts\HasLikes as HasLikesContract;
-use Cog\Likeable\Traits\HasLikes;
+use Cog\Likeable\Contracts\Likeable as LikeableContract;
+use Cog\Likeable\Traits\Likeable;
 use Illuminate\Database\Eloquent\Model;
 
-class Article extends Model implements HasLikesContract {
-    use HasLikes;
+class Article extends Model implements LikeableContract {
+    use Likeable;
 }
 ```
 
