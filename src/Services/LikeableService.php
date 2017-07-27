@@ -11,7 +11,7 @@
 
 namespace Cog\Likeable\Services;
 
-use Cog\Likeable\Contracts\HasLikes as HasLikesContract;
+use Cog\Likeable\Contracts\Likeable as LikeableContract;
 use Cog\Likeable\Contracts\Like as LikeContract;
 use Cog\Likeable\Contracts\LikeableService as LikeableServiceContract;
 use Cog\Likeable\Contracts\LikeCounter as LikeCounterContract;
@@ -31,23 +31,23 @@ class LikeableService implements LikeableServiceContract
     /**
      * Add a like to likeable model by user.
      *
-     * @param \Cog\Likeable\Contracts\HasLikes $model
+     * @param \Cog\Likeable\Contracts\Likeable $likeable
      * @param string $type
      * @param string $userId
      * @return void
      *
      * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
      */
-    public function addLikeTo(HasLikesContract $model, $type, $userId)
+    public function addLikeTo(LikeableContract $likeable, $type, $userId)
     {
         $userId = $this->getLikerUserId($userId);
 
-        $like = $model->likesAndDislikes()->where([
+        $like = $likeable->likesAndDislikes()->where([
             'user_id' => $userId,
         ])->first();
 
         if (!$like) {
-            $model->likes()->create([
+            $likeable->likes()->create([
                 'user_id' => $userId,
                 'type_id' => $this->getLikeTypeId($type),
             ]);
@@ -61,7 +61,7 @@ class LikeableService implements LikeableServiceContract
 
         $like->delete();
 
-        $model->likes()->create([
+        $likeable->likes()->create([
             'user_id' => $userId,
             'type_id' => $this->getLikeTypeId($type),
         ]);
@@ -70,18 +70,18 @@ class LikeableService implements LikeableServiceContract
     /**
      * Remove a like to likeable model by user.
      *
-     * @param \Cog\Likeable\Contracts\HasLikes $model
+     * @param \Cog\Likeable\Contracts\Likeable $likeable
      * @param string $type
      * @param int|null $userId
      * @return void
      *
      * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
      */
-    public function removeLikeFrom(HasLikesContract $model, $type, $userId)
+    public function removeLikeFrom(LikeableContract $likeable, $type, $userId)
     {
         $userId = $this->getLikerUserId($userId);
 
-        $like = $model->likesAndDislikes()->where([
+        $like = $likeable->likesAndDislikes()->where([
             'user_id' => $userId,
             'type_id' => $this->getLikeTypeId($type),
         ])->first();
@@ -96,38 +96,38 @@ class LikeableService implements LikeableServiceContract
     /**
      * Toggle like for model by the given user.
      *
-     * @param \Cog\Likeable\Contracts\HasLikes $model
+     * @param \Cog\Likeable\Contracts\Likeable $likeable
      * @param string $type
      * @param string $userId
      * @return void
      *
      * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
      */
-    public function toggleLikeOf(HasLikesContract $model, $type, $userId)
+    public function toggleLikeOf(LikeableContract $likeable, $type, $userId)
     {
         $userId = $this->getLikerUserId($userId);
 
-        $like = $model->likesAndDislikes()->where([
+        $like = $likeable->likesAndDislikes()->where([
             'user_id' => $userId,
             'type_id' => $this->getLikeTypeId($type),
         ])->exists();
 
         if ($like) {
-            $this->removeLikeFrom($model, $type, $userId);
+            $this->removeLikeFrom($likeable, $type, $userId);
         } else {
-            $this->addLikeTo($model, $type, $userId);
+            $this->addLikeTo($likeable, $type, $userId);
         }
     }
 
     /**
      * Has the user already liked likeable model.
      *
-     * @param \Cog\Likeable\Contracts\HasLikes $model
+     * @param \Cog\Likeable\Contracts\Likeable $likeable
      * @param string $type
      * @param int|null $userId
      * @return bool
      */
-    public function isLiked(HasLikesContract $model, $type, $userId)
+    public function isLiked(LikeableContract $likeable, $type, $userId)
     {
         if (is_null($userId)) {
             $userId = $this->loggedInUserId();
@@ -137,7 +137,7 @@ class LikeableService implements LikeableServiceContract
             return false;
         }
 
-        return $model->likesAndDislikes()->where([
+        return $likeable->likesAndDislikes()->where([
             'user_id' => $userId,
             'type_id' => $this->getLikeTypeId($type),
         ])->exists();
@@ -146,12 +146,12 @@ class LikeableService implements LikeableServiceContract
     /**
      * Decrement the total like count stored in the counter.
      *
-     * @param \Cog\Likeable\Contracts\HasLikes $model
+     * @param \Cog\Likeable\Contracts\Likeable $likeable
      * @return void
      */
-    public function decrementLikesCount(HasLikesContract $model)
+    public function decrementLikesCount(LikeableContract $likeable)
     {
-        $counter = $model->likesCounter()->first();
+        $counter = $likeable->likesCounter()->first();
 
         if (!$counter) {
             return;
@@ -163,15 +163,15 @@ class LikeableService implements LikeableServiceContract
     /**
      * Increment the total like count stored in the counter.
      *
-     * @param \Cog\Likeable\Contracts\HasLikes $model
+     * @param \Cog\Likeable\Contracts\Likeable $likeable
      * @return void
      */
-    public function incrementLikesCount(HasLikesContract $model)
+    public function incrementLikesCount(LikeableContract $likeable)
     {
-        $counter = $model->likesCounter()->first();
+        $counter = $likeable->likesCounter()->first();
 
         if (!$counter) {
-            $counter = $model->likesCounter()->create([
+            $counter = $likeable->likesCounter()->create([
                 'count' => 0,
                 'type_id' => LikeType::LIKE,
             ]);
@@ -183,12 +183,12 @@ class LikeableService implements LikeableServiceContract
     /**
      * Decrement the total dislike count stored in the counter.
      *
-     * @param \Cog\Likeable\Contracts\HasLikes $model
+     * @param \Cog\Likeable\Contracts\Likeable $likeable
      * @return void
      */
-    public function decrementDislikesCount(HasLikesContract $model)
+    public function decrementDislikesCount(LikeableContract $likeable)
     {
-        $counter = $model->dislikesCounter()->first();
+        $counter = $likeable->dislikesCounter()->first();
 
         if (!$counter) {
             return;
@@ -200,15 +200,15 @@ class LikeableService implements LikeableServiceContract
     /**
      * Increment the total dislike count stored in the counter.
      *
-     * @param \Cog\Likeable\Contracts\HasLikes $model
+     * @param \Cog\Likeable\Contracts\Likeable $likeable
      * @return void
      */
-    public function incrementDislikesCount(HasLikesContract $model)
+    public function incrementDislikesCount(LikeableContract $likeable)
     {
-        $counter = $model->dislikesCounter()->first();
+        $counter = $likeable->dislikesCounter()->first();
 
         if (!$counter) {
-            $counter = $model->dislikesCounter()->create([
+            $counter = $likeable->dislikesCounter()->create([
                 'count' => 0,
                 'type_id' => LikeType::DISLIKE,
             ]);
@@ -227,8 +227,8 @@ class LikeableService implements LikeableServiceContract
     public function removeLikeCountersOfType($likeableType, $type = null)
     {
         if (class_exists($likeableType)) {
-            $model = new $likeableType;
-            $likeableType = $model->getMorphClass();
+            $likeable = new $likeableType;
+            $likeableType = $likeable->getMorphClass();
         }
 
         $counters = app(LikeCounterContract::class)->where('likeable_type', $likeableType);
@@ -241,23 +241,53 @@ class LikeableService implements LikeableServiceContract
     /**
      * Remove all likes from likeable model.
      *
-     * @param \Cog\Likeable\Contracts\HasLikes $model
+     * @param \Cog\Likeable\Contracts\Likeable $likeable
      * @param string $type
      * @return void
      */
-    public function removeModelLikes(HasLikesContract $model, $type)
+    public function removeModelLikes(LikeableContract $likeable, $type)
     {
         app(LikeContract::class)->where([
-            'likeable_id' => $model->getKey(),
-            'likeable_type' => $model->getMorphClass(),
+            'likeable_id' => $likeable->getKey(),
+            'likeable_type' => $likeable->getMorphClass(),
             'type_id' => $this->getLikeTypeId($type),
         ])->delete();
 
         app(LikeCounterContract::class)->where([
-            'likeable_id' => $model->getKey(),
-            'likeable_type' => $model->getMorphClass(),
+            'likeable_id' => $likeable->getKey(),
+            'likeable_type' => $likeable->getMorphClass(),
             'type_id' => $this->getLikeTypeId($type),
         ])->delete();
+    }
+
+    /**
+     * Get collection of users who liked entity.
+     *
+     * @param \Cog\Likeable\Contracts\Likeable $likeable
+     * @return \Illuminate\Support\Collection
+     */
+    public function getLikersOf(LikeableContract $likeable)
+    {
+        $likersIds = $likeable->likes->pluck('user_id');
+
+        $userModel = config('auth.providers.users.model');
+
+        return $userModel::whereIn('id', $likersIds)->get();
+    }
+
+    /**
+     * Get collection of users who disliked entity.
+     *
+     * @param \Cog\Likeable\Contracts\Likeable $likeable
+     * @return \Illuminate\Support\Collection
+     */
+    public function getDislikersOf(LikeableContract $likeable)
+    {
+        $likersIds = $likeable->dislikes->pluck('user_id');
+
+        $userModel = config('auth.providers.users.model');
+
+        return $userModel::whereIn('id', $likersIds)->get();
     }
 
     /**

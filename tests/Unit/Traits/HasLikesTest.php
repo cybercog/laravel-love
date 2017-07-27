@@ -569,4 +569,38 @@ class HasLikesTest extends TestCase
             $entityD->getKey() => '10',
         ], $sortedEntities->pluck('count', 'id')->toArray());
     }
+
+    /** @test */
+    public function it_can_get_likers()
+    {
+        $entity = factory(Entity::class)->create();
+        $user1 = factory(User::class)->create();
+        $user2 = factory(User::class)->create();
+        $user3 = factory(User::class)->create();
+        $entity->like($user1->id);
+        $entity->dislike($user2->id);
+        $entity->like($user3->id);
+
+        $likers = $entity->getLikers();
+
+        $this->assertCount(2, $likers);
+        $this->assertEquals([$user1->id, $user3->id], $likers->pluck('id')->toArray());
+    }
+
+    /** @test */
+    public function it_can_get_dislikers()
+    {
+        $entity = factory(Entity::class)->create();
+        $user1 = factory(User::class)->create();
+        $user2 = factory(User::class)->create();
+        $user3 = factory(User::class)->create();
+        $entity->dislike($user1->id);
+        $entity->like($user2->id);
+        $entity->dislike($user3->id);
+
+        $dislikers = $entity->getDislikers();
+
+        $this->assertCount(2, $dislikers);
+        $this->assertEquals([$user1->id, $user3->id], $dislikers->pluck('id')->toArray());
+    }
 }

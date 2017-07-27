@@ -17,7 +17,9 @@
         "favourite",
         "rate",
         "rating",
-        "emotion"
+        "emotion",
+        "star",
+        "kudos"
     ],
     "authors": [
         {
@@ -62,6 +64,13 @@
     },
     "config": {
         "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Cog\\Likeable\\Providers\\LikeableServiceProvider"
+            ]
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable" : true

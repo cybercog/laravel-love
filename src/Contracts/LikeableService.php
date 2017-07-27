@@ -11,7 +11,7 @@
 
 namespace Cog\Likeable\Contracts;
 
-use Cog\Likeable\Contracts\HasLikes as HasLikesContract;
+use Cog\Likeable\Contracts\Likeable as LikeableContract;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
@@ -24,80 +24,80 @@ interface LikeableService
     /**
      * Add a like to likeable model by user.
      *
-     * @param \Cog\Likeable\Contracts\HasLikes $model
+     * @param \Cog\Likeable\Contracts\Likeable $likeable
      * @param string $type
      * @param string $userId
      * @return void
      *
      * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
      */
-    public function addLikeTo(HasLikesContract $model, $type, $userId);
+    public function addLikeTo(LikeableContract $likeable, $type, $userId);
 
     /**
      * Remove a like to likeable model by user.
      *
-     * @param \Cog\Likeable\Contracts\HasLikes $model
+     * @param \Cog\Likeable\Contracts\Likeable $likeable
      * @param string $type
      * @param int|null $userId
      * @return void
      *
      * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
      */
-    public function removeLikeFrom(HasLikesContract $model, $type, $userId);
+    public function removeLikeFrom(LikeableContract $likeable, $type, $userId);
 
     /**
      * Toggle like for model by the given user.
      *
-     * @param \Cog\Likeable\Contracts\HasLikes $model
+     * @param \Cog\Likeable\Contracts\Likeable $likeable
      * @param string $type
      * @param string $userId
      * @return void
      *
      * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
      */
-    public function toggleLikeOf(HasLikesContract $model, $type, $userId);
+    public function toggleLikeOf(LikeableContract $likeable, $type, $userId);
 
     /**
      * Has the user already liked likeable model.
      *
-     * @param \Cog\Likeable\Contracts\HasLikes $model
+     * @param \Cog\Likeable\Contracts\Likeable $likeable
      * @param string $type
      * @param int|null $userId
      * @return bool
      */
-    public function isLiked(HasLikesContract $model, $type, $userId);
+    public function isLiked(LikeableContract $likeable, $type, $userId);
 
     /**
      * Decrement the total like count stored in the counter.
      *
-     * @param \Cog\Likeable\Contracts\HasLikes $model
+     * @param \Cog\Likeable\Contracts\Likeable $likeable
      * @return void
      */
-    public function decrementLikesCount(HasLikesContract $model);
+    public function decrementLikesCount(LikeableContract $likeable);
 
     /**
      * Increment the total like count stored in the counter.
      *
-     * @param \Cog\Likeable\Contracts\HasLikes $model
+     * @param \Cog\Likeable\Contracts\Likeable $likeable
      * @return void
      */
-    public function incrementLikesCount(HasLikesContract $model);
+    public function incrementLikesCount(LikeableContract $likeable);
 
     /**
      * Decrement the total dislike count stored in the counter.
      *
-     * @param \Cog\Likeable\Contracts\HasLikes $model
+     * @param \Cog\Likeable\Contracts\Likeable $likeable
      * @return void
      */
-    public function decrementDislikesCount(HasLikesContract $model);
+    public function decrementDislikesCount(LikeableContract $likeable);
 
     /**
      * Increment the total dislike count stored in the counter.
      *
-     * @param \Cog\Likeable\Contracts\HasLikes $model
+     * @param \Cog\Likeable\Contracts\Likeable $likeable
      * @return void
      */
-    public function incrementDislikesCount(HasLikesContract $model);
+    public function incrementDislikesCount(LikeableContract $likeable);
 
     /**
      * Remove like counters by likeable type.
@@ -111,11 +111,19 @@ interface LikeableService
     /**
      * Remove all likes from likeable model.
      *
-     * @param \Cog\Likeable\Contracts\HasLikes $model
+     * @param \Cog\Likeable\Contracts\Likeable $likeable
      * @param string $type
      * @return void
      */
-    public function removeModelLikes(HasLikesContract $model, $type);
+    public function removeModelLikes(LikeableContract $likeable, $type);
+
+    /**
+     * Get collection of users who liked entity.
+     *
+     * @param \Cog\Likeable\Contracts\Likeable $likeable
+     * @return \Illuminate\Support\Collection
+     */
+    public function getLikersOf(LikeableContract $likeable);
 
     /**
      * Fetch records that are liked by a given user id.

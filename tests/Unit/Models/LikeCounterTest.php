@@ -32,16 +32,6 @@ class LikeCounterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_cast_count()
-    {
-        $like = new LikeCounter([
-            'count' => '4',
-        ]);
-
-        $this->assertTrue(is_int($like->count));
-    }
-
-    /** @test */
     public function it_can_fill_type_id()
     {
         $counter = new LikeCounter([
@@ -49,5 +39,15 @@ class LikeCounterTest extends TestCase
         ]);
 
         $this->assertEquals(2, $counter->type_id);
+    }
+
+    /** @test */
+    public function it_casts_count_to_interger()
+    {
+        $like = new LikeCounter([
+            'count' => '4',
+        ]);
+
+        $this->assertTrue(is_int($like->count));
     }
 }

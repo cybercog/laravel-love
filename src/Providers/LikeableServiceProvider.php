@@ -33,16 +33,7 @@ class LikeableServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                LikeableRecountCommand::class,
-            ]);
-
-            $this->publishes([
-                realpath(__DIR__ . '/../../database/migrations') => database_path('migrations'),
-            ], 'migrations');
-        }
-
+        $this->bootConsoleCommands();
         $this->bootObservers();
     }
 
@@ -53,9 +44,7 @@ class LikeableServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(LikeContract::class, Like::class);
-        $this->app->bind(LikeCounterContract::class, LikeCounter::class);
-        $this->app->singleton(LikeableServiceContract::class, LikeableService::class);
+        $this->registerContractsBindings();
     }
 
     /**
@@ -64,5 +53,31 @@ class LikeableServiceProvider extends ServiceProvider
     protected function bootObservers()
     {
         $this->app->make(LikeContract::class)->observe(new LikeObserver());
+    }
+
+    /**
+     * Boot console commands.
+     */
+    protected function bootConsoleCommands()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                LikeableRecountCommand::class,
+            ]);
+
+            $this->publishes([
+                realpath(__DIR__ . '/../../database/migrations') => database_path('migrations'),
+            ], 'migrations');
+        }
+    }
+
+    /**
+     * Bind entities with contracts.
+     */
+    protected function registerContractsBindings()
+    {
+        $this->app->bind(LikeContract::class, Like::class);
+        $this->app->bind(LikeCounterContract::class, LikeCounter::class);
+        $this->app->singleton(LikeableServiceContract::class, LikeableService::class);
     }
 }
