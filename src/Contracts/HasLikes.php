@@ -20,5 +20,4 @@ namespace Cog\Likeable\Contracts;
  */
 interface HasLikes extends Likeable
 {
-
 }
