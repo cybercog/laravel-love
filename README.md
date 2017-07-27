@@ -144,6 +144,12 @@ $article->liked(); // current user
 $article->liked($user->id);
 ```
 
+##### Get collection of users who liked model
+
+```php
+$article->getLikers();
+```
+
 ##### Delete all likes for model
 
 ```php
@@ -203,6 +209,12 @@ $article->dislikes;
 $article->disliked; // current user
 $article->disliked(); // current user
 $article->disliked($user->id);
+```
+
+##### Get collection of users who disliked model
+
+```php
+$article->getDislikers();
 ```
 
 ##### Delete all dislikes for model
