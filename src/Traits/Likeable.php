@@ -26,11 +26,11 @@ use Illuminate\Database\Eloquent\Builder;
 trait Likeable
 {
     /**
-     * Boot the HasLikes trait for a model.
+     * Boot the Likeable trait for a model.
      *
      * @return void
      */
-    public static function bootHasLikes()
+    public static function bootLikeable()
     {
         static::observe(new ModelObserver);
     }

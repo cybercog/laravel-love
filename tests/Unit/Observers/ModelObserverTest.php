@@ -11,7 +11,7 @@
 
 namespace Cog\Likeable\Tests\Unit\Observers;
 
-use Cog\Likeable\Contracts\HasLikes as HasLikesContract;
+use Cog\Likeable\Contracts\Likeable as LikeableContract;
 use Cog\Likeable\Models\Like;
 use Cog\Likeable\Models\LikeCounter;
 use Cog\Likeable\Observers\ModelObserver;
@@ -33,7 +33,7 @@ class ModelObserverTest extends TestCase
     public function it_can_call_remove_likes_on_model_deleted()
     {
         $observer = new ModelObserver;
-        $model = Mockery::mock(HasLikesContract::class);
+        $model = Mockery::mock(LikeableContract::class);
         $model->shouldReceive('removeLikes');
         $observer->deleted($model);
     }
@@ -42,7 +42,7 @@ class ModelObserverTest extends TestCase
     public function it_can_omit_call_remove_likes_on_model_deleted()
     {
         $observer = new ModelObserver;
-        $model = Mockery::mock(HasLikesContract::class);
+        $model = Mockery::mock(LikeableContract::class);
         $model->removeLikesOnDelete = false;
         $model->shouldNotHaveReceived('removeLikes');
         $observer->deleted($model);

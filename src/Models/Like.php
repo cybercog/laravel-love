@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Like.
  *
- * @property \Cog\Likeable\Contracts\HasLikes likeable
+ * @property \Cog\Likeable\Contracts\Likeable likeable
  * @property int type_id
  * @property int user_id
  * @package Cog\Likeable\Models

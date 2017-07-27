@@ -18,11 +18,11 @@ use Cog\Likeable\Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 /**
- * Class HasLikesTest.
+ * Class LikeableTest.
  *
  * @package Cog\Likeable\Tests\Unit\Traits
  */
-class HasLikesTest extends TestCase
+class LikeableTest extends TestCase
 {
     use DatabaseTransactions;
 

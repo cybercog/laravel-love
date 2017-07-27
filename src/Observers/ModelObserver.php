@@ -11,7 +11,7 @@
 
 namespace Cog\Likeable\Observers;
 
-use Cog\Likeable\Contracts\HasLikes as HasLikesContract;
+use Cog\Likeable\Contracts\Likeable as LikeableContract;
 
 /**
  * Class ModelObserver.
@@ -23,26 +23,26 @@ class ModelObserver
     /**
      * Handle the deleted event for the model.
      *
-     * @param \Cog\Likeable\Contracts\HasLikes $model
+     * @param \Cog\Likeable\Contracts\Likeable $likeable
      * @return void
      */
-    public function deleted(HasLikesContract $model)
+    public function deleted(LikeableContract $likeable)
     {
-        if (!$this->removeLikesOnDelete($model)) {
+        if (!$this->removeLikesOnDelete($likeable)) {
             return;
         }
 
-        $model->removeLikes();
+        $likeable->removeLikes();
     }
 
     /**
      * Should remove likes on model delete (defaults to true).
      *
-     * @param \Cog\Likeable\Contracts\HasLikes $model
+     * @param \Cog\Likeable\Contracts\Likeable $likeable
      * @return bool
      */
-    protected function removeLikesOnDelete(HasLikesContract $model)
+    protected function removeLikesOnDelete(LikeableContract $likeable)
     {
-        return isset($model->removeLikesOnDelete) ? $model->removeLikesOnDelete : true;
+        return isset($likeable->removeLikesOnDelete) ? $likeable->removeLikesOnDelete : true;
     }
 }
