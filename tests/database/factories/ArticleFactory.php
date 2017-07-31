@@ -9,7 +9,11 @@
  * file that was distributed with this source code.
  */
 
-$factory->define(\Cog\Likeable\Tests\Stubs\Models\Article::class, function (\Faker\Generator $faker) {
+use Cog\Likeable\Tests\Stubs\Models\Article;
+use Faker\Generator;
+
+/* @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(Article::class, function (Generator $faker) {
     return [
         'name' => $faker->name,
     ];
