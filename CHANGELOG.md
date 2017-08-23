@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-likeable` will be documented in this file.
 
+## [3.0.0] - 2017-08-24
+
+### Added
+
+- Laravel 5.5 support
+- Laravel Package Auto-Discovery support
+- `getLikers`, `getDislikers` & `scopeOrderByDislikesCount` methods added to `Cog\Likeable\Contracts\Likeable` contract
+- `getLikersOf` method to `Cog\Likeable\Contracts\LikeableService` contract 
+
+### Changed
+
+- `Cog\Likeable\Contracts` contract renamed to `Cog\Likeable\Contracts\Likeable`
+- `Cog\Likeable\Traits\HasLikes` trait renamed to `Cog\Likeable\Traits\Likeable`
+
 ## [2.2.5] - 2017-07-10
 
 ### Fixed

@@ -56,6 +56,20 @@ interface Likeable
     public function dislikesCounter();
 
     /**
+     * Fetch users who liked entity.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getLikers();
+
+    /**
+     * Fetch users who disliked entity.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getDislikers();
+
+    /**
      * Model likesCount attribute.
      *
      * @return int
@@ -120,6 +134,15 @@ interface Likeable
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeOrderByLikesCount(Builder $query, $direction = 'desc');
+
+    /**
+     * Fetch records sorted by likes count.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $direction
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOrderByDislikesCount(Builder $query, $direction = 'desc');
 
     /**
      * Add a like for model by the given user.
