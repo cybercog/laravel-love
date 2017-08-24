@@ -27,8 +27,7 @@ class CreateLikeTable extends Migration
     {
         Schema::create('like', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('likeable_id')->unsigned();
-            $table->string('likeable_type', 255);
+            $table->morphs('likeable');
             $table->integer('user_id')->unsigned()->index();
             $table->enum('type_id', [
                 'like',
@@ -42,7 +41,7 @@ class CreateLikeTable extends Migration
                 'user_id',
             ], 'like_user_unique');
 
-            // $table->foreign('user_id')->references('id')->on('user')->onDelete('cascade');
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
