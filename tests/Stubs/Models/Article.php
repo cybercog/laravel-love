@@ -29,7 +29,7 @@ class Article extends Model implements LikeableContract
      *
      * @var string
      */
-    protected $table = 'article';
+    protected $table = 'articles';
 
     /**
      * The attributes that are mass assignable.

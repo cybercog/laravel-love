@@ -29,7 +29,7 @@ class Entity extends Model implements LikeableContract
      *
      * @var string
      */
-    protected $table = 'entity';
+    protected $table = 'entities';
 
     /**
      * The attributes that are mass assignable.

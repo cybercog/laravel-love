@@ -75,7 +75,7 @@ abstract class TestCase extends Orchestra
      */
     protected function destroyPackageMigrations()
     {
-        File::cleanDirectory('vendor/orchestra/testbench/fixture/database/migrations');
+        File::cleanDirectory('vendor/orchestra/testbench-core/fixture/database/migrations');
     }
 
     /**

@@ -29,7 +29,7 @@ class EntityWithMorphMap extends Model implements LikeableContract
      *
      * @var string
      */
-    protected $table = 'entity_with_morph_map';
+    protected $table = 'entities_with_morph_map';
 
     /**
      * The attributes that are mass assignable.
