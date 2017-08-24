@@ -18,7 +18,7 @@ use Cog\Likeable\Contracts\LikeCounter as LikeCounterContract;
 use Cog\Likeable\Enums\LikeType;
 use Cog\Likeable\Exceptions\LikerNotDefinedException;
 use Cog\Likeable\Exceptions\LikeTypeInvalidException;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
@@ -268,11 +268,11 @@ class LikeableService implements LikeableServiceContract
      */
     public function getLikersOf(LikeableContract $likeable)
     {
+        $userModel = $this->resolveUserModel();
+
         $likersIds = $likeable->likes->pluck('user_id');
 
-        $userModel = config('auth.providers.users.model');
-
-        return $userModel::whereIn('id', $likersIds)->get();
+        return $userModel::whereKey($likersIds)->get();
     }
 
     /**
@@ -283,11 +283,11 @@ class LikeableService implements LikeableServiceContract
      */
     public function getDislikersOf(LikeableContract $likeable)
     {
+        $userModel = $this->resolveUserModel();
+
         $likersIds = $likeable->dislikes->pluck('user_id');
 
-        $userModel = config('auth.providers.users.model');
-
-        return $userModel::whereIn('id', $likersIds)->get();
+        return $userModel::whereKey($likersIds)->get();
     }
 
     /**
@@ -304,11 +304,9 @@ class LikeableService implements LikeableServiceContract
     {
         $userId = $this->getLikerUserId($userId);
 
-        return $query->whereHas('likesAndDislikes', function ($q) use ($type, $userId) {
-            $q->where([
-                'user_id' => $userId,
-                'type_id' => $this->getLikeTypeId($type),
-            ]);
+        return $query->whereHas('likesAndDislikes', function (Builder $innerQuery) use ($type, $userId) {
+            $innerQuery->where('user_id', $userId);
+            $innerQuery->where('type_id', $this->getLikeTypeId($type));
         });
     }
 
@@ -322,13 +320,13 @@ class LikeableService implements LikeableServiceContract
      */
     public function scopeOrderByLikesCount(Builder $query, $likeType, $direction = 'desc')
     {
-        $model = $query->getModel();
+        $likeable = $query->getModel();
 
         return $query
-            ->select($model->getTable() . '.*', 'like_counter.count')
-            ->leftJoin('like_counter', function ($join) use ($model, $likeType) {
-                $join->on('like_counter.likeable_id', '=', "{$model->getTable()}.{$model->getKeyName()}")
-                    ->where('like_counter.likeable_type', '=', $model->getMorphClass())
+            ->select($likeable->getTable() . '.*', 'like_counter.count')
+            ->leftJoin('like_counter', function ($join) use ($likeable, $likeType) {
+                $join->on('like_counter.likeable_id', '=', "{$likeable->getTable()}.{$likeable->getKeyName()}")
+                    ->where('like_counter.likeable_type', '=', $likeable->getMorphClass())
                     ->where('like_counter.type_id', '=', $this->getLikeTypeId($likeType));
             })
             ->orderBy('like_counter.count', $direction);
@@ -411,5 +409,15 @@ class LikeableService implements LikeableServiceContract
         }
 
         return constant("\\Cog\\Likeable\\Enums\\LikeType::{$type}");
+    }
+
+    /**
+     * Retrieve User's model class name.
+     *
+     * @return \Illuminate\Contracts\Auth\Authenticatable
+     */
+    private function resolveUserModel()
+    {
+        return config('auth.providers.users.model');
     }
 }
