@@ -18,6 +18,7 @@ use Cog\Likeable\Contracts\LikeCounter as LikeCounterContract;
 use Cog\Likeable\Enums\LikeType;
 use Cog\Likeable\Exceptions\LikerNotDefinedException;
 use Cog\Likeable\Exceptions\LikeTypeInvalidException;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -79,10 +80,8 @@ class LikeableService implements LikeableServiceContract
      */
     public function removeLikeFrom(LikeableContract $likeable, $type, $userId)
     {
-        $userId = $this->getLikerUserId($userId);
-
         $like = $likeable->likesAndDislikes()->where([
-            'user_id' => $userId,
+            'user_id' => $this->getLikerUserId($userId),
             'type_id' => $this->getLikeTypeId($type),
         ])->first();
 
@@ -227,10 +226,12 @@ class LikeableService implements LikeableServiceContract
     public function removeLikeCountersOfType($likeableType, $type = null)
     {
         if (class_exists($likeableType)) {
+            /** @var \Cog\Likeable\Contracts\Likeable $likeable */
             $likeable = new $likeableType;
             $likeableType = $likeable->getMorphClass();
         }
 
+        /** @var \Illuminate\Database\Eloquent\Builder $counters */
         $counters = app(LikeCounterContract::class)->where('likeable_type', $likeableType);
         if (!is_null($type)) {
             $counters->where('type_id', $this->getLikeTypeId($type));
@@ -324,8 +325,9 @@ class LikeableService implements LikeableServiceContract
 
         return $query
             ->select($likeable->getTable() . '.*', 'like_counter.count')
-            ->leftJoin('like_counter', function ($join) use ($likeable, $likeType) {
-                $join->on('like_counter.likeable_id', '=', "{$likeable->getTable()}.{$likeable->getKeyName()}")
+            ->leftJoin('like_counter', function (JoinClause $join) use ($likeable, $likeType) {
+                $join
+                    ->on('like_counter.likeable_id', '=', "{$likeable->getTable()}.{$likeable->getKeyName()}")
                     ->where('like_counter.likeable_type', '=', $likeable->getMorphClass())
                     ->where('like_counter.type_id', '=', $this->getLikeTypeId($likeType));
             })
@@ -341,7 +343,8 @@ class LikeableService implements LikeableServiceContract
      */
     public function fetchLikesCounters($likeableType, $likeType)
     {
-        $likesCount = app(LikeContract::class)->query()
+        /** @var \Illuminate\Database\Eloquent\Builder $likesCount */
+        $likesCount = app(LikeContract::class)
             ->select([
                 DB::raw('COUNT(*) AS count'),
                 'likeable_type',
@@ -356,9 +359,7 @@ class LikeableService implements LikeableServiceContract
 
         $likesCount->groupBy('likeable_id', 'type_id');
 
-        $counters = $likesCount->get()->toArray();
-
-        return $counters;
+        return $likesCount->get()->toArray();
     }
 
     /**

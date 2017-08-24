@@ -30,11 +30,14 @@ class LikeableServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application events.
+     *
+     * @return void
      */
     public function boot()
     {
         $this->registerConsoleCommands();
         $this->registerObservers();
+        $this->registerPublishes();
     }
 
     /**
@@ -44,11 +47,13 @@ class LikeableServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->registerContractsBindings();
+        $this->registerContracts();
     }
 
     /**
-     * Package models observers.
+     * Register Likeable's models observers.
+     *
+     * @return void
      */
     protected function registerObservers()
     {
@@ -56,7 +61,9 @@ class LikeableServiceProvider extends ServiceProvider
     }
 
     /**
-     * Boot console commands.
+     * Register Likeable's console commands.
+     *
+     * @return void
      */
     protected function registerConsoleCommands()
     {
@@ -64,20 +71,32 @@ class LikeableServiceProvider extends ServiceProvider
             $this->commands([
                 LikeableRecountCommand::class,
             ]);
-
-            $this->publishes([
-                realpath(__DIR__ . '/../../database/migrations') => database_path('migrations'),
-            ], 'migrations');
         }
     }
 
     /**
-     * Bind entities with contracts.
+     * Register Likeable's classes in the container.
+     *
+     * @return void
      */
-    protected function registerContractsBindings()
+    protected function registerContracts()
     {
         $this->app->bind(LikeContract::class, Like::class);
         $this->app->bind(LikeCounterContract::class, LikeCounter::class);
         $this->app->singleton(LikeableServiceContract::class, LikeableService::class);
+    }
+
+    /**
+     * Setup the resource publishing groups for Likeable.
+     *
+     * @return void
+     */
+    protected function registerPublishes()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__ . '/../../database/migrations' => database_path('migrations'),
+            ], 'migrations');
+        }
     }
 }
