@@ -113,6 +113,14 @@ class LikeableRecountCommand extends Command
         $this->info('All [' . $modelType . '] records likes has been recounted.');
     }
 
+    /**
+     * Normalize likeable model type.
+     *
+     * @param string $modelType
+     * @return string
+     *
+     * @throws \Cog\Likeable\Exceptions\ModelInvalidException
+     */
     protected function normalizeModelType($modelType)
     {
         $morphMap = Relation::morphMap();

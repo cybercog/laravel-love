@@ -33,8 +33,8 @@ class LikeableServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->bootConsoleCommands();
-        $this->bootObservers();
+        $this->registerConsoleCommands();
+        $this->registerObservers();
     }
 
     /**
@@ -50,15 +50,15 @@ class LikeableServiceProvider extends ServiceProvider
     /**
      * Package models observers.
      */
-    protected function bootObservers()
+    protected function registerObservers()
     {
-        $this->app->make(LikeContract::class)->observe(new LikeObserver());
+        $this->app->make(LikeContract::class)->observe(new LikeObserver);
     }
 
     /**
      * Boot console commands.
      */
-    protected function bootConsoleCommands()
+    protected function registerConsoleCommands()
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
