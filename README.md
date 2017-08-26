@@ -1,4 +1,4 @@
-![cog-laravel-likeable-3](https://cloud.githubusercontent.com/assets/1849174/21738599/f29a5428-d498-11e6-98b3-51e6511e2d4c.png)
+![cog-laravel-likeable](https://user-images.githubusercontent.com/1849174/28696355-c4a06a96-733d-11e7-8cc5-af5d60bf5e20.png)
 
 <p align="center">
 <a href="https://travis-ci.org/cybercog/laravel-likeable"><img src="https://img.shields.io/travis/cybercog/laravel-likeable/master.svg?style=flat-square" alt="Build Status"></a>
@@ -75,15 +75,15 @@ $ php artisan migrate
 
 ### Prepare likeable model
 
-Use `HasLikes` contract in model which will get likes behavior and implement it or just use `HasLikes` trait. 
+Use `Likeable` contract in model which will get likes behavior and implement it or just use `Likeable` trait. 
 
 ```php
-use Cog\Likeable\Contracts\HasLikes as HasLikesContract;
-use Cog\Likeable\Traits\HasLikes;
+use Cog\Likeable\Contracts\Likeable as LikeableContract;
+use Cog\Likeable\Traits\Likeable;
 use Illuminate\Database\Eloquent\Model;
 
-class Article extends Model implements HasLikesContract {
-    use HasLikes;
+class Article extends Model implements LikeableContract {
+    use Likeable;
 }
 ```
 
@@ -142,6 +142,12 @@ $article->likes;
 $article->liked; // current user
 $article->liked(); // current user
 $article->liked($user->id);
+```
+
+##### Get collection of users who liked model
+
+```php
+$article->collectLikers();
 ```
 
 ##### Delete all likes for model
@@ -203,6 +209,12 @@ $article->dislikes;
 $article->disliked; // current user
 $article->disliked(); // current user
 $article->disliked($user->id);
+```
+
+##### Get collection of users who disliked model
+
+```php
+$article->collectDislikers();
 ```
 
 ##### Delete all dislikes for model

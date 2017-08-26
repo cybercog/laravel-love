@@ -11,8 +11,8 @@
 
 namespace Cog\Likeable\Tests\Stubs\Models;
 
-use Cog\Likeable\Contracts\HasLikes as HasLikesContract;
-use Cog\Likeable\Traits\HasLikes;
+use Cog\Likeable\Contracts\Likeable as LikeableContract;
+use Cog\Likeable\Traits\Likeable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -20,16 +20,16 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package Cog\Likeable\Tests\Stubs\Models
  */
-class Entity extends Model implements HasLikesContract
+class Entity extends Model implements LikeableContract
 {
-    use HasLikes;
+    use Likeable;
 
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'entity';
+    protected $table = 'entities';
 
     /**
      * The attributes that are mass assignable.

@@ -12,6 +12,7 @@
 namespace Cog\Likeable\Tests;
 
 use Cog\Likeable\Tests\Stubs\Models\EntityWithMorphMap;
+use Cog\Likeable\Tests\Stubs\Models\User;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\File;
 use Mockery;
@@ -25,19 +26,6 @@ use Orchestra\Testbench\TestCase as Orchestra;
 abstract class TestCase extends Orchestra
 {
     /**
-     * Register a callback to be run before the application is destroyed.
-     * TODO: Remove it when will be pushed to Orchestra Testbench package.
-     *
-     * @param  callable  $callback
-     *
-     * @return void
-     */
-    protected function beforeApplicationDestroyed(callable $callback)
-    {
-        array_unshift($this->beforeApplicationDestroyedCallbacks, $callback);
-    }
-
-    /**
      * Actions to be performed on PHPUnit start.
      */
     protected function setUp()
@@ -50,6 +38,7 @@ abstract class TestCase extends Orchestra
         $this->migrateUnitTestTables();
         $this->registerPackageFactories();
         $this->registerTestMorphMaps();
+        $this->registerUserModel();
     }
 
     public function tearDown()
@@ -86,7 +75,7 @@ abstract class TestCase extends Orchestra
      */
     protected function destroyPackageMigrations()
     {
-        File::cleanDirectory('vendor/orchestra/testbench/fixture/database/migrations');
+        File::cleanDirectory('vendor/orchestra/testbench-core/fixture/database/migrations');
     }
 
     /**
@@ -125,5 +114,10 @@ abstract class TestCase extends Orchestra
         Relation::morphMap([
             'entity-with-morph-map' => EntityWithMorphMap::class,
         ]);
+    }
+
+    protected function registerUserModel()
+    {
+        $this->app['config']->set('auth.providers.users.model', User::class);
     }
 }

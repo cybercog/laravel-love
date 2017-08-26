@@ -11,7 +11,7 @@
 
 namespace Cog\Likeable\Console;
 
-use Cog\Likeable\Contracts\HasLikes as HasLikesContract;
+use Cog\Likeable\Contracts\Likeable as LikeableContract;
 use Cog\Likeable\Contracts\Like as LikeContract;
 use Cog\Likeable\Contracts\LikeCounter as LikeCounterContract;
 use Cog\Likeable\Exceptions\ModelInvalidException;
@@ -113,6 +113,14 @@ class LikeableRecountCommand extends Command
         $this->info('All [' . $modelType . '] records likes has been recounted.');
     }
 
+    /**
+     * Normalize likeable model type.
+     *
+     * @param string $modelType
+     * @return string
+     *
+     * @throws \Cog\Likeable\Exceptions\ModelInvalidException
+     */
     protected function normalizeModelType($modelType)
     {
         $morphMap = Relation::morphMap();
@@ -129,8 +137,8 @@ class LikeableRecountCommand extends Command
             $model = new $modelClass;
         }
 
-        if (!$model instanceof HasLikesContract) {
-            throw new ModelInvalidException("[$modelType] not implements HasLikes contract.");
+        if (!$model instanceof LikeableContract) {
+            throw new ModelInvalidException("[$modelType] not implements Likeable contract.");
         }
 
         return $modelType;

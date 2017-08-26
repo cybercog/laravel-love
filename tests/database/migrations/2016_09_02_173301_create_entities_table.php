@@ -14,9 +14,9 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 /**
- * Class CreateEntityTable.
+ * Class CreateEntitiesTable.
  */
-class CreateEntityTable extends Migration
+class CreateEntitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -25,7 +25,7 @@ class CreateEntityTable extends Migration
      */
     public function up()
     {
-        Schema::create('entity', function (Blueprint $table) {
+        Schema::create('entities', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->timestamps();
@@ -39,6 +39,6 @@ class CreateEntityTable extends Migration
      */
     public function down()
     {
-        Schema::drop('entity');
+        Schema::dropIfExists('entities');
     }
 }

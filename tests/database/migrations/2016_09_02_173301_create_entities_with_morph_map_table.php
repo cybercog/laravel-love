@@ -14,9 +14,9 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 /**
- * Class CreateArticleTable.
+ * Class CreateEntitiesWithMorphMapTable.
  */
-class CreateArticleTable extends Migration
+class CreateEntitiesWithMorphMapTable extends Migration
 {
     /**
      * Run the migrations.
@@ -25,7 +25,7 @@ class CreateArticleTable extends Migration
      */
     public function up()
     {
-        Schema::create('article', function (Blueprint $table) {
+        Schema::create('entities_with_morph_map', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->timestamps();
@@ -39,6 +39,6 @@ class CreateArticleTable extends Migration
      */
     public function down()
     {
-        Schema::drop('article');
+        Schema::dropIfExists('entities_with_morph_map');
     }
 }

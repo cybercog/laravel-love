@@ -11,7 +11,7 @@
 
 namespace Cog\Likeable\Events;
 
-use Cog\Likeable\Contracts\HasLikes as HasLikesContract;
+use Cog\Likeable\Contracts\Likeable as LikeableContract;
 
 /**
  * Class ModelWasUndisliked.
@@ -23,7 +23,7 @@ class ModelWasUndisliked
     /**
      * The undisliked model.
      *
-     * @var \Cog\Likeable\Contracts\HasLikes
+     * @var \Cog\Likeable\Contracts\Likeable
      */
     public $model;
 
@@ -37,13 +37,13 @@ class ModelWasUndisliked
     /**
      * Create a new event instance.
      *
-     * @param \Cog\Likeable\Contracts\HasLikes $model
+     * @param \Cog\Likeable\Contracts\Likeable $likeable
      * @param int $likerId
      * @return void
      */
-    public function __construct(HasLikesContract $model, $likerId)
+    public function __construct(LikeableContract $likeable, $likerId)
     {
-        $this->model = $model;
+        $this->model = $likeable;
         $this->likerId = $likerId;
     }
 }

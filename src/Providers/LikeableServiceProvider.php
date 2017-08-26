@@ -30,20 +30,14 @@ class LikeableServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application events.
+     *
+     * @return void
      */
     public function boot()
     {
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                LikeableRecountCommand::class,
-            ]);
-
-            $this->publishes([
-                realpath(__DIR__ . '/../../database/migrations') => database_path('migrations'),
-            ], 'migrations');
-        }
-
-        $this->bootObservers();
+        $this->registerConsoleCommands();
+        $this->registerObservers();
+        $this->registerPublishes();
     }
 
     /**
@@ -53,16 +47,56 @@ class LikeableServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->registerContracts();
+    }
+
+    /**
+     * Register Likeable's models observers.
+     *
+     * @return void
+     */
+    protected function registerObservers()
+    {
+        $this->app->make(LikeContract::class)->observe(new LikeObserver);
+    }
+
+    /**
+     * Register Likeable's console commands.
+     *
+     * @return void
+     */
+    protected function registerConsoleCommands()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                LikeableRecountCommand::class,
+            ]);
+        }
+    }
+
+    /**
+     * Register Likeable's classes in the container.
+     *
+     * @return void
+     */
+    protected function registerContracts()
+    {
         $this->app->bind(LikeContract::class, Like::class);
         $this->app->bind(LikeCounterContract::class, LikeCounter::class);
         $this->app->singleton(LikeableServiceContract::class, LikeableService::class);
     }
 
     /**
-     * Package models observers.
+     * Setup the resource publishing groups for Likeable.
+     *
+     * @return void
      */
-    protected function bootObservers()
+    protected function registerPublishes()
     {
-        $this->app->make(LikeContract::class)->observe(new LikeObserver());
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__ . '/../../database/migrations' => database_path('migrations'),
+            ], 'migrations');
+        }
     }
 }
