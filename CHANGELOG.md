@@ -9,8 +9,8 @@ All notable changes to `laravel-likeable` will be documented in this file.
 - Laravel 5.5 support
 - Laravel Package Auto-Discovery support
 - Eloquent related method `getKey` & `getMorphClass` added to `Cog\Likeable\Contracts\Likeable` contract
-- `getLikers`, `getDislikers` & `scopeOrderByDislikesCount` methods added to `Cog\Likeable\Contracts\Likeable` contract
-- `getLikersOf` & `getDislikersOf` methods to `Cog\Likeable\Contracts\LikeableService` contract
+- `collectLikers`, `collectDislikers` & `scopeOrderByDislikesCount` methods added to `Cog\Likeable\Contracts\Likeable` contract
+- `collectLikersOf` & `collectDislikersOf` methods to `Cog\Likeable\Contracts\LikeableService` contract
 
 ### Changed
 

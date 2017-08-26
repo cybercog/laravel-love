@@ -267,7 +267,7 @@ class LikeableService implements LikeableServiceContract
      * @param \Cog\Likeable\Contracts\Likeable $likeable
      * @return \Illuminate\Support\Collection
      */
-    public function getLikersOf(LikeableContract $likeable)
+    public function collectLikersOf(LikeableContract $likeable)
     {
         $userModel = $this->resolveUserModel();
 
@@ -282,7 +282,7 @@ class LikeableService implements LikeableServiceContract
      * @param \Cog\Likeable\Contracts\Likeable $likeable
      * @return \Illuminate\Support\Collection
      */
-    public function getDislikersOf(LikeableContract $likeable)
+    public function collectDislikersOf(LikeableContract $likeable)
     {
         $userModel = $this->resolveUserModel();
 

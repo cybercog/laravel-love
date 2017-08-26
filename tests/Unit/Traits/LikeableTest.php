@@ -571,7 +571,7 @@ class LikeableTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_likers()
+    public function it_can_collect_likers()
     {
         $entity = factory(Entity::class)->create();
         $user1 = factory(User::class)->create();
@@ -581,14 +581,14 @@ class LikeableTest extends TestCase
         $entity->dislike($user2->id);
         $entity->like($user3->id);
 
-        $likers = $entity->getLikers();
+        $likers = $entity->collectLikers();
 
         $this->assertCount(2, $likers);
         $this->assertEquals([$user1->id, $user3->id], $likers->pluck('id')->toArray());
     }
 
     /** @test */
-    public function it_can_get_dislikers()
+    public function it_can_collect_dislikers()
     {
         $entity = factory(Entity::class)->create();
         $user1 = factory(User::class)->create();
@@ -598,7 +598,7 @@ class LikeableTest extends TestCase
         $entity->like($user2->id);
         $entity->dislike($user3->id);
 
-        $dislikers = $entity->getDislikers();
+        $dislikers = $entity->collectDislikers();
 
         $this->assertCount(2, $dislikers);
         $this->assertEquals([$user1->id, $user3->id], $dislikers->pluck('id')->toArray());

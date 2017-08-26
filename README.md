@@ -147,7 +147,7 @@ $article->liked($user->id);
 ##### Get collection of users who liked model
 
 ```php
-$article->getLikers();
+$article->collectLikers();
 ```
 
 ##### Delete all likes for model
@@ -214,7 +214,7 @@ $article->disliked($user->id);
 ##### Get collection of users who disliked model
 
 ```php
-$article->getDislikers();
+$article->collectDislikers();
 ```
 
 ##### Delete all dislikes for model

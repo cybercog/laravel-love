@@ -123,7 +123,15 @@ interface LikeableService
      * @param \Cog\Likeable\Contracts\Likeable $likeable
      * @return \Illuminate\Support\Collection
      */
-    public function getLikersOf(LikeableContract $likeable);
+    public function collectLikersOf(LikeableContract $likeable);
+
+    /**
+     * Get collection of users who disliked entity.
+     *
+     * @param \Cog\Likeable\Contracts\Likeable $likeable
+     * @return \Illuminate\Support\Collection
+     */
+    public function collectDislikersOf(LikeableContract $likeable);
 
     /**
      * Fetch records that are liked by a given user id.

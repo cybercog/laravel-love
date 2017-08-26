@@ -92,9 +92,9 @@ trait Likeable
      *
      * @return \Illuminate\Support\Collection
      */
-    public function getLikers()
+    public function collectLikers()
     {
-        return app(LikeableServiceContract::class)->getLikersOf($this);
+        return app(LikeableServiceContract::class)->collectLikersOf($this);
     }
 
     /**
@@ -102,9 +102,9 @@ trait Likeable
      *
      * @return \Illuminate\Support\Collection
      */
-    public function getDislikers()
+    public function collectDislikers()
     {
-        return app(LikeableServiceContract::class)->getDislikersOf($this);
+        return app(LikeableServiceContract::class)->collectDislikersOf($this);
     }
 
     /**

@@ -74,14 +74,14 @@ interface Likeable
      *
      * @return \Illuminate\Support\Collection
      */
-    public function getLikers();
+    public function collectLikers();
 
     /**
      * Fetch users who disliked entity.
      *
      * @return \Illuminate\Support\Collection
      */
-    public function getDislikers();
+    public function collectDislikers();
 
     /**
      * Model likesCount attribute.

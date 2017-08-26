@@ -357,7 +357,7 @@ class LikeableServiceTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_likers()
+    public function it_can_collect_likers_of_entity()
     {
         $entity = factory(Entity::class)->create();
         $user1 = factory(User::class)->create();
@@ -366,14 +366,14 @@ class LikeableServiceTest extends TestCase
         $entity->like($user1->id);
         $entity->like($user3->id);
 
-        $likers = app(LikeableServiceContract::class)->getLikersOf($entity);
+        $likers = app(LikeableServiceContract::class)->collectLikersOf($entity);
 
         $this->assertCount(2, $likers);
         $this->assertEquals([$user1->id, $user3->id], $likers->pluck('id')->toArray());
     }
 
     /** @test */
-    public function it_can_get_dislikers()
+    public function it_can_collect_dislikers_of_entity()
     {
         $entity = factory(Entity::class)->create();
         $user1 = factory(User::class)->create();
@@ -383,7 +383,7 @@ class LikeableServiceTest extends TestCase
         $entity->like($user2->id);
         $entity->dislike($user3->id);
 
-        $dislikers = app(LikeableServiceContract::class)->getDislikersOf($entity);
+        $dislikers = app(LikeableServiceContract::class)->collectDislikersOf($entity);
 
         $this->assertCount(2, $dislikers);
         $this->assertEquals([$user1->id, $user3->id], $dislikers->pluck('id')->toArray());
