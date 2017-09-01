@@ -32,7 +32,7 @@ trait Likeable
      */
     public static function bootLikeable()
     {
-        static::observe(new ModelObserver);
+        static::observe(ModelObserver::class);
     }
 
     /**

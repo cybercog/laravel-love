@@ -30,7 +30,7 @@ class LikeableRecountCommandTest extends TestCase
 {
     protected $kernel;
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
