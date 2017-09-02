@@ -25,13 +25,6 @@ use Illuminate\Database\Eloquent\Model;
 class Like extends Model implements LikeContract
 {
     /**
-     * The name of the "updated at" column.
-     *
-     * @var string
-     */
-    const UPDATED_AT = null;
-
-    /**
      * The table associated with the model.
      *
      * @var string
@@ -47,6 +40,19 @@ class Like extends Model implements LikeContract
         'user_id',
         'type_id',
     ];
+
+    /**
+     * Set the value of the "updated at" attribute.
+     *
+     * @todo drop it in 4.0 by adding updated_at column
+     * @deprecated 3.0
+     * @param  mixed  $value
+     * @return $this
+     */
+    public function setUpdatedAt($value)
+    {
+        return $this;
+    }
 
     /**
      * Likeable model relation.
