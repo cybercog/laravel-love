@@ -420,7 +420,7 @@ class LikeableTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_userlikes_relation()
+    public function it_can_get_user_likes_relation()
     {
         $user = factory(User::class)->create();
         $this->actingAs($user);
@@ -434,7 +434,7 @@ class LikeableTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_userdislikes_relation()
+    public function it_can_get_user_dislikes_relation()
     {
         $user = factory(User::class)->create();
         $this->actingAs($user);
@@ -448,7 +448,7 @@ class LikeableTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_userlikesanddislikes_relation()
+    public function it_can_get_user_likes_and_dislikes_relation()
     {
         $user = factory(User::class)->create();
         $this->actingAs($user);
@@ -468,6 +468,47 @@ class LikeableTest extends TestCase
 
         $this->assertEquals($user->id, $entities->skip(1)->first()->userLikesAndDislikes[0]->user_id);
         $this->assertEquals(LikeTYpe::DISLIKE, $entities->skip(1)->first()->userLikesAndDislikes[0]->type_id);
+    }
+
+    /** @test */
+    public function it_can_get_null_user_likes_relation()
+    {
+        $user = factory(User::class)->create();
+        $entity = factory(Entity::class)->create();
+        $entity->like($user->id);
+
+        $assertUserLikes = $entity->userLikes;
+
+        $this->assertCount(0, $assertUserLikes);
+    }
+
+    /** @test */
+    public function it_can_get_null_user_dislikes_relation()
+    {
+        $user = factory(User::class)->create();
+        $entity = factory(Entity::class)->create();
+        $entity->dislike($user->id);
+
+        $assertUserDislikes = $entity->userDislikes;
+
+        $this->assertCount(0, $assertUserDislikes);
+    }
+
+    /** @test */
+    public function it_can_get_null_user_likes_and_dislikes_relation()
+    {
+        $user = factory(User::class)->create();
+
+        $likeEntity = factory(Entity::class)->create();
+        $likeEntity->like($user->id);
+
+        $dislikeEntity = factory(Entity::class)->create();
+        $dislikeEntity->dislike($user->id);
+
+        $entities = Entity::with('userLikesAndDislikes');
+
+        $this->assertCount(0, $entities->first()->userLikesAndDislikes);
+        $this->assertCount(0, $entities->skip(1)->first()->userLikesAndDislikes);
     }
 
     /** @test */
