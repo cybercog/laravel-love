@@ -56,13 +56,19 @@ First, pull in the package through Composer.
 $ composer require cybercog/laravel-likeable
 ```
 
-And then include the service provider within `app/config/app.php`.
+**If you are using Laravel 5.5 you can skip register package part.** 
+
+#### Register package on Laravel 5.4 and lower
+
+Include the service provider within `app/config/app.php`.
 
 ```php
 'providers' => [
     Cog\Likeable\Providers\LikeableServiceProvider::class,
 ],
 ```
+
+#### Perform Database Migration
 
 At last you need to publish and run database migrations.
 
@@ -82,7 +88,8 @@ use Cog\Likeable\Contracts\Likeable as LikeableContract;
 use Cog\Likeable\Traits\Likeable;
 use Illuminate\Database\Eloquent\Model;
 
-class Article extends Model implements LikeableContract {
+class Article extends Model implements LikeableContract
+{
     use Likeable;
 }
 ```
