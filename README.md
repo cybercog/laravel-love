@@ -26,7 +26,7 @@ Laravel Likeable simplify management of Eloquent model's likes & dislikes. Make 
 - [Contributing](#contributing)
 - [Testing](#testing)
 - [Security](#security)
-- [Credits](#credits)
+- [Contributors](#contributors)
 - [Alternatives](#alternatives)
 - [License](#license)
 - [About CyberCog](#about-cybercog)
@@ -417,11 +417,10 @@ $ vendor/bin/phpunit
 
 If you discover any security related issues, please email open@cybercog.su instead of using the issue tracker.
 
-## Credits
+## Contributors
 
-|  | @mention |
-|---|---|
-| ![@a-komarev](https://avatars2.githubusercontent.com/u/1849174?s=64) | [@a-komarev](https://github.com/a-komarev) |
+| <a href="https://github.com/a-komarev">![@a-komarev](https://avatars.githubusercontent.com/u/1849174?s=110)<br />Anton Komarev</a> | <a href="https://github.com/acidjazz">![@acidjazz](https://avatars.githubusercontent.com/u/967369?s=110)<br />Kevin Olson</a> |  
+| :---: | :---: |
 
 [Laravel Likeable contributors list](../../contributors)
 
