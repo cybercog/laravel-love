@@ -88,6 +88,44 @@ trait Likeable
     }
 
     /**
+     * Collection of likes on this record by the logged in user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function userLikes()
+    {
+        return $this->likesAndDislikes()->where([
+            'type_id' => LikeType::LIKE,
+            'user_id' => auth()->id(),
+        ]);
+    }
+
+    /**
+     * Collection of dislikes on this record by the logged in user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function userDislikes()
+    {
+        return $this->likesAndDislikes()->where([
+            'type_id' => LikeType::DISLIKE,
+            'user_id' => auth()->id(),
+        ]);
+    }
+
+    /**
+     * Collection of likes and dislikes on this record by the logged in user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function userLikesAndDislikes()
+    {
+        return $this->likesAndDislikes()->where([
+            'user_id' => auth()->id(),
+        ]);
+    }
+
+    /**
      * Fetch users who liked entity.
      *
      * @return \Illuminate\Support\Collection

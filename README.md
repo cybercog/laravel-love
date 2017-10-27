@@ -243,6 +243,21 @@ $article->likesAndDislikes();
 $article->likesAndDislikes;
 ```
 
+#### Logged in User iterable Likes and Dislikes
+
+##### Iterate through likes of the current logged in user
+```php
+$article->userLikes;
+```
+##### Iterate through dislikes of the current logged in user
+```php
+$article->userDislikes;
+```
+##### Iterate through likes and dislikes of the current logged in user
+```php
+$article->userLikesAndDislikes;
+```
+
 ### Scopes
 
 ##### Find all articles liked by user
