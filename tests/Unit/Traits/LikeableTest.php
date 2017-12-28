@@ -467,7 +467,7 @@ class LikeableTest extends TestCase
         $entities = Entity::with('userLikesAndDislikes');
 
         $this->assertEquals($user->id, $entities->skip(1)->first()->userLikesAndDislikes[0]->user_id);
-        $this->assertEquals(LikeTYpe::DISLIKE, $entities->skip(1)->first()->userLikesAndDislikes[0]->type_id);
+        $this->assertEquals(LikeType::DISLIKE, $entities->skip(1)->first()->userLikesAndDislikes[0]->type_id);
     }
 
     /** @test */
