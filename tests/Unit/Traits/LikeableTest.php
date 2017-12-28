@@ -14,9 +14,9 @@ namespace Cog\Likeable\Tests\Unit;
 use Cog\Likeable\Contracts\Like as LikeContract;
 use Cog\Likeable\Tests\Stubs\Models\Entity;
 use Cog\Likeable\Tests\Stubs\Models\User;
-use Cog\Likeable\Enums\LikeType;
 use Cog\Likeable\Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class LikeableTest.
@@ -420,95 +420,153 @@ class LikeableTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_user_likes_relation()
+    public function it_uses_eager_loaded_likes_relation_on_liked_check()
     {
         $user = factory(User::class)->create();
         $this->actingAs($user);
+        $entity1 = factory(Entity::class)->create();
+        $entity2 = factory(Entity::class)->create();
+        $entity3 = factory(Entity::class)->create();
+        $entity1->like($user->id);
+        $entity3->like($user->id);
 
-        $entity = factory(Entity::class)->create();
-        $entity->like($user->id);
+        DB::enableQueryLog();
+        $entities = Entity::with('likes')->get();
+        $entitiesIsLiked = [];
+        foreach ($entities as $entity) {
+            $entitiesIsLiked[] = $entity->liked();
+        }
+        $queryLog = DB::getQueryLog();
 
-        $this->assertInstanceOf(LikeContract::class, $entity->userLikes->first());
-        $this->assertCount(1, $entity->userLikes);
-        $this->assertEquals($user->id, $entity->userLikes->first()->user_id);
+        $this->assertCount(2, $queryLog);
+        $this->assertTrue($entitiesIsLiked[0]);
+        $this->assertFalse($entitiesIsLiked[1]);
+        $this->assertTrue($entitiesIsLiked[2]);
     }
 
     /** @test */
-    public function it_can_get_user_dislikes_relation()
+    public function it_uses_eager_loaded_likes_and_dislikes_relation_on_liked_check()
     {
         $user = factory(User::class)->create();
         $this->actingAs($user);
+        $entity1 = factory(Entity::class)->create();
+        $entity2 = factory(Entity::class)->create();
+        $entity3 = factory(Entity::class)->create();
+        $entity1->like($user->id);
+        $entity3->like($user->id);
 
-        $entity = factory(Entity::class)->create();
-        $entity->dislike($user->id);
+        DB::enableQueryLog();
+        $entities = Entity::with('likesAndDislikes')->get();
+        $entitiesIsLiked = [];
+        foreach ($entities as $entity) {
+            $entitiesIsLiked[] = $entity->liked();
+        }
+        $queryLog = DB::getQueryLog();
 
-        $this->assertInstanceOf(LikeContract::class, $entity->userDislikes->first());
-        $this->assertCount(1, $entity->userDislikes);
-        $this->assertEquals($user->id, $entity->userDislikes->first()->user_id);
+        $this->assertCount(2, $queryLog);
+        $this->assertTrue($entitiesIsLiked[0]);
+        $this->assertFalse($entitiesIsLiked[1]);
+        $this->assertTrue($entitiesIsLiked[2]);
     }
 
     /** @test */
-    public function it_can_get_user_likes_and_dislikes_relation()
+    public function it_does_not_use_eager_loaded_dislikes_relation_on_liked_check()
     {
         $user = factory(User::class)->create();
         $this->actingAs($user);
+        $entity1 = factory(Entity::class)->create();
+        $entity2 = factory(Entity::class)->create();
+        $entity3 = factory(Entity::class)->create();
+        $entity1->like($user->id);
+        $entity3->like($user->id);
 
-        $likeEntity = factory(Entity::class)->create();
-        $likeEntity->like($user->id);
+        DB::enableQueryLog();
+        $entities = Entity::with('dislikes')->get();
+        $entitiesIsLiked = [];
+        foreach ($entities as $entity) {
+            $entitiesIsLiked[] = $entity->liked();
+        }
+        $queryLog = DB::getQueryLog();
 
-        $dislikeEntity = factory(Entity::class)->create();
-        $dislikeEntity->dislike($user->id);
-
-        $entities = Entity::with('userLikesAndDislikes');
-
-        $this->assertEquals($user->id, $entities->first()->userLikesAndDislikes[0]->user_id);
-        $this->assertEquals(LikeType::LIKE, $entities->first()->userLikesAndDislikes[0]->type_id);
-
-        $entities = Entity::with('userLikesAndDislikes');
-
-        $this->assertEquals($user->id, $entities->skip(1)->first()->userLikesAndDislikes[0]->user_id);
-        $this->assertEquals(LikeType::DISLIKE, $entities->skip(1)->first()->userLikesAndDislikes[0]->type_id);
+        $this->assertCount(5, $queryLog);
+        $this->assertTrue($entitiesIsLiked[0]);
+        $this->assertFalse($entitiesIsLiked[1]);
+        $this->assertTrue($entitiesIsLiked[2]);
     }
 
     /** @test */
-    public function it_can_get_null_user_likes_relation()
+    public function it_uses_eager_loaded_dislikes_relation_on_disliked_check()
     {
         $user = factory(User::class)->create();
-        $entity = factory(Entity::class)->create();
-        $entity->like($user->id);
+        $this->actingAs($user);
+        $entity1 = factory(Entity::class)->create();
+        $entity2 = factory(Entity::class)->create();
+        $entity3 = factory(Entity::class)->create();
+        $entity1->dislike($user->id);
+        $entity3->dislike($user->id);
 
-        $assertUserLikes = $entity->userLikes;
+        DB::enableQueryLog();
+        $entities = Entity::with('dislikes')->get();
+        $entitiesIsDisliked = [];
+        foreach ($entities as $entity) {
+            $entitiesIsDisliked[] = $entity->disliked();
+        }
+        $queryLog = DB::getQueryLog();
 
-        $this->assertCount(0, $assertUserLikes);
+        $this->assertCount(2, $queryLog);
+        $this->assertTrue($entitiesIsDisliked[0]);
+        $this->assertFalse($entitiesIsDisliked[1]);
+        $this->assertTrue($entitiesIsDisliked[2]);
     }
 
     /** @test */
-    public function it_can_get_null_user_dislikes_relation()
+    public function it_uses_eager_loaded_likes_and_dislikes_relation_on_disliked_check()
     {
         $user = factory(User::class)->create();
-        $entity = factory(Entity::class)->create();
-        $entity->dislike($user->id);
+        $this->actingAs($user);
+        $entity1 = factory(Entity::class)->create();
+        $entity2 = factory(Entity::class)->create();
+        $entity3 = factory(Entity::class)->create();
+        $entity1->dislike($user->id);
+        $entity3->dislike($user->id);
 
-        $assertUserDislikes = $entity->userDislikes;
+        DB::enableQueryLog();
+        $entities = Entity::with('likesAndDislikes')->get();
+        $entitiesIsDisliked = [];
+        foreach ($entities as $entity) {
+            $entitiesIsDisliked[] = $entity->disliked();
+        }
+        $queryLog = DB::getQueryLog();
 
-        $this->assertCount(0, $assertUserDislikes);
+        $this->assertCount(2, $queryLog);
+        $this->assertTrue($entitiesIsDisliked[0]);
+        $this->assertFalse($entitiesIsDisliked[1]);
+        $this->assertTrue($entitiesIsDisliked[2]);
     }
 
     /** @test */
-    public function it_can_get_null_user_likes_and_dislikes_relation()
+    public function it_does_not_use_eager_loaded_likes_relation_on_disliked_check()
     {
         $user = factory(User::class)->create();
+        $this->actingAs($user);
+        $entity1 = factory(Entity::class)->create();
+        $entity2 = factory(Entity::class)->create();
+        $entity3 = factory(Entity::class)->create();
+        $entity1->dislike($user->id);
+        $entity3->dislike($user->id);
 
-        $likeEntity = factory(Entity::class)->create();
-        $likeEntity->like($user->id);
+        DB::enableQueryLog();
+        $entities = Entity::with('likes')->get();
+        $entitiesIsDisliked = [];
+        foreach ($entities as $entity) {
+            $entitiesIsDisliked[] = $entity->disliked();
+        }
+        $queryLog = DB::getQueryLog();
 
-        $dislikeEntity = factory(Entity::class)->create();
-        $dislikeEntity->dislike($user->id);
-
-        $entities = Entity::with('userLikesAndDislikes');
-
-        $this->assertCount(0, $entities->first()->userLikesAndDislikes);
-        $this->assertCount(0, $entities->skip(1)->first()->userLikesAndDislikes);
+        $this->assertCount(5, $queryLog);
+        $this->assertTrue($entitiesIsDisliked[0]);
+        $this->assertFalse($entitiesIsDisliked[1]);
+        $this->assertTrue($entitiesIsDisliked[2]);
     }
 
     /** @test */

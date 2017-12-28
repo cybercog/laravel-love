@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-likeable` will be documented in this file.
 
+## [3.1.0] - 2017-12-28
+
+### Changed
+
+- Checks if model liked by user will try to search in eager loaded relations first
+
 ## [3.0.0] - 2017-08-24
 
 ### Added
@@ -95,6 +101,8 @@ All notable changes to `laravel-likeable` will be documented in this file.
 
 - Initial release
 
+[3.1.0]: https://github.com/cybercog/laravel-likeable/compare/3.0.0...3.1.0
+[3.0.0]: https://github.com/cybercog/laravel-likeable/compare/2.2.5...3.0.0
 [2.2.5]: https://github.com/cybercog/laravel-likeable/compare/2.2.4...2.2.5
 [2.2.4]: https://github.com/cybercog/laravel-likeable/compare/2.2.3...2.2.4
 [2.2.3]: https://github.com/cybercog/laravel-likeable/compare/2.2.2...2.2.3

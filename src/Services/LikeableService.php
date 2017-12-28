@@ -38,6 +38,7 @@ class LikeableService implements LikeableServiceContract
      * @return void
      *
      * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
+     * @throws \Cog\Likeable\Exceptions\LikeTypeInvalidException
      */
     public function addLikeTo(LikeableContract $likeable, $type, $userId)
     {
@@ -77,6 +78,7 @@ class LikeableService implements LikeableServiceContract
      * @return void
      *
      * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
+     * @throws \Cog\Likeable\Exceptions\LikeTypeInvalidException
      */
     public function removeLikeFrom(LikeableContract $likeable, $type, $userId)
     {
@@ -101,6 +103,7 @@ class LikeableService implements LikeableServiceContract
      * @return void
      *
      * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
+     * @throws \Cog\Likeable\Exceptions\LikeTypeInvalidException
      */
     public function toggleLikeOf(LikeableContract $likeable, $type, $userId)
     {
@@ -125,6 +128,8 @@ class LikeableService implements LikeableServiceContract
      * @param string $type
      * @param int|null $userId
      * @return bool
+     *
+     * @throws \Cog\Likeable\Exceptions\LikeTypeInvalidException
      */
     public function isLiked(LikeableContract $likeable, $type, $userId)
     {
@@ -136,9 +141,16 @@ class LikeableService implements LikeableServiceContract
             return false;
         }
 
+        $typeId = $this->getLikeTypeId($type);
+
+        $exists = $this->hasLikeOrDislikeInLoadedRelation($likeable, $typeId, $userId);
+        if (!is_null($exists)) {
+            return $exists;
+        }
+
         return $likeable->likesAndDislikes()->where([
             'user_id' => $userId,
-            'type_id' => $this->getLikeTypeId($type),
+            'type_id' => $typeId,
         ])->exists();
     }
 
@@ -222,6 +234,8 @@ class LikeableService implements LikeableServiceContract
      * @param string $likeableType
      * @param string|null $type
      * @return void
+     *
+     * @throws \Cog\Likeable\Exceptions\LikeTypeInvalidException
      */
     public function removeLikeCountersOfType($likeableType, $type = null)
     {
@@ -245,6 +259,8 @@ class LikeableService implements LikeableServiceContract
      * @param \Cog\Likeable\Contracts\Likeable $likeable
      * @param string $type
      * @return void
+     *
+     * @throws \Cog\Likeable\Exceptions\LikeTypeInvalidException
      */
     public function removeModelLikes(LikeableContract $likeable, $type)
     {
@@ -340,6 +356,8 @@ class LikeableService implements LikeableServiceContract
      * @param string $likeableType
      * @param string $likeType
      * @return array
+     *
+     * @throws \Cog\Likeable\Exceptions\LikeTypeInvalidException
      */
     public function fetchLikesCounters($likeableType, $likeType)
     {
@@ -420,5 +438,58 @@ class LikeableService implements LikeableServiceContract
     private function resolveUserModel()
     {
         return config('auth.providers.users.model');
+    }
+
+    /**
+     * @param \Cog\Likeable\Contracts\Likeable $likeable
+     * @param string $typeId
+     * @param int $userId
+     * @return bool|null
+     *
+     * @throws \Cog\Likeable\Exceptions\LikeTypeInvalidException
+     */
+    private function hasLikeOrDislikeInLoadedRelation(LikeableContract $likeable, $typeId, $userId)
+    {
+        $relations = $this->likeTypeRelations($typeId);
+
+        foreach ($relations as $relation) {
+            if (!$likeable->relationLoaded($relation)) {
+                continue;
+            }
+
+            return $likeable->{$relation}->contains(function ($item) use ($userId, $typeId) {
+                return $item->user_id == $userId && $item->type_id === $typeId;
+            });
+        }
+
+        return null;
+    }
+
+    /**
+     * Resolve list of likeable relations by like type.
+     *
+     * @param string $type
+     * @return array
+     *
+     * @throws \Cog\Likeable\Exceptions\LikeTypeInvalidException
+     */
+    private function likeTypeRelations($type)
+    {
+        $relations = [
+            LikeType::LIKE => [
+                'likes',
+                'likesAndDislikes',
+            ],
+            LikeType::DISLIKE => [
+                'dislikes',
+                'likesAndDislikes',
+            ],
+        ];
+
+        if (!isset($relations[$type])) {
+            throw new LikeTypeInvalidException("Like type `{$type}` not supported");
+        }
+
+        return $relations[$type];
     }
 }

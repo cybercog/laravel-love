@@ -151,6 +151,8 @@ $article->liked(); // current user
 $article->liked($user->id);
 ```
 
+*Checks in eager loaded relations `likes` & `likesAndDislikes` first.*
+
 ##### Get collection of users who liked model
 
 ```php
@@ -218,6 +220,8 @@ $article->disliked(); // current user
 $article->disliked($user->id);
 ```
 
+*Checks in eager loaded relations `dislikes` & `likesAndDislikes` first.*
+
 ##### Get collection of users who disliked model
 
 ```php
@@ -248,21 +252,6 @@ $article->likesAndDislikes();
 
 ```php
 $article->likesAndDislikes;
-```
-
-#### Logged in User iterable Likes and Dislikes
-
-##### Iterate through likes of the current logged in user
-```php
-$article->userLikes;
-```
-##### Iterate through dislikes of the current logged in user
-```php
-$article->userDislikes;
-```
-##### Iterate through likes and dislikes of the current logged in user
-```php
-$article->userLikesAndDislikes;
 ```
 
 ### Scopes
