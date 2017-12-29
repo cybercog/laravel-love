@@ -14,9 +14,9 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 /**
- * Class CreateLikeCounterTable.
+ * Class CreateLikeCountersTable.
  */
-class CreateLikeCounterTable extends Migration
+class CreateLikeCountersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -25,7 +25,7 @@ class CreateLikeCounterTable extends Migration
      */
     public function up()
     {
-        Schema::create('like_counter', function (Blueprint $table) {
+        Schema::create('like_counters', function (Blueprint $table) {
             $table->increments('id');
             $table->morphs('likeable');
             $table->enum('type_id', [
@@ -49,6 +49,6 @@ class CreateLikeCounterTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('like_counter');
+        Schema::dropIfExists('like_counters');
     }
 }

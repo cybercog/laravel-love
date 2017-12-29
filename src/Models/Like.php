@@ -29,7 +29,7 @@ class Like extends Model implements LikeContract
      *
      * @var string
      */
-    protected $table = 'like';
+    protected $table = 'likes';
 
     /**
      * The attributes that are mass assignable.

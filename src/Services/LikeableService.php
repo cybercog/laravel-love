@@ -340,14 +340,14 @@ class LikeableService implements LikeableServiceContract
         $likeable = $query->getModel();
 
         return $query
-            ->select($likeable->getTable() . '.*', 'like_counter.count')
-            ->leftJoin('like_counter', function (JoinClause $join) use ($likeable, $likeType) {
+            ->select($likeable->getTable() . '.*', 'like_counters.count')
+            ->leftJoin('like_counters', function (JoinClause $join) use ($likeable, $likeType) {
                 $join
-                    ->on('like_counter.likeable_id', '=', "{$likeable->getTable()}.{$likeable->getKeyName()}")
-                    ->where('like_counter.likeable_type', '=', $likeable->getMorphClass())
-                    ->where('like_counter.type_id', '=', $this->getLikeTypeId($likeType));
+                    ->on('like_counters.likeable_id', '=', "{$likeable->getTable()}.{$likeable->getKeyName()}")
+                    ->where('like_counters.likeable_type', '=', $likeable->getMorphClass())
+                    ->where('like_counters.type_id', '=', $this->getLikeTypeId($likeType));
             })
-            ->orderBy('like_counter.count', $direction);
+            ->orderBy('like_counters.count', $direction);
     }
 
     /**
