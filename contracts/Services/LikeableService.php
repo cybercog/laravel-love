@@ -1,0 +1,154 @@
+<?php
+
+/*
+ * This file is part of Laravel Likeable.
+ *
+ * (c) Anton Komarev <a.komarev@cybercog.su>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Cog\Contracts\Likeable\Services;
+
+use Cog\Contracts\Likeable\Likeable\Models\Likeable as LikeableContract;
+
+/**
+ * Interface LikeableService.
+ *
+ * @package Cog\Contracts\Likeable\Services
+ */
+interface LikeableService
+{
+    /**
+     * Add a like to likeable model by user.
+     *
+     * @param \Cog\Contracts\Likeable\Likeable\Models\Likeable $likeable
+     * @param string $type
+     * @param string $userId
+     * @return void
+     *
+     * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
+     * @throws \Cog\Laravel\Likeable\Exceptions\LikeTypeInvalidException
+     */
+    public function addLikeTo(LikeableContract $likeable, $type, $userId);
+
+    /**
+     * Remove a like to likeable model by user.
+     *
+     * @param \Cog\Contracts\Likeable\Likeable\Models\Likeable $likeable
+     * @param string $type
+     * @param int|null $userId
+     * @return void
+     *
+     * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
+     * @throws \Cog\Laravel\Likeable\Exceptions\LikeTypeInvalidException
+     */
+    public function removeLikeFrom(LikeableContract $likeable, $type, $userId);
+
+    /**
+     * Toggle like for model by the given user.
+     *
+     * @param \Cog\Contracts\Likeable\Likeable\Models\Likeable $likeable
+     * @param string $type
+     * @param string $userId
+     * @return void
+     *
+     * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
+     * @throws \Cog\Laravel\Likeable\Exceptions\LikeTypeInvalidException
+     */
+    public function toggleLikeOf(LikeableContract $likeable, $type, $userId);
+
+    /**
+     * Has the user already liked likeable model.
+     *
+     * @param \Cog\Contracts\Likeable\Likeable\Models\Likeable $likeable
+     * @param string $type
+     * @param int|null $userId
+     * @return bool
+     *
+     * @throws \Cog\Laravel\Likeable\Exceptions\LikeTypeInvalidException
+     */
+    public function isLiked(LikeableContract $likeable, $type, $userId);
+
+    /**
+     * Decrement the total like count stored in the counter.
+     *
+     * @param \Cog\Contracts\Likeable\Likeable\Models\Likeable $likeable
+     * @return void
+     */
+    public function decrementLikesCount(LikeableContract $likeable);
+
+    /**
+     * Increment the total like count stored in the counter.
+     *
+     * @param \Cog\Contracts\Likeable\Likeable\Models\Likeable $likeable
+     * @return void
+     */
+    public function incrementLikesCount(LikeableContract $likeable);
+
+    /**
+     * Decrement the total dislike count stored in the counter.
+     *
+     * @param \Cog\Contracts\Likeable\Likeable\Models\Likeable $likeable
+     * @return void
+     */
+    public function decrementDislikesCount(LikeableContract $likeable);
+
+    /**
+     * Increment the total dislike count stored in the counter.
+     *
+     * @param \Cog\Contracts\Likeable\Likeable\Models\Likeable $likeable
+     * @return void
+     */
+    public function incrementDislikesCount(LikeableContract $likeable);
+
+    /**
+     * Remove like counters by likeable type.
+     *
+     * @param string $likeableType
+     * @param string|null $type
+     * @return void
+     *
+     * @throws \Cog\Laravel\Likeable\Exceptions\LikeTypeInvalidException
+     */
+    public function removeLikeCountersOfType($likeableType, $type = null);
+
+    /**
+     * Remove all likes from likeable model.
+     *
+     * @param \Cog\Contracts\Likeable\Likeable\Models\Likeable $likeable
+     * @param string $type
+     * @return void
+     *
+     * @throws \Cog\Laravel\Likeable\Exceptions\LikeTypeInvalidException
+     */
+    public function removeModelLikes(LikeableContract $likeable, $type);
+
+    /**
+     * Get collection of users who liked entity.
+     *
+     * @param \Cog\Contracts\Likeable\Likeable\Models\Likeable $likeable
+     * @return \Illuminate\Support\Collection
+     */
+    public function collectLikersOf(LikeableContract $likeable);
+
+    /**
+     * Get collection of users who disliked entity.
+     *
+     * @param \Cog\Contracts\Likeable\Likeable\Models\Likeable $likeable
+     * @return \Illuminate\Support\Collection
+     */
+    public function collectDislikersOf(LikeableContract $likeable);
+
+    /**
+     * Fetch likes counters data.
+     *
+     * @param string $likeableType
+     * @param string $likeType
+     * @return array
+     *
+     * @throws \Cog\Laravel\Likeable\Exceptions\LikeTypeInvalidException
+     */
+    public function fetchLikesCounters($likeableType, $likeType);
+}

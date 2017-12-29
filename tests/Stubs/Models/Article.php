@@ -11,8 +11,8 @@
 
 namespace Cog\Tests\Laravel\Likeable\Stubs\Models;
 
-use Cog\Contracts\Likeable\Likeable as LikeableContract;
-use Cog\Laravel\Likeable\Traits\Likeable;
+use Cog\Contracts\Likeable\Likeable\Models\Likeable as LikeableContract;
+use Cog\Laravel\Likeable\Likeable\Models\Traits\Likeable;
 use Illuminate\Database\Eloquent\Model;
 
 /**

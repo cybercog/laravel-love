@@ -12,12 +12,12 @@
 namespace Cog\Laravel\Likeable\Providers;
 
 use Cog\Laravel\Likeable\Console\LikeableRecountCommand;
-use Cog\Contracts\Likeable\Like as LikeContract;
-use Cog\Contracts\Likeable\LikeableService as LikeableServiceContract;
-use Cog\Contracts\Likeable\LikeCounter as LikeCounterContract;
-use Cog\Laravel\Likeable\Models\Like;
-use Cog\Laravel\Likeable\Models\LikeCounter;
-use Cog\Laravel\Likeable\Observers\LikeObserver;
+use Cog\Contracts\Likeable\Like\Models\Like as LikeContract;
+use Cog\Contracts\Likeable\Services\LikeableService as LikeableServiceContract;
+use Cog\Contracts\Likeable\LikeCounter\Models\LikeCounter as LikeCounterContract;
+use Cog\Laravel\Likeable\Like\Models\Like;
+use Cog\Laravel\Likeable\LikeCounter\Models\LikeCounter;
+use Cog\Laravel\Likeable\Like\Observers\LikeObserver;
 use Cog\Laravel\Likeable\Services\LikeableService;
 use Illuminate\Support\ServiceProvider;
 

@@ -11,7 +11,7 @@
 
 namespace Cog\Tests\Laravel\Likeable\Unit\Observers;
 
-use Cog\Laravel\Likeable\Models\LikeCounter;
+use Cog\Laravel\Likeable\LikeCounter\Models\LikeCounter;
 use Cog\Tests\Laravel\Likeable\Stubs\Models\Article;
 use Cog\Tests\Laravel\Likeable\Stubs\Models\Entity;
 use Cog\Tests\Laravel\Likeable\Stubs\Models\EntityWithMorphMap;
