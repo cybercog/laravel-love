@@ -69,7 +69,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Cog\\Likeable\\Providers\\LikeableServiceProvider"
+                "Cog\\Laravel\\Likeable\\Providers\\LikeableServiceProvider"
             ]
         }
     },

@@ -21,7 +21,7 @@ use Orchestra\Testbench\TestCase as Orchestra;
 /**
  * Class TestCase.
  *
- * @package Cog\Laravel\Likeable\Tests
+ * @package Cog\Tests\Laravel\Likeable
  */
 abstract class TestCase extends Orchestra
 {
