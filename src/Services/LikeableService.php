@@ -441,6 +441,8 @@ class LikeableService implements LikeableServiceContract
     }
 
     /**
+     * Search in eager loaded relations if model was liked/disliked by user.
+     *
      * @param \Cog\Likeable\Contracts\Likeable $likeable
      * @param string $typeId
      * @param int $userId
