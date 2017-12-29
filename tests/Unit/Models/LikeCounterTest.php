@@ -12,6 +12,7 @@
 namespace Cog\Tests\Laravel\Likeable\Unit\Models;
 
 use Cog\Laravel\Likeable\Models\LikeCounter;
+use Cog\Tests\Laravel\Likeable\Stubs\Models\Entity;
 use Cog\Tests\Laravel\Likeable\TestCase;
 
 /**
@@ -49,5 +50,15 @@ class LikeCounterTest extends TestCase
         ]);
 
         $this->assertTrue(is_int($like->count));
+    }
+
+    /** @test */
+    public function it_can_belong_to_likeable_model()
+    {
+        $entity = factory(Entity::class)->create();
+
+        $entity->like(1);
+
+        $this->assertInstanceOf(Entity::class, LikeCounter::first()->likeable);
     }
 }
