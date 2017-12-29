@@ -658,6 +658,31 @@ class LikeableTest extends TestCase
     }
 
     /** @test */
+    public function it_can_get_entities_without_likes_while_sort_them_by_likes_count()
+    {
+        $entityA = factory(Entity::class)->create();
+        $entityB = factory(Entity::class)->create();
+        $entityC = factory(Entity::class)->create();
+        $entityD = factory(Entity::class)->create();
+        for ($i = 0; $i < 3; $i++) {
+            $entityA->like(mt_rand(1, 9999999));
+        }
+        for ($i = 0; $i < 10; $i++) {
+            $entityD->like(mt_rand(1, 9999999));
+            $entityD->dislike(mt_rand(1, 9999999));
+        }
+
+        $sortedEntities = Entity::orderByLikesCount('desc')->get();
+
+        $this->assertSame([
+            $entityD->getKey() => '10',
+            $entityA->getKey() => '3',
+            $entityB->getKey() => null,
+            $entityC->getKey() => null,
+        ], $sortedEntities->pluck('count', 'id')->toArray());
+    }
+
+    /** @test */
     public function it_can_sort_entities_desc_by_dislikes_count()
     {
         $entityA = factory(Entity::class)->create();
@@ -718,6 +743,31 @@ class LikeableTest extends TestCase
             $entityA->getKey() => '3',
             $entityC->getKey() => '5',
             $entityD->getKey() => '10',
+        ], $sortedEntities->pluck('count', 'id')->toArray());
+    }
+
+    /** @test */
+    public function it_can_get_entities_without_likes_while_sort_them_by_dislikes_count()
+    {
+        $entityA = factory(Entity::class)->create();
+        $entityB = factory(Entity::class)->create();
+        $entityC = factory(Entity::class)->create();
+        $entityD = factory(Entity::class)->create();
+        for ($i = 0; $i < 3; $i++) {
+            $entityA->dislike(mt_rand(1, 9999999));
+        }
+        for ($i = 0; $i < 10; $i++) {
+            $entityD->like(mt_rand(1, 9999999));
+            $entityD->dislike(mt_rand(1, 9999999));
+        }
+
+        $sortedEntities = Entity::orderByDislikesCount('desc')->get();
+
+        $this->assertSame([
+            $entityD->getKey() => '10',
+            $entityA->getKey() => '3',
+            $entityB->getKey() => null,
+            $entityC->getKey() => null,
         ], $sortedEntities->pluck('count', 'id')->toArray());
     }
 

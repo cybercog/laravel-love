@@ -17,6 +17,7 @@ use Cog\Contracts\Likeable\LikeCounter as LikeCounterContract;
 use Cog\Laravel\Likeable\Enums\LikeType;
 use Cog\Laravel\Likeable\Observers\LikeableObserver;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\JoinClause;
 
 /**
  * Trait Likeable.
@@ -168,8 +169,7 @@ trait Likeable
      */
     public function scopeWhereLikedBy(Builder $query, $userId = null)
     {
-        return app(LikeableServiceContract::class)
-            ->scopeWhereLikedBy($query, LikeType::LIKE, $userId);
+        return $this->applyScopeWhereLikedBy($query, LikeType::LIKE, $userId);
     }
 
     /**
@@ -183,8 +183,7 @@ trait Likeable
      */
     public function scopeWhereDislikedBy(Builder $query, $userId = null)
     {
-        return app(LikeableServiceContract::class)
-            ->scopeWhereLikedBy($query, LikeType::DISLIKE, $userId);
+        return $this->applyScopeWhereLikedBy($query, LikeType::DISLIKE, $userId);
     }
 
     /**
@@ -196,8 +195,7 @@ trait Likeable
      */
     public function scopeOrderByLikesCount(Builder $query, $direction = 'desc')
     {
-        return app(LikeableServiceContract::class)
-            ->scopeOrderByLikesCount($query, LikeType::LIKE, $direction);
+        return $this->applyScopeOrderByLikesCount($query, LikeType::LIKE, $direction);
     }
 
     /**
@@ -209,8 +207,7 @@ trait Likeable
      */
     public function scopeOrderByDislikesCount(Builder $query, $direction = 'desc')
     {
-        return app(LikeableServiceContract::class)
-            ->scopeOrderByLikesCount($query, LikeType::DISLIKE, $direction);
+        return $this->applyScopeOrderByLikesCount($query, LikeType::DISLIKE, $direction);
     }
 
     /**
@@ -331,5 +328,53 @@ trait Likeable
     public function removeDislikes()
     {
         app(LikeableServiceContract::class)->removeModelLikes($this, LikeType::DISLIKE);
+    }
+
+    /**
+     * Fetch records that are liked by a given user id.
+     *
+     * @todo think about method name
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $type
+     * @param int|null $userId
+     * @return \Illuminate\Database\Eloquent\Builder
+     *
+     * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
+     */
+    private function applyScopeWhereLikedBy(Builder $query, $type, $userId)
+    {
+        $service = app(LikeableServiceContract::class);
+        $userId = $service->getLikerUserId($userId);
+        $typeId = $service->getLikeTypeId($type);
+
+        return $query->whereHas('likesAndDislikes', function (Builder $innerQuery) use ($typeId, $userId) {
+            $innerQuery->where('user_id', $userId);
+            $innerQuery->where('type_id', $typeId);
+        });
+    }
+
+    /**
+     * Fetch records sorted by likes count.
+     *
+     * @todo think about method name
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $likeType
+     * @param string $direction
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    private function applyScopeOrderByLikesCount(Builder $query, $likeType, $direction)
+    {
+        $likeable = $query->getModel();
+        $typeId = app(LikeableServiceContract::class)->getLikeTypeId($likeType);
+
+        return $query
+            ->select($likeable->getTable() . '.*', 'like_counters.count')
+            ->leftJoin('like_counters', function (JoinClause $join) use ($likeable, $typeId) {
+                $join
+                    ->on('like_counters.likeable_id', '=', "{$likeable->getTable()}.{$likeable->getKeyName()}")
+                    ->where('like_counters.likeable_type', '=', $likeable->getMorphClass())
+                    ->where('like_counters.type_id', '=', $typeId);
+            })
+            ->orderBy('like_counters.count', $direction);
     }
 }

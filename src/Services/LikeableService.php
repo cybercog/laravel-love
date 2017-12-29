@@ -18,9 +18,7 @@ use Cog\Contracts\Likeable\LikeCounter as LikeCounterContract;
 use Cog\Laravel\Likeable\Enums\LikeType;
 use Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException;
 use Cog\Laravel\Likeable\Exceptions\LikeTypeInvalidException;
-use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class LikeableService.
@@ -308,49 +306,6 @@ class LikeableService implements LikeableServiceContract
     }
 
     /**
-     * Fetch records that are liked by a given user id.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string $type
-     * @param int|null $userId
-     * @return \Illuminate\Database\Eloquent\Builder
-     *
-     * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
-     */
-    public function scopeWhereLikedBy(Builder $query, $type, $userId)
-    {
-        $userId = $this->getLikerUserId($userId);
-
-        return $query->whereHas('likesAndDislikes', function (Builder $innerQuery) use ($type, $userId) {
-            $innerQuery->where('user_id', $userId);
-            $innerQuery->where('type_id', $this->getLikeTypeId($type));
-        });
-    }
-
-    /**
-     * Fetch records sorted by likes count.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string $likeType
-     * @param string $direction
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeOrderByLikesCount(Builder $query, $likeType, $direction = 'desc')
-    {
-        $likeable = $query->getModel();
-
-        return $query
-            ->select($likeable->getTable() . '.*', 'like_counters.count')
-            ->leftJoin('like_counters', function (JoinClause $join) use ($likeable, $likeType) {
-                $join
-                    ->on('like_counters.likeable_id', '=', "{$likeable->getTable()}.{$likeable->getKeyName()}")
-                    ->where('like_counters.likeable_type', '=', $likeable->getMorphClass())
-                    ->where('like_counters.type_id', '=', $this->getLikeTypeId($likeType));
-            })
-            ->orderBy('like_counters.count', $direction);
-    }
-
-    /**
      * Fetch likes counters data.
      *
      * @param string $likeableType
@@ -383,12 +338,13 @@ class LikeableService implements LikeableServiceContract
     /**
      * Get current user id or get user id passed in.
      *
+     * @todo Can we make it protected or move it out from likeable service?
      * @param int $userId
      * @return int
      *
      * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
      */
-    protected function getLikerUserId($userId)
+    public function getLikerUserId($userId)
     {
         if (is_null($userId)) {
             $userId = $this->loggedInUserId();
@@ -420,7 +376,7 @@ class LikeableService implements LikeableServiceContract
      *
      * @throws \Cog\Laravel\Likeable\Exceptions\LikeTypeInvalidException
      */
-    protected function getLikeTypeId($type)
+    public function getLikeTypeId($type)
     {
         $type = strtoupper($type);
         if (!defined("\\Cog\\Laravel\\Likeable\\Enums\\LikeType::{$type}")) {
