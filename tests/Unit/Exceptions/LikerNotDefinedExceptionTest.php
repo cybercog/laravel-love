@@ -9,18 +9,18 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Tests\Likeable\Unit;
+namespace Cog\Tests\Laravel\Likeable\Unit;
 
 use Cog\Likeable\Exceptions\LikerNotDefinedException;
-use Cog\Tests\Likeable\Stubs\Models\Entity;
-use Cog\Tests\Likeable\Stubs\Models\User;
-use Cog\Tests\Likeable\TestCase;
+use Cog\Tests\Laravel\Likeable\Stubs\Models\Entity;
+use Cog\Tests\Laravel\Likeable\Stubs\Models\User;
+use Cog\Tests\Laravel\Likeable\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 /**
  * Class LikerNotDefinedExceptionTest.
  *
- * @package Cog\Tests\Likeable\Unit\Exceptions
+ * @package Cog\Tests\Laravel\Likeable\Unit\Exceptions
  */
 class LikerNotDefinedExceptionTest extends TestCase
 {

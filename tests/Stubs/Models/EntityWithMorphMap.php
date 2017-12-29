@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Tests\Likeable\Stubs\Models;
+namespace Cog\Tests\Laravel\Likeable\Stubs\Models;
 
 use Cog\Likeable\Contracts\Likeable as LikeableContract;
 use Cog\Likeable\Traits\Likeable;
@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class EntityWithMorphMap.
  *
- * @package Cog\Tests\Likeable\Stubs\Models
+ * @package Cog\Tests\Laravel\Likeable\Stubs\Models
  */
 class EntityWithMorphMap extends Model implements LikeableContract
 {

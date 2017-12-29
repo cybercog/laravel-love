@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Tests\Likeable;
+namespace Cog\Tests\Laravel\Likeable;
 
-use Cog\Tests\Likeable\Stubs\Models\EntityWithMorphMap;
-use Cog\Tests\Likeable\Stubs\Models\User;
+use Cog\Tests\Laravel\Likeable\Stubs\Models\EntityWithMorphMap;
+use Cog\Tests\Laravel\Likeable\Stubs\Models\User;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\File;
 use Mockery;

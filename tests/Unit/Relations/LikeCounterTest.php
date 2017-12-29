@@ -9,17 +9,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Tests\Likeable\Unit\Relations;
+namespace Cog\Tests\Laravel\Likeable\Unit\Relations;
 
 use Cog\Likeable\Models\LikeCounter;
-use Cog\Tests\Likeable\Stubs\Models\Entity;
-use Cog\Tests\Likeable\TestCase;
+use Cog\Tests\Laravel\Likeable\Stubs\Models\Entity;
+use Cog\Tests\Laravel\Likeable\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 /**
  * Class LikeCounterTest.
  *
- * @package Cog\Tests\Likeable\Unit\Relations
+ * @package Cog\Tests\Laravel\Likeable\Unit\Relations
  */
 class LikeCounterTest extends TestCase
 {

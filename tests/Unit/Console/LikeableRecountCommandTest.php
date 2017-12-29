@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Tests\Likeable\Unit\Observers;
+namespace Cog\Tests\Laravel\Likeable\Unit\Observers;
 
 use Cog\Likeable\Models\LikeCounter;
-use Cog\Tests\Likeable\Stubs\Models\Article;
-use Cog\Tests\Likeable\Stubs\Models\Entity;
-use Cog\Tests\Likeable\Stubs\Models\EntityWithMorphMap;
-use Cog\Tests\Likeable\Stubs\Models\User;
-use Cog\Tests\Likeable\TestCase;
+use Cog\Tests\Laravel\Likeable\Stubs\Models\Article;
+use Cog\Tests\Laravel\Likeable\Stubs\Models\Entity;
+use Cog\Tests\Laravel\Likeable\Stubs\Models\EntityWithMorphMap;
+use Cog\Tests\Laravel\Likeable\Stubs\Models\User;
+use Cog\Tests\Laravel\Likeable\TestCase;
 use Illuminate\Contracts\Console\Kernel;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -24,7 +24,7 @@ use Symfony\Component\Console\Output\BufferedOutput;
 /**
  * Class LikeableRecountCommandTest.
  *
- * @package Cog\Tests\Likeable\Unit\Console
+ * @package Cog\Tests\Laravel\Likeable\Unit\Console
  */
 class LikeableRecountCommandTest extends TestCase
 {

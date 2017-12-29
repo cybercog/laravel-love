@@ -9,22 +9,22 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Tests\Likeable\Unit\Services;
+namespace Cog\Tests\Laravel\Likeable\Unit\Services;
 
 use Cog\Likeable\Models\LikeCounter;
 use Cog\Likeable\Contracts\LikeableService as LikeableServiceContract;
 use Cog\Likeable\Services\LikeableService;
-use Cog\Tests\Likeable\Stubs\Models\Article;
-use Cog\Tests\Likeable\Stubs\Models\Entity;
-use Cog\Tests\Likeable\Stubs\Models\EntityWithMorphMap;
-use Cog\Tests\Likeable\Stubs\Models\User;
-use Cog\Tests\Likeable\TestCase;
+use Cog\Tests\Laravel\Likeable\Stubs\Models\Article;
+use Cog\Tests\Laravel\Likeable\Stubs\Models\Entity;
+use Cog\Tests\Laravel\Likeable\Stubs\Models\EntityWithMorphMap;
+use Cog\Tests\Laravel\Likeable\Stubs\Models\User;
+use Cog\Tests\Laravel\Likeable\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 /**
  * Class LikeableServiceTest.
  *
- * @package Cog\Tests\Likeable\Unit\Services
+ * @package Cog\Tests\Laravel\Likeable\Unit\Services
  */
 class LikeableServiceTest extends TestCase
 {

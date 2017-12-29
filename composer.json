@@ -56,7 +56,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Cog\\Tests\\Likeable\\": "tests/"
+            "Cog\\Tests\\Laravel\\Likeable\\": "tests/"
         }
     },
     "scripts": {
