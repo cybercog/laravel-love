@@ -38,7 +38,7 @@ interface LikeableService
      *
      * @param \Cog\Contracts\Likeable\Likeable\Models\Likeable $likeable
      * @param string $type
-     * @param int|null $userId
+     * @param null|string|int $userId
      * @return void
      *
      * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
@@ -107,7 +107,7 @@ interface LikeableService
      * Remove like counters by likeable type.
      *
      * @param string $likeableType
-     * @param string|null $type
+     * @param null|string $type
      * @return void
      *
      * @throws \Cog\Laravel\Likeable\Exceptions\LikeTypeInvalidException

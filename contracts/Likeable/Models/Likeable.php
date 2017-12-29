@@ -35,35 +35,35 @@ interface Likeable
     /**
      * Collection of the likes on this record.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     * @return mixed
      */
     public function likesAndDislikes();
 
     /**
      * Collection of the likes on this record.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     * @return mixed
      */
     public function likes();
 
     /**
      * Collection of the dislikes on this record.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     * @return mixed
      */
     public function dislikes();
 
     /**
      * Counter is a record that stores the total likes for the morphed record.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
+     * @return mixed
      */
     public function likesCounter();
 
     /**
      * Counter is a record that stores the total dislikes for the morphed record.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
+     * @return mixed
      */
     public function dislikesCounter();
 
@@ -84,7 +84,7 @@ interface Likeable
     /**
      * Add a like for model by the given user.
      *
-     * @param mixed $userId If null will use currently logged in user.
+     * @param null|string|int $userId If null will use currently logged in user.
      * @return void
      *
      * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
@@ -94,7 +94,7 @@ interface Likeable
     /**
      * Remove a like from this record for the given user.
      *
-     * @param int|null $userId If null will use currently logged in user.
+     * @param null|string|int $userId If null will use currently logged in user.
      * @return void
      *
      * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
@@ -104,7 +104,7 @@ interface Likeable
     /**
      * Toggle like for model by the given user.
      *
-     * @param mixed $userId If null will use currently logged in user.
+     * @param null|string|int $userId If null will use currently logged in user.
      * @return void
      *
      * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
@@ -114,7 +114,7 @@ interface Likeable
     /**
      * Has the user already liked likeable model.
      *
-     * @param int|null $userId
+     * @param null|string|int $userId
      * @return bool
      */
     public function liked($userId = null);
@@ -129,7 +129,7 @@ interface Likeable
     /**
      * Add a dislike for model by the given user.
      *
-     * @param mixed $userId If null will use currently logged in user.
+     * @param null|string|int $userId If null will use currently logged in user.
      * @return void
      *
      * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
@@ -139,7 +139,7 @@ interface Likeable
     /**
      * Remove a dislike from this record for the given user.
      *
-     * @param int|null $userId If null will use currently logged in user.
+     * @param null|string|int $userId If null will use currently logged in user.
      * @return void
      *
      * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
@@ -149,7 +149,7 @@ interface Likeable
     /**
      * Toggle dislike for model by the given user.
      *
-     * @param mixed $userId If null will use currently logged in user.
+     * @param null|string|int $userId If null will use currently logged in user.
      * @return void
      *
      * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
@@ -159,7 +159,7 @@ interface Likeable
     /**
      * Has the user already disliked likeable model.
      *
-     * @param int|null $userId
+     * @param null|string|int $userId
      * @return bool
      */
     public function disliked($userId = null);

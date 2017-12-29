@@ -24,7 +24,7 @@ interface Like
     /**
      * Likeable model relation.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     * @return mixed
      */
     public function likeable();
 }
