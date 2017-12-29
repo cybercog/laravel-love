@@ -9,17 +9,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Likeable\Tests\Unit\Relations;
+namespace Cog\Tests\Likeable\Unit\Relations;
 
 use Cog\Likeable\Models\Like;
-use Cog\Likeable\Tests\Stubs\Models\Entity;
-use Cog\Likeable\Tests\TestCase;
+use Cog\Tests\Likeable\Stubs\Models\Entity;
+use Cog\Tests\Likeable\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 /**
  * Class LikeTest.
  *
- * @package Cog\Likeable\Tests\Unit\Relations
+ * @package Cog\Tests\Likeable\Unit\Relations
  */
 class LikeTest extends TestCase
 {

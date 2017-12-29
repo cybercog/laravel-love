@@ -9,21 +9,21 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Likeable\Tests\Unit\Observers;
+namespace Cog\Tests\Likeable\Unit\Observers;
 
 use Cog\Likeable\Contracts\Likeable as LikeableContract;
 use Cog\Likeable\Models\Like;
 use Cog\Likeable\Models\LikeCounter;
 use Cog\Likeable\Observers\ModelObserver;
-use Cog\Likeable\Tests\Stubs\Models\Entity;
-use Cog\Likeable\Tests\TestCase;
+use Cog\Tests\Likeable\Stubs\Models\Entity;
+use Cog\Tests\Likeable\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Mockery;
 
 /**
  * Class ModelObserverTest.
  *
- * @package Cog\Likeable\Tests\Unit\Observers
+ * @package Cog\Tests\Likeable\Unit\Observers
  */
 class ModelObserverTest extends TestCase
 {

@@ -9,15 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Likeable\Tests\Unit\Models;
+namespace Cog\Tests\Likeable\Unit\Models;
 
 use Cog\Likeable\Models\LikeCounter;
-use Cog\Likeable\Tests\TestCase;
+use Cog\Tests\Likeable\TestCase;
 
 /**
  * Class LikeCounterTest.
  *
- * @package Cog\Likeable\Tests\Unit\Models
+ * @package Cog\Tests\Likeable\Unit\Models
  */
 class LikeCounterTest extends TestCase
 {

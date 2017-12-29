@@ -9,22 +9,22 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Likeable\Tests\Unit\Services;
+namespace Cog\Tests\Likeable\Unit\Services;
 
 use Cog\Likeable\Models\LikeCounter;
 use Cog\Likeable\Contracts\LikeableService as LikeableServiceContract;
 use Cog\Likeable\Services\LikeableService;
-use Cog\Likeable\Tests\Stubs\Models\Article;
-use Cog\Likeable\Tests\Stubs\Models\Entity;
-use Cog\Likeable\Tests\Stubs\Models\EntityWithMorphMap;
-use Cog\Likeable\Tests\Stubs\Models\User;
-use Cog\Likeable\Tests\TestCase;
+use Cog\Tests\Likeable\Stubs\Models\Article;
+use Cog\Tests\Likeable\Stubs\Models\Entity;
+use Cog\Tests\Likeable\Stubs\Models\EntityWithMorphMap;
+use Cog\Tests\Likeable\Stubs\Models\User;
+use Cog\Tests\Likeable\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 /**
  * Class LikeableServiceTest.
  *
- * @package Cog\Likeable\Tests\Unit\Services
+ * @package Cog\Tests\Likeable\Unit\Services
  */
 class LikeableServiceTest extends TestCase
 {

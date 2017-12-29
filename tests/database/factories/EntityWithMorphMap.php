@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-use Cog\Likeable\Tests\Stubs\Models\EntityWithMorphMap;
-use Faker\Generator;
+use Cog\Tests\Likeable\Stubs\Models\EntityWithMorphMap;
+use Faker\Generator as Faker;
 
 /* @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(EntityWithMorphMap::class, function (Generator $faker) {
+$factory->define(EntityWithMorphMap::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
     ];

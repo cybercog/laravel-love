@@ -56,7 +56,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Cog\\Likeable\\Tests\\": "tests/"
+            "Cog\\Tests\\Likeable\\": "tests/"
         }
     },
     "scripts": {

@@ -9,18 +9,18 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Likeable\Tests\Unit;
+namespace Cog\Tests\Likeable\Unit;
 
 use Cog\Likeable\Exceptions\LikerNotDefinedException;
-use Cog\Likeable\Tests\Stubs\Models\Entity;
-use Cog\Likeable\Tests\Stubs\Models\User;
-use Cog\Likeable\Tests\TestCase;
+use Cog\Tests\Likeable\Stubs\Models\Entity;
+use Cog\Tests\Likeable\Stubs\Models\User;
+use Cog\Tests\Likeable\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 /**
  * Class LikerNotDefinedExceptionTest.
  *
- * @package Cog\Likeable\Tests\Unit\Exceptions
+ * @package Cog\Tests\Likeable\Unit\Exceptions
  */
 class LikerNotDefinedExceptionTest extends TestCase
 {

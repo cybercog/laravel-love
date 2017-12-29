@@ -12,14 +12,14 @@
 namespace Cog\Likeable\Tests\Unit\Events;
 
 use Cog\Likeable\Events\ModelWasUnliked;
-use Cog\Likeable\Tests\Stubs\Models\Entity;
-use Cog\Likeable\Tests\TestCase;
+use Cog\Tests\Likeable\Stubs\Models\Entity;
+use Cog\Tests\Likeable\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 /**
  * Class ModelWasUnlikedTest.
  *
- * @package Cog\Likeable\Tests\Unit\Events
+ * @package Cog\Tests\Likeable\Unit\Events
  */
 class ModelWasUnlikedTest extends TestCase
 {

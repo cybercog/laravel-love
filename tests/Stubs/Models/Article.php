@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Likeable\Tests\Stubs\Models;
+namespace Cog\Tests\Likeable\Stubs\Models;
 
 use Cog\Likeable\Contracts\Likeable as LikeableContract;
 use Cog\Likeable\Traits\Likeable;
@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Article.
  *
- * @package Cog\Likeable\Tests\Stubs\Models
+ * @package Cog\Tests\Likeable\Stubs\Models
  */
 class Article extends Model implements LikeableContract
 {
