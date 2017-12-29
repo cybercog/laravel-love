@@ -9,19 +9,19 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Likeable\Traits;
+namespace Cog\Laravel\Likeable\Traits;
 
-use Cog\Likeable\Contracts\Like as LikeContract;
-use Cog\Likeable\Contracts\LikeableService as LikeableServiceContract;
-use Cog\Likeable\Contracts\LikeCounter as LikeCounterContract;
-use Cog\Likeable\Enums\LikeType;
-use Cog\Likeable\Observers\LikeableObserver;
+use Cog\Contracts\Likeable\Like as LikeContract;
+use Cog\Contracts\Likeable\LikeableService as LikeableServiceContract;
+use Cog\Contracts\Likeable\LikeCounter as LikeCounterContract;
+use Cog\Laravel\Likeable\Enums\LikeType;
+use Cog\Laravel\Likeable\Observers\LikeableObserver;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Trait Likeable.
  *
- * @package Cog\Likeable\Traits
+ * @package Cog\Laravel\Likeable\Traits
  */
 trait Likeable
 {
@@ -164,7 +164,7 @@ trait Likeable
      * @param int|null $userId
      * @return \Illuminate\Database\Eloquent\Builder
      *
-     * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
+     * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
      */
     public function scopeWhereLikedBy(Builder $query, $userId = null)
     {
@@ -179,7 +179,7 @@ trait Likeable
      * @param int|null $userId
      * @return \Illuminate\Database\Eloquent\Builder
      *
-     * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
+     * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
      */
     public function scopeWhereDislikedBy(Builder $query, $userId = null)
     {
@@ -219,7 +219,7 @@ trait Likeable
      * @param mixed $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
+     * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
      */
     public function like($userId = null)
     {
@@ -232,7 +232,7 @@ trait Likeable
      * @param int|null $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
+     * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
      */
     public function unlike($userId = null)
     {
@@ -245,7 +245,7 @@ trait Likeable
      * @param mixed $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
+     * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
      */
     public function likeToggle($userId = null)
     {
@@ -279,7 +279,7 @@ trait Likeable
      * @param mixed $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
+     * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
      */
     public function dislike($userId = null)
     {
@@ -292,7 +292,7 @@ trait Likeable
      * @param int|null $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
+     * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
      */
     public function undislike($userId = null)
     {
@@ -305,7 +305,7 @@ trait Likeable
      * @param mixed $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
+     * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
      */
     public function dislikeToggle($userId = null)
     {

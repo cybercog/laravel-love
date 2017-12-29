@@ -11,7 +11,7 @@
 
 namespace Cog\Tests\Laravel\Likeable\Unit\Events;
 
-use Cog\Likeable\Events\ModelWasLiked;
+use Cog\Laravel\Likeable\Events\ModelWasLiked;
 use Cog\Tests\Laravel\Likeable\Stubs\Models\Entity;
 use Cog\Tests\Laravel\Likeable\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;

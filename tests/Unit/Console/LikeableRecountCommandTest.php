@@ -11,7 +11,7 @@
 
 namespace Cog\Tests\Laravel\Likeable\Unit\Observers;
 
-use Cog\Likeable\Models\LikeCounter;
+use Cog\Laravel\Likeable\Models\LikeCounter;
 use Cog\Tests\Laravel\Likeable\Stubs\Models\Article;
 use Cog\Tests\Laravel\Likeable\Stubs\Models\Entity;
 use Cog\Tests\Laravel\Likeable\Stubs\Models\EntityWithMorphMap;
@@ -471,7 +471,7 @@ class LikeableRecountCommandTest extends TestCase
     public function it_can_throw_model_invalid_exception_on_not_exist_morph_map()
     {
         // TODO: Check if works on older Laravel versions. Otherwise uncomment assertContains on the end.
-        $this->expectException(\Cog\Likeable\Exceptions\ModelInvalidException::class);
+        $this->expectException(\Cog\Laravel\Likeable\Exceptions\ModelInvalidException::class);
 
         $status = $this->kernel->handle(
             $input = new ArrayInput([
@@ -482,14 +482,14 @@ class LikeableRecountCommandTest extends TestCase
         );
 
         $this->assertEquals(1, $status);
-        //$this->assertContains('Cog\Likeable\Exceptions\ModelInvalidException', $output->fetch());
+        //$this->assertContains('Cog\Laravel\Likeable\Exceptions\ModelInvalidException', $output->fetch());
     }
 
     /** @test */
     public function it_can_throw_model_invalid_exception_if_class_not_implemented_has_likes_interface()
     {
         // TODO: Check if works on older Laravel versions. Otherwise uncomment assertContains on the end.
-        $this->expectException(\Cog\Likeable\Exceptions\ModelInvalidException::class);
+        $this->expectException(\Cog\Laravel\Likeable\Exceptions\ModelInvalidException::class);
 
         $status = $this->kernel->handle(
             $input = new ArrayInput([
@@ -500,7 +500,7 @@ class LikeableRecountCommandTest extends TestCase
         );
 
         $this->assertEquals(1, $status);
-        //$this->assertContains('Cog\Likeable\Exceptions\ModelInvalidException', $output->fetch());
+        //$this->assertContains('Cog\Laravel\Likeable\Exceptions\ModelInvalidException', $output->fetch());
     }
 
     public function it_deletes_records_before_recount()

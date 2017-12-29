@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Likeable\Enums;
+namespace Cog\Laravel\Likeable\Enums;
 
 /**
  * Class LikeType.
  *
- * @package Cog\Likeable\Enums
+ * @package Cog\Laravel\Likeable\Enums
  */
 class LikeType
 {

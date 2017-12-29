@@ -11,9 +11,9 @@
 
 namespace Cog\Tests\Laravel\Likeable\Unit\Services;
 
-use Cog\Likeable\Models\LikeCounter;
-use Cog\Likeable\Contracts\LikeableService as LikeableServiceContract;
-use Cog\Likeable\Services\LikeableService;
+use Cog\Laravel\Likeable\Models\LikeCounter;
+use Cog\Contracts\Likeable\LikeableService as LikeableServiceContract;
+use Cog\Laravel\Likeable\Services\LikeableService;
 use Cog\Tests\Laravel\Likeable\Stubs\Models\Article;
 use Cog\Tests\Laravel\Likeable\Stubs\Models\Entity;
 use Cog\Tests\Laravel\Likeable\Stubs\Models\EntityWithMorphMap;

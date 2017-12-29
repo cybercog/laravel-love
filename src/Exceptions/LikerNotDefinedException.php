@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Likeable\Exceptions;
+namespace Cog\Laravel\Likeable\Exceptions;
 
 use Exception;
 

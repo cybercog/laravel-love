@@ -11,7 +11,7 @@
 
 namespace Cog\Tests\Laravel\Likeable\Unit;
 
-use Cog\Likeable\Contracts\Like as LikeContract;
+use Cog\Contracts\Likeable\Like as LikeContract;
 use Cog\Tests\Laravel\Likeable\Stubs\Models\Entity;
 use Cog\Tests\Laravel\Likeable\Stubs\Models\User;
 use Cog\Tests\Laravel\Likeable\TestCase;

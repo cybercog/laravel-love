@@ -11,7 +11,7 @@
 
 namespace Cog\Tests\Laravel\Likeable\Unit\Relations;
 
-use Cog\Likeable\Models\LikeCounter;
+use Cog\Laravel\Likeable\Models\LikeCounter;
 use Cog\Tests\Laravel\Likeable\Stubs\Models\Entity;
 use Cog\Tests\Laravel\Likeable\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;

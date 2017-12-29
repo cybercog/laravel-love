@@ -11,7 +11,7 @@
 
 namespace Cog\Tests\Laravel\Likeable\Unit\Models;
 
-use Cog\Likeable\Models\LikeCounter;
+use Cog\Laravel\Likeable\Models\LikeCounter;
 use Cog\Tests\Laravel\Likeable\TestCase;
 
 /**

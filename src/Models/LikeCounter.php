@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Likeable\Models;
+namespace Cog\Laravel\Likeable\Models;
 
-use Cog\Likeable\Contracts\LikeCounter as LikeCounterContract;
+use Cog\Contracts\Likeable\LikeCounter as LikeCounterContract;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int type_id
  * @property int count
- * @package Cog\Likeable\Models
+ * @package Cog\Laravel\Likeable\Models
  */
 class LikeCounter extends Model implements LikeCounterContract
 {

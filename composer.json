@@ -51,7 +51,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Cog\\Likeable\\": "src/"
+            "Cog\\Contracts\\Likeable\\": "contracts/",
+            "Cog\\Laravel\\Likeable\\": "src/"
         }
     },
     "autoload-dev": {

@@ -9,57 +9,57 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Likeable\Contracts;
+namespace Cog\Contracts\Likeable;
 
-use Cog\Likeable\Contracts\Likeable as LikeableContract;
+use Cog\Contracts\Likeable\Likeable as LikeableContract;
 
 /**
  * Interface LikeableService.
  *
- * @package Cog\Likeable\Contracts
+ * @package Cog\Contracts\Likeable
  */
 interface LikeableService
 {
     /**
      * Add a like to likeable model by user.
      *
-     * @param \Cog\Likeable\Contracts\Likeable $likeable
+     * @param \Cog\Contracts\Likeable\Likeable $likeable
      * @param string $type
      * @param string $userId
      * @return void
      *
-     * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
+     * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
      */
     public function addLikeTo(LikeableContract $likeable, $type, $userId);
 
     /**
      * Remove a like to likeable model by user.
      *
-     * @param \Cog\Likeable\Contracts\Likeable $likeable
+     * @param \Cog\Contracts\Likeable\Likeable $likeable
      * @param string $type
      * @param int|null $userId
      * @return void
      *
-     * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
+     * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
      */
     public function removeLikeFrom(LikeableContract $likeable, $type, $userId);
 
     /**
      * Toggle like for model by the given user.
      *
-     * @param \Cog\Likeable\Contracts\Likeable $likeable
+     * @param \Cog\Contracts\Likeable\Likeable $likeable
      * @param string $type
      * @param string $userId
      * @return void
      *
-     * @throws \Cog\Likeable\Exceptions\LikerNotDefinedException
+     * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
      */
     public function toggleLikeOf(LikeableContract $likeable, $type, $userId);
 
     /**
      * Has the user already liked likeable model.
      *
-     * @param \Cog\Likeable\Contracts\Likeable $likeable
+     * @param \Cog\Contracts\Likeable\Likeable $likeable
      * @param string $type
      * @param int|null $userId
      * @return bool
@@ -69,7 +69,7 @@ interface LikeableService
     /**
      * Decrement the total like count stored in the counter.
      *
-     * @param \Cog\Likeable\Contracts\Likeable $likeable
+     * @param \Cog\Contracts\Likeable\Likeable $likeable
      * @return void
      */
     public function decrementLikesCount(LikeableContract $likeable);
@@ -77,7 +77,7 @@ interface LikeableService
     /**
      * Increment the total like count stored in the counter.
      *
-     * @param \Cog\Likeable\Contracts\Likeable $likeable
+     * @param \Cog\Contracts\Likeable\Likeable $likeable
      * @return void
      */
     public function incrementLikesCount(LikeableContract $likeable);
@@ -85,7 +85,7 @@ interface LikeableService
     /**
      * Decrement the total dislike count stored in the counter.
      *
-     * @param \Cog\Likeable\Contracts\Likeable $likeable
+     * @param \Cog\Contracts\Likeable\Likeable $likeable
      * @return void
      */
     public function decrementDislikesCount(LikeableContract $likeable);
@@ -93,7 +93,7 @@ interface LikeableService
     /**
      * Increment the total dislike count stored in the counter.
      *
-     * @param \Cog\Likeable\Contracts\Likeable $likeable
+     * @param \Cog\Contracts\Likeable\Likeable $likeable
      * @return void
      */
     public function incrementDislikesCount(LikeableContract $likeable);
@@ -110,7 +110,7 @@ interface LikeableService
     /**
      * Remove all likes from likeable model.
      *
-     * @param \Cog\Likeable\Contracts\Likeable $likeable
+     * @param \Cog\Contracts\Likeable\Likeable $likeable
      * @param string $type
      * @return void
      */
@@ -119,7 +119,7 @@ interface LikeableService
     /**
      * Get collection of users who liked entity.
      *
-     * @param \Cog\Likeable\Contracts\Likeable $likeable
+     * @param \Cog\Contracts\Likeable\Likeable $likeable
      * @return \Illuminate\Support\Collection
      */
     public function collectLikersOf(LikeableContract $likeable);
@@ -127,7 +127,7 @@ interface LikeableService
     /**
      * Get collection of users who disliked entity.
      *
-     * @param \Cog\Likeable\Contracts\Likeable $likeable
+     * @param \Cog\Contracts\Likeable\Likeable $likeable
      * @return \Illuminate\Support\Collection
      */
     public function collectDislikersOf(LikeableContract $likeable);

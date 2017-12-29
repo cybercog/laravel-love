@@ -11,10 +11,10 @@
 
 namespace Cog\Tests\Laravel\Likeable\Unit\Observers;
 
-use Cog\Likeable\Contracts\Likeable as LikeableContract;
-use Cog\Likeable\Models\Like;
-use Cog\Likeable\Models\LikeCounter;
-use Cog\Likeable\Observers\LikeableObserver;
+use Cog\Contracts\Likeable\Likeable as LikeableContract;
+use Cog\Laravel\Likeable\Models\Like;
+use Cog\Laravel\Likeable\Models\LikeCounter;
+use Cog\Laravel\Likeable\Observers\LikeableObserver;
 use Cog\Tests\Laravel\Likeable\Stubs\Models\Entity;
 use Cog\Tests\Laravel\Likeable\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;

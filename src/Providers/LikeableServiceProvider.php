@@ -9,22 +9,22 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Likeable\Providers;
+namespace Cog\Laravel\Likeable\Providers;
 
-use Cog\Likeable\Console\LikeableRecountCommand;
-use Cog\Likeable\Contracts\Like as LikeContract;
-use Cog\Likeable\Contracts\LikeableService as LikeableServiceContract;
-use Cog\Likeable\Contracts\LikeCounter as LikeCounterContract;
-use Cog\Likeable\Models\Like;
-use Cog\Likeable\Models\LikeCounter;
-use Cog\Likeable\Observers\LikeObserver;
-use Cog\Likeable\Services\LikeableService;
+use Cog\Laravel\Likeable\Console\LikeableRecountCommand;
+use Cog\Contracts\Likeable\Like as LikeContract;
+use Cog\Contracts\Likeable\LikeableService as LikeableServiceContract;
+use Cog\Contracts\Likeable\LikeCounter as LikeCounterContract;
+use Cog\Laravel\Likeable\Models\Like;
+use Cog\Laravel\Likeable\Models\LikeCounter;
+use Cog\Laravel\Likeable\Observers\LikeObserver;
+use Cog\Laravel\Likeable\Services\LikeableService;
 use Illuminate\Support\ServiceProvider;
 
 /**
  * Class LikeableServiceProvider.
  *
- * @package Cog\Likeable\Providers
+ * @package Cog\Laravel\Likeable\Providers
  */
 class LikeableServiceProvider extends ServiceProvider
 {

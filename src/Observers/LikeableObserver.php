@@ -9,21 +9,21 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Likeable\Observers;
+namespace Cog\Laravel\Likeable\Observers;
 
-use Cog\Likeable\Contracts\Likeable as LikeableContract;
+use Cog\Contracts\Likeable\Likeable as LikeableContract;
 
 /**
  * Class LikeableObserver.
  *
- * @package Cog\Likeable\Observers
+ * @package Cog\Laravel\Likeable\Observers
  */
 class LikeableObserver
 {
     /**
      * Handle the deleted event for the model.
      *
-     * @param \Cog\Likeable\Contracts\Likeable $likeable
+     * @param \Cog\Contracts\Likeable\Likeable $likeable
      * @return void
      */
     public function deleted(LikeableContract $likeable)
@@ -38,7 +38,7 @@ class LikeableObserver
     /**
      * Should remove likes on model delete (defaults to true).
      *
-     * @param \Cog\Likeable\Contracts\Likeable $likeable
+     * @param \Cog\Contracts\Likeable\Likeable $likeable
      * @return bool
      */
     protected function removeLikesOnDelete(LikeableContract $likeable)
