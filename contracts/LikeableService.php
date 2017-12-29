@@ -29,6 +29,7 @@ interface LikeableService
      * @return void
      *
      * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
+     * @throws \Cog\Laravel\Likeable\Exceptions\LikeTypeInvalidException
      */
     public function addLikeTo(LikeableContract $likeable, $type, $userId);
 
@@ -41,6 +42,7 @@ interface LikeableService
      * @return void
      *
      * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
+     * @throws \Cog\Laravel\Likeable\Exceptions\LikeTypeInvalidException
      */
     public function removeLikeFrom(LikeableContract $likeable, $type, $userId);
 
@@ -53,6 +55,7 @@ interface LikeableService
      * @return void
      *
      * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
+     * @throws \Cog\Laravel\Likeable\Exceptions\LikeTypeInvalidException
      */
     public function toggleLikeOf(LikeableContract $likeable, $type, $userId);
 
@@ -63,6 +66,8 @@ interface LikeableService
      * @param string $type
      * @param int|null $userId
      * @return bool
+     *
+     * @throws \Cog\Laravel\Likeable\Exceptions\LikeTypeInvalidException
      */
     public function isLiked(LikeableContract $likeable, $type, $userId);
 
@@ -104,6 +109,8 @@ interface LikeableService
      * @param string $likeableType
      * @param string|null $type
      * @return void
+     *
+     * @throws \Cog\Laravel\Likeable\Exceptions\LikeTypeInvalidException
      */
     public function removeLikeCountersOfType($likeableType, $type = null);
 
@@ -113,6 +120,8 @@ interface LikeableService
      * @param \Cog\Contracts\Likeable\Likeable $likeable
      * @param string $type
      * @return void
+     *
+     * @throws \Cog\Laravel\Likeable\Exceptions\LikeTypeInvalidException
      */
     public function removeModelLikes(LikeableContract $likeable, $type);
 
@@ -138,6 +147,8 @@ interface LikeableService
      * @param string $likeableType
      * @param string $likeType
      * @return array
+     *
+     * @throws \Cog\Laravel\Likeable\Exceptions\LikeTypeInvalidException
      */
     public function fetchLikesCounters($likeableType, $likeType);
 }
