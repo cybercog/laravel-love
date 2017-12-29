@@ -15,7 +15,7 @@ use Cog\Likeable\Contracts\Like as LikeContract;
 use Cog\Likeable\Contracts\LikeableService as LikeableServiceContract;
 use Cog\Likeable\Contracts\LikeCounter as LikeCounterContract;
 use Cog\Likeable\Enums\LikeType;
-use Cog\Likeable\Observers\ModelObserver;
+use Cog\Likeable\Observers\LikeableObserver;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
@@ -32,7 +32,7 @@ trait Likeable
      */
     public static function bootLikeable()
     {
-        static::observe(ModelObserver::class);
+        static::observe(LikeableObserver::class);
     }
 
     /**

@@ -14,11 +14,11 @@ namespace Cog\Likeable\Observers;
 use Cog\Likeable\Contracts\Likeable as LikeableContract;
 
 /**
- * Class ModelObserver.
+ * Class LikeableObserver.
  *
  * @package Cog\Likeable\Observers
  */
-class ModelObserver
+class LikeableObserver
 {
     /**
      * Handle the deleted event for the model.
