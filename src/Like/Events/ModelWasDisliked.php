@@ -28,7 +28,7 @@ class ModelWasDisliked
     public $model;
 
     /**
-     * User id who liked model.
+     * User id who disliked model.
      *
      * @var int
      */
