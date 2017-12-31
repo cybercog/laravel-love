@@ -18,6 +18,6 @@ namespace Cog\Laravel\Likeable\Like\Enums;
  */
 class LikeType
 {
-    const LIKE = 'like';
-    const DISLIKE = 'dislike';
+    const LIKE = 'LIKE';
+    const DISLIKE = 'DISLIKE';
 }

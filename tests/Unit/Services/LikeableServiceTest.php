@@ -86,7 +86,7 @@ class LikeableServiceTest extends TestCase
         $entity2->like(2);
         $article->like(1);
 
-        $service->removeLikeCountersOfType(Entity::class, 'like');
+        $service->removeLikeCountersOfType(Entity::class, 'LIKE');
 
         $likeCounters = LikeCounter::all();
 
@@ -104,7 +104,7 @@ class LikeableServiceTest extends TestCase
         $entity2->like(2);
         $article->like(1);
 
-        $service->removeLikeCountersOfType('entity-with-morph-map', 'like');
+        $service->removeLikeCountersOfType('entity-with-morph-map', 'LIKE');
 
         $likeCounters = LikeCounter::all();
 
@@ -122,7 +122,7 @@ class LikeableServiceTest extends TestCase
         $entity2->like(2);
         $article->like(1);
 
-        $service->removeLikeCountersOfType(EntityWithMorphMap::class, 'like');
+        $service->removeLikeCountersOfType(EntityWithMorphMap::class, 'LIKE');
 
         $likeCounters = LikeCounter::all();
 
@@ -140,7 +140,7 @@ class LikeableServiceTest extends TestCase
         $entity2->like(1);
         $entity2->like(4);
 
-        $service->removeModelLikes($entity1, 'like');
+        $service->removeModelLikes($entity1, 'LIKE');
 
         $this->assertEmpty($entity1->likes);
         $this->assertNotEmpty($entity2->likes);

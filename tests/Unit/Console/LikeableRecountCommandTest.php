@@ -61,7 +61,7 @@ class LikeableRecountCommandTest extends TestCase
         $status = $this->kernel->handle(
             $input = new ArrayInput([
                 'command' => 'likeable:recount',
-                'type' => 'like',
+                'type' => 'LIKE',
             ]),
             $output = new BufferedOutput
         );
@@ -97,7 +97,7 @@ class LikeableRecountCommandTest extends TestCase
             $input = new ArrayInput([
                 'command' => 'likeable:recount',
                 'model' => Entity::class,
-                'type' => 'like',
+                'type' => 'LIKE',
             ]),
             $output = new BufferedOutput
         );
@@ -132,7 +132,7 @@ class LikeableRecountCommandTest extends TestCase
             $input = new ArrayInput([
                 'command' => 'likeable:recount',
                 'model' => 'entity-with-morph-map',
-                'type' => 'like',
+                'type' => 'LIKE',
             ]),
             $output = new BufferedOutput
         );
@@ -167,7 +167,7 @@ class LikeableRecountCommandTest extends TestCase
             $input = new ArrayInput([
                 'command' => 'likeable:recount',
                 'model' => EntityWithMorphMap::class,
-                'type' => 'like',
+                'type' => 'LIKE',
             ]),
             $output = new BufferedOutput
         );
@@ -205,7 +205,7 @@ class LikeableRecountCommandTest extends TestCase
         $status = $this->kernel->handle(
             $input = new ArrayInput([
                 'command' => 'likeable:recount',
-                'type' => 'dislike',
+                'type' => 'DISLIKE',
             ]),
             $output = new BufferedOutput
         );
@@ -241,7 +241,7 @@ class LikeableRecountCommandTest extends TestCase
             $input = new ArrayInput([
                 'command' => 'likeable:recount',
                 'model' => Entity::class,
-                'type' => 'dislike',
+                'type' => 'DISLIKE',
             ]),
             $output = new BufferedOutput
         );
@@ -276,7 +276,7 @@ class LikeableRecountCommandTest extends TestCase
             $input = new ArrayInput([
                 'command' => 'likeable:recount',
                 'model' => 'entity-with-morph-map',
-                'type' => 'dislike',
+                'type' => 'DISLIKE',
             ]),
             $output = new BufferedOutput
         );
@@ -311,7 +311,7 @@ class LikeableRecountCommandTest extends TestCase
             $input = new ArrayInput([
                 'command' => 'likeable:recount',
                 'model' => EntityWithMorphMap::class,
-                'type' => 'dislike',
+                'type' => 'DISLIKE',
             ]),
             $output = new BufferedOutput
         );
