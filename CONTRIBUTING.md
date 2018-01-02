@@ -35,4 +35,4 @@ $ vendor/bin/phpunit
 
 ## Reporting issues
 
-- [General problems](https://github.com/cybercog/laravel-likeable/issues)
+- [General problems](https://github.com/cybercog/laravel-love/issues)
