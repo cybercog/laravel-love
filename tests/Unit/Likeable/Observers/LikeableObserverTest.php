@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Likeable.
+ * This file is part of Laravel Love.
  *
  * (c) Anton Komarev <a.komarev@cybercog.su>
  *
@@ -9,21 +9,21 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Tests\Laravel\Likeable\Unit\Likeable\Observers;
+namespace Cog\Tests\Laravel\Love\Unit\Likeable\Observers;
 
-use Cog\Contracts\Likeable\Likeable\Models\Likeable as LikeableContract;
-use Cog\Laravel\Likeable\Like\Models\Like;
-use Cog\Laravel\Likeable\LikeCounter\Models\LikeCounter;
-use Cog\Laravel\Likeable\Likeable\Observers\LikeableObserver;
-use Cog\Tests\Laravel\Likeable\Stubs\Models\Entity;
-use Cog\Tests\Laravel\Likeable\TestCase;
+use Cog\Contracts\Love\Likeable\Models\Likeable as LikeableContract;
+use Cog\Laravel\Love\Like\Models\Like;
+use Cog\Laravel\Love\LikeCounter\Models\LikeCounter;
+use Cog\Laravel\Love\Likeable\Observers\LikeableObserver;
+use Cog\Tests\Laravel\Love\Stubs\Models\Entity;
+use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Mockery;
 
 /**
  * Class LikeableObserverTest.
  *
- * @package Cog\Tests\Laravel\Likeable\Unit\Likeable\Observers
+ * @package Cog\Tests\Laravel\Love\Unit\Likeable\Observers
  */
 class LikeableObserverTest extends TestCase
 {

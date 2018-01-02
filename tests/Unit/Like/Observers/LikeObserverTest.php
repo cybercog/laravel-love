@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Likeable.
+ * This file is part of Laravel Love.
  *
  * (c) Anton Komarev <a.komarev@cybercog.su>
  *
@@ -9,15 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Tests\Laravel\Likeable\Unit\Like\Observers;
+namespace Cog\Tests\Laravel\Love\Unit\Like\Observers;
 
-use Cog\Tests\Laravel\Likeable\TestCase;
+use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 /**
  * Class LikeObserverTest.
  *
- * @package Cog\Tests\Laravel\Likeable\Unit\Like\Observers
+ * @package Cog\Tests\Laravel\Love\Unit\Like\Observers
  */
 class LikeObserverTest extends TestCase
 {

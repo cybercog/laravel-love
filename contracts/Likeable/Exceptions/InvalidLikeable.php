@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Likeable.
+ * This file is part of Laravel Love.
  *
  * (c) Anton Komarev <a.komarev@cybercog.su>
  *
@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Contracts\Likeable\Likeable\Exceptions;
+namespace Cog\Contracts\Love\Likeable\Exceptions;
 
 use RuntimeException;
 
 /**
  * Class InvalidLikeable.
  *
- * @package Cog\Contracts\Likeable\Likeable\Exceptions
+ * @package Cog\Contracts\Love\Likeable\Exceptions
  */
 class InvalidLikeable extends RuntimeException
 {

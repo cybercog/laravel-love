@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Likeable.
+ * This file is part of Laravel Love.
  *
  * (c) Anton Komarev <a.komarev@cybercog.su>
  *
@@ -9,34 +9,34 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Laravel\Likeable\Likeable\Services;
+namespace Cog\Laravel\Love\Likeable\Services;
 
-use Cog\Contracts\Likeable\Like\Exceptions\InvalidLikeType;
-use Cog\Contracts\Likeable\Like\Models\Like as LikeContract;
-use Cog\Contracts\Likeable\Likeable\Models\Likeable as LikeableContract;
-use Cog\Contracts\Likeable\LikeCounter\Models\LikeCounter as LikeCounterContract;
-use Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined;
-use Cog\Contracts\Likeable\Likeable\Services\LikeableService as LikeableServiceContract;
-use Cog\Laravel\Likeable\Like\Enums\LikeType;
+use Cog\Contracts\Love\Like\Exceptions\InvalidLikeType;
+use Cog\Contracts\Love\Like\Models\Like as LikeContract;
+use Cog\Contracts\Love\Likeable\Models\Likeable as LikeableContract;
+use Cog\Contracts\Love\LikeCounter\Models\LikeCounter as LikeCounterContract;
+use Cog\Contracts\Love\Liker\Exceptions\LikerNotDefined;
+use Cog\Contracts\Love\Likeable\Services\LikeableService as LikeableServiceContract;
+use Cog\Laravel\Love\Like\Enums\LikeType;
 use Illuminate\Support\Facades\DB;
 
 /**
  * Class LikeableService.
  *
- * @package Cog\Laravel\Likeable\Likeable\Services
+ * @package Cog\Laravel\Love\Likeable\Services
  */
 class LikeableService implements LikeableServiceContract
 {
     /**
      * Add a like to likeable model by user.
      *
-     * @param \Cog\Contracts\Likeable\Likeable\Models\Likeable $likeable
+     * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @param string $type
      * @param string $userId
      * @return void
      *
-     * @throws \\Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined
-     * @throws \Cog\Contracts\Likeable\Like\Exceptions\InvalidLikeType
+     * @throws \\Cog\Contracts\Love\Liker\Exceptions\LikerNotDefined
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */
     public function addLikeTo(LikeableContract $likeable, $type, $userId)
     {
@@ -70,13 +70,13 @@ class LikeableService implements LikeableServiceContract
     /**
      * Remove a like to likeable model by user.
      *
-     * @param \Cog\Contracts\Likeable\Likeable\Models\Likeable $likeable
+     * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @param string $type
      * @param int|null $userId
      * @return void
      *
-     * @throws \\Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined
-     * @throws \Cog\Contracts\Likeable\Like\Exceptions\InvalidLikeType
+     * @throws \\Cog\Contracts\Love\Liker\Exceptions\LikerNotDefined
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */
     public function removeLikeFrom(LikeableContract $likeable, $type, $userId)
     {
@@ -95,13 +95,13 @@ class LikeableService implements LikeableServiceContract
     /**
      * Toggle like for model by the given user.
      *
-     * @param \Cog\Contracts\Likeable\Likeable\Models\Likeable $likeable
+     * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @param string $type
      * @param string $userId
      * @return void
      *
-     * @throws \\Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined
-     * @throws \Cog\Contracts\Likeable\Like\Exceptions\InvalidLikeType
+     * @throws \\Cog\Contracts\Love\Liker\Exceptions\LikerNotDefined
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */
     public function toggleLikeOf(LikeableContract $likeable, $type, $userId)
     {
@@ -122,12 +122,12 @@ class LikeableService implements LikeableServiceContract
     /**
      * Has the user already liked likeable model.
      *
-     * @param \Cog\Contracts\Likeable\Likeable\Models\Likeable $likeable
+     * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @param string $type
      * @param int|null $userId
      * @return bool
      *
-     * @throws \Cog\Contracts\Likeable\Like\Exceptions\InvalidLikeType
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */
     public function isLiked(LikeableContract $likeable, $type, $userId)
     {
@@ -155,7 +155,7 @@ class LikeableService implements LikeableServiceContract
     /**
      * Decrement the total like count stored in the counter.
      *
-     * @param \Cog\Contracts\Likeable\Likeable\Models\Likeable $likeable
+     * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @return void
      */
     public function decrementLikesCount(LikeableContract $likeable)
@@ -172,7 +172,7 @@ class LikeableService implements LikeableServiceContract
     /**
      * Increment the total like count stored in the counter.
      *
-     * @param \Cog\Contracts\Likeable\Likeable\Models\Likeable $likeable
+     * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @return void
      */
     public function incrementLikesCount(LikeableContract $likeable)
@@ -192,7 +192,7 @@ class LikeableService implements LikeableServiceContract
     /**
      * Decrement the total dislike count stored in the counter.
      *
-     * @param \Cog\Contracts\Likeable\Likeable\Models\Likeable $likeable
+     * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @return void
      */
     public function decrementDislikesCount(LikeableContract $likeable)
@@ -209,7 +209,7 @@ class LikeableService implements LikeableServiceContract
     /**
      * Increment the total dislike count stored in the counter.
      *
-     * @param \Cog\Contracts\Likeable\Likeable\Models\Likeable $likeable
+     * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @return void
      */
     public function incrementDislikesCount(LikeableContract $likeable)
@@ -233,12 +233,12 @@ class LikeableService implements LikeableServiceContract
      * @param string|null $type
      * @return void
      *
-     * @throws \Cog\Contracts\Likeable\Like\Exceptions\InvalidLikeType
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */
     public function removeLikeCountersOfType($likeableType, $type = null)
     {
         if (class_exists($likeableType)) {
-            /** @var \Cog\Contracts\Likeable\Likeable\Models\Likeable $likeable */
+            /** @var \Cog\Contracts\Love\Likeable\Models\Likeable $likeable */
             $likeable = new $likeableType;
             $likeableType = $likeable->getMorphClass();
         }
@@ -254,11 +254,11 @@ class LikeableService implements LikeableServiceContract
     /**
      * Remove all likes from likeable model.
      *
-     * @param \Cog\Contracts\Likeable\Likeable\Models\Likeable $likeable
+     * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @param string $type
      * @return void
      *
-     * @throws \Cog\Contracts\Likeable\Like\Exceptions\InvalidLikeType
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */
     public function removeModelLikes(LikeableContract $likeable, $type)
     {
@@ -278,7 +278,7 @@ class LikeableService implements LikeableServiceContract
     /**
      * Get collection of users who liked entity.
      *
-     * @param \Cog\Contracts\Likeable\Likeable\Models\Likeable $likeable
+     * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @return \Illuminate\Support\Collection
      */
     public function collectLikersOf(LikeableContract $likeable)
@@ -293,7 +293,7 @@ class LikeableService implements LikeableServiceContract
     /**
      * Get collection of users who disliked entity.
      *
-     * @param \Cog\Contracts\Likeable\Likeable\Models\Likeable $likeable
+     * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @return \Illuminate\Support\Collection
      */
     public function collectDislikersOf(LikeableContract $likeable)
@@ -312,7 +312,7 @@ class LikeableService implements LikeableServiceContract
      * @param string $likeType
      * @return array
      *
-     * @throws \Cog\Contracts\Likeable\Like\Exceptions\InvalidLikeType
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */
     public function fetchLikesCounters($likeableType, $likeType)
     {
@@ -342,7 +342,7 @@ class LikeableService implements LikeableServiceContract
      * @param int $userId
      * @return int
      *
-     * @throws \\Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined
+     * @throws \\Cog\Contracts\Love\Liker\Exceptions\LikerNotDefined
      */
     public function getLikerUserId($userId)
     {
@@ -374,16 +374,16 @@ class LikeableService implements LikeableServiceContract
      * @param string $type
      * @return int
      *
-     * @throws \Cog\Contracts\Likeable\Like\Exceptions\InvalidLikeType
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */
     public function getLikeTypeId($type)
     {
         $type = strtoupper($type);
-        if (!defined("\\Cog\\Laravel\\Likeable\\Like\\Enums\\LikeType::{$type}")) {
+        if (!defined("\\Cog\\Laravel\\Love\\Like\\Enums\\LikeType::{$type}")) {
             throw new InvalidLikeType("Like type `{$type}` not exist");
         }
 
-        return constant("\\Cog\\Laravel\\Likeable\\Like\\Enums\\LikeType::{$type}");
+        return constant("\\Cog\\Laravel\\Love\\Like\\Enums\\LikeType::{$type}");
     }
 
     /**
@@ -399,12 +399,12 @@ class LikeableService implements LikeableServiceContract
     /**
      * Search in eager loaded relations if model was liked/disliked by user.
      *
-     * @param \Cog\Contracts\Likeable\Likeable\Models\Likeable $likeable
+     * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @param string $typeId
      * @param int $userId
      * @return bool|null
      *
-     * @throws \Cog\Contracts\Likeable\Like\Exceptions\InvalidLikeType
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */
     private function hasLikeOrDislikeInLoadedRelation(LikeableContract $likeable, $typeId, $userId)
     {
@@ -429,7 +429,7 @@ class LikeableService implements LikeableServiceContract
      * @param string $type
      * @return array
      *
-     * @throws \Cog\Contracts\Likeable\Like\Exceptions\InvalidLikeType
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */
     private function likeTypeRelations($type)
     {

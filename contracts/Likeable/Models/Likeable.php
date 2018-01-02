@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Likeable.
+ * This file is part of Laravel Love.
  *
  * (c) Anton Komarev <a.komarev@cybercog.su>
  *
@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Contracts\Likeable\Likeable\Models;
+namespace Cog\Contracts\Love\Likeable\Models;
 
 /**
  * Interface Likeable.
  *
- * @package Cog\Contracts\Likeable\Likeable\Models
+ * @package Cog\Contracts\Love\Likeable\Models
  */
 interface Likeable
 {
@@ -87,7 +87,7 @@ interface Likeable
      * @param null|string|int $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \\Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined
+     * @throws \\Cog\Contracts\Love\Liker\Exceptions\LikerNotDefined
      */
     public function like($userId = null);
 
@@ -97,7 +97,7 @@ interface Likeable
      * @param null|string|int $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \\Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined
+     * @throws \\Cog\Contracts\Love\Liker\Exceptions\LikerNotDefined
      */
     public function unlike($userId = null);
 
@@ -107,7 +107,7 @@ interface Likeable
      * @param null|string|int $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \\Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined
+     * @throws \\Cog\Contracts\Love\Liker\Exceptions\LikerNotDefined
      */
     public function likeToggle($userId = null);
 
@@ -132,7 +132,7 @@ interface Likeable
      * @param null|string|int $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \\Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined
+     * @throws \\Cog\Contracts\Love\Liker\Exceptions\LikerNotDefined
      */
     public function dislike($userId = null);
 
@@ -142,7 +142,7 @@ interface Likeable
      * @param null|string|int $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \\Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined
+     * @throws \\Cog\Contracts\Love\Liker\Exceptions\LikerNotDefined
      */
     public function undislike($userId = null);
 
@@ -152,7 +152,7 @@ interface Likeable
      * @param null|string|int $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \\Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined
+     * @throws \\Cog\Contracts\Love\Liker\Exceptions\LikerNotDefined
      */
     public function dislikeToggle($userId = null);
 

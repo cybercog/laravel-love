@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Likeable.
+ * This file is part of Laravel Love.
  *
  * (c) Anton Komarev <a.komarev@cybercog.su>
  *
@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Tests\Laravel\Likeable\Unit\Console\Commands;
+namespace Cog\Tests\Laravel\Love\Unit\Console\Commands;
 
-use Cog\Laravel\Likeable\LikeCounter\Models\LikeCounter;
-use Cog\Tests\Laravel\Likeable\Stubs\Models\Article;
-use Cog\Tests\Laravel\Likeable\Stubs\Models\Entity;
-use Cog\Tests\Laravel\Likeable\Stubs\Models\EntityWithMorphMap;
-use Cog\Tests\Laravel\Likeable\Stubs\Models\User;
-use Cog\Tests\Laravel\Likeable\TestCase;
+use Cog\Laravel\Love\LikeCounter\Models\LikeCounter;
+use Cog\Tests\Laravel\Love\Stubs\Models\Article;
+use Cog\Tests\Laravel\Love\Stubs\Models\Entity;
+use Cog\Tests\Laravel\Love\Stubs\Models\EntityWithMorphMap;
+use Cog\Tests\Laravel\Love\Stubs\Models\User;
+use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Contracts\Console\Kernel;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -24,7 +24,7 @@ use Symfony\Component\Console\Output\BufferedOutput;
 /**
  * Class Recount.
  *
- * @package Cog\Tests\Laravel\Likeable\Unit\Console\Commands
+ * @package Cog\Tests\Laravel\Love\Unit\Console\Commands
  */
 class Recount extends TestCase
 {
@@ -471,7 +471,7 @@ class Recount extends TestCase
     public function it_can_throw_model_invalid_exception_on_not_exist_morph_map()
     {
         // TODO: Check if works on older Laravel versions. Otherwise uncomment assertContains on the end.
-        $this->expectException(\Cog\Contracts\Likeable\Likeable\Exceptions\InvalidLikeable::class);
+        $this->expectException(\Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable::class);
 
         $status = $this->kernel->handle(
             $input = new ArrayInput([
@@ -482,14 +482,14 @@ class Recount extends TestCase
         );
 
         $this->assertEquals(1, $status);
-        //$this->assertContains('Cog\Contracts\Likeable\Likeable\Exceptions\InvalidLikeable', $output->fetch());
+        //$this->assertContains('Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable', $output->fetch());
     }
 
     /** @test */
     public function it_can_throw_model_invalid_exception_if_class_not_implemented_has_likes_interface()
     {
         // TODO: Check if works on older Laravel versions. Otherwise uncomment assertContains on the end.
-        $this->expectException(\Cog\Contracts\Likeable\Likeable\Exceptions\InvalidLikeable::class);
+        $this->expectException(\Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable::class);
 
         $status = $this->kernel->handle(
             $input = new ArrayInput([
@@ -500,7 +500,7 @@ class Recount extends TestCase
         );
 
         $this->assertEquals(1, $status);
-        //$this->assertContains('Cog\Contracts\Likeable\Likeable\Exceptions\InvalidLikeable', $output->fetch());
+        //$this->assertContains('Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable', $output->fetch());
     }
 
     public function it_deletes_records_before_recount()

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Likeable.
+ * This file is part of Laravel Love.
  *
  * (c) Anton Komarev <a.komarev@cybercog.su>
  *
@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Laravel\Likeable\Console\Commands;
+namespace Cog\Laravel\Love\Console\Commands;
 
-use Cog\Contracts\Likeable\Like\Models\Like as LikeContract;
-use Cog\Contracts\Likeable\Likeable\Exceptions\InvalidLikeable;
-use Cog\Contracts\Likeable\Likeable\Models\Likeable as LikeableContract;
-use Cog\Contracts\Likeable\LikeCounter\Models\LikeCounter as LikeCounterContract;
-use Cog\Laravel\Likeable\Likeable\Services\LikeableService as LikeableServiceContract;
+use Cog\Contracts\Love\Like\Models\Like as LikeContract;
+use Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable;
+use Cog\Contracts\Love\Likeable\Models\Likeable as LikeableContract;
+use Cog\Contracts\Love\LikeCounter\Models\LikeCounter as LikeCounterContract;
+use Cog\Laravel\Love\Likeable\Services\LikeableService as LikeableServiceContract;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\DB;
 /**
  * Class Recount.
  *
- * @package Cog\Laravel\Likeable\Console\Commands
+ * @package Cog\Laravel\Love\Console\Commands
  */
 class Recount extends Command
 {
@@ -52,7 +52,7 @@ class Recount extends Command
     /**
      * Likeable service.
      *
-     * @var \Cog\Contracts\Likeable\Likeable\Services\LikeableService
+     * @var \Cog\Contracts\Love\Likeable\Services\LikeableService
      */
     protected $service;
 
@@ -62,8 +62,8 @@ class Recount extends Command
      * @param \Illuminate\Contracts\Events\Dispatcher $events
      * @return void
      *
-     * @throws \Cog\Contracts\Likeable\Likeable\Exceptions\InvalidLikeable
-     * @throws \Cog\Contracts\Likeable\Like\Exceptions\InvalidLikeType
+     * @throws \Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */
     public function handle(Dispatcher $events)
     {
@@ -83,8 +83,8 @@ class Recount extends Command
      *
      * @return void
      *
-     * @throws \Cog\Contracts\Likeable\Likeable\Exceptions\InvalidLikeable
-     * @throws \Cog\Contracts\Likeable\Like\Exceptions\InvalidLikeType
+     * @throws \Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */
     protected function recountLikesOfAllModelTypes()
     {
@@ -100,8 +100,8 @@ class Recount extends Command
      * @param string $modelType
      * @return void
      *
-     * @throws \Cog\Contracts\Likeable\Likeable\Exceptions\InvalidLikeable
-     * @throws \Cog\Contracts\Likeable\Like\Exceptions\InvalidLikeType
+     * @throws \Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */
     protected function recountLikesOfModelType($modelType)
     {
@@ -122,7 +122,7 @@ class Recount extends Command
      * @param string $modelType
      * @return string
      *
-     * @throws \Cog\Contracts\Likeable\Likeable\Exceptions\InvalidLikeable
+     * @throws \Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable
      */
     protected function normalizeModelType($modelType)
     {

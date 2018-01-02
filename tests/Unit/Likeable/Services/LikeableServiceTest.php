@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Likeable.
+ * This file is part of Laravel Love.
  *
  * (c) Anton Komarev <a.komarev@cybercog.su>
  *
@@ -9,22 +9,22 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Tests\Laravel\Likeable\Unit\Likeable\Services;
+namespace Cog\Tests\Laravel\Love\Unit\Likeable\Services;
 
-use Cog\Laravel\Likeable\LikeCounter\Models\LikeCounter;
-use Cog\Contracts\Likeable\Likeable\Services\LikeableService as LikeableServiceContract;
-use Cog\Laravel\Likeable\Likeable\Services\LikeableService;
-use Cog\Tests\Laravel\Likeable\Stubs\Models\Article;
-use Cog\Tests\Laravel\Likeable\Stubs\Models\Entity;
-use Cog\Tests\Laravel\Likeable\Stubs\Models\EntityWithMorphMap;
-use Cog\Tests\Laravel\Likeable\Stubs\Models\User;
-use Cog\Tests\Laravel\Likeable\TestCase;
+use Cog\Laravel\Love\LikeCounter\Models\LikeCounter;
+use Cog\Contracts\Love\Likeable\Services\LikeableService as LikeableServiceContract;
+use Cog\Laravel\Love\Likeable\Services\LikeableService;
+use Cog\Tests\Laravel\Love\Stubs\Models\Article;
+use Cog\Tests\Laravel\Love\Stubs\Models\Entity;
+use Cog\Tests\Laravel\Love\Stubs\Models\EntityWithMorphMap;
+use Cog\Tests\Laravel\Love\Stubs\Models\User;
+use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 /**
  * Class LikeableServiceTest.
  *
- * @package Cog\Tests\Laravel\Likeable\Unit\Services
+ * @package Cog\Tests\Laravel\Love\Unit\Services
  */
 class LikeableServiceTest extends TestCase
 {

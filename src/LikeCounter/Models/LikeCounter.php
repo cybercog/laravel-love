@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Likeable.
+ * This file is part of Laravel Love.
  *
  * (c) Anton Komarev <a.komarev@cybercog.su>
  *
@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Laravel\Likeable\LikeCounter\Models;
+namespace Cog\Laravel\Love\LikeCounter\Models;
 
-use Cog\Contracts\Likeable\LikeCounter\Models\LikeCounter as LikeCounterContract;
+use Cog\Contracts\Love\LikeCounter\Models\LikeCounter as LikeCounterContract;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int type_id
  * @property int count
- * @package Cog\Laravel\Likeable\LikeCounter\Models
+ * @package Cog\Laravel\Love\LikeCounter\Models
  */
 class LikeCounter extends Model implements LikeCounterContract
 {

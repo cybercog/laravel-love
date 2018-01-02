@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Likeable.
+ * This file is part of Laravel Love.
  *
  * (c) Anton Komarev <a.komarev@cybercog.su>
  *
@@ -9,18 +9,18 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Tests\Laravel\Likeable\Unit\Liker\Exceptions;
+namespace Cog\Tests\Laravel\Love\Unit\Liker\Exceptions;
 
-use Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined;
-use Cog\Tests\Laravel\Likeable\Stubs\Models\Entity;
-use Cog\Tests\Laravel\Likeable\Stubs\Models\User;
-use Cog\Tests\Laravel\Likeable\TestCase;
+use Cog\Contracts\Love\Liker\Exceptions\LikerNotDefined;
+use Cog\Tests\Laravel\Love\Stubs\Models\Entity;
+use Cog\Tests\Laravel\Love\Stubs\Models\User;
+use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 /**
  * Class LikerNotDefinedTest.
  *
- * @package Cog\Tests\Laravel\Likeable\Unit\Liker\Exceptions
+ * @package Cog\Tests\Laravel\Love\Unit\Liker\Exceptions
  */
 class LikerNotDefinedTest extends TestCase
 {

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Likeable.
+ * This file is part of Laravel Love.
  *
  * (c) Anton Komarev <a.komarev@cybercog.su>
  *
@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Laravel\Likeable\Like\Enums;
+namespace Cog\Laravel\Love\Like\Enums;
 
 /**
  * Class LikeType.
  *
- * @package Cog\Laravel\Likeable\Like\Enums
+ * @package Cog\Laravel\Love\Like\Enums
  */
 class LikeType
 {

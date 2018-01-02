@@ -23,6 +23,7 @@ Laravel Likeable simplify management of Eloquent model's likes & dislikes. Make 
     - [Console commands](#console-commands)
 - [Extending](#extending)
 - [Change log](#change-log)
+- [Upgrading](#upgrading)
 - [Contributing](#contributing)
 - [Testing](#testing)
 - [Security](#security)
@@ -323,37 +324,37 @@ $ likeable:recount --model="App\Models\Article"
 ##### Recount only likes of all model types
 
 ```sh
-$ likeable:recount --type="like"
+$ likeable:recount --type="LIKE"
 ```
 
 ##### Recount only likes of concrete model type (using morph map alias)
 
 ```sh
-$ likeable:recount --model="article" --type="like"
+$ likeable:recount --model="article" --type="LIKE"
 ```
 
 ##### Recount only likes of concrete model type (using fully qualified class name)
 
 ```sh
-$ likeable:recount --model="App\Models\Article" --type="like"
+$ likeable:recount --model="App\Models\Article" --type="LIKE"
 ```
 
 ##### Recount only dislikes of all model types
 
 ```sh
-$ likeable:recount --type="dislike"
+$ likeable:recount --type="DISLIKE"
 ```
 
 ##### Recount only dislikes of concrete model type (using morph map alias)
 
 ```sh
-$ likeable:recount --model="article" --type="dislike"
+$ likeable:recount --model="article" --type="DISLIKE"
 ```
 
 ##### Recount only dislikes of concrete model type (using fully qualified class name)
 
 ```sh
-$ likeable:recount --model="App\Models\Article" --type="dislike"
+$ likeable:recount --model="App\Models\Article" --type="DISLIKE"
 ```
 
 ## Extending
@@ -396,6 +397,10 @@ $service = app(\Cog\Likeable\Contracts\LikeableService::class);
 ## Change log
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+
+## Upgrading
+
+Please see [UPGRADING](UPGRADING.md) for detailed upgrade instructions.
 
 ## Contributing
 

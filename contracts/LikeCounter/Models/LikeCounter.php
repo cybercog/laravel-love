@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Likeable.
+ * This file is part of Laravel Love.
  *
  * (c) Anton Komarev <a.komarev@cybercog.su>
  *
@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Contracts\Likeable\LikeCounter\Models;
+namespace Cog\Contracts\Love\LikeCounter\Models;
 
 /**
  * Interface LikeCounter.
  *
  * @property int type_id
  * @property int count
- * @package Cog\Contracts\Likeable\LikeCounter\Models
+ * @package Cog\Contracts\Love\LikeCounter\Models
  */
 interface LikeCounter
 {

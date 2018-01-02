@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Likeable.
+ * This file is part of Laravel Love.
  *
  * (c) Anton Komarev <a.komarev@cybercog.su>
  *
@@ -9,19 +9,19 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Tests\Laravel\Likeable\Unit\Likeable\Models\Traits;
+namespace Cog\Tests\Laravel\Love\Unit\Likeable\Models\Traits;
 
-use Cog\Contracts\Likeable\Like\Models\Like as LikeContract;
-use Cog\Tests\Laravel\Likeable\Stubs\Models\Entity;
-use Cog\Tests\Laravel\Likeable\Stubs\Models\User;
-use Cog\Tests\Laravel\Likeable\TestCase;
+use Cog\Contracts\Love\Like\Models\Like as LikeContract;
+use Cog\Tests\Laravel\Love\Stubs\Models\Entity;
+use Cog\Tests\Laravel\Love\Stubs\Models\User;
+use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\DB;
 
 /**
  * Class LikeableTest.
  *
- * @package Cog\Tests\Laravel\Likeable\Unit\Likeable\Models\Traits
+ * @package Cog\Tests\Laravel\Love\Unit\Likeable\Models\Traits
  */
 class LikeableTest extends TestCase
 {

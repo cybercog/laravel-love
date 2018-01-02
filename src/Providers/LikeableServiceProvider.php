@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Likeable.
+ * This file is part of Laravel Love.
  *
  * (c) Anton Komarev <a.komarev@cybercog.su>
  *
@@ -9,22 +9,22 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Laravel\Likeable\Providers;
+namespace Cog\Laravel\Love\Providers;
 
-use Cog\Contracts\Likeable\Like\Models\Like as LikeContract;
-use Cog\Contracts\Likeable\LikeCounter\Models\LikeCounter as LikeCounterContract;
-use Cog\Contracts\Likeable\Likeable\Services\LikeableService as LikeableServiceContract;
-use Cog\Laravel\Likeable\Console\Commands\Recount;
-use Cog\Laravel\Likeable\Like\Models\Like;
-use Cog\Laravel\Likeable\Like\Observers\LikeObserver;
-use Cog\Laravel\Likeable\LikeCounter\Models\LikeCounter;
-use Cog\Laravel\Likeable\Likeable\Services\LikeableService;
+use Cog\Contracts\Love\Like\Models\Like as LikeContract;
+use Cog\Contracts\Love\LikeCounter\Models\LikeCounter as LikeCounterContract;
+use Cog\Contracts\Love\Likeable\Services\LikeableService as LikeableServiceContract;
+use Cog\Laravel\Love\Console\Commands\Recount;
+use Cog\Laravel\Love\Like\Models\Like;
+use Cog\Laravel\Love\Like\Observers\LikeObserver;
+use Cog\Laravel\Love\LikeCounter\Models\LikeCounter;
+use Cog\Laravel\Love\Likeable\Services\LikeableService;
 use Illuminate\Support\ServiceProvider;
 
 /**
  * Class LikeableServiceProvider.
  *
- * @package Cog\Laravel\Likeable\Providers
+ * @package Cog\Laravel\Love\Providers
  */
 class LikeableServiceProvider extends ServiceProvider
 {

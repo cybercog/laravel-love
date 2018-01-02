@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Likeable.
+ * This file is part of Laravel Love.
  *
  * (c) Anton Komarev <a.komarev@cybercog.su>
  *
@@ -9,16 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Tests\Laravel\Likeable\Unit\Like\Models;
+namespace Cog\Tests\Laravel\Love\Unit\Like\Models;
 
-use Cog\Laravel\Likeable\Like\Models\Like;
-use Cog\Tests\Laravel\Likeable\Stubs\Models\Entity;
-use Cog\Tests\Laravel\Likeable\TestCase;
+use Cog\Laravel\Love\Like\Models\Like;
+use Cog\Tests\Laravel\Love\Stubs\Models\Entity;
+use Cog\Tests\Laravel\Love\TestCase;
 
 /**
  * Class LikeTest.
  *
- * @package Cog\Tests\Laravel\Likeable\Unit\Like\Models
+ * @package Cog\Tests\Laravel\Love\Unit\Like\Models
  */
 class LikeTest extends TestCase
 {

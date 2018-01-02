@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Likeable.
+ * This file is part of Laravel Love.
  *
  * (c) Anton Komarev <a.komarev@cybercog.su>
  *
@@ -9,20 +9,20 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Laravel\Likeable\Likeable\Models\Traits;
+namespace Cog\Laravel\Love\Likeable\Models\Traits;
 
-use Cog\Contracts\Likeable\Like\Models\Like as LikeContract;
-use Cog\Contracts\Likeable\LikeCounter\Models\LikeCounter as LikeCounterContract;
-use Cog\Contracts\Likeable\Likeable\Services\LikeableService as LikeableServiceContract;
-use Cog\Laravel\Likeable\Like\Enums\LikeType;
-use Cog\Laravel\Likeable\Likeable\Observers\LikeableObserver;
+use Cog\Contracts\Love\Like\Models\Like as LikeContract;
+use Cog\Contracts\Love\LikeCounter\Models\LikeCounter as LikeCounterContract;
+use Cog\Contracts\Love\Likeable\Services\LikeableService as LikeableServiceContract;
+use Cog\Laravel\Love\Like\Enums\LikeType;
+use Cog\Laravel\Love\Likeable\Observers\LikeableObserver;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\JoinClause;
 
 /**
  * Trait Likeable.
  *
- * @package Cog\Laravel\Likeable\Likeable\Models\Traits
+ * @package Cog\Laravel\Love\Likeable\Models\Traits
  */
 trait Likeable
 {
@@ -165,7 +165,7 @@ trait Likeable
      * @param int|null $userId
      * @return \Illuminate\Database\Eloquent\Builder
      *
-     * @throws \\Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined
+     * @throws \\Cog\Contracts\Love\Liker\Exceptions\LikerNotDefined
      */
     public function scopeWhereLikedBy(Builder $query, $userId = null)
     {
@@ -179,7 +179,7 @@ trait Likeable
      * @param int|null $userId
      * @return \Illuminate\Database\Eloquent\Builder
      *
-     * @throws \\Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined
+     * @throws \\Cog\Contracts\Love\Liker\Exceptions\LikerNotDefined
      */
     public function scopeWhereDislikedBy(Builder $query, $userId = null)
     {
@@ -216,7 +216,7 @@ trait Likeable
      * @param mixed $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \\Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined
+     * @throws \\Cog\Contracts\Love\Liker\Exceptions\LikerNotDefined
      */
     public function like($userId = null)
     {
@@ -229,7 +229,7 @@ trait Likeable
      * @param int|null $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \\Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined
+     * @throws \\Cog\Contracts\Love\Liker\Exceptions\LikerNotDefined
      */
     public function unlike($userId = null)
     {
@@ -242,7 +242,7 @@ trait Likeable
      * @param mixed $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \\Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined
+     * @throws \\Cog\Contracts\Love\Liker\Exceptions\LikerNotDefined
      */
     public function likeToggle($userId = null)
     {
@@ -276,7 +276,7 @@ trait Likeable
      * @param mixed $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \\Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined
+     * @throws \\Cog\Contracts\Love\Liker\Exceptions\LikerNotDefined
      */
     public function dislike($userId = null)
     {
@@ -289,7 +289,7 @@ trait Likeable
      * @param int|null $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \\Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined
+     * @throws \\Cog\Contracts\Love\Liker\Exceptions\LikerNotDefined
      */
     public function undislike($userId = null)
     {
@@ -302,7 +302,7 @@ trait Likeable
      * @param mixed $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \\Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined
+     * @throws \\Cog\Contracts\Love\Liker\Exceptions\LikerNotDefined
      */
     public function dislikeToggle($userId = null)
     {
@@ -339,7 +339,7 @@ trait Likeable
      * @param int|null $userId
      * @return \Illuminate\Database\Eloquent\Builder
      *
-     * @throws \\Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined
+     * @throws \\Cog\Contracts\Love\Liker\Exceptions\LikerNotDefined
      */
     private function applyScopeWhereLikedBy(Builder $query, $type, $userId)
     {

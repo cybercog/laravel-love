@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Likeable.
+ * This file is part of Laravel Love.
  *
  * (c) Anton Komarev <a.komarev@cybercog.su>
  *
@@ -9,16 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Tests\Laravel\Likeable\Stubs\Models;
+namespace Cog\Tests\Laravel\Love\Stubs\Models;
 
-use Cog\Contracts\Likeable\Likeable\Models\Likeable as LikeableContract;
-use Cog\Laravel\Likeable\Likeable\Models\Traits\Likeable;
+use Cog\Contracts\Love\Likeable\Models\Likeable as LikeableContract;
+use Cog\Laravel\Love\Likeable\Models\Traits\Likeable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class EntityWithMorphMap.
  *
- * @package Cog\Tests\Laravel\Likeable\Stubs\Models
+ * @package Cog\Tests\Laravel\Love\Stubs\Models
  */
 class EntityWithMorphMap extends Model implements LikeableContract
 {

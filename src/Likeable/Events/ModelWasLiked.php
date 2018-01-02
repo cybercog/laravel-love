@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Likeable.
+ * This file is part of Laravel Love.
  *
  * (c) Anton Komarev <a.komarev@cybercog.su>
  *
@@ -9,21 +9,21 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Laravel\Likeable\Likeable\Events;
+namespace Cog\Laravel\Love\Likeable\Events;
 
-use Cog\Contracts\Likeable\Likeable\Models\Likeable as LikeableContract;
+use Cog\Contracts\Love\Likeable\Models\Likeable as LikeableContract;
 
 /**
  * Class ModelWasLiked.
  *
- * @package Cog\Laravel\Likeable\Likeable\Events
+ * @package Cog\Laravel\Love\Likeable\Events
  */
 class ModelWasLiked
 {
     /**
      * The liked model.
      *
-     * @var \Cog\Contracts\Likeable\Likeable\Models\Likeable
+     * @var \Cog\Contracts\Love\Likeable\Models\Likeable
      */
     public $model;
 
@@ -37,7 +37,7 @@ class ModelWasLiked
     /**
      * Create a new event instance.
      *
-     * @param \Cog\Contracts\Likeable\Likeable\Models\Likeable $likeable
+     * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @param int $likerId
      * @return void
      */

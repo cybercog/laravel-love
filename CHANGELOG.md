@@ -2,6 +2,43 @@
 
 All notable changes to `laravel-likeable` will be documented in this file.
 
+## [4.0.0] - 2017-12-29
+
+### Changed
+
+- Database table `like` renamed to `likes`
+- Database table `like_counter` renamed to `like_counters`
+- Contracts extracted to namespace `Cog\Contracts\Likeable`
+- `ModelObserver` class renamed to `LikeableObserver`
+- `LikeType::LIKE` & `LikeType::DISLIKE` constant values are uppercase now `LIKE` & `DISLIKE` respectively
+- Exceptions extends `\RuntimeException` instead of `\Exception`
+- Exception `LikeTypeInvalidException` moved from `Cog\Contracts\Likeable\Exceptions` to `Cog\Contracts\Likeable\Like\Exceptions`
+- Exception `LikeTypeInvalidException` renamed to `InvalidLikeType`
+- Exception `LikerNotDefinedException` moved from `Cog\Contracts\Likeable\Exceptions` to `Cog\Contracts\Likeable\Liker\Exceptions`
+- Exception `LikerNotDefinedException` renamed to `LikerNotDefined`
+- Exception `ModelInvalidException` moved from `Cog\Contracts\Likeable\Exceptions` to `Cog\Contracts\Likeable\Likeable\Exceptions`
+- Exception `ModelInvalidException` renamed to `InvalidLikeable`
+- Console command `LikeableRecount` moved from `Cog\Likeable\Console` to `Cog\Laravel\Likeable\Console\Commands`
+- Console command `LikeableRecount` renamed to `Recount`
+
+### Removed
+
+- Deleted deprecated `Cog\Likeable\Contracts\HasLikes` contract
+- Deleted deprecated `Cog\Likeable\Traits\HasLikes` trait
+- `scopeWhereLikedBy` method from `Cog\Likeable\Contracts\LikeableService` contract
+- `scopeWhereLikedBy` method from `Cog\Likeable\Services\LikeableService` class
+- `scopeOrderByLikesCount` method from `Cog\Likeable\Contracts\LikeableService` contract
+- `scopeOrderByLikesCount` method from `Cog\Likeable\Services\LikeableService` class
+- `getLikesCountAttribute` method from `Cog\Likeable\Contracts\Likeable` contract
+- `getDislikesCountAttribute` method from `Cog\Likeable\Contracts\Likeable` contract
+- `getLikedAttribute` method from `Cog\Likeable\Contracts\Likeable` contract
+- `getDislikedAttribute` method from `Cog\Likeable\Contracts\Likeable` contract
+- `getLikesDiffDislikesCountAttribute` method from `Cog\Likeable\Contracts\Likeable` contract
+- `scopeWhereLikedBy` method from `Cog\Likeable\Contracts\Likeable` contract
+- `scopeWhereDislikedBy` method from `Cog\Likeable\Contracts\Likeable` contract
+- `scopeOrderByLikesCount` method from `Cog\Likeable\Contracts\Likeable` contract
+- `scopeOrderByDislikesCount` method from `Cog\Likeable\Contracts\Likeable` contract
+
 ## [3.1.0] - 2017-12-28
 
 ### Changed
@@ -101,6 +138,7 @@ All notable changes to `laravel-likeable` will be documented in this file.
 
 - Initial release
 
+[4.0.0]: https://github.com/cybercog/laravel-likeable/compare/3.1.0...4.0.0
 [3.1.0]: https://github.com/cybercog/laravel-likeable/compare/3.0.0...3.1.0
 [3.0.0]: https://github.com/cybercog/laravel-likeable/compare/2.2.5...3.0.0
 [2.2.5]: https://github.com/cybercog/laravel-likeable/compare/2.2.4...2.2.5

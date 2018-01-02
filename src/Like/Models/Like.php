@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Likeable.
+ * This file is part of Laravel Love.
  *
  * (c) Anton Komarev <a.komarev@cybercog.su>
  *
@@ -9,18 +9,18 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Laravel\Likeable\Like\Models;
+namespace Cog\Laravel\Love\Like\Models;
 
-use Cog\Contracts\Likeable\Like\Models\Like as LikeContract;
+use Cog\Contracts\Love\Like\Models\Like as LikeContract;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Like.
  *
- * @property \Cog\Contracts\Likeable\Likeable\Models\Likeable likeable
+ * @property \Cog\Contracts\Love\Likeable\Models\Likeable likeable
  * @property int type_id
  * @property int user_id
- * @package Cog\Laravel\Likeable\Like\Models
+ * @package Cog\Laravel\Love\Like\Models
  */
 class Like extends Model implements LikeContract
 {

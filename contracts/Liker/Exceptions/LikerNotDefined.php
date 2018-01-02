@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Likeable.
+ * This file is part of Laravel Love.
  *
  * (c) Anton Komarev <a.komarev@cybercog.su>
  *
@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Contracts\Likeable\Liker\Exceptions;
+namespace Cog\Contracts\Love\Liker\Exceptions;
 
 use RuntimeException;
 
 /**
  * Class LikerNotDefined.
  *
- * @package Cog\Contracts\Likeable\Liker\Exceptions
+ * @package Cog\Contracts\Love\Liker\Exceptions
  */
 class LikerNotDefined extends RuntimeException
 {
