@@ -368,13 +368,13 @@ trait Likeable
         $typeId = app(LikeableServiceContract::class)->getLikeTypeId($likeType);
 
         return $query
-            ->select($likeable->getTable() . '.*', 'like_counters.count')
-            ->leftJoin('like_counters', function (JoinClause $join) use ($likeable, $typeId) {
+            ->select($likeable->getTable() . '.*', 'love_like_counters.count')
+            ->leftJoin('love_like_counters', function (JoinClause $join) use ($likeable, $typeId) {
                 $join
-                    ->on('like_counters.likeable_id', '=', "{$likeable->getTable()}.{$likeable->getKeyName()}")
-                    ->where('like_counters.likeable_type', '=', $likeable->getMorphClass())
-                    ->where('like_counters.type_id', '=', $typeId);
+                    ->on('love_like_counters.likeable_id', '=', "{$likeable->getTable()}.{$likeable->getKeyName()}")
+                    ->where('love_like_counters.likeable_type', '=', $likeable->getMorphClass())
+                    ->where('love_like_counters.type_id', '=', $typeId);
             })
-            ->orderBy('like_counters.count', $direction);
+            ->orderBy('love_like_counters.count', $direction);
     }
 }

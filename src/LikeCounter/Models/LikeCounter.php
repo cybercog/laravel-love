@@ -35,7 +35,7 @@ class LikeCounter extends Model implements LikeCounterContract
      *
      * @var string
      */
-    protected $table = 'like_counters';
+    protected $table = 'love_like_counters';
 
     /**
      * The attributes that are mass assignable.

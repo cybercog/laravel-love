@@ -14,9 +14,9 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 /**
- * Class CreateLikesTable.
+ * Class CreateLoveLikeCountersTable.
  */
-class CreateLikesTable extends Migration
+class CreateLoveLikeCountersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -25,23 +25,21 @@ class CreateLikesTable extends Migration
      */
     public function up()
     {
-        Schema::create('likes', function (Blueprint $table) {
+        Schema::create('love_like_counters', function (Blueprint $table) {
             $table->increments('id');
             $table->morphs('likeable');
-            $table->integer('user_id')->unsigned()->index();
             $table->enum('type_id', [
                 'like',
                 'dislike',
             ])->default('like');
-            $table->timestamp('created_at')->nullable();
+            $table->integer('count')->unsigned()->default(0);
+            $table->timestamps();
 
             $table->unique([
                 'likeable_id',
                 'likeable_type',
-                'user_id',
-            ], 'like_user_unique');
-
-            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+                'type_id',
+            ], 'like_counter_unique');
         });
     }
 
@@ -52,6 +50,6 @@ class CreateLikesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('likes');
+        Schema::dropIfExists('love_like_counters');
     }
 }

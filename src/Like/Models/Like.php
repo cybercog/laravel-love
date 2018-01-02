@@ -29,7 +29,7 @@ class Like extends Model implements LikeContract
      *
      * @var string
      */
-    protected $table = 'likes';
+    protected $table = 'love_likes';
 
     /**
      * The attributes that are mass assignable.
@@ -40,19 +40,6 @@ class Like extends Model implements LikeContract
         'user_id',
         'type_id',
     ];
-
-    /**
-     * Set the value of the "updated at" attribute.
-     *
-     * @todo drop it in 4.0 by adding updated_at column
-     * @deprecated 3.0
-     * @param  mixed  $value
-     * @return $this
-     */
-    public function setUpdatedAt($value)
-    {
-        return $this;
-    }
 
     /**
      * Likeable model relation.
