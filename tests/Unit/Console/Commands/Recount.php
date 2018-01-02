@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Tests\Laravel\Likeable\Unit\Observers;
+namespace Cog\Tests\Laravel\Likeable\Unit\Console\Commands;
 
 use Cog\Laravel\Likeable\LikeCounter\Models\LikeCounter;
 use Cog\Tests\Laravel\Likeable\Stubs\Models\Article;
@@ -22,11 +22,11 @@ use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 
 /**
- * Class LikeableRecountCommandTest.
+ * Class Recount.
  *
- * @package Cog\Tests\Laravel\Likeable\Unit\Console
+ * @package Cog\Tests\Laravel\Likeable\Unit\Console\Commands
  */
-class LikeableRecountCommandTest extends TestCase
+class Recount extends TestCase
 {
     protected $kernel;
 

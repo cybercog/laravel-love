@@ -12,8 +12,8 @@
 namespace Cog\Laravel\Likeable\Likeable\Models\Traits;
 
 use Cog\Contracts\Likeable\Like\Models\Like as LikeContract;
-use Cog\Contracts\Likeable\Services\LikeableService as LikeableServiceContract;
 use Cog\Contracts\Likeable\LikeCounter\Models\LikeCounter as LikeCounterContract;
+use Cog\Contracts\Likeable\Services\LikeableService as LikeableServiceContract;
 use Cog\Laravel\Likeable\Like\Enums\LikeType;
 use Cog\Laravel\Likeable\Likeable\Observers\LikeableObserver;
 use Illuminate\Database\Eloquent\Builder;

@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Laravel\Likeable\Console;
+namespace Cog\Laravel\Likeable\Console\Commands;
 
+use Cog\Contracts\Likeable\Like\Models\Like as LikeContract;
 use Cog\Contracts\Likeable\Likeable\Exceptions\InvalidLikeable;
 use Cog\Contracts\Likeable\Likeable\Models\Likeable as LikeableContract;
-use Cog\Contracts\Likeable\Like\Models\Like as LikeContract;
 use Cog\Contracts\Likeable\LikeCounter\Models\LikeCounter as LikeCounterContract;
 use Cog\Laravel\Likeable\Services\LikeableService as LikeableServiceContract;
 use Illuminate\Console\Command;
@@ -22,11 +22,11 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Class LikeableRecountCommand.
+ * Class Recount.
  *
- * @package Cog\Laravel\Likeable\Console
+ * @package Cog\Laravel\Likeable\Console\Commands
  */
-class LikeableRecountCommand extends Command
+class Recount extends Command
 {
     /**
      * The name and signature of the console command.
