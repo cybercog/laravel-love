@@ -13,16 +13,19 @@
 
 Laravel Love simplify management of Eloquent model's likes & dislikes. Make any model `likeable` & `dislikeable` in a minutes!
 
+This package is a fork of the abandoned [Laravel Likeable](https://github.com/cybercog/laravel-likeable).
+It completely changes package namespace architecture and aimed to refactor API and add new features.
+
 ## Contents
 
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
-    - [Prepare likeable model](#prepare-likeable-model)
-    - [Available methods](#available-methods)
-    - [Scopes](#scopes)
-    - [Events](#events)
-    - [Console commands](#console-commands)
+  - [Prepare likeable model](#prepare-likeable-model)
+  - [Available methods](#available-methods)
+  - [Scopes](#scopes)
+  - [Events](#events)
+  - [Console commands](#console-commands)
 - [Extending](#extending)
 - [Change log](#change-log)
 - [Upgrading](#upgrading)

@@ -62,7 +62,7 @@ class Recount extends TestCase
 
         $status = $this->kernel->handle(
             $input = new ArrayInput([
-                'command' => 'likeable:recount',
+                'command' => 'love:recount',
                 'type' => 'LIKE',
             ]),
             $output = new BufferedOutput
@@ -97,7 +97,7 @@ class Recount extends TestCase
 
         $status = $this->kernel->handle(
             $input = new ArrayInput([
-                'command' => 'likeable:recount',
+                'command' => 'love:recount',
                 'model' => Entity::class,
                 'type' => 'LIKE',
             ]),
@@ -132,7 +132,7 @@ class Recount extends TestCase
 
         $status = $this->kernel->handle(
             $input = new ArrayInput([
-                'command' => 'likeable:recount',
+                'command' => 'love:recount',
                 'model' => 'entity-with-morph-map',
                 'type' => 'LIKE',
             ]),
@@ -167,7 +167,7 @@ class Recount extends TestCase
 
         $status = $this->kernel->handle(
             $input = new ArrayInput([
-                'command' => 'likeable:recount',
+                'command' => 'love:recount',
                 'model' => EntityWithMorphMap::class,
                 'type' => 'LIKE',
             ]),
@@ -206,7 +206,7 @@ class Recount extends TestCase
 
         $status = $this->kernel->handle(
             $input = new ArrayInput([
-                'command' => 'likeable:recount',
+                'command' => 'love:recount',
                 'type' => 'DISLIKE',
             ]),
             $output = new BufferedOutput
@@ -241,7 +241,7 @@ class Recount extends TestCase
 
         $status = $this->kernel->handle(
             $input = new ArrayInput([
-                'command' => 'likeable:recount',
+                'command' => 'love:recount',
                 'model' => Entity::class,
                 'type' => 'DISLIKE',
             ]),
@@ -276,7 +276,7 @@ class Recount extends TestCase
 
         $status = $this->kernel->handle(
             $input = new ArrayInput([
-                'command' => 'likeable:recount',
+                'command' => 'love:recount',
                 'model' => 'entity-with-morph-map',
                 'type' => 'DISLIKE',
             ]),
@@ -311,7 +311,7 @@ class Recount extends TestCase
 
         $status = $this->kernel->handle(
             $input = new ArrayInput([
-                'command' => 'likeable:recount',
+                'command' => 'love:recount',
                 'model' => EntityWithMorphMap::class,
                 'type' => 'DISLIKE',
             ]),
@@ -349,7 +349,7 @@ class Recount extends TestCase
 
         $status = $this->kernel->handle(
             $input = new ArrayInput([
-                'command' => 'likeable:recount',
+                'command' => 'love:recount',
             ]),
             $output = new BufferedOutput
         );
@@ -383,7 +383,7 @@ class Recount extends TestCase
 
         $status = $this->kernel->handle(
             $input = new ArrayInput([
-                'command' => 'likeable:recount',
+                'command' => 'love:recount',
                 'model' => Entity::class,
             ]),
             $output = new BufferedOutput
@@ -417,7 +417,7 @@ class Recount extends TestCase
 
         $status = $this->kernel->handle(
             $input = new ArrayInput([
-                'command' => 'likeable:recount',
+                'command' => 'love:recount',
                 'model' => 'entity-with-morph-map',
             ]),
             $output = new BufferedOutput
@@ -451,7 +451,7 @@ class Recount extends TestCase
 
         $status = $this->kernel->handle(
             $input = new ArrayInput([
-                'command' => 'likeable:recount',
+                'command' => 'love:recount',
                 'model' => EntityWithMorphMap::class,
             ]),
             $output = new BufferedOutput
@@ -477,7 +477,7 @@ class Recount extends TestCase
 
         $status = $this->kernel->handle(
             $input = new ArrayInput([
-                'command' => 'likeable:recount',
+                'command' => 'love:recount',
                 'model' => 'not-exist-model',
             ]),
             $output = new BufferedOutput
@@ -495,7 +495,7 @@ class Recount extends TestCase
 
         $status = $this->kernel->handle(
             $input = new ArrayInput([
-                'command' => 'likeable:recount',
+                'command' => 'love:recount',
                 'model' => User::class,
             ]),
             $output = new BufferedOutput

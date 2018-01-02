@@ -24,7 +24,7 @@
         "kudos",
         "adore",
         "unlike",
-        "undislike",
+        "undislike"
     ],
     "authors": [
         {
@@ -74,7 +74,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Cog\\Laravel\\Love\\Providers\\LikeableServiceProvider"
+                "Cog\\Laravel\\Love\\Providers\\LoveServiceProvider"
             ]
         }
     },

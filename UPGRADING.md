@@ -10,19 +10,19 @@ We accept PRs to improve this guide.
 Exceptions namespace were moved to the contracts namespace, were renamed
 and extends `\RuntimeException` instead of `\Exception` now.
 
-- Find all `Cog\Likeable\Exceptions\LikeTypeInvalidException` and replace with `Cog\Contracts\Likeable\Like\Exceptions\InvalidLikeType`
-- Find all `Cog\Likeable\Exceptions\ModelInvalidException` and replace with `Cog\Contracts\Likeable\Likeable\Exceptions\InvalidLikeableModel`
-- Find all `Cog\Likeable\Exceptions\LikerNotDefinedException` and replace with `Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined`
+- Find all `Cog\Likeable\Exceptions\LikeTypeInvalidException` and replace with `Cog\Contracts\Love\Like\Exceptions\InvalidLikeType`
+- Find all `Cog\Likeable\Exceptions\ModelInvalidException` and replace with `Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable`
+- Find all `Cog\Likeable\Exceptions\LikerNotDefinedException` and replace with `Cog\Contracts\Love\Liker\Exceptions\LikerNotDefined`
 
 Find and replace: 
 
-- Find all `Cog\Likeable\Contracts\Like` and replace with `Cog\Contracts\Likeable\Like`
-- Find all `Cog\Likeable\Contracts\Likeable` and replace with `Cog\Contracts\Likeable\Likeable`
-- Find all `Cog\Likeable\Contracts\BanService` and replace with `Cog\Contracts\Likeable\LikeableService`
-- Find all `Cog\Likeable\Traits\Likeable` and replace with `Cog\Laravel\Likeable\Traits\Likeable`
+- Find all `Cog\Likeable\Contracts\Like` and replace with `Cog\Contracts\Love\Like\Models\Like`
+- Find all `Cog\Likeable\Contracts\Likeable` and replace with `Cog\Contracts\Love\Likeable\Models\Likeable`
+- Find all `Cog\Likeable\Contracts\LikeableService` and replace with `Cog\Contracts\Love\Likeable\Services\LikeableService`
+- Find all `Cog\Likeable\Traits\Likeable` and replace with `Cog\Laravel\Love\Likeable\Models\Traits\Likeable`
 - Find all `Cog\Likeable` and replace with `Cog\Laravel\Likeable`
 
-If you have used `Cog\Likeable\Observers\ModelObserver` observer you need to use new one `Cog\Laravel\Likeable\Observers\LikeableObserver`
+If you have used `Cog\Likeable\Observers\ModelObserver` observer you need to use new one `Cog\Laravel\Love\Likeable\Observers\LikeableObserver`
 
 These database changes should be performed:
 

@@ -59,7 +59,7 @@ abstract class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
-            \Cog\Laravel\Love\Providers\LikeableServiceProvider::class,
+            \Cog\Laravel\Love\Providers\LoveServiceProvider::class,
             \Orchestra\Database\ConsoleServiceProvider::class,
         ];
     }

@@ -24,11 +24,11 @@ use Cog\Laravel\Love\Likeable\Services\LikeableService;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Class LikeableServiceProvider.
+ * Class LoveServiceProvider.
  *
  * @package Cog\Laravel\Love\Providers
  */
-class LikeableServiceProvider extends ServiceProvider
+class LoveServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application events.
@@ -53,7 +53,7 @@ class LikeableServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register Likeable's models observers.
+     * Register Love's models observers.
      *
      * @return void
      */
@@ -63,7 +63,7 @@ class LikeableServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register Likeable's console commands.
+     * Register Love's console commands.
      *
      * @return void
      */
@@ -77,7 +77,7 @@ class LikeableServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register Likeable's classes in the container.
+     * Register Love's classes in the container.
      *
      * @return void
      */
@@ -89,7 +89,7 @@ class LikeableServiceProvider extends ServiceProvider
     }
 
     /**
-     * Setup the resource publishing groups for Likeable.
+     * Setup the resource publishing groups for Love.
      *
      * @return void
      */
