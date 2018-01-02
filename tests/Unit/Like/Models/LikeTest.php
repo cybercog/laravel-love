@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Cog\Tests\Laravel\Love\Unit\Like\Models;
 
 use Cog\Laravel\Love\Like\Models\Like;

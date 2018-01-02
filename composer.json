@@ -10,6 +10,7 @@
         "eloquent",
         "trait",
         "love",
+        "hate",
         "likeable",
         "likable",
         "like",
@@ -20,7 +21,10 @@
         "rating",
         "emotion",
         "star",
-        "kudos"
+        "kudos",
+        "adore",
+        "unlike",
+        "undislike",
     ],
     "authors": [
         {

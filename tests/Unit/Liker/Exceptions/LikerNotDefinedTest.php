@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Cog\Tests\Laravel\Love\Unit\Liker\Exceptions;
 
 use Cog\Contracts\Love\Liker\Exceptions\LikerNotDefined;

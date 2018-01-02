@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Cog\Laravel\Love\Console\Commands;
 
 use Cog\Contracts\Love\Like\Models\Like as LikeContract;
@@ -33,7 +35,7 @@ class Recount extends Command
      *
      * @var string
      */
-    protected $signature = 'likeable:recount {model?} {type?}';
+    protected $signature = 'love:recount {model?} {type?}';
 
     /**
      * The console command description.

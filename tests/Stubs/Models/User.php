@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Cog\Tests\Laravel\Love\Stubs\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;

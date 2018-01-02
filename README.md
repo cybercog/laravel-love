@@ -9,7 +9,7 @@
 
 ## Introduction
 
-Laravel Likeable simplify management of Eloquent model's likes & dislikes. Make any model `likeable` & `dislikeable` in a minutes!
+Laravel Love simplify management of Eloquent model's likes & dislikes. Make any model `likeable` & `dislikeable` in a minutes!
 
 ## Contents
 
@@ -423,7 +423,7 @@ If you discover any security related issues, please email open@cybercog.su inste
 | <a href="https://github.com/a-komarev">![@a-komarev](https://avatars.githubusercontent.com/u/1849174?s=110)<br />Anton Komarev</a> | <a href="https://github.com/acidjazz">![@acidjazz](https://avatars.githubusercontent.com/u/967369?s=110)<br />Kevin Olson</a> |  
 | :---: | :---: |
 
-[Laravel Likeable contributors list](../../contributors)
+[Laravel Love contributors list](../../contributors)
 
 ## Alternatives
 
@@ -436,7 +436,7 @@ If you discover any security related issues, please email open@cybercog.su inste
 
 ## License
 
-- `Laravel Likeable` package is open-sourced software licensed under the [MIT license](LICENSE).
+- `Laravel Love` package is open-sourced software licensed under the [MIT license](LICENSE).
 
 ## About CyberCog
 

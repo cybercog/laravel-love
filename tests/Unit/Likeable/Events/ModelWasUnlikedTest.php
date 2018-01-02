@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Cog\Laravel\Love\Tests\Unit\Likeable\Events;
 
 use Cog\Laravel\Love\Likeable\Events\ModelWasUnliked;

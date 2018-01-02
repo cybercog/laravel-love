@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Cog\Laravel\Love\LikeCounter\Models;
 
 use Cog\Contracts\Love\LikeCounter\Models\LikeCounter as LikeCounterContract;
