@@ -28,8 +28,8 @@ interface LikeableService
      * @param string $userId
      * @return void
      *
-     * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
-     * @throws \Cog\Laravel\Likeable\Exceptions\LikeTypeInvalidException
+     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikerNotDefinedException
+     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikeTypeInvalidException
      */
     public function addLikeTo(LikeableContract $likeable, $type, $userId);
 
@@ -41,8 +41,8 @@ interface LikeableService
      * @param null|string|int $userId
      * @return void
      *
-     * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
-     * @throws \Cog\Laravel\Likeable\Exceptions\LikeTypeInvalidException
+     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikerNotDefinedException
+     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikeTypeInvalidException
      */
     public function removeLikeFrom(LikeableContract $likeable, $type, $userId);
 
@@ -54,8 +54,8 @@ interface LikeableService
      * @param string $userId
      * @return void
      *
-     * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
-     * @throws \Cog\Laravel\Likeable\Exceptions\LikeTypeInvalidException
+     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikerNotDefinedException
+     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikeTypeInvalidException
      */
     public function toggleLikeOf(LikeableContract $likeable, $type, $userId);
 
@@ -67,7 +67,7 @@ interface LikeableService
      * @param int|null $userId
      * @return bool
      *
-     * @throws \Cog\Laravel\Likeable\Exceptions\LikeTypeInvalidException
+     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikeTypeInvalidException
      */
     public function isLiked(LikeableContract $likeable, $type, $userId);
 
@@ -110,7 +110,7 @@ interface LikeableService
      * @param null|string $type
      * @return void
      *
-     * @throws \Cog\Laravel\Likeable\Exceptions\LikeTypeInvalidException
+     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikeTypeInvalidException
      */
     public function removeLikeCountersOfType($likeableType, $type = null);
 
@@ -121,7 +121,7 @@ interface LikeableService
      * @param string $type
      * @return void
      *
-     * @throws \Cog\Laravel\Likeable\Exceptions\LikeTypeInvalidException
+     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikeTypeInvalidException
      */
     public function removeModelLikes(LikeableContract $likeable, $type);
 
@@ -148,7 +148,7 @@ interface LikeableService
      * @param string $likeType
      * @return array
      *
-     * @throws \Cog\Laravel\Likeable\Exceptions\LikeTypeInvalidException
+     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikeTypeInvalidException
      */
     public function fetchLikesCounters($likeableType, $likeType);
 }

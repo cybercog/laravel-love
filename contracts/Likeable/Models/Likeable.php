@@ -87,7 +87,7 @@ interface Likeable
      * @param null|string|int $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
+     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikerNotDefinedException
      */
     public function like($userId = null);
 
@@ -97,7 +97,7 @@ interface Likeable
      * @param null|string|int $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
+     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikerNotDefinedException
      */
     public function unlike($userId = null);
 
@@ -107,7 +107,7 @@ interface Likeable
      * @param null|string|int $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
+     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikerNotDefinedException
      */
     public function likeToggle($userId = null);
 
@@ -132,7 +132,7 @@ interface Likeable
      * @param null|string|int $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
+     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikerNotDefinedException
      */
     public function dislike($userId = null);
 
@@ -142,7 +142,7 @@ interface Likeable
      * @param null|string|int $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
+     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikerNotDefinedException
      */
     public function undislike($userId = null);
 
@@ -152,7 +152,7 @@ interface Likeable
      * @param null|string|int $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException
+     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikerNotDefinedException
      */
     public function dislikeToggle($userId = null);
 

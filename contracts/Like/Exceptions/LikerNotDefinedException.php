@@ -9,15 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Laravel\Likeable\Exceptions;
+namespace Cog\Contracts\Likeable\Like\Exceptions;
 
-use Exception;
+use RuntimeException;
 
 /**
- * Class LikeTypeInvalidException.
+ * Class LikerNotDefinedException.
  *
- * @package Cog\Likable\Exceptions
+ * @package Cog\Contracts\Likeable\Like\Exceptions
  */
-class LikeTypeInvalidException extends Exception
+class LikerNotDefinedException extends RuntimeException
 {
 }

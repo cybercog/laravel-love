@@ -11,7 +11,7 @@
 
 namespace Cog\Tests\Laravel\Likeable\Unit;
 
-use Cog\Laravel\Likeable\Exceptions\LikerNotDefinedException;
+use Cog\Contracts\Likeable\Like\Exceptions\LikerNotDefinedException;
 use Cog\Tests\Laravel\Likeable\Stubs\Models\Entity;
 use Cog\Tests\Laravel\Likeable\Stubs\Models\User;
 use Cog\Tests\Laravel\Likeable\TestCase;

@@ -14,7 +14,7 @@ namespace Cog\Laravel\Likeable\Console;
 use Cog\Contracts\Likeable\Likeable\Models\Likeable as LikeableContract;
 use Cog\Contracts\Likeable\Like\Models\Like as LikeContract;
 use Cog\Contracts\Likeable\LikeCounter\Models\LikeCounter as LikeCounterContract;
-use Cog\Laravel\Likeable\Exceptions\ModelInvalidException;
+use \Cog\Contracts\Likeable\Like\Exceptions\ModelInvalidException;
 use Cog\Laravel\Likeable\Services\LikeableService as LikeableServiceContract;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -62,8 +62,8 @@ class LikeableRecountCommand extends Command
      * @param \Illuminate\Contracts\Events\Dispatcher $events
      * @return void
      *
-     * @throws \Cog\Laravel\Likeable\Exceptions\ModelInvalidException
-     * @throws \Cog\Laravel\Likeable\Exceptions\LikeTypeInvalidException
+     * @throws \Cog\Contracts\Likeable\Like\Exceptions\ModelInvalidException
+     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikeTypeInvalidException
      */
     public function handle(Dispatcher $events)
     {
@@ -83,8 +83,8 @@ class LikeableRecountCommand extends Command
      *
      * @return void
      *
-     * @throws \Cog\Laravel\Likeable\Exceptions\ModelInvalidException
-     * @throws \Cog\Laravel\Likeable\Exceptions\LikeTypeInvalidException
+     * @throws \Cog\Contracts\Likeable\Like\Exceptions\ModelInvalidException
+     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikeTypeInvalidException
      */
     protected function recountLikesOfAllModelTypes()
     {
@@ -100,8 +100,8 @@ class LikeableRecountCommand extends Command
      * @param string $modelType
      * @return void
      *
-     * @throws \Cog\Laravel\Likeable\Exceptions\ModelInvalidException
-     * @throws \Cog\Laravel\Likeable\Exceptions\LikeTypeInvalidException
+     * @throws \Cog\Contracts\Likeable\Like\Exceptions\ModelInvalidException
+     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikeTypeInvalidException
      */
     protected function recountLikesOfModelType($modelType)
     {
@@ -122,7 +122,7 @@ class LikeableRecountCommand extends Command
      * @param string $modelType
      * @return string
      *
-     * @throws \Cog\Laravel\Likeable\Exceptions\ModelInvalidException
+     * @throws \Cog\Contracts\Likeable\Like\Exceptions\ModelInvalidException
      */
     protected function normalizeModelType($modelType)
     {
