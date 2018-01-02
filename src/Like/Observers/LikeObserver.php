@@ -12,7 +12,7 @@
 namespace Cog\Laravel\Likeable\Like\Observers;
 
 use Cog\Contracts\Likeable\Like\Models\Like as LikeContract;
-use Cog\Contracts\Likeable\Services\LikeableService as LikeableServiceContract;
+use Cog\Contracts\Likeable\Likeable\Services\LikeableService as LikeableServiceContract;
 use Cog\Laravel\Likeable\Like\Enums\LikeType;
 use Cog\Laravel\Likeable\Likeable\Events\ModelWasDisliked;
 use Cog\Laravel\Likeable\Likeable\Events\ModelWasLiked;

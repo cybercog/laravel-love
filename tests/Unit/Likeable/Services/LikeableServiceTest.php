@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Tests\Laravel\Likeable\Unit\Services;
+namespace Cog\Tests\Laravel\Likeable\Unit\Likeable\Services;
 
 use Cog\Laravel\Likeable\LikeCounter\Models\LikeCounter;
-use Cog\Contracts\Likeable\Services\LikeableService as LikeableServiceContract;
-use Cog\Laravel\Likeable\Services\LikeableService;
+use Cog\Contracts\Likeable\Likeable\Services\LikeableService as LikeableServiceContract;
+use Cog\Laravel\Likeable\Likeable\Services\LikeableService;
 use Cog\Tests\Laravel\Likeable\Stubs\Models\Article;
 use Cog\Tests\Laravel\Likeable\Stubs\Models\Entity;
 use Cog\Tests\Laravel\Likeable\Stubs\Models\EntityWithMorphMap;

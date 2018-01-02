@@ -9,21 +9,21 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Laravel\Likeable\Services;
+namespace Cog\Laravel\Likeable\Likeable\Services;
 
 use Cog\Contracts\Likeable\Like\Exceptions\InvalidLikeType;
 use Cog\Contracts\Likeable\Like\Models\Like as LikeContract;
 use Cog\Contracts\Likeable\Likeable\Models\Likeable as LikeableContract;
 use Cog\Contracts\Likeable\LikeCounter\Models\LikeCounter as LikeCounterContract;
 use Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined;
-use Cog\Contracts\Likeable\Services\LikeableService as LikeableServiceContract;
+use Cog\Contracts\Likeable\Likeable\Services\LikeableService as LikeableServiceContract;
 use Cog\Laravel\Likeable\Like\Enums\LikeType;
 use Illuminate\Support\Facades\DB;
 
 /**
  * Class LikeableService.
  *
- * @package Cog\Laravel\Likeable\Services
+ * @package Cog\Laravel\Likeable\Likeable\Services
  */
 class LikeableService implements LikeableServiceContract
 {

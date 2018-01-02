@@ -15,7 +15,7 @@ use Cog\Contracts\Likeable\Like\Models\Like as LikeContract;
 use Cog\Contracts\Likeable\Likeable\Exceptions\InvalidLikeable;
 use Cog\Contracts\Likeable\Likeable\Models\Likeable as LikeableContract;
 use Cog\Contracts\Likeable\LikeCounter\Models\LikeCounter as LikeCounterContract;
-use Cog\Laravel\Likeable\Services\LikeableService as LikeableServiceContract;
+use Cog\Laravel\Likeable\Likeable\Services\LikeableService as LikeableServiceContract;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -52,7 +52,7 @@ class Recount extends Command
     /**
      * Likeable service.
      *
-     * @var \Cog\Contracts\Likeable\Services\LikeableService
+     * @var \Cog\Contracts\Likeable\Likeable\Services\LikeableService
      */
     protected $service;
 

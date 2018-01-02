@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Contracts\Likeable\Services;
+namespace Cog\Contracts\Likeable\Likeable\Services;
 
 use Cog\Contracts\Likeable\Likeable\Models\Likeable as LikeableContract;
 
 /**
  * Interface LikeableService.
  *
- * @package Cog\Contracts\Likeable\Services
+ * @package Cog\Contracts\Likeable\Likeable\Services
  */
 interface LikeableService
 {
