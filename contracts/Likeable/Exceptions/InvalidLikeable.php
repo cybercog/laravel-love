@@ -9,15 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Contracts\Likeable\Like\Exceptions;
+namespace Cog\Contracts\Likeable\Likeable\Exceptions;
 
 use RuntimeException;
 
 /**
- * Class ModelInvalidException.
+ * Class InvalidLikeable.
  *
- * @package Cog\Contracts\Likeable\Like\Exceptions
+ * @package Cog\Contracts\Likeable\Likeable\Exceptions
  */
-class ModelInvalidException extends RuntimeException
+class InvalidLikeable extends RuntimeException
 {
 }

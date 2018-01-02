@@ -165,7 +165,7 @@ trait Likeable
      * @param int|null $userId
      * @return \Illuminate\Database\Eloquent\Builder
      *
-     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikerNotDefinedException
+     * @throws \\Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined
      */
     public function scopeWhereLikedBy(Builder $query, $userId = null)
     {
@@ -179,7 +179,7 @@ trait Likeable
      * @param int|null $userId
      * @return \Illuminate\Database\Eloquent\Builder
      *
-     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikerNotDefinedException
+     * @throws \\Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined
      */
     public function scopeWhereDislikedBy(Builder $query, $userId = null)
     {
@@ -216,7 +216,7 @@ trait Likeable
      * @param mixed $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikerNotDefinedException
+     * @throws \\Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined
      */
     public function like($userId = null)
     {
@@ -229,7 +229,7 @@ trait Likeable
      * @param int|null $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikerNotDefinedException
+     * @throws \\Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined
      */
     public function unlike($userId = null)
     {
@@ -242,7 +242,7 @@ trait Likeable
      * @param mixed $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikerNotDefinedException
+     * @throws \\Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined
      */
     public function likeToggle($userId = null)
     {
@@ -276,7 +276,7 @@ trait Likeable
      * @param mixed $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikerNotDefinedException
+     * @throws \\Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined
      */
     public function dislike($userId = null)
     {
@@ -289,7 +289,7 @@ trait Likeable
      * @param int|null $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikerNotDefinedException
+     * @throws \\Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined
      */
     public function undislike($userId = null)
     {
@@ -302,7 +302,7 @@ trait Likeable
      * @param mixed $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikerNotDefinedException
+     * @throws \\Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined
      */
     public function dislikeToggle($userId = null)
     {
@@ -339,7 +339,7 @@ trait Likeable
      * @param int|null $userId
      * @return \Illuminate\Database\Eloquent\Builder
      *
-     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikerNotDefinedException
+     * @throws \\Cog\Contracts\Likeable\Liker\Exceptions\LikerNotDefined
      */
     private function applyScopeWhereLikedBy(Builder $query, $type, $userId)
     {

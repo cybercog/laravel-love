@@ -11,7 +11,7 @@
 
 namespace Cog\Laravel\Likeable\Console;
 
-use Cog\Contracts\Likeable\Like\Exceptions\ModelInvalidException;
+use Cog\Contracts\Likeable\Likeable\Exceptions\InvalidLikeable;
 use Cog\Contracts\Likeable\Likeable\Models\Likeable as LikeableContract;
 use Cog\Contracts\Likeable\Like\Models\Like as LikeContract;
 use Cog\Contracts\Likeable\LikeCounter\Models\LikeCounter as LikeCounterContract;
@@ -62,8 +62,8 @@ class LikeableRecountCommand extends Command
      * @param \Illuminate\Contracts\Events\Dispatcher $events
      * @return void
      *
-     * @throws \Cog\Contracts\Likeable\Like\Exceptions\ModelInvalidException
-     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikeTypeInvalidException
+     * @throws \Cog\Contracts\Likeable\Likeable\Exceptions\InvalidLikeable
+     * @throws \Cog\Contracts\Likeable\Like\Exceptions\InvalidLikeType
      */
     public function handle(Dispatcher $events)
     {
@@ -83,8 +83,8 @@ class LikeableRecountCommand extends Command
      *
      * @return void
      *
-     * @throws \Cog\Contracts\Likeable\Like\Exceptions\ModelInvalidException
-     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikeTypeInvalidException
+     * @throws \Cog\Contracts\Likeable\Likeable\Exceptions\InvalidLikeable
+     * @throws \Cog\Contracts\Likeable\Like\Exceptions\InvalidLikeType
      */
     protected function recountLikesOfAllModelTypes()
     {
@@ -100,8 +100,8 @@ class LikeableRecountCommand extends Command
      * @param string $modelType
      * @return void
      *
-     * @throws \Cog\Contracts\Likeable\Like\Exceptions\ModelInvalidException
-     * @throws \Cog\Contracts\Likeable\Like\Exceptions\LikeTypeInvalidException
+     * @throws \Cog\Contracts\Likeable\Likeable\Exceptions\InvalidLikeable
+     * @throws \Cog\Contracts\Likeable\Like\Exceptions\InvalidLikeType
      */
     protected function recountLikesOfModelType($modelType)
     {
@@ -122,7 +122,7 @@ class LikeableRecountCommand extends Command
      * @param string $modelType
      * @return string
      *
-     * @throws \Cog\Contracts\Likeable\Like\Exceptions\ModelInvalidException
+     * @throws \Cog\Contracts\Likeable\Likeable\Exceptions\InvalidLikeable
      */
     protected function normalizeModelType($modelType)
     {
@@ -133,7 +133,7 @@ class LikeableRecountCommand extends Command
             $modelType = $model->getMorphClass();
         } else {
             if (!isset($morphMap[$modelType])) {
-                throw new ModelInvalidException("[$modelType] class and morph map are not found.");
+                throw new InvalidLikeable("[$modelType] class and morph map are not found.");
             }
 
             $modelClass = $morphMap[$modelType];
@@ -141,7 +141,7 @@ class LikeableRecountCommand extends Command
         }
 
         if (!$model instanceof LikeableContract) {
-            throw new ModelInvalidException("[$modelType] not implements Likeable contract.");
+            throw new InvalidLikeable("[$modelType] not implements Likeable contract.");
         }
 
         return $modelType;

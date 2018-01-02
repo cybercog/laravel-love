@@ -9,15 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Contracts\Likeable\Like\Exceptions;
+namespace Cog\Contracts\Likeable\Liker\Exceptions;
 
 use RuntimeException;
 
 /**
- * Class LikerNotDefinedException.
+ * Class LikerNotDefined.
  *
- * @package Cog\Contracts\Likeable\Like\Exceptions
+ * @package Cog\Contracts\Likeable\Liker\Exceptions
  */
-class LikerNotDefinedException extends RuntimeException
+class LikerNotDefined extends RuntimeException
 {
 }

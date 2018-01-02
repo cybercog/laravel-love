@@ -471,7 +471,7 @@ class LikeableRecountCommandTest extends TestCase
     public function it_can_throw_model_invalid_exception_on_not_exist_morph_map()
     {
         // TODO: Check if works on older Laravel versions. Otherwise uncomment assertContains on the end.
-        $this->expectException(\Cog\Contracts\Likeable\Like\Exceptions\ModelInvalidException::class);
+        $this->expectException(\Cog\Contracts\Likeable\Likeable\Exceptions\InvalidLikeable::class);
 
         $status = $this->kernel->handle(
             $input = new ArrayInput([
@@ -482,14 +482,14 @@ class LikeableRecountCommandTest extends TestCase
         );
 
         $this->assertEquals(1, $status);
-        //$this->assertContains('Cog\Contracts\Likeable\Like\Exceptions\ModelInvalidException', $output->fetch());
+        //$this->assertContains('Cog\Contracts\Likeable\Likeable\Exceptions\InvalidLikeable', $output->fetch());
     }
 
     /** @test */
     public function it_can_throw_model_invalid_exception_if_class_not_implemented_has_likes_interface()
     {
         // TODO: Check if works on older Laravel versions. Otherwise uncomment assertContains on the end.
-        $this->expectException(\Cog\Contracts\Likeable\Like\Exceptions\ModelInvalidException::class);
+        $this->expectException(\Cog\Contracts\Likeable\Likeable\Exceptions\InvalidLikeable::class);
 
         $status = $this->kernel->handle(
             $input = new ArrayInput([
@@ -500,7 +500,7 @@ class LikeableRecountCommandTest extends TestCase
         );
 
         $this->assertEquals(1, $status);
-        //$this->assertContains('Cog\Contracts\Likeable\Like\Exceptions\ModelInvalidException', $output->fetch());
+        //$this->assertContains('Cog\Contracts\Likeable\Likeable\Exceptions\InvalidLikeable', $output->fetch());
     }
 
     public function it_deletes_records_before_recount()

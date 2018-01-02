@@ -14,10 +14,10 @@ namespace Cog\Contracts\Likeable\Like\Exceptions;
 use RuntimeException;
 
 /**
- * Class LikeTypeInvalidException.
+ * Class InvalidLikeType.
  *
  * @package Cog\Contracts\Likeable\Like\Exceptions
  */
-class LikeTypeInvalidException extends RuntimeException
+class InvalidLikeType extends RuntimeException
 {
 }
