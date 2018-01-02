@@ -11,10 +11,10 @@
 
 namespace Cog\Laravel\Likeable\Console;
 
+use Cog\Contracts\Likeable\Like\Exceptions\ModelInvalidException;
 use Cog\Contracts\Likeable\Likeable\Models\Likeable as LikeableContract;
 use Cog\Contracts\Likeable\Like\Models\Like as LikeContract;
 use Cog\Contracts\Likeable\LikeCounter\Models\LikeCounter as LikeCounterContract;
-use \Cog\Contracts\Likeable\Like\Exceptions\ModelInvalidException;
 use Cog\Laravel\Likeable\Services\LikeableService as LikeableServiceContract;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Events\Dispatcher;

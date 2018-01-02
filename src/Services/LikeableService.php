@@ -11,13 +11,13 @@
 
 namespace Cog\Laravel\Likeable\Services;
 
+use Cog\Contracts\Likeable\Like\Exceptions\LikerNotDefinedException;
+use Cog\Contracts\Likeable\Like\Exceptions\LikeTypeInvalidException;
 use Cog\Contracts\Likeable\Likeable\Models\Likeable as LikeableContract;
 use Cog\Contracts\Likeable\Like\Models\Like as LikeContract;
 use Cog\Contracts\Likeable\Services\LikeableService as LikeableServiceContract;
 use Cog\Contracts\Likeable\LikeCounter\Models\LikeCounter as LikeCounterContract;
 use Cog\Laravel\Likeable\Like\Enums\LikeType;
-use \Cog\Contracts\Likeable\Like\Exceptions\LikerNotDefinedException;
-use \Cog\Contracts\Likeable\Like\Exceptions\LikeTypeInvalidException;
 use Illuminate\Support\Facades\DB;
 
 /**
