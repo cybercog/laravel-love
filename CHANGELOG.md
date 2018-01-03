@@ -36,19 +36,19 @@ All notable changes to `laravel-love` will be documented in this file.
 
 - Removed deprecated `Cog\Likeable\Contracts\HasLikes` contract
 - Removed deprecated `Cog\Likeable\Traits\HasLikes` trait
-- Removed `scopeWhereLikedBy` method from `Cog\Likeable\Contracts\LikeableService` contract
-- Removed `scopeWhereLikedBy` method from `Cog\Likeable\Services\LikeableService` class
-- Removed `scopeOrderByLikesCount` method from `Cog\Likeable\Contracts\LikeableService` contract
-- Removed `scopeOrderByLikesCount` method from `Cog\Likeable\Services\LikeableService` class
-- Removed `getLikesCountAttribute` method from `Cog\Likeable\Contracts\Likeable` contract
-- Removed `getDislikesCountAttribute` method from `Cog\Likeable\Contracts\Likeable` contract
-- Removed `getLikedAttribute` method from `Cog\Likeable\Contracts\Likeable` contract
-- Removed `getDislikedAttribute` method from `Cog\Likeable\Contracts\Likeable` contract
-- Removed `getLikesDiffDislikesCountAttribute` method from `Cog\Likeable\Contracts\Likeable` contract
-- Removed `scopeWhereLikedBy` method from `Cog\Likeable\Contracts\Likeable` contract
-- Removed `scopeWhereDislikedBy` method from `Cog\Likeable\Contracts\Likeable` contract
-- Removed `scopeOrderByLikesCount` method from `Cog\Likeable\Contracts\Likeable` contract
-- Removed `scopeOrderByDislikesCount` method from `Cog\Likeable\Contracts\Likeable` contract
+- Removed `scopeWhereLikedBy` method from `Cog\Contracts\Love\Likeable\Services\LikeableService` contract
+- Removed `scopeWhereLikedBy` method from `Cog\Laravel\Love\Likeable\Services\LikeableService` class
+- Removed `scopeOrderByLikesCount` method from `Cog\Contracts\Love\Likeable\Services\LikeableService` contract
+- Removed `scopeOrderByLikesCount` method from `Cog\Laravel\Love\Likeable\Services\LikeableService` class
+- Removed `getLikesCountAttribute` method from `Cog\Contracts\Love\Likeable\Models\Likeable` contract
+- Removed `getDislikesCountAttribute` method from `Cog\Contracts\Love\Likeable\Models\Likeable` contract
+- Removed `getLikedAttribute` method from `Cog\Contracts\Love\Likeable\Models\Likeable` contract
+- Removed `getDislikedAttribute` method from `Cog\Contracts\Love\Likeable\Models\Likeable` contract
+- Removed `getLikesDiffDislikesCountAttribute` method from `Cog\Contracts\Love\Likeable\Models\Likeable` contract
+- Removed `scopeWhereLikedBy` method from `Cog\Contracts\Love\Likeable\Models\Likeable` contract
+- Removed `scopeWhereDislikedBy` method from `Cog\Contracts\Love\Likeable\Models\Likeable` contract
+- Removed `scopeOrderByLikesCount` method from `Cog\Contracts\Love\Likeable\Models\Likeable` contract
+- Removed `scopeOrderByDislikesCount` method from `Cog\Contracts\Love\Likeable\Models\Likeable` contract
 
 ## [3.1.0] - 2017-12-28
 
