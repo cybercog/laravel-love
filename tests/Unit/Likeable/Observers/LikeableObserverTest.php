@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Likeable\Observers;
 
-use Cog\Contracts\Love\Likeable\Models\Likeable as LikeableContract;
+use Cog\Contracts\Love\Likeable\Services\LikeableService as LikeableServiceContract;
 use Cog\Laravel\Love\Like\Models\Like;
 use Cog\Laravel\Love\LikeCounter\Models\LikeCounter;
 use Cog\Laravel\Love\Likeable\Observers\LikeableObserver;
@@ -32,22 +32,32 @@ class LikeableObserverTest extends TestCase
     use DatabaseTransactions;
 
     /** @test */
-    public function it_can_call_remove_likes_on_model_deleted()
+    public function it_remove_likes_on_likeable_delete()
     {
-        $observer = new LikeableObserver;
-        $model = Mockery::mock(LikeableContract::class);
-        $model->shouldReceive('removeLikes');
-        $observer->deleted($model);
+        $likeable = factory(Entity::class)->create();
+        $likeable->like(1);
+        $likeableService = Mockery::mock(LikeableServiceContract::class);
+        $likeableService->shouldReceive('removeModelLikes');
+        $likeableObserver = new LikeableObserver();
+
+        $likeableObserver->deleted($likeable);
+
+        $this->assertEmpty($likeable->likes);
     }
 
     /** @test */
-    public function it_can_omit_call_remove_likes_on_model_deleted()
+    public function it_can_omit_remove_likes_on_likeable_delete()
     {
-        $observer = new LikeableObserver;
-        $model = Mockery::mock(LikeableContract::class);
-        $model->removeLikesOnDelete = false;
-        $model->shouldNotHaveReceived('removeLikes');
-        $observer->deleted($model);
+        $likeable = factory(Entity::class)->create();
+        $likeable->like(1);
+        $likeable->removeLikesOnDelete = false;
+        $likeableService = Mockery::mock(LikeableServiceContract::class);
+        $likeableService->shouldNotHaveReceived('removeModelLikes');
+        $likeableObserver = new LikeableObserver();
+
+        $likeableObserver->deleted($likeable);
+
+        $this->assertCount(1, $likeable->likes);
     }
 
     /** @test */

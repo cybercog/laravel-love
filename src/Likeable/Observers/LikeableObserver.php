@@ -45,6 +45,6 @@ class LikeableObserver
      */
     private function removeLikesOnDelete(LikeableContract $likeable): bool
     {
-        return isset($likeable->removeLikesOnDelete) ? $likeable->removeLikesOnDelete : true;
+        return $likeable->removeLikesOnDelete ?? true;
     }
 }
