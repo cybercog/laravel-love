@@ -89,7 +89,7 @@ interface Likeable
      * @param null|string|int $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \\Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
+     * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      */
     public function like($userId = null);
 
@@ -99,7 +99,7 @@ interface Likeable
      * @param null|string|int $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \\Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
+     * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      */
     public function unlike($userId = null);
 
@@ -109,7 +109,7 @@ interface Likeable
      * @param null|string|int $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \\Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
+     * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      */
     public function likeToggle($userId = null);
 
@@ -134,7 +134,7 @@ interface Likeable
      * @param null|string|int $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \\Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
+     * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      */
     public function dislike($userId = null);
 
@@ -144,7 +144,7 @@ interface Likeable
      * @param null|string|int $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \\Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
+     * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      */
     public function undislike($userId = null);
 
@@ -154,7 +154,7 @@ interface Likeable
      * @param null|string|int $userId If null will use currently logged in user.
      * @return void
      *
-     * @throws \\Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
+     * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      */
     public function dislikeToggle($userId = null);
 

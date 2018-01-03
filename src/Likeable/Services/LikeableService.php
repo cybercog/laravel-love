@@ -37,8 +37,8 @@ class LikeableService implements LikeableServiceContract
      * @param string $userId
      * @return void
      *
-     * @throws \\Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
+     * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      */
     public function addLikeTo(LikeableContract $likeable, $type, $userId)
     {
@@ -77,8 +77,8 @@ class LikeableService implements LikeableServiceContract
      * @param int|null $userId
      * @return void
      *
-     * @throws \\Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
+     * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      */
     public function removeLikeFrom(LikeableContract $likeable, $type, $userId)
     {
@@ -102,8 +102,8 @@ class LikeableService implements LikeableServiceContract
      * @param string $userId
      * @return void
      *
-     * @throws \\Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
+     * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      */
     public function toggleLikeOf(LikeableContract $likeable, $type, $userId)
     {
@@ -344,7 +344,7 @@ class LikeableService implements LikeableServiceContract
      * @param int $userId
      * @return int
      *
-     * @throws \\Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
+     * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      */
     public function getLikerUserId($userId)
     {

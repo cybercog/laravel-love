@@ -31,9 +31,9 @@ class CreateLoveLikeCountersTable extends Migration
             $table->increments('id');
             $table->morphs('likeable');
             $table->enum('type_id', [
-                'like',
-                'dislike',
-            ])->default('like');
+                'LIKE',
+                'DISLIKE',
+            ])->default('LIKE');
             $table->integer('count')->unsigned()->default(0);
             $table->timestamps();
 
