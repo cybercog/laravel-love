@@ -37,29 +37,59 @@ If you have used `Cog\Likeable\Observers\ModelObserver` observer you need to use
 
 ### Database
 
-- Rename `like` table to `likes`
-- Rename `like_counter` table to `like_counters`
-- Update name of migration file in `migrations` table from `2016_09_02_153301_create_like_table` to `2016_09_02_153301_create_likes_table`
-- Update name of migration file in `migrations` table from `2016_09_02_163301_create_like_counter_table` to `2016_09_02_163301_create_like_counters_table`
+#### Perform Migrations Manually
 
-To make all changes in MySQL you could run these 5 commands one by one:
+To make all changes in MySQL you could run these commands one by one.
+
+Rename `like` table to `love_likes`:
 
 ```mysql
 ALTER TABLE `like` RENAME TO `love_likes`;
+```
 
-ALTER TABLE `like_counter` RENAME TO `love_like_counters`;
+Update name of migration file in `migrations` table from `2016_09_02_153301_create_like_table` to `2016_09_02_153301_create_love_likes_table`:
 
+```mysql
 UPDATE `migrations`
    SET `migration` = '2016_09_02_153301_create_love_likes_table'
  WHERE `migration` = '2016_09_02_153301_create_like_table'
  LIMIT 1;
- 
+```
+
+Rename `like_counter` table to `love_like_counters`:
+
+```mysql
+ALTER TABLE `like_counter` RENAME TO `love_like_counters`;
+```
+
+Update name of migration file in `migrations` table from `2016_09_02_163301_create_like_counter_table` to `2016_09_02_163301_create_like_counters_table`:
+
+```mysql
 UPDATE `migrations`
    SET `migration` = '2016_09_02_163301_create_love_like_counters_table'
  WHERE `migration` = '2016_09_02_163301_create_like_counter_table'
  LIMIT 1;
 ```
 
-Migration files:
+Add nullable `updated_at` column to `love_likes` table:
 
-- Delete `database/migrations/2016_09_02_153301_create_like_table.php` & `database/migrations/2016_09_02_163301_create_like_counter_table.php` migration files (since v4 service provider automatically loading migration files or republish it if custom changes are required to be done).
+```mysql
+ALTER TABLE `love_likes`
+ ADD COLUMN `updated_at` TIMESTAMP NULL DEFAULT NULL AFTER `created_at`;
+```
+
+Add nullable `created_at` & `updated_at` columns to `love_like_counters` table:
+
+```mysql
+ALTER TABLE `love_like_counters` 
+ ADD COLUMN `created_at` TIMESTAMP NULL DEFAULT NULL AFTER `count`,
+ ADD COLUMN `updated_at` TIMESTAMP NULL DEFAULT NULL AFTER `created_at`;
+```
+
+#### Migration Files Changes
+
+Since v4 service provider automatically loading migration files, so you could delete
+`database/migrations/2016_09_02_153301_create_like_table.php` and
+`database/migrations/2016_09_02_163301_create_like_counter_table.php` migration files.
+
+If you need to have them locally you could republish them and re-apply your local changes to keep them up to date.
