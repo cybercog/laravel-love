@@ -22,4 +22,8 @@ use RuntimeException;
  */
 class InvalidLikeType extends RuntimeException
 {
+    public static function notExists(string $type)
+    {
+        return new static("Like type `{$type}` not exist.");
+    }
 }

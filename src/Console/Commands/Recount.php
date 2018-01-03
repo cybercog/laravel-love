@@ -135,7 +135,7 @@ class Recount extends Command
             $modelType = $model->getMorphClass();
         } else {
             if (!isset($morphMap[$modelType])) {
-                throw new InvalidLikeable("[$modelType] class and morph map are not found.");
+                throw InvalidLikeable::notExists($modelType);
             }
 
             $modelClass = $morphMap[$modelType];
@@ -143,7 +143,7 @@ class Recount extends Command
         }
 
         if (!$model instanceof LikeableContract) {
-            throw new InvalidLikeable("[$modelType] not implements Likeable contract.");
+            throw InvalidLikeable::notImplementInterface($modelType);
         }
 
         return $modelType;

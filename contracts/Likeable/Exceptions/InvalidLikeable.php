@@ -22,4 +22,13 @@ use RuntimeException;
  */
 class InvalidLikeable extends RuntimeException
 {
+    public static function notExists(string $type)
+    {
+        return new static("[$type] class or morph map not found.");
+    }
+
+    public static function notImplementInterface(string $type)
+    {
+        return new static("[{$type}] must implement `\Cog\Contracts\Love\Likeable\Models\Likeable` contract.");
+    }
 }

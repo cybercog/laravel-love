@@ -13,25 +13,25 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Liker\Exceptions;
 
-use Cog\Contracts\Love\Liker\Exceptions\LikerNotDefined;
+use Cog\Contracts\Love\Liker\Exceptions\InvalidLiker;
 use Cog\Tests\Laravel\Love\Stubs\Models\Entity;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 /**
- * Class LikerNotDefinedTest.
+ * Class InvalidLikerTest.
  *
  * @package Cog\Tests\Laravel\Love\Unit\Liker\Exceptions
  */
-class LikerNotDefinedTest extends TestCase
+class InvalidLikerTest extends TestCase
 {
     use DatabaseTransactions;
 
     /** @test */
     public function it_can_throw_exception_if_not_authenticated_on_like()
     {
-        $this->expectException(LikerNotDefined::class);
+        $this->expectException(InvalidLiker::class);
 
         $entity = factory(Entity::class)->create();
 
@@ -41,7 +41,7 @@ class LikerNotDefinedTest extends TestCase
     /** @test */
     public function it_can_throw_exception_if_authenticated_but_passed_zero_on_like()
     {
-        $this->expectException(LikerNotDefined::class);
+        $this->expectException(InvalidLiker::class);
 
         $entity = factory(Entity::class)->create();
         $user = factory(User::class)->create();
@@ -53,7 +53,7 @@ class LikerNotDefinedTest extends TestCase
     /** @test */
     public function it_can_throw_exception_if_not_authenticated_on_unlike()
     {
-        $this->expectException(LikerNotDefined::class);
+        $this->expectException(InvalidLiker::class);
 
         $entity = factory(Entity::class)->create();
 
@@ -63,7 +63,7 @@ class LikerNotDefinedTest extends TestCase
     /** @test */
     public function it_can_throw_exception_if_authenticated_but_passed_zero_on_unlike()
     {
-        $this->expectException(LikerNotDefined::class);
+        $this->expectException(InvalidLiker::class);
 
         $entity = factory(Entity::class)->create();
         $user = factory(User::class)->create();
@@ -75,7 +75,7 @@ class LikerNotDefinedTest extends TestCase
     /** @test */
     public function it_can_throw_exception_if_not_authenticated_on_where_liked_by()
     {
-        $this->expectException(LikerNotDefined::class);
+        $this->expectException(InvalidLiker::class);
 
         Entity::whereLikedBy();
     }
@@ -83,7 +83,7 @@ class LikerNotDefinedTest extends TestCase
     /** @test */
     public function it_can_throw_exception_if_authenticated_but_passed_zero_on_where_liked_by()
     {
-        $this->expectException(LikerNotDefined::class);
+        $this->expectException(InvalidLiker::class);
 
         $user = factory(User::class)->create();
         $this->actingAs($user);

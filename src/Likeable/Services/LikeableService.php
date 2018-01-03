@@ -17,7 +17,7 @@ use Cog\Contracts\Love\Like\Exceptions\InvalidLikeType;
 use Cog\Contracts\Love\Like\Models\Like as LikeContract;
 use Cog\Contracts\Love\Likeable\Models\Likeable as LikeableContract;
 use Cog\Contracts\Love\LikeCounter\Models\LikeCounter as LikeCounterContract;
-use Cog\Contracts\Love\Liker\Exceptions\LikerNotDefined;
+use Cog\Contracts\Love\Liker\Exceptions\InvalidLiker;
 use Cog\Contracts\Love\Likeable\Services\LikeableService as LikeableServiceContract;
 use Cog\Laravel\Love\Like\Enums\LikeType;
 use Illuminate\Support\Facades\DB;
@@ -37,7 +37,7 @@ class LikeableService implements LikeableServiceContract
      * @param string $userId
      * @return void
      *
-     * @throws \\Cog\Contracts\Love\Liker\Exceptions\LikerNotDefined
+     * @throws \\Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */
     public function addLikeTo(LikeableContract $likeable, $type, $userId)
@@ -77,7 +77,7 @@ class LikeableService implements LikeableServiceContract
      * @param int|null $userId
      * @return void
      *
-     * @throws \\Cog\Contracts\Love\Liker\Exceptions\LikerNotDefined
+     * @throws \\Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */
     public function removeLikeFrom(LikeableContract $likeable, $type, $userId)
@@ -102,7 +102,7 @@ class LikeableService implements LikeableServiceContract
      * @param string $userId
      * @return void
      *
-     * @throws \\Cog\Contracts\Love\Liker\Exceptions\LikerNotDefined
+     * @throws \\Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */
     public function toggleLikeOf(LikeableContract $likeable, $type, $userId)
@@ -344,7 +344,7 @@ class LikeableService implements LikeableServiceContract
      * @param int $userId
      * @return int
      *
-     * @throws \\Cog\Contracts\Love\Liker\Exceptions\LikerNotDefined
+     * @throws \\Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      */
     public function getLikerUserId($userId)
     {
@@ -353,7 +353,7 @@ class LikeableService implements LikeableServiceContract
         }
 
         if (!$userId) {
-            throw new LikerNotDefined();
+            throw InvalidLiker::notDefined();
         }
 
         return $userId;
@@ -382,7 +382,7 @@ class LikeableService implements LikeableServiceContract
     {
         $type = strtoupper($type);
         if (!defined("\\Cog\\Laravel\\Love\\Like\\Enums\\LikeType::{$type}")) {
-            throw new InvalidLikeType("Like type `{$type}` not exist");
+            throw InvalidLikeType::notExists($type);
         }
 
         return constant("\\Cog\\Laravel\\Love\\Like\\Enums\\LikeType::{$type}");
@@ -447,7 +447,7 @@ class LikeableService implements LikeableServiceContract
         ];
 
         if (!isset($relations[$type])) {
-            throw new InvalidLikeType("Like type `{$type}` not supported");
+            throw InvalidLikeType::notExists($type);
         }
 
         return $relations[$type];

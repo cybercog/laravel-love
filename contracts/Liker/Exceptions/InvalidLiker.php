@@ -16,10 +16,14 @@ namespace Cog\Contracts\Love\Liker\Exceptions;
 use RuntimeException;
 
 /**
- * Class LikerNotDefined.
+ * Class InvalidLiker.
  *
  * @package Cog\Contracts\Love\Liker\Exceptions
  */
-class LikerNotDefined extends RuntimeException
+class InvalidLiker extends RuntimeException
 {
+    public static function notDefined()
+    {
+        return new static('Liker not defined.');
+    }
 }
