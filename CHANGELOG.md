@@ -6,9 +6,19 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ### Changed
 
-- Database table `like` renamed to `likes`
-- Database table `like_counter` renamed to `like_counters`
-- Contracts moved from namespace `Cog\Likeable\Contracts` to `Cog\Contracts\Love`
+- Console command `LikeableRecount` moved from `Cog\Likeable\Console` to `Cog\Laravel\Love\Console\Commands` namespace
+- Console command `LikeableRecount` renamed to `Recount`
+- Contracts moved from `Cog\Likeable\Contracts` to `Cog\Contracts\Love` namespace
+- Database table `like` renamed to `love_likes`
+- Database table `like_counter` renamed to `love_like_counters`
+- Database table column `updated_at` was added to `love_likes` table 
+- Database table columns `created_at` & `updated_at` were added to `love_like_counters` table
+- Events were moved from `Cog\Likeable\Events` to `Cog\Laravel\Love\Likeable\Events` namespace
+- Event `ModelWasDisliked` renamed to `LikeableWasDisliked`
+- Event `ModelWasLiked` renamed to `LikeableWasLiked`
+- Event `ModelWasUndisliked` renamed to `LikeableWasUndisliked`
+- Event `ModelWasUnliked` renamed to `LikeableWasUnliked` 
+- `ModelObserver` moved from `Cog\Likeable\Observers` to `Cog\Laravel\Love\Likeable\Observers` namespace
 - `ModelObserver` class renamed to `LikeableObserver`
 - `LikeType::LIKE` & `LikeType::DISLIKE` constant values are uppercase now `LIKE` & `DISLIKE` respectively
 - Exceptions extends `\RuntimeException` instead of `\Exception`
@@ -18,13 +28,6 @@ All notable changes to `laravel-love` will be documented in this file.
 - Exception `LikerNotDefinedException` renamed to `InvalidLiker`
 - Exception `ModelInvalidException` moved from `Cog\Likeable\Contracts\Exceptions` to `Cog\Contracts\Love\Likeable\Exceptions`
 - Exception `ModelInvalidException` renamed to `InvalidLikeable`
-- Console command `LikeableRecount` moved from `Cog\Likeable\Console` to `Cog\Laravel\Love\Console\Commands`
-- Console command `LikeableRecount` renamed to `Recount`
-- Events from namespace `Cog\Likeable\Events` moved to `Cog\Laravel\Love\Likeable\Events`
-- Event `ModelWasDisliked` renamed to `LikeableWasDisliked`
-- Event `ModelWasLiked` renamed to `LikeableWasLiked`
-- Event `ModelWasUndisliked` renamed to `LikeableWasUndisliked`
-- Event `ModelWasUnliked` renamed to `LikeableWasUnliked`
 
 ### Removed
 
