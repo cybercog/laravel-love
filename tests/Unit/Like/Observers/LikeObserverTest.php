@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Cog\Tests\Laravel\Love\Unit\Like\Observers;
 
 use Cog\Contracts\Love\Like\Models\Like as LikeContract;
+use Cog\Contracts\Love\Likeable\Services\LikeableService;
 use Cog\Laravel\Love\Like\Enums\LikeType;
 use Cog\Laravel\Love\Like\Observers\LikeObserver;
 use Cog\Laravel\Love\Likeable\Events\ModelWasDisliked;
@@ -91,8 +92,75 @@ class LikeObserverTest extends TestCase
         $likeObserver->deleted($like);
     }
 
-    // TODO: Add test that `incrementLikesCount` was called
-    // TODO: Add test that `incrementDislikesCount` was called
-    // TODO: Add test that `decrementLikesCount` was called
-    // TODO: Add test that `decrementDislikesCount` was called
+    /** @test */
+    public function it_increment_likeable_likes_count_on_like_model_created()
+    {
+        $likeable = factory(Entity::class)->create();
+        $likeableService = Mockery::mock(LikeableService::class);
+        $like = Mockery::mock(LikeContract::class);
+        $like->type_id = LikeType::LIKE;
+        $like->user_id = factory(User::class)->create();
+        $like->likeable = $likeable;
+        $likeObserver = new LikeObserver();
+        $likeableService->shouldReceive('incrementLikesCount');
+
+        $likeObserver->created($like);
+
+        $this->assertSame(1, $likeable->likesCount);
+    }
+
+    /** @test */
+    public function it_increment_likeable_dislikes_count_on_like_model_created()
+    {
+        $likeable = factory(Entity::class)->create();
+        $likeableService = Mockery::mock(LikeableService::class);
+        $like = Mockery::mock(LikeContract::class);
+        $like->type_id = LikeType::DISLIKE;
+        $like->user_id = factory(User::class)->create();
+        $like->likeable = $likeable;
+        $likeObserver = new LikeObserver();
+        $likeableService->shouldReceive('incrementDislikesCount');
+
+        $likeObserver->created($like);
+
+        $this->assertSame(1, $likeable->dislikesCount);
+    }
+
+    /** @test */
+    public function it_decrement_likeable_likes_count_on_like_model_deleted()
+    {
+        $likeable = factory(Entity::class)->create();
+        $likeable->like(1);
+
+        $likeableService = Mockery::mock(LikeableService::class);
+        $like = Mockery::mock(LikeContract::class);
+        $like->type_id = LikeType::LIKE;
+        $like->user_id = factory(User::class)->create();
+        $like->likeable = $likeable;
+        $likeObserver = new LikeObserver();
+        $likeableService->shouldReceive('decrementLikesCount');
+
+        $likeObserver->deleted($like);
+
+        $this->assertSame(0, $likeable->likesCount);
+    }
+
+    /** @test */
+    public function it_decrement_likeable_dislikes_count_on_like_model_deleted()
+    {
+        $likeable = factory(Entity::class)->create();
+        $likeable->dislike(1);
+
+        $likeableService = Mockery::mock(LikeableService::class);
+        $like = Mockery::mock(LikeContract::class);
+        $like->type_id = LikeType::DISLIKE;
+        $like->user_id = factory(User::class)->create();
+        $like->likeable = $likeable;
+        $likeObserver = new LikeObserver();
+        $likeableService->shouldReceive('decrementDislikesCount');
+
+        $likeObserver->deleted($like);
+
+        $this->assertSame(0, $likeable->dislikesCount);
+    }
 }
