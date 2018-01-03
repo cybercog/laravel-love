@@ -291,13 +291,13 @@ $sortedArticles = Article::orderByDislikesCount('asc')->get();
 
 ### Events
 
-On each like added `\Cog\Laravel\Love\Likeable\Events\ModelWasLiked` event is fired.
+On each like added `\Cog\Laravel\Love\Likeable\Events\LikeableWasLiked` event is fired.
 
-On each like removed `\Cog\Laravel\Love\Likeable\Events\ModelWasUnliked` event is fired.
+On each like removed `\Cog\Laravel\Love\Likeable\Events\LikeableWasUnliked` event is fired.
 
-On each dislike added `\Cog\Laravel\Love\Likeable\Events\ModelWasDisliked` event is fired.
+On each dislike added `\Cog\Laravel\Love\Likeable\Events\LikeableWasDisliked` event is fired.
 
-On each dislike removed `\Cog\Laravel\Love\Likeable\Events\ModelWasUndisliked` event is fired.
+On each dislike removed `\Cog\Laravel\Love\Likeable\Events\LikeableWasUndisliked` event is fired.
 
 ### Console commands
 
