@@ -13,24 +13,24 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Tests\Unit\Likeable\Events;
 
-use Cog\Laravel\Love\Likeable\Events\ModelWasUnliked;
+use Cog\Laravel\Love\Likeable\Events\LikeableWasUnliked;
 use Cog\Tests\Laravel\Love\Stubs\Models\Entity;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 /**
- * Class ModelWasUnlikedTest.
+ * Class LikeableWasUnlikedTest.
  *
  * @package Cog\Tests\Laravel\Love\Unit\Likeable\Events
  */
-class ModelWasUnlikedTest extends TestCase
+class LikeableWasUnlikedTest extends TestCase
 {
     use DatabaseTransactions;
 
     /** @test */
     public function it_can_fire_model_was_liked_event()
     {
-        $this->expectsEvents(ModelWasUnliked::class);
+        $this->expectsEvents(LikeableWasUnliked::class);
 
         $entity = factory(Entity::class)->create();
         $entity->like(1);

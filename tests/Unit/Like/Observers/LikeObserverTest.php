@@ -17,10 +17,10 @@ use Cog\Contracts\Love\Like\Models\Like as LikeContract;
 use Cog\Contracts\Love\Likeable\Services\LikeableService;
 use Cog\Laravel\Love\Like\Enums\LikeType;
 use Cog\Laravel\Love\Like\Observers\LikeObserver;
-use Cog\Laravel\Love\Likeable\Events\ModelWasDisliked;
-use Cog\Laravel\Love\Likeable\Events\ModelWasLiked;
-use Cog\Laravel\Love\Likeable\Events\ModelWasUndisliked;
-use Cog\Laravel\Love\Likeable\Events\ModelWasUnliked;
+use Cog\Laravel\Love\Likeable\Events\LikeableWasDisliked;
+use Cog\Laravel\Love\Likeable\Events\LikeableWasLiked;
+use Cog\Laravel\Love\Likeable\Events\LikeableWasUndisliked;
+use Cog\Laravel\Love\Likeable\Events\LikeableWasUnliked;
 use Cog\Tests\Laravel\Love\Stubs\Models\Entity;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
@@ -39,7 +39,7 @@ class LikeObserverTest extends TestCase
     /** @test */
     public function it_fires_model_was_liked_event_on_like_create()
     {
-        $this->expectsEvents(ModelWasLiked::class);
+        $this->expectsEvents(LikeableWasLiked::class);
 
         $like = Mockery::mock(LikeContract::class);
         $like->type_id = LikeType::LIKE;
@@ -53,7 +53,7 @@ class LikeObserverTest extends TestCase
     /** @test */
     public function it_fires_model_was_disliked_event_on_dislike_create()
     {
-        $this->expectsEvents(ModelWasDisliked::class);
+        $this->expectsEvents(LikeableWasDisliked::class);
 
         $like = Mockery::mock(LikeContract::class);
         $like->type_id = LikeType::DISLIKE;
@@ -67,7 +67,7 @@ class LikeObserverTest extends TestCase
     /** @test */
     public function it_fires_model_was_unliked_event_on_like_delete()
     {
-        $this->expectsEvents(ModelWasUnliked::class);
+        $this->expectsEvents(LikeableWasUnliked::class);
 
         $like = Mockery::mock(LikeContract::class);
         $like->type_id = LikeType::LIKE;
@@ -81,7 +81,7 @@ class LikeObserverTest extends TestCase
     /** @test */
     public function it_fires_model_was_undisliked_event_on_dislike_delete()
     {
-        $this->expectsEvents(ModelWasUndisliked::class);
+        $this->expectsEvents(LikeableWasUndisliked::class);
 
         $like = Mockery::mock(LikeContract::class);
         $like->type_id = LikeType::DISLIKE;

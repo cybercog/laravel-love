@@ -7,6 +7,8 @@
 Because there are many breaking changes an upgrade is not that easy. There are many edge cases this guide does not cover.
 We accept PRs to improve this guide.
 
+### Exceptions
+
 Exceptions namespace were moved to the contracts namespace, were renamed
 and extends `\RuntimeException` instead of `\Exception` now.
 
@@ -14,7 +16,14 @@ and extends `\RuntimeException` instead of `\Exception` now.
 - Find all `Cog\Likeable\Exceptions\ModelInvalidException` and replace with `Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable`
 - Find all `Cog\Likeable\Exceptions\LikerNotDefinedException` and replace with `Cog\Contracts\Love\Liker\Exceptions\InvalidLiker`
 
-Find and replace: 
+### Events
+
+- Find all `Cog\Likeable\Events\ModelWasDisliked` and replace with `Cog\Laravel\Love\Likeable\Events\LikeableWasDisliked`
+- Find all `Cog\Likeable\Events\ModelWasLiked` and replace with `Cog\Laravel\Love\Likeable\Events\LikeableWasLiked`
+- Find all `Cog\Likeable\Events\ModelWasUndisliked` and replace with `Cog\Laravel\Love\Likeable\Events\LikeableWasUndisliked`
+- Find all `Cog\Likeable\Events\ModelWasUnliked` and replace with `Cog\Laravel\Love\Likeable\Events\LikeableWasUnliked`
+
+### Models & Services
 
 - Find all `Cog\Likeable\Contracts\Like` and replace with `Cog\Contracts\Love\Like\Models\Like`
 - Find all `Cog\Likeable\Contracts\Likeable` and replace with `Cog\Contracts\Love\Likeable\Models\Likeable`
@@ -22,9 +31,11 @@ Find and replace:
 - Find all `Cog\Likeable\Traits\Likeable` and replace with `Cog\Laravel\Love\Likeable\Models\Traits\Likeable`
 - Find all `Cog\Likeable` and replace with `Cog\Laravel\Likeable`
 
+### Models Observers
+
 If you have used `Cog\Likeable\Observers\ModelObserver` observer you need to use new one `Cog\Laravel\Love\Likeable\Observers\LikeableObserver`
 
-These database changes should be performed:
+### Database
 
 - Rename `like` table to `likes`
 - Rename `like_counter` table to `like_counters`

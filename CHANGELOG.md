@@ -20,6 +20,11 @@ All notable changes to `laravel-love` will be documented in this file.
 - Exception `ModelInvalidException` renamed to `InvalidLikeable`
 - Console command `LikeableRecount` moved from `Cog\Likeable\Console` to `Cog\Laravel\Love\Console\Commands`
 - Console command `LikeableRecount` renamed to `Recount`
+- Events from namespace `Cog\Likeable\Events` moved to `Cog\Laravel\Love\Likeable\Events`
+- Event `ModelWasDisliked` renamed to `LikeableWasDisliked`
+- Event `ModelWasLiked` renamed to `LikeableWasLiked`
+- Event `ModelWasUndisliked` renamed to `LikeableWasUndisliked`
+- Event `ModelWasUnliked` renamed to `LikeableWasUnliked`
 
 ### Removed
 

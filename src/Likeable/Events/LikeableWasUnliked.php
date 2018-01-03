@@ -16,21 +16,21 @@ namespace Cog\Laravel\Love\Likeable\Events;
 use Cog\Contracts\Love\Likeable\Models\Likeable as LikeableContract;
 
 /**
- * Class ModelWasLiked.
+ * Class LikeableWasUnliked.
  *
  * @package Cog\Laravel\Love\Likeable\Events
  */
-class ModelWasLiked
+class LikeableWasUnliked
 {
     /**
-     * The liked model.
+     * The unliked likeable model.
      *
      * @var \Cog\Contracts\Love\Likeable\Models\Likeable
      */
-    public $model;
+    public $likeable;
 
     /**
-     * User id who liked model.
+     * User id who unliked model.
      *
      * @var int
      */
@@ -45,7 +45,7 @@ class ModelWasLiked
      */
     public function __construct(LikeableContract $likeable, $likerId)
     {
-        $this->model = $likeable;
+        $this->likeable = $likeable;
         $this->likerId = $likerId;
     }
 }
