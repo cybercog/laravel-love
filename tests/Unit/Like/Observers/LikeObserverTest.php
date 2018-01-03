@@ -131,7 +131,6 @@ class LikeObserverTest extends TestCase
     {
         $likeable = factory(Entity::class)->create();
         $likeable->like(1);
-
         $likeableService = Mockery::mock(LikeableService::class);
         $like = Mockery::mock(LikeContract::class);
         $like->type_id = LikeType::LIKE;
@@ -150,7 +149,6 @@ class LikeObserverTest extends TestCase
     {
         $likeable = factory(Entity::class)->create();
         $likeable->dislike(1);
-
         $likeableService = Mockery::mock(LikeableService::class);
         $like = Mockery::mock(LikeContract::class);
         $like->type_id = LikeType::DISLIKE;
