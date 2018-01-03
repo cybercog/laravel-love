@@ -126,7 +126,7 @@ class Recount extends Command
      *
      * @throws \Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable
      */
-    protected function normalizeModelType($modelType)
+    protected function normalizeModelType($modelType): string
     {
         $morphMap = Relation::morphMap();
 

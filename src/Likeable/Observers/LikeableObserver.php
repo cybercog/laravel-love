@@ -38,12 +38,12 @@ class LikeableObserver
     }
 
     /**
-     * Should remove likes on model delete (defaults to true).
+     * Determine if should remove likes on model delete (defaults to true).
      *
      * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @return bool
      */
-    protected function removeLikesOnDelete(LikeableContract $likeable)
+    private function removeLikesOnDelete(LikeableContract $likeable): bool
     {
         return isset($likeable->removeLikesOnDelete) ? $likeable->removeLikesOnDelete : true;
     }

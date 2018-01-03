@@ -72,6 +72,7 @@ interface Likeable
     /**
      * Fetch users who liked entity.
      *
+     * @todo Do we need to rely on the Laravel Collections here?
      * @return \Illuminate\Support\Collection
      */
     public function collectLikers();
@@ -79,6 +80,7 @@ interface Likeable
     /**
      * Fetch users who disliked entity.
      *
+     * @todo Do we need to rely on the Laravel Collections here?
      * @return \Illuminate\Support\Collection
      */
     public function collectDislikers();
@@ -119,7 +121,7 @@ interface Likeable
      * @param null|string|int $userId
      * @return bool
      */
-    public function liked($userId = null);
+    public function liked($userId = null): bool;
 
     /**
      * Delete likes related to the current record.
@@ -164,7 +166,7 @@ interface Likeable
      * @param null|string|int $userId
      * @return bool
      */
-    public function disliked($userId = null);
+    public function disliked($userId = null): bool;
 
     /**
      * Delete dislikes related to the current record.

@@ -257,7 +257,7 @@ trait Likeable
      * @param int|null $userId
      * @return bool
      */
-    public function liked($userId = null)
+    public function liked($userId = null): bool
     {
         return app(LikeableServiceContract::class)->isLiked($this, LikeType::LIKE, $userId);
     }
@@ -317,7 +317,7 @@ trait Likeable
      * @param int|null $userId
      * @return bool
      */
-    public function disliked($userId = null)
+    public function disliked($userId = null): bool
     {
         return app(LikeableServiceContract::class)->isLiked($this, LikeType::DISLIKE, $userId);
     }

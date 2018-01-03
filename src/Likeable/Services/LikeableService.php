@@ -131,7 +131,7 @@ class LikeableService implements LikeableServiceContract
      *
      * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */
-    public function isLiked(LikeableContract $likeable, $type, $userId)
+    public function isLiked(LikeableContract $likeable, $type, $userId): bool
     {
         if (is_null($userId)) {
             $userId = $this->loggedInUserId();
@@ -316,7 +316,7 @@ class LikeableService implements LikeableServiceContract
      *
      * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */
-    public function fetchLikesCounters($likeableType, $likeType)
+    public function fetchLikesCounters($likeableType, $likeType): array
     {
         /** @var \Illuminate\Database\Eloquent\Builder $likesCount */
         $likesCount = app(LikeContract::class)
@@ -346,7 +346,7 @@ class LikeableService implements LikeableServiceContract
      *
      * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      */
-    public function getLikerUserId($userId)
+    public function getLikerUserId($userId): int
     {
         if (is_null($userId)) {
             $userId = $this->loggedInUserId();
@@ -362,7 +362,7 @@ class LikeableService implements LikeableServiceContract
     /**
      * Fetch the primary ID of the currently logged in user.
      *
-     * @return int
+     * @return null|int
      */
     protected function loggedInUserId()
     {
@@ -374,7 +374,7 @@ class LikeableService implements LikeableServiceContract
      *
      * @todo move to Enum class
      * @param string $type
-     * @return int
+     * @return string
      *
      * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */

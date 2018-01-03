@@ -71,7 +71,7 @@ interface LikeableService
      *
      * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */
-    public function isLiked(LikeableContract $likeable, $type, $userId);
+    public function isLiked(LikeableContract $likeable, $type, $userId): bool;
 
     /**
      * Decrement the total like count stored in the counter.
@@ -130,6 +130,7 @@ interface LikeableService
     /**
      * Get collection of users who liked entity.
      *
+     * @todo Do we need to rely on the Laravel Collections here?
      * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @return \Illuminate\Support\Collection
      */
@@ -138,6 +139,7 @@ interface LikeableService
     /**
      * Get collection of users who disliked entity.
      *
+     * @todo Do we need to rely on the Laravel Collections here?
      * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @return \Illuminate\Support\Collection
      */
@@ -152,5 +154,5 @@ interface LikeableService
      *
      * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */
-    public function fetchLikesCounters($likeableType, $likeType);
+    public function fetchLikesCounters($likeableType, $likeType): array;
 }
