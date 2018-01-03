@@ -15,7 +15,7 @@ All notable changes to `laravel-love` will be documented in this file.
 - Exception `LikeTypeInvalidException` moved from `Cog\Likeable\Contracts\Exceptions` to `Cog\Contracts\Love\Like\Exceptions`
 - Exception `LikeTypeInvalidException` renamed to `InvalidLikeType`
 - Exception `LikerNotDefinedException` moved from `Cog\Likeable\Contracts\Exceptions` to `Cog\Contracts\Love\Liker\Exceptions`
-- Exception `LikerNotDefinedException` renamed to `LikerNotDefined`
+- Exception `LikerNotDefinedException` renamed to `InvalidLiker`
 - Exception `ModelInvalidException` moved from `Cog\Likeable\Contracts\Exceptions` to `Cog\Contracts\Love\Likeable\Exceptions`
 - Exception `ModelInvalidException` renamed to `InvalidLikeable`
 - Console command `LikeableRecount` moved from `Cog\Likeable\Console` to `Cog\Laravel\Love\Console\Commands`

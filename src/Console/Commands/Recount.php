@@ -42,7 +42,7 @@ class Recount extends Command
      *
      * @var string
      */
-    protected $description = 'Recount likes and dislikes for the models';
+    protected $description = 'Recount likes and dislikes of the likeable models';
 
     /**
      * Type of likes to be recounted.
@@ -64,8 +64,8 @@ class Recount extends Command
      * @param \Illuminate\Contracts\Events\Dispatcher $events
      * @return void
      *
-     * @throws \Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable
      * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
+     * @throws \Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable
      */
     public function handle(Dispatcher $events)
     {
@@ -85,8 +85,8 @@ class Recount extends Command
      *
      * @return void
      *
-     * @throws \Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable
      * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
+     * @throws \Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable
      */
     protected function recountLikesOfAllModelTypes()
     {
@@ -102,10 +102,10 @@ class Recount extends Command
      * @param string $modelType
      * @return void
      *
-     * @throws \Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable
      * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
+     * @throws \Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable
      */
-    protected function recountLikesOfModelType($modelType)
+    protected function recountLikesOfModelType(string $modelType)
     {
         $modelType = $this->normalizeModelType($modelType);
 
@@ -113,7 +113,9 @@ class Recount extends Command
 
         $this->service->removeLikeCountersOfType($modelType, $this->likeType);
 
-        DB::table(app(LikeCounterContract::class)->getTable())->insert($counters);
+        $likesCounterTable = app(LikeCounterContract::class)->getTable();
+
+        DB::table($likesCounterTable)->insert($counters);
 
         $this->info('All [' . $modelType . '] records likes has been recounted.');
     }
@@ -126,26 +128,40 @@ class Recount extends Command
      *
      * @throws \Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable
      */
-    protected function normalizeModelType($modelType): string
+    protected function normalizeModelType(string $modelType): string
     {
-        $morphMap = Relation::morphMap();
-
-        if (class_exists($modelType)) {
-            $model = new $modelType;
-            $modelType = $model->getMorphClass();
-        } else {
-            if (!isset($morphMap[$modelType])) {
-                throw InvalidLikeable::notExists($modelType);
-            }
-
-            $modelClass = $morphMap[$modelType];
-            $model = new $modelClass;
-        }
+        $model = $this->newModelFromType($modelType);
+        $modelType = $model->getMorphClass();
 
         if (!$model instanceof LikeableContract) {
             throw InvalidLikeable::notImplementInterface($modelType);
         }
 
         return $modelType;
+    }
+
+    /**
+     * Instantiate model from type or morph map value.
+     *
+     * @param string $modelType
+     * @return mixed
+     *
+     * @throws \Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable
+     */
+    private function newModelFromType(string $modelType)
+    {
+        if (class_exists($modelType)) {
+            return new $modelType;
+        }
+
+        $morphMap = Relation::morphMap();
+
+        if (!isset($morphMap[$modelType])) {
+            throw InvalidLikeable::notExists($modelType);
+        }
+
+        $modelClass = $morphMap[$modelType];
+
+        return new $modelClass;
     }
 }
