@@ -1,4 +1,4 @@
-# Contributing to Laravel Likeable
+# Contributing to Laravel Love
 
 Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
 
@@ -13,7 +13,7 @@ Please make sure that you have [set up your user name and email address](http://
 
 Pull requests for bug fixes must be based on the current stable branch.
 
-We are trying to keep backwards compatibility breaks in Laravel Likeable to an absolute minimum. Please take this into account when proposing changes.
+We are trying to keep backwards compatibility breaks in Laravel Love to an absolute minimum. Please take this into account when proposing changes.
 
 Due to time constraints, we are not always able to respond as quickly as we would like. Please do not take delays personal and feel free to remind us if you feel that we forgot to respond.
 
@@ -35,4 +35,4 @@ $ vendor/bin/phpunit
 
 ## Reporting issues
 
-- [General problems](https://github.com/cybercog/laravel-likeable/issues)
+- [General problems](https://github.com/cybercog/laravel-love/issues)

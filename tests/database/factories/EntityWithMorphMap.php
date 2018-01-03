@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Likeable.
+ * This file is part of Laravel Love.
  *
  * (c) Anton Komarev <a.komarev@cybercog.su>
  *
@@ -9,11 +9,13 @@
  * file that was distributed with this source code.
  */
 
-use Cog\Likeable\Tests\Stubs\Models\EntityWithMorphMap;
-use Faker\Generator;
+declare(strict_types=1);
+
+use Cog\Tests\Laravel\Love\Stubs\Models\EntityWithMorphMap;
+use Faker\Generator as Faker;
 
 /* @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(EntityWithMorphMap::class, function (Generator $faker) {
+$factory->define(EntityWithMorphMap::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
     ];

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Likeable.
+ * This file is part of Laravel Love.
  *
  * (c) Anton Komarev <a.komarev@cybercog.su>
  *
@@ -9,14 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Likeable\Tests\Stubs\Models;
+declare(strict_types=1);
+
+namespace Cog\Tests\Laravel\Love\Stubs\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * Class User.
  *
- * @package Cog\Likeable\Tests\Stubs\Models
+ * @package Cog\Tests\Laravel\Love\Stubs\Models
  */
 class User extends Authenticatable
 {

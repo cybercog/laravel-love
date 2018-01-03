@@ -1,5 +1,5 @@
 {
-    "name": "cybercog/laravel-likeable",
+    "name": "cybercog/laravel-love",
     "description": "Make Laravel Eloquent models Likeable & Dislikeable in a minutes!",
     "type": "library",
     "license": "MIT",
@@ -9,6 +9,8 @@
         "laravel",
         "eloquent",
         "trait",
+        "love",
+        "hate",
         "likeable",
         "likable",
         "like",
@@ -19,7 +21,10 @@
         "rating",
         "emotion",
         "star",
-        "kudos"
+        "kudos",
+        "adore",
+        "unlike",
+        "undislike"
     ],
     "authors": [
         {
@@ -29,34 +34,35 @@
             "role": "Developer"
         }
     ],
-    "homepage": "https://github.com/cybercog/laravel-likeable",
+    "homepage": "https://github.com/cybercog/laravel-love",
     "support": {
         "email": "open@cybercog.su",
-        "issues": "https://github.com/cybercog/laravel-likeable/issues",
-        "wiki": "https://github.com/cybercog/laravel-likeable/wiki",
-        "source": "https://github.com/cybercog/laravel-likeable",
-        "docs": "https://github.com/cybercog/laravel-likeable/wiki"
+        "issues": "https://github.com/cybercog/laravel-love/issues",
+        "wiki": "https://github.com/cybercog/laravel-love/wiki",
+        "source": "https://github.com/cybercog/laravel-love",
+        "docs": "https://github.com/cybercog/laravel-love/wiki"
     },
     "require": {
-        "php": "^5.6|^7.0",
-        "illuminate/database": "~5.1.20|~5.2|~5.3|~5.4|~5.5",
-        "illuminate/support": "~5.1.20|~5.2|~5.3|~5.4|~5.5"
+        "php": "^7.0",
+        "illuminate/database": "~5.5",
+        "illuminate/support": "~5.5"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^1.11",
         "mockery/mockery": "^0.9.8",
-        "orchestra/database": "~3.4.0|~3.5.0",
-        "orchestra/testbench": "~3.4.0|~3.5.0",
-        "phpunit/phpunit": "^5.7|^6.0"
+        "orchestra/database": "~3.5.0",
+        "orchestra/testbench": "~3.5.0",
+        "phpunit/phpunit": "^6.0"
     },
     "autoload": {
         "psr-4": {
-            "Cog\\Likeable\\": "src/"
+            "Cog\\Contracts\\Love\\": "contracts/",
+            "Cog\\Laravel\\Love\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Cog\\Likeable\\Tests\\": "tests/"
+            "Cog\\Tests\\Laravel\\Love\\": "tests/"
         }
     },
     "scripts": {
@@ -68,7 +74,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Cog\\Likeable\\Providers\\LikeableServiceProvider"
+                "Cog\\Laravel\\Love\\Providers\\LoveServiceProvider"
             ]
         }
     },

@@ -1,28 +1,34 @@
-![cog-laravel-likeable](https://user-images.githubusercontent.com/1849174/28696355-c4a06a96-733d-11e7-8cc5-af5d60bf5e20.png)
+# Laravel Love
+
+![cog-laravel-love](https://user-images.githubusercontent.com/1849174/34500991-094a66da-f01e-11e7-9a6c-0480f1564338.png)
 
 <p align="center">
-<a href="https://travis-ci.org/cybercog/laravel-likeable"><img src="https://img.shields.io/travis/cybercog/laravel-likeable/master.svg?style=flat-square" alt="Build Status"></a>
+<a href="https://travis-ci.org/cybercog/laravel-love"><img src="https://img.shields.io/travis/cybercog/laravel-love/master.svg?style=flat-square" alt="Build Status"></a>
 <a href="https://styleci.io/repos/67549571"><img src="https://styleci.io/repos/67549571/shield" alt="StyleCI"></a>
-<a href="https://github.com/cybercog/laravel-likeable/releases"><img src="https://img.shields.io/github/release/cybercog/laravel-likeable.svg?style=flat-square" alt="Releases"></a>
-<a href="https://github.com/cybercog/laravel-likeable/blob/master/LICENSE"><img src="https://img.shields.io/github/license/cybercog/laravel-likeable.svg?style=flat-square" alt="License"></a>
+<a href="https://github.com/cybercog/laravel-love/releases"><img src="https://img.shields.io/github/release/cybercog/laravel-love.svg?style=flat-square" alt="Releases"></a>
+<a href="https://github.com/cybercog/laravel-love/blob/master/LICENSE"><img src="https://img.shields.io/github/license/cybercog/laravel-love.svg?style=flat-square" alt="License"></a>
 </p>
 
 ## Introduction
 
-Laravel Likeable simplify management of Eloquent model's likes & dislikes. Make any model `likeable` & `dislikeable` in a minutes!
+Laravel Love simplify management of Eloquent model's likes & dislikes. Make any model `likeable` & `dislikeable` in a minutes!
+
+This package is a fork of the abandoned [Laravel Likeable](https://github.com/cybercog/laravel-likeable).
+It completely changes package namespace architecture, aimed to API refactoring and adding new features.
 
 ## Contents
 
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
-    - [Prepare likeable model](#prepare-likeable-model)
-    - [Available methods](#available-methods)
-    - [Scopes](#scopes)
-    - [Events](#events)
-    - [Console commands](#console-commands)
+  - [Prepare likeable model](#prepare-likeable-model)
+  - [Available methods](#available-methods)
+  - [Scopes](#scopes)
+  - [Events](#events)
+  - [Console commands](#console-commands)
 - [Extending](#extending)
 - [Change log](#change-log)
+- [Upgrading](#upgrading)
 - [Contributing](#contributing)
 - [Testing](#testing)
 - [Security](#security)
@@ -37,7 +43,7 @@ Laravel Likeable simplify management of Eloquent model's likes & dislikes. Make 
 - Using contracts to keep high customization capabilities.
 - Using traits to get functionality out of the box.
 - Most part of the the logic is handled by the `LikeableService`.
-- Has Artisan command `likeable:recount {model?} {type?}` to re-fetch likes counters.
+- Has Artisan command `love:recount {model?} {type?}` to re-fetch likes counters.
 - Likeable model can has Likes and Dislikes.
 - Likes and Dislikes for one model are mutually exclusive.
 - Get Likeable models ordered by likes count.
@@ -53,19 +59,7 @@ Laravel Likeable simplify management of Eloquent model's likes & dislikes. Make 
 First, pull in the package through Composer.
 
 ```sh
-$ composer require cybercog/laravel-likeable
-```
-
-**If you are using Laravel 5.5 you can skip register package part.** 
-
-#### Register package on Laravel 5.4 and lower
-
-Include the service provider within `app/config/app.php`.
-
-```php
-'providers' => [
-    Cog\Likeable\Providers\LikeableServiceProvider::class,
-],
+$ composer require cybercog/laravel-love
 ```
 
 #### Perform Database Migration
@@ -73,8 +67,13 @@ Include the service provider within `app/config/app.php`.
 At last you need to publish and run database migrations.
 
 ```sh
-$ php artisan vendor:publish --provider="Cog\Likeable\Providers\LikeableServiceProvider" --tag=migrations
 $ php artisan migrate
+```
+
+If you want to make changes in migrations, publish them to your application first.
+
+```sh
+$ php artisan vendor:publish --provider="Cog\Laravel\Love\Providers\LoveServiceProvider" --tag=migrations
 ```
 
 ## Usage
@@ -84,8 +83,8 @@ $ php artisan migrate
 Use `Likeable` contract in model which will get likes behavior and implement it or just use `Likeable` trait. 
 
 ```php
-use Cog\Likeable\Contracts\Likeable as LikeableContract;
-use Cog\Likeable\Traits\Likeable;
+use Cog\Contracts\Love\Likeable\Models\Likeable as LikeableContract;
+use Cog\Laravel\Love\Likeable\Models\Traits\Likeable;
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model implements LikeableContract
@@ -292,77 +291,77 @@ $sortedArticles = Article::orderByDislikesCount('asc')->get();
 
 ### Events
 
-On each like added `\Cog\Likeable\Events\ModelWasLiked` event is fired.
+On each like added `\Cog\Laravel\Love\Likeable\Events\ModelWasLiked` event is fired.
 
-On each like removed `\Cog\Likeable\Events\ModelWasUnliked` event is fired.
+On each like removed `\Cog\Laravel\Love\Likeable\Events\ModelWasUnliked` event is fired.
 
-On each dislike added `\Cog\Likeable\Events\ModelWasDisliked` event is fired.
+On each dislike added `\Cog\Laravel\Love\Likeable\Events\ModelWasDisliked` event is fired.
 
-On each dislike removed `\Cog\Likeable\Events\ModelWasUndisliked` event is fired.
+On each dislike removed `\Cog\Laravel\Love\Likeable\Events\ModelWasUndisliked` event is fired.
 
 ### Console commands
 
 ##### Recount likes and dislikes of all model types
 
 ```sh
-$ likeable:recount
+$ love:recount
 ```
 
 ##### Recount likes and dislikes of concrete model type (using morph map alias)
 
 ```sh
-$ likeable:recount --model="article"
+$ love:recount --model="article"
 ```
 
 ##### Recount likes and dislikes of concrete model type (using fully qualified class name)
 
 ```sh
-$ likeable:recount --model="App\Models\Article"
+$ love:recount --model="App\Models\Article"
 ```
 
 ##### Recount only likes of all model types
 
 ```sh
-$ likeable:recount --type="like"
+$ love:recount --type="LIKE"
 ```
 
 ##### Recount only likes of concrete model type (using morph map alias)
 
 ```sh
-$ likeable:recount --model="article" --type="like"
+$ love:recount --model="article" --type="LIKE"
 ```
 
 ##### Recount only likes of concrete model type (using fully qualified class name)
 
 ```sh
-$ likeable:recount --model="App\Models\Article" --type="like"
+$ love:recount --model="App\Models\Article" --type="LIKE"
 ```
 
 ##### Recount only dislikes of all model types
 
 ```sh
-$ likeable:recount --type="dislike"
+$ love:recount --type="DISLIKE"
 ```
 
 ##### Recount only dislikes of concrete model type (using morph map alias)
 
 ```sh
-$ likeable:recount --model="article" --type="dislike"
+$ love:recount --model="article" --type="DISLIKE"
 ```
 
 ##### Recount only dislikes of concrete model type (using fully qualified class name)
 
 ```sh
-$ likeable:recount --model="App\Models\Article" --type="dislike"
+$ love:recount --model="App\Models\Article" --type="DISLIKE"
 ```
 
 ## Extending
 
 You can override core classes of package with your own implementations:
 
-- `Models\Like`
-- `Models\LikeCounter`
-- `Services\LikeableService`
+- `Cog\Laravel\Love\Like\Models\Like`
+- `Cog\Laravel\Love\LikeCounter\Models\LikeCounter`
+- `Cog\Laravel\Love\Likeable\Services\LikeableService`
 
 *Note: Don't forget that all custom models must implement original models interfaces.*
 
@@ -372,7 +371,7 @@ To make it you should use container [binding interfaces to implementations](http
 
 ```php
 $this->app->bind(
-    \Cog\Likeable\Contracts\Like::class,
+    \Cog\Contracts\Love\Like\Models\Like::class,
     \App\Models\CustomLike::class
 );
 ```
@@ -381,7 +380,7 @@ $this->app->bind(
 
 ```php
 $this->app->singleton(
-    \Cog\Likeable\Contracts\LikeableService::class,
+    \Cog\Contracts\Love\Likeable\Services\LikeableService::class,
     \App\Services\CustomService::class
 );
 ```
@@ -389,13 +388,17 @@ $this->app->singleton(
 After that your `CustomLike` and `CustomService` classes will be instantiable with helper method `app()`.
 
 ```php
-$model = app(\Cog\Likeable\Contracts\Like::class);
-$service = app(\Cog\Likeable\Contracts\LikeableService::class);
+$model = app(\Cog\Contracts\Love\Like\Models\Like::class);
+$service = app(\Cog\Contracts\Love\Likeable\Services\LikeableService::class);
 ```
 
 ## Change log
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+
+## Upgrading
+
+Please see [UPGRADING](UPGRADING.md) for detailed upgrade instructions.
 
 ## Contributing
 
@@ -403,7 +406,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Testing
 
-You can run the tests with:
+Run the tests with:
 
 ```sh
 $ vendor/bin/phpunit
@@ -418,10 +421,11 @@ If you discover any security related issues, please email open@cybercog.su inste
 | <a href="https://github.com/a-komarev">![@a-komarev](https://avatars.githubusercontent.com/u/1849174?s=110)<br />Anton Komarev</a> | <a href="https://github.com/acidjazz">![@acidjazz](https://avatars.githubusercontent.com/u/967369?s=110)<br />Kevin Olson</a> |  
 | :---: | :---: |
 
-[Laravel Likeable contributors list](../../contributors)
+[Laravel Love contributors list](../../contributors)
 
 ## Alternatives
 
+- [cybercog/laravel-likeable](https://github.com/cybercog/laravel-likeable)
 - [rtconner/laravel-likeable](https://github.com/rtconner/laravel-likeable)
 - [faustbrian/laravel-likeable](https://github.com/faustbrian/Laravel-Likeable)
 - [sukohi/evaluation](https://github.com/SUKOHI/Evaluation)
@@ -431,10 +435,14 @@ If you discover any security related issues, please email open@cybercog.su inste
 
 ## License
 
-- `Laravel Likeable` package is open-sourced software licensed under the [MIT license](LICENSE).
+- `Laravel Love` package is open-sourced software licensed under the [MIT license](LICENSE).
+- `Devil` image licensed under [Creative Commons 3.0](https://creativecommons.org/licenses/by/3.0/us/) by YuguDesign.
 
 ## About CyberCog
 
 [CyberCog](http://www.cybercog.ru) is a Social Unity of enthusiasts. Research best solutions in product & software development is our passion.
+
+- [Follow us on Twitter](https://twitter.com/cybercog)
+- [Read our articles on Medium](https://medium.com/cybercog)
 
 <a href="http://cybercog.ru"><img src="https://cloud.githubusercontent.com/assets/1849174/18418932/e9edb390-7860-11e6-8a43-aa3fad524664.png" alt="CyberCog"></a>

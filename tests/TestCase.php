@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Likeable.
+ * This file is part of Laravel Love.
  *
  * (c) Anton Komarev <a.komarev@cybercog.su>
  *
@@ -9,10 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Cog\Likeable\Tests;
+declare(strict_types=1);
 
-use Cog\Likeable\Tests\Stubs\Models\EntityWithMorphMap;
-use Cog\Likeable\Tests\Stubs\Models\User;
+namespace Cog\Tests\Laravel\Love;
+
+use Cog\Tests\Laravel\Love\Stubs\Models\EntityWithMorphMap;
+use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\File;
 use Mockery;
@@ -21,7 +23,7 @@ use Orchestra\Testbench\TestCase as Orchestra;
 /**
  * Class TestCase.
  *
- * @package Cog\Likeable\Tests
+ * @package Cog\Tests\Laravel\Love
  */
 abstract class TestCase extends Orchestra
 {
@@ -57,7 +59,7 @@ abstract class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
-            \Cog\Likeable\Providers\LikeableServiceProvider::class,
+            \Cog\Laravel\Love\Providers\LoveServiceProvider::class,
             \Orchestra\Database\ConsoleServiceProvider::class,
         ];
     }

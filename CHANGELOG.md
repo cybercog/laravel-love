@@ -1,6 +1,54 @@
 # Changelog
 
-All notable changes to `laravel-likeable` will be documented in this file.
+All notable changes to `laravel-love` will be documented in this file.
+
+## [4.0.0] - 2018-01-04
+
+### Changed
+
+- Console command `LikeableRecount` moved from `Cog\Likeable\Console` to `Cog\Laravel\Love\Console\Commands` namespace
+- Console command `LikeableRecount` renamed to `Recount`
+- Contracts moved from `Cog\Likeable\Contracts` to `Cog\Contracts\Love` namespace
+- Database table `like` renamed to `love_likes`
+- Database table `like_counter` renamed to `love_like_counters`
+- Database table column `updated_at` was added to `love_likes` table 
+- Database table columns `created_at` & `updated_at` were added to `love_like_counters` table
+- Events were moved from `Cog\Likeable\Events` to `Cog\Laravel\Love\Likeable\Events` namespace
+- Event `ModelWasDisliked` renamed to `LikeableWasDisliked`
+- Event `ModelWasLiked` renamed to `LikeableWasLiked`
+- Event `ModelWasUndisliked` renamed to `LikeableWasUndisliked`
+- Event `ModelWasUnliked` renamed to `LikeableWasUnliked`
+- All Likeable's events public property `$model` was renamed to `$likeable`
+- Constant values `LikeType::LIKE` & `LikeType::DISLIKE` are uppercase now and equal to `LIKE` & `DISLIKE` respectively
+- Exceptions extends `\RuntimeException` instead of `\Exception`
+- Exception `LikeTypeInvalidException` moved from `Cog\Likeable\Contracts\Exceptions` to `Cog\Contracts\Love\Like\Exceptions`
+- Exception `LikeTypeInvalidException` renamed to `InvalidLikeType`
+- Exception `LikerNotDefinedException` moved from `Cog\Likeable\Contracts\Exceptions` to `Cog\Contracts\Love\Liker\Exceptions`
+- Exception `LikerNotDefinedException` renamed to `InvalidLiker`
+- Exception `ModelInvalidException` moved from `Cog\Likeable\Contracts\Exceptions` to `Cog\Contracts\Love\Likeable\Exceptions`
+- Exception `ModelInvalidException` renamed to `InvalidLikeable`
+- Observer class `ModelObserver` moved from `Cog\Likeable\Observers` to `Cog\Laravel\Love\Likeable\Observers` namespace
+- Observer class `ModelObserver` renamed to `LikeableObserver`
+- Service Provider `LikableServiceProvider` was moved from `Cog\Likeable\Providers` to `Cog\Laravel\Love\Providers` namespace
+- Service Provider `LikableServiceProvider` was renamed to `LoveServiceProvider`
+
+### Removed
+
+- Removed deprecated `Cog\Likeable\Contracts\HasLikes` contract
+- Removed deprecated `Cog\Likeable\Traits\HasLikes` trait
+- Removed `scopeWhereLikedBy` method from `Cog\Contracts\Love\Likeable\Services\LikeableService` contract
+- Removed `scopeWhereLikedBy` method from `Cog\Laravel\Love\Likeable\Services\LikeableService` class
+- Removed `scopeOrderByLikesCount` method from `Cog\Contracts\Love\Likeable\Services\LikeableService` contract
+- Removed `scopeOrderByLikesCount` method from `Cog\Laravel\Love\Likeable\Services\LikeableService` class
+- Removed `getLikesCountAttribute` method from `Cog\Contracts\Love\Likeable\Models\Likeable` contract
+- Removed `getDislikesCountAttribute` method from `Cog\Contracts\Love\Likeable\Models\Likeable` contract
+- Removed `getLikedAttribute` method from `Cog\Contracts\Love\Likeable\Models\Likeable` contract
+- Removed `getDislikedAttribute` method from `Cog\Contracts\Love\Likeable\Models\Likeable` contract
+- Removed `getLikesDiffDislikesCountAttribute` method from `Cog\Contracts\Love\Likeable\Models\Likeable` contract
+- Removed `scopeWhereLikedBy` method from `Cog\Contracts\Love\Likeable\Models\Likeable` contract
+- Removed `scopeWhereDislikedBy` method from `Cog\Contracts\Love\Likeable\Models\Likeable` contract
+- Removed `scopeOrderByLikesCount` method from `Cog\Contracts\Love\Likeable\Models\Likeable` contract
+- Removed `scopeOrderByDislikesCount` method from `Cog\Contracts\Love\Likeable\Models\Likeable` contract
 
 ## [3.1.0] - 2017-12-28
 
@@ -33,36 +81,36 @@ All notable changes to `laravel-likeable` will be documented in this file.
 
 ### Added
 
-- `orderByDislikesCount` scope added to `HasLikes` trait.
-- `scopeOrderByLikesCount` method to `LikeableService`.
+- `orderByDislikesCount` scope added to `HasLikes` trait
+- `scopeOrderByLikesCount` method to `LikeableService`
 
 ### Fixed
 
-- `orderByLikesCount` count only likes now.
+- `orderByLikesCount` count only likes now
 
 ## [2.2.3] - 2017-04-20
 
 ### Fixed
 
-`orderByLikesCount` work in MySQL databases.
+`orderByLikesCount` work in MySQL databases
 
 ## [2.2.2] - 2017-04-09
 
 ### Fixed
 
-- `orderByLikesCount` returns models without likes too.
+- `orderByLikesCount` returns models without likes too
 
 ## [2.2.1] - 2017-04-09
 
 ### Fixed
 
-- `orderByLikesCount` database query fixed.
+- `orderByLikesCount` database query fixed
 
 ## [2.2.0] - 2017-04-09
 
 ### Added
 
-- `Article::orderByLikesCount('asc')` scope for the model. Uses `desc` as default order direction.
+- `Article::orderByLikesCount('asc')` scope for the model. Uses `desc` as default order direction
 
 ## [2.1.0] - 2017-02-20
 
@@ -101,17 +149,18 @@ All notable changes to `laravel-likeable` will be documented in this file.
 
 - Initial release
 
-[3.1.0]: https://github.com/cybercog/laravel-likeable/compare/3.0.0...3.1.0
-[3.0.0]: https://github.com/cybercog/laravel-likeable/compare/2.2.5...3.0.0
-[2.2.5]: https://github.com/cybercog/laravel-likeable/compare/2.2.4...2.2.5
-[2.2.4]: https://github.com/cybercog/laravel-likeable/compare/2.2.3...2.2.4
-[2.2.3]: https://github.com/cybercog/laravel-likeable/compare/2.2.2...2.2.3
-[2.2.2]: https://github.com/cybercog/laravel-likeable/compare/2.2.1...2.2.2
-[2.2.1]: https://github.com/cybercog/laravel-likeable/compare/2.2.0...2.2.1
-[2.2.0]: https://github.com/cybercog/laravel-likeable/compare/2.1.0...2.2.0
-[2.1.0]: https://github.com/cybercog/laravel-likeable/compare/2.0.1...2.1.0
-[2.0.1]: https://github.com/cybercog/laravel-likeable/compare/2.0.0...2.0.1
-[2.0.0]: https://github.com/cybercog/laravel-likeable/compare/1.1.2...2.0.0
-[1.1.2]: https://github.com/cybercog/laravel-likeable/compare/1.1.1...1.1.2
-[1.1.1]: https://github.com/cybercog/laravel-likeable/compare/1.1.0...1.1.1
-[1.1.0]: https://github.com/cybercog/laravel-likeable/compare/1.0.0...1.1.0
+[4.0.0]: https://github.com/cybercog/laravel-love/compare/3.1.0...4.0.0
+[3.1.0]: https://github.com/cybercog/laravel-love/compare/3.0.0...3.1.0
+[3.0.0]: https://github.com/cybercog/laravel-love/compare/2.2.5...3.0.0
+[2.2.5]: https://github.com/cybercog/laravel-love/compare/2.2.4...2.2.5
+[2.2.4]: https://github.com/cybercog/laravel-love/compare/2.2.3...2.2.4
+[2.2.3]: https://github.com/cybercog/laravel-love/compare/2.2.2...2.2.3
+[2.2.2]: https://github.com/cybercog/laravel-love/compare/2.2.1...2.2.2
+[2.2.1]: https://github.com/cybercog/laravel-love/compare/2.2.0...2.2.1
+[2.2.0]: https://github.com/cybercog/laravel-love/compare/2.1.0...2.2.0
+[2.1.0]: https://github.com/cybercog/laravel-love/compare/2.0.1...2.1.0
+[2.0.1]: https://github.com/cybercog/laravel-love/compare/2.0.0...2.0.1
+[2.0.0]: https://github.com/cybercog/laravel-love/compare/1.1.2...2.0.0
+[1.1.2]: https://github.com/cybercog/laravel-love/compare/1.1.1...1.1.2
+[1.1.1]: https://github.com/cybercog/laravel-love/compare/1.1.0...1.1.1
+[1.1.0]: https://github.com/cybercog/laravel-love/compare/1.0.0...1.1.0
