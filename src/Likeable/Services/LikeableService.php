@@ -74,7 +74,7 @@ class LikeableService implements LikeableServiceContract
      *
      * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @param string $type
-     * @param int|null $userId
+     * @param null|int $userId
      * @return void
      *
      * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
@@ -126,7 +126,7 @@ class LikeableService implements LikeableServiceContract
      *
      * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @param string $type
-     * @param int|null $userId
+     * @param null|int $userId
      * @return bool
      *
      * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
@@ -232,7 +232,7 @@ class LikeableService implements LikeableServiceContract
      * Remove like counters by likeable type.
      *
      * @param string $likeableType
-     * @param string|null $type
+     * @param null|string $type
      * @return void
      *
      * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
@@ -404,7 +404,7 @@ class LikeableService implements LikeableServiceContract
      * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @param string $typeId
      * @param int $userId
-     * @return bool|null
+     * @return null|bool
      *
      * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */

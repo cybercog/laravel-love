@@ -47,7 +47,7 @@ class Recount extends Command
     /**
      * Type of likes to be recounted.
      *
-     * @var string|null
+     * @var null|string
      */
     protected $likeType;
 

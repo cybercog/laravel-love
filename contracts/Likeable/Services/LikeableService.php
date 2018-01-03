@@ -66,7 +66,7 @@ interface LikeableService
      *
      * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @param string $type
-     * @param int|null $userId
+     * @param null|int $userId
      * @return bool
      *
      * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType

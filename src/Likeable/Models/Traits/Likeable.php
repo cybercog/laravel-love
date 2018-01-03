@@ -164,7 +164,7 @@ trait Likeable
      * Fetch records that are liked by a given user id.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param int|null $userId
+     * @param null|int $userId
      * @return \Illuminate\Database\Eloquent\Builder
      *
      * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
@@ -178,7 +178,7 @@ trait Likeable
      * Fetch records that are disliked by a given user id.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param int|null $userId
+     * @param null|int $userId
      * @return \Illuminate\Database\Eloquent\Builder
      *
      * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
@@ -228,7 +228,7 @@ trait Likeable
     /**
      * Remove a like from this record for the given user.
      *
-     * @param int|null $userId If null will use currently logged in user.
+     * @param null|int $userId If null will use currently logged in user.
      * @return void
      *
      * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
@@ -254,7 +254,7 @@ trait Likeable
     /**
      * Has the user already liked likeable model.
      *
-     * @param int|null $userId
+     * @param null|int $userId
      * @return bool
      */
     public function liked($userId = null): bool
@@ -288,7 +288,7 @@ trait Likeable
     /**
      * Remove a dislike from this record for the given user.
      *
-     * @param int|null $userId If null will use currently logged in user.
+     * @param null|int $userId If null will use currently logged in user.
      * @return void
      *
      * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
@@ -314,7 +314,7 @@ trait Likeable
     /**
      * Has the user already disliked likeable model.
      *
-     * @param int|null $userId
+     * @param null|int $userId
      * @return bool
      */
     public function disliked($userId = null): bool
@@ -338,7 +338,7 @@ trait Likeable
      * @todo think about method name
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param string $type
-     * @param int|null $userId
+     * @param null|int $userId
      * @return \Illuminate\Database\Eloquent\Builder
      *
      * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
