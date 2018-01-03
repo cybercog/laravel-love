@@ -49,6 +49,8 @@ If you have used `Cog\Likeable\Observers\ModelObserver` observer you should use 
 
 To make all changes in MySQL you could run these commands one by one.
 
+**Don't forget to make full database backup before making an upgrade!** 
+
 Rename `like` table to `love_likes`:
 
 ```mysql
@@ -84,6 +86,15 @@ Add nullable `updated_at` column to `love_likes` table:
 ```mysql
 ALTER TABLE `love_likes`
  ADD COLUMN `updated_at` TIMESTAMP NULL DEFAULT NULL AFTER `created_at`;
+```
+
+Sync `updated_at` column of `love_likes` table with `created_at` column (optional):
+
+```mysql
+UPDATE `love_likes`
+   SET `updated_at` = `created_at`
+ WHERE `updated_at` IS NULL
+   AND id > 0;
 ```
 
 Add nullable `created_at` & `updated_at` columns to `love_like_counters` table:
