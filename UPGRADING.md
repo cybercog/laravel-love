@@ -18,6 +18,7 @@ We accept PRs to improve this guide.
 - Find all `Cog\Likeable\Events\ModelWasLiked` and replace with `Cog\Laravel\Love\Likeable\Events\LikeableWasLiked`
 - Find all `Cog\Likeable\Events\ModelWasUndisliked` and replace with `Cog\Laravel\Love\Likeable\Events\LikeableWasUndisliked`
 - Find all `Cog\Likeable\Events\ModelWasUnliked` and replace with `Cog\Laravel\Love\Likeable\Events\LikeableWasUnliked`
+- In all listeners which intercepts Likeable's events described above, replace `$event->model` to `$event->likeable`
 
 ### Exceptions
 

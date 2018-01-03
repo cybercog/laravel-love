@@ -19,8 +19,8 @@ use Cog\Contracts\Love\Likeable\Services\LikeableService as LikeableServiceContr
 use Cog\Laravel\Love\Console\Commands\Recount;
 use Cog\Laravel\Love\Like\Models\Like;
 use Cog\Laravel\Love\Like\Observers\LikeObserver;
-use Cog\Laravel\Love\LikeCounter\Models\LikeCounter;
 use Cog\Laravel\Love\Likeable\Services\LikeableService;
+use Cog\Laravel\Love\LikeCounter\Models\LikeCounter;
 use Illuminate\Support\ServiceProvider;
 
 /**

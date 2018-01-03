@@ -17,10 +17,9 @@ All notable changes to `laravel-love` will be documented in this file.
 - Event `ModelWasDisliked` renamed to `LikeableWasDisliked`
 - Event `ModelWasLiked` renamed to `LikeableWasLiked`
 - Event `ModelWasUndisliked` renamed to `LikeableWasUndisliked`
-- Event `ModelWasUnliked` renamed to `LikeableWasUnliked` 
-- `ModelObserver` moved from `Cog\Likeable\Observers` to `Cog\Laravel\Love\Likeable\Observers` namespace
-- `ModelObserver` class renamed to `LikeableObserver`
-- `LikeType::LIKE` & `LikeType::DISLIKE` constant values are uppercase now `LIKE` & `DISLIKE` respectively
+- Event `ModelWasUnliked` renamed to `LikeableWasUnliked`
+- All Likeable's events public property `$model` was renamed to `$likeable`
+- Constant values `LikeType::LIKE` & `LikeType::DISLIKE` are uppercase now and equal to `LIKE` & `DISLIKE` respectively
 - Exceptions extends `\RuntimeException` instead of `\Exception`
 - Exception `LikeTypeInvalidException` moved from `Cog\Likeable\Contracts\Exceptions` to `Cog\Contracts\Love\Like\Exceptions`
 - Exception `LikeTypeInvalidException` renamed to `InvalidLikeType`
@@ -28,6 +27,10 @@ All notable changes to `laravel-love` will be documented in this file.
 - Exception `LikerNotDefinedException` renamed to `InvalidLiker`
 - Exception `ModelInvalidException` moved from `Cog\Likeable\Contracts\Exceptions` to `Cog\Contracts\Love\Likeable\Exceptions`
 - Exception `ModelInvalidException` renamed to `InvalidLikeable`
+- Observer class `ModelObserver` moved from `Cog\Likeable\Observers` to `Cog\Laravel\Love\Likeable\Observers` namespace
+- Observer class `ModelObserver` renamed to `LikeableObserver`
+- Service Provider `LikableServiceProvider` was moved from `Cog\Likeable\Providers` to `Cog\Laravel\Love\Providers` namespace
+- Service Provider `LikableServiceProvider` was renamed to `LoveServiceProvider`
 
 ### Removed
 
