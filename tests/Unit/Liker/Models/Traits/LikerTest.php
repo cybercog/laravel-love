@@ -19,11 +19,11 @@ use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 /**
- * Class LikeableTest.
+ * Class LikerTest.
  *
  * @package Cog\Tests\Laravel\Love\Unit\Liker\Models\Traits
  */
-class Liker extends TestCase
+class LikerTest extends TestCase
 {
     use DatabaseTransactions;
 
