@@ -21,13 +21,14 @@ It completely changes package namespace architecture, aimed to API refactoring a
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
-  - [Prepare likeable model](#prepare-likeable-model)
-  - [Available methods](#available-methods)
+  - [Prepare Liker Model](#prepare-liker-model)
+  - [Prepare Likeable Model](#prepare-likeable-model)
+  - [Available Methods](#available-methods)
   - [Scopes](#scopes)
   - [Events](#events)
-  - [Console commands](#console-commands)
+  - [Console Commands](#console-commands)
 - [Extending](#extending)
-- [Change log](#change-log)
+- [Changelog](#changelog)
 - [Upgrading](#upgrading)
 - [Contributing](#contributing)
 - [Testing](#testing)
@@ -78,9 +79,26 @@ $ php artisan vendor:publish --provider="Cog\Laravel\Love\Providers\LoveServiceP
 
 ## Usage
 
-### Prepare likeable model
+### Prepare Liker Model
 
-Use `Likeable` contract in model which will get likes behavior and implement it or just use `Likeable` trait. 
+Use `Cog\Contracts\Love\Liker\Models\Liker` contract in model which will get likes
+behavior and implement it or just use `Cog\Laravel\Love\Liker\Models\Traits\Liker` trait. 
+
+```php
+use Cog\Contracts\Love\Liker\Models\Liker as LikerContract;
+use Cog\Laravel\Love\Liker\Models\Traits\Liker;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class User extends Authenticatable implements LikerContract
+{
+    use Liker;
+}
+```
+
+### Prepare Likeable Model
+
+Use `Cog\Contracts\Love\Likeable\Models\Likeable` contract in model which will get likes
+behavior and implement it or just use `Cog\Laravel\Love\Likeable\Models\Traits\Likeable` trait. 
 
 ```php
 use Cog\Contracts\Love\Likeable\Models\Likeable as LikeableContract;
@@ -93,29 +111,36 @@ class Article extends Model implements LikeableContract
 }
 ```
 
-### Available methods
+### Available Methods
 
 #### Likes
 
 ##### Like model
 
+
 ```php
-$article->like(); // current user
-$article->like($user->id);
+$user->like($article);
+
+$article->likeBy(); // current user
+$article->likeBy($user->id);
 ```
 
 ##### Remove like mark from model
 
 ```php
-$article->unlike(); // current user
-$article->unlike($user->id);
+$user->unlike($article);
+
+$article->unlikeBy(); // current user
+$article->unlikeBy($user->id);
 ```
 
 ##### Toggle like mark of model
 
 ```php
-$article->likeToggle(); // current user
-$article->likeToggle($user->id);
+$user->toggleLike($article);
+
+$article->toggleLikeBy(); // current user
+$article->toggleLikeBy($user->id);
 ```
 
 ##### Get model likes count
@@ -145,9 +170,11 @@ $article->likes;
 ##### Boolean check if user liked model
 
 ```php
+$user->hasLiked($article);
+
 $article->liked; // current user
-$article->liked(); // current user
-$article->liked($user->id);
+$article->isLikedBy(); // current user
+$article->isLikedBy($user->id);
 ```
 
 *Checks in eager loaded relations `likes` & `likesAndDislikes` first.*
@@ -169,22 +196,28 @@ $article->removeLikes();
 ##### Dislike model
 
 ```php
-$article->dislike(); // current user
-$article->dislike($user->id);
+$user->dislike($article);
+
+$article->dislikeBy(); // current user
+$article->dislikeBy($user->id);
 ```
 
 ##### Remove dislike mark from model
 
 ```php
-$article->undislike(); // current user
-$article->undislike($user->id);
+$user->undislike($article);
+
+$article->undislikeBy(); // current user
+$article->undislikeBy($user->id);
 ```
 
 ##### Toggle dislike mark of model
 
 ```php
-$article->dislikeToggle(); // current user
-$article->dislikeToggle($user->id);
+$user->toggleDislike($article);
+
+$article->toggleDislikeBy(); // current user
+$article->toggleDislikeBy($user->id);
 ```
 
 ##### Get model dislikes count
@@ -214,9 +247,11 @@ $article->dislikes;
 ##### Boolean check if user disliked model
 
 ```php
+$user->hasDisliked($article);
+
 $article->disliked; // current user
-$article->disliked(); // current user
-$article->disliked($user->id);
+$article->isDislikedBy(); // current user
+$article->isDislikedBy($user->id);
 ```
 
 *Checks in eager loaded relations `dislikes` & `likesAndDislikes` first.*
@@ -299,7 +334,7 @@ On each dislike added `\Cog\Laravel\Love\Likeable\Events\LikeableWasDisliked` ev
 
 On each dislike removed `\Cog\Laravel\Love\Likeable\Events\LikeableWasUndisliked` event is fired.
 
-### Console commands
+### Console Commands
 
 ##### Recount likes and dislikes of all model types
 
@@ -392,7 +427,7 @@ $model = app(\Cog\Contracts\Love\Like\Models\Like::class);
 $service = app(\Cog\Contracts\Love\Likeable\Services\LikeableService::class);
 ```
 
-## Change log
+## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 

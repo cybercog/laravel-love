@@ -19,6 +19,7 @@ use Cog\Contracts\Love\Likeable\Models\Likeable as LikeableContract;
 use Cog\Contracts\Love\LikeCounter\Models\LikeCounter as LikeCounterContract;
 use Cog\Contracts\Love\Liker\Exceptions\InvalidLiker;
 use Cog\Contracts\Love\Likeable\Services\LikeableService as LikeableServiceContract;
+use Cog\Contracts\Love\Liker\Models\Liker as LikerContract;
 use Cog\Laravel\Love\Like\Enums\LikeType;
 use Illuminate\Support\Facades\DB;
 
@@ -133,6 +134,11 @@ class LikeableService implements LikeableServiceContract
      */
     public function isLiked(LikeableContract $likeable, $type, $userId): bool
     {
+        // TODO: (?) Use `$userId = $this->getLikerUserId($userId);`
+        if ($userId instanceof LikerContract) {
+            $userId = $userId->getKey();
+        }
+
         if (is_null($userId)) {
             $userId = $this->loggedInUserId();
         }
@@ -348,6 +354,10 @@ class LikeableService implements LikeableServiceContract
      */
     public function getLikerUserId($userId): int
     {
+        if ($userId instanceof LikerContract) {
+            return $userId->getKey();
+        }
+
         if (is_null($userId)) {
             $userId = $this->loggedInUserId();
         }
