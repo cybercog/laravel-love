@@ -1,6 +1,20 @@
 # Upgrade Guide
 
+- [From v4 to v5](#from-v4-to-v5)
 - [From v3 to v4](#from-v3-to-v4)
+
+## From v4 to v5
+
+### Likeable model methods
+
+- Find all `like` method and replace it with `likeBy`
+- Find all `dislike` method and replace it with `dislikeBy`
+- Find all `unlike` method and replace it with `unlikeBy`
+- Find all `undislike` method and replace it with `undislikeBy`
+- Find all `likeToggle` method and replace it with `toggleLikeBy`
+- Find all `dislikeToggle` method and replace it with `toggleDislikeBy`
+- Find all `liked` method and replace it with `isLikedBy`
+- Find all `disliked` method and replace it with `isDislikedBy`
 
 ## From v3 to v4
 

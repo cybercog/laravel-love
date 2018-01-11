@@ -25,7 +25,7 @@ use Cog\Laravel\Love\Like\Enums\LikeType;
 trait Liker
 {
     /**
-     * Add a like for model by the given user.
+     * Add a like for the Likeable model.
      *
      * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @return void
@@ -36,11 +36,21 @@ trait Liker
     }
 
     /**
-     * Remove a like from this record for the given user.
+     * Add a dislike for the Likeable model.
      *
      * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @return void
+     */
+    public function dislike(LikeableContract $likeable)
+    {
+        app(LikeableServiceContract::class)->addLikeTo($likeable, LikeType::DISLIKE, $this);
+    }
+
+    /**
+     * Remove a like from the Likeable model.
      *
+     * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
+     * @return void
      */
     public function unlike(LikeableContract $likeable)
     {
@@ -48,11 +58,21 @@ trait Liker
     }
 
     /**
-     * Toggle like for model by the given user.
+     * Remove a dislike from the Likeable model.
      *
      * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @return void
+     */
+    public function undislike(LikeableContract $likeable)
+    {
+        app(LikeableServiceContract::class)->removeLikeFrom($likeable, LikeType::DISLIKE, $this);
+    }
+
+    /**
+     * Toggle like of the Likeable model.
      *
+     * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
+     * @return void
      */
     public function toggleLike(LikeableContract $likeable)
     {
@@ -60,7 +80,18 @@ trait Liker
     }
 
     /**
-     * Has the user already liked likeable model.
+     * Toggle dislike of the Likeable model.
+     *
+     * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
+     * @return void
+     */
+    public function toggleDislike(LikeableContract $likeable)
+    {
+        app(LikeableServiceContract::class)->toggleLikeOf($likeable, LikeType::DISLIKE, $this);
+    }
+
+    /**
+     * Determine if Liker has liked Likeable model.
      *
      * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @return bool
@@ -71,43 +102,7 @@ trait Liker
     }
 
     /**
-     * Add a dislike for model by the given user.
-     *
-     * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
-     * @return void
-     *
-     */
-    public function dislike(LikeableContract $likeable)
-    {
-        app(LikeableServiceContract::class)->addLikeTo($likeable, LikeType::DISLIKE, $this);
-    }
-
-    /**
-     * Remove a dislike from this record for the given user.
-     *
-     * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
-     * @return void
-     *
-     */
-    public function undislike(LikeableContract $likeable)
-    {
-        app(LikeableServiceContract::class)->removeLikeFrom($likeable, LikeType::DISLIKE, $this);
-    }
-
-    /**
-     * Toggle dislike for model by the given user.
-     *
-     * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
-     * @return void
-     *
-     */
-    public function toggleDislike(LikeableContract $likeable)
-    {
-        app(LikeableServiceContract::class)->toggleLikeOf($likeable, LikeType::DISLIKE, $this);
-    }
-
-    /**
-     * Has the user already disliked likeable model.
+     * Determine if Liker has disliked Likeable model.
      *
      * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @return bool
