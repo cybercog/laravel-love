@@ -33,6 +33,6 @@ class LikeableWasDislikedTest extends TestCase
         $this->expectsEvents(LikeableWasDisliked::class);
 
         $entity = factory(Entity::class)->create();
-        $entity->dislike(1);
+        $entity->dislikeBy(1);
     }
 }

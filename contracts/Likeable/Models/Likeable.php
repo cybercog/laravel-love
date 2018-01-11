@@ -93,7 +93,7 @@ interface Likeable
      *
      * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      */
-    public function like($userId = null);
+    public function likeBy($userId = null);
 
     /**
      * Remove a like from this record for the given user.
@@ -103,7 +103,7 @@ interface Likeable
      *
      * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      */
-    public function unlike($userId = null);
+    public function unlikeBy($userId = null);
 
     /**
      * Toggle like for model by the given user.
@@ -113,7 +113,7 @@ interface Likeable
      *
      * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      */
-    public function likeToggle($userId = null);
+    public function toggleLikeBy($userId = null);
 
     /**
      * Has the user already liked likeable model.
@@ -121,7 +121,7 @@ interface Likeable
      * @param null|string|int $userId
      * @return bool
      */
-    public function liked($userId = null): bool;
+    public function isLikedBy($userId = null): bool;
 
     /**
      * Delete likes related to the current record.
@@ -138,7 +138,7 @@ interface Likeable
      *
      * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      */
-    public function dislike($userId = null);
+    public function dislikeBy($userId = null);
 
     /**
      * Remove a dislike from this record for the given user.
@@ -148,7 +148,7 @@ interface Likeable
      *
      * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      */
-    public function undislike($userId = null);
+    public function undislikeBy($userId = null);
 
     /**
      * Toggle dislike for model by the given user.
@@ -158,7 +158,7 @@ interface Likeable
      *
      * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      */
-    public function dislikeToggle($userId = null);
+    public function toggleDislikeBy($userId = null);
 
     /**
      * Has the user already disliked likeable model.
@@ -166,7 +166,7 @@ interface Likeable
      * @param null|string|int $userId
      * @return bool
      */
-    public function disliked($userId = null): bool;
+    public function isDislikedBy($userId = null): bool;
 
     /**
      * Delete dislikes related to the current record.

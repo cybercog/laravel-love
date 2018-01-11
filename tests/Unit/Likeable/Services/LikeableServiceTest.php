@@ -45,8 +45,8 @@ class LikeableServiceTest extends TestCase
     {
         $service = $this->app->make(LikeableServiceContract::class);
         $entity = factory(Entity::class)->create();
-        $entity->like(1);
-        $entity->like(2);
+        $entity->likeBy(1);
+        $entity->likeBy(2);
 
         $service->decrementLikesCount($entity);
         $service->decrementLikesCount($entity);
@@ -84,9 +84,9 @@ class LikeableServiceTest extends TestCase
         $entity1 = factory(Entity::class)->create();
         $entity2 = factory(Entity::class)->create();
         $article = factory(Article::class)->create();
-        $entity1->like(1);
-        $entity2->like(2);
-        $article->like(1);
+        $entity1->likeBy(1);
+        $entity2->likeBy(2);
+        $article->likeBy(1);
 
         $service->removeLikeCountersOfType(Entity::class, 'LIKE');
 
@@ -102,9 +102,9 @@ class LikeableServiceTest extends TestCase
         $entity1 = factory(EntityWithMorphMap::class)->create();
         $entity2 = factory(EntityWithMorphMap::class)->create();
         $article = factory(Article::class)->create();
-        $entity1->like(1);
-        $entity2->like(2);
-        $article->like(1);
+        $entity1->likeBy(1);
+        $entity2->likeBy(2);
+        $article->likeBy(1);
 
         $service->removeLikeCountersOfType('entity-with-morph-map', 'LIKE');
 
@@ -120,9 +120,9 @@ class LikeableServiceTest extends TestCase
         $entity1 = factory(EntityWithMorphMap::class)->create();
         $entity2 = factory(EntityWithMorphMap::class)->create();
         $article = factory(Article::class)->create();
-        $entity1->like(1);
-        $entity2->like(2);
-        $article->like(1);
+        $entity1->likeBy(1);
+        $entity2->likeBy(2);
+        $article->likeBy(1);
 
         $service->removeLikeCountersOfType(EntityWithMorphMap::class, 'LIKE');
 
@@ -137,10 +137,10 @@ class LikeableServiceTest extends TestCase
         $service = $this->app->make(LikeableServiceContract::class);
         $entity1 = factory(Entity::class)->create();
         $entity2 = factory(Entity::class)->create();
-        $entity1->like(1);
-        $entity1->like(2);
-        $entity2->like(1);
-        $entity2->like(4);
+        $entity1->likeBy(1);
+        $entity1->likeBy(2);
+        $entity2->likeBy(1);
+        $entity2->likeBy(4);
 
         $service->removeModelLikes($entity1, 'LIKE');
 
@@ -149,12 +149,12 @@ class LikeableServiceTest extends TestCase
     }
 
     /** @test */
-    public function it_can_remove_like_on_dislike()
+    public function it_can_remove_like_on_dislikeBy()
     {
         $entity = factory(Entity::class)->create();
 
-        $entity->like(1);
-        $entity->dislike(1);
+        $entity->likeBy(1);
+        $entity->dislikeBy(1);
 
         $this->assertCount(1, $entity->likesAndDislikes);
         $this->assertCount(1, $entity->dislikes);
@@ -162,12 +162,12 @@ class LikeableServiceTest extends TestCase
     }
 
     /** @test */
-    public function it_can_remove_dislike_on_like()
+    public function it_can_remove_dislike_on_likeBy()
     {
         $entity = factory(Entity::class)->create();
 
-        $entity->dislike(1);
-        $entity->like(1);
+        $entity->dislikeBy(1);
+        $entity->likeBy(1);
 
         $this->assertCount(1, $entity->likesAndDislikes);
         $this->assertCount(1, $entity->likes);
@@ -181,8 +181,8 @@ class LikeableServiceTest extends TestCase
         $user1 = factory(User::class)->create();
         factory(User::class)->create();
         $user3 = factory(User::class)->create();
-        $entity->like($user1->id);
-        $entity->like($user3->id);
+        $entity->likeBy($user1->id);
+        $entity->likeBy($user3->id);
 
         $likers = app(LikeableServiceContract::class)->collectLikersOf($entity);
 
@@ -197,9 +197,9 @@ class LikeableServiceTest extends TestCase
         $user1 = factory(User::class)->create();
         $user2 = factory(User::class)->create();
         $user3 = factory(User::class)->create();
-        $entity->dislike($user1->id);
-        $entity->like($user2->id);
-        $entity->dislike($user3->id);
+        $entity->dislikeBy($user1->id);
+        $entity->likeBy($user2->id);
+        $entity->dislikeBy($user3->id);
 
         $dislikers = app(LikeableServiceContract::class)->collectDislikersOf($entity);
 

@@ -49,7 +49,7 @@ class LikeTest extends TestCase
     {
         $entity = factory(Entity::class)->create();
 
-        $entity->like(1);
+        $entity->likeBy(1);
 
         $this->assertInstanceOf(Entity::class, Like::first()->likeable);
     }

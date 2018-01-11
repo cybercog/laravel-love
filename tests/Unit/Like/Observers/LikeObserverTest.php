@@ -130,7 +130,7 @@ class LikeObserverTest extends TestCase
     public function it_decrement_likeable_likes_count_on_like_model_deleted()
     {
         $likeable = factory(Entity::class)->create();
-        $likeable->like(1);
+        $likeable->likeBy(1);
         $likeableService = Mockery::mock(LikeableService::class);
         $like = Mockery::mock(LikeContract::class);
         $like->type_id = LikeType::LIKE;
@@ -148,7 +148,7 @@ class LikeObserverTest extends TestCase
     public function it_decrement_likeable_dislikes_count_on_like_model_deleted()
     {
         $likeable = factory(Entity::class)->create();
-        $likeable->dislike(1);
+        $likeable->dislikeBy(1);
         $likeableService = Mockery::mock(LikeableService::class);
         $like = Mockery::mock(LikeContract::class);
         $like->type_id = LikeType::DISLIKE;

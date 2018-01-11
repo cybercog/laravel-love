@@ -35,7 +35,7 @@ class LikeableObserverTest extends TestCase
     public function it_remove_likes_on_likeable_delete()
     {
         $likeable = factory(Entity::class)->create();
-        $likeable->like(1);
+        $likeable->likeBy(1);
         $likeableService = Mockery::mock(LikeableServiceContract::class);
         $likeableService->shouldReceive('removeModelLikes');
         $likeableObserver = new LikeableObserver();
@@ -49,7 +49,7 @@ class LikeableObserverTest extends TestCase
     public function it_can_omit_remove_likes_on_likeable_delete()
     {
         $likeable = factory(Entity::class)->create();
-        $likeable->like(1);
+        $likeable->likeBy(1);
         $likeable->removeLikesOnDelete = false;
         $likeableService = Mockery::mock(LikeableServiceContract::class);
         $likeableService->shouldNotHaveReceived('removeModelLikes');
@@ -66,13 +66,13 @@ class LikeableObserverTest extends TestCase
         $entity1 = factory(Entity::class)->create();
         $entity2 = factory(Entity::class)->create();
 
-        $entity1->like(1);
-        $entity1->like(7);
-        $entity1->like(8);
-        $entity2->like(1);
-        $entity2->like(2);
-        $entity2->like(3);
-        $entity2->like(4);
+        $entity1->likeBy(1);
+        $entity1->likeBy(7);
+        $entity1->likeBy(8);
+        $entity2->likeBy(1);
+        $entity2->likeBy(2);
+        $entity2->likeBy(3);
+        $entity2->likeBy(4);
 
         $entity1Likes = $entity1->likes;
 

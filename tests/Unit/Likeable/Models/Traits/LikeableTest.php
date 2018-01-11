@@ -39,7 +39,7 @@ class LikeableTest extends TestCase
         $user = factory(User::class)->create();
         $this->actingAs($user);
 
-        $entity->like();
+        $entity->likeBy();
 
         $this->assertEquals(1, $entity->likesCount);
         $this->assertEquals($user->id, $entity->likes->first()->user_id);
@@ -54,7 +54,7 @@ class LikeableTest extends TestCase
         $user2 = factory(User::class)->create();
         $this->actingAs($user1);
 
-        $entity->like($user2->id);
+        $entity->likeBy($user2->id);
 
         $this->assertEquals(1, $entity->likesCount);
         $this->assertEquals($user2->id, $entity->likes->first()->user_id);
@@ -65,10 +65,10 @@ class LikeableTest extends TestCase
     {
         $entity = factory(Entity::class)->create();
 
-        $entity->like(1);
-        $entity->like(2);
-        $entity->like(3);
-        $entity->like(4);
+        $entity->likeBy(1);
+        $entity->likeBy(2);
+        $entity->likeBy(3);
+        $entity->likeBy(4);
 
         $this->assertEquals(4, $entity->likesCount);
     }
@@ -78,19 +78,19 @@ class LikeableTest extends TestCase
     {
         $entity = factory(Entity::class)->create();
 
-        $entity->like(1);
-        $entity->like(1);
+        $entity->likeBy(1);
+        $entity->likeBy(1);
 
         $this->assertEquals(1, $entity->likesCount);
     }
 
     /** @test */
-    public function it_can_unlike()
+    public function it_can_unlikeBy()
     {
         $entity = factory(Entity::class)->create();
-        $entity->like(1);
+        $entity->likeBy(1);
 
-        $entity->unlike(1);
+        $entity->unlikeBy(1);
 
         $this->assertEquals(0, $entity->likesCount);
     }
@@ -99,9 +99,9 @@ class LikeableTest extends TestCase
     public function it_cannot_unlike_by_user_if_not_liked()
     {
         $entity = factory(Entity::class)->create();
-        $entity->like(1);
+        $entity->likeBy(1);
 
-        $entity->unlike(2);
+        $entity->unlikeBy(2);
 
         $this->assertEquals(1, $entity->likesCount);
     }
@@ -114,7 +114,7 @@ class LikeableTest extends TestCase
         $user = factory(User::class)->create();
         $this->actingAs($user);
 
-        $entity->likeToggle();
+        $entity->toggleLikeBy();
 
         $this->assertEquals(1, $entity->likesCount);
         $this->assertEquals($user->id, $entity->likes->first()->user_id);
@@ -127,9 +127,9 @@ class LikeableTest extends TestCase
 
         $user = factory(User::class)->create();
         $this->actingAs($user);
-        $entity->like();
+        $entity->likeBy();
 
-        $entity->likeToggle();
+        $entity->toggleLikeBy();
 
         $this->assertEquals(0, $entity->likesCount);
     }
@@ -139,7 +139,7 @@ class LikeableTest extends TestCase
     {
         $entity = factory(Entity::class)->create();
 
-        $entity->likeToggle(1);
+        $entity->toggleLikeBy(1);
         $this->assertEquals(1, $entity->likesCount);
     }
 
@@ -147,9 +147,9 @@ class LikeableTest extends TestCase
     public function it_can_remove_like_with_toggle_by_concrete_user()
     {
         $entity = factory(Entity::class)->create();
-        $entity->like(1);
+        $entity->likeBy(1);
 
-        $entity->likeToggle(1);
+        $entity->toggleLikeBy(1);
         $this->assertEquals(0, $entity->likesCount);
     }
 
@@ -159,19 +159,19 @@ class LikeableTest extends TestCase
         $user = factory(User::class)->create();
         $this->actingAs($user);
         $entity = factory(Entity::class)->create();
-        $entity->like();
+        $entity->likeBy();
 
-        $this->assertTrue($entity->liked());
+        $this->assertTrue($entity->isLikedBy());
     }
 
     /** @test */
     public function it_can_check_if_entity_liked_by_concrete_user()
     {
         $entity = factory(Entity::class)->create();
-        $entity->like(1);
+        $entity->likeBy(1);
 
-        $this->assertTrue($entity->liked(1));
-        $this->assertFalse($entity->liked(2));
+        $this->assertTrue($entity->isLikedBy(1));
+        $this->assertFalse($entity->isLikedBy(2));
     }
 
     /** @test */
@@ -180,7 +180,7 @@ class LikeableTest extends TestCase
         $user = factory(User::class)->create();
         $this->actingAs($user);
         $entity = factory(Entity::class)->create();
-        $entity->like();
+        $entity->likeBy();
 
         $this->assertTrue($entity->liked);
     }
@@ -190,9 +190,9 @@ class LikeableTest extends TestCase
     {
         $user = factory(User::class)->create();
         $this->actingAs($user);
-        factory(Entity::class)->create()->like($user->id);
-        factory(Entity::class)->create()->like($user->id);
-        factory(Entity::class)->create()->like($user->id);
+        factory(Entity::class)->create()->likeBy($user->id);
+        factory(Entity::class)->create()->likeBy($user->id);
+        factory(Entity::class)->create()->likeBy($user->id);
 
         $likedEntities = Entity::whereLikedBy()->get();
 
@@ -202,9 +202,9 @@ class LikeableTest extends TestCase
     /** @test */
     public function it_can_get_where_liked_by_concrete_user()
     {
-        factory(Entity::class)->create()->like(1);
-        factory(Entity::class)->create()->like(1);
-        factory(Entity::class)->create()->like(1);
+        factory(Entity::class)->create()->likeBy(1);
+        factory(Entity::class)->create()->likeBy(1);
+        factory(Entity::class)->create()->likeBy(1);
 
         $likedEntities = Entity::whereLikedBy(1)->get();
         $shouldBeEmpty = Entity::whereLikedBy(2)->get();
@@ -223,7 +223,7 @@ class LikeableTest extends TestCase
         $user = factory(User::class)->create();
         $this->actingAs($user);
 
-        $entity->dislike();
+        $entity->dislikeBy();
 
         $this->assertEquals(1, $entity->dislikesCount);
         $this->assertEquals($user->id, $entity->dislikes->first()->user_id);
@@ -238,7 +238,7 @@ class LikeableTest extends TestCase
         $user2 = factory(User::class)->create();
         $this->actingAs($user1);
 
-        $entity->dislike($user2->id);
+        $entity->dislikeBy($user2->id);
 
         $this->assertEquals(1, $entity->dislikesCount);
         $this->assertEquals($user2->id, $entity->dislikes->first()->user_id);
@@ -249,10 +249,10 @@ class LikeableTest extends TestCase
     {
         $entity = factory(Entity::class)->create();
 
-        $entity->dislike(1);
-        $entity->dislike(2);
-        $entity->dislike(3);
-        $entity->dislike(4);
+        $entity->dislikeBy(1);
+        $entity->dislikeBy(2);
+        $entity->dislikeBy(3);
+        $entity->dislikeBy(4);
 
         $this->assertEquals(4, $entity->dislikesCount);
     }
@@ -262,19 +262,19 @@ class LikeableTest extends TestCase
     {
         $entity = factory(Entity::class)->create();
 
-        $entity->dislike(1);
-        $entity->dislike(1);
+        $entity->dislikeBy(1);
+        $entity->dislikeBy(1);
 
         $this->assertEquals(1, $entity->dislikesCount);
     }
 
     /** @test */
-    public function it_can_undislike()
+    public function it_can_undislikeBy()
     {
         $entity = factory(Entity::class)->create();
-        $entity->dislike(1);
+        $entity->dislikeBy(1);
 
-        $entity->undislike(1);
+        $entity->undislikeBy(1);
 
         $this->assertEquals(0, $entity->dislikesCount);
     }
@@ -283,9 +283,9 @@ class LikeableTest extends TestCase
     public function it_cannot_undislike_by_user_if_not_disliked()
     {
         $entity = factory(Entity::class)->create();
-        $entity->dislike(1);
+        $entity->dislikeBy(1);
 
-        $entity->undislike(2);
+        $entity->undislikeBy(2);
 
         $this->assertEquals(1, $entity->dislikesCount);
     }
@@ -298,7 +298,7 @@ class LikeableTest extends TestCase
         $user = factory(User::class)->create();
         $this->actingAs($user);
 
-        $entity->dislikeToggle();
+        $entity->toggleDislikeBy();
 
         $this->assertEquals(1, $entity->dislikesCount);
         $this->assertEquals($user->id, $entity->dislikes->first()->user_id);
@@ -311,9 +311,9 @@ class LikeableTest extends TestCase
 
         $user = factory(User::class)->create();
         $this->actingAs($user);
-        $entity->dislike();
+        $entity->dislikeBy();
 
-        $entity->dislikeToggle();
+        $entity->toggleDislikeBy();
 
         $this->assertEquals(0, $entity->dislikesCount);
     }
@@ -323,7 +323,7 @@ class LikeableTest extends TestCase
     {
         $entity = factory(Entity::class)->create();
 
-        $entity->dislikeToggle(1);
+        $entity->toggleDislikeBy(1);
         $this->assertEquals(1, $entity->dislikesCount);
     }
 
@@ -331,9 +331,9 @@ class LikeableTest extends TestCase
     public function it_can_remove_dislike_with_toggle_by_concrete_user()
     {
         $entity = factory(Entity::class)->create();
-        $entity->dislike(1);
+        $entity->dislikeBy(1);
 
-        $entity->dislikeToggle(1);
+        $entity->toggleDislikeBy(1);
         $this->assertEquals(0, $entity->dislikesCount);
     }
 
@@ -343,19 +343,19 @@ class LikeableTest extends TestCase
         $user = factory(User::class)->create();
         $this->actingAs($user);
         $entity = factory(Entity::class)->create();
-        $entity->dislike();
+        $entity->dislikeBy();
 
-        $this->assertTrue($entity->disliked());
+        $this->assertTrue($entity->isDislikedBy());
     }
 
     /** @test */
     public function it_can_check_if_entity_disliked_by_concrete_user()
     {
         $entity = factory(Entity::class)->create();
-        $entity->dislike(1);
+        $entity->dislikeBy(1);
 
-        $this->assertTrue($entity->disliked(1));
-        $this->assertFalse($entity->disliked(2));
+        $this->assertTrue($entity->isDislikedBy(1));
+        $this->assertFalse($entity->isDislikedBy(2));
     }
 
     /** @test */
@@ -364,7 +364,7 @@ class LikeableTest extends TestCase
         $user = factory(User::class)->create();
         $this->actingAs($user);
         $entity = factory(Entity::class)->create();
-        $entity->dislike();
+        $entity->dislikeBy();
 
         $this->assertTrue($entity->disliked);
     }
@@ -374,9 +374,9 @@ class LikeableTest extends TestCase
     {
         $user = factory(User::class)->create();
         $this->actingAs($user);
-        factory(Entity::class)->create()->dislike($user->id);
-        factory(Entity::class)->create()->dislike($user->id);
-        factory(Entity::class)->create()->dislike($user->id);
+        factory(Entity::class)->create()->dislikeBy($user->id);
+        factory(Entity::class)->create()->dislikeBy($user->id);
+        factory(Entity::class)->create()->dislikeBy($user->id);
 
         $dislikedEntities = Entity::whereDislikedBy()->get();
 
@@ -386,9 +386,9 @@ class LikeableTest extends TestCase
     /** @test */
     public function it_can_get_where_disliked_by_concrete_user()
     {
-        factory(Entity::class)->create()->dislike(1);
-        factory(Entity::class)->create()->dislike(1);
-        factory(Entity::class)->create()->dislike(1);
+        factory(Entity::class)->create()->dislikeBy(1);
+        factory(Entity::class)->create()->dislikeBy(1);
+        factory(Entity::class)->create()->dislikeBy(1);
 
         $dislikedEntities = Entity::whereDislikedBy(1)->get();
         $shouldBeEmpty = Entity::whereDislikedBy(2)->get();
@@ -404,7 +404,7 @@ class LikeableTest extends TestCase
     {
         $entity = factory(Entity::class)->create();
 
-        $entity->like(1);
+        $entity->likeBy(1);
 
         $this->assertInstanceOf(LikeContract::class, $entity->likes->first());
         $this->assertCount(1, $entity->likes);
@@ -415,7 +415,7 @@ class LikeableTest extends TestCase
     {
         $entity = factory(Entity::class)->create();
 
-        $entity->dislike(1);
+        $entity->dislikeBy(1);
 
         $this->assertInstanceOf(LikeContract::class, $entity->dislikes->first());
         $this->assertCount(1, $entity->dislikes);
@@ -429,14 +429,14 @@ class LikeableTest extends TestCase
         $entity1 = factory(Entity::class)->create();
         $entity2 = factory(Entity::class)->create();
         $entity3 = factory(Entity::class)->create();
-        $entity1->like($user->id);
-        $entity3->like($user->id);
+        $entity1->likeBy($user->id);
+        $entity3->likeBy($user->id);
 
         DB::enableQueryLog();
         $entities = Entity::with('likes')->get();
         $entitiesIsLiked = [];
         foreach ($entities as $entity) {
-            $entitiesIsLiked[] = $entity->liked();
+            $entitiesIsLiked[] = $entity->isLikedBy();
         }
         $queryLog = DB::getQueryLog();
 
@@ -454,14 +454,14 @@ class LikeableTest extends TestCase
         $entity1 = factory(Entity::class)->create();
         $entity2 = factory(Entity::class)->create();
         $entity3 = factory(Entity::class)->create();
-        $entity1->like($user->id);
-        $entity3->like($user->id);
+        $entity1->likeBy($user->id);
+        $entity3->likeBy($user->id);
 
         DB::enableQueryLog();
         $entities = Entity::with('likesAndDislikes')->get();
         $entitiesIsLiked = [];
         foreach ($entities as $entity) {
-            $entitiesIsLiked[] = $entity->liked();
+            $entitiesIsLiked[] = $entity->isLikedBy();
         }
         $queryLog = DB::getQueryLog();
 
@@ -479,14 +479,14 @@ class LikeableTest extends TestCase
         $entity1 = factory(Entity::class)->create();
         $entity2 = factory(Entity::class)->create();
         $entity3 = factory(Entity::class)->create();
-        $entity1->like($user->id);
-        $entity3->like($user->id);
+        $entity1->likeBy($user->id);
+        $entity3->likeBy($user->id);
 
         DB::enableQueryLog();
         $entities = Entity::with('dislikes')->get();
         $entitiesIsLiked = [];
         foreach ($entities as $entity) {
-            $entitiesIsLiked[] = $entity->liked();
+            $entitiesIsLiked[] = $entity->isLikedBy();
         }
         $queryLog = DB::getQueryLog();
 
@@ -504,14 +504,14 @@ class LikeableTest extends TestCase
         $entity1 = factory(Entity::class)->create();
         $entity2 = factory(Entity::class)->create();
         $entity3 = factory(Entity::class)->create();
-        $entity1->dislike($user->id);
-        $entity3->dislike($user->id);
+        $entity1->dislikeBy($user->id);
+        $entity3->dislikeBy($user->id);
 
         DB::enableQueryLog();
         $entities = Entity::with('dislikes')->get();
         $entitiesIsDisliked = [];
         foreach ($entities as $entity) {
-            $entitiesIsDisliked[] = $entity->disliked();
+            $entitiesIsDisliked[] = $entity->isDislikedBy();
         }
         $queryLog = DB::getQueryLog();
 
@@ -529,14 +529,14 @@ class LikeableTest extends TestCase
         $entity1 = factory(Entity::class)->create();
         $entity2 = factory(Entity::class)->create();
         $entity3 = factory(Entity::class)->create();
-        $entity1->dislike($user->id);
-        $entity3->dislike($user->id);
+        $entity1->dislikeBy($user->id);
+        $entity3->dislikeBy($user->id);
 
         DB::enableQueryLog();
         $entities = Entity::with('likesAndDislikes')->get();
         $entitiesIsDisliked = [];
         foreach ($entities as $entity) {
-            $entitiesIsDisliked[] = $entity->disliked();
+            $entitiesIsDisliked[] = $entity->isDislikedBy();
         }
         $queryLog = DB::getQueryLog();
 
@@ -554,14 +554,14 @@ class LikeableTest extends TestCase
         $entity1 = factory(Entity::class)->create();
         $entity2 = factory(Entity::class)->create();
         $entity3 = factory(Entity::class)->create();
-        $entity1->dislike($user->id);
-        $entity3->dislike($user->id);
+        $entity1->dislikeBy($user->id);
+        $entity3->dislikeBy($user->id);
 
         DB::enableQueryLog();
         $entities = Entity::with('likes')->get();
         $entitiesIsDisliked = [];
         foreach ($entities as $entity) {
-            $entitiesIsDisliked[] = $entity->disliked();
+            $entitiesIsDisliked[] = $entity->isDislikedBy();
         }
         $queryLog = DB::getQueryLog();
 
@@ -576,8 +576,8 @@ class LikeableTest extends TestCase
     {
         $entity = factory(Entity::class)->create();
 
-        $entity->like(1);
-        $entity->dislike(2);
+        $entity->likeBy(1);
+        $entity->dislikeBy(2);
 
         $this->assertInstanceOf(LikeContract::class, $entity->likesAndDislikes->first());
         $this->assertCount(2, $entity->likesAndDislikes);
@@ -588,9 +588,9 @@ class LikeableTest extends TestCase
     {
         $entity = factory(Entity::class)->create();
 
-        $entity->like(1);
-        $entity->dislike(2);
-        $entity->dislike(3);
+        $entity->likeBy(1);
+        $entity->dislikeBy(2);
+        $entity->dislikeBy(3);
 
         $this->assertEquals(-1, $entity->likesDiffDislikesCount);
     }
@@ -603,18 +603,18 @@ class LikeableTest extends TestCase
         $entityC = factory(Entity::class)->create();
         $entityD = factory(Entity::class)->create();
         for ($i = 0; $i < 3; $i++) {
-            $entityA->like(mt_rand(1, 9999999));
+            $entityA->likeBy(mt_rand(1, 9999999));
         }
         for ($i = 0; $i < 1; $i++) {
-            $entityB->like(mt_rand(1, 9999999));
-            $entityB->dislike(mt_rand(1, 9999999));
+            $entityB->likeBy(mt_rand(1, 9999999));
+            $entityB->dislikeBy(mt_rand(1, 9999999));
         }
         for ($i = 0; $i < 5; $i++) {
-            $entityC->like(mt_rand(1, 9999999));
+            $entityC->likeBy(mt_rand(1, 9999999));
         }
         for ($i = 0; $i < 10; $i++) {
-            $entityD->like(mt_rand(1, 9999999));
-            $entityD->dislike(mt_rand(1, 9999999));
+            $entityD->likeBy(mt_rand(1, 9999999));
+            $entityD->dislikeBy(mt_rand(1, 9999999));
         }
 
         $sortedEntities = Entity::orderByLikesCount('desc')->get();
@@ -635,18 +635,18 @@ class LikeableTest extends TestCase
         $entityC = factory(Entity::class)->create();
         $entityD = factory(Entity::class)->create();
         for ($i = 0; $i < 3; $i++) {
-            $entityA->like(mt_rand(1, 9999999));
+            $entityA->likeBy(mt_rand(1, 9999999));
         }
         for ($i = 0; $i < 1; $i++) {
-            $entityB->like(mt_rand(1, 9999999));
-            $entityB->dislike(mt_rand(1, 9999999));
+            $entityB->likeBy(mt_rand(1, 9999999));
+            $entityB->dislikeBy(mt_rand(1, 9999999));
         }
         for ($i = 0; $i < 5; $i++) {
-            $entityC->like(mt_rand(1, 9999999));
+            $entityC->likeBy(mt_rand(1, 9999999));
         }
         for ($i = 0; $i < 10; $i++) {
-            $entityD->like(mt_rand(1, 9999999));
-            $entityD->dislike(mt_rand(1, 9999999));
+            $entityD->likeBy(mt_rand(1, 9999999));
+            $entityD->dislikeBy(mt_rand(1, 9999999));
         }
 
         $sortedEntities = Entity::orderByLikesCount('asc')->get();
@@ -667,11 +667,11 @@ class LikeableTest extends TestCase
         $entityC = factory(Entity::class)->create();
         $entityD = factory(Entity::class)->create();
         for ($i = 0; $i < 3; $i++) {
-            $entityA->like(mt_rand(1, 9999999));
+            $entityA->likeBy(mt_rand(1, 9999999));
         }
         for ($i = 0; $i < 10; $i++) {
-            $entityD->like(mt_rand(1, 9999999));
-            $entityD->dislike(mt_rand(1, 9999999));
+            $entityD->likeBy(mt_rand(1, 9999999));
+            $entityD->dislikeBy(mt_rand(1, 9999999));
         }
 
         $sortedEntities = Entity::orderByLikesCount('desc')->get();
@@ -692,18 +692,18 @@ class LikeableTest extends TestCase
         $entityC = factory(Entity::class)->create();
         $entityD = factory(Entity::class)->create();
         for ($i = 0; $i < 3; $i++) {
-            $entityA->dislike(mt_rand(1, 9999999));
+            $entityA->dislikeBy(mt_rand(1, 9999999));
         }
         for ($i = 0; $i < 1; $i++) {
-            $entityB->dislike(mt_rand(1, 9999999));
-            $entityB->like(mt_rand(1, 9999999));
+            $entityB->dislikeBy(mt_rand(1, 9999999));
+            $entityB->likeBy(mt_rand(1, 9999999));
         }
         for ($i = 0; $i < 5; $i++) {
-            $entityC->dislike(mt_rand(1, 9999999));
+            $entityC->dislikeBy(mt_rand(1, 9999999));
         }
         for ($i = 0; $i < 10; $i++) {
-            $entityD->dislike(mt_rand(1, 9999999));
-            $entityD->like(mt_rand(1, 9999999));
+            $entityD->dislikeBy(mt_rand(1, 9999999));
+            $entityD->likeBy(mt_rand(1, 9999999));
         }
 
         $sortedEntities = Entity::orderByDislikesCount('desc')->get();
@@ -724,18 +724,18 @@ class LikeableTest extends TestCase
         $entityC = factory(Entity::class)->create();
         $entityD = factory(Entity::class)->create();
         for ($i = 0; $i < 3; $i++) {
-            $entityA->dislike(mt_rand(1, 9999999));
+            $entityA->dislikeBy(mt_rand(1, 9999999));
         }
         for ($i = 0; $i < 1; $i++) {
-            $entityB->dislike(mt_rand(1, 9999999));
+            $entityB->dislikeBy(mt_rand(1, 9999999));
             $entityB->likes(mt_rand(1, 9999999));
         }
         for ($i = 0; $i < 5; $i++) {
-            $entityC->dislike(mt_rand(1, 9999999));
-            $entityC->like(mt_rand(1, 9999999));
+            $entityC->dislikeBy(mt_rand(1, 9999999));
+            $entityC->likeBy(mt_rand(1, 9999999));
         }
         for ($i = 0; $i < 10; $i++) {
-            $entityD->dislike(mt_rand(1, 9999999));
+            $entityD->dislikeBy(mt_rand(1, 9999999));
         }
 
         $sortedEntities = Entity::orderByDislikesCount('asc')->get();
@@ -756,11 +756,11 @@ class LikeableTest extends TestCase
         $entityC = factory(Entity::class)->create();
         $entityD = factory(Entity::class)->create();
         for ($i = 0; $i < 3; $i++) {
-            $entityA->dislike(mt_rand(1, 9999999));
+            $entityA->dislikeBy(mt_rand(1, 9999999));
         }
         for ($i = 0; $i < 10; $i++) {
-            $entityD->like(mt_rand(1, 9999999));
-            $entityD->dislike(mt_rand(1, 9999999));
+            $entityD->likeBy(mt_rand(1, 9999999));
+            $entityD->dislikeBy(mt_rand(1, 9999999));
         }
 
         $sortedEntities = Entity::orderByDislikesCount('desc')->get();
@@ -780,9 +780,9 @@ class LikeableTest extends TestCase
         $user1 = factory(User::class)->create();
         $user2 = factory(User::class)->create();
         $user3 = factory(User::class)->create();
-        $entity->like($user1->id);
-        $entity->dislike($user2->id);
-        $entity->like($user3->id);
+        $entity->likeBy($user1->id);
+        $entity->dislikeBy($user2->id);
+        $entity->likeBy($user3->id);
 
         $likers = $entity->collectLikers();
 
@@ -797,9 +797,9 @@ class LikeableTest extends TestCase
         $user1 = factory(User::class)->create();
         $user2 = factory(User::class)->create();
         $user3 = factory(User::class)->create();
-        $entity->dislike($user1->id);
-        $entity->like($user2->id);
-        $entity->dislike($user3->id);
+        $entity->dislikeBy($user1->id);
+        $entity->likeBy($user2->id);
+        $entity->dislikeBy($user3->id);
 
         $dislikers = $entity->collectDislikers();
 
