@@ -48,15 +48,15 @@ class Recount extends TestCase
         $entity2 = factory(EntityWithMorphMap::class)->create();
         $article = factory(Article::class)->create();
 
-        $entity1->dislike(9);
-        $entity1->like(1);
-        $entity1->like(7);
-        $entity1->like(8);
-        $entity2->like(1);
-        $entity2->like(2);
-        $entity2->like(3);
-        $entity2->like(4);
-        $article->like(4);
+        $entity1->dislikeBy(9);
+        $entity1->likeBy(1);
+        $entity1->likeBy(7);
+        $entity1->likeBy(8);
+        $entity2->likeBy(1);
+        $entity2->likeBy(2);
+        $entity2->likeBy(3);
+        $entity2->likeBy(4);
+        $article->likeBy(4);
 
         LikeCounter::truncate();
 
@@ -84,14 +84,14 @@ class Recount extends TestCase
         $entity1 = factory(Entity::class)->create();
         $entity2 = factory(Entity::class)->create();
 
-        $entity1->dislike(9);
-        $entity1->like(1);
-        $entity1->like(7);
-        $entity1->like(8);
-        $entity2->like(1);
-        $entity2->like(2);
-        $entity2->like(3);
-        $entity2->like(4);
+        $entity1->dislikeBy(9);
+        $entity1->likeBy(1);
+        $entity1->likeBy(7);
+        $entity1->likeBy(8);
+        $entity2->likeBy(1);
+        $entity2->likeBy(2);
+        $entity2->likeBy(3);
+        $entity2->likeBy(4);
 
         LikeCounter::truncate();
 
@@ -119,14 +119,14 @@ class Recount extends TestCase
         $entity1 = factory(EntityWithMorphMap::class)->create();
         $entity2 = factory(EntityWithMorphMap::class)->create();
 
-        $entity1->dislike(9);
-        $entity1->like(1);
-        $entity1->like(7);
-        $entity1->like(8);
-        $entity2->like(1);
-        $entity2->like(2);
-        $entity2->like(3);
-        $entity2->like(4);
+        $entity1->dislikeBy(9);
+        $entity1->likeBy(1);
+        $entity1->likeBy(7);
+        $entity1->likeBy(8);
+        $entity2->likeBy(1);
+        $entity2->likeBy(2);
+        $entity2->likeBy(3);
+        $entity2->likeBy(4);
 
         LikeCounter::truncate();
 
@@ -154,14 +154,14 @@ class Recount extends TestCase
         $entity1 = factory(EntityWithMorphMap::class)->create();
         $entity2 = factory(EntityWithMorphMap::class)->create();
 
-        $entity1->dislike(9);
-        $entity1->like(1);
-        $entity1->like(7);
-        $entity1->like(8);
-        $entity2->like(1);
-        $entity2->like(2);
-        $entity2->like(3);
-        $entity2->like(4);
+        $entity1->dislikeBy(9);
+        $entity1->likeBy(1);
+        $entity1->likeBy(7);
+        $entity1->likeBy(8);
+        $entity2->likeBy(1);
+        $entity2->likeBy(2);
+        $entity2->likeBy(3);
+        $entity2->likeBy(4);
 
         LikeCounter::truncate();
 
@@ -192,15 +192,15 @@ class Recount extends TestCase
         $entity2 = factory(EntityWithMorphMap::class)->create();
         $article = factory(Article::class)->create();
 
-        $entity1->like(9);
-        $entity1->dislike(1);
-        $entity1->dislike(7);
-        $entity1->dislike(8);
-        $entity2->dislike(1);
-        $entity2->dislike(2);
-        $entity2->dislike(3);
-        $entity2->dislike(4);
-        $article->dislike(4);
+        $entity1->likeBy(9);
+        $entity1->dislikeBy(1);
+        $entity1->dislikeBy(7);
+        $entity1->dislikeBy(8);
+        $entity2->dislikeBy(1);
+        $entity2->dislikeBy(2);
+        $entity2->dislikeBy(3);
+        $entity2->dislikeBy(4);
+        $article->dislikeBy(4);
 
         LikeCounter::truncate();
 
@@ -228,14 +228,14 @@ class Recount extends TestCase
         $entity1 = factory(Entity::class)->create();
         $entity2 = factory(Entity::class)->create();
 
-        $entity1->like(9);
-        $entity1->dislike(1);
-        $entity1->dislike(7);
-        $entity1->dislike(8);
-        $entity2->dislike(1);
-        $entity2->dislike(2);
-        $entity2->dislike(3);
-        $entity2->dislike(4);
+        $entity1->likeBy(9);
+        $entity1->dislikeBy(1);
+        $entity1->dislikeBy(7);
+        $entity1->dislikeBy(8);
+        $entity2->dislikeBy(1);
+        $entity2->dislikeBy(2);
+        $entity2->dislikeBy(3);
+        $entity2->dislikeBy(4);
 
         LikeCounter::truncate();
 
@@ -263,14 +263,14 @@ class Recount extends TestCase
         $entity1 = factory(EntityWithMorphMap::class)->create();
         $entity2 = factory(EntityWithMorphMap::class)->create();
 
-        $entity1->like(9);
-        $entity1->dislike(1);
-        $entity1->dislike(7);
-        $entity1->dislike(8);
-        $entity2->dislike(1);
-        $entity2->dislike(2);
-        $entity2->dislike(3);
-        $entity2->dislike(4);
+        $entity1->likeBy(9);
+        $entity1->dislikeBy(1);
+        $entity1->dislikeBy(7);
+        $entity1->dislikeBy(8);
+        $entity2->dislikeBy(1);
+        $entity2->dislikeBy(2);
+        $entity2->dislikeBy(3);
+        $entity2->dislikeBy(4);
 
         LikeCounter::truncate();
 
@@ -298,14 +298,14 @@ class Recount extends TestCase
         $entity1 = factory(EntityWithMorphMap::class)->create();
         $entity2 = factory(EntityWithMorphMap::class)->create();
 
-        $entity1->like(9);
-        $entity1->dislike(1);
-        $entity1->dislike(7);
-        $entity1->dislike(8);
-        $entity2->dislike(1);
-        $entity2->dislike(2);
-        $entity2->dislike(3);
-        $entity2->dislike(4);
+        $entity1->likeBy(9);
+        $entity1->dislikeBy(1);
+        $entity1->dislikeBy(7);
+        $entity1->dislikeBy(8);
+        $entity2->dislikeBy(1);
+        $entity2->dislikeBy(2);
+        $entity2->dislikeBy(3);
+        $entity2->dislikeBy(4);
 
         LikeCounter::truncate();
 
@@ -336,14 +336,14 @@ class Recount extends TestCase
         $entity2 = factory(EntityWithMorphMap::class)->create();
         $article = factory(Article::class)->create();
 
-        $entity1->like(9);
-        $entity1->like(7);
-        $entity1->dislike(8);
-        $entity2->like(1);
-        $entity2->like(2);
-        $entity2->dislike(3);
-        $entity2->dislike(4);
-        $article->dislike(4);
+        $entity1->likeBy(9);
+        $entity1->likeBy(7);
+        $entity1->dislikeBy(8);
+        $entity2->likeBy(1);
+        $entity2->likeBy(2);
+        $entity2->dislikeBy(3);
+        $entity2->dislikeBy(4);
+        $article->dislikeBy(4);
 
         LikeCounter::truncate();
 
@@ -371,13 +371,13 @@ class Recount extends TestCase
         $entity1 = factory(Entity::class)->create();
         $entity2 = factory(Entity::class)->create();
 
-        $entity1->like(9);
-        $entity1->like(7);
-        $entity1->dislike(8);
-        $entity2->like(1);
-        $entity2->like(2);
-        $entity2->dislike(3);
-        $entity2->dislike(4);
+        $entity1->likeBy(9);
+        $entity1->likeBy(7);
+        $entity1->dislikeBy(8);
+        $entity2->likeBy(1);
+        $entity2->likeBy(2);
+        $entity2->dislikeBy(3);
+        $entity2->dislikeBy(4);
 
         LikeCounter::truncate();
 
@@ -405,13 +405,13 @@ class Recount extends TestCase
         $entity1 = factory(EntityWithMorphMap::class)->create();
         $entity2 = factory(EntityWithMorphMap::class)->create();
 
-        $entity1->like(1);
-        $entity1->like(7);
-        $entity1->dislike(8);
-        $entity2->like(1);
-        $entity2->like(2);
-        $entity2->dislike(3);
-        $entity2->dislike(4);
+        $entity1->likeBy(1);
+        $entity1->likeBy(7);
+        $entity1->dislikeBy(8);
+        $entity2->likeBy(1);
+        $entity2->likeBy(2);
+        $entity2->dislikeBy(3);
+        $entity2->dislikeBy(4);
 
         LikeCounter::truncate();
 
@@ -439,13 +439,13 @@ class Recount extends TestCase
         $entity1 = factory(EntityWithMorphMap::class)->create();
         $entity2 = factory(EntityWithMorphMap::class)->create();
 
-        $entity1->like(1);
-        $entity1->like(7);
-        $entity1->dislike(8);
-        $entity2->like(1);
-        $entity2->like(2);
-        $entity2->dislike(3);
-        $entity2->dislike(4);
+        $entity1->likeBy(1);
+        $entity1->likeBy(7);
+        $entity1->dislikeBy(8);
+        $entity2->likeBy(1);
+        $entity2->likeBy(2);
+        $entity2->dislikeBy(3);
+        $entity2->dislikeBy(4);
 
         LikeCounter::truncate();
 

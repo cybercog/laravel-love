@@ -29,17 +29,17 @@ class InvalidLikerTest extends TestCase
     use DatabaseTransactions;
 
     /** @test */
-    public function it_can_throw_exception_if_not_authenticated_on_like()
+    public function it_can_throw_exception_if_not_authenticated_on_likeBy()
     {
         $this->expectException(InvalidLiker::class);
 
         $entity = factory(Entity::class)->create();
 
-        $entity->like();
+        $entity->likeBy();
     }
 
     /** @test */
-    public function it_can_throw_exception_if_authenticated_but_passed_zero_on_like()
+    public function it_can_throw_exception_if_authenticated_but_passed_zero_on_likeBy()
     {
         $this->expectException(InvalidLiker::class);
 
@@ -47,21 +47,21 @@ class InvalidLikerTest extends TestCase
         $user = factory(User::class)->create();
         $this->actingAs($user);
 
-        $entity->like(0);
+        $entity->likeBy(0);
     }
 
     /** @test */
-    public function it_can_throw_exception_if_not_authenticated_on_unlike()
+    public function it_can_throw_exception_if_not_authenticated_on_unlikeBy()
     {
         $this->expectException(InvalidLiker::class);
 
         $entity = factory(Entity::class)->create();
 
-        $entity->unlike();
+        $entity->unlikeBy();
     }
 
     /** @test */
-    public function it_can_throw_exception_if_authenticated_but_passed_zero_on_unlike()
+    public function it_can_throw_exception_if_authenticated_but_passed_zero_on_unlikeBy()
     {
         $this->expectException(InvalidLiker::class);
 
@@ -69,7 +69,7 @@ class InvalidLikerTest extends TestCase
         $user = factory(User::class)->create();
         $this->actingAs($user);
 
-        $entity->unlike(0);
+        $entity->unlikeBy(0);
     }
 
     /** @test */

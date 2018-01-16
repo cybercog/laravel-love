@@ -2,6 +2,23 @@
 
 All notable changes to `laravel-love` will be documented in this file.
 
+## [5.0.0] - 2018-01-16
+
+### Added
+
+- Added `Cog\Contracts\Love\Liker\Models\Liker` contract with methods `like`, `dislike`, `unlike`, `undislike`, `toggleLike`, `toggleDislike`, `hasLiked`, `hasDisliked`
+
+### Changed
+
+- Method `like` renamed to `likeBy` in `Cog\Contracts\Love\Likeable\Models\Likeable` contract
+- Method `dislike` renamed to `dislikeBy` in `Cog\Contracts\Love\Likeable\Models\Likeable` contract
+- Method `unlike` renamed to `unlikeBy` in `Cog\Contracts\Love\Likeable\Models\Likeable` contract
+- Method `undislike` renamed to `undislikeBy` in `Cog\Contracts\Love\Likeable\Models\Likeable` contract
+- Method `liked` renamed to `likedBy` in `Cog\Contracts\Love\Likeable\Models\Likeable` contract
+- Method `disliked` renamed to `dislikedBy` in `Cog\Contracts\Love\Likeable\Models\Likeable` contract
+- Method `likeToggle` renamed to `toggleLikeBy` in `Cog\Contracts\Love\Likeable\Models\Likeable` contract
+- Method `dislikeToggle` renamed to `toggleDislikeBy` in `Cog\Contracts\Love\Likeable\Models\Likeable` contract
+
 ## [4.0.0] - 2018-01-04
 
 ### Changed
@@ -149,6 +166,7 @@ All notable changes to `laravel-love` will be documented in this file.
 
 - Initial release
 
+[5.0.0]: https://github.com/cybercog/laravel-love/compare/4.0.0...5.0.0
 [4.0.0]: https://github.com/cybercog/laravel-love/compare/3.1.0...4.0.0
 [3.1.0]: https://github.com/cybercog/laravel-love/compare/3.0.0...3.1.0
 [3.0.0]: https://github.com/cybercog/laravel-love/compare/2.2.5...3.0.0

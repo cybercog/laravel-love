@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Stubs\Models;
 
+use Cog\Contracts\Love\Liker\Models\Liker as LikerContract;
+use Cog\Laravel\Love\Liker\Models\Traits\Liker;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
@@ -20,8 +22,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  *
  * @package Cog\Tests\Laravel\Love\Stubs\Models
  */
-class User extends Authenticatable
+class User extends Authenticatable implements LikerContract
 {
+    use Liker;
+
     /**
      * The table associated with the model.
      *
