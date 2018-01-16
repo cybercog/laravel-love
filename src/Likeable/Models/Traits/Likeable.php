@@ -115,7 +115,7 @@ trait Likeable
      *
      * @return int
      */
-    public function getLikesCountAttribute()
+    public function getLikesCountAttribute(): int
     {
         return $this->likesCounter ? $this->likesCounter->count : 0;
     }
@@ -125,7 +125,7 @@ trait Likeable
      *
      * @return int
      */
-    public function getDislikesCountAttribute()
+    public function getDislikesCountAttribute(): int
     {
         return $this->dislikesCounter ? $this->dislikesCounter->count : 0;
     }
@@ -135,7 +135,7 @@ trait Likeable
      *
      * @return bool
      */
-    public function getLikedAttribute()
+    public function getLikedAttribute(): bool
     {
         return $this->isLikedBy();
     }
@@ -145,7 +145,7 @@ trait Likeable
      *
      * @return bool
      */
-    public function getDislikedAttribute()
+    public function getDislikedAttribute(): bool
     {
         return $this->isDislikedBy();
     }
@@ -155,61 +155,9 @@ trait Likeable
      *
      * @return int
      */
-    public function getLikesDiffDislikesCountAttribute()
+    public function getLikesDiffDislikesCountAttribute(): int
     {
         return $this->likesCount - $this->dislikesCount;
-    }
-
-    /**
-     * Fetch records that are liked by a given user id.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param null|int $userId
-     * @return \Illuminate\Database\Eloquent\Builder
-     *
-     * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
-     */
-    public function scopeWhereLikedBy(Builder $query, $userId = null)
-    {
-        return $this->applyScopeWhereLikedBy($query, LikeType::LIKE, $userId);
-    }
-
-    /**
-     * Fetch records that are disliked by a given user id.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param null|int $userId
-     * @return \Illuminate\Database\Eloquent\Builder
-     *
-     * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
-     */
-    public function scopeWhereDislikedBy(Builder $query, $userId = null)
-    {
-        return $this->applyScopeWhereLikedBy($query, LikeType::DISLIKE, $userId);
-    }
-
-    /**
-     * Fetch records sorted by likes count.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string $direction
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeOrderByLikesCount(Builder $query, $direction = 'desc')
-    {
-        return $this->applyScopeOrderByLikesCount($query, LikeType::LIKE, $direction);
-    }
-
-    /**
-     * Fetch records sorted by likes count.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string $direction
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeOrderByDislikesCount(Builder $query, $direction = 'desc')
-    {
-        return $this->applyScopeOrderByLikesCount($query, LikeType::DISLIKE, $direction);
     }
 
     /**
@@ -226,53 +174,6 @@ trait Likeable
     }
 
     /**
-     * Remove a like from this record for the given user.
-     *
-     * @param null|int $userId If null will use currently logged in user.
-     * @return void
-     *
-     * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
-     */
-    public function unlikeBy($userId = null)
-    {
-        app(LikeableServiceContract::class)->removeLikeFrom($this, LikeType::LIKE, $userId);
-    }
-
-    /**
-     * Toggle like for model by the given user.
-     *
-     * @param mixed $userId If null will use currently logged in user.
-     * @return void
-     *
-     * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
-     */
-    public function toggleLikeBy($userId = null)
-    {
-        app(LikeableServiceContract::class)->toggleLikeOf($this, LikeType::LIKE, $userId);
-    }
-
-    /**
-     * Has the user already liked likeable model.
-     *
-     * @param null|int $userId
-     * @return bool
-     */
-    public function isLikedBy($userId = null): bool
-    {
-        return app(LikeableServiceContract::class)->isLiked($this, LikeType::LIKE, $userId);
-    }
-
-    /**
-     * Delete likes related to the current record.
-     *
-     * @return void
-     */
-    public function removeLikes()
-    {
-        app(LikeableServiceContract::class)->removeModelLikes($this, LikeType::LIKE);
-    }
-
-    /**
      * Add a dislike for model by the given user.
      *
      * @param mixed $userId If null will use currently logged in user.
@@ -283,6 +184,19 @@ trait Likeable
     public function dislikeBy($userId = null)
     {
         app(LikeableServiceContract::class)->addLikeTo($this, LikeType::DISLIKE, $userId);
+    }
+
+    /**
+     * Remove a like from this record for the given user.
+     *
+     * @param null|int $userId If null will use currently logged in user.
+     * @return void
+     *
+     * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
+     */
+    public function unlikeBy($userId = null)
+    {
+        app(LikeableServiceContract::class)->removeLikeFrom($this, LikeType::LIKE, $userId);
     }
 
     /**
@@ -299,6 +213,19 @@ trait Likeable
     }
 
     /**
+     * Toggle like for model by the given user.
+     *
+     * @param mixed $userId If null will use currently logged in user.
+     * @return void
+     *
+     * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
+     */
+    public function toggleLikeBy($userId = null)
+    {
+        app(LikeableServiceContract::class)->toggleLikeOf($this, LikeType::LIKE, $userId);
+    }
+
+    /**
      * Toggle dislike for model by the given user.
      *
      * @param mixed $userId If null will use currently logged in user.
@@ -309,6 +236,37 @@ trait Likeable
     public function toggleDislikeBy($userId = null)
     {
         app(LikeableServiceContract::class)->toggleLikeOf($this, LikeType::DISLIKE, $userId);
+    }
+
+    /**
+     * Delete likes related to the current record.
+     *
+     * @return void
+     */
+    public function removeLikes()
+    {
+        app(LikeableServiceContract::class)->removeModelLikes($this, LikeType::LIKE);
+    }
+
+    /**
+     * Delete dislikes related to the current record.
+     *
+     * @return void
+     */
+    public function removeDislikes()
+    {
+        app(LikeableServiceContract::class)->removeModelLikes($this, LikeType::DISLIKE);
+    }
+
+    /**
+     * Has the user already liked likeable model.
+     *
+     * @param null|int $userId
+     * @return bool
+     */
+    public function isLikedBy($userId = null): bool
+    {
+        return app(LikeableServiceContract::class)->isLiked($this, LikeType::LIKE, $userId);
     }
 
     /**
@@ -323,13 +281,55 @@ trait Likeable
     }
 
     /**
-     * Delete dislikes related to the current record.
+     * Fetch records that are liked by a given user id.
      *
-     * @return void
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param null|int $userId
+     * @return \Illuminate\Database\Eloquent\Builder
+     *
+     * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      */
-    public function removeDislikes()
+    public function scopeWhereLikedBy(Builder $query, $userId = null): Builder
     {
-        app(LikeableServiceContract::class)->removeModelLikes($this, LikeType::DISLIKE);
+        return $this->applyScopeWhereLikedBy($query, LikeType::LIKE, $userId);
+    }
+
+    /**
+     * Fetch records that are disliked by a given user id.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param null|int $userId
+     * @return \Illuminate\Database\Eloquent\Builder
+     *
+     * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
+     */
+    public function scopeWhereDislikedBy(Builder $query, $userId = null): Builder
+    {
+        return $this->applyScopeWhereLikedBy($query, LikeType::DISLIKE, $userId);
+    }
+
+    /**
+     * Fetch records sorted by likes count.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $direction
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOrderByLikesCount(Builder $query, string $direction = 'desc'): Builder
+    {
+        return $this->applyScopeOrderByLikesCount($query, LikeType::LIKE, $direction);
+    }
+
+    /**
+     * Fetch records sorted by likes count.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $direction
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOrderByDislikesCount(Builder $query, string $direction = 'desc'): Builder
+    {
+        return $this->applyScopeOrderByLikesCount($query, LikeType::DISLIKE, $direction);
     }
 
     /**
@@ -343,7 +343,7 @@ trait Likeable
      *
      * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      */
-    private function applyScopeWhereLikedBy(Builder $query, $type, $userId)
+    private function applyScopeWhereLikedBy(Builder $query, string $type, $userId): Builder
     {
         $service = app(LikeableServiceContract::class);
         $userId = $service->getLikerUserId($userId);
@@ -364,7 +364,7 @@ trait Likeable
      * @param string $direction
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    private function applyScopeOrderByLikesCount(Builder $query, $likeType, $direction)
+    private function applyScopeOrderByLikesCount(Builder $query, string $likeType, string $direction): Builder
     {
         $likeable = $query->getModel();
         $typeId = app(LikeableServiceContract::class)->getLikeTypeId($likeType);
