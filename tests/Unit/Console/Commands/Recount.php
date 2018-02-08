@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Console\Commands;
 
+use Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable;
 use Cog\Laravel\Love\LikeCounter\Models\LikeCounter;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\Stubs\Models\Entity;
@@ -473,7 +474,7 @@ class Recount extends TestCase
     public function it_can_throw_model_invalid_exception_on_not_exist_morph_map()
     {
         // TODO: Check if works on older Laravel versions. Otherwise uncomment assertContains on the end.
-        $this->expectException(\Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable::class);
+        $this->expectException(InvalidLikeable::class);
 
         $status = $this->kernel->handle(
             $input = new ArrayInput([
@@ -491,7 +492,7 @@ class Recount extends TestCase
     public function it_can_throw_model_invalid_exception_if_class_not_implemented_has_likes_interface()
     {
         // TODO: Check if works on older Laravel versions. Otherwise uncomment assertContains on the end.
-        $this->expectException(\Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable::class);
+        $this->expectException(InvalidLikeable::class);
 
         $status = $this->kernel->handle(
             $input = new ArrayInput([
