@@ -2,7 +2,7 @@
 
 All notable changes to `laravel-love` will be documented in this file.
 
-## [5.0.0] - 2018-02-08
+## [5.1.0] - 2018-02-08
 
 ### Added
 
