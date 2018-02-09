@@ -13,15 +13,13 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Console\Commands;
 
+use Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable;
 use Cog\Laravel\Love\LikeCounter\Models\LikeCounter;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\Stubs\Models\Entity;
 use Cog\Tests\Laravel\Love\Stubs\Models\EntityWithMorphMap;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
-use Illuminate\Contracts\Console\Kernel;
-use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Output\BufferedOutput;
 
 /**
  * Class Recount.
@@ -30,15 +28,6 @@ use Symfony\Component\Console\Output\BufferedOutput;
  */
 class Recount extends TestCase
 {
-    protected $kernel;
-
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->kernel = $this->app->make(Kernel::class);
-    }
-
     /* Likes */
 
     /** @test */
@@ -60,15 +49,11 @@ class Recount extends TestCase
 
         LikeCounter::truncate();
 
-        $status = $this->kernel->handle(
-            $input = new ArrayInput([
-                'command' => 'love:recount',
-                'type' => 'LIKE',
-            ]),
-            $output = new BufferedOutput
-        );
+        $status = $this->artisan('love:recount', [
+            'type' => 'LIKE',
+        ]);
 
-        $this->assertEquals(0, $status);
+        $this->assertSame(0, $status);
 
         $likeCounter = LikeCounter::all();
         $this->assertCount(3, $likeCounter);
@@ -95,16 +80,12 @@ class Recount extends TestCase
 
         LikeCounter::truncate();
 
-        $status = $this->kernel->handle(
-            $input = new ArrayInput([
-                'command' => 'love:recount',
-                'model' => Entity::class,
-                'type' => 'LIKE',
-            ]),
-            $output = new BufferedOutput
-        );
+        $status = $this->artisan('love:recount', [
+            'model' => Entity::class,
+            'type' => 'LIKE',
+        ]);
 
-        $this->assertEquals(0, $status);
+        $this->assertSame(0, $status);
 
         $likeCounter = LikeCounter::all();
         $this->assertCount(2, $likeCounter);
@@ -130,16 +111,12 @@ class Recount extends TestCase
 
         LikeCounter::truncate();
 
-        $status = $this->kernel->handle(
-            $input = new ArrayInput([
-                'command' => 'love:recount',
-                'model' => 'entity-with-morph-map',
-                'type' => 'LIKE',
-            ]),
-            $output = new BufferedOutput
-        );
+        $status = $this->artisan('love:recount', [
+            'model' => 'entity-with-morph-map',
+            'type' => 'LIKE',
+        ]);
 
-        $this->assertEquals(0, $status);
+        $this->assertSame(0, $status);
 
         $likeCounter = LikeCounter::all();
         $this->assertCount(2, $likeCounter);
@@ -165,16 +142,12 @@ class Recount extends TestCase
 
         LikeCounter::truncate();
 
-        $status = $this->kernel->handle(
-            $input = new ArrayInput([
-                'command' => 'love:recount',
-                'model' => EntityWithMorphMap::class,
-                'type' => 'LIKE',
-            ]),
-            $output = new BufferedOutput
-        );
+        $status = $this->artisan('love:recount', [
+            'model' => EntityWithMorphMap::class,
+            'type' => 'LIKE',
+        ]);
 
-        $this->assertEquals(0, $status);
+        $this->assertSame(0, $status);
 
         $likeCounter = LikeCounter::all();
         $this->assertCount(2, $likeCounter);
@@ -204,15 +177,11 @@ class Recount extends TestCase
 
         LikeCounter::truncate();
 
-        $status = $this->kernel->handle(
-            $input = new ArrayInput([
-                'command' => 'love:recount',
-                'type' => 'DISLIKE',
-            ]),
-            $output = new BufferedOutput
-        );
+        $status = $this->artisan('love:recount', [
+            'type' => 'DISLIKE',
+        ]);
 
-        $this->assertEquals(0, $status);
+        $this->assertSame(0, $status);
 
         $likeCounter = LikeCounter::all();
         $this->assertCount(3, $likeCounter);
@@ -239,16 +208,12 @@ class Recount extends TestCase
 
         LikeCounter::truncate();
 
-        $status = $this->kernel->handle(
-            $input = new ArrayInput([
-                'command' => 'love:recount',
-                'model' => Entity::class,
-                'type' => 'DISLIKE',
-            ]),
-            $output = new BufferedOutput
-        );
+        $status = $this->artisan('love:recount', [
+            'model' => Entity::class,
+            'type' => 'DISLIKE',
+        ]);
 
-        $this->assertEquals(0, $status);
+        $this->assertSame(0, $status);
 
         $likeCounter = LikeCounter::all();
         $this->assertCount(2, $likeCounter);
@@ -274,16 +239,12 @@ class Recount extends TestCase
 
         LikeCounter::truncate();
 
-        $status = $this->kernel->handle(
-            $input = new ArrayInput([
-                'command' => 'love:recount',
-                'model' => 'entity-with-morph-map',
-                'type' => 'DISLIKE',
-            ]),
-            $output = new BufferedOutput
-        );
+        $status = $this->artisan('love:recount', [
+            'model' => 'entity-with-morph-map',
+            'type' => 'DISLIKE',
+        ]);
 
-        $this->assertEquals(0, $status);
+        $this->assertSame(0, $status);
 
         $likeCounter = LikeCounter::all();
         $this->assertCount(2, $likeCounter);
@@ -309,16 +270,12 @@ class Recount extends TestCase
 
         LikeCounter::truncate();
 
-        $status = $this->kernel->handle(
-            $input = new ArrayInput([
-                'command' => 'love:recount',
-                'model' => EntityWithMorphMap::class,
-                'type' => 'DISLIKE',
-            ]),
-            $output = new BufferedOutput
-        );
+        $status = $this->artisan('love:recount', [
+            'model' => EntityWithMorphMap::class,
+            'type' => 'DISLIKE',
+        ]);
 
-        $this->assertEquals(0, $status);
+        $this->assertSame(0, $status);
 
         $likeCounter = LikeCounter::all();
         $this->assertCount(2, $likeCounter);
@@ -347,14 +304,9 @@ class Recount extends TestCase
 
         LikeCounter::truncate();
 
-        $status = $this->kernel->handle(
-            $input = new ArrayInput([
-                'command' => 'love:recount',
-            ]),
-            $output = new BufferedOutput
-        );
+        $status = $this->artisan('love:recount');
 
-        $this->assertEquals(0, $status);
+        $this->assertSame(0, $status);
 
         $likeCounter = LikeCounter::all();
         $this->assertCount(5, $likeCounter);
@@ -381,15 +333,11 @@ class Recount extends TestCase
 
         LikeCounter::truncate();
 
-        $status = $this->kernel->handle(
-            $input = new ArrayInput([
-                'command' => 'love:recount',
-                'model' => Entity::class,
-            ]),
-            $output = new BufferedOutput
-        );
+        $status = $this->artisan('love:recount', [
+            'model' => Entity::class,
+        ]);
 
-        $this->assertEquals(0, $status);
+        $this->assertSame(0, $status);
 
         $likeCounter = LikeCounter::all();
         $this->assertCount(4, $likeCounter);
@@ -415,15 +363,11 @@ class Recount extends TestCase
 
         LikeCounter::truncate();
 
-        $status = $this->kernel->handle(
-            $input = new ArrayInput([
-                'command' => 'love:recount',
-                'model' => 'entity-with-morph-map',
-            ]),
-            $output = new BufferedOutput
-        );
+        $status = $this->artisan('love:recount', [
+            'model' => 'entity-with-morph-map',
+        ]);
 
-        $this->assertEquals(0, $status);
+        $this->assertSame(0, $status);
 
         $likeCounter = LikeCounter::all();
         $this->assertCount(4, $likeCounter);
@@ -449,15 +393,11 @@ class Recount extends TestCase
 
         LikeCounter::truncate();
 
-        $status = $this->kernel->handle(
-            $input = new ArrayInput([
-                'command' => 'love:recount',
-                'model' => EntityWithMorphMap::class,
-            ]),
-            $output = new BufferedOutput
-        );
+        $status = $this->artisan('love:recount', [
+            'model' => EntityWithMorphMap::class,
+        ]);
 
-        $this->assertEquals(0, $status);
+        $this->assertSame(0, $status);
 
         $likeCounter = LikeCounter::all();
         $this->assertCount(4, $likeCounter);
@@ -472,37 +412,25 @@ class Recount extends TestCase
     /** @test */
     public function it_can_throw_model_invalid_exception_on_not_exist_morph_map()
     {
-        // TODO: Check if works on older Laravel versions. Otherwise uncomment assertContains on the end.
-        $this->expectException(\Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable::class);
+        $this->expectException(InvalidLikeable::class);
 
-        $status = $this->kernel->handle(
-            $input = new ArrayInput([
-                'command' => 'love:recount',
-                'model' => 'not-exist-model',
-            ]),
-            $output = new BufferedOutput
-        );
+        $status = $this->artisan('love:recount', [
+            'model' => 'not-exist-model',
+        ]);
 
-        $this->assertEquals(1, $status);
-        //$this->assertContains('Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable', $output->fetch());
+        $this->assertSame(1, $status);
     }
 
     /** @test */
     public function it_can_throw_model_invalid_exception_if_class_not_implemented_has_likes_interface()
     {
-        // TODO: Check if works on older Laravel versions. Otherwise uncomment assertContains on the end.
-        $this->expectException(\Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable::class);
+        $this->expectException(InvalidLikeable::class);
 
-        $status = $this->kernel->handle(
-            $input = new ArrayInput([
-                'command' => 'love:recount',
-                'model' => User::class,
-            ]),
-            $output = new BufferedOutput
-        );
+        $status = $this->artisan('love:recount', [
+            'model' => User::class,
+        ]);
 
-        $this->assertEquals(1, $status);
-        //$this->assertContains('Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable', $output->fetch());
+        $this->assertSame(1, $status);
     }
 
     public function it_deletes_records_before_recount()
