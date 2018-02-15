@@ -242,6 +242,8 @@ trait Likeable
      * Delete likes related to the current record.
      *
      * @return void
+     *
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */
     public function removeLikes()
     {
@@ -252,6 +254,8 @@ trait Likeable
      * Delete dislikes related to the current record.
      *
      * @return void
+     *
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */
     public function removeDislikes()
     {
@@ -263,6 +267,8 @@ trait Likeable
      *
      * @param null|int $userId
      * @return bool
+     *
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */
     public function isLikedBy($userId = null): bool
     {
@@ -274,6 +280,8 @@ trait Likeable
      *
      * @param null|int $userId
      * @return bool
+     *
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */
     public function isDislikedBy($userId = null): bool
     {
@@ -287,6 +295,7 @@ trait Likeable
      * @param null|int $userId
      * @return \Illuminate\Database\Eloquent\Builder
      *
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      */
     public function scopeWhereLikedBy(Builder $query, $userId = null): Builder
@@ -301,6 +310,7 @@ trait Likeable
      * @param null|int $userId
      * @return \Illuminate\Database\Eloquent\Builder
      *
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      */
     public function scopeWhereDislikedBy(Builder $query, $userId = null): Builder
@@ -314,6 +324,8 @@ trait Likeable
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param string $direction
      * @return \Illuminate\Database\Eloquent\Builder
+     *
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */
     public function scopeOrderByLikesCount(Builder $query, string $direction = 'desc'): Builder
     {
@@ -326,6 +338,8 @@ trait Likeable
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param string $direction
      * @return \Illuminate\Database\Eloquent\Builder
+     *
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */
     public function scopeOrderByDislikesCount(Builder $query, string $direction = 'desc'): Builder
     {
@@ -341,6 +355,7 @@ trait Likeable
      * @param null|int $userId
      * @return \Illuminate\Database\Eloquent\Builder
      *
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      */
     private function applyScopeWhereLikedBy(Builder $query, string $type, $userId): Builder
@@ -363,6 +378,8 @@ trait Likeable
      * @param string $likeType
      * @param string $direction
      * @return \Illuminate\Database\Eloquent\Builder
+     *
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */
     private function applyScopeOrderByLikesCount(Builder $query, string $likeType, string $direction): Builder
     {

@@ -29,6 +29,9 @@ trait Liker
      *
      * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @return void
+     *
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
+     * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      */
     public function like(LikeableContract $likeable)
     {
@@ -40,6 +43,9 @@ trait Liker
      *
      * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @return void
+     *
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
+     * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      */
     public function dislike(LikeableContract $likeable)
     {
@@ -51,6 +57,9 @@ trait Liker
      *
      * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @return void
+     *
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
+     * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      */
     public function unlike(LikeableContract $likeable)
     {
@@ -62,6 +71,9 @@ trait Liker
      *
      * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @return void
+     *
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
+     * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      */
     public function undislike(LikeableContract $likeable)
     {
@@ -73,6 +85,9 @@ trait Liker
      *
      * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @return void
+     *
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
+     * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      */
     public function toggleLike(LikeableContract $likeable)
     {
@@ -84,6 +99,9 @@ trait Liker
      *
      * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @return void
+     *
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
+     * @throws \Cog\Contracts\Love\Liker\Exceptions\InvalidLiker
      */
     public function toggleDislike(LikeableContract $likeable)
     {
@@ -95,6 +113,8 @@ trait Liker
      *
      * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @return bool
+     *
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */
     public function hasLiked(LikeableContract $likeable): bool
     {
@@ -106,6 +126,8 @@ trait Liker
      *
      * @param \Cog\Contracts\Love\Likeable\Models\Likeable $likeable
      * @return bool
+     *
+     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
      */
     public function hasDisliked(LikeableContract $likeable): bool
     {
