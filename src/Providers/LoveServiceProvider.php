@@ -40,6 +40,7 @@ class LoveServiceProvider extends ServiceProvider
         $this->registerConsoleCommands();
         $this->registerObservers();
         $this->registerPublishes();
+        $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
     }
 
     /**
