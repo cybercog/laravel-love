@@ -108,7 +108,7 @@ class LoveServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerMigrations(): void
+    protected function registerMigrations()
     {
         if ($this->app->runningInConsole()) {
             $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
