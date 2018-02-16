@@ -40,7 +40,7 @@ class LoveServiceProvider extends ServiceProvider
         $this->registerConsoleCommands();
         $this->registerObservers();
         $this->registerPublishes();
-        $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+        $this->registerMigrations();
     }
 
     /**
@@ -100,6 +100,18 @@ class LoveServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__ . '/../../database/migrations' => database_path('migrations'),
             ], 'migrations');
+        }
+    }
+
+    /**
+     * Register the Love migrations.
+     *
+     * @return void
+     */
+    protected function registerMigrations(): void
+    {
+        if ($this->app->runningInConsole()) {
+            $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
         }
     }
 }
