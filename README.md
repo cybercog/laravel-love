@@ -470,7 +470,7 @@ If you discover any security related issues, please email open@cybercog.su inste
 
 ## License
 
-- `Laravel Love` package is open-sourced software licensed under the [MIT license](LICENSE).
+- `Laravel Love` package is open-sourced software licensed under the [MIT license](LICENSE) by Anton Komarev.
 - `Devil` image licensed under [Creative Commons 3.0](https://creativecommons.org/licenses/by/3.0/us/) by YuguDesign.
 
 ## About CyberCog
