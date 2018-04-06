@@ -29,6 +29,8 @@ abstract class TestCase extends Orchestra
 {
     /**
      * Actions to be performed on PHPUnit start.
+     *
+     * @return void
      */
     protected function setUp()
     {
@@ -43,6 +45,11 @@ abstract class TestCase extends Orchestra
         $this->registerUserModel();
     }
 
+    /**
+     * Clean up the testing environment before the next test.
+     *
+     * @return void
+     */
     public function tearDown()
     {
         Mockery::close();
@@ -66,14 +73,21 @@ abstract class TestCase extends Orchestra
 
     /**
      * Publish package migrations.
+     *
+     * @return void
      */
     protected function publishPackageMigrations()
     {
-        $this->artisan('vendor:publish', ['--force' => '', '--tag' => 'migrations']);
+        $this->artisan('vendor:publish', [
+            '--force' => '',
+            '--tag' => 'migrations',
+        ]);
     }
 
     /**
      * Delete all published package migrations.
+     *
+     * @return void
      */
     protected function destroyPackageMigrations()
     {
@@ -82,28 +96,32 @@ abstract class TestCase extends Orchestra
 
     /**
      * Perform unit test database migrations.
+     *
+     * @return void
      */
     protected function migrateUnitTestTables()
     {
         $this->loadMigrationsFrom([
-            //'--database' => 'sqlite',
             '--realpath' => realpath(__DIR__ . '/database/migrations'),
         ]);
     }
 
     /**
      * Perform package database migrations.
+     *
+     * @return void
      */
     protected function migratePackageTables()
     {
         $this->loadMigrationsFrom([
-            //'--database' => 'sqlite',
             '--realpath' => database_path('migrations'),
         ]);
     }
 
     /**
      * Register package related model factories.
+     *
+     * @return void
      */
     protected function registerPackageFactories()
     {
@@ -111,6 +129,11 @@ abstract class TestCase extends Orchestra
         $this->withFactories($pathToFactories);
     }
 
+    /**
+     * Register Morph Mapping for the Eloquent models.
+     *
+     * @return void
+     */
     protected function registerTestMorphMaps()
     {
         Relation::morphMap([
@@ -118,6 +141,11 @@ abstract class TestCase extends Orchestra
         ]);
     }
 
+    /**
+     * Register Test User model.
+     *
+     * @return void
+     */
     protected function registerUserModel()
     {
         $this->app['config']->set('auth.providers.users.model', User::class);
