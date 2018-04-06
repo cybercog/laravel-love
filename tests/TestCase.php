@@ -77,7 +77,7 @@ abstract class TestCase extends Orchestra
      */
     protected function destroyPackageMigrations()
     {
-        File::cleanDirectory('vendor/orchestra/testbench-core/laravel/database/migrations');
+        File::cleanDirectory(__DIR__ . '/../vendor/orchestra/testbench-core/laravel/database/migrations');
     }
 
     /**
