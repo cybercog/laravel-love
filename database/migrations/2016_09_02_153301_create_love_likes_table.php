@@ -38,8 +38,8 @@ class CreateLoveLikesTable extends Migration
             $table->timestamps();
 
             $table->unique([
-                'likeable_id',
                 'likeable_type',
+                'likeable_id',
                 'user_id',
             ], 'like_user_unique');
 
