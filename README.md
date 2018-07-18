@@ -12,7 +12,7 @@
 
 ## Introduction
 
-Laravel Love simplify management of Eloquent model's likes & dislikes. Make any model `likeable` & `dislikeable` in a minutes!
+Laravel Love simplify management of Eloquent model's likes & dislikes reactions. Make any model reactable with `likeable` & `dislikeable` in a minutes!
 
 This package is a fork of the abandoned [Laravel Likeable](https://github.com/cybercog/laravel-likeable).
 It completely changes package namespace architecture, aimed to API refactoring and adding new features.
@@ -466,6 +466,8 @@ If you discover any security related issues, please email open@cybercog.su inste
 - [faustbrian/laravel-likeable](https://github.com/faustbrian/Laravel-Likeable)
 - [sukohi/evaluation](https://github.com/SUKOHI/Evaluation)
 - [zvermafia/lavoter](https://github.com/zvermafia/lavoter)
+- [francescomalatesta/laravel-reactions](https://github.com/francescomalatesta/laravel-reactions)
+- [muratbsts/laravel-reactable](https://github.com/muratbsts/laravel-reactable)
 
 *Feel free to add more alternatives as Pull Request.*
 
