@@ -468,6 +468,7 @@ If you discover any security related issues, please email open@cybercog.su inste
 - [zvermafia/lavoter](https://github.com/zvermafia/lavoter)
 - [francescomalatesta/laravel-reactions](https://github.com/francescomalatesta/laravel-reactions)
 - [muratbsts/laravel-reactable](https://github.com/muratbsts/laravel-reactable)
+- [hkp22/laravel-reactions](https://github.com/hkp22/laravel-reactions)
 
 *Feel free to add more alternatives as Pull Request.*
 
