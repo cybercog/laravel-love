@@ -33,11 +33,11 @@ class ReacterTest extends TestCase
             'type' => (new User())->getMorphClass(),
         ]);
 
-        $user = factory(User::class)->create([
+        $reacterable = factory(User::class)->create([
             'love_reacter_id' => $reacter->getKey(),
         ]);
 
-        $this->assertTrue($reacter->reacterable->is($user));
+        $this->assertTrue($reacter->reacterable->is($reacterable));
     }
 
     /** @test */

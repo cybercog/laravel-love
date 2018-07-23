@@ -29,6 +29,6 @@ class Reactant extends Model
 
     public function reactions(): HasMany
     {
-        return $this->hasMany(Reaction::class, 'love_reactable_id');
+        return $this->hasMany(Reaction::class, 'reactant_id');
     }
 }
