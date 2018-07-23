@@ -16,9 +16,8 @@ use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Faker\Generator as Faker;
 
 /* @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(User::class, function (Faker $faker) {
+$factory->define(Reacter::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
-        'love_reacter_id' => factory(Reacter::class),
+        'type' => (new User())->getMorphClass(),
     ];
 });

@@ -29,6 +29,7 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedBigInteger('love_reactant_id');
             $table->string('name');
             $table->timestamps();
         });

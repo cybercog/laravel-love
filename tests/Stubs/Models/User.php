@@ -15,6 +15,7 @@ namespace Cog\Tests\Laravel\Love\Stubs\Models;
 
 use Cog\Contracts\Love\Liker\Models\Liker as LikerContract;
 use Cog\Laravel\Love\Liker\Models\Traits\Liker;
+use Cog\Laravel\Love\Reacterable\Models\Traits\Reacterable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
@@ -25,6 +26,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable implements LikerContract
 {
     use Liker;
+    use Reacterable;
 
     /**
      * The table associated with the model.

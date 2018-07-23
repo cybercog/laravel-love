@@ -29,6 +29,7 @@ class CreateEntitiesWithMorphMapTable extends Migration
     {
         Schema::create('entities_with_morph_map', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedBigInteger('love_reactant_id');
             $table->string('name');
             $table->timestamps();
         });

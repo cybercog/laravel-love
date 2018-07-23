@@ -11,14 +11,13 @@
 
 declare(strict_types=1);
 
-use Cog\Laravel\Love\Reacter\Models\Reacter;
-use Cog\Tests\Laravel\Love\Stubs\Models\User;
+use Cog\Laravel\Love\Reactant\Models\Reactant;
+use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Faker\Generator as Faker;
 
 /* @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(User::class, function (Faker $faker) {
+$factory->define(Reactant::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
-        'love_reacter_id' => factory(Reacter::class),
+        'type' => (new Article())->getMorphClass(),
     ];
 });

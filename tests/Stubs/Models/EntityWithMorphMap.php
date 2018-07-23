@@ -15,6 +15,7 @@ namespace Cog\Tests\Laravel\Love\Stubs\Models;
 
 use Cog\Contracts\Love\Likeable\Models\Likeable as LikeableContract;
 use Cog\Laravel\Love\Likeable\Models\Traits\Likeable;
+use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -25,6 +26,7 @@ use Illuminate\Database\Eloquent\Model;
 class EntityWithMorphMap extends Model implements LikeableContract
 {
     use Likeable;
+    use Reactable;
 
     /**
      * The table associated with the model.
