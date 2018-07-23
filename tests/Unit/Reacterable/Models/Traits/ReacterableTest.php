@@ -24,7 +24,7 @@ class ReacterableTest extends TestCase
     use DatabaseTransactions;
 
     /** @test */
-    public function it_belong_to_reacter(): void
+    public function it_can_belong_to_reacter(): void
     {
         $reacter = factory(Reacter::class)->create([
             'type' => (new User())->getMorphClass(),

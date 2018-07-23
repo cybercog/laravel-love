@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reacter\Models;
 
+use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -30,5 +31,27 @@ class Reacter extends Model
     public function reactions(): HasMany
     {
         return $this->hasMany(Reaction::class, 'reacter_id');
+    }
+
+    public function reactTo(Reactant $reactant): void
+    {
+        // TODO: Add type
+        // TODO: What if reaction already exists
+        $this->reactions()->create([
+            'reactant_id' => $reactant->getKey(),
+        ]);
+    }
+
+    public function unreactTo(Reactant $reactant): void
+    {
+        // TODO: Add type
+        // TODO: What if reaction not exists
+        $reaction = $this->reactions()
+            ->where('reactant_id', $reactant->getKey())
+            ->first();
+
+        if ($reaction) {
+            $reaction->delete();
+        }
     }
 }

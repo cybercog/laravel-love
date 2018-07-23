@@ -33,6 +33,7 @@ class Reaction extends Model
      * @var array
      */
     protected $fillable = [
+        'reactant_id',
     ];
 
     /**
