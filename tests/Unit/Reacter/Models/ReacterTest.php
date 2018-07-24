@@ -86,14 +86,16 @@ class ReacterTest extends TestCase
     /** @test */
     public function it_can_unreact_to_reactant(): void
     {
+        $reactionType = factory(ReactionType::class)->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
         $reaction = factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType,
             'reactant_id' => $reactant->getKey(),
             'reacter_id' => $reacter->getKey(),
         ]);
 
-        $reacter->unreactTo($reactant);
+        $reacter->unreactTo($reactant, $reactionType);
 
         $this->assertCount(0, $reacter->reactions);
         $this->assertFalse($reaction->exists());
@@ -117,16 +119,19 @@ class ReacterTest extends TestCase
     {
         $this->expectException(\RuntimeException::class);
 
+        $reactionType = factory(ReactionType::class)->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
         factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType,
             'reacter_id' => $reacter->getKey(),
         ]);
         factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType,
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $reacter->unreactTo($reactant);
+        $reacter->unreactTo($reactant, $reactionType);
     }
 
     /** @test */
