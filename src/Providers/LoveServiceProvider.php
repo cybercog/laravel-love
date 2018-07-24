@@ -21,6 +21,8 @@ use Cog\Laravel\Love\Like\Models\Like;
 use Cog\Laravel\Love\Like\Observers\LikeObserver;
 use Cog\Laravel\Love\Likeable\Services\LikeableService;
 use Cog\Laravel\Love\LikeCounter\Models\LikeCounter;
+use Cog\Laravel\Love\Reaction\Models\Reaction;
+use Cog\Laravel\Love\Reaction\Observers\ReactionObserver;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -61,6 +63,7 @@ class LoveServiceProvider extends ServiceProvider
     protected function registerObservers()
     {
         $this->app->make(LikeContract::class)->observe(LikeObserver::class);
+//        $this->app->make(Reaction::class)->observe(ReactionObserver::class);
     }
 
     /**
