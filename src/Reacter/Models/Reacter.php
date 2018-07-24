@@ -33,25 +33,50 @@ class Reacter extends Model
         return $this->hasMany(Reaction::class, 'reacter_id');
     }
 
+    // TODO: Add ReactionType
     public function reactTo(Reactant $reactant): void
     {
-        // TODO: Add type
-        // TODO: What if reaction already exists
-        $this->reactions()->create([
+        $attributes = [
             'reactant_id' => $reactant->getKey(),
-        ]);
+        ];
+
+        $reaction = $this->reactions()->where($attributes)->exists();
+        if ($reaction) {
+            // TODO: Throw custom typed exception
+            throw new \RuntimeException('Reaction of type `ReactionType` already exists.');
+        }
+
+        $this->reactions()->create($attributes);
     }
 
+    // TODO: Add ReactionType
     public function unreactTo(Reactant $reactant): void
     {
-        // TODO: Add type
-        // TODO: What if reaction not exists
         $reaction = $this->reactions()
             ->where('reactant_id', $reactant->getKey())
             ->first();
 
+        if (!$reaction) {
+            // TODO: Throw custom typed exception
+            throw new \RuntimeException('Reaction of type `ReactionType` not exists.');
+        }
+
         if ($reaction) {
             $reaction->delete();
         }
+    }
+
+    // TODO: Add ReactionType
+    public function isReactedTo(Reactant $reactant): bool
+    {
+        return $this->reactions()->where([
+            'reactant_id' => $reactant->getKey(),
+        ])->exists();
+    }
+
+    // TODO: Add ReactionType
+    public function isNotReactedTo(Reactant $reactant): bool
+    {
+        return !$this->isReactedTo($reactant);
     }
 }

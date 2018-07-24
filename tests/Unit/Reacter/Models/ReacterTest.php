@@ -96,4 +96,65 @@ class ReacterTest extends TestCase
         $this->assertCount(0, $reacter->reactions);
         $this->assertFalse($reaction->exists());
     }
+
+    /** @test */
+    public function it_cannot_duplicate_reactions()
+    {
+        $this->expectException(\RuntimeException::class);
+
+        $reacter = factory(Reacter::class)->create();
+        $reactant = factory(Reactant::class)->create();
+
+        $reacter->reactTo($reactant);
+        $reacter->reactTo($reactant);
+    }
+
+    /** @test */
+    public function it_cannot_unreact_reactant_if_not_reacted()
+    {
+        $this->expectException(\RuntimeException::class);
+
+        $reacter = factory(Reacter::class)->create();
+        $reactant = factory(Reactant::class)->create();
+        factory(Reaction::class)->create([
+            'reacter_id' => $reacter->getKey(),
+        ]);
+        factory(Reaction::class)->create([
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $reacter->unreactTo($reactant);
+    }
+
+    /** @test */
+    public function it_can_check_is_reacted_to_reactant()
+    {
+        $reacter = factory(Reacter::class)->create();
+        $reactant = factory(Reactant::class)->create();
+        factory(Reaction::class)->create([
+            'reacter_id' => $reacter->getKey(),
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $isReacted = $reacter->isReactedTo($reactant);
+
+        $this->assertTrue($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_not_reacted_to_reactant()
+    {
+        $reacter = factory(Reacter::class)->create();
+        $reactant = factory(Reactant::class)->create();
+        factory(Reaction::class)->create([
+            'reacter_id' => $reacter->getKey(),
+        ]);
+        factory(Reaction::class)->create([
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $isNotReacted = $reacter->isNotReactedTo($reactant);
+
+        $this->assertTrue($isNotReacted);
+    }
 }
