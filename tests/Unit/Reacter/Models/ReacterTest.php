@@ -101,7 +101,7 @@ class ReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_cannot_duplicate_reactions()
+    public function it_cannot_duplicate_reactions(): void
     {
         $this->expectException(\RuntimeException::class);
 
@@ -114,7 +114,7 @@ class ReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_cannot_unreact_reactant_if_not_reacted()
+    public function it_cannot_unreact_reactant_if_not_reacted(): void
     {
         $this->expectException(\RuntimeException::class);
 
@@ -134,7 +134,7 @@ class ReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_is_reacted_to_reactant()
+    public function it_can_check_is_reacted_to_reactant(): void
     {
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
@@ -149,7 +149,7 @@ class ReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_is_not_reacted_to_reactant()
+    public function it_can_check_is_not_reacted_to_reactant(): void
     {
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
@@ -166,7 +166,7 @@ class ReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_is_reacted_with_type_to_reactant()
+    public function it_can_check_is_reacted_with_type_to_reactant(): void
     {
         $reactionType = factory(ReactionType::class)->create();
         $reacter = factory(Reacter::class)->create();
@@ -183,7 +183,7 @@ class ReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_is_not_reacted_with_type_to_reactant()
+    public function it_can_check_is_not_reacted_with_type_to_reactant(): void
     {
         $reactionType = factory(ReactionType::class)->create();
         $reacter = factory(Reacter::class)->create();

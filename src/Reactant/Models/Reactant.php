@@ -31,4 +31,13 @@ class Reactant extends Model
     {
         return $this->hasMany(Reaction::class, 'reactant_id');
     }
+
+    public function getReactionsSummary()
+    {
+        return $this->reactions()
+            ->getQuery()
+            ->select('name', \DB::raw('count(*) as count'))
+            ->groupBy('name')
+            ->get();
+    }
 }
