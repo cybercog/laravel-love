@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reactant\Models;
 
+use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -32,12 +33,8 @@ class Reactant extends Model
         return $this->hasMany(Reaction::class, 'reactant_id');
     }
 
-    public function getReactionsSummary()
+    public function reactionCounters(): HasMany
     {
-        return $this->reactions()
-            ->getQuery()
-            ->select('name', \DB::raw('count(*) as count'))
-            ->groupBy('name')
-            ->get();
+        return $this->hasMany(ReactionCounter::class, 'reactant_id');
     }
 }

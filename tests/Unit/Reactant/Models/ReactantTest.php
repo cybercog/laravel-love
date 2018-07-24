@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Cog\Tests\Laravel\Love\Unit\Reactant\Models;
 
 use Cog\Laravel\Love\Reactant\Models\Reactant;
+use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\TestCase;
@@ -62,5 +63,32 @@ class ReactantTest extends TestCase
         $assertReactions = $reactant->reactions;
         $this->assertTrue($assertReactions->get(0)->is($reactions->get(0)));
         $this->assertTrue($assertReactions->get(1)->is($reactions->get(1)));
+    }
+
+    /** @test */
+    public function it_can_has_reaction_counter(): void
+    {
+        $reactant = factory(Reactant::class)->create();
+
+        $counter = factory(ReactionCounter::class)->create([
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $assertCounter = $reactant->reactionCounters->first();
+        $this->assertTrue($assertCounter->is($counter));
+    }
+
+    /** @test */
+    public function it_can_has_many_reaction_counters(): void
+    {
+        $reactant = factory(Reactant::class)->create();
+
+        $counters = factory(ReactionCounter::class, 2)->create([
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $assertCounters = $reactant->reactionCounters;
+        $this->assertTrue($assertCounters->get(0)->is($counters->get(0)));
+        $this->assertTrue($assertCounters->get(1)->is($counters->get(1)));
     }
 }
