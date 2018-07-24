@@ -58,14 +58,4 @@ class ReactionType extends Model
 
         return $type;
     }
-
-    public function name(): string
-    {
-        return $this->getAttribute('name');
-    }
-
-    public function weight(): int
-    {
-        return $this->getAttribute('weight');
-    }
 }

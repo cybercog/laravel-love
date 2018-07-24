@@ -81,30 +81,6 @@ class ReactionTypeTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_name(): void
-    {
-        $type = factory(ReactionType::class)->create([
-            'name' => 'TestType',
-        ]);
-
-        $assertName = $type->name();
-
-        $this->assertSame('TestType', $assertName);
-    }
-
-    /** @test */
-    public function it_can_get_weight(): void
-    {
-        $type = factory(ReactionType::class)->create([
-            'weight' => 4,
-        ]);
-
-        $assertWeight = $type->weight();
-
-        $this->assertSame(4, $assertWeight);
-    }
-
-    /** @test */
     public function it_can_instantiate_reaction_type_from_name(): void
     {
         $type = factory(ReactionType::class)->create([
