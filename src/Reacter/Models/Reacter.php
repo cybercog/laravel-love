@@ -59,16 +59,14 @@ class Reacter extends Model
             ->where('reactant_id', $reactant->getKey())
             ->first();
 
-        if (!$reaction) {
+        if (is_null($reaction)) {
             // TODO: Throw custom typed exception
             throw new \RuntimeException(
                 sprintf('Reaction of type `%s` not exists.', $reactionType->getAttribute('name'))
             );
         }
 
-        if ($reaction) {
-            $reaction->delete();
-        }
+        $reaction->delete();
     }
 
     // TODO: Add ReactionType
