@@ -44,4 +44,28 @@ class ReactionType extends Model
     {
         return $this->hasMany(Reaction::class, 'reaction_type_id');
     }
+
+    public static function fromName(string $name): self
+    {
+        /** @var \Cog\Laravel\Love\ReactionType\Models\ReactionType $type */
+        $type = static::query()->where('name', $name)->first();
+
+        if (!$type) {
+            throw new \RuntimeException(
+                sprintf('ReactionType with name `%s` not found.', $name)
+            );
+        }
+
+        return $type;
+    }
+
+    public function name(): string
+    {
+        return $this->getAttribute('name');
+    }
+
+    public function weight(): int
+    {
+        return $this->getAttribute('weight');
+    }
 }

@@ -44,6 +44,16 @@ class ReactionTypeTest extends TestCase
     }
 
     /** @test */
+    public function it_casts_weight_to_integer(): void
+    {
+        $type = new ReactionType([
+            'weight' => '4',
+        ]);
+
+        $this->assertSame(4, $type->getAttribute('weight'));
+    }
+
+    /** @test */
     public function it_can_has_reaction(): void
     {
         $type = factory(ReactionType::class)->create();
@@ -68,5 +78,51 @@ class ReactionTypeTest extends TestCase
         $assertReactions = $type->reactions;
         $this->assertTrue($assertReactions->get(0)->is($reactions->get(0)));
         $this->assertTrue($assertReactions->get(1)->is($reactions->get(1)));
+    }
+
+    /** @test */
+    public function it_can_get_name(): void
+    {
+        $type = factory(ReactionType::class)->create([
+            'name' => 'TestType',
+        ]);
+
+        $assertName = $type->name();
+
+        $this->assertSame('TestType', $assertName);
+    }
+
+    /** @test */
+    public function it_can_get_weight(): void
+    {
+        $type = factory(ReactionType::class)->create([
+            'weight' => 4,
+        ]);
+
+        $assertWeight = $type->weight();
+
+        $this->assertSame(4, $assertWeight);
+    }
+
+    /** @test */
+    public function it_can_instantiate_reaction_type_from_name(): void
+    {
+        $type = factory(ReactionType::class)->create([
+            'name' => 'TestType',
+        ]);
+
+        $assertType = ReactionType::fromName('TestType');
+
+        $this->assertTrue($assertType->is($type));
+    }
+
+    /** @test */
+    public function it_throws_exception_if_instantiate_reaction_type_from_not_exist_name(): void
+    {
+        $this->expectException(\RuntimeException::class);
+
+        factory(ReactionType::class)->create();
+
+        ReactionType::fromName('NotExistType');
     }
 }
