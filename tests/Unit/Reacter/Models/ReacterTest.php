@@ -16,6 +16,7 @@ namespace Cog\Tests\Laravel\Love\Unit\Reacter\Models;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
+use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
@@ -70,11 +71,12 @@ class ReacterTest extends TestCase
     /** @test */
     public function it_can_react_to_reactant(): void
     {
+        $reactionType = factory(ReactionType::class)->create();
         $reacter = factory(Reacter::class)->create();
         $reactable = factory(Article::class)->create();
         $reactant = $reactable->reactant;
 
-        $reacter->reactTo($reactant);
+        $reacter->reactTo($reactant, $reactionType);
 
         $this->assertCount(1, $reacter->reactions);
         $assertReaction = $reacter->reactions->first();
@@ -102,11 +104,12 @@ class ReacterTest extends TestCase
     {
         $this->expectException(\RuntimeException::class);
 
+        $reactionType = factory(ReactionType::class)->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
 
-        $reacter->reactTo($reactant);
-        $reacter->reactTo($reactant);
+        $reacter->reactTo($reactant, $reactionType);
+        $reacter->reactTo($reactant, $reactionType);
     }
 
     /** @test */

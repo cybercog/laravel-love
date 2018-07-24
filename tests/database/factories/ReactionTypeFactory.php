@@ -11,17 +11,13 @@
 
 declare(strict_types=1);
 
-use Cog\Laravel\Love\Reactant\Models\Reactant;
-use Cog\Laravel\Love\Reacter\Models\Reacter;
-use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Faker\Generator as Faker;
 
 /* @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(Reaction::class, function (Faker $faker) {
+$factory->define(ReactionType::class, function (Faker $faker) {
     return [
-        'reaction_type_id' => factory(ReactionType::class),
-        'reactant_id' => factory(Reactant::class),
-        'reacter_id' => factory(Reacter::class),
+        'name' => $faker->word,
+        'weight' => $faker->numberBetween(-128, 127),
     ];
 });

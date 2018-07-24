@@ -15,7 +15,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLoveReactionsTable extends Migration
+class CreateLoveReactionTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -24,11 +24,10 @@ class CreateLoveReactionsTable extends Migration
      */
     public function up(): void
     {
-        Schema::create('love_reactions', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedInteger('reaction_type_id');
-            $table->unsignedBigInteger('reacter_id');
-            $table->unsignedBigInteger('reactant_id');
+        Schema::create('love_reaction_types', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->tinyInteger('weight');
             $table->timestamps();
         });
     }
@@ -40,6 +39,6 @@ class CreateLoveReactionsTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('love_reactions');
+        Schema::dropIfExists('love_reaction_types');
     }
 }

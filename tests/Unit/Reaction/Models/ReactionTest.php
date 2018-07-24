@@ -16,6 +16,7 @@ namespace Cog\Tests\Laravel\Love\Unit\Reaction\Models;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
+use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -25,6 +26,16 @@ class ReactionTest extends TestCase
     use DatabaseTransactions;
 
     /** @test */
+    public function it_can_fill_reaction_type_id(): void
+    {
+        $reaction = new Reaction([
+            'reaction_type_id' => 4,
+        ]);
+
+        $this->assertSame(4, $reaction->getAttribute('reaction_type_id'));
+    }
+
+    /** @test */
     public function it_can_fill_reactant_id(): void
     {
         $reaction = new Reaction([
@@ -32,6 +43,18 @@ class ReactionTest extends TestCase
         ]);
 
         $this->assertSame(4, $reaction->getAttribute('reactant_id'));
+    }
+
+    /** @test */
+    public function it_can_belong_to_type(): void
+    {
+        $type = factory(ReactionType::class)->create();
+
+        $reaction = factory(Reaction::class)->create([
+            'reaction_type_id' => $type->getKey(),
+        ]);
+
+        $this->assertTrue($reaction->type->is($type));
     }
 
     /** @test */

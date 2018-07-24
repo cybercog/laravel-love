@@ -15,6 +15,7 @@ namespace Cog\Laravel\Love\Reacter\Models;
 
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
+use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -34,9 +35,10 @@ class Reacter extends Model
     }
 
     // TODO: Add ReactionType
-    public function reactTo(Reactant $reactant): void
+    public function reactTo(Reactant $reactant, ReactionType $reactionType): void
     {
         $attributes = [
+            'reaction_type_id' => $reactionType->getKey(),
             'reactant_id' => $reactant->getKey(),
         ];
 

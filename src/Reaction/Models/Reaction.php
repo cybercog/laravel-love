@@ -15,6 +15,7 @@ namespace Cog\Laravel\Love\Reaction\Models;
 
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
+use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -33,26 +34,25 @@ class Reaction extends Model
      * @var array
      */
     protected $fillable = [
+        'reaction_type_id',
         'reactant_id',
     ];
 
-    /**
-     * Reactant model relation.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(ReactionType::class, 'reaction_type_id');
+    }
+
     public function reactant(): BelongsTo
     {
         return $this->belongsTo(Reactant::class, 'reactant_id');
     }
 
-    /**
-     * Reactable model relation.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
     public function reacter(): BelongsTo
     {
         return $this->belongsTo(Reacter::class, 'reacter_id');
     }
+
+    // isTypeOf(ReactionType)
+    // isNotTypeOf(ReactionType)
 }
