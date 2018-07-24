@@ -54,10 +54,10 @@ class Reacter extends Model
 
     public function unreactTo(Reactant $reactant, ReactionType $reactionType): void
     {
-        $reaction = $this->reactions()
-            ->where('reaction_type_id', $reactionType->getKey())
-            ->where('reactant_id', $reactant->getKey())
-            ->first();
+        $reaction = $this->reactions()->where([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant->getKey(),
+        ])->first();
 
         if (is_null($reaction)) {
             // TODO: Throw custom typed exception
@@ -69,7 +69,6 @@ class Reacter extends Model
         $reaction->delete();
     }
 
-    // TODO: Add ReactionType
     public function isReactedTo(Reactant $reactant): bool
     {
         return $this->reactions()->where([
@@ -77,9 +76,21 @@ class Reacter extends Model
         ])->exists();
     }
 
-    // TODO: Add ReactionType
     public function isNotReactedTo(Reactant $reactant): bool
     {
         return !$this->isReactedTo($reactant);
+    }
+
+    public function isReactedWithTypeTo(Reactant $reactant, ReactionType $reactionType): bool
+    {
+        return $this->reactions()->where([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant->getKey(),
+        ])->exists();
+    }
+
+    public function isNotReactedWithTypeTo(Reactant $reactant, ReactionType $reactionType): bool
+    {
+        return !$this->isReactedWithTypeTo($reactant, $reactionType);
     }
 }

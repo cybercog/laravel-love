@@ -165,4 +165,41 @@ class ReacterTest extends TestCase
 
         $this->assertTrue($isNotReacted);
     }
+
+    /** @test */
+    public function it_can_check_is_reacted_with_type_to_reactant()
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = factory(Reacter::class)->create();
+        $reactant = factory(Reactant::class)->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reacter_id' => $reacter->getKey(),
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $isReacted = $reacter->isReactedWithTypeTo($reactant, $reactionType);
+
+        $this->assertTrue($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_not_reacted_with_type_to_reactant()
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = factory(Reacter::class)->create();
+        $reactant = factory(Reactant::class)->create();
+        factory(Reaction::class)->create([
+            'reacter_id' => $reacter->getKey(),
+            'reactant_id' => $reactant->getKey(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $isNotReacted = $reacter->isNotReactedWithTypeTo($reactant, $reactionType);
+
+        $this->assertTrue($isNotReacted);
+    }
 }
