@@ -36,6 +36,11 @@ class ReactionType extends Model
         'weight',
     ];
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
     protected $casts = [
         'weight' => 'integer',
     ];
@@ -51,6 +56,7 @@ class ReactionType extends Model
         $type = static::query()->where('name', $name)->first();
 
         if (!$type) {
+            // TODO: Throw custom typed exception
             throw new \RuntimeException(
                 sprintf('ReactionType with name `%s` not found.', $name)
             );

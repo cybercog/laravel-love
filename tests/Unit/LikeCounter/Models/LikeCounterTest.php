@@ -16,6 +16,7 @@ namespace Cog\Tests\Laravel\Love\Unit\LikeCounter\Models;
 use Cog\Laravel\Love\LikeCounter\Models\LikeCounter;
 use Cog\Tests\Laravel\Love\Stubs\Models\Entity;
 use Cog\Tests\Laravel\Love\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
  * Class LikeCounterTest.
@@ -24,6 +25,8 @@ use Cog\Tests\Laravel\Love\TestCase;
  */
 class LikeCounterTest extends TestCase
 {
+    use RefreshDatabase;
+
     /** @test */
     public function it_can_fill_count()
     {

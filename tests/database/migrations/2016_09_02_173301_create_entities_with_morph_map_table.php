@@ -25,7 +25,7 @@ class CreateEntitiesWithMorphMapTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('entities_with_morph_map', function (Blueprint $table) {
             $table->increments('id');
@@ -40,7 +40,7 @@ class CreateEntitiesWithMorphMapTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('entities_with_morph_map');
     }

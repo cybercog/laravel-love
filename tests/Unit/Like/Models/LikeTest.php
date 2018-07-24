@@ -16,6 +16,7 @@ namespace Cog\Tests\Laravel\Love\Unit\Like\Models;
 use Cog\Laravel\Love\Like\Models\Like;
 use Cog\Tests\Laravel\Love\Stubs\Models\Entity;
 use Cog\Tests\Laravel\Love\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
  * Class LikeTest.
@@ -24,6 +25,8 @@ use Cog\Tests\Laravel\Love\TestCase;
  */
 class LikeTest extends TestCase
 {
+    use RefreshDatabase;
+
     /** @test */
     public function it_can_fill_user_id()
     {

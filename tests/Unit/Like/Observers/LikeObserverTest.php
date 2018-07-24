@@ -24,7 +24,7 @@ use Cog\Laravel\Love\Likeable\Events\LikeableWasUnliked;
 use Cog\Tests\Laravel\Love\Stubs\Models\Entity;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery;
 
 /**
@@ -34,7 +34,7 @@ use Mockery;
  */
 class LikeObserverTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
     /** @test */
     public function it_fires_model_was_liked_event_on_like_create()

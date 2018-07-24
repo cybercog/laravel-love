@@ -16,7 +16,7 @@ namespace Cog\Tests\Laravel\Love\Unit\Liker\Models\Traits;
 use Cog\Tests\Laravel\Love\Stubs\Models\Entity;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
  * Class LikerTest.
@@ -25,7 +25,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
  */
 class LikerTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
     /* Likes */
 

@@ -19,7 +19,7 @@ use Cog\Laravel\Love\LikeCounter\Models\LikeCounter;
 use Cog\Laravel\Love\Likeable\Observers\LikeableObserver;
 use Cog\Tests\Laravel\Love\Stubs\Models\Entity;
 use Cog\Tests\Laravel\Love\TestCase;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery;
 
 /**
@@ -29,7 +29,7 @@ use Mockery;
  */
 class LikeableObserverTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
     /** @test */
     public function it_remove_likes_on_likeable_delete()

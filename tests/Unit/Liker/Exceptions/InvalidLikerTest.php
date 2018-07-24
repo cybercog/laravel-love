@@ -17,7 +17,7 @@ use Cog\Contracts\Love\Liker\Exceptions\InvalidLiker;
 use Cog\Tests\Laravel\Love\Stubs\Models\Entity;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
  * Class InvalidLikerTest.
@@ -26,7 +26,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
  */
 class InvalidLikerTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
     /** @test */
     public function it_can_throw_exception_if_not_authenticated_on_likeBy()

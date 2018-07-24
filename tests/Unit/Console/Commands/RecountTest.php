@@ -20,14 +20,17 @@ use Cog\Tests\Laravel\Love\Stubs\Models\Entity;
 use Cog\Tests\Laravel\Love\Stubs\Models\EntityWithMorphMap;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
- * Class Recount.
+ * Class RecountTest.
  *
  * @package Cog\Tests\Laravel\Love\Unit\Console\Commands
  */
-class Recount extends TestCase
+class RecountTest extends TestCase
 {
+    use RefreshDatabase;
+
     /* Likes */
 
     /** @test */
