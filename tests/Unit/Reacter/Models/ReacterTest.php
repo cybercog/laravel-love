@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Reacter\Models;
 
+use Cog\Contracts\Love\Reaction\Exceptions\ReactionAlreadyExists;
+use Cog\Contracts\Love\Reaction\Exceptions\ReactionNotExists;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
@@ -118,7 +120,7 @@ class ReacterTest extends TestCase
     /** @test */
     public function it_cannot_duplicate_reactions(): void
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(ReactionAlreadyExists::class);
 
         $reactionType = factory(ReactionType::class)->create();
         $reacter = factory(Reacter::class)->create();
@@ -131,7 +133,7 @@ class ReacterTest extends TestCase
     /** @test */
     public function it_cannot_unreact_reactant_if_not_reacted(): void
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(ReactionNotExists::class);
 
         $reactionType = factory(ReactionType::class)->create();
         $reacter = factory(Reacter::class)->create();

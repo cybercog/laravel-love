@@ -43,7 +43,6 @@ class ReactionCounterService
             ->first();
 
         if (is_null($counter)) {
-            // TODO: Throw custom type of exception
 //            throw new \RuntimeException(sprintf(
 //                'ReactionCounter with ReactionType `%s` not found.',
 //                $reactionType->getMorphClass()

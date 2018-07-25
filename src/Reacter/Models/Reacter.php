@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reacter\Models;
 
+use Cog\Contracts\Love\Reaction\Exceptions\ReactionAlreadyExists;
+use Cog\Contracts\Love\Reaction\Exceptions\ReactionNotExists;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
@@ -43,8 +45,7 @@ class Reacter extends Model
 
         $reaction = $this->reactions()->where($attributes)->exists();
         if ($reaction) {
-            // TODO: Throw custom typed exception
-            throw new \RuntimeException(
+            throw new ReactionAlreadyExists(
                 sprintf('Reaction of type `%s` already exists.', $reactionType->getAttribute('name'))
             );
         }
@@ -60,8 +61,7 @@ class Reacter extends Model
         ])->first();
 
         if (is_null($reaction)) {
-            // TODO: Throw custom typed exception
-            throw new \RuntimeException(
+            throw new ReactionNotExists(
                 sprintf('Reaction of type `%s` not exists.', $reactionType->getAttribute('name'))
             );
         }
