@@ -13,13 +13,11 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reaction\Observers;
 
-use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Services\ReactionCounterService;
 use Cog\Laravel\Love\Reactant\ReactionSummary\Services\ReactionSummaryService;
 use Cog\Laravel\Love\Reaction\Events\ReactionWasCreated;
 use Cog\Laravel\Love\Reaction\Events\ReactionWasDeleted;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
-use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 
 class ReactionObserver
 {
@@ -27,41 +25,27 @@ class ReactionObserver
     {
         event(new ReactionWasCreated($reaction));
 
-        (new ReactionCounterService($this->reactantOf($reaction)))
-            ->incrementCounterOfType($this->reactionTypeOf($reaction));
+        $reactant = $reaction->getReactant();
 
-        $summaryService = new ReactionSummaryService($this->reactantOf($reaction));
+        (new ReactionCounterService($reactant))
+            ->incrementCounterOfType($reaction->getType());
+
+        $summaryService = new ReactionSummaryService($reactant);
         $summaryService->incrementTotalCount();
-        $summaryService->incrementTotalWeight($reaction->type()->first()->getAttribute('weight'));
+        $summaryService->incrementTotalWeight($reaction->getWeight());
     }
 
     public function deleted(Reaction $reaction): void
     {
         event(new ReactionWasDeleted($reaction));
 
-        (new ReactionCounterService($this->reactantOf($reaction)))
-            ->decrementCounterOfType($this->reactionTypeOf($reaction));
+        $reactant = $reaction->getReactant();
 
-        $summaryService = new ReactionSummaryService($this->reactantOf($reaction));
+        (new ReactionCounterService($reactant))
+            ->decrementCounterOfType($reaction->getType());
+
+        $summaryService = new ReactionSummaryService($reactant);
         $summaryService->decrementTotalCount();
-        $summaryService->decrementTotalWeight($reaction->type()->first()->getAttribute('weight'));
-    }
-
-    // TODO: (?) $reaction->getReactant();
-    private function reactantOf(Reaction $reaction): Reactant
-    {
-        /** @var \Cog\Laravel\Love\Reactant\Models\Reactant $reactant */
-        $reactant = $reaction->reactant()->first();
-
-        return $reactant;
-    }
-
-    // TODO: (?) $reaction->getType();
-    private function reactionTypeOf(Reaction $reaction): ReactionType
-    {
-        /** @var \Cog\Laravel\Love\ReactionType\Models\ReactionType $type */
-        $type = $reaction->type()->first();
-
-        return $type;
+        $summaryService->decrementTotalWeight($reaction->getWeight());
     }
 }

@@ -53,6 +53,31 @@ class Reaction extends Model
         return $this->belongsTo(Reacter::class, 'reacter_id');
     }
 
+    public function getType(): ReactionType
+    {
+        /** @var \Cog\Laravel\Love\ReactionType\Models\ReactionType $type */
+        $type = $this->type()->first();
+
+        // TODO: What if ReactionType not found?
+
+        return $type;
+    }
+
+    public function getReactant(): Reactant
+    {
+        /** @var \Cog\Laravel\Love\Reactant\Models\Reactant $reactant */
+        $reactant = $this->reactant()->first();
+
+        // TODO: What if Reactant not found?
+
+        return $reactant;
+    }
+
+    public function getWeight(): int
+    {
+        return $this->getType()->getAttribute('weight');
+    }
+
     // isTypeOf(ReactionType)
     // isNotTypeOf(ReactionType)
 }

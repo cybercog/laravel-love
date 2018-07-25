@@ -79,4 +79,47 @@ class ReactionTest extends TestCase
 
         $this->assertTrue($reaction->reacter->is($reacter));
     }
+
+    /** @test */
+    public function it_can_get_type(): void
+    {
+        $type = factory(ReactionType::class)->create();
+
+        /** @var \Cog\Laravel\Love\Reaction\Models\Reaction $reaction */
+        $reaction = factory(Reaction::class)->create([
+            'reaction_type_id' => $type->getKey(),
+        ]);
+
+        $assertType = $reaction->getType();
+        $this->assertTrue($assertType->is($type));
+    }
+
+    /** @test */
+    public function it_can_get_reactant(): void
+    {
+        $reactant = factory(Reactant::class)->create();
+
+        /** @var \Cog\Laravel\Love\Reaction\Models\Reaction $reaction */
+        $reaction = factory(Reaction::class)->create([
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $assertReactant = $reaction->getReactant();
+        $this->assertTrue($assertReactant->is($reactant));
+    }
+
+    /** @test */
+    public function it_can_get_weight(): void
+    {
+        $reactionType = factory(ReactionType::class)->create([
+            'weight' => 4,
+        ]);
+
+        /** @var \Cog\Laravel\Love\Reaction\Models\Reaction $reaction */
+        $reaction = factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+        ]);
+
+        $this->assertSame(4, $reaction->getWeight());
+    }
 }
