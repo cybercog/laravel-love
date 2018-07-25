@@ -25,20 +25,17 @@ class ReactionCounterService
         $this->reactant = $reactant;
     }
 
-    // (?) incrementCounter
     public function incrementCounterOfType(ReactionType $reactionType, int $amount = 1): void
     {
         $this->incrementOrDecrementOfType($reactionType, $amount);
     }
 
-    // (?) decrementCounter
     public function decrementCounterOfType(ReactionType $reactionType, int $amount = 1): void
     {
         $amount *= -1;
         $this->incrementOrDecrementOfType($reactionType, $amount);
     }
 
-    // (?) incrementOrDecrementCounter
     private function incrementOrDecrementOfType(ReactionType $reactionType, int $amount = 1): void
     {
         $counter = $this->reactant->reactionCounters()

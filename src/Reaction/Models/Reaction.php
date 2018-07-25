@@ -77,7 +77,4 @@ class Reaction extends Model
     {
         return $this->getType()->getAttribute('weight');
     }
-
-    // isTypeOf(ReactionType)
-    // isNotTypeOf(ReactionType)
 }

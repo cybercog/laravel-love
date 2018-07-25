@@ -52,7 +52,7 @@ class ReactionSummaryService
 
     private function incrementOrDecrementTotalCount(int $amount = 1): void
     {
-        if ($this->reactionSummary->total_count + $amount < 0) {
+        if ($this->reactionSummary->getAttribute('total_count') + $amount < 0) {
             throw new \RuntimeException('ReactionSummary total_count could not be below zero.');
         }
 
