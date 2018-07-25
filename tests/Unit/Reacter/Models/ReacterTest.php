@@ -83,6 +83,21 @@ class ReacterTest extends TestCase
     }
 
     /** @test */
+    public function it_can_react_to_reactant_which_reacter_too(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = factory(Reacter::class)->create();
+        $reactable = factory(User::class)->create();
+        $reactant = $reactable->reactant;
+
+        $reacter->reactTo($reactant, $reactionType);
+
+        $this->assertCount(1, $reacter->reactions);
+        $assertReaction = $reacter->reactions->first();
+        $this->assertTrue($assertReaction->reactant->is($reactant));
+    }
+
+    /** @test */
     public function it_can_unreact_to_reactant(): void
     {
         $reactionType = factory(ReactionType::class)->create();
