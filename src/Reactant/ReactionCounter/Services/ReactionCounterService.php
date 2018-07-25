@@ -47,10 +47,14 @@ class ReactionCounterService
 
         if (is_null($counter)) {
             // TODO: Throw custom type of exception
-            throw new \RuntimeException(sprintf(
-                'ReactionCounter with ReactionType `%s` not found.',
-                $reactionType->getMorphClass()
-            ));
+//            throw new \RuntimeException(sprintf(
+//                'ReactionCounter with ReactionType `%s` not found.',
+//                $reactionType->getMorphClass()
+//            ));
+
+            $counter = $this->reactant->reactionCounters()->create([
+                'reaction_type_id' => $reactionType->getKey(),
+            ]);
         }
 
         if ($counter->count + $amount < 0) {

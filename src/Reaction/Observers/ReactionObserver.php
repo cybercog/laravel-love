@@ -15,6 +15,8 @@ namespace Cog\Laravel\Love\Reaction\Observers;
 
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Services\ReactionCounterService;
+use Cog\Laravel\Love\Reaction\Events\ReactionWasCreated;
+use Cog\Laravel\Love\Reaction\Events\ReactionWasDeleted;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 
@@ -22,12 +24,16 @@ class ReactionObserver
 {
     public function created(Reaction $reaction): void
     {
+        event(new ReactionWasCreated($reaction));
+
         (new ReactionCounterService($this->reactantOf($reaction)))
             ->incrementCounterOfType($this->reactionTypeOf($reaction));
     }
 
     public function deleted(Reaction $reaction): void
     {
+        event(new ReactionWasDeleted($reaction));
+
         (new ReactionCounterService($this->reactantOf($reaction)))
             ->decrementCounterOfType($this->reactionTypeOf($reaction));
     }

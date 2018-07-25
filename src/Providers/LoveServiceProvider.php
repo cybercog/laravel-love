@@ -63,7 +63,7 @@ class LoveServiceProvider extends ServiceProvider
     protected function registerObservers()
     {
         $this->app->make(LikeContract::class)->observe(LikeObserver::class);
-//        $this->app->make(Reaction::class)->observe(ReactionObserver::class);
+        $this->app->make(Reaction::class)->observe(ReactionObserver::class);
     }
 
     /**
