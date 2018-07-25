@@ -14,9 +14,11 @@ declare(strict_types=1);
 namespace Cog\Laravel\Love\Reactant\Models;
 
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
+use Cog\Laravel\Love\Reactant\ReactionSummary\Models\ReactionSummary;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Reactant extends Model
@@ -36,5 +38,10 @@ class Reactant extends Model
     public function reactionCounters(): HasMany
     {
         return $this->hasMany(ReactionCounter::class, 'reactant_id');
+    }
+
+    public function reactionSummary(): HasOne
+    {
+        return $this->hasOne(ReactionSummary::class, 'reactant_id');
     }
 }

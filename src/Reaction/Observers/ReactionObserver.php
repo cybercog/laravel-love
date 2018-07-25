@@ -15,6 +15,7 @@ namespace Cog\Laravel\Love\Reaction\Observers;
 
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Services\ReactionCounterService;
+use Cog\Laravel\Love\Reactant\ReactionSummary\Services\ReactionSummaryService;
 use Cog\Laravel\Love\Reaction\Events\ReactionWasCreated;
 use Cog\Laravel\Love\Reaction\Events\ReactionWasDeleted;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
@@ -28,6 +29,10 @@ class ReactionObserver
 
         (new ReactionCounterService($this->reactantOf($reaction)))
             ->incrementCounterOfType($this->reactionTypeOf($reaction));
+
+        $summaryService = new ReactionSummaryService($this->reactantOf($reaction));
+        $summaryService->incrementTotalCount();
+        $summaryService->incrementTotalWeight($reaction->type()->first()->getAttribute('weight'));
     }
 
     public function deleted(Reaction $reaction): void
@@ -36,6 +41,10 @@ class ReactionObserver
 
         (new ReactionCounterService($this->reactantOf($reaction)))
             ->decrementCounterOfType($this->reactionTypeOf($reaction));
+
+        $summaryService = new ReactionSummaryService($this->reactantOf($reaction));
+        $summaryService->decrementTotalCount();
+        $summaryService->decrementTotalWeight($reaction->type()->first()->getAttribute('weight'));
     }
 
     // TODO: (?) $reaction->getReactant();

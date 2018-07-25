@@ -15,6 +15,7 @@ namespace Cog\Tests\Laravel\Love\Unit\Reactant\Models;
 
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
+use Cog\Laravel\Love\Reactant\ReactionSummary\Models\ReactionSummary;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\TestCase;
@@ -90,5 +91,18 @@ class ReactantTest extends TestCase
         $assertCounters = $reactant->reactionCounters;
         $this->assertTrue($assertCounters->get(0)->is($counters->get(0)));
         $this->assertTrue($assertCounters->get(1)->is($counters->get(1)));
+    }
+
+    /** @test */
+    public function it_can_has_reaction_summary(): void
+    {
+        $reactant = factory(Reactant::class)->create();
+
+        $summary = factory(ReactionSummary::class)->create([
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $assertSummary = $reactant->reactionSummary()->first();
+        $this->assertTrue($assertSummary->is($summary));
     }
 }
