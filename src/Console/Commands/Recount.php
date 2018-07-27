@@ -21,6 +21,7 @@ use Cog\Laravel\Love\Reactant\ReactionCounter\Services\ReactionCounterService;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
 
@@ -81,6 +82,7 @@ class Recount extends Command
 
         $reactants = Reactant::all();
         foreach ($reactants as $reactant) {
+            /** @var \Illuminate\Database\Eloquent\Builder $query */
             $query = $reactant->reactions();
 
             if ($this->reactionType) {
@@ -88,8 +90,8 @@ class Recount extends Command
             }
 
             if ($model) {
-                $query->whereHas('reactant', function ($q) use ($model) {
-                    $q->where('type', $model);
+                $query->whereHas('reactant', function (Builder $reactantQuery) use ($model) {
+                    $reactantQuery->where('type', $model);
                 });
             }
 
