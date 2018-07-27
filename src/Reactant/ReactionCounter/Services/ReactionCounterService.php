@@ -54,6 +54,7 @@ class ReactionCounterService
         }
 
         if ($counter->count + $amount < 0) {
+            // TODO: Add custom exception OutOfRange?
             throw new \RuntimeException('ReactionCounter count could not be below zero.');
         }
 

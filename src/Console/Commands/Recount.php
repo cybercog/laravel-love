@@ -13,11 +13,12 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Console\Commands;
 
-use Cog\Contracts\Love\Like\Models\Like as LikeContract;
 use Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable;
 use Cog\Contracts\Love\Likeable\Models\Likeable as LikeableContract;
 use Cog\Contracts\Love\LikeCounter\Models\LikeCounter as LikeCounterContract;
-use Cog\Laravel\Love\Likeable\Services\LikeableService as LikeableServiceContract;
+use Cog\Laravel\Love\Reactant\Models\Reactant;
+use Cog\Laravel\Love\Reactant\ReactionCounter\Services\ReactionCounterService;
+use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -45,11 +46,11 @@ class Recount extends Command
     protected $description = 'Recount likes and dislikes of the likeable models';
 
     /**
-     * Type of likes to be recounted.
+     * Type of reactions to be recounted.
      *
      * @var null|string
      */
-    protected $likeType;
+    protected $reactionType;
 
     /**
      * Likeable service.
@@ -70,14 +71,42 @@ class Recount extends Command
     public function handle(Dispatcher $events)
     {
         $model = $this->argument('model');
-        $this->likeType = $this->argument('type');
-        $this->service = app(LikeableServiceContract::class);
-
-        if (empty($model)) {
-            $this->recountLikesOfAllModelTypes();
-        } else {
-            $this->recountLikesOfModelType($model);
+        if ($model) {
+            $model = $this->normalizeModelType($model);
         }
+        if ($type = $this->argument('type')) {
+            $this->reactionType = ReactionType::fromName($type);
+        }
+//        $this->service = app(LikeableServiceContract::class);
+
+        $reactants = Reactant::all();
+        foreach ($reactants as $reactant) {
+            $query = $reactant->reactions();
+
+            if ($this->reactionType) {
+                $query->where('reaction_type_id', $this->reactionType->getKey());
+            }
+
+            if ($model) {
+                $query->whereHas('reactant', function ($q) use ($model) {
+                    $q->where('type', $model);
+                });
+            }
+
+            $reactions = $query->get();
+
+            foreach ($reactions as $reaction) {
+                (new ReactionCounterService($reactant))
+                    ->incrementCounterOfType($reaction->getType());
+            }
+
+        }
+
+//        if (empty($model)) {
+//            $this->recountLikesOfAllModelTypes();
+//        } else {
+//            $this->recountLikesOfModelType($model);
+//        }
     }
 
     /**
@@ -90,7 +119,7 @@ class Recount extends Command
      */
     protected function recountLikesOfAllModelTypes()
     {
-        $likeableTypes = app(LikeContract::class)->groupBy('likeable_type')->get();
+        $likeableTypes = app(Reaction::class)->groupBy('likeable_type')->get();
         foreach ($likeableTypes as $like) {
             $this->recountLikesOfModelType($like->likeable_type);
         }
@@ -109,9 +138,9 @@ class Recount extends Command
     {
         $modelType = $this->normalizeModelType($modelType);
 
-        $counters = $this->service->fetchLikesCounters($modelType, $this->likeType);
+        $counters = $this->service->fetchLikesCounters($modelType, $this->reactionType);
 
-        $this->service->removeLikeCountersOfType($modelType, $this->likeType);
+        $this->service->removeLikeCountersOfType($modelType, $this->reactionType);
 
         $likesCounterTable = app(LikeCounterContract::class)->getTable();
 
@@ -133,6 +162,7 @@ class Recount extends Command
         $model = $this->newModelFromType($modelType);
         $modelType = $model->getMorphClass();
 
+        // TODO: Check for instance of ReactantContract
         if (!$model instanceof LikeableContract) {
             throw InvalidLikeable::notImplementInterface($modelType);
         }
