@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reacter\Models;
 
+use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
 use Cog\Contracts\Love\Reaction\Exceptions\ReactionAlreadyExists;
 use Cog\Contracts\Love\Reaction\Exceptions\ReactionNotExists;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
@@ -22,7 +23,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
-class Reacter extends Model
+class Reacter extends Model implements ReacterContract
 {
     protected $table = 'love_reacters';
 

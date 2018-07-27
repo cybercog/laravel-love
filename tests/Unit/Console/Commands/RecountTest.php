@@ -13,22 +13,18 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Console\Commands;
 
-use Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable;
+use Cog\Contracts\Love\Reactant\Exceptions\ReactableInvalid;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
+use Cog\Tests\Laravel\Love\Stubs\Models\Bot;
 use Cog\Tests\Laravel\Love\Stubs\Models\Entity;
 use Cog\Tests\Laravel\Love\Stubs\Models\EntityWithMorphMap;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-/**
- * Class RecountTest.
- *
- * @package Cog\Tests\Laravel\Love\Unit\Console\Commands
- */
 class RecountTest extends TestCase
 {
     use RefreshDatabase;
@@ -402,7 +398,7 @@ class RecountTest extends TestCase
     /** @test */
     public function it_can_throw_model_invalid_exception_on_not_exist_morph_map()
     {
-        $this->expectException(InvalidLikeable::class);
+        $this->expectException(ReactableInvalid::class);
 
         $status = $this->artisan('love:recount', [
             'model' => 'not-exist-model',
@@ -414,10 +410,10 @@ class RecountTest extends TestCase
     /** @test */
     public function it_can_throw_model_invalid_exception_if_class_not_implemented_reactable_interface()
     {
-        $this->expectException(InvalidLikeable::class);
+        $this->expectException(ReactableInvalid::class);
 
         $status = $this->artisan('love:recount', [
-            'model' => User::class,
+            'model' => Bot::class,
         ]);
 
         $this->assertSame(1, $status);

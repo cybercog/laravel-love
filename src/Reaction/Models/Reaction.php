@@ -13,13 +13,14 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reaction\Models;
 
+use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Reaction extends Model
+class Reaction extends Model implements ReactionContract
 {
     /**
      * The table associated with the model.

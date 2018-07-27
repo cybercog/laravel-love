@@ -15,7 +15,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateArticlesTable extends Migration
+class CreateBotsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -24,9 +24,8 @@ class CreateArticlesTable extends Migration
      */
     public function up(): void
     {
-        Schema::create('articles', function (Blueprint $table) {
+        Schema::create('bots', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedBigInteger('love_reactant_id');
             $table->string('name');
             $table->timestamps();
         });
@@ -39,6 +38,6 @@ class CreateArticlesTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('articles');
+        Schema::dropIfExists('bots');
     }
 }

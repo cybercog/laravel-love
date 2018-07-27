@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reactant\Models;
 
+use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionSummary\Models\ReactionSummary;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
@@ -21,7 +22,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
-class Reactant extends Model
+class Reactant extends Model implements ReactantContract
 {
     protected $table = 'love_reactants';
 

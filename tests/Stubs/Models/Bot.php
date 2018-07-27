@@ -13,23 +13,16 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Stubs\Models;
 
-use Cog\Contracts\Love\Likeable\Models\Likeable as LikeableContract;
-use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
-use Cog\Laravel\Love\Likeable\Models\Traits\Likeable;
-use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
 use Illuminate\Database\Eloquent\Model;
 
-class Article extends Model implements LikeableContract, ReactableContract
+class Bot extends Model
 {
-    use Likeable;
-    use Reactable;
-
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'articles';
+    protected $table = 'bots';
 
     /**
      * The attributes that are mass assignable.

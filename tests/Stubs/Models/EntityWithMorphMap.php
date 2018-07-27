@@ -14,16 +14,12 @@ declare(strict_types=1);
 namespace Cog\Tests\Laravel\Love\Stubs\Models;
 
 use Cog\Contracts\Love\Likeable\Models\Likeable as LikeableContract;
+use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
 use Cog\Laravel\Love\Likeable\Models\Traits\Likeable;
 use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class EntityWithMorphMap.
- *
- * @package Cog\Tests\Laravel\Love\Stubs\Models
- */
-class EntityWithMorphMap extends Model implements LikeableContract
+class EntityWithMorphMap extends Model implements LikeableContract, ReactableContract
 {
     use Likeable;
     use Reactable;

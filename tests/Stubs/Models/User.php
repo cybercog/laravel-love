@@ -14,17 +14,14 @@ declare(strict_types=1);
 namespace Cog\Tests\Laravel\Love\Stubs\Models;
 
 use Cog\Contracts\Love\Liker\Models\Liker as LikerContract;
+use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
+use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
 use Cog\Laravel\Love\Liker\Models\Traits\Liker;
 use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
 use Cog\Laravel\Love\Reacterable\Models\Traits\Reacterable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-/**
- * Class User.
- *
- * @package Cog\Tests\Laravel\Love\Stubs\Models
- */
-class User extends Authenticatable implements LikerContract
+class User extends Authenticatable implements LikerContract, ReacterableContract, ReactableContract
 {
     use Liker;
     use Reactable;
