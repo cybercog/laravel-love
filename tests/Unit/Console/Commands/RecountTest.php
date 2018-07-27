@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Console\Commands;
 
-use Cog\Contracts\Love\Reactant\Exceptions\ReactableInvalid;
+use Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
