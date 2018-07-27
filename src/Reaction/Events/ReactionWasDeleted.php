@@ -13,18 +13,18 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reaction\Events;
 
-use Cog\Laravel\Love\Reaction\Models\Reaction;
+use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
 
 class ReactionWasDeleted
 {
     private $reaction;
 
-    public function __construct(Reaction $reaction)
+    public function __construct(ReactionContract $reaction)
     {
         $this->reaction = $reaction;
     }
 
-    public function reaction(): Reaction
+    public function reaction(): ReactionContract
     {
         return $this->reaction;
     }

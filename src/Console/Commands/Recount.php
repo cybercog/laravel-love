@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Console\Commands;
 
+use Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid;
 use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
-use Cog\Contracts\Love\Reactant\Exceptions\ReactableInvalid;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Services\ReactionCounterService;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
@@ -23,11 +23,6 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
-/**
- * Class Recount.
- *
- * @package Cog\Laravel\Love\Console\Commands
- */
 class Recount extends Command
 {
     /**
@@ -50,8 +45,7 @@ class Recount extends Command
      * @param \Illuminate\Contracts\Events\Dispatcher $events
      * @return void
      *
-     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
-     * @throws \Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable
+     * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
      */
     public function handle(Dispatcher $events)
     {
@@ -93,7 +87,7 @@ class Recount extends Command
      * @param string $modelType
      * @return string
      *
-     * @throws \Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable
+     * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
      */
     protected function normalizeModelType(string $modelType): string
     {
@@ -113,7 +107,7 @@ class Recount extends Command
      * @param string $modelType
      * @return mixed
      *
-     * @throws \Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable
+     * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
      */
     private function newModelFromType(string $modelType)
     {

@@ -13,9 +13,10 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reactant\ReactionSummary\Models;
 
+use Cog\Contracts\Love\Reactant\ReactionSummary\Models\ReactionSummary as ReactionSummaryContract;
 use Illuminate\Database\Eloquent\Model;
 
-class ReactionSummary extends Model
+class ReactionSummary extends Model implements ReactionSummaryContract
 {
     /**
      * The table associated with the model.

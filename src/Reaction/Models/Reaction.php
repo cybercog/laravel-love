@@ -13,7 +13,9 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reaction\Models;
 
+use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
+use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
@@ -54,7 +56,7 @@ class Reaction extends Model implements ReactionContract
         return $this->belongsTo(Reacter::class, 'reacter_id');
     }
 
-    public function getType(): ReactionType
+    public function getType(): ReactionTypeContract
     {
         /** @var \Cog\Laravel\Love\ReactionType\Models\ReactionType $type */
         $type = $this->type()->first();
@@ -64,7 +66,7 @@ class Reaction extends Model implements ReactionContract
         return $type;
     }
 
-    public function getReactant(): Reactant
+    public function getReactant(): ReactantContract
     {
         /** @var \Cog\Laravel\Love\Reactant\Models\Reactant $reactant */
         $reactant = $this->reactant()->first();

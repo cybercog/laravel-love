@@ -13,23 +13,12 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Providers;
 
-use Cog\Contracts\Love\Like\Models\Like as LikeContract;
-use Cog\Contracts\Love\LikeCounter\Models\LikeCounter as LikeCounterContract;
-use Cog\Contracts\Love\Likeable\Services\LikeableService as LikeableServiceContract;
+use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
 use Cog\Laravel\Love\Console\Commands\Recount;
-use Cog\Laravel\Love\Like\Models\Like;
-use Cog\Laravel\Love\Like\Observers\LikeObserver;
-use Cog\Laravel\Love\Likeable\Services\LikeableService;
-use Cog\Laravel\Love\LikeCounter\Models\LikeCounter;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\Reaction\Observers\ReactionObserver;
 use Illuminate\Support\ServiceProvider;
 
-/**
- * Class LoveServiceProvider.
- *
- * @package Cog\Laravel\Love\Providers
- */
 class LoveServiceProvider extends ServiceProvider
 {
     /**
@@ -37,7 +26,7 @@ class LoveServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->registerConsoleCommands();
         $this->registerObservers();
@@ -50,7 +39,7 @@ class LoveServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->registerContracts();
     }
@@ -60,10 +49,9 @@ class LoveServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerObservers()
+    protected function registerObservers(): void
     {
-        $this->app->make(LikeContract::class)->observe(LikeObserver::class);
-        $this->app->make(Reaction::class)->observe(ReactionObserver::class);
+        $this->app->make(ReactionContract::class)->observe(ReactionObserver::class);
     }
 
     /**
@@ -71,7 +59,7 @@ class LoveServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerConsoleCommands()
+    protected function registerConsoleCommands(): void
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
@@ -85,11 +73,9 @@ class LoveServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerContracts()
+    protected function registerContracts(): void
     {
-        $this->app->bind(LikeContract::class, Like::class);
-        $this->app->bind(LikeCounterContract::class, LikeCounter::class);
-        $this->app->singleton(LikeableServiceContract::class, LikeableService::class);
+        $this->app->bind(ReactionContract::class, Reaction::class);
     }
 
     /**
@@ -97,7 +83,7 @@ class LoveServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerPublishes()
+    protected function registerPublishes(): void
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
@@ -111,7 +97,7 @@ class LoveServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerMigrations()
+    protected function registerMigrations(): void
     {
         if ($this->app->runningInConsole()) {
             $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');

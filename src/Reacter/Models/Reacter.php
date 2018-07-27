@@ -13,12 +13,12 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reacter\Models;
 
+use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
 use Cog\Contracts\Love\Reaction\Exceptions\ReactionAlreadyExists;
 use Cog\Contracts\Love\Reaction\Exceptions\ReactionNotExists;
-use Cog\Laravel\Love\Reactant\Models\Reactant;
+use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
-use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -37,7 +37,7 @@ class Reacter extends Model implements ReacterContract
         return $this->hasMany(Reaction::class, 'reacter_id');
     }
 
-    public function reactTo(Reactant $reactant, ReactionType $reactionType): void
+    public function reactTo(ReactantContract $reactant, ReactionTypeContract $reactionType): void
     {
         $attributes = [
             'reaction_type_id' => $reactionType->getKey(),
@@ -54,7 +54,7 @@ class Reacter extends Model implements ReacterContract
         $this->reactions()->create($attributes);
     }
 
-    public function unreactTo(Reactant $reactant, ReactionType $reactionType): void
+    public function unreactTo(ReactantContract $reactant, ReactionTypeContract $reactionType): void
     {
         $reaction = $this->reactions()->where([
             'reaction_type_id' => $reactionType->getKey(),
@@ -70,19 +70,19 @@ class Reacter extends Model implements ReacterContract
         $reaction->delete();
     }
 
-    public function isReactedTo(Reactant $reactant): bool
+    public function isReactedTo(ReactantContract $reactant): bool
     {
         return $this->reactions()->where([
             'reactant_id' => $reactant->getKey(),
         ])->exists();
     }
 
-    public function isNotReactedTo(Reactant $reactant): bool
+    public function isNotReactedTo(ReactantContract $reactant): bool
     {
         return !$this->isReactedTo($reactant);
     }
 
-    public function isReactedWithTypeTo(Reactant $reactant, ReactionType $reactionType): bool
+    public function isReactedWithTypeTo(ReactantContract $reactant, ReactionTypeContract $reactionType): bool
     {
         return $this->reactions()->where([
             'reaction_type_id' => $reactionType->getKey(),
@@ -90,7 +90,7 @@ class Reacter extends Model implements ReacterContract
         ])->exists();
     }
 
-    public function isNotReactedWithTypeTo(Reactant $reactant, ReactionType $reactionType): bool
+    public function isNotReactedWithTypeTo(ReactantContract $reactant, ReactionTypeContract $reactionType): bool
     {
         return !$this->isReactedWithTypeTo($reactant, $reactionType);
     }

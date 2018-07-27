@@ -11,16 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Cog\Contracts\Love\Likeable\Exceptions;
+namespace Cog\Contracts\Love\Reactable\Exceptions;
 
 use RuntimeException;
 
-/**
- * Class InvalidLikeable.
- *
- * @package Cog\Contracts\Love\Likeable\Exceptions
- */
-class InvalidLikeable extends RuntimeException
+class ReactableInvalid extends RuntimeException
 {
     public static function notExists(string $type)
     {
@@ -29,6 +24,6 @@ class InvalidLikeable extends RuntimeException
 
     public static function notImplementInterface(string $type)
     {
-        return new static("[{$type}] must implement `\Cog\Contracts\Love\Likeable\Models\Likeable` contract.");
+        return new static("[{$type}] must implement `\Cog\Contracts\Love\Reactable\Models\Reactable` contract.");
     }
 }

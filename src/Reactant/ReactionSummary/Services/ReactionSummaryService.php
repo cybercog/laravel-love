@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reactant\ReactionSummary\Services;
 
-use Cog\Laravel\Love\Reactant\Models\Reactant;
-use Cog\Laravel\Love\Reactant\ReactionSummary\Models\ReactionSummary;
+use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
+use Cog\Contracts\Love\Reactant\ReactionSummary\Models\ReactionSummary as ReactionSummaryContract;
 
 class ReactionSummaryService
 {
@@ -22,7 +22,7 @@ class ReactionSummaryService
 
     private $reactionSummary;
 
-    public function __construct(Reactant $reactant)
+    public function __construct(ReactantContract $reactant)
     {
         $this->reactant = $reactant;
         $this->reactionSummary = $this->findOrCreateReactionSummaryOf($reactant);
@@ -64,7 +64,7 @@ class ReactionSummaryService
         $this->reactionSummary->increment('total_weight', $amount);
     }
 
-    private function findOrCreateReactionSummaryOf(Reactant $reactant): ReactionSummary
+    private function findOrCreateReactionSummaryOf(ReactantContract $reactant): ReactionSummaryContract
     {
         /** @var \Cog\Laravel\Love\Reactant\ReactionSummary\Models\ReactionSummary $summary */
         $summary = $reactant->reactionSummary()->first();

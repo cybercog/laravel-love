@@ -13,11 +13,12 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\ReactionType\Models;
 
+use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class ReactionType extends Model
+class ReactionType extends Model implements ReactionTypeContract
 {
     /**
      * The table associated with the model.
@@ -50,7 +51,7 @@ class ReactionType extends Model
         return $this->hasMany(Reaction::class, 'reaction_type_id');
     }
 
-    public static function fromName(string $name): self
+    public static function fromName(string $name): ReactionTypeContract
     {
         /** @var \Cog\Laravel\Love\ReactionType\Models\ReactionType $type */
         $type = static::query()->where('name', $name)->first();

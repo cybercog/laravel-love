@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reaction\Observers;
 
+use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Services\ReactionCounterService;
 use Cog\Laravel\Love\Reactant\ReactionSummary\Services\ReactionSummaryService;
 use Cog\Laravel\Love\Reaction\Events\ReactionWasCreated;
@@ -21,7 +22,7 @@ use Cog\Laravel\Love\Reaction\Models\Reaction;
 
 class ReactionObserver
 {
-    public function created(Reaction $reaction): void
+    public function created(ReactionContract $reaction): void
     {
         event(new ReactionWasCreated($reaction));
 

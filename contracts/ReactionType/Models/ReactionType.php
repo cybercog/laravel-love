@@ -11,15 +11,9 @@
 
 declare(strict_types=1);
 
-namespace Cog\Laravel\Love\Like\Enums;
+namespace Cog\Contracts\Love\ReactionType\Models;
 
-/**
- * Class LikeType.
- *
- * @package Cog\Laravel\Love\Like\Enums
- */
-class LikeType
+interface ReactionType
 {
-    const LIKE = 'LIKE';
-    const DISLIKE = 'DISLIKE';
+    public static function fromName(string $name): self;
 }
