@@ -101,7 +101,6 @@ class Recount extends Command
                 (new ReactionCounterService($reactant))
                     ->incrementCounterOfType($reaction->getType());
             }
-
         }
 
 //        if (empty($model)) {

@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Cog\Tests\Laravel\Love\Unit\Console\Commands;
 
 use Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable;
-use Cog\Laravel\Love\LikeCounter\Models\LikeCounter;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
@@ -400,8 +399,6 @@ class RecountTest extends TestCase
         $this->assertSame(2, $entity3->reactionCounters()->where('reaction_type_id', $dislike->getKey())->first()->count);
     }
 
-    /* Exceptions */
-
     /** @test */
     public function it_can_throw_model_invalid_exception_on_not_exist_morph_map()
     {
@@ -424,10 +421,5 @@ class RecountTest extends TestCase
         ]);
 
         $this->assertSame(1, $status);
-    }
-
-    public function it_deletes_records_before_recount()
-    {
-        // :TODO: Mock `removeLikeCountersOfType` method call
     }
 }
