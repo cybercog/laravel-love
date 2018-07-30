@@ -80,68 +80,105 @@ $ php artisan vendor:publish --provider="Cog\Laravel\Love\Providers\LoveServiceP
 
 ## Usage
 
-### Prepare Liker Model
+### Prepare Models
 
-Use `Cog\Contracts\Love\Liker\Models\Liker` contract in model which will get likes
-behavior and implement it or just use `Cog\Laravel\Love\Liker\Models\Traits\Liker` trait. 
+To start using package you need to have:
+
+1. At least one `Reacterable` model, which will act as `Reacter` and will react to the content. 
+2. At least one `Reactable` model, which will act as `Reactant` and will receive reactions.
+
+#### Prepare Reacterable Model
+
+Declare `Cog\Contracts\Love\Reacterable\Models\Reacterable` contract
+and use `Cog\Laravel\Love\Reacterable\Models\Traits\Reacterable` trait. 
 
 ```php
-use Cog\Contracts\Love\Liker\Models\Liker as LikerContract;
-use Cog\Laravel\Love\Liker\Models\Traits\Liker;
+use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
+use Cog\Laravel\Love\Reacterable\Models\Traits\Reacterable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable implements LikerContract
+class User extends Authenticatable implements ReacterableContract
 {
-    use Liker;
+    use Reacterable;
 }
 ```
 
-### Prepare Likeable Model
+#### Prepare Reactable Model
 
-Use `Cog\Contracts\Love\Likeable\Models\Likeable` contract in model which will get likes
-behavior and implement it or just use `Cog\Laravel\Love\Likeable\Models\Traits\Likeable` trait. 
+Declare `Cog\Contracts\Love\Reactable\Models\Reactable` contract
+and use `Cog\Laravel\Love\Reactable\Models\Traits\Reactable` trait. 
 
 ```php
-use Cog\Contracts\Love\Likeable\Models\Likeable as LikeableContract;
-use Cog\Laravel\Love\Likeable\Models\Traits\Likeable;
+use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
+use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
 use Illuminate\Database\Eloquent\Model;
 
-class Article extends Model implements LikeableContract
+class Article extends Model implements ReactableContract
 {
-    use Likeable;
+    use Reactable;
 }
 ```
+
+### Create Required Related Models
+
+#### Initialize Reacters
+
+To let `User` react to the content create `Reacter` model for it. 
+
+```php
+$user->reacter()->create();
+``` 
+
+*Creation of the `Reacter` need to be done only once for each `Reacterable` model and usually done automatically on model creation.*
+
+To start reacting to the content you can always get `Reacter` model and use all its methods.
+
+```php
+$reacter = $user->reacter()->first();
+```
+
+#### Initialize Reactants
+
+To let content receive creations create `Reactant` model for it. 
+
+```php
+$article->reactant()->create();
+``` 
+
+*Creation of the `Reactant` need to be done only once for each `Reactable` model and usually done automatically on model creation.*
+
+To start reacting to the content you can always get `Reactant` model and use all its methods.
+
+```php
+$reactant = $article->reactant()->first();
+```
+
+#### Initialize Reaction Types
+
+> TODO: How to create reaction types
 
 ### Available Methods
 
-#### Likes
+#### Reaction Type Methods
 
-##### Like model
-
+##### Get reaction type by name
 
 ```php
-$user->like($article);
-
-$article->likeBy(); // current user
-$article->likeBy($user->id);
+$reactionType = ReactionType::fromName('Like');
 ```
 
-##### Remove like mark from model
+#### Reacter Methods
+
+##### React to the content
 
 ```php
-$user->unlike($article);
-
-$article->unlikeBy(); // current user
-$article->unlikeBy($user->id);
+$reacter->reactTo($reactant, $reactionType);
 ```
 
-##### Toggle like mark of model
+##### Remove Reaction from the content
 
 ```php
-$user->toggleLike($article);
-
-$article->toggleLikeBy(); // current user
-$article->toggleLikeBy($user->id);
+$reacter->unreactTo($reactant, $reactionType);
 ```
 
 ##### Get model likes count
@@ -307,7 +344,7 @@ Article::whereDislikedBy($user->id)
     ->get();
 ```
 
-##### Fetch Likeable models by likes count
+##### Fetch Reactable models by likes count
 
 ```php
 $sortedArticles = Article::orderByLikesCount()->get();
@@ -316,7 +353,7 @@ $sortedArticles = Article::orderByLikesCount('asc')->get();
 
 *Uses `desc` as default order direction.*
 
-##### Fetch Likeable models by dislikes count
+##### Fetch Reactable models by dislikes count
 
 ```php
 $sortedArticles = Article::orderByDislikesCount()->get();
@@ -327,13 +364,13 @@ $sortedArticles = Article::orderByDislikesCount('asc')->get();
 
 ### Events
 
-On each like added `\Cog\Laravel\Love\Likeable\Events\LikeableWasLiked` event is fired.
+On each like added `\Cog\Laravel\Love\Reactable\Events\ReactableWasLiked` event is fired.
 
-On each like removed `\Cog\Laravel\Love\Likeable\Events\LikeableWasUnliked` event is fired.
+On each like removed `\Cog\Laravel\Love\Reactable\Events\ReactableWasUnliked` event is fired.
 
-On each dislike added `\Cog\Laravel\Love\Likeable\Events\LikeableWasDisliked` event is fired.
+On each dislike added `\Cog\Laravel\Love\Reactable\Events\ReactableWasDisliked` event is fired.
 
-On each dislike removed `\Cog\Laravel\Love\Likeable\Events\LikeableWasUndisliked` event is fired.
+On each dislike removed `\Cog\Laravel\Love\Reactable\Events\ReactableWasUndisliked` event is fired.
 
 ### Console Commands
 
@@ -397,7 +434,7 @@ You can override core classes of package with your own implementations:
 
 - `Cog\Laravel\Love\Like\Models\Like`
 - `Cog\Laravel\Love\LikeCounter\Models\LikeCounter`
-- `Cog\Laravel\Love\Likeable\Services\LikeableService`
+- `Cog\Laravel\Love\Reactable\Services\ReactableService`
 
 *Note: Don't forget that all custom models must implement original models interfaces.*
 
@@ -416,7 +453,7 @@ $this->app->bind(
 
 ```php
 $this->app->singleton(
-    \Cog\Contracts\Love\Likeable\Services\LikeableService::class,
+    \Cog\Contracts\Love\Reactable\Services\ReactableService::class,
     \App\Services\CustomService::class
 );
 ```
@@ -425,7 +462,7 @@ After that your `CustomLike` and `CustomService` classes will be instantiable wi
 
 ```php
 $model = app(\Cog\Contracts\Love\Like\Models\Like::class);
-$service = app(\Cog\Contracts\Love\Likeable\Services\LikeableService::class);
+$service = app(\Cog\Contracts\Love\Reactable\Services\ReactableService::class);
 ```
 
 ## Changelog
