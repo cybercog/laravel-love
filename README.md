@@ -12,10 +12,9 @@
 
 ## Introduction
 
-Laravel Love simplify management of Eloquent model's likes & dislikes reactions. Make any model reactable with `likeable` & `dislikeable` in a minutes!
+Laravel Love simplify management of Eloquent model's multi typed reactions. Make any model reactable in a minutes!
 
-This package is a fork of the abandoned [Laravel Likeable](https://github.com/cybercog/laravel-likeable).
-It completely changes package namespace architecture, aimed to API refactoring and adding new features.
+This package is a fork of the more simple but abandoned package: [Laravel Likeable](https://github.com/cybercog/laravel-likeable).
 
 ## Contents
 
@@ -181,196 +180,100 @@ $reacter->reactTo($reactant, $reactionType);
 $reacter->unreactTo($reactant, $reactionType);
 ```
 
-##### Get model likes count
+#### Reactant Methods
+
+##### Get Reaction Counters of the Reactant
 
 ```php
-$article->likesCount;
+$reactant->reactionCounters()->get();
 ```
 
-##### Get model likes counter
+##### Get Reactions which Reactant received
 
 ```php
-$article->likesCounter;
+$reactant->reactions()->get();
 ```
 
-##### Get likes relation
+##### Get iterable `Illuminate\Database\Eloquent\Collection` of existing model reactions
 
 ```php
-$article->likes();
+$reactant->reactions;
 ```
 
-##### Get iterable `Illuminate\Database\Eloquent\Collection` of existing model likes
+##### Check if Reacter reacted to Reactant
+
+> TODO: *Checks in eager loaded relations `reactions` first.*
+
+Determine if Reacter reacted to Reactant with any type of Reaction.
 
 ```php
-$article->likes;
+$isReacted = $reacter->isReactedTo($reactant);
+
+$isNotReacted = $reacter->isNotReactedTo($reactant);
 ```
 
-##### Boolean check if user liked model
+Determine if Reacter reacted to Reactant with exact type of Reaction.
 
 ```php
-$user->hasLiked($article);
+$reactionType = ReactionType::fromName('Like');
 
-$article->liked; // current user
-$article->isLikedBy(); // current user
-$article->isLikedBy($user->id);
+$isReacted = $reacter
+    ->isReactedWithTypeTo($reactant, $reactionType);
+
+$isNotReacted = $reacter
+    ->isNotReactedWithTypeTo($reactant, $reactionType);
 ```
 
-*Checks in eager loaded relations `likes` & `likesAndDislikes` first.*
-
-##### Get collection of users who liked model
-
-```php
-$article->collectLikers();
-```
-
-##### Delete all likes for model
-
-```php
-$article->removeLikes();
-```
-
-#### Dislikes
-
-##### Dislike model
-
-```php
-$user->dislike($article);
-
-$article->dislikeBy(); // current user
-$article->dislikeBy($user->id);
-```
-
-##### Remove dislike mark from model
-
-```php
-$user->undislike($article);
-
-$article->undislikeBy(); // current user
-$article->undislikeBy($user->id);
-```
-
-##### Toggle dislike mark of model
-
-```php
-$user->toggleDislike($article);
-
-$article->toggleDislikeBy(); // current user
-$article->toggleDislikeBy($user->id);
-```
-
-##### Get model dislikes count
-
-```php
-$article->dislikesCount;
-```
-
-##### Get model dislikes counter
-
-```php
-$article->dislikesCounter;
-```
-
-##### Get dislikes relation
-
-```php
-$article->dislikes();
-```
-
-##### Get iterable `Illuminate\Database\Eloquent\Collection` of existing model dislikes
-
-```php
-$article->dislikes;
-```
-
-##### Boolean check if user disliked model
-
-```php
-$user->hasDisliked($article);
-
-$article->disliked; // current user
-$article->isDislikedBy(); // current user
-$article->isDislikedBy($user->id);
-```
-
-*Checks in eager loaded relations `dislikes` & `likesAndDislikes` first.*
-
-##### Get collection of users who disliked model
-
-```php
-$article->collectDislikers();
-```
-
-##### Delete all dislikes for model
-
-```php
-$article->removeDislikes();
-```
-
-#### Likes and Dislikes
+#### Stats
 
 ##### Get difference between likes and dislikes
 
-```php
-$article->likesDiffDislikesCount;
-```
-
-##### Get likes and dislikes relation
+> Too complicated... need to simplify
 
 ```php
-$article->likesAndDislikes();
-```
+// $article->getReactant()->getSummary()->getTotalWeight();
+// $article->getReactant()->getSummary()->totalWeight();
 
-##### Get iterable `Illuminate\Database\Eloquent\Collection` of existing model likes and dislikes
-
-```php
-$article->likesAndDislikes;
+// TODO: I want to write it this way.
+// $article->reactant()->summary()->totalWeight();
 ```
 
 ### Scopes
 
-##### Find all articles liked by user
+##### Find all Articles reacted by User
 
 ```php
-Article::whereLikedBy($user->id)
-    ->with('likesCounter') // Allow eager load (optional)
+Article::whereReactedBy($user->reacter)
+    ->with([
+        'reactionCounters', // Eager load (optional)
+        'reactionSummary',
+    ])
     ->get();
 ```
 
-##### Find all articles disliked by user
+##### Sort Reactable models by Reaction Count
 
 ```php
-Article::whereDislikedBy($user->id)
-    ->with('dislikesCounter') // Allow eager load (optional)
-    ->get();
-```
-
-##### Fetch Reactable models by likes count
-
-```php
-$sortedArticles = Article::orderByLikesCount()->get();
-$sortedArticles = Article::orderByLikesCount('asc')->get();
+$sortedArticles = Article::orderByReactionCount()->get();
+$sortedArticles = Article::orderByReactionCount('asc')->get();
 ```
 
 *Uses `desc` as default order direction.*
 
-##### Fetch Reactable models by dislikes count
+##### Sort Reactable models by Reaction Weight
 
 ```php
-$sortedArticles = Article::orderByDislikesCount()->get();
-$sortedArticles = Article::orderByDislikesCount('asc')->get();
+$sortedArticles = Article::orderByReactionWeight()->get();
+$sortedArticles = Article::orderByReactionWeight('asc')->get();
 ```
 
 *Uses `desc` as default order direction.*
 
 ### Events
 
-On each like added `\Cog\Laravel\Love\Reactable\Events\ReactableWasLiked` event is fired.
+On each added reaction `\Cog\Laravel\Love\Reaction\Events\ReactionWasCreated` event is fired.
 
-On each like removed `\Cog\Laravel\Love\Reactable\Events\ReactableWasUnliked` event is fired.
-
-On each dislike added `\Cog\Laravel\Love\Reactable\Events\ReactableWasDisliked` event is fired.
-
-On each dislike removed `\Cog\Laravel\Love\Reactable\Events\ReactableWasUndisliked` event is fired.
+On each removed reaction `\Cog\Laravel\Love\Reaction\Events\ReactionWasDeleted` event is fired.
 
 ### Console Commands
 
@@ -395,37 +298,37 @@ $ love:recount --model="App\Models\Article"
 ##### Recount only likes of all model types
 
 ```sh
-$ love:recount --type="LIKE"
+$ love:recount --type="Like"
 ```
 
 ##### Recount only likes of concrete model type (using morph map alias)
 
 ```sh
-$ love:recount --model="article" --type="LIKE"
+$ love:recount --model="article" --type="Like"
 ```
 
 ##### Recount only likes of concrete model type (using fully qualified class name)
 
 ```sh
-$ love:recount --model="App\Models\Article" --type="LIKE"
+$ love:recount --model="App\Models\Article" --type="Like"
 ```
 
 ##### Recount only dislikes of all model types
 
 ```sh
-$ love:recount --type="DISLIKE"
+$ love:recount --type="Dislike"
 ```
 
 ##### Recount only dislikes of concrete model type (using morph map alias)
 
 ```sh
-$ love:recount --model="article" --type="DISLIKE"
+$ love:recount --model="article" --type="Dislike"
 ```
 
 ##### Recount only dislikes of concrete model type (using fully qualified class name)
 
 ```sh
-$ love:recount --model="App\Models\Article" --type="DISLIKE"
+$ love:recount --model="App\Models\Article" --type="Dislike"
 ```
 
 ## Extending
