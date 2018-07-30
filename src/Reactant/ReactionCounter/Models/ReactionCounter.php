@@ -13,9 +13,10 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reactant\ReactionCounter\Models;
 
+use Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter as ReactionCounterContract;
 use Illuminate\Database\Eloquent\Model;
 
-class ReactionCounter extends Model
+class ReactionCounter extends Model implements ReactionCounterContract
 {
     /**
      * The table associated with the model.
