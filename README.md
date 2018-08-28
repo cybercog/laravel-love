@@ -19,6 +19,7 @@ This package is a fork of the more simple but abandoned package: [Laravel Likeab
 ## Contents
 
 - [Features](#features)
+- [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
   - [Prepare Liker Model](#prepare-liker-model)
@@ -40,20 +41,29 @@ This package is a fork of the more simple but abandoned package: [Laravel Likeab
 
 ## Features
 
+- Fully customizable types of reactions.
+- `Reactant` can has many types of reactions.
+- `Reacter` can add many reactions to one `Reactant` or they could be mutually exclusive.
+- Sort `Reactable` models by reactions total count.
+- Sort `Reactable` models by reactions total weight.
+- Events for `created` & `deleted` reactions.
+- Has Artisan command `love:recount {model?} {type?}` to re-fetch reactions stats.
 - Designed to work with Laravel Eloquent models.
 - Using contracts to keep high customization capabilities.
 - Using traits to get functionality out of the box.
-- Most part of the the logic is handled by the `LikeableService`.
-- Has Artisan command `love:recount {model?} {type?}` to re-fetch likes counters.
-- Likeable model can has Likes and Dislikes.
-- Likes and Dislikes for one model are mutually exclusive.
-- Get Likeable models ordered by likes count.
-- Events for `like`, `unlike`, `dislike`, `undislike` methods.
 - Following PHP Standard Recommendations:
   - [PSR-1 (Basic Coding Standard)](http://www.php-fig.org/psr/psr-1/).
   - [PSR-2 (Coding Style Guide)](http://www.php-fig.org/psr/psr-2/).
   - [PSR-4 (Autoloading Standard)](http://www.php-fig.org/psr/psr-4/).
 - Covered with unit tests.
+
+## Requirements
+
+Laravel Love has a few requirements you should be aware of before installing:
+
+- PHP 7.1.3+
+- Composer
+- Laravel Framework 5.6+
 
 ## Installation
 
@@ -242,6 +252,8 @@ $isNotReacted = $reacter
 
 ##### Find all Articles reacted by User
 
+> TODO: Design an API
+
 ```php
 Article::whereReactedBy($user->reacter)
     ->with([
@@ -251,20 +263,20 @@ Article::whereReactedBy($user->reacter)
     ->get();
 ```
 
-##### Sort Reactable models by Reaction Count
+##### Sort Reactable models by Reactions Total Count
 
 ```php
-$sortedArticles = Article::orderByReactionCount()->get();
-$sortedArticles = Article::orderByReactionCount('asc')->get();
+$sortedArticles = Article::orderByReactionsCount()->get();
+$sortedArticles = Article::orderByReactionsCount('asc')->get();
 ```
 
 *Uses `desc` as default order direction.*
 
-##### Sort Reactable models by Reaction Weight
+##### Sort Reactable models by Reactions Total Weight
 
 ```php
-$sortedArticles = Article::orderByReactionWeight()->get();
-$sortedArticles = Article::orderByReactionWeight('asc')->get();
+$sortedArticles = Article::orderByReactionsWeight()->get();
+$sortedArticles = Article::orderByReactionsWeight('asc')->get();
 ```
 
 *Uses `desc` as default order direction.*
