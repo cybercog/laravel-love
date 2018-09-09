@@ -12,7 +12,6 @@ env:
     - setup=basic
 
 before_script:
-  - phpenv config-add travis.php.ini
   - composer config discard-changes true
   - if [[ $setup = 'basic' ]]; then travis_retry composer install --prefer-dist --no-interaction; fi
   - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-stable; fi
