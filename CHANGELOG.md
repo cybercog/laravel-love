@@ -2,11 +2,23 @@
 
 All notable changes to `laravel-love` will be documented in this file.
 
+## [5.2.0] - 2018-09-09
+
+### Added
+
+- ([#21](https://github.com/cybercog/laravel-love/pull/21)) Laravel 5.7 support
+
+## [5.1.1] - 2018-02-16
+
+### Fixed
+
+- ([#11](https://github.com/cybercog/laravel-love/pull/11)) Added missing migrations auto-loading
+
 ## [5.1.0] - 2018-02-08
 
 ### Added
 
-- Laravel 5.6 support ([#9](https://github.com/cybercog/laravel-love/pull/9))
+- ([#9](https://github.com/cybercog/laravel-love/pull/9)) Laravel 5.6 support
 
 ## [5.0.0] - 2018-01-16
 
@@ -172,6 +184,8 @@ All notable changes to `laravel-love` will be documented in this file.
 
 - Initial release
 
+[5.2.0]: https://github.com/cybercog/laravel-love/compare/5.1.1...5.2.0
+[5.1.1]: https://github.com/cybercog/laravel-love/compare/5.1.0...5.1.1
 [5.1.0]: https://github.com/cybercog/laravel-love/compare/5.0.0...5.1.0
 [5.0.0]: https://github.com/cybercog/laravel-love/compare/4.0.0...5.0.0
 [4.0.0]: https://github.com/cybercog/laravel-love/compare/3.1.0...4.0.0
