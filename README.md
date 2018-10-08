@@ -143,7 +143,7 @@ $user->reacter()->create();
 To start reacting to the content you can always get `Reacter` model and use all its methods.
 
 ```php
-$reacter = $user->reacter()->first();
+$reacter = $user->getReacter();
 ```
 
 #### Initialize Reactants
@@ -159,7 +159,7 @@ $article->reactant()->create();
 To start reacting to the content you can always get `Reactant` model and use all its methods.
 
 ```php
-$reactant = $article->reactant()->first();
+$reactant = $article->getReactant();
 ```
 
 #### Initialize Reaction Types
@@ -179,13 +179,13 @@ $reactionType = ReactionType::fromName('Like');
 ##### Get reaction type name
 
 ```php
-$reactionType->getName(); // 'Like'
+$typeName = $reactionType->getName(); // 'Like'
 ```
 
 ##### Get reaction type weight
 
 ```php
-$reactionType->getWeight(); // 3
+$typeWeight = $reactionType->getWeight(); // 3
 ```
 
 #### Reacterable Methods
@@ -195,7 +195,7 @@ $reactionType->getWeight(); // 3
 ```php
 $reacterable = User::first();
 
-$reacterable->getReacter();
+$reacter = $reacterable->getReacter();
 ```
 
 #### Reacter Methods
@@ -248,16 +248,27 @@ $reactable->getReactant();
 
 #### Reactant Methods
 
+##### Get Reactable model of the Reactant
+
+```php
+$reactable = $reactant->getReactable();
+```
+
 ##### Get Reaction Counters of the Reactant
 
 ```php
-$reactant->getReactionCounters();
+$reactionCounters = $reactant->getReactionCounters();
 ```
 
 ##### Get Reactions which Reactant received
 
 ```php
-$reactant->getReactions();
+$reactions = $reactant->getReactions();
+```
+##### Get ReactionSummary model of the Reactant
+
+```php
+$reactionSummary = $reactant->getReactionSummary();
 ```
 
 #### Stats

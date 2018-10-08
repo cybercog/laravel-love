@@ -102,8 +102,21 @@ class ReactantTest extends TestCase
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $assertSummary = $reactant->reactionSummary()->first();
-        $this->assertTrue($assertSummary->is($summary));
+        $this->assertTrue($reactant->reactionSummary->is($summary));
+    }
+
+    /** @test */
+    public function it_can_get_reactable(): void
+    {
+        $reactant = factory(Reactant::class)->create([
+            'type' => (new Article())->getMorphClass(),
+        ]);
+
+        $reactable = factory(Article::class)->create([
+            'love_reactant_id' => $reactant->getKey(),
+        ]);
+
+        $this->assertTrue($reactant->getReactable()->is($reactable));
     }
 
     /** @test */
@@ -132,5 +145,17 @@ class ReactantTest extends TestCase
         $assertCounters = $reactant->getReactionCounters();
         $this->assertTrue($assertCounters->get(0)->is($counters->get(0)));
         $this->assertTrue($assertCounters->get(1)->is($counters->get(1)));
+    }
+
+    /** @test */
+    public function it_can_get_reaction_summary(): void
+    {
+        $reactant = factory(Reactant::class)->create();
+
+        $summary = factory(ReactionSummary::class)->create([
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $this->assertTrue($reactant->getReactionSummary()->is($summary));
     }
 }

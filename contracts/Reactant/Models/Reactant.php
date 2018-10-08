@@ -13,13 +13,22 @@ declare(strict_types=1);
 
 namespace Cog\Contracts\Love\Reactant\Models;
 
+use Cog\Contracts\Love\Reactable\Models\Reactable;
+use Cog\Contracts\Love\Reactant\ReactionSummary\Models\ReactionSummary;
+
 interface Reactant
 {
-    // TODO: Add `getReactable`
+    public function getReactable(): Reactable;
 
+    /**
+     * @return iterable|\Cog\Contracts\Love\Reaction\Models\Reaction[]
+     */
     public function getReactions(): iterable;
 
+    /**
+     * @return iterable|\Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter[]
+     */
     public function getReactionCounters(): iterable;
 
-    // TODO: Add `getReactionSummary()`
+    public function getReactionSummary(): ReactionSummary;
 }
