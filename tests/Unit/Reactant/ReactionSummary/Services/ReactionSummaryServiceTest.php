@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Reactant\ReactionSummary\Services;
 
+use Cog\Contracts\Love\Reactant\ReactionSummary\Exceptions\ReactionSummaryBadValue;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionSummary\Models\ReactionSummary;
 use Cog\Laravel\Love\Reactant\ReactionSummary\Services\ReactionSummaryService;
@@ -124,7 +125,7 @@ class ReactionSummaryServiceTest extends TestCase
     /** @test */
     public function it_throws_exception_on_decrement_total_count_below_zero(): void
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(ReactionSummaryBadValue::class);
 
         $reactant = factory(Reactant::class)->create();
         factory(ReactionSummary::class)->create([

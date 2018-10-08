@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Cog\Laravel\Love\Reactant\ReactionCounter\Services;
 
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
+use Cog\Contracts\Love\Reactant\ReactionCounter\Exceptions\ReactionCounterBadValue;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 
 class ReactionCounterService
@@ -54,8 +55,7 @@ class ReactionCounterService
         }
 
         if ($counter->count + $amount < 0) {
-            // TODO: Add custom exception OutOfRange?
-            throw new \RuntimeException('ReactionCounter count could not be below zero.');
+            throw ReactionCounterBadValue::countBelowZero();
         }
 
         $counter->increment('count', $amount);

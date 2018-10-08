@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Reactant\ReactionCounter\Services;
 
+use Cog\Contracts\Love\Reactant\ReactionCounter\Exceptions\ReactionCounterBadValue;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Services\ReactionCounterService;
@@ -137,7 +138,7 @@ class ReactionCounterServiceTest extends TestCase
     /** @test */
     public function it_throws_exception_on_decrement_counter_below_zero(): void
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(ReactionCounterBadValue::class);
 
         $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->create();

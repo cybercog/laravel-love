@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Cog\Contracts\Love\ReactionType\Exceptions;
 
-use RuntimeException;
+use DomainException;
 
-class ReactionTypeInvalid extends RuntimeException
+class ReactionTypeInvalid extends DomainException
 {
     public static function notExists(string $name): self
     {

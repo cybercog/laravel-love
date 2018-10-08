@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Cog\Contracts\Love\Reactable\Exceptions;
 
-use RuntimeException;
+use DomainException;
 
-class ReactableInvalid extends RuntimeException
+class ReactableInvalid extends DomainException
 {
     public static function notExists(string $type): self
     {
