@@ -38,6 +38,13 @@ trait Reactable
         return $this->getAttribute('reactant');
     }
 
+    public function scopeOrderByReactionsCount(Builder $query, string $direction = 'desc'): Builder
+    {
+        return $query
+            ->join((new ReactionSummary())->getTable() . " as lrrs", 'lrrs.reactant_id', '=', $this->getQualifiedKeyName())
+            ->orderBy('lrrs.total_count', $direction);
+    }
+
     public function scopeOrderByReactionsWeight(Builder $query, string $direction = 'desc'): Builder
     {
         return $query
