@@ -74,7 +74,6 @@ class Recount extends Command
 
             /** @var \Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter $counter */
             foreach ($reactant->getReactionCounters() as $counter) {
-                // TODO: Refactor it. Make type safe
                 if (!$counter->isReactionOfType($reactionType)) {
                     continue;
                 }

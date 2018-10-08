@@ -59,32 +59,20 @@ class Reaction extends Model implements ReactionContract
 
     public function getType(): ReactionTypeContract
     {
-        /** @var \Cog\Laravel\Love\ReactionType\Models\ReactionType $type */
-        $type = $this->getAttribute('type');
-
         // TODO: What if ReactionType not found? Maybe return `NullReactionType`?
-
-        return $type;
+        return $this->getAttribute('type');
     }
 
     public function getReactant(): ReactantContract
     {
-        /** @var \Cog\Laravel\Love\Reactant\Models\Reactant $reactant */
-        $reactant = $this->getAttribute('reactant');
-
         // TODO: What if Reactant not found? Maybe return `NullReactant`?
-
-        return $reactant;
+        return $this->getAttribute('reactant');
     }
 
     public function getReacter(): ReacterContract
     {
-        /** @var \Cog\Laravel\Love\Reacter\Models\Reacter $reacter */
-        $reacter = $this->getAttribute('reacter');
-
         // TODO: What if Reacter not found? Maybe return `NullReacter`?
-
-        return $reacter;
+        return $this->getAttribute('reacter');
     }
 
     public function getWeight(): int
