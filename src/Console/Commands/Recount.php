@@ -100,7 +100,7 @@ class Recount extends Command
      *
      * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
      */
-    protected function normalizeModelType(string $modelType): string
+    private function normalizeModelType(string $modelType): string
     {
         $model = $this->newModelFromType($modelType);
         $modelType = $model->getMorphClass();

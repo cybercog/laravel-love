@@ -13,10 +13,13 @@ declare(strict_types=1);
 
 namespace Cog\Contracts\Love\Reactant\ReactionCounter\Models;
 
+use Cog\Contracts\Love\Reactant\Models\Reactant;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType;
 
 interface ReactionCounter
 {
+    public function getReactant(): Reactant;
+
     public function getReactionType(): ReactionType;
 
     public function isReactionOfType(ReactionType $reactionType): bool;
