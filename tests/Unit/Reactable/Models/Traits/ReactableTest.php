@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Cog\Tests\Laravel\Love\Unit\Reactable\Models\Traits;
 
 use Cog\Laravel\Love\Reactant\Models\Reactant;
+use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
@@ -51,6 +52,106 @@ class ReactableTest extends TestCase
         ]);
 
         $this->assertTrue($reactable->getReactant()->is($reactant));
+    }
+
+    /** @test */
+    public function it_can_scope_by_reacter(): void
+    {
+        $reactable1 = factory(Article::class)->create();
+        $reactable2 = factory(Article::class)->create();
+        $reactable3 = factory(Article::class)->create();
+        $reacter1 = factory(Reacter::class)->create();
+        $reacter2 = factory(Reacter::class)->create();
+        factory(Reaction::class)->create([
+            'reactant_id' => $reactable1->getReactant()->getKey(),
+            'reacter_id' => $reacter1->getKey(),
+        ]);
+        factory(Reaction::class)->create([
+            'reactant_id' => $reactable2->getReactant()->getKey(),
+            'reacter_id' => $reacter2->getKey(),
+        ]);
+        factory(Reaction::class)->create([
+            'reactant_id' => $reactable3->getReactant()->getKey(),
+            'reacter_id' => $reacter1->getKey(),
+        ]);
+        factory(Reaction::class)->create([
+            'reactant_id' => $reactable3->getReactant()->getKey(),
+            'reacter_id' => $reacter2->getKey(),
+        ]);
+
+        $reactedByReacter1 = Article::whereReactedBy($reacter1)->get();
+        $reactedByReacter2 = Article::whereReactedBy($reacter2)->get();
+
+        $this->assertSame([
+            $reactable1->getKey(),
+            $reactable3->getKey(),
+        ], $reactedByReacter1->pluck('id')->toArray());
+        $this->assertSame([
+            $reactable2->getKey(),
+            $reactable3->getKey(),
+        ], $reactedByReacter2->pluck('id')->toArray());
+    }
+
+    /** @test */
+    public function it_can_scope_by_reacter_and_reaction_type(): void
+    {
+        $reactable1 = factory(Article::class)->create();
+        $reactable2 = factory(Article::class)->create();
+        $reactable3 = factory(Article::class)->create();
+        $reacter1 = factory(Reacter::class)->create();
+        $reacter2 = factory(Reacter::class)->create();
+        $reactionType1 = factory(ReactionType::class)->create();
+        $reactionType2 = factory(ReactionType::class)->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType1,
+            'reactant_id' => $reactable1->getReactant()->getKey(),
+            'reacter_id' => $reacter1->getKey(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType2,
+            'reactant_id' => $reactable1->getReactant()->getKey(),
+            'reacter_id' => $reacter2->getKey(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType2,
+            'reactant_id' => $reactable2->getReactant()->getKey(),
+            'reacter_id' => $reacter1->getKey(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType1,
+            'reactant_id' => $reactable2->getReactant()->getKey(),
+            'reacter_id' => $reacter2->getKey(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType1,
+            'reactant_id' => $reactable3->getReactant()->getKey(),
+            'reacter_id' => $reacter1->getKey(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType1,
+            'reactant_id' => $reactable3->getReactant()->getKey(),
+            'reacter_id' => $reacter2->getKey(),
+        ]);
+
+        $reactedByReacter1WithReactionType1 = Article::whereReactedWithTypeBy($reacter1, $reactionType1)->get();
+        $reactedByReacter1WithReactionType2 = Article::whereReactedWithTypeBy($reacter1, $reactionType2)->get();
+        $reactedByReacter2WithReactionType1 = Article::whereReactedWithTypeBy($reacter2, $reactionType1)->get();
+        $reactedByReacter2WithReactionType2 = Article::whereReactedWithTypeBy($reacter2, $reactionType2)->get();
+
+        $this->assertSame([
+            $reactable1->getKey(),
+            $reactable3->getKey(),
+        ], $reactedByReacter1WithReactionType1->pluck('id')->toArray());
+        $this->assertSame([
+            $reactable2->getKey(),
+        ], $reactedByReacter1WithReactionType2->pluck('id')->toArray());
+        $this->assertSame([
+            $reactable2->getKey(),
+            $reactable3->getKey(),
+        ], $reactedByReacter2WithReactionType1->pluck('id')->toArray());
+        $this->assertSame([
+            $reactable1->getKey(),
+        ], $reactedByReacter2WithReactionType2->pluck('id')->toArray());
     }
 
     /** @test */

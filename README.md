@@ -304,15 +304,38 @@ $reactionSummary = $reactant->getReactionSummary();
 
 ##### Find all Articles reacted by User
 
-> TODO: Design an API
-
 ```php
-Article::whereReactedBy($user->reacter)
+$reacter = $user->getReacter();
+
+Article::whereReactedBy($reacter)
     ->with([
         'reactionCounters', // Eager load (optional)
         'reactionSummary',
     ])
     ->get();
+```
+
+##### Find all Articles reacted by User with exact type of reaction
+
+```php
+$reacter = $user->getReacter();
+$reactionType = ReactionType::fromName('Like');
+
+Article::whereReactedWithTypeBy($reacter, $reactionType)
+    ->with([
+        'reactionCounters', // Eager load (optional)
+        'reactionSummary',
+    ])
+    ->get();
+```
+
+##### Sort Reactable models by Reactions Count of exact type of reaction
+
+```php
+$reactionType = ReactionType::fromName('Like'); 
+
+$sortedArticles = Article::orderByReactionsCountOfType($reactionType)->get();
+$sortedArticles = Article::orderByReactionsCountOfType($reactionType, 'asc')->get();
 ```
 
 ##### Sort Reactable models by Reactions Total Count

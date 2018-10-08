@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Cog\Laravel\Love\Reactable\Models\Traits;
 
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
+use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
@@ -38,6 +39,24 @@ trait Reactable
     {
         // TODO: Return `NullReactant` if not set?
         return $this->getAttribute('reactant');
+    }
+
+    public function scopeWhereReactedBy(Builder $query, ReacterContract $reacter): Builder
+    {
+        return $query->whereHas('reactant.reactions', function (Builder $reactionsQuery) use ($reacter) {
+            $reactionsQuery->where('reacter_id', $reacter->getKey());
+        });
+    }
+
+    public function scopeWhereReactedWithTypeBy(
+        Builder $query,
+        ReacterContract $reacter,
+        ReactionTypeContract $reactionType
+    ): Builder {
+        return $query->whereHas('reactant.reactions', function (Builder $reactionsQuery) use ($reacter, $reactionType) {
+            $reactionsQuery->where('reacter_id', $reacter->getKey());
+            $reactionsQuery->where('reaction_type_id', $reactionType->getKey());
+        });
     }
 
     public function scopeOrderByReactionsCountOfType(
