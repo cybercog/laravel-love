@@ -342,7 +342,8 @@ Each Reactable model will contain extra column: `reactions_count`.
 You can order Reactables by `reactions_count`:
 
 ```php
-$articles = Article::withReactionCountersOfType($reactionType)->orderBy('reactions_count', 'desc')->get();
+$articles = Article::withReactionCountersOfType($reactionType)
+    ->orderBy('reactions_count', 'desc')->get();
 ```
 
 ##### Add ReactionSummary aggregate to Reactables
@@ -356,13 +357,15 @@ Each Reactable model will contain extra columns: `reactions_total_count` & `reac
 You can order Reactables by `reactions_total_count`:
 
 ```php
-$articles = Article::withReactionSummary()->orderBy('reactions_total_count', 'desc')->get();
+$articles = Article::withReactionSummary()
+    ->orderBy('reactions_total_count', 'desc')->get();
 ```
 
 You can order Reactables by `reactions_total_weight`:
 
 ```php
-$articles = Article::withReactionSummary()->orderBy('reactions_total_weight', 'desc')->get();
+$articles = Article::withReactionSummary()
+    ->orderBy('reactions_total_weight', 'desc')->get();
 ```
 
 ### Events
