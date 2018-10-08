@@ -334,7 +334,7 @@ Article::whereReactedWithTypeBy($reacter, $reactionType)
 ```php
 $reactionType = ReactionType::fromName('Like'); 
 
-$articles = Article::withReactionCountersOfType($reactionType)->get();
+$articles = Article::withReactionCounterOfType($reactionType)->get();
 ```
 
 Each Reactable model will contain extra column: `reactions_count`.
@@ -342,7 +342,7 @@ Each Reactable model will contain extra column: `reactions_count`.
 You can order Reactables by `reactions_count`:
 
 ```php
-$articles = Article::withReactionCountersOfType($reactionType)
+$articles = Article::withReactionCounterOfType($reactionType)
     ->orderBy('reactions_count', 'desc')->get();
 ```
 
