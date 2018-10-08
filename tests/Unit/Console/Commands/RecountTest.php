@@ -84,6 +84,50 @@ class RecountTest extends TestCase
     }
 
     /** @test */
+    public function it_can_recount_all_models_likes_if_counters_not_truncated(): void
+    {
+        $reacter1 = factory(Reacter::class)->create();
+        $reacter2 = factory(Reacter::class)->create();
+        $reacter3 = factory(Reacter::class)->create();
+        $reacter4 = factory(Reacter::class)->create();
+        $entity1 = factory(Entity::class)->create()->reactant;
+        $entity2 = factory(EntityWithMorphMap::class)->create()->reactant;
+        $entity3 = factory(Article::class)->create()->reactant;
+        $like = factory(ReactionType::class)->create([
+            'name' => 'Like',
+        ]);
+        $dislike = factory(ReactionType::class)->create([
+            'name' => 'Dislike',
+        ]);
+
+        $reacter1->reactTo($entity1, $like);
+        $reacter1->reactTo($entity2, $like);
+        $reacter1->reactTo($entity3, $dislike);
+        $reacter2->reactTo($entity1, $like);
+        $reacter2->reactTo($entity2, $dislike);
+        $reacter2->reactTo($entity3, $like);
+        $reacter3->reactTo($entity1, $like);
+        $reacter3->reactTo($entity2, $like);
+        $reacter3->reactTo($entity3, $like);
+        $reacter4->reactTo($entity3, $dislike);
+
+        $status = $this->artisan('love:recount', [
+            'type' => 'Like',
+        ]);
+
+        $this->assertSame(0, $status);
+
+        $counters = ReactionCounter::query()->count();
+        $this->assertSame(3, $counters);
+        $this->assertSame(3, $entity1->reactionCounters()->where('reaction_type_id', $like->getKey())->first()->count);
+        $this->assertSame(2, $entity2->reactionCounters()->where('reaction_type_id', $like->getKey())->first()->count);
+        $this->assertSame(2, $entity3->reactionCounters()->where('reaction_type_id', $like->getKey())->first()->count);
+        $this->assertNull($entity1->reactionCounters()->where('reaction_type_id', $dislike->getKey())->first());
+        $this->assertNull($entity2->reactionCounters()->where('reaction_type_id', $dislike->getKey())->first());
+        $this->assertNull($entity3->reactionCounters()->where('reaction_type_id', $dislike->getKey())->first());
+    }
+
+    /** @test */
     public function it_can_recount_model_likes(): void
     {
         $reacter1 = factory(Reacter::class)->create();

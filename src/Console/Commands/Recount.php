@@ -47,7 +47,7 @@ class Recount extends Command
      *
      * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
      */
-    public function handle(Dispatcher $events)
+    public function handle(Dispatcher $events): void
     {
         if ($reactionType = $this->argument('type')) {
             $reactionType = ReactionType::fromName($reactionType);
@@ -59,6 +59,10 @@ class Recount extends Command
 
         $reactants = Reactant::query()->get();
         foreach ($reactants as $reactant) {
+            foreach ($reactant->getReactionCounters() as $counter) {
+                $counter->delete();
+            }
+
             /** @var \Illuminate\Database\Eloquent\Builder $query */
             $query = $reactant->reactions();
 
