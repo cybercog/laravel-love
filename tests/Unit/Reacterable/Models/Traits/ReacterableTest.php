@@ -64,6 +64,23 @@ class ReacterableTest extends TestCase
     }
 
     /** @test */
+    public function it_not_create_new_reacter_if_manually_registered_reacterable_as_reacter_on_create(): void
+    {
+        $reacter = factory(Reacter::class)->create([
+            'type' => (new Bot())->getMorphClass(),
+        ]);
+        $reacterable = new Bot([
+            'name' => 'TestBot',
+        ]);
+        $reacterable->setAttribute('love_reacter_id', $reacter->getKey());
+        $reacterable->save();
+
+        $this->assertSame(1, Reacter::query()->count());
+        $this->assertTrue($reacterable->isRegisteredAsReacter());
+        $this->assertInstanceOf(Reacter::class, $reacterable->getReacter());
+    }
+
+    /** @test */
     public function it_can_determine_if_registered_as_reacter(): void
     {
         $reacter = factory(Reacter::class)->create([
