@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Reactant\ReactionCounter\Models;
 
+use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\TestCase;
@@ -53,6 +54,18 @@ class ReactionCounterTest extends TestCase
     }
 
     /** @test */
+    public function it_can_belong_to_reactant(): void
+    {
+        $reactant = factory(Reactant::class)->create();
+
+        $counter = factory(ReactionCounter::class)->create([
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $this->assertTrue($counter->reactant->is($reactant));
+    }
+
+    /** @test */
     public function it_can_belong_to_reaction_type(): void
     {
         $reactionType = factory(ReactionType::class)->create();
@@ -62,6 +75,18 @@ class ReactionCounterTest extends TestCase
         ]);
 
         $this->assertTrue($counter->reactionType->is($reactionType));
+    }
+
+    /** @test */
+    public function it_can_get_reactant(): void
+    {
+        $reactant = factory(Reactant::class)->create();
+
+        $counter = factory(ReactionCounter::class)->create([
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $this->assertTrue($counter->getReactant()->is($reactant));
     }
 
     /** @test */
