@@ -17,6 +17,7 @@ use Cog\Contracts\Love\ReactionType\Exceptions\ReactionTypeInvalid;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\TestCase;
+use Illuminate\Database\ConnectionInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ReactionTypeTest extends TestCase
@@ -156,5 +157,62 @@ class ReactionTypeTest extends TestCase
         factory(ReactionType::class)->create();
 
         ReactionType::fromName('NotExistType');
+    }
+
+    /** @test */
+    public function it_should_not_perform_database_queries_on_instantiation_from_name(): void
+    {
+        factory(ReactionType::class)->create([
+            'name' => 'LikeType',
+        ]);
+        factory(ReactionType::class)->create([
+            'name' => 'DislikeType',
+        ]);
+        $db = $this->app->make(ConnectionInterface::class);
+        $db->enableQueryLog();
+
+        $like1 = ReactionType::fromName('LikeType');
+        $dislike1 = ReactionType::fromName('DislikeType');
+        $dislike2 = ReactionType::fromName('DislikeType');
+        $like2 = ReactionType::fromName('LikeType');
+        $dislike3 = ReactionType::fromName('DislikeType');
+
+        $queries = $db->getQueryLog();
+        $this->assertCount(0, $queries);
+        $this->assertSame('LikeType', $like1->getName());
+        $this->assertSame('LikeType', $like2->getName());
+        $this->assertSame('DislikeType', $dislike1->getName());
+        $this->assertSame('DislikeType', $dislike2->getName());
+        $this->assertSame('DislikeType', $dislike3->getName());
+    }
+
+    /** @test */
+    public function it_updates_type_in_registry_if_model_was_changed(): void
+    {
+        $type = factory(ReactionType::class)->create([
+            'name' => 'TestRegistryUpdate',
+            'weight' => 4,
+        ]);
+        $type->update([
+            'weight' => 8,
+        ]);
+
+        $typeFromRegistry = ReactionType::fromName('TestRegistryUpdate');
+
+        $this->assertSame(8, $type->getWeight());
+        $this->assertSame(8, $typeFromRegistry->getWeight());
+    }
+
+    /** @test */
+    public function it_deletes_type_from_registry_if_model_was_deleted(): void
+    {
+        $this->expectException(ReactionTypeInvalid::class);
+
+        $type = factory(ReactionType::class)->create([
+            'name' => 'TestRegistryDelete',
+        ]);
+        $type->delete();
+
+        ReactionType::fromName('TestRegistryDelete');
     }
 }

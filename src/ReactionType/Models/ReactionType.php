@@ -47,6 +47,21 @@ class ReactionType extends Model implements ReactionTypeContract
         'weight' => 'integer',
     ];
 
+    private static $instances = [];
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::saved(function (ReactionTypeContract $model) {
+            static::$instances[$model->getName()] = $model;
+        });
+
+        static::deleted(function (ReactionTypeContract $model) {
+            unset(static::$instances[$model->getName()]);
+        });
+    }
+
     public function reactions(): HasMany
     {
         return $this->hasMany(Reaction::class, 'reaction_type_id');
@@ -54,12 +69,18 @@ class ReactionType extends Model implements ReactionTypeContract
 
     public static function fromName(string $name): ReactionTypeContract
     {
+        if (isset(static::$instances[$name])) {
+            return static::$instances[$name];
+        }
+
         /** @var \Cog\Laravel\Love\ReactionType\Models\ReactionType $type */
         $type = static::query()->where('name', $name)->first();
 
         if (!$type) {
             throw ReactionTypeInvalid::notExists($name);
         }
+
+        static::$instances[$name] = $type;
 
         return $type;
     }
