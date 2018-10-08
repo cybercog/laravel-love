@@ -14,7 +14,10 @@ declare(strict_types=1);
 namespace Cog\Laravel\Love\Reactant\ReactionCounter\Models;
 
 use Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter as ReactionCounterContract;
+use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
+use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ReactionCounter extends Model implements ReactionCounterContract
 {
@@ -44,8 +47,25 @@ class ReactionCounter extends Model implements ReactionCounterContract
         'count' => 'integer',
     ];
 
-    // TODO: Add `getReactionType()`?
-    // TODO: Add `isReactionOfType(ReactionType)`
+    public function reactionType(): BelongsTo
+    {
+        return $this->belongsTo(ReactionType::class, 'reaction_type_id');
+    }
+
+    public function getReactionType(): ReactionTypeContract
+    {
+        return $this->getAttribute('reactionType');
+    }
+
+    public function isReactionOfType(ReactionTypeContract $reactionType): bool
+    {
+        return $reactionType->getKey() === $this->getReactionType()->getKey();
+    }
+
+    public function isNotReactionOfType(ReactionTypeContract $reactionType): bool
+    {
+        return !$this->isReactionOfType($reactionType);
+    }
 
     public function getCount(): int
     {

@@ -72,9 +72,10 @@ class Recount extends Command
                 });
             }
 
+            /** @var \Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter $counter */
             foreach ($reactant->getReactionCounters() as $counter) {
                 // TODO: Refactor it. Make type safe
-                if ($counter->reaction_type_id != $reactionType->getKey()) {
+                if (!$counter->isReactionOfType($reactionType)) {
                     continue;
                 }
                 // TODO: What to do if we asked to recount only reactions of exact reactant type?

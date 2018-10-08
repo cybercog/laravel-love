@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Cog\Tests\Laravel\Love\Unit\Reactant\ReactionCounter\Models;
 
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
+use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -32,7 +33,7 @@ class ReactionCounterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_fill_type_id(): void
+    public function it_can_fill_reaction_type_id(): void
     {
         $counter = new ReactionCounter([
             'reaction_type_id' => 4,
@@ -49,6 +50,58 @@ class ReactionCounterTest extends TestCase
         ]);
 
         $this->assertSame(4, $counter->getAttribute('count'));
+    }
+
+    /** @test */
+    public function it_can_belong_to_reaction_type(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+
+        $counter = factory(ReactionCounter::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+        ]);
+
+        $this->assertTrue($counter->reactionType->is($reactionType));
+    }
+
+    /** @test */
+    public function it_can_get_reaction_type(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+
+        $counter = factory(ReactionCounter::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+        ]);
+
+        $this->assertTrue($counter->getReactionType()->is($reactionType));
+    }
+
+    /** @test */
+    public function it_can_determine_if_reaction_of_type(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $anotherReactionType = factory(ReactionType::class)->create();
+
+        $counter = factory(ReactionCounter::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+        ]);
+
+        $this->assertTrue($counter->isReactionOfType($reactionType));
+        $this->assertFalse($counter->isReactionOfType($anotherReactionType));
+    }
+
+    /** @test */
+    public function it_can_determine_if_not_reaction_of_type(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $anotherReactionType = factory(ReactionType::class)->create();
+
+        $counter = factory(ReactionCounter::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+        ]);
+
+        $this->assertTrue($counter->isNotReactionOfType($anotherReactionType));
+        $this->assertFalse($counter->isNotReactionOfType($reactionType));
     }
 
     /** @test */
