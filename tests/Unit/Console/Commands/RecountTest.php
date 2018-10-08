@@ -28,6 +28,15 @@ class RecountTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        if (starts_with($this->app->version(), '5.7')) {
+            $this->withoutMockingConsoleOutput();
+        }
+    }
+
     /** @test */
     public function it_can_recount_all_models_likes()
     {
