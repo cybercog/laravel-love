@@ -105,4 +105,32 @@ class ReactantTest extends TestCase
         $assertSummary = $reactant->reactionSummary()->first();
         $this->assertTrue($assertSummary->is($summary));
     }
+
+    /** @test */
+    public function it_can_get_reactions(): void
+    {
+        $reactant = factory(Reactant::class)->create();
+
+        $reactions = factory(Reaction::class, 2)->create([
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $assertReactions = $reactant->getReactions();
+        $this->assertTrue($assertReactions->get(0)->is($reactions->get(0)));
+        $this->assertTrue($assertReactions->get(1)->is($reactions->get(1)));
+    }
+
+    /** @test */
+    public function it_can_get_reaction_counters(): void
+    {
+        $reactant = factory(Reactant::class)->create();
+
+        $counters = factory(ReactionCounter::class, 2)->create([
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $assertCounters = $reactant->getReactionCounters();
+        $this->assertTrue($assertCounters->get(0)->is($counters->get(0)));
+        $this->assertTrue($assertCounters->get(1)->is($counters->get(1)));
+    }
 }

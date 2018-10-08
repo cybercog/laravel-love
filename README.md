@@ -176,6 +176,18 @@ $reactant = $article->reactant()->first();
 $reactionType = ReactionType::fromName('Like');
 ```
 
+##### Get reaction type name
+
+```php
+$reactionType->getName(); // 'Like'
+```
+
+##### Get reaction type weight
+
+```php
+$reactionType->getWeight(); // 3
+```
+
 #### Reacter Methods
 
 ##### React to the content
@@ -188,26 +200,6 @@ $reacter->reactTo($reactant, $reactionType);
 
 ```php
 $reacter->unreactTo($reactant, $reactionType);
-```
-
-#### Reactant Methods
-
-##### Get Reaction Counters of the Reactant
-
-```php
-$reactant->reactionCounters()->get();
-```
-
-##### Get Reactions which Reactant received
-
-```php
-$reactant->reactions()->get();
-```
-
-##### Get iterable `Illuminate\Database\Eloquent\Collection` of existing model reactions
-
-```php
-$reactant->reactions;
 ```
 
 ##### Check if Reacter reacted to Reactant
@@ -234,6 +226,20 @@ $isNotReacted = $reacter
     ->isNotReactedWithTypeTo($reactant, $reactionType);
 ```
 
+#### Reactant Methods
+
+##### Get Reaction Counters of the Reactant
+
+```php
+$reactant->getReactionCounters();
+```
+
+##### Get Reactions which Reactant received
+
+```php
+$reactant->getReactions();
+```
+
 #### Stats
 
 ##### Get difference between likes and dislikes
@@ -245,7 +251,9 @@ $isNotReacted = $reacter
 // $article->getReactant()->getSummary()->totalWeight();
 
 // TODO: I want to write it this way.
-// $article->reactant()->summary()->totalWeight();
+// $article->reactantSummary()->getTotalWeight();
+// or
+// $article->getTotalReactionsWeight();
 ```
 
 ### Scopes

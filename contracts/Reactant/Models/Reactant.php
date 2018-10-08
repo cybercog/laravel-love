@@ -15,4 +15,11 @@ namespace Cog\Contracts\Love\Reactant\Models;
 
 interface Reactant
 {
+    // TODO: Add `getReactable`
+
+    public function getReactions(): iterable;
+
+    public function getReactionCounters(): iterable;
+
+    // TODO: Add `getReactionSummary()`
 }

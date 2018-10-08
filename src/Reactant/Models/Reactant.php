@@ -45,4 +45,14 @@ class Reactant extends Model implements ReactantContract
     {
         return $this->hasOne(ReactionSummary::class, 'reactant_id');
     }
+
+    public function getReactions(): iterable
+    {
+        return $this->getAttribute('reactions');
+    }
+
+    public function getReactionCounters(): iterable
+    {
+        return $this->getAttribute('reactionCounters');
+    }
 }
