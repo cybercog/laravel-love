@@ -13,6 +13,9 @@ declare(strict_types=1);
 
 namespace Cog\Contracts\Love\Reacterable\Models;
 
+use Cog\Contracts\Love\Reacter\Models\Reacter;
+
 interface Reacterable
 {
+    public function getReacter(): Reacter;
 }

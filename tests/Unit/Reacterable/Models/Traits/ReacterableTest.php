@@ -35,4 +35,18 @@ class ReacterableTest extends TestCase
 
         $this->assertTrue($reacterable->reacter->is($reacter));
     }
+
+    /** @test */
+    public function it_can_get_reacter(): void
+    {
+        $reacter = factory(Reacter::class)->create([
+            'type' => (new User())->getMorphClass(),
+        ]);
+
+        $reacterable = factory(User::class)->create([
+            'love_reacter_id' => $reacter->getKey(),
+        ]);
+
+        $this->assertTrue($reacterable->getReacter()->is($reacter));
+    }
 }

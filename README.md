@@ -188,6 +188,16 @@ $reactionType->getName(); // 'Like'
 $reactionType->getWeight(); // 3
 ```
 
+#### Reacterable Methods
+
+##### Get reacter model
+
+```php
+$reacterable = User::first();
+
+$reacterable->getReacter();
+```
+
 #### Reacter Methods
 
 ##### React to the content
@@ -226,6 +236,16 @@ $isNotReacted = $reacter
     ->isNotReactedWithTypeTo($reactant, $reactionType);
 ```
 
+#### Reactable Methods
+
+##### Get reactant model
+
+```php
+$reactable = Article::first();
+
+$reactable->getReactant();
+```
+
 #### Reactant Methods
 
 ##### Get Reaction Counters of the Reactant
@@ -253,7 +273,7 @@ $reactant->getReactions();
 // TODO: I want to write it this way.
 // $article->reactantSummary()->getTotalWeight();
 // or
-// $article->getTotalReactionsWeight();
+// $article->getReactionsTotalWeight();
 ```
 
 ### Scopes

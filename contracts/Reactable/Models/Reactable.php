@@ -13,6 +13,9 @@ declare(strict_types=1);
 
 namespace Cog\Contracts\Love\Reactable\Models;
 
+use Cog\Contracts\Love\Reactant\Models\Reactant;
+
 interface Reactable
 {
+    public function getReactant(): Reactant;
 }

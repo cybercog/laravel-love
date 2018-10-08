@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reacterable\Models\Traits;
 
+use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -27,5 +28,11 @@ trait Reacterable
     public function reacter(): BelongsTo
     {
         return $this->belongsTo(Reacter::class, 'love_reacter_id');
+    }
+
+    public function getReacter(): ReacterContract
+    {
+        // TODO: Return `NullReacter` if not set?
+        return $this->getAttribute('reacter');
     }
 }

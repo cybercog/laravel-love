@@ -24,7 +24,7 @@ class ReactableTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function it_can_belong_to_reacter(): void
+    public function it_can_belong_to_reactant(): void
     {
         $reactant = factory(Reactant::class)->create([
             'type' => (new User())->getMorphClass(),
@@ -35,5 +35,19 @@ class ReactableTest extends TestCase
         ]);
 
         $this->assertTrue($reactable->reactant->is($reactant));
+    }
+
+    /** @test */
+    public function it_can_get_reactant(): void
+    {
+        $reactant = factory(Reactant::class)->create([
+            'type' => (new User())->getMorphClass(),
+        ]);
+
+        $reactable = factory(Article::class)->create([
+            'love_reactant_id' => $reactant->getKey(),
+        ]);
+
+        $this->assertTrue($reactable->getReactant()->is($reactant));
     }
 }
