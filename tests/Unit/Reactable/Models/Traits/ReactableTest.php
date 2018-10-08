@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace Cog\Tests\Laravel\Love\Unit\Reactable\Models\Traits;
 
 use Cog\Laravel\Love\Reactant\Models\Reactant;
+use Cog\Laravel\Love\Reaction\Models\Reaction;
+use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
@@ -49,5 +51,34 @@ class ReactableTest extends TestCase
         ]);
 
         $this->assertTrue($reactable->getReactant()->is($reactant));
+    }
+
+    /** @test */
+    public function it_can_order_by_total_weight(): void
+    {
+        $reactable1 = factory(Article::class)->create();
+        $reactable2 = factory(Article::class)->create();
+        $reactable3 = factory(Article::class)->create();
+        $reactionType = factory(ReactionType::class)->create([
+            'weight' => 2,
+        ]);
+        factory(Reaction::class, 2)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactable1->getReactant()->getKey(),
+        ]);
+        factory(Reaction::class, 4)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactable2->getReactant()->getKey(),
+        ]);
+        factory(Reaction::class, 1)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactable3->getReactant()->getKey(),
+        ]);
+
+        $reactablesOrderedAsc = Article::orderByReactionsWeight('asc')->get();
+        $reactablesOrderedDesc = Article::orderByReactionsWeight('desc')->get();
+
+        $this->assertSame(['2', '4', '8'], $reactablesOrderedAsc->pluck('total_weight')->toArray());
+        $this->assertSame(['8', '4', '2'], $reactablesOrderedDesc->pluck('total_weight')->toArray());
     }
 }

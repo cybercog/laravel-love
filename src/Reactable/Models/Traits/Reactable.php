@@ -15,6 +15,8 @@ namespace Cog\Laravel\Love\Reactable\Models\Traits;
 
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
+use Cog\Laravel\Love\Reactant\ReactionSummary\Models\ReactionSummary;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -34,5 +36,12 @@ trait Reactable
     {
         // TODO: Return `NullReactant` if not set?
         return $this->getAttribute('reactant');
+    }
+
+    public function scopeOrderByReactionsWeight(Builder $query, string $direction = 'desc'): Builder
+    {
+        return $query
+            ->join((new ReactionSummary())->getTable() . " as lrrs", 'lrrs.reactant_id', '=', $this->getQualifiedKeyName())
+            ->orderBy('lrrs.total_weight', $direction);
     }
 }
