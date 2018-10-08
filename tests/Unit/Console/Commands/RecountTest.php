@@ -38,7 +38,7 @@ class RecountTest extends TestCase
     }
 
     /** @test */
-    public function it_can_recount_all_models_likes()
+    public function it_can_recount_all_models_likes(): void
     {
         $reacter1 = factory(Reacter::class)->create();
         $reacter2 = factory(Reacter::class)->create();
@@ -84,7 +84,7 @@ class RecountTest extends TestCase
     }
 
     /** @test */
-    public function it_can_recount_model_likes()
+    public function it_can_recount_model_likes(): void
     {
         $reacter1 = factory(Reacter::class)->create();
         $reacter2 = factory(Reacter::class)->create();
@@ -130,7 +130,7 @@ class RecountTest extends TestCase
     }
 
     /** @test */
-    public function it_can_recount_model_likes_using_morph_map()
+    public function it_can_recount_model_likes_using_morph_map(): void
     {
         $reacter1 = factory(Reacter::class)->create();
         $reacter2 = factory(Reacter::class)->create();
@@ -176,7 +176,7 @@ class RecountTest extends TestCase
     }
 
     /** @test */
-    public function it_can_recount_model_likes_with_morph_map_using_full_class_name()
+    public function it_can_recount_model_likes_with_morph_map_using_full_class_name(): void
     {
         $reacter1 = factory(Reacter::class)->create();
         $reacter2 = factory(Reacter::class)->create();
@@ -222,7 +222,7 @@ class RecountTest extends TestCase
     }
 
     /** @test */
-    public function it_can_recount_all_models_all_like_types()
+    public function it_can_recount_all_models_all_like_types(): void
     {
         $reacter1 = factory(Reacter::class)->create();
         $reacter2 = factory(Reacter::class)->create();
@@ -266,7 +266,7 @@ class RecountTest extends TestCase
     }
 
     /** @test */
-    public function it_can_recount_model_all_like_types()
+    public function it_can_recount_model_all_like_types(): void
     {
         $reacter1 = factory(Reacter::class)->create();
         $reacter2 = factory(Reacter::class)->create();
@@ -312,7 +312,7 @@ class RecountTest extends TestCase
     }
 
     /** @test */
-    public function it_can_recount_model_all_like_types_using_morph_map()
+    public function it_can_recount_model_all_like_types_using_morph_map(): void
     {
         $reacter1 = factory(Reacter::class)->create();
         $reacter2 = factory(Reacter::class)->create();
@@ -358,7 +358,7 @@ class RecountTest extends TestCase
     }
 
     /** @test */
-    public function it_can_recount_model_all_like_types_with_morph_map_using_full_class_name()
+    public function it_can_recount_model_all_like_types_with_morph_map_using_full_class_name(): void
     {
         $reacter1 = factory(Reacter::class)->create();
         $reacter2 = factory(Reacter::class)->create();
@@ -404,7 +404,7 @@ class RecountTest extends TestCase
     }
 
     /** @test */
-    public function it_can_throw_model_invalid_exception_on_not_exist_morph_map()
+    public function it_throw_model_invalid_exception_on_not_exist_morph_map(): void
     {
         $this->expectException(ReactableInvalid::class);
 
@@ -416,7 +416,7 @@ class RecountTest extends TestCase
     }
 
     /** @test */
-    public function it_can_throw_model_invalid_exception_if_class_not_implemented_reactable_interface()
+    public function it_throw_model_invalid_exception_if_class_not_implemented_reactable_interface(): void
     {
         $this->expectException(ReactableInvalid::class);
 
