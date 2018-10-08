@@ -9,11 +9,23 @@ All notable changes to `laravel-love` will be documented in this file.
 - Laravel 5.5 support obsolete
 - PHP < 7.1.3 support obsolete
 
+## [5.2.0] - 2018-09-09
+
+### Added
+
+- ([#21](https://github.com/cybercog/laravel-love/pull/21)) Laravel 5.7 support
+
+## [5.1.1] - 2018-02-16
+
+### Fixed
+
+- ([#11](https://github.com/cybercog/laravel-love/pull/11)) Added missing migrations auto-loading
+
 ## [5.1.0] - 2018-02-08
 
 ### Added
 
-- Laravel 5.6 support ([#9](https://github.com/cybercog/laravel-love/pull/9))
+- ([#9](https://github.com/cybercog/laravel-love/pull/9)) Laravel 5.6 support
 
 ## [5.0.0] - 2018-01-16
 
