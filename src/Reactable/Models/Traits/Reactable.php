@@ -64,23 +64,34 @@ trait Reactable
         ReactionTypeContract $reactionType,
         string $direction = 'desc'
     ): Builder {
+        $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
+        $select[] = 'lrrc.count as reactions_count';
         return $query
             ->join((new ReactionCounter())->getTable() . ' as lrrc', 'lrrc.reactant_id', '=', $this->getQualifiedKeyName())
             ->where('lrrc.reaction_type_id', $reactionType->getKey())
+            ->select($select)
             ->orderBy('lrrc.count', $direction);
     }
 
     public function scopeOrderByReactionsCount(Builder $query, string $direction = 'desc'): Builder
     {
+        $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
+        $select[] = 'lrrs.total_count as reactions_total_count';
+
         return $query
             ->join((new ReactionSummary())->getTable() . ' as lrrs', 'lrrs.reactant_id', '=', $this->getQualifiedKeyName())
+            ->select($select)
             ->orderBy('lrrs.total_count', $direction);
     }
 
     public function scopeOrderByReactionsWeight(Builder $query, string $direction = 'desc'): Builder
     {
+        $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
+        $select[] = 'lrrs.total_weight as reactions_total_weight';
+
         return $query
             ->join((new ReactionSummary())->getTable() . ' as lrrs', 'lrrs.reactant_id', '=', $this->getQualifiedKeyName())
+            ->select($select)
             ->orderBy('lrrs.total_weight', $direction);
     }
 }
