@@ -177,8 +177,7 @@ class ReactionTypeTest extends TestCase
         $like2 = ReactionType::fromName('LikeType');
         $dislike3 = ReactionType::fromName('DislikeType');
 
-        $queries = $db->getQueryLog();
-        $this->assertCount(0, $queries);
+        $this->assertCount(0, $db->getQueryLog());
         $this->assertSame('LikeType', $like1->getName());
         $this->assertSame('LikeType', $like2->getName());
         $this->assertSame('DislikeType', $dislike1->getName());
@@ -196,9 +195,12 @@ class ReactionTypeTest extends TestCase
         $type->update([
             'weight' => 8,
         ]);
+        $db = $this->app->make(ConnectionInterface::class);
+        $db->enableQueryLog();
 
         $typeFromRegistry = ReactionType::fromName('TestRegistryUpdate');
 
+        $this->assertCount(0, $db->getQueryLog());
         $this->assertSame(8, $type->getWeight());
         $this->assertSame(8, $typeFromRegistry->getWeight());
     }
