@@ -14,7 +14,9 @@ declare(strict_types=1);
 namespace Cog\Laravel\Love\Reactable\Models\Traits;
 
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
+use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
+use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionSummary\Models\ReactionSummary;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -36,6 +38,18 @@ trait Reactable
     {
         // TODO: Return `NullReactant` if not set?
         return $this->getAttribute('reactant');
+    }
+
+    public function scopeOrderByReactionsCountOfType(
+        Builder $query,
+        ReactionTypeContract $reactionType,
+        string $direction = 'desc'
+    ): Builder
+    {
+        return $query
+            ->join((new ReactionCounter())->getTable() . " as lrrc", 'lrrc.reactant_id', '=', $this->getQualifiedKeyName())
+            ->where('lrrc.reaction_type_id', $reactionType->getKey())
+            ->orderBy('lrrc.count', $direction);
     }
 
     public function scopeOrderByReactionsCount(Builder $query, string $direction = 'desc'): Builder

@@ -54,32 +54,43 @@ class ReactableTest extends TestCase
     }
 
     /** @test */
-    public function it_can_order_by_reactions_weight(): void
+    public function it_can_order_by_reactions_count_of_type(): void
     {
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
-        $reactionType = factory(ReactionType::class)->create([
-            'weight' => 2,
-        ]);
+        $reactionType1 = factory(ReactionType::class)->create();
+        $reactionType2 = factory(ReactionType::class)->create();
         factory(Reaction::class, 2)->create([
-            'reaction_type_id' => $reactionType->getKey(),
+            'reaction_type_id' => $reactionType1->getKey(),
             'reactant_id' => $reactable1->getReactant()->getKey(),
         ]);
-        factory(Reaction::class, 4)->create([
-            'reaction_type_id' => $reactionType->getKey(),
+        factory(Reaction::class, 3)->create([
+            'reaction_type_id' => $reactionType1->getKey(),
             'reactant_id' => $reactable2->getReactant()->getKey(),
         ]);
         factory(Reaction::class, 1)->create([
-            'reaction_type_id' => $reactionType->getKey(),
+            'reaction_type_id' => $reactionType1->getKey(),
+            'reactant_id' => $reactable3->getReactant()->getKey(),
+        ]);
+        factory(Reaction::class, 4)->create([
+            'reaction_type_id' => $reactionType2->getKey(),
+            'reactant_id' => $reactable1->getReactant()->getKey(),
+        ]);
+        factory(Reaction::class, 5)->create([
+            'reaction_type_id' => $reactionType2->getKey(),
+            'reactant_id' => $reactable2->getReactant()->getKey(),
+        ]);
+        factory(Reaction::class, 6)->create([
+            'reaction_type_id' => $reactionType2->getKey(),
             'reactant_id' => $reactable3->getReactant()->getKey(),
         ]);
 
-        $reactablesOrderedAsc = Article::orderByReactionsWeight('asc')->get();
-        $reactablesOrderedDesc = Article::orderByReactionsWeight('desc')->get();
+        $reactablesOrderedAsc = Article::orderByReactionsCountOfType($reactionType1, 'asc')->get();
+        $reactablesOrderedDesc = Article::orderByReactionsCountOfType($reactionType1, 'desc')->get();
 
-        $this->assertSame(['2', '4', '8'], $reactablesOrderedAsc->pluck('total_weight')->toArray());
-        $this->assertSame(['8', '4', '2'], $reactablesOrderedDesc->pluck('total_weight')->toArray());
+        $this->assertSame(['1', '2', '3'], $reactablesOrderedAsc->pluck('count')->toArray());
+        $this->assertSame(['3', '2', '1'], $reactablesOrderedDesc->pluck('count')->toArray());
     }
 
     /** @test */
@@ -107,5 +118,34 @@ class ReactableTest extends TestCase
 
         $this->assertSame(['1', '2', '4'], $reactablesOrderedAsc->pluck('total_count')->toArray());
         $this->assertSame(['4', '2', '1'], $reactablesOrderedDesc->pluck('total_count')->toArray());
+    }
+
+    /** @test */
+    public function it_can_order_by_reactions_weight(): void
+    {
+        $reactable1 = factory(Article::class)->create();
+        $reactable2 = factory(Article::class)->create();
+        $reactable3 = factory(Article::class)->create();
+        $reactionType = factory(ReactionType::class)->create([
+            'weight' => 2,
+        ]);
+        factory(Reaction::class, 2)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactable1->getReactant()->getKey(),
+        ]);
+        factory(Reaction::class, 4)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactable2->getReactant()->getKey(),
+        ]);
+        factory(Reaction::class, 1)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactable3->getReactant()->getKey(),
+        ]);
+
+        $reactablesOrderedAsc = Article::orderByReactionsWeight('asc')->get();
+        $reactablesOrderedDesc = Article::orderByReactionsWeight('desc')->get();
+
+        $this->assertSame(['2', '4', '8'], $reactablesOrderedAsc->pluck('total_weight')->toArray());
+        $this->assertSame(['8', '4', '2'], $reactablesOrderedDesc->pluck('total_weight')->toArray());
     }
 }
