@@ -188,6 +188,19 @@ $typeName = $reactionType->getName(); // 'Like'
 $typeWeight = $reactionType->getWeight(); // 3
 ```
 
+##### Determine if reaction types are equal
+
+```php
+$likeType = ReactionType::fromName('Like'); 
+$dislikeType = ReactionType::fromName('Dislike'); 
+
+$likeType->isEqualTo($likeType); // true
+$likeType->isEqualTo($dislikeType); // false
+
+$likeType->isNotEqualTo($likeType); // false
+$likeType->isNotEqualTo($dislikeType); // true
+```
+
 #### Reacterable Methods
 
 ##### Get reacter model

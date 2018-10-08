@@ -73,4 +73,14 @@ class ReactionType extends Model implements ReactionTypeContract
     {
         return $this->getAttribute('weight') ?? 0;
     }
+
+    public function isEqualTo(ReactionTypeContract $type): bool
+    {
+        return $type->getKey() === $this->getKey();
+    }
+
+    public function isNotEqualTo(ReactionTypeContract $type): bool
+    {
+        return !$this->isEqualTo($type);
+    }
 }

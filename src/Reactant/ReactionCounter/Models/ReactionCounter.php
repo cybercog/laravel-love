@@ -71,7 +71,7 @@ class ReactionCounter extends Model implements ReactionCounterContract
 
     public function isReactionOfType(ReactionTypeContract $reactionType): bool
     {
-        return $reactionType->getKey() === $this->getReactionType()->getKey();
+        return $this->getReactionType()->isEqualTo($reactionType);
     }
 
     public function isNotReactionOfType(ReactionTypeContract $reactionType): bool

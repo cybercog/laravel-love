@@ -20,4 +20,8 @@ interface ReactionType
     public function getName(): string;
 
     public function getWeight(): int;
+
+    public function isEqualTo(ReactionType $type): bool;
+
+    public function isNotEqualTo(ReactionType $type): bool;
 }

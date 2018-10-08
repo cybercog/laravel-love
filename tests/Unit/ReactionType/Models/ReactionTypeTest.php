@@ -129,6 +129,26 @@ class ReactionTypeTest extends TestCase
     }
 
     /** @test */
+    public function it_can_determine_is_equal_to(): void
+    {
+        $type = factory(ReactionType::class)->create();
+        $otherType = factory(ReactionType::class)->create();
+
+        $this->assertTrue($type->isEqualTo($type));
+        $this->assertFalse($type->isEqualTo($otherType));
+    }
+
+    /** @test */
+    public function it_can_determine_is_not_equal_to(): void
+    {
+        $type = factory(ReactionType::class)->create();
+        $otherType = factory(ReactionType::class)->create();
+
+        $this->assertTrue($type->isNotEqualTo($otherType));
+        $this->assertFalse($type->isNotEqualTo($type));
+    }
+
+    /** @test */
     public function it_throws_exception_if_instantiate_reaction_type_from_not_exist_name(): void
     {
         $this->expectException(ReactionTypeInvalid::class);
