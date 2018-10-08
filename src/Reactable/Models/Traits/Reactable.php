@@ -66,11 +66,12 @@ trait Reactable
     ): Builder {
         $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
         $select[] = 'lrrc.count as reactions_count';
+
         return $query
             ->join((new ReactionCounter())->getTable() . ' as lrrc', 'lrrc.reactant_id', '=', $this->getQualifiedKeyName())
             ->where('lrrc.reaction_type_id', $reactionType->getKey())
             ->select($select)
-            ->orderBy('lrrc.count', $direction);
+            ->orderBy('reactions_count', $direction);
     }
 
     public function scopeOrderByReactionsCount(Builder $query, string $direction = 'desc'): Builder
@@ -81,7 +82,7 @@ trait Reactable
         return $query
             ->join((new ReactionSummary())->getTable() . ' as lrrs', 'lrrs.reactant_id', '=', $this->getQualifiedKeyName())
             ->select($select)
-            ->orderBy('lrrs.total_count', $direction);
+            ->orderBy('reactions_total_count', $direction);
     }
 
     public function scopeOrderByReactionsWeight(Builder $query, string $direction = 'desc'): Builder
@@ -92,6 +93,6 @@ trait Reactable
         return $query
             ->join((new ReactionSummary())->getTable() . ' as lrrs', 'lrrs.reactant_id', '=', $this->getQualifiedKeyName())
             ->select($select)
-            ->orderBy('lrrs.total_weight', $direction);
+            ->orderBy('reactions_total_weight', $direction);
     }
 }
