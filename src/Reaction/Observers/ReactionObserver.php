@@ -26,7 +26,9 @@ class ReactionObserver
     {
         event(new ReactionWasCreated($reaction));
 
-        $reactant = $reaction->getReactant();
+        // TODO: Remove statistics updates to background jobs
+        // TODO: Remove `fresh` (added to reload changes made in previous service calls)
+        $reactant = $reaction->getReactant()->fresh();
 
         (new ReactionCounterService($reactant))
             ->incrementCounterOfType($reaction->getType());
@@ -40,7 +42,9 @@ class ReactionObserver
     {
         event(new ReactionWasDeleted($reaction));
 
-        $reactant = $reaction->getReactant();
+        // TODO: Remove statistics updates to background jobs
+        // TODO: Remove `fresh` (added to reload changes made in previous service calls)
+        $reactant = $reaction->getReactant()->fresh();
 
         (new ReactionCounterService($reactant))
             ->decrementCounterOfType($reaction->getType());

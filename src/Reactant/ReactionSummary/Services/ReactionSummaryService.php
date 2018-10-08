@@ -15,6 +15,7 @@ namespace Cog\Laravel\Love\Reactant\ReactionSummary\Services;
 
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reactant\ReactionSummary\Models\ReactionSummary as ReactionSummaryContract;
+use Cog\Laravel\Love\Reactant\ReactionSummary\Models\NullReactionSummary;
 
 class ReactionSummaryService
 {
@@ -52,7 +53,7 @@ class ReactionSummaryService
 
     private function incrementOrDecrementTotalCount(int $amount = 1): void
     {
-        if ($this->reactionSummary->getAttribute('total_count') + $amount < 0) {
+        if ($this->reactionSummary->getTotalCount() + $amount < 0) {
             // TODO: Throw custom exception
             throw new \RuntimeException('ReactionSummary total_count could not be below zero.');
         }
@@ -68,9 +69,9 @@ class ReactionSummaryService
     private function findOrCreateReactionSummaryOf(ReactantContract $reactant): ReactionSummaryContract
     {
         /** @var \Cog\Laravel\Love\Reactant\ReactionSummary\Models\ReactionSummary $summary */
-        $summary = $reactant->reactionSummary()->first();
+        $summary = $reactant->getReactionSummary();
 
-        if (is_null($summary)) {
+        if ($summary instanceof NullReactionSummary) {
             $summary = $reactant->reactionSummary()->create([
                 'total_count' => 0,
                 'total_weight' => 0,

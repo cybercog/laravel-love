@@ -17,6 +17,7 @@ use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reactant\ReactionSummary\Models\ReactionSummary as ReactionSummaryContract;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
+use Cog\Laravel\Love\Reactant\ReactionSummary\Models\NullReactionSummary;
 use Cog\Laravel\Love\Reactant\ReactionSummary\Models\ReactionSummary;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Illuminate\Database\Eloquent\Model;
@@ -66,6 +67,6 @@ class Reactant extends Model implements ReactantContract
 
     public function getReactionSummary(): ReactionSummaryContract
     {
-        return $this->getAttribute('reactionSummary');
+        return $this->getAttribute('reactionSummary') ?? new NullReactionSummary();
     }
 }
