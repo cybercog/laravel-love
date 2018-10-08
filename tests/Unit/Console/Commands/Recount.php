@@ -28,15 +28,20 @@ use Cog\Tests\Laravel\Love\TestCase;
  */
 class Recount extends TestCase
 {
+    protected function setUp()
+    {
+        parent::setUp();
+
+        if (starts_with($this->app->version(), '5.7')) {
+            $this->withoutMockingConsoleOutput();
+        }
+    }
+
     /* Likes */
 
     /** @test */
     public function it_can_recount_all_models_likes()
     {
-        if ($this->isLaravelVersion('5.7')) {
-            $this->withoutMockingConsoleOutput();
-        }
-
         $entity1 = factory(Entity::class)->create();
         $entity2 = factory(EntityWithMorphMap::class)->create();
         $article = factory(Article::class)->create();
@@ -70,10 +75,6 @@ class Recount extends TestCase
     /** @test */
     public function it_can_recount_model_likes()
     {
-        if ($this->isLaravelVersion('5.7')) {
-            $this->withoutMockingConsoleOutput();
-        }
-
         $entity1 = factory(Entity::class)->create();
         $entity2 = factory(Entity::class)->create();
 
@@ -105,10 +106,6 @@ class Recount extends TestCase
     /** @test */
     public function it_can_recount_model_likes_using_morph_map()
     {
-        if ($this->isLaravelVersion('5.7')) {
-            $this->withoutMockingConsoleOutput();
-        }
-
         $entity1 = factory(EntityWithMorphMap::class)->create();
         $entity2 = factory(EntityWithMorphMap::class)->create();
 
@@ -140,10 +137,6 @@ class Recount extends TestCase
     /** @test */
     public function it_can_recount_model_likes_with_morph_map_using_full_class_name()
     {
-        if ($this->isLaravelVersion('5.7')) {
-            $this->withoutMockingConsoleOutput();
-        }
-
         $entity1 = factory(EntityWithMorphMap::class)->create();
         $entity2 = factory(EntityWithMorphMap::class)->create();
 
@@ -177,10 +170,6 @@ class Recount extends TestCase
     /** @test */
     public function it_can_recount_all_models_dislikes()
     {
-        if ($this->isLaravelVersion('5.7')) {
-            $this->withoutMockingConsoleOutput();
-        }
-
         $entity1 = factory(Entity::class)->create();
         $entity2 = factory(EntityWithMorphMap::class)->create();
         $article = factory(Article::class)->create();
@@ -214,10 +203,6 @@ class Recount extends TestCase
     /** @test */
     public function it_can_recount_model_dislikes()
     {
-        if ($this->isLaravelVersion('5.7')) {
-            $this->withoutMockingConsoleOutput();
-        }
-
         $entity1 = factory(Entity::class)->create();
         $entity2 = factory(Entity::class)->create();
 
@@ -249,10 +234,6 @@ class Recount extends TestCase
     /** @test */
     public function it_can_recount_model_dislikes_using_morph_map()
     {
-        if ($this->isLaravelVersion('5.7')) {
-            $this->withoutMockingConsoleOutput();
-        }
-
         $entity1 = factory(EntityWithMorphMap::class)->create();
         $entity2 = factory(EntityWithMorphMap::class)->create();
 
@@ -284,10 +265,6 @@ class Recount extends TestCase
     /** @test */
     public function it_can_recount_model_dislikes_with_morph_map_using_full_class_name()
     {
-        if ($this->isLaravelVersion('5.7')) {
-            $this->withoutMockingConsoleOutput();
-        }
-
         $entity1 = factory(EntityWithMorphMap::class)->create();
         $entity2 = factory(EntityWithMorphMap::class)->create();
 
@@ -321,10 +298,6 @@ class Recount extends TestCase
     /** @test */
     public function it_can_recount_all_models_all_like_types()
     {
-        if ($this->isLaravelVersion('5.7')) {
-            $this->withoutMockingConsoleOutput();
-        }
-
         $entity1 = factory(Entity::class)->create();
         $entity2 = factory(EntityWithMorphMap::class)->create();
         $article = factory(Article::class)->create();
@@ -356,10 +329,6 @@ class Recount extends TestCase
     /** @test */
     public function it_can_recount_model_all_like_types()
     {
-        if ($this->isLaravelVersion('5.7')) {
-            $this->withoutMockingConsoleOutput();
-        }
-
         $entity1 = factory(Entity::class)->create();
         $entity2 = factory(Entity::class)->create();
 
@@ -390,10 +359,6 @@ class Recount extends TestCase
     /** @test */
     public function it_can_recount_model_all_like_types_using_morph_map()
     {
-        if ($this->isLaravelVersion('5.7')) {
-            $this->withoutMockingConsoleOutput();
-        }
-
         $entity1 = factory(EntityWithMorphMap::class)->create();
         $entity2 = factory(EntityWithMorphMap::class)->create();
 
@@ -424,10 +389,6 @@ class Recount extends TestCase
     /** @test */
     public function it_can_recount_model_all_like_types_with_morph_map_using_full_class_name()
     {
-        if ($this->isLaravelVersion('5.7')) {
-            $this->withoutMockingConsoleOutput();
-        }
-
         $entity1 = factory(EntityWithMorphMap::class)->create();
         $entity2 = factory(EntityWithMorphMap::class)->create();
 
@@ -460,10 +421,6 @@ class Recount extends TestCase
     /** @test */
     public function it_can_throw_model_invalid_exception_on_not_exist_morph_map()
     {
-        if ($this->isLaravelVersion('5.7')) {
-            $this->withoutMockingConsoleOutput();
-        }
-
         $this->expectException(InvalidLikeable::class);
 
         $command = $this->artisan('love:recount', [
@@ -476,10 +433,6 @@ class Recount extends TestCase
     /** @test */
     public function it_can_throw_model_invalid_exception_if_class_not_implemented_has_likes_interface()
     {
-        if ($this->isLaravelVersion('5.7')) {
-            $this->withoutMockingConsoleOutput();
-        }
-
         $this->expectException(InvalidLikeable::class);
 
         $command = $this->artisan('love:recount', [
@@ -492,10 +445,5 @@ class Recount extends TestCase
     public function it_deletes_records_before_recount()
     {
         // :TODO: Mock `removeLikeCountersOfType` method call
-    }
-
-    private function isLaravelVersion(string $version): bool
-    {
-        return starts_with($this->app->version(), $version);
     }
 }
