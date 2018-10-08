@@ -44,8 +44,7 @@ trait Reactable
         Builder $query,
         ReactionTypeContract $reactionType,
         string $direction = 'desc'
-    ): Builder
-    {
+    ): Builder {
         return $query
             ->join((new ReactionCounter())->getTable() . ' as lrrc', 'lrrc.reactant_id', '=', $this->getQualifiedKeyName())
             ->where('lrrc.reaction_type_id', $reactionType->getKey())
