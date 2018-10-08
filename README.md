@@ -329,32 +329,41 @@ Article::whereReactedWithTypeBy($reacter, $reactionType)
     ->get();
 ```
 
-##### Sort Reactable models by Reactions Count of exact type of reaction
+##### Add ReactionCounter aggregate of exact ReactionType to Reactables
 
 ```php
 $reactionType = ReactionType::fromName('Like'); 
 
-$sortedArticles = Article::orderByReactionsCountOfType($reactionType)->get();
-$sortedArticles = Article::orderByReactionsCountOfType($reactionType, 'asc')->get();
+$articles = Article::withReactionCountersOfType($reactionType)->get();
 ```
 
-##### Sort Reactable models by Reactions Total Count
+Each Reactable model will contain extra column: `reactions_count`.
+
+You can order Reactables by `reactions_count`:
 
 ```php
-$sortedArticles = Article::orderByReactionsCount()->get();
-$sortedArticles = Article::orderByReactionsCount('asc')->get();
+$articles = Article::withReactionCountersOfType($reactionType)->orderBy('reactions_count', 'desc')->get();
 ```
 
-*Uses `desc` as default order direction.*
-
-##### Sort Reactable models by Reactions Total Weight
+##### Add ReactionSummary aggregate to Reactables
 
 ```php
-$sortedArticles = Article::orderByReactionsWeight()->get();
-$sortedArticles = Article::orderByReactionsWeight('asc')->get();
+$articles = Article::withReactionSummary()->get();
 ```
 
-*Uses `desc` as default order direction.*
+Each Reactable model will contain extra columns: `reactions_total_count` & `reactions_total_weight`.
+
+You can order Reactables by `reactions_total_count`:
+
+```php
+$articles = Article::withReactionSummary()->orderBy('reactions_total_count', 'desc')->get();
+```
+
+You can order Reactables by `reactions_total_weight`:
+
+```php
+$articles = Article::withReactionSummary()->orderBy('reactions_total_weight', 'desc')->get();
+```
 
 ### Events
 
