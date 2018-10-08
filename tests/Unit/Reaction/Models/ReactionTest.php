@@ -109,6 +109,20 @@ class ReactionTest extends TestCase
     }
 
     /** @test */
+    public function it_can_get_reacter(): void
+    {
+        $reacter = factory(Reacter::class)->create();
+
+        /** @var \Cog\Laravel\Love\Reaction\Models\Reaction $reaction */
+        $reaction = factory(Reaction::class)->create([
+            'reacter_id' => $reacter->getKey(),
+        ]);
+
+        $assertReacter = $reaction->getReacter();
+        $this->assertTrue($assertReacter->is($reacter));
+    }
+
+    /** @test */
     public function it_can_get_weight(): void
     {
         $reactionType = factory(ReactionType::class)->create([

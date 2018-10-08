@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\ReactionType\Models;
 
+use Cog\Contracts\Love\ReactionType\Exceptions\ReactionTypeInvalid;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Illuminate\Database\Eloquent\Model;
@@ -57,12 +58,19 @@ class ReactionType extends Model implements ReactionTypeContract
         $type = static::query()->where('name', $name)->first();
 
         if (!$type) {
-            // TODO: Throw custom typed exception
-            throw new \RuntimeException(
-                sprintf('ReactionType with name `%s` not found.', $name)
-            );
+            throw ReactionTypeInvalid::notExists($name);
         }
 
         return $type;
+    }
+
+    public function getName(): string
+    {
+        return $this->getAttribute('name') ?? '';
+    }
+
+    public function getWeight(): int
+    {
+        return $this->getAttribute('weight') ?? 0;
     }
 }

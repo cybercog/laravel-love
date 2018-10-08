@@ -15,4 +15,5 @@ namespace Cog\Contracts\Love\Reactant\ReactionCounter\Models;
 
 interface ReactionCounter
 {
+    public function getCount(): int;
 }

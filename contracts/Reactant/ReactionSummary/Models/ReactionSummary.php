@@ -15,4 +15,7 @@ namespace Cog\Contracts\Love\Reactant\ReactionSummary\Models;
 
 interface ReactionSummary
 {
+    public function getTotalCount(): int;
+
+    public function getTotalWeight(): int;
 }

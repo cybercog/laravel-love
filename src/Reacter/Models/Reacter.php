@@ -47,7 +47,7 @@ class Reacter extends Model implements ReacterContract
         $reaction = $this->reactions()->where($attributes)->exists();
         if ($reaction) {
             throw new ReactionAlreadyExists(
-                sprintf('Reaction of type `%s` already exists.', $reactionType->getAttribute('name'))
+                sprintf('Reaction of type `%s` already exists.', $reactionType->getName())
             );
         }
 
@@ -63,7 +63,7 @@ class Reacter extends Model implements ReacterContract
 
         if (is_null($reaction)) {
             throw new ReactionNotExists(
-                sprintf('Reaction of type `%s` not exists.', $reactionType->getAttribute('name'))
+                sprintf('Reaction of type `%s` not exists.', $reactionType->getName())
             );
         }
 

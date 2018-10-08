@@ -50,4 +50,22 @@ class ReactionCounterTest extends TestCase
 
         $this->assertSame(4, $counter->getAttribute('count'));
     }
+
+    /** @test */
+    public function it_can_get_count(): void
+    {
+        $summary = new ReactionCounter([
+            'count' => '4',
+        ]);
+
+        $this->assertSame(4, $summary->getCount());
+    }
+
+    /** @test */
+    public function it_can_get_count_if_not_set(): void
+    {
+        $summary = new ReactionCounter();
+
+        $this->assertSame(0, $summary->getCount());
+    }
 }

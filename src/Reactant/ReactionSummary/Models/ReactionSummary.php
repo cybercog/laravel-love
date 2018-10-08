@@ -44,4 +44,14 @@ class ReactionSummary extends Model implements ReactionSummaryContract
         'total_count' => 'integer',
         'total_weight' => 'integer',
     ];
+
+    public function getTotalCount(): int
+    {
+        return $this->getAttribute('total_count') ?? 0;
+    }
+
+    public function getTotalWeight(): int
+    {
+        return $this->getAttribute('total_weight') ?? 0;
+    }
 }

@@ -60,4 +60,40 @@ class ReactionSummaryTest extends TestCase
 
         $this->assertSame(4, $summary->getAttribute('total_weight'));
     }
+
+    /** @test */
+    public function it_can_get_total_count(): void
+    {
+        $summary = new ReactionSummary([
+            'total_count' => '4',
+        ]);
+
+        $this->assertSame(4, $summary->getTotalCount());
+    }
+
+    /** @test */
+    public function it_can_get_total_count_if_not_set(): void
+    {
+        $summary = new ReactionSummary();
+
+        $this->assertSame(0, $summary->getTotalCount());
+    }
+
+    /** @test */
+    public function it_can_get_total_weight(): void
+    {
+        $summary = new ReactionSummary([
+            'total_weight' => '4',
+        ]);
+
+        $this->assertSame(4, $summary->getTotalWeight());
+    }
+
+    /** @test */
+    public function it_can_get_total_weight_if_not_set(): void
+    {
+        $summary = new ReactionSummary();
+
+        $this->assertSame(0, $summary->getTotalWeight());
+    }
 }

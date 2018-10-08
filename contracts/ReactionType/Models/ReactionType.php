@@ -16,4 +16,8 @@ namespace Cog\Contracts\Love\ReactionType\Models;
 interface ReactionType
 {
     public static function fromName(string $name): self;
+
+    public function getName(): string;
+
+    public function getWeight(): int;
 }

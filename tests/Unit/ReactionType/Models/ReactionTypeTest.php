@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\ReactionType\Models;
 
+use Cog\Contracts\Love\ReactionType\Exceptions\ReactionTypeInvalid;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\TestCase;
@@ -92,9 +93,45 @@ class ReactionTypeTest extends TestCase
     }
 
     /** @test */
+    public function it_can_get_name(): void
+    {
+        $type = new ReactionType([
+            'name' => 'TestType',
+        ]);
+
+        $this->assertSame('TestType', $type->getName());
+    }
+
+    /** @test */
+    public function it_can_get_name_if_not_set(): void
+    {
+        $type = new ReactionType();
+
+        $this->assertSame('', $type->getName());
+    }
+
+    /** @test */
+    public function it_can_get_weight(): void
+    {
+        $type = new ReactionType([
+            'weight' => '4',
+        ]);
+
+        $this->assertSame(4, $type->getWeight());
+    }
+
+    /** @test */
+    public function it_can_get_weight_if_not_set(): void
+    {
+        $type = new ReactionType();
+
+        $this->assertSame(0, $type->getWeight());
+    }
+
+    /** @test */
     public function it_throws_exception_if_instantiate_reaction_type_from_not_exist_name(): void
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(ReactionTypeInvalid::class);
 
         factory(ReactionType::class)->create();
 

@@ -17,12 +17,12 @@ use RuntimeException;
 
 class ReactableInvalid extends RuntimeException
 {
-    public static function notExists(string $type)
+    public static function notExists(string $type): self
     {
         return new static("[$type] class or morph map not found.");
     }
 
-    public static function notImplementInterface(string $type)
+    public static function notImplementInterface(string $type): self
     {
         return new static("[{$type}] must implement `\Cog\Contracts\Love\Reactable\Models\Reactable` contract.");
     }

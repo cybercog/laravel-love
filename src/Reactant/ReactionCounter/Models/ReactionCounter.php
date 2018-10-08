@@ -43,4 +43,9 @@ class ReactionCounter extends Model implements ReactionCounterContract
     protected $casts = [
         'count' => 'integer',
     ];
+
+    public function getCount(): int
+    {
+        return $this->getAttribute('count') ?? 0;
+    }
 }

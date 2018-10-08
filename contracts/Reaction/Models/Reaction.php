@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Cog\Contracts\Love\Reaction\Models;
 
 use Cog\Contracts\Love\Reactant\Models\Reactant;
+use Cog\Contracts\Love\Reacter\Models\Reacter;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType;
 
 interface Reaction
@@ -21,6 +22,8 @@ interface Reaction
     public function getType(): ReactionType;
 
     public function getReactant(): Reactant;
+
+    public function getReacter(): Reacter;
 
     public function getWeight(): int;
 }
