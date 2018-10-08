@@ -18,4 +18,8 @@ use Cog\Contracts\Love\Reacter\Models\Reacter;
 interface Reacterable
 {
     public function getReacter(): Reacter;
+
+    public function isRegisteredAsReacter(): bool;
+
+    public function isNotRegisteredAsReacter(): bool;
 }

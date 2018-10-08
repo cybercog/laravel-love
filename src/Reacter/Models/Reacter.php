@@ -27,6 +27,10 @@ class Reacter extends Model implements ReacterContract
 {
     protected $table = 'love_reacters';
 
+    protected $fillable = [
+        'type',
+    ];
+
     public function reacterable(): MorphTo
     {
         return $this->morphTo('reacterable', 'type', 'id', 'love_reacter_id');

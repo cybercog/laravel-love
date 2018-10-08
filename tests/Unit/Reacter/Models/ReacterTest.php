@@ -29,6 +29,16 @@ class ReacterTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
+    public function it_can_fill_type(): void
+    {
+        $reacter = new Reacter([
+            'type' => 'TestType',
+        ]);
+
+        $this->assertSame('TestType', $reacter->type);
+    }
+
+    /** @test */
     public function it_can_morph_to_reacterable(): void
     {
         $reacter = factory(Reacter::class)->create([
