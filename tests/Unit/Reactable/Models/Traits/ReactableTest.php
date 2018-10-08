@@ -30,7 +30,7 @@ class ReactableTest extends TestCase
     public function it_can_belong_to_reactant(): void
     {
         $reactant = factory(Reactant::class)->create([
-            'type' => (new User())->getMorphClass(),
+            'type' => (new Article())->getMorphClass(),
         ]);
 
         $reactable = factory(Article::class)->create([
@@ -44,7 +44,7 @@ class ReactableTest extends TestCase
     public function it_can_get_reactant(): void
     {
         $reactant = factory(Reactant::class)->create([
-            'type' => (new User())->getMorphClass(),
+            'type' => (new Article())->getMorphClass(),
         ]);
 
         $reactable = factory(Article::class)->create([
@@ -52,6 +52,65 @@ class ReactableTest extends TestCase
         ]);
 
         $this->assertTrue($reactable->getReactant()->is($reactant));
+    }
+
+    /** @test */
+    public function it_register_reactable_as_reactant_on_create(): void
+    {
+        $reactable = new Article([
+            'name' => 'Test Article',
+        ]);
+        $reactable->save();
+
+        $this->assertTrue($reactable->isRegisteredAsReactant());
+        $this->assertInstanceOf(Reactant::class, $reactable->getReactant());
+    }
+
+    /** @test */
+    public function it_not_create_new_reactant_if_manually_registered_reactable_as_reactant_on_create(): void
+    {
+        $reactant = factory(Reactant::class)->create([
+            'type' => (new Article())->getMorphClass(),
+        ]);
+        $reactable = new Article([
+            'name' => 'Test Article',
+        ]);
+        $reactable->setAttribute('love_reactant_id', $reactant->getKey());
+        $reactable->save();
+
+        $this->assertSame(1, Reactant::query()->count());
+        $this->assertTrue($reactable->isRegisteredAsReactant());
+        $this->assertInstanceOf(Reactant::class, $reactable->getReactant());
+    }
+
+    /** @test */
+    public function it_can_determine_if_registered_as_reactant(): void
+    {
+        $reactant = factory(Reactant::class)->create([
+            'type' => (new Article())->getMorphClass(),
+        ]);
+        $notRegisteredReactable = new Article();
+        $registeredReactable = factory(Article::class)->create([
+            'love_reactant_id' => $reactant->getKey(),
+        ]);
+
+        $this->assertTrue($registeredReactable->isRegisteredAsReactant());
+        $this->assertFalse($notRegisteredReactable->isRegisteredAsReactant());
+    }
+
+    /** @test */
+    public function it_can_determine_if_not_registered_as_reactant(): void
+    {
+        $reactant = factory(Reactant::class)->create([
+            'type' => (new Article())->getMorphClass(),
+        ]);
+        $notRegisteredReactable = new Article();
+        $registeredReactable = factory(Article::class)->create([
+            'love_reactant_id' => $reactant->getKey(),
+        ]);
+
+        $this->assertFalse($registeredReactable->isNotRegisteredAsReactant());
+        $this->assertTrue($notRegisteredReactable->isNotRegisteredAsReactant());
     }
 
     /** @test */

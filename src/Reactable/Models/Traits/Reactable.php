@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reactable\Models\Traits;
 
+use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
@@ -30,6 +31,19 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 trait Reactable
 {
+    protected static function bootReactable(): void
+    {
+        static::creating(function (ReactableContract $reactable) {
+            if ($reactable->isNotRegisteredAsReactant()) {
+                $reactant = Reactant::query()->create([
+                    'type' => $reactable->getMorphClass(),
+                ]);
+
+                $reactable->setAttribute('love_reactant_id', $reactant->getKey());
+            }
+        });
+    }
+
     public function reactant(): BelongsTo
     {
         return $this->belongsTo(Reactant::class, 'love_reactant_id');
@@ -39,6 +53,16 @@ trait Reactable
     {
         // TODO: Return `NullReactant` if not set?
         return $this->getAttribute('reactant');
+    }
+
+    public function isRegisteredAsReactant(): bool
+    {
+        return !$this->isNotRegisteredAsReactant();
+    }
+
+    public function isNotRegisteredAsReactant(): bool
+    {
+        return is_null($this->getAttribute('love_reactant_id'));
     }
 
     public function scopeWhereReactedBy(Builder $query, ReacterContract $reacter): Builder

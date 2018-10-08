@@ -18,4 +18,8 @@ use Cog\Contracts\Love\Reactant\Models\Reactant;
 interface Reactable
 {
     public function getReactant(): Reactant;
+
+    public function isRegisteredAsReactant(): bool;
+
+    public function isNotRegisteredAsReactant(): bool;
 }

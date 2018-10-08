@@ -29,6 +29,10 @@ class Reactant extends Model implements ReactantContract
 {
     protected $table = 'love_reactants';
 
+    protected $fillable = [
+        'type',
+    ];
+
     public function reactable(): MorphTo
     {
         return $this->morphTo('reactable', 'type', 'id', 'love_reactant_id');

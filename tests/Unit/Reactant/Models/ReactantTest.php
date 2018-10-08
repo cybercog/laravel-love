@@ -27,6 +27,16 @@ class ReactantTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
+    public function it_can_fill_type(): void
+    {
+        $reactant = new Reactant([
+            'type' => 'TestType',
+        ]);
+
+        $this->assertSame('TestType', $reactant->type);
+    }
+
+    /** @test */
     public function it_can_morph_to_reactable(): void
     {
         $reactant = factory(Reactant::class)->create([
