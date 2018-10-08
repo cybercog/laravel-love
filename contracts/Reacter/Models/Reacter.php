@@ -14,10 +14,15 @@ declare(strict_types=1);
 namespace Cog\Contracts\Love\Reacter\Models;
 
 use Cog\Contracts\Love\Reactant\Models\Reactant;
+use Cog\Contracts\Love\Reacterable\Models\Reacterable;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType;
 
 interface Reacter
 {
+    public function getReacterable(): Reacterable;
+
+    public function getReactions(): iterable;
+
     public function reactTo(Reactant $reactant, ReactionType $reactionType): void;
 
     public function unreactTo(Reactant $reactant, ReactionType $reactionType): void;

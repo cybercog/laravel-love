@@ -80,6 +80,34 @@ class ReacterTest extends TestCase
     }
 
     /** @test */
+    public function it_can_get_reacterable(): void
+    {
+        $reacter = factory(Reacter::class)->create([
+            'type' => (new User())->getMorphClass(),
+        ]);
+
+        $reacterable = factory(User::class)->create([
+            'love_reacter_id' => $reacter->getKey(),
+        ]);
+
+        $this->assertTrue($reacter->getReacterable()->is($reacterable));
+    }
+
+    /** @test */
+    public function it_can_get_reactions(): void
+    {
+        $reacter = factory(Reacter::class)->create();
+
+        $reactions = factory(Reaction::class, 2)->create([
+            'reacter_id' => $reacter->getKey(),
+        ]);
+
+        $assertReactions = $reacter->getReactions();
+        $this->assertTrue($assertReactions->get(0)->is($reactions->get(0)));
+        $this->assertTrue($assertReactions->get(1)->is($reactions->get(1)));
+    }
+
+    /** @test */
     public function it_can_react_to_reactant(): void
     {
         $reactionType = factory(ReactionType::class)->create();
