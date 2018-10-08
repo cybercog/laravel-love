@@ -15,6 +15,7 @@ namespace Cog\Tests\Laravel\Love\Unit\Reactant\Models;
 
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
+use Cog\Laravel\Love\Reactant\ReactionSummary\Models\NullReactionSummary;
 use Cog\Laravel\Love\Reactant\ReactionSummary\Models\ReactionSummary;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
@@ -157,5 +158,22 @@ class ReactantTest extends TestCase
         ]);
 
         $this->assertTrue($reactant->getReactionSummary()->is($summary));
+    }
+
+    /** @test */
+    public function it_can_get_null_reaction_summary(): void
+    {
+        $reactant = factory(Reactant::class)->create();
+
+        $this->assertInstanceOf(NullReactionSummary::class, $reactant->getReactionSummary());
+    }
+
+    /** @test */
+    public function it_can_get_null_reaction_summary_with_same_reactant(): void
+    {
+        $reactant = factory(Reactant::class)->create();
+
+        $this->assertInstanceOf(NullReactionSummary::class, $reactant->getReactionSummary());
+        $this->assertSame($reactant, $reactant->getReactionSummary()->getReactant());
     }
 }

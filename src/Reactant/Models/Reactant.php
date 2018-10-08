@@ -67,6 +67,6 @@ class Reactant extends Model implements ReactantContract
 
     public function getReactionSummary(): ReactionSummaryContract
     {
-        return $this->getAttribute('reactionSummary') ?? new NullReactionSummary();
+        return $this->getAttribute('reactionSummary') ?? new NullReactionSummary($this);
     }
 }

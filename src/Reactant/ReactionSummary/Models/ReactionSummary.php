@@ -13,8 +13,11 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reactant\ReactionSummary\Models;
 
+use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reactant\ReactionSummary\Models\ReactionSummary as ReactionSummaryContract;
+use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ReactionSummary extends Model implements ReactionSummaryContract
 {
@@ -44,6 +47,16 @@ class ReactionSummary extends Model implements ReactionSummaryContract
         'total_count' => 'integer',
         'total_weight' => 'integer',
     ];
+
+    public function reactant(): BelongsTo
+    {
+        return $this->belongsTo(Reactant::class, 'reactant_id');
+    }
+
+    public function getReactant(): ReactantContract
+    {
+        return $this->getAttribute('reactant');
+    }
 
     public function getTotalCount(): int
     {

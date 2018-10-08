@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Reactant\ReactionSummary\Models;
 
+use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionSummary\Models\ReactionSummary;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -59,6 +60,30 @@ class ReactionSummaryTest extends TestCase
         ]);
 
         $this->assertSame(4, $summary->getAttribute('total_weight'));
+    }
+
+    /** @test */
+    public function it_can_belong_to_reactant(): void
+    {
+        $reactant = factory(Reactant::class)->create();
+
+        $summary = factory(ReactionSummary::class)->create([
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $this->assertTrue($summary->reactant->is($reactant));
+    }
+
+    /** @test */
+    public function it_can_get_reactant(): void
+    {
+        $reactant = factory(Reactant::class)->create();
+
+        $summary = factory(ReactionSummary::class)->create([
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $this->assertTrue($summary->getReactant()->is($reactant));
     }
 
     /** @test */

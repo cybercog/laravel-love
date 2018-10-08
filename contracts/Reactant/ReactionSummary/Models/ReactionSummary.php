@@ -13,8 +13,12 @@ declare(strict_types=1);
 
 namespace Cog\Contracts\Love\Reactant\ReactionSummary\Models;
 
+use Cog\Contracts\Love\Reactant\Models\Reactant;
+
 interface ReactionSummary
 {
+    public function getReactant(): Reactant;
+
     public function getTotalCount(): int;
 
     public function getTotalWeight(): int;
