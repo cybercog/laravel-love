@@ -517,26 +517,27 @@ class ReactableTest extends TestCase
         $reactablesOrderedAsc = Article::query()
             ->withReactionCounterOfType($reactionType1)
             ->withReactionSummary()
-            ->orderBy('reactions_total_weight', 'asc')->get();
+            ->orderBy('reactions_total_weight', 'asc')
+            ->get();
 
         $this->assertSame([
             [
                 'name' => $reactable3->name,
                 'reactions_count' => '1',
                 'reactions_total_count' => '2',
-                'reactions_total_weight' => '3'
+                'reactions_total_weight' => '3',
             ],
             [
                 'name' => $reactable1->name,
                 'reactions_count' => '2',
                 'reactions_total_count' => '3',
-                'reactions_total_weight' => '5'
+                'reactions_total_weight' => '5',
             ],
             [
                 'name' => $reactable2->name,
                 'reactions_count' => '4',
                 'reactions_total_count' => '5',
-                'reactions_total_weight' => '9'
+                'reactions_total_weight' => '9',
             ],
         ], $reactablesOrderedAsc->map(function (Article $reactable) {
             return [
