@@ -84,7 +84,7 @@ $ php artisan migrate
 If you want to make changes in migrations, publish them to your application first.
 
 ```sh
-$ php artisan vendor:publish --provider="Cog\Laravel\Love\Providers\LoveServiceProvider" --tag=migrations
+$ php artisan vendor:publish --tag=love-migrations
 ```
 
 ## Usage
