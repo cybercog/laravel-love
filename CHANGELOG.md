@@ -191,6 +191,8 @@ All notable changes to `laravel-love` will be documented in this file.
 
 - Initial release
 
+[5.2.0]: https://github.com/cybercog/laravel-love/compare/5.1.1...5.2.0
+[5.1.1]: https://github.com/cybercog/laravel-love/compare/5.1.0...5.1.1
 [5.1.0]: https://github.com/cybercog/laravel-love/compare/5.0.0...5.1.0
 [5.0.0]: https://github.com/cybercog/laravel-love/compare/4.0.0...5.0.0
 [4.0.0]: https://github.com/cybercog/laravel-love/compare/3.1.0...4.0.0
