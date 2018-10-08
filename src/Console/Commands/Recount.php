@@ -59,10 +59,6 @@ class Recount extends Command
 
         $reactants = Reactant::query()->get();
         foreach ($reactants as $reactant) {
-            foreach ($reactant->getReactionCounters() as $counter) {
-                $counter->delete();
-            }
-
             /** @var \Illuminate\Database\Eloquent\Builder $query */
             $query = $reactant->reactions();
 
@@ -74,6 +70,16 @@ class Recount extends Command
                 $query->whereHas('reactant', function (Builder $reactantQuery) use ($modelType) {
                     $reactantQuery->where('type', $modelType);
                 });
+            }
+
+            foreach ($reactant->getReactionCounters() as $counter) {
+                // TODO: Refactor it. Make type safe
+                if ($counter->reaction_type_id != $reactionType->getKey()) {
+                    continue;
+                }
+                // TODO: What to do if we asked to recount only reactions of exact reactant type?
+                // TODO: Maybe we just need to set their values to 0?
+                $counter->delete();
             }
 
             $reactions = $query->get();

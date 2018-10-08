@@ -44,6 +44,9 @@ class ReactionCounter extends Model implements ReactionCounterContract
         'count' => 'integer',
     ];
 
+    // TODO: Add `getReactionType()`?
+    // TODO: Add `isReactionOfType(ReactionType)`
+
     public function getCount(): int
     {
         return $this->getAttribute('count') ?? 0;

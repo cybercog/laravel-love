@@ -118,13 +118,13 @@ class RecountTest extends TestCase
         $this->assertSame(0, $status);
 
         $counters = ReactionCounter::query()->count();
-        $this->assertSame(3, $counters);
+        $this->assertSame(5, $counters);
         $this->assertSame(3, $entity1->reactionCounters()->where('reaction_type_id', $like->getKey())->first()->count);
         $this->assertSame(2, $entity2->reactionCounters()->where('reaction_type_id', $like->getKey())->first()->count);
         $this->assertSame(2, $entity3->reactionCounters()->where('reaction_type_id', $like->getKey())->first()->count);
         $this->assertNull($entity1->reactionCounters()->where('reaction_type_id', $dislike->getKey())->first());
-        $this->assertNull($entity2->reactionCounters()->where('reaction_type_id', $dislike->getKey())->first());
-        $this->assertNull($entity3->reactionCounters()->where('reaction_type_id', $dislike->getKey())->first());
+        $this->assertSame(1, $entity2->reactionCounters()->where('reaction_type_id', $dislike->getKey())->first()->count);
+        $this->assertSame(2, $entity3->reactionCounters()->where('reaction_type_id', $dislike->getKey())->first()->count);
     }
 
     /** @test */
