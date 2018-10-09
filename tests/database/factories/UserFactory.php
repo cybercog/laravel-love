@@ -11,8 +11,6 @@
 
 declare(strict_types=1);
 
-use Cog\Laravel\Love\Reactant\Models\Reactant;
-use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Faker\Generator as Faker;
 
@@ -20,7 +18,5 @@ use Faker\Generator as Faker;
 $factory->define(User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
-        'love_reactant_id' => factory(Reactant::class),
-        'love_reacter_id' => factory(Reacter::class),
     ];
 });

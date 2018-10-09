@@ -11,7 +11,6 @@
 
 declare(strict_types=1);
 
-use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Faker\Generator as Faker;
 
@@ -19,10 +18,5 @@ use Faker\Generator as Faker;
 $factory->define(Article::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
-        'love_reactant_id' => function () {
-            return factory(Reactant::class)->create([
-                'type' => (new Article())->getMorphClass(),
-            ]);
-        },
     ];
 });
