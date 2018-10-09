@@ -25,6 +25,6 @@ class ReacterableInvalid extends DomainException
 
     public static function notImplementInterface(string $type): self
     {
-        return new static(sprintf("[%s] must implement `%s` contract.", $type, ReacterableContract::class));
+        return new static(sprintf('[%s] must implement `%s` contract.', $type, ReacterableContract::class));
     }
 }
