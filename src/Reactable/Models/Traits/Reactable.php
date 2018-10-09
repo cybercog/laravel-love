@@ -22,6 +22,7 @@ use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionSummary\Models\ReactionSummary;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -87,11 +88,13 @@ trait Reactable
     public function scopeWithReactionCounterOfType(Builder $query, ReactionTypeContract $reactionType): Builder
     {
         $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
-        $select[] = 'lrrc.count as reactions_count';
+        $select[] = DB::raw('coalesce(lrrc.count, 0) as reactions_count');
 
         return $query
-            ->join((new ReactionCounter())->getTable() . ' as lrrc', 'lrrc.reactant_id', '=', "{$this->getTable()}.love_reactant_id")
-            ->where('lrrc.reaction_type_id', $reactionType->getKey())
+            ->leftJoin((new ReactionCounter())->getTable() . ' as lrrc', function (JoinClause $join) use ($reactionType) {
+                $join->on('lrrc.reactant_id', '=', "{$this->getTable()}.love_reactant_id");
+                $join->where('lrrc.reaction_type_id', $reactionType->getKey());
+            })
             ->select($select);
     }
 

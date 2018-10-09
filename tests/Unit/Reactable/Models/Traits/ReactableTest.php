@@ -682,4 +682,56 @@ class ReactableTest extends TestCase
             ];
         })->toArray());
     }
+
+    /** @test */
+    public function it_include_reaction_counter_null_values_replaced_with_zero(): void
+    {
+        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        $reactable1 = factory(Article::class)->create();
+        $reactable2 = factory(Article::class)->create();
+        $reactable3 = factory(Article::class)->create();
+        $reactionType1 = factory(ReactionType::class)->create([
+            'weight' => 2,
+        ]);
+        $reactionType2 = factory(ReactionType::class)->create([
+            'weight' => 1,
+        ]);
+        factory(Reaction::class, 2)->create([
+            'reaction_type_id' => $reactionType1->getKey(),
+            'reactant_id' => $reactable1->getReactant()->getKey(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType1->getKey(),
+            'reactant_id' => $reactable3->getReactant()->getKey(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType2->getKey(),
+            'reactant_id' => $reactable2->getReactant()->getKey(),
+        ]);
+
+        $reactablesOrderedAsc = Article::query()
+            ->withReactionCounterOfType($reactionType1)
+            ->orderBy('reactions_count', 'asc')
+            ->get();
+
+        $this->assertSame([
+            [
+                'name' => $reactable2->name,
+                'reactions_count' => '0',
+            ],
+            [
+                'name' => $reactable3->name,
+                'reactions_count' => '1',
+            ],
+            [
+                'name' => $reactable1->name,
+                'reactions_count' => '2',
+            ],
+        ], $reactablesOrderedAsc->map(function (Article $reactable) {
+            return [
+                'name' => $reactable->name,
+                'reactions_count' => $reactable->reactions_count,
+            ];
+        })->toArray());
+    }
 }
