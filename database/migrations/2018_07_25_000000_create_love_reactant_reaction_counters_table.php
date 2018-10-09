@@ -33,6 +33,10 @@ class CreateLoveReactantReactionCountersTable extends Migration
 
             $table->index('reactant_id');
             $table->index('reaction_type_id');
+            $table->index([
+                'reactant_id',
+                'reaction_type_id',
+            ]);
 
             $table->foreign('reactant_id')->references('id')->on('love_reactants')
                 ->onDelete('cascade');
