@@ -30,6 +30,14 @@ class CreateLoveReactantReactionCountersTable extends Migration
             $table->unsignedInteger('reaction_type_id');
             $table->unsignedInteger('count')->default('0');
             $table->timestamps();
+
+            $table->index('reactant_id');
+            $table->index('reaction_type_id');
+
+            $table->foreign('reactant_id')->references('id')->on('love_reactants')
+                ->onDelete('cascade');
+            $table->foreign('reaction_type_id')->references('id')->on('love_reaction_types')
+                ->onDelete('cascade');
         });
     }
 

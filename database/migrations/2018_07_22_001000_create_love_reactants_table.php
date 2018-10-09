@@ -28,6 +28,8 @@ class CreateLoveReactantsTable extends Migration
             $table->increments('id');
             $table->string('type');
             $table->timestamps();
+
+            $table->index('type');
         });
     }
 

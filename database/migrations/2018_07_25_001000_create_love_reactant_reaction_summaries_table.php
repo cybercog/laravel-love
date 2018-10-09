@@ -30,6 +30,11 @@ class CreateLoveReactantReactionSummariesTable extends Migration
             $table->unsignedInteger('total_count')->default('0');
             $table->bigInteger('total_weight')->default('0');
             $table->timestamps();
+
+            $table->index('reactant_id');
+
+            $table->foreign('reactant_id')->references('id')->on('love_reactants')
+                ->onDelete('cascade');
         });
     }
 

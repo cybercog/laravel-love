@@ -29,6 +29,8 @@ class CreateLoveReactionTypesTable extends Migration
             $table->string('name');
             $table->tinyInteger('weight');
             $table->timestamps();
+
+            $table->index('name');
         });
     }
 

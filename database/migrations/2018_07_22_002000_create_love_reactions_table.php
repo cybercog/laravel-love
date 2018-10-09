@@ -30,6 +30,17 @@ class CreateLoveReactionsTable extends Migration
             $table->unsignedBigInteger('reacter_id');
             $table->unsignedInteger('reaction_type_id');
             $table->timestamps();
+
+            $table->index('reactant_id');
+            $table->index('reacter_id');
+            $table->index('reaction_type_id');
+
+            $table->foreign('reactant_id')->references('id')->on('love_reactants')
+                ->onDelete('cascade');
+            $table->foreign('reacter_id')->references('id')->on('love_reacters')
+                ->onDelete('cascade');
+            $table->foreign('reaction_type_id')->references('id')->on('love_reaction_types')
+                ->onDelete('cascade');
         });
     }
 
