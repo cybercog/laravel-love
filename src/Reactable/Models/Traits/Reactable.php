@@ -89,7 +89,7 @@ trait Reactable
         $select[] = 'lrrc.count as reactions_count';
 
         return $query
-            ->join((new ReactionCounter())->getTable() . ' as lrrc', 'lrrc.reactant_id', '=', $this->getQualifiedKeyName())
+            ->join((new ReactionCounter())->getTable() . ' as lrrc', 'lrrc.reactant_id', '=', "{$this->getTable()}.love_reactant_id")
             ->where('lrrc.reaction_type_id', $reactionType->getKey())
             ->select($select);
     }
@@ -101,7 +101,7 @@ trait Reactable
         $select[] = 'lrrs.total_weight as reactions_total_weight';
 
         return $query
-            ->join((new ReactionSummary())->getTable() . ' as lrrs', 'lrrs.reactant_id', '=', $this->getQualifiedKeyName())
+            ->join((new ReactionSummary())->getTable() . ' as lrrs', 'lrrs.reactant_id', '=', "{$this->getTable()}.love_reactant_id")
             ->select($select);
     }
 }

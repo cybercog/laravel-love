@@ -115,6 +115,7 @@ class ReactableTest extends TestCase
     /** @test */
     public function it_can_scope_by_reacter(): void
     {
+        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
@@ -137,8 +138,12 @@ class ReactableTest extends TestCase
             'reacter_id' => $reacter2->getKey(),
         ]);
 
-        $reactedByReacter1 = Article::whereReactedBy($reacter1)->get();
-        $reactedByReacter2 = Article::whereReactedBy($reacter2)->get();
+        $reactedByReacter1 = Article::query()
+            ->whereReactedBy($reacter1)
+            ->get();
+        $reactedByReacter2 = Article::query()
+            ->whereReactedBy($reacter2)
+            ->get();
 
         $this->assertSame([
             $reactable1->getKey(),
@@ -153,6 +158,7 @@ class ReactableTest extends TestCase
     /** @test */
     public function it_can_scope_by_reacter_and_reaction_type(): void
     {
+        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
@@ -191,10 +197,18 @@ class ReactableTest extends TestCase
             'reacter_id' => $reacter2->getKey(),
         ]);
 
-        $reactedByReacter1WithReactionType1 = Article::whereReactedWithTypeBy($reacter1, $reactionType1)->get();
-        $reactedByReacter1WithReactionType2 = Article::whereReactedWithTypeBy($reacter1, $reactionType2)->get();
-        $reactedByReacter2WithReactionType1 = Article::whereReactedWithTypeBy($reacter2, $reactionType1)->get();
-        $reactedByReacter2WithReactionType2 = Article::whereReactedWithTypeBy($reacter2, $reactionType2)->get();
+        $reactedByReacter1WithReactionType1 = Article::query()
+            ->whereReactedWithTypeBy($reacter1, $reactionType1)
+            ->get();
+        $reactedByReacter1WithReactionType2 = Article::query()
+            ->whereReactedWithTypeBy($reacter1, $reactionType2)
+            ->get();
+        $reactedByReacter2WithReactionType1 = Article::query()
+            ->whereReactedWithTypeBy($reacter2, $reactionType1)
+            ->get();
+        $reactedByReacter2WithReactionType2 = Article::query()
+            ->whereReactedWithTypeBy($reacter2, $reactionType2)
+            ->get();
 
         $this->assertSame([
             $reactable1->getKey(),
@@ -213,8 +227,9 @@ class ReactableTest extends TestCase
     }
 
     /** @test */
-    public function it_can_order_by_reactions_count_of_type(): void
+    public function it_can_get_reactable_with_reactions_count_of_type(): void
     {
+        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
@@ -259,8 +274,9 @@ class ReactableTest extends TestCase
     }
 
     /** @test */
-    public function it_select_default_reactable_columns_on_order_by_reactions_count_of_type(): void
+    public function it_select_default_reactable_columns_on_get_reactable_with_reactions_count_of_type(): void
     {
+        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
@@ -291,8 +307,9 @@ class ReactableTest extends TestCase
     }
 
     /** @test */
-    public function it_can_select_custom_reactable_columns_on_order_by_reactions_count_of_type(): void
+    public function it_can_select_custom_reactable_columns_on_get_reactable_with_reactions_count_of_type(): void
     {
+        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
@@ -326,6 +343,7 @@ class ReactableTest extends TestCase
     /** @test */
     public function it_can_order_by_reactions_total_count(): void
     {
+        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
@@ -359,6 +377,7 @@ class ReactableTest extends TestCase
     /** @test */
     public function it_select_default_reactable_columns_on_order_by_reactions_total_count(): void
     {
+        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
@@ -391,6 +410,7 @@ class ReactableTest extends TestCase
     /** @test */
     public function it_can_select_custom_reactable_columns_on_order_by_reactions_total_count(): void
     {
+        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
@@ -429,6 +449,7 @@ class ReactableTest extends TestCase
     /** @test */
     public function it_can_order_by_reactions_weight(): void
     {
+        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
@@ -464,6 +485,7 @@ class ReactableTest extends TestCase
     /** @test */
     public function it_select_default_reactable_columns_on_order_by_reactions_weight(): void
     {
+        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
@@ -498,6 +520,7 @@ class ReactableTest extends TestCase
     /** @test */
     public function it_can_select_custom_reactable_columns_on_order_by_reactions_weight(): void
     {
+        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
@@ -538,6 +561,7 @@ class ReactableTest extends TestCase
     /** @test */
     public function it_chain_with_reaction_counter_of_type_and_with_reaction_summary(): void
     {
+        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
