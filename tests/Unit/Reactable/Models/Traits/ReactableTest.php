@@ -630,4 +630,56 @@ class ReactableTest extends TestCase
             ];
         })->toArray());
     }
+
+    /** @test */
+    public function it_include_reaction_summary_null_values_replaced_with_zero(): void
+    {
+        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        $reactable1 = factory(Article::class)->create();
+        $reactable2 = factory(Article::class)->create();
+        $reactable3 = factory(Article::class)->create();
+        $reactionType1 = factory(ReactionType::class)->create([
+            'weight' => 2,
+        ]);
+        $reactionType2 = factory(ReactionType::class)->create([
+            'weight' => 1,
+        ]);
+        factory(Reaction::class, 2)->create([
+            'reaction_type_id' => $reactionType1->getKey(),
+            'reactant_id' => $reactable1->getReactant()->getKey(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType2->getKey(),
+            'reactant_id' => $reactable3->getReactant()->getKey(),
+        ]);
+
+        $reactablesOrderedAsc = Article::query()
+            ->withReactionSummary()
+            ->orderBy('reactions_total_weight', 'asc')
+            ->get();
+
+        $this->assertSame([
+            [
+                'name' => $reactable2->name,
+                'reactions_total_count' => '0',
+                'reactions_total_weight' => '0',
+            ],
+            [
+                'name' => $reactable3->name,
+                'reactions_total_count' => '1',
+                'reactions_total_weight' => '1',
+            ],
+            [
+                'name' => $reactable1->name,
+                'reactions_total_count' => '2',
+                'reactions_total_weight' => '4',
+            ],
+        ], $reactablesOrderedAsc->map(function (Article $reactable) {
+            return [
+                'name' => $reactable->name,
+                'reactions_total_count' => $reactable->reactions_total_count,
+                'reactions_total_weight' => $reactable->reactions_total_weight,
+            ];
+        })->toArray());
+    }
 }

@@ -22,6 +22,7 @@ use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionSummary\Models\ReactionSummary;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Trait Reactable.
@@ -97,11 +98,11 @@ trait Reactable
     public function scopeWithReactionSummary(Builder $query): Builder
     {
         $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
-        $select[] = 'lrrs.total_count as reactions_total_count';
-        $select[] = 'lrrs.total_weight as reactions_total_weight';
+        $select[] = DB::raw('coalesce(lrrs.total_count, 0) as reactions_total_count');
+        $select[] = DB::raw('coalesce(lrrs.total_weight, 0) as reactions_total_weight');
 
         return $query
-            ->join((new ReactionSummary())->getTable() . ' as lrrs', 'lrrs.reactant_id', '=', "{$this->getTable()}.love_reactant_id")
+            ->leftJoin((new ReactionSummary())->getTable() . ' as lrrs', 'lrrs.reactant_id', '=', "{$this->getTable()}.love_reactant_id")
             ->select($select);
     }
 }
