@@ -24,7 +24,7 @@ class ReactionWasDeleted
         $this->reaction = $reaction;
     }
 
-    public function reaction(): ReactionContract
+    public function getReaction(): ReactionContract
     {
         return $this->reaction;
     }

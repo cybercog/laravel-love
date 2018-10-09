@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Cog\Contracts\Love\Reactable\Exceptions;
+namespace Cog\Contracts\Love\Reacterable\Exceptions;
 
-use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
+use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
 use DomainException;
 
-class ReactableInvalid extends DomainException
+class ReacterableInvalid extends DomainException
 {
     public static function notExists(string $type): self
     {
@@ -25,6 +25,6 @@ class ReactableInvalid extends DomainException
 
     public static function notImplementInterface(string $type): self
     {
-        return new static("[{$type}] must implement `" . ReactableContract::class . "` contract.");
+        return new static("[{$type}] must implement `" . ReacterableContract::class . "` contract.");
     }
 }
