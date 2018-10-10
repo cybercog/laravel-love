@@ -88,10 +88,10 @@ trait Reactable
     public function scopeWithReactionCounterOfType(Builder $query, ReactionTypeContract $reactionType): Builder
     {
         $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
-        $select[] = DB::raw('coalesce(lrrc.count, 0) as reactions_count');
+        $select[] = 'lrrc.count as reactions_count';
 
         return $query
-            ->leftJoin((new ReactionCounter())->getTable() . ' as lrrc', function (JoinClause $join) use ($reactionType) {
+            ->join((new ReactionCounter())->getTable() . ' as lrrc', function (JoinClause $join) use ($reactionType) {
                 $join->on('lrrc.reactant_id', '=', "{$this->getTable()}.love_reactant_id");
                 $join->where('lrrc.reaction_type_id', $reactionType->getKey());
             })
@@ -101,11 +101,11 @@ trait Reactable
     public function scopeWithReactionSummary(Builder $query): Builder
     {
         $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
-        $select[] = DB::raw('coalesce(lrrs.total_count, 0) as reactions_total_count');
-        $select[] = DB::raw('coalesce(lrrs.total_weight, 0) as reactions_total_weight');
+        $select[] = 'lrrs.total_count as reactions_total_count';
+        $select[] = 'lrrs.total_weight as reactions_total_weight';
 
         return $query
-            ->leftJoin((new ReactionSummary())->getTable() . ' as lrrs', 'lrrs.reactant_id', '=', "{$this->getTable()}.love_reactant_id")
+            ->join((new ReactionSummary())->getTable() . ' as lrrs', 'lrrs.reactant_id', '=', "{$this->getTable()}.love_reactant_id")
             ->select($select);
     }
 }
