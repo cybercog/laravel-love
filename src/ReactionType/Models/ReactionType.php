@@ -53,12 +53,12 @@ class ReactionType extends Model implements ReactionTypeContract
     {
         parent::boot();
 
-        static::saved(function (ReactionTypeContract $model) {
-            static::$instances[$model->getName()] = $model;
+        static::saved(function (ReactionTypeContract $reactionType) {
+            static::$instances[$reactionType->getName()] = $reactionType;
         });
 
-        static::deleted(function (ReactionTypeContract $model) {
-            unset(static::$instances[$model->getName()]);
+        static::deleted(function (ReactionTypeContract $reactionType) {
+            unset(static::$instances[$reactionType->getName()]);
         });
     }
 
