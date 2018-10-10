@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Cog\Tests\Laravel\Love\Unit\Reactant\ReactionCounter\Services;
 
 use Cog\Contracts\Love\Reactant\ReactionCounter\Exceptions\ReactionCounterBadValue;
+use Cog\Contracts\Love\Reactant\ReactionCounter\Exceptions\ReactionCounterInvalid;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Services\ReactionCounterService;
@@ -90,10 +91,7 @@ class ReactionCounterServiceTest extends TestCase
     /** @test */
     public function it_throws_exception_on_incrementing_not_exist_counter(): void
     {
-//        $this->markTestSkipped('Not sure we need so strict behavior.');
-
-        // TODO: Expect Custom Exception
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(ReactionCounterInvalid::class);
 
         $reactant = factory(Reactant::class)->create();
         $service = new ReactionCounterService($reactant);
@@ -105,10 +103,7 @@ class ReactionCounterServiceTest extends TestCase
     /** @test */
     public function it_throws_exception_on_decrementing_not_exist_counter(): void
     {
-//        $this->markTestSkipped('Not sure we need so strict behavior.');
-
-        // TODO: Expect Custom Exception
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(ReactionCounterInvalid::class);
 
         $reactant = factory(Reactant::class)->create();
         $service = new ReactionCounterService($reactant);

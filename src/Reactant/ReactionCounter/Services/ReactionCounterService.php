@@ -15,6 +15,7 @@ namespace Cog\Laravel\Love\Reactant\ReactionCounter\Services;
 
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reactant\ReactionCounter\Exceptions\ReactionCounterBadValue;
+use Cog\Contracts\Love\Reactant\ReactionCounter\Exceptions\ReactionCounterInvalid;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 
@@ -65,11 +66,7 @@ class ReactionCounterService
             ->first();
 
         if (is_null($counter)) {
-            // TODO: Throw custom exception
-            throw new \RuntimeException(sprintf(
-                'ReactionCounter with ReactionType `%s` not found.',
-                $reactionType->getName()
-            ));
+            throw ReactionCounterInvalid::notFoundOfType($reactionType);
         }
 
         if ($counter->count + $amount < 0) {
