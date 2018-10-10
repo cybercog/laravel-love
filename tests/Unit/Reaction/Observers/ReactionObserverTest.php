@@ -15,7 +15,6 @@ namespace Cog\Tests\Laravel\Love\Unit\Reaction\Observers;
 
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
-use Cog\Laravel\Love\Reactant\ReactionSummary\Models\ReactionSummary;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\TestCase;

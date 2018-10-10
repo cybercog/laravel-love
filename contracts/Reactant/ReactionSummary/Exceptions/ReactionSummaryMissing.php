@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Cog\Contracts\Love\Reactant\ReactionSummary\Exceptions;
 
 use Cog\Contracts\Love\Reactant\Models\Reactant;
-use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use OutOfBoundsException;
 
 class ReactionSummaryMissing extends OutOfBoundsException
