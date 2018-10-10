@@ -29,11 +29,13 @@ class ReactionCounterService
         $this->reactant = $reactant;
     }
 
+    // TODO: Cover with tests
     public function createCounters(): void
     {
         $this->createMissingCounters([]);
     }
 
+    // TODO: Cover with tests
     public function createMissingCounters(iterable $existCounters): void
     {
         // TODO: Instead of `all` use custom cacheable static method

@@ -39,11 +39,15 @@ class Reactant extends Model implements ReactantContract
         parent::boot();
 
         static::created(function (ReactantContract $reactant) {
+            // TODO: Do it in service or in`ReactionCounter` or `Reactant` method?
             // TODO: Make it asynchronously
-            // TODO: Do we need to make it in service or it should be Model method?
+            // TODO: Cover with tests
             $counterService = new ReactionCounterService($reactant);
             $counterService->createCounters();
 
+            // TODO: Do it in service or in `ReactionSummary` or `Reactant` method?
+            // TODO: Make it asynchronously
+            // TODO: Cover with tests
             $reactant->reactionSummary()->create([
                 'total_count' => 0,
                 'total_weight' => 0,
