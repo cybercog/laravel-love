@@ -27,7 +27,7 @@ class CreateLoveReactantReactionSummariesTable extends Migration
         Schema::create('love_reactant_reaction_summaries', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('reactant_id');
-            $table->unsignedInteger('total_count')->default('0');
+            $table->unsignedBigInteger('total_count')->default('0');
             $table->bigInteger('total_weight')->default('0');
             $table->timestamps();
 

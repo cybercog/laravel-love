@@ -88,6 +88,7 @@ trait Reactable
     {
         $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
         $select[] = 'lrrc.count as reactions_count';
+        $select[] = 'lrrc.weight as reactions_weight';
 
         return $query
             ->join((new ReactionCounter())->getTable() . ' as lrrc', function (JoinClause $join) use ($reactionType) {

@@ -315,7 +315,9 @@ class ReactableTest extends TestCase
     public function it_can_select_custom_reactable_columns_on_get_reactable_with_reactions_count_of_type(): void
     {
         factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
-        $reactionType1 = factory(ReactionType::class)->create();
+        $reactionType1 = factory(ReactionType::class)->create([
+            'weight' => 2,
+        ]);
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
@@ -339,9 +341,9 @@ class ReactableTest extends TestCase
             ->get();
 
         $this->assertSame([
-            ['name' => $reactable3->name, 'reactions_count' => '1'],
-            ['name' => $reactable1->name, 'reactions_count' => '2'],
-            ['name' => $reactable2->name, 'reactions_count' => '3'],
+            ['name' => $reactable3->name, 'reactions_count' => '1', 'reactions_weight' => '2'],
+            ['name' => $reactable1->name, 'reactions_count' => '2', 'reactions_weight' => '4'],
+            ['name' => $reactable2->name, 'reactions_count' => '3', 'reactions_weight' => '6'],
         ], $reactablesOrderedAsc->toArray());
     }
 

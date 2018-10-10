@@ -17,6 +17,7 @@ use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reactant\ReactionSummary\Exceptions\ReactionSummaryBadValue;
 use Cog\Contracts\Love\Reactant\ReactionSummary\Exceptions\ReactionSummaryMissing;
 use Cog\Contracts\Love\Reactant\ReactionSummary\Models\ReactionSummary as ReactionSummaryContract;
+use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
 use Cog\Laravel\Love\Reactant\ReactionSummary\Models\NullReactionSummary;
 
 class ReactionSummaryService
@@ -31,23 +32,35 @@ class ReactionSummaryService
         $this->reactionSummary = $this->findReactionSummaryFor($reactant);
     }
 
-    public function incrementTotalCount(int $amount = 1): void
+    public function addReaction(ReactionContract $reaction): void
+    {
+        $this->incrementTotalCount();
+        $this->incrementTotalWeight($reaction->getWeight());
+    }
+
+    public function removeReaction(ReactionContract $reaction): void
+    {
+        $this->decrementTotalCount();
+        $this->decrementTotalWeight($reaction->getWeight());
+    }
+
+    private function incrementTotalCount(int $amount = 1): void
     {
         $this->incrementOrDecrementTotalCount($amount);
     }
 
-    public function decrementTotalCount(int $amount = 1): void
+    private function decrementTotalCount(int $amount = 1): void
     {
         $amount *= -1;
         $this->incrementOrDecrementTotalCount($amount);
     }
 
-    public function incrementTotalWeight(int $amount = 1): void
+    private function incrementTotalWeight(int $amount = 1): void
     {
         $this->incrementOrDecrementTotalWeight($amount);
     }
 
-    public function decrementTotalWeight(int $amount = 1): void
+    private function decrementTotalWeight(int $amount = 1): void
     {
         $amount *= -1;
         $this->incrementOrDecrementTotalWeight($amount);

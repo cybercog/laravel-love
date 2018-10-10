@@ -34,6 +34,16 @@ class ReactionCounterTest extends TestCase
     }
 
     /** @test */
+    public function it_can_fill_weight(): void
+    {
+        $counter = new ReactionCounter([
+            'weight' => 4,
+        ]);
+
+        $this->assertSame(4, $counter->getAttribute('weight'));
+    }
+
+    /** @test */
     public function it_can_fill_reaction_type_id(): void
     {
         $counter = new ReactionCounter([
@@ -51,6 +61,16 @@ class ReactionCounterTest extends TestCase
         ]);
 
         $this->assertSame(4, $counter->getAttribute('count'));
+    }
+
+    /** @test */
+    public function it_casts_weight_to_integer(): void
+    {
+        $counter = new ReactionCounter([
+            'weight' => '4',
+        ]);
+
+        $this->assertSame(4, $counter->getAttribute('weight'));
     }
 
     /** @test */
@@ -132,18 +152,36 @@ class ReactionCounterTest extends TestCase
     /** @test */
     public function it_can_get_count(): void
     {
-        $summary = new ReactionCounter([
+        $counter = new ReactionCounter([
             'count' => '4',
         ]);
 
-        $this->assertSame(4, $summary->getCount());
+        $this->assertSame(4, $counter->getCount());
     }
 
     /** @test */
     public function it_can_get_count_if_not_set(): void
     {
-        $summary = new ReactionCounter();
+        $counter = new ReactionCounter();
 
-        $this->assertSame(0, $summary->getCount());
+        $this->assertSame(0, $counter->getCount());
+    }
+
+    /** @test */
+    public function it_can_get_weight(): void
+    {
+        $counter = new ReactionCounter([
+            'weight' => '4',
+        ]);
+
+        $this->assertSame(4, $counter->getWeight());
+    }
+
+    /** @test */
+    public function it_can_get_weight_if_not_set(): void
+    {
+        $counter = new ReactionCounter();
+
+        $this->assertSame(0, $counter->getWeight());
     }
 }

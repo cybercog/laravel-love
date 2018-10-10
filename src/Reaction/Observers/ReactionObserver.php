@@ -31,11 +31,10 @@ class ReactionObserver
         $reactant = $reaction->getReactant()->fresh();
 
         (new ReactionCounterService($reactant))
-            ->incrementCounterOfType($reaction->getType());
+            ->addReaction($reaction);
 
-        $summaryService = new ReactionSummaryService($reactant);
-        $summaryService->incrementTotalCount();
-        $summaryService->incrementTotalWeight($reaction->getWeight());
+        (new ReactionSummaryService($reactant))
+            ->addReaction($reaction);
     }
 
     public function deleted(Reaction $reaction): void
@@ -47,10 +46,9 @@ class ReactionObserver
         $reactant = $reaction->getReactant()->fresh();
 
         (new ReactionCounterService($reactant))
-            ->decrementCounterOfType($reaction->getType());
+            ->removeReaction($reaction);
 
-        $summaryService = new ReactionSummaryService($reactant);
-        $summaryService->decrementTotalCount();
-        $summaryService->decrementTotalWeight($reaction->getWeight());
+        (new ReactionSummaryService($reactant))
+            ->removeReaction($reaction);
     }
 }

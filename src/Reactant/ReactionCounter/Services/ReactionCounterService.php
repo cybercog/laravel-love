@@ -16,6 +16,7 @@ namespace Cog\Laravel\Love\Reactant\ReactionCounter\Services;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reactant\ReactionCounter\Exceptions\ReactionCounterBadValue;
 use Cog\Contracts\Love\Reactant\ReactionCounter\Exceptions\ReactionCounterMissing;
+use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 
@@ -48,18 +49,41 @@ class ReactionCounterService
         }
     }
 
-    public function incrementCounterOfType(ReactionTypeContract $reactionType, int $amount = 1): void
+    public function addReaction(ReactionContract $reaction): void
     {
-        $this->incrementOrDecrementOfType($reactionType, $amount);
+        $this->incrementCountOfType($reaction->getType());
+        $this->incrementWeightOfType($reaction->getType(), $reaction->getWeight());
     }
 
-    public function decrementCounterOfType(ReactionTypeContract $reactionType, int $amount = 1): void
+    public function removeReaction(ReactionContract $reaction): void
+    {
+        $this->decrementCountOfType($reaction->getType());
+        $this->decrementWeightOfType($reaction->getType(), $reaction->getWeight());
+    }
+
+    private function incrementCountOfType(ReactionTypeContract $reactionType, int $amount = 1): void
+    {
+        $this->incrementOrDecrementCountOfType($reactionType, $amount);
+    }
+
+    private function decrementCountOfType(ReactionTypeContract $reactionType, int $amount = 1): void
     {
         $amount *= -1;
-        $this->incrementOrDecrementOfType($reactionType, $amount);
+        $this->incrementOrDecrementCountOfType($reactionType, $amount);
     }
 
-    private function incrementOrDecrementOfType(ReactionTypeContract $reactionType, int $amount = 1): void
+    private function incrementWeightOfType(ReactionTypeContract $reactionType, int $amount = 1): void
+    {
+        $this->incrementOrDecrementWeightOfType($reactionType, $amount);
+    }
+
+    private function decrementWeightOfType(ReactionTypeContract $reactionType, int $amount = 1): void
+    {
+        $amount *= -1;
+        $this->incrementOrDecrementWeightOfType($reactionType, $amount);
+    }
+
+    private function incrementOrDecrementCountOfType(ReactionTypeContract $reactionType, int $amount = 1): void
     {
         $counter = $this->reactant->reactionCounters()
             ->where('reaction_type_id', $reactionType->getKey())
@@ -74,6 +98,19 @@ class ReactionCounterService
         }
 
         $counter->increment('count', $amount);
+    }
+
+    private function incrementOrDecrementWeightOfType(ReactionTypeContract $reactionType, int $amount = 1): void
+    {
+        $counter = $this->reactant->reactionCounters()
+            ->where('reaction_type_id', $reactionType->getKey())
+            ->first();
+
+        if (is_null($counter)) {
+            throw ReactionCounterMissing::ofTypeForReactant($this->reactant, $reactionType);
+        }
+
+        $counter->increment('weight', $amount);
     }
 
     private function createCounterOfType(ReactionTypeContract $reactionType): void

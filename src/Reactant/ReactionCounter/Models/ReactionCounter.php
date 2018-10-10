@@ -38,6 +38,7 @@ class ReactionCounter extends Model implements ReactionCounterContract
     protected $fillable = [
         'reaction_type_id',
         'count',
+        'weight',
     ];
 
     /**
@@ -47,6 +48,7 @@ class ReactionCounter extends Model implements ReactionCounterContract
      */
     protected $casts = [
         'count' => 'integer',
+        'weight' => 'integer',
     ];
 
     public function reactant(): BelongsTo
@@ -82,5 +84,10 @@ class ReactionCounter extends Model implements ReactionCounterContract
     public function getCount(): int
     {
         return $this->getAttribute('count') ?? 0;
+    }
+
+    public function getWeight(): int
+    {
+        return $this->getAttribute('weight') ?? 0;
     }
 }

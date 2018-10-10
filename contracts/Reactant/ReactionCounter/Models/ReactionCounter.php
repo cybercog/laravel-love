@@ -27,4 +27,6 @@ interface ReactionCounter
     public function isNotReactionOfType(ReactionType $reactionType): bool;
 
     public function getCount(): int;
+
+    public function getWeight(): int;
 }

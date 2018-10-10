@@ -83,7 +83,10 @@ class Recount extends Command
 
                 // TODO: Cover with tests that we don't delete counter
                 $counter->update([
+                    // TODO: Cover with test that count is resetting
                     'count' => 0,
+                    // TODO: Cover with test that weight is resetting
+                    'weight' => 0,
                 ]);
             }
 
@@ -93,7 +96,7 @@ class Recount extends Command
             $reactions = $query->get();
 
             foreach ($reactions as $reaction) {
-                $service->incrementCounterOfType($reaction->getType());
+                $service->addReaction($reaction);
             }
         }
     }
