@@ -232,11 +232,15 @@ class ReactableTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_reactable_with_reactions_count_of_type(): void
+    public function it_can_get_reactables_with_reaction_counter_of_type(): void
     {
         factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
-        $reactionType1 = factory(ReactionType::class)->create();
-        $reactionType2 = factory(ReactionType::class)->create();
+        $reactionType1 = factory(ReactionType::class)->create([
+            'weight' => 2,
+        ]);
+        $reactionType2 = factory(ReactionType::class)->create([
+            'weight' => 1,
+        ]);
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
@@ -274,12 +278,30 @@ class ReactableTest extends TestCase
             ->orderBy('reactions_count', 'desc')
             ->get();
 
-        $this->assertSame(['1', '2', '3'], $reactablesOrderedAsc->pluck('reactions_count')->toArray());
-        $this->assertSame(['3', '2', '1'], $reactablesOrderedDesc->pluck('reactions_count')->toArray());
+        $assertAsc = [
+            ['name' => $reactable3->name, 'reactions_count' => '1', 'reactions_weight' => '2'],
+            ['name' => $reactable1->name, 'reactions_count' => '2', 'reactions_weight' => '4'],
+            ['name' => $reactable2->name, 'reactions_count' => '3', 'reactions_weight' => '6'],
+        ];
+        $assertDesc = array_reverse($assertAsc);
+        $this->assertSame($assertAsc, $reactablesOrderedAsc->map(function (Article $reactable) {
+            return [
+                'name' => $reactable->name,
+                'reactions_count' => $reactable->reactions_count,
+                'reactions_weight' => $reactable->reactions_weight,
+            ];
+        })->toArray());
+        $this->assertSame($assertDesc, $reactablesOrderedDesc->map(function (Article $reactable) {
+            return [
+                'name' => $reactable->name,
+                'reactions_count' => $reactable->reactions_count,
+                'reactions_weight' => $reactable->reactions_weight,
+            ];
+        })->toArray());
     }
 
     /** @test */
-    public function it_select_default_reactable_columns_on_get_reactable_with_reactions_count_of_type(): void
+    public function it_select_default_reactable_columns_on_get_reactable_with_reaction_counter_of_type(): void
     {
         factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactionType1 = factory(ReactionType::class)->create();

@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Cog\Tests\Laravel\Love\Unit\Reaction\Observers;
 
 use Cog\Laravel\Love\Reactant\Models\Reactant;
-use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\TestCase;
@@ -27,12 +26,11 @@ class ReactionObserverTest extends TestCase
     /** @test */
     public function it_increment_reactions_count_on_reaction_created()
     {
-        $reactant = factory(Reactant::class)->create();
         $reactionType = factory(ReactionType::class)->create();
-        $counter = factory(ReactionCounter::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
-        ]);
+        $reactant = factory(Reactant::class)->create();
+        $counter = $reactant->reactionCounters()
+            ->where('reaction_type_id', $reactionType->getKey())
+            ->firstOrFail();
 
         factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType->getKey(),
@@ -45,12 +43,11 @@ class ReactionObserverTest extends TestCase
     /** @test */
     public function it_decrement_reactions_count_on_reaction_deleted()
     {
-        $reactant = factory(Reactant::class)->create();
         $reactionType = factory(ReactionType::class)->create();
-        $counter = factory(ReactionCounter::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
-        ]);
+        $reactant = factory(Reactant::class)->create();
+        $counter = $reactant->reactionCounters()
+            ->where('reaction_type_id', $reactionType->getKey())
+            ->firstOrFail();
         $reactions = factory(Reaction::class, 2)->create([
             'reaction_type_id' => $reactionType->getKey(),
             'reactant_id' => $reactant->getKey(),
@@ -59,6 +56,84 @@ class ReactionObserverTest extends TestCase
         $reactions->get(0)->delete();
 
         $this->assertSame(1, $counter->fresh()->count);
+    }
+
+    /** @test */
+    public function it_increment_reactions_weight_on_reaction_created()
+    {
+        $reactionType = factory(ReactionType::class)->create([
+            'weight' => 4,
+        ]);
+        $reactant = factory(Reactant::class)->create();
+        $counter = $reactant->reactionCounters()
+            ->where('reaction_type_id', $reactionType->getKey())
+            ->firstOrFail();
+
+        factory(Reaction::class, 2)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $this->assertSame(8, $counter->fresh()->weight);
+    }
+
+    /** @test */
+    public function it_decrement_reactions_weight_on_reaction_deleted()
+    {
+        $reactionType = factory(ReactionType::class)->create([
+            'weight' => 4,
+        ]);
+        $reactant = factory(Reactant::class)->create();
+        $counter = $reactant->reactionCounters()
+            ->where('reaction_type_id', $reactionType->getKey())
+            ->firstOrFail();
+        $reactions = factory(Reaction::class, 3)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $reactions->get(0)->delete();
+
+        $this->assertSame(8, $counter->fresh()->weight);
+    }
+
+    /** @test */
+    public function it_increment_reactions_weight_on_reaction_with_negative_weight_created()
+    {
+        $reactionType = factory(ReactionType::class)->create([
+            'weight' => -4,
+        ]);
+        $reactant = factory(Reactant::class)->create();
+        $counter = $reactant->reactionCounters()
+            ->where('reaction_type_id', $reactionType->getKey())
+            ->firstOrFail();
+
+        factory(Reaction::class, 2)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $this->assertSame(-8, $counter->fresh()->weight);
+    }
+
+    /** @test */
+    public function it_decrement_reactions_weight_on_reaction_with_negative_weight_deleted()
+    {
+        $reactionType = factory(ReactionType::class)->create([
+            'weight' => -4,
+        ]);
+        $reactant = factory(Reactant::class)->create();
+        $counter = $reactant->reactionCounters()
+            ->where('reaction_type_id', $reactionType->getKey())
+            ->firstOrFail();
+        $reactions = factory(Reaction::class, 3)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $reactions->get(0)->delete();
+
+        $this->assertSame(-8, $counter->fresh()->weight);
     }
 
     /** @test */
