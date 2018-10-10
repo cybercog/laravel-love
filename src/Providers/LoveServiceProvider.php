@@ -13,8 +13,11 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Providers;
 
+use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
 use Cog\Laravel\Love\Console\Commands\Recount;
+use Cog\Laravel\Love\Reactant\Models\Reactant;
+use Cog\Laravel\Love\Reactant\Observers\ReactantObserver;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\Reaction\Observers\ReactionObserver;
 use Illuminate\Support\ServiceProvider;
@@ -51,6 +54,7 @@ class LoveServiceProvider extends ServiceProvider
      */
     protected function registerObservers(): void
     {
+        $this->app->make(ReactantContract::class)->observe(ReactantObserver::class);
         $this->app->make(ReactionContract::class)->observe(ReactionObserver::class);
     }
 
@@ -75,6 +79,7 @@ class LoveServiceProvider extends ServiceProvider
      */
     protected function registerContracts(): void
     {
+        $this->app->bind(ReactantContract::class, Reactant::class);
         $this->app->bind(ReactionContract::class, Reaction::class);
     }
 
