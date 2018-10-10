@@ -23,7 +23,6 @@ use Cog\Laravel\Love\Reactant\ReactionSummary\Models\ReactionSummary;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Query\JoinClause;
-use Illuminate\Support\Facades\DB;
 
 /**
  * Trait Reactable.
