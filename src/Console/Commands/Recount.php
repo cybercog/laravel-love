@@ -58,6 +58,7 @@ class Recount extends Command
         }
 
         $reactants = Reactant::query()->get();
+        // TODO: What to do if we asked to recount only reactions of exact reactant type?
         foreach ($reactants as $reactant) {
             /** @var \Illuminate\Database\Eloquent\Builder $query */
             $query = $reactant->reactions();
@@ -72,21 +73,27 @@ class Recount extends Command
                 });
             }
 
+            $counters = $reactant->getReactionCounters();
+
             /** @var \Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter $counter */
-            foreach ($reactant->getReactionCounters() as $counter) {
+            foreach ($counters as $counter) {
                 if (!$counter->isReactionOfType($reactionType)) {
                     continue;
                 }
-                // TODO: What to do if we asked to recount only reactions of exact reactant type?
-                // TODO: Maybe we just need to set their values to 0?
-                $counter->delete();
+
+                // TODO: Cover with tests that we don't delete counter
+                $counter->update([
+                    'count' => 0,
+                ]);
             }
+
+            $service = new ReactionCounterService($reactant);
+            $service->createMissingCounters($counters);
 
             $reactions = $query->get();
 
             foreach ($reactions as $reaction) {
-                (new ReactionCounterService($reactant))
-                    ->incrementCounterOfType($reaction->getType());
+                $service->incrementCounterOfType($reaction->getType());
             }
         }
     }

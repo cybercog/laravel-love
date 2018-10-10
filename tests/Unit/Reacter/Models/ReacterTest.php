@@ -191,9 +191,11 @@ class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_is_reacted_to_reactant(): void
     {
+        $reactionType = factory(ReactionType::class)->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
         factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
             'reacter_id' => $reacter->getKey(),
             'reactant_id' => $reactant->getKey(),
         ]);
@@ -206,12 +208,15 @@ class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_is_not_reacted_to_reactant(): void
     {
+        $reactionType = factory(ReactionType::class)->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
         factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
             'reacter_id' => $reacter->getKey(),
         ]);
         factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
             'reactant_id' => $reactant->getKey(),
         ]);
 
@@ -241,9 +246,11 @@ class ReacterTest extends TestCase
     public function it_can_check_is_not_reacted_with_type_to_reactant(): void
     {
         $reactionType = factory(ReactionType::class)->create();
+        $otherReactionType = factory(ReactionType::class)->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
         factory(Reaction::class)->create([
+            'reaction_type_id' => $otherReactionType->getKey(),
             'reacter_id' => $reacter->getKey(),
             'reactant_id' => $reactant->getKey(),
         ]);

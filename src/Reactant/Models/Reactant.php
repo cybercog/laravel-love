@@ -17,6 +17,7 @@ use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reactant\ReactionSummary\Models\ReactionSummary as ReactionSummaryContract;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
+use Cog\Laravel\Love\Reactant\ReactionCounter\Services\ReactionCounterService;
 use Cog\Laravel\Love\Reactant\ReactionSummary\Models\NullReactionSummary;
 use Cog\Laravel\Love\Reactant\ReactionSummary\Models\ReactionSummary;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
@@ -32,6 +33,18 @@ class Reactant extends Model implements ReactantContract
     protected $fillable = [
         'type',
     ];
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::created(function (ReactantContract $reactant) {
+            // TODO: Make it asynchronously
+            // TODO: Do we need to make it in service or it should be Model method?
+            $counterService = new ReactionCounterService($reactant);
+            $counterService->createCounters();
+        });
+    }
 
     public function reactable(): MorphTo
     {

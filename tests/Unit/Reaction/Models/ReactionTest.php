@@ -59,9 +59,11 @@ class ReactionTest extends TestCase
     /** @test */
     public function it_can_belong_to_reactant(): void
     {
+        $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->create();
 
         $reaction = factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
             'reactant_id' => $reactant->getKey(),
         ]);
 
@@ -97,10 +99,12 @@ class ReactionTest extends TestCase
     /** @test */
     public function it_can_get_reactant(): void
     {
+        $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->create();
 
         /** @var \Cog\Laravel\Love\Reaction\Models\Reaction $reaction */
         $reaction = factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
             'reactant_id' => $reactant->getKey(),
         ]);
 

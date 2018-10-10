@@ -65,12 +65,14 @@ class ReactionObserverTest extends TestCase
     /** @test */
     public function it_increment_reactions_total_count_on_reaction_created()
     {
+        $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->create();
         $summary = factory(ReactionSummary::class)->create([
             'reactant_id' => $reactant->getKey(),
         ]);
 
         factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
             'reactant_id' => $reactant->getKey(),
         ]);
 
@@ -80,11 +82,13 @@ class ReactionObserverTest extends TestCase
     /** @test */
     public function it_decrement_reactions_total_count_on_reaction_deleted()
     {
+        $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->create();
         $summary = factory(ReactionSummary::class)->create([
             'reactant_id' => $reactant->getKey(),
         ]);
         $reactions = factory(Reaction::class, 2)->create([
+            'reaction_type_id' => $reactionType->getKey(),
             'reactant_id' => $reactant->getKey(),
         ]);
 

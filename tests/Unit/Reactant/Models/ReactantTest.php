@@ -18,6 +18,7 @@ use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionSummary\Models\NullReactionSummary;
 use Cog\Laravel\Love\Reactant\ReactionSummary\Models\ReactionSummary;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
+use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -53,9 +54,11 @@ class ReactantTest extends TestCase
     /** @test */
     public function it_can_has_reaction(): void
     {
+        $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->create();
 
         $reaction = factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
             'reactant_id' => $reactant->getKey(),
         ]);
 
@@ -66,9 +69,11 @@ class ReactantTest extends TestCase
     /** @test */
     public function it_can_has_many_reactions(): void
     {
+        $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->create();
 
         $reactions = factory(Reaction::class, 2)->create([
+            'reaction_type_id' => $reactionType->getKey(),
             'reactant_id' => $reactant->getKey(),
         ]);
 
@@ -133,9 +138,11 @@ class ReactantTest extends TestCase
     /** @test */
     public function it_can_get_reactions(): void
     {
+        $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->create();
 
         $reactions = factory(Reaction::class, 2)->create([
+            'reaction_type_id' => $reactionType->getKey(),
             'reactant_id' => $reactant->getKey(),
         ]);
 

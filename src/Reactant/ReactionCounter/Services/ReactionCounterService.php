@@ -16,6 +16,7 @@ namespace Cog\Laravel\Love\Reactant\ReactionCounter\Services;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reactant\ReactionCounter\Exceptions\ReactionCounterBadValue;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
+use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 
 class ReactionCounterService
 {
@@ -24,6 +25,26 @@ class ReactionCounterService
     public function __construct(ReactantContract $reactant)
     {
         $this->reactant = $reactant;
+    }
+
+    public function createCounters(): void
+    {
+        $this->createMissingCounters([]);
+    }
+
+    public function createMissingCounters(iterable $existCounters): void
+    {
+        // TODO: Instead of `all` use custom cacheable static method
+        $reactionTypes = ReactionType::all();
+        foreach ($reactionTypes as $reactionType) {
+            foreach ($existCounters as $counter) {
+                if ($counter->isReactionOfType($reactionType)) {
+                    continue 2;
+                }
+            }
+
+            $this->createCounterOfType($reactionType);
+        }
     }
 
     public function incrementCounterOfType(ReactionTypeContract $reactionType, int $amount = 1): void
@@ -44,14 +65,11 @@ class ReactionCounterService
             ->first();
 
         if (is_null($counter)) {
-//            throw new \RuntimeException(sprintf(
-//                'ReactionCounter with ReactionType `%s` not found.',
-//                $reactionType->getMorphClass()
-//            ));
-
-            $counter = $this->reactant->reactionCounters()->create([
-                'reaction_type_id' => $reactionType->getKey(),
-            ]);
+            // TODO: Throw custom exception
+            throw new \RuntimeException(sprintf(
+                'ReactionCounter with ReactionType `%s` not found.',
+                $reactionType->getName()
+            ));
         }
 
         if ($counter->count + $amount < 0) {
@@ -59,5 +77,13 @@ class ReactionCounterService
         }
 
         $counter->increment('count', $amount);
+    }
+
+    private function createCounterOfType(ReactionTypeContract $reactionType): void
+    {
+        $this->reactant->reactionCounters()->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'count' => 0,
+        ]);
     }
 }

@@ -31,11 +31,9 @@ class ReactionCounterServiceTest extends TestCase
         $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->create();
         $service = new ReactionCounterService($reactant);
-        $counter = factory(ReactionCounter::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
-            'count' => 0,
-        ]);
+        $counter = $reactant->reactionCounters()
+            ->where('reaction_type_id', $reactionType->getKey())
+            ->firstOrFail();
 
         $service->incrementCounterOfType($reactionType);
 
@@ -48,11 +46,9 @@ class ReactionCounterServiceTest extends TestCase
         $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->create();
         $service = new ReactionCounterService($reactant);
-        $counter = factory(ReactionCounter::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
-            'count' => 0,
-        ]);
+        $counter = $reactant->reactionCounters()
+            ->where('reaction_type_id', $reactionType->getKey())
+            ->firstOrFail();
 
         $service->incrementCounterOfType($reactionType, 4);
 
@@ -65,11 +61,10 @@ class ReactionCounterServiceTest extends TestCase
         $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->create();
         $service = new ReactionCounterService($reactant);
-        $counter = factory(ReactionCounter::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
-            'count' => 4,
-        ]);
+        $counter = $reactant->reactionCounters()
+            ->where('reaction_type_id', $reactionType->getKey())
+            ->firstOrFail();
+        $counter->update(['count' => 4]);
 
         $service->decrementCounterOfType($reactionType);
 
@@ -82,11 +77,10 @@ class ReactionCounterServiceTest extends TestCase
         $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->create();
         $service = new ReactionCounterService($reactant);
-        $counter = factory(ReactionCounter::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
-            'count' => 4,
-        ]);
+        $counter = $reactant->reactionCounters()
+            ->where('reaction_type_id', $reactionType->getKey())
+            ->firstOrFail();
+        $counter->update(['count' => 4]);
 
         $service->decrementCounterOfType($reactionType, 2);
 
@@ -96,13 +90,14 @@ class ReactionCounterServiceTest extends TestCase
     /** @test */
     public function it_throws_exception_on_incrementing_not_exist_counter(): void
     {
-        $this->markTestSkipped('Not sure we need so strict behavior.');
+//        $this->markTestSkipped('Not sure we need so strict behavior.');
 
+        // TODO: Expect Custom Exception
         $this->expectException(\RuntimeException::class);
 
-        $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->create();
         $service = new ReactionCounterService($reactant);
+        $reactionType = factory(ReactionType::class)->create();
 
         $service->incrementCounterOfType($reactionType);
     }
@@ -110,13 +105,14 @@ class ReactionCounterServiceTest extends TestCase
     /** @test */
     public function it_throws_exception_on_decrementing_not_exist_counter(): void
     {
-        $this->markTestSkipped('Not sure we need so strict behavior.');
+//        $this->markTestSkipped('Not sure we need so strict behavior.');
 
+        // TODO: Expect Custom Exception
         $this->expectException(\RuntimeException::class);
 
-        $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->create();
         $service = new ReactionCounterService($reactant);
+        $reactionType = factory(ReactionType::class)->create();
 
         $service->decrementCounterOfType($reactionType);
     }
@@ -124,6 +120,8 @@ class ReactionCounterServiceTest extends TestCase
     /** @test */
     public function it_creates_counter_on_incrementing_not_exist_counter(): void
     {
+        $this->markTestSkipped('Not sure we need this behavior.');
+
         $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->create();
         $service = new ReactionCounterService($reactant);
