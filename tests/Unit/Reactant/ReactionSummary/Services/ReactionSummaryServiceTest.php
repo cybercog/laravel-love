@@ -14,11 +14,13 @@ declare(strict_types=1);
 namespace Cog\Tests\Laravel\Love\Unit\Reactant\ReactionSummary\Services;
 
 use Cog\Contracts\Love\Reactant\ReactionSummary\Exceptions\ReactionSummaryBadValue;
+use Cog\Contracts\Love\Reactant\ReactionSummary\Exceptions\ReactionSummaryMissing;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionSummary\Models\ReactionSummary;
 use Cog\Laravel\Love\Reactant\ReactionSummary\Services\ReactionSummaryService;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
 
 class ReactionSummaryServiceTest extends TestCase
 {
@@ -28,10 +30,7 @@ class ReactionSummaryServiceTest extends TestCase
     public function it_can_increment_total_count(): void
     {
         $reactant = factory(Reactant::class)->create();
-        $summary = factory(ReactionSummary::class)->create([
-            'reactant_id' => $reactant->getKey(),
-            'total_count' => 0,
-        ]);
+        $summary = $reactant->reactionSummary;
         $service = new ReactionSummaryService($reactant);
 
         $service->incrementTotalCount();
@@ -43,10 +42,7 @@ class ReactionSummaryServiceTest extends TestCase
     public function it_can_increment_total_count_on_custom_amount(): void
     {
         $reactant = factory(Reactant::class)->create();
-        $summary = factory(ReactionSummary::class)->create([
-            'reactant_id' => $reactant->getKey(),
-            'total_count' => 0,
-        ]);
+        $summary = $reactant->reactionSummary;
         $service = new ReactionSummaryService($reactant);
 
         $service->incrementTotalCount(4);
@@ -58,8 +54,8 @@ class ReactionSummaryServiceTest extends TestCase
     public function it_can_decrement_total_count(): void
     {
         $reactant = factory(Reactant::class)->create();
-        $summary = factory(ReactionSummary::class)->create([
-            'reactant_id' => $reactant->getKey(),
+        $summary = $reactant->reactionSummary;
+        $summary->update([
             'total_count' => 4,
         ]);
         $service = new ReactionSummaryService($reactant);
@@ -73,8 +69,8 @@ class ReactionSummaryServiceTest extends TestCase
     public function it_can_decrement_total_count_on_custom_amount(): void
     {
         $reactant = factory(Reactant::class)->create();
-        $summary = factory(ReactionSummary::class)->create([
-            'reactant_id' => $reactant->getKey(),
+        $summary = $reactant->reactionSummary;
+        $summary->update([
             'total_count' => 4,
         ]);
         $service = new ReactionSummaryService($reactant);
@@ -87,9 +83,8 @@ class ReactionSummaryServiceTest extends TestCase
     /** @test */
     public function it_throws_exception_on_incrementing_not_exist_summary(): void
     {
-        $this->markTestSkipped('Not sure we need so strict behavior.');
-
-        $this->expectException(\RuntimeException::class);
+        Event::fake(); // Prevent summary auto creation
+        $this->expectException(ReactionSummaryMissing::class);
 
         $reactant = factory(Reactant::class)->create();
         $service = new ReactionSummaryService($reactant);
@@ -100,9 +95,8 @@ class ReactionSummaryServiceTest extends TestCase
     /** @test */
     public function it_throws_exception_on_decrementing_not_exist_summary(): void
     {
-        $this->markTestSkipped('Not sure we need so strict behavior.');
-
-        $this->expectException(\RuntimeException::class);
+        Event::fake(); // Prevent summary auto creation
+        $this->expectException(ReactionSummaryMissing::class);
 
         $reactant = factory(Reactant::class)->create();
         $service = new ReactionSummaryService($reactant);
@@ -113,6 +107,8 @@ class ReactionSummaryServiceTest extends TestCase
     /** @test */
     public function it_creates_summary_on_instantiating_service_if_summary_not_exist(): void
     {
+        $this->markTestSkipped('Not sure we need this behavior.');
+
         $reactant = factory(Reactant::class)->create();
         $oldCount = $reactant->reactionSummary()->count();
 
@@ -141,10 +137,7 @@ class ReactionSummaryServiceTest extends TestCase
     public function it_can_increment_total_weight(): void
     {
         $reactant = factory(Reactant::class)->create();
-        $summary = factory(ReactionSummary::class)->create([
-            'reactant_id' => $reactant->getKey(),
-            'total_weight' => 0,
-        ]);
+        $summary = $reactant->reactionSummary;
         $service = new ReactionSummaryService($reactant);
 
         $service->incrementTotalWeight();
@@ -156,10 +149,7 @@ class ReactionSummaryServiceTest extends TestCase
     public function it_can_increment_total_weight_on_custom_amount(): void
     {
         $reactant = factory(Reactant::class)->create();
-        $summary = factory(ReactionSummary::class)->create([
-            'reactant_id' => $reactant->getKey(),
-            'total_weight' => 0,
-        ]);
+        $summary = $reactant->reactionSummary;
         $service = new ReactionSummaryService($reactant);
 
         $service->incrementTotalWeight(4);
@@ -171,8 +161,8 @@ class ReactionSummaryServiceTest extends TestCase
     public function it_can_decrement_total_weight(): void
     {
         $reactant = factory(Reactant::class)->create();
-        $summary = factory(ReactionSummary::class)->create([
-            'reactant_id' => $reactant->getKey(),
+        $summary = $reactant->reactionSummary;
+        $summary->update([
             'total_weight' => 4,
         ]);
         $service = new ReactionSummaryService($reactant);
@@ -186,8 +176,8 @@ class ReactionSummaryServiceTest extends TestCase
     public function it_can_decrement_total_weight_on_custom_amount(): void
     {
         $reactant = factory(Reactant::class)->create();
-        $summary = factory(ReactionSummary::class)->create([
-            'reactant_id' => $reactant->getKey(),
+        $summary = $reactant->reactionSummary;
+        $summary->update([
             'total_weight' => 4,
         ]);
         $service = new ReactionSummaryService($reactant);
@@ -201,8 +191,8 @@ class ReactionSummaryServiceTest extends TestCase
     public function it_can_decrement_total_weight_below_zero(): void
     {
         $reactant = factory(Reactant::class)->create();
-        $summary = factory(ReactionSummary::class)->create([
-            'reactant_id' => $reactant->getKey(),
+        $summary = $reactant->reactionSummary;
+        $summary->update([
             'total_weight' => 1,
         ]);
         $service = new ReactionSummaryService($reactant);

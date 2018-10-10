@@ -15,6 +15,7 @@ namespace Cog\Laravel\Love\Reactant\ReactionSummary\Services;
 
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reactant\ReactionSummary\Exceptions\ReactionSummaryBadValue;
+use Cog\Contracts\Love\Reactant\ReactionSummary\Exceptions\ReactionSummaryMissing;
 use Cog\Contracts\Love\Reactant\ReactionSummary\Models\ReactionSummary as ReactionSummaryContract;
 use Cog\Laravel\Love\Reactant\ReactionSummary\Models\NullReactionSummary;
 
@@ -27,7 +28,7 @@ class ReactionSummaryService
     public function __construct(ReactantContract $reactant)
     {
         $this->reactant = $reactant;
-        $this->reactionSummary = $this->findOrCreateReactionSummaryOf($reactant);
+        $this->reactionSummary = $this->findReactionSummaryFor($reactant);
     }
 
     public function incrementTotalCount(int $amount = 1): void
@@ -66,16 +67,13 @@ class ReactionSummaryService
         $this->reactionSummary->increment('total_weight', $amount);
     }
 
-    private function findOrCreateReactionSummaryOf(ReactantContract $reactant): ReactionSummaryContract
+    private function findReactionSummaryFor(ReactantContract $reactant): ReactionSummaryContract
     {
         /** @var \Cog\Laravel\Love\Reactant\ReactionSummary\Models\ReactionSummary $summary */
         $summary = $reactant->getReactionSummary();
 
         if ($summary instanceof NullReactionSummary) {
-            $summary = $reactant->reactionSummary()->create([
-                'total_count' => 0,
-                'total_weight' => 0,
-            ]);
+            throw ReactionSummaryMissing::forReactant($reactant);
         }
 
         return $summary;

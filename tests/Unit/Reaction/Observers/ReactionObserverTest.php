@@ -67,9 +67,7 @@ class ReactionObserverTest extends TestCase
     {
         $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->create();
-        $summary = factory(ReactionSummary::class)->create([
-            'reactant_id' => $reactant->getKey(),
-        ]);
+        $summary = $reactant->reactionSummary;
 
         factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType->getKey(),
@@ -84,9 +82,7 @@ class ReactionObserverTest extends TestCase
     {
         $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->create();
-        $summary = factory(ReactionSummary::class)->create([
-            'reactant_id' => $reactant->getKey(),
-        ]);
+        $summary = $reactant->reactionSummary;
         $reactions = factory(Reaction::class, 2)->create([
             'reaction_type_id' => $reactionType->getKey(),
             'reactant_id' => $reactant->getKey(),
@@ -104,9 +100,7 @@ class ReactionObserverTest extends TestCase
             'weight' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
-        $summary = factory(ReactionSummary::class)->create([
-            'reactant_id' => $reactant->getKey(),
-        ]);
+        $summary = $reactant->reactionSummary;
 
         factory(Reaction::class, 2)->create([
             'reaction_type_id' => $reactionType->getKey(),
@@ -123,9 +117,7 @@ class ReactionObserverTest extends TestCase
             'weight' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
-        $summary = factory(ReactionSummary::class)->create([
-            'reactant_id' => $reactant->getKey(),
-        ]);
+        $summary = $reactant->reactionSummary;
         $reactions = factory(Reaction::class, 3)->create([
             'reaction_type_id' => $reactionType->getKey(),
             'reactant_id' => $reactant->getKey(),
@@ -143,9 +135,7 @@ class ReactionObserverTest extends TestCase
             'weight' => -4,
         ]);
         $reactant = factory(Reactant::class)->create();
-        $summary = factory(ReactionSummary::class)->create([
-            'reactant_id' => $reactant->getKey(),
-        ]);
+        $summary = $reactant->reactionSummary;
 
         factory(Reaction::class, 2)->create([
             'reaction_type_id' => $reactionType->getKey(),
@@ -162,9 +152,7 @@ class ReactionObserverTest extends TestCase
             'weight' => -4,
         ]);
         $reactant = factory(Reactant::class)->create();
-        $summary = factory(ReactionSummary::class)->create([
-            'reactant_id' => $reactant->getKey(),
-        ]);
+        $summary = $reactant->reactionSummary;
         $reactions = factory(Reaction::class, 3)->create([
             'reaction_type_id' => $reactionType->getKey(),
             'reactant_id' => $reactant->getKey(),

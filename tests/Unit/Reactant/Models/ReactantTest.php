@@ -22,6 +22,7 @@ use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
 
 class ReactantTest extends TestCase
 {
@@ -112,6 +113,7 @@ class ReactantTest extends TestCase
     /** @test */
     public function it_can_has_reaction_summary(): void
     {
+        Event::fake(); // Prevent summary auto creation
         $reactant = factory(Reactant::class)->create();
 
         $summary = factory(ReactionSummary::class)->create([
@@ -168,6 +170,7 @@ class ReactantTest extends TestCase
     /** @test */
     public function it_can_get_reaction_summary(): void
     {
+        Event::fake(); // Prevent summary auto creation
         $reactant = factory(Reactant::class)->create();
 
         $summary = factory(ReactionSummary::class)->create([
@@ -180,6 +183,7 @@ class ReactantTest extends TestCase
     /** @test */
     public function it_can_get_null_reaction_summary(): void
     {
+        Event::fake(); // Prevent summary auto creation
         $reactant = factory(Reactant::class)->create();
 
         $this->assertInstanceOf(NullReactionSummary::class, $reactant->getReactionSummary());
@@ -188,6 +192,7 @@ class ReactantTest extends TestCase
     /** @test */
     public function it_can_get_null_reaction_summary_with_same_reactant(): void
     {
+        Event::fake(); // Prevent summary auto creation
         $reactant = factory(Reactant::class)->create();
 
         $this->assertInstanceOf(NullReactionSummary::class, $reactant->getReactionSummary());

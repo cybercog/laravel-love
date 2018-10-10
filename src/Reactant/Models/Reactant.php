@@ -43,6 +43,11 @@ class Reactant extends Model implements ReactantContract
             // TODO: Do we need to make it in service or it should be Model method?
             $counterService = new ReactionCounterService($reactant);
             $counterService->createCounters();
+
+            $reactant->reactionSummary()->create([
+                'total_count' => 0,
+                'total_weight' => 0,
+            ]);
         });
     }
 
