@@ -18,7 +18,7 @@ use Cog\Laravel\Love\Reactant\ReactionSummary\Models\ReactionSummary;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ReactionSummaryTest extends TestCase
+final class ReactionSummaryTest extends TestCase
 {
     use RefreshDatabase;
 

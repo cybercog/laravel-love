@@ -24,7 +24,7 @@ use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ReacterTest extends TestCase
+final class ReacterTest extends TestCase
 {
     use RefreshDatabase;
 

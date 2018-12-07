@@ -23,7 +23,7 @@ use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 
-class ReactionSummaryServiceTest extends TestCase
+final class ReactionSummaryServiceTest extends TestCase
 {
     use RefreshDatabase;
 

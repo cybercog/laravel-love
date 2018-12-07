@@ -24,7 +24,7 @@ use Cog\Tests\Laravel\Love\Stubs\Models\EntityWithMorphMap;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class RecountTest extends TestCase
+final class RecountTest extends TestCase
 {
     use RefreshDatabase;
 

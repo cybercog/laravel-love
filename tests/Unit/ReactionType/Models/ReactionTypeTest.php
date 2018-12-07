@@ -20,7 +20,7 @@ use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ReactionTypeTest extends TestCase
+final class ReactionTypeTest extends TestCase
 {
     use RefreshDatabase;
 

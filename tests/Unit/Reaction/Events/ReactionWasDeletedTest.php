@@ -20,7 +20,7 @@ use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ReactionWasDeletedTest extends TestCase
+final class ReactionWasDeletedTest extends TestCase
 {
     use RefreshDatabase;
 

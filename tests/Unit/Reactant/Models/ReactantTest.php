@@ -24,7 +24,7 @@ use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 
-class ReactantTest extends TestCase
+final class ReactantTest extends TestCase
 {
     use RefreshDatabase;
 

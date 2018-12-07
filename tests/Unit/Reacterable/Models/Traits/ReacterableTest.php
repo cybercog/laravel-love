@@ -19,7 +19,7 @@ use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ReacterableTest extends TestCase
+final class ReacterableTest extends TestCase
 {
     use RefreshDatabase;
 
