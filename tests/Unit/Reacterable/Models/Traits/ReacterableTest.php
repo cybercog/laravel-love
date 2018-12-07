@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Reacterable\Models\Traits;
 
+use Cog\Laravel\Love\Reacter\Models\NullReacter;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Tests\Laravel\Love\Stubs\Models\Bot;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
@@ -49,6 +50,16 @@ final class ReacterableTest extends TestCase
         ]);
 
         $this->assertTrue($reacterable->getReacter()->is($reacter));
+    }
+
+    /** @test */
+    public function it_can_get_null_reacter(): void
+    {
+        $reacterable = new User();
+
+        $reacter = $reacterable->getReacter();
+
+        $this->assertInstanceOf(NullReacter::class, $reacter);
     }
 
     /** @test */

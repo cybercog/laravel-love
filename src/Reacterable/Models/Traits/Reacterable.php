@@ -15,6 +15,7 @@ namespace Cog\Laravel\Love\Reacterable\Models\Traits;
 
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
 use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
+use Cog\Laravel\Love\Reacter\Models\NullReacter;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -47,6 +48,7 @@ trait Reacterable
 
     public function getReacter(): ReacterContract
     {
+        // TODO: (?) Return `NullReacter` or throw exception `NotRegisteredAsReacter`?
         return $this->getAttribute('reacter') ?? new NullReacter($this);
     }
 

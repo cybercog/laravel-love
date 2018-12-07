@@ -54,6 +54,7 @@ trait Reactable
 
     public function getReactant(): ReactantContract
     {
+        // TODO: (?) Return `NullReactant` or throw exception `NotRegisteredAsReactant`?
         return $this->getAttribute('reactant') ?? new NullReactant($this);
     }
 
