@@ -55,19 +55,16 @@ final class Reacter extends Model implements ReacterContract
 
     public function reactTo(ReactantContract $reactant, ReactionTypeContract $reactionType): void
     {
-        $attributes = [
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
-        ];
-
-        $reaction = $this->reactions()->where($attributes)->exists();
-        if ($reaction) {
+        if ($this->isReactedWithTypeTo($reactant, $reactionType)) {
             throw new ReactionAlreadyExists(
                 sprintf('Reaction of type `%s` already exists.', $reactionType->getName())
             );
         }
 
-        $this->reactions()->create($attributes);
+        $this->reactions()->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant->getKey(),
+        ]);
     }
 
     public function unreactTo(ReactantContract $reactant, ReactionTypeContract $reactionType): void
