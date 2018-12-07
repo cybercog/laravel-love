@@ -20,9 +20,17 @@ use Cog\Laravel\Love\Reactant\ReactionSummary\Models\NullReactionSummary;
 
 final class NullReactant implements ReactantContract
 {
+    private $reactable;
+
+    public function __construct(ReactableContract $reactable)
+    {
+        $this->reactable = $reactable;
+    }
+
     public function getReactable(): ReactableContract
     {
         // TODO: Return `NullReactable` if not set?
+        return $this->reactable;
     }
 
     public function getReactions(): iterable

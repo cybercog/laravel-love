@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Reactable\Models\Traits;
 
+use Cog\Laravel\Love\Reactant\Models\NullReactant;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
@@ -51,6 +52,16 @@ final class ReactableTest extends TestCase
         ]);
 
         $this->assertTrue($reactable->getReactant()->is($reactant));
+    }
+
+    /** @test */
+    public function it_can_get_null_reactant(): void
+    {
+        $reactable = new Article();
+
+        $reactant = $reactable->getReactant();
+
+        $this->assertInstanceOf(NullReactant::class, $reactant);
     }
 
     /** @test */

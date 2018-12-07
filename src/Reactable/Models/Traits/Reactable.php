@@ -17,6 +17,7 @@ use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
+use Cog\Laravel\Love\Reactant\Models\NullReactant;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionSummary\Models\ReactionSummary;
@@ -28,6 +29,7 @@ use Illuminate\Database\Query\JoinClause;
  * Trait Reactable.
  *
  * @mixin \Illuminate\Database\Eloquent\Model
+ * @mixin \Cog\Contracts\Love\Reactable\Models\Reactable
  * @package Cog\Laravel\Love\Reacterable\Models\Traits
  */
 trait Reactable
@@ -52,8 +54,7 @@ trait Reactable
 
     public function getReactant(): ReactantContract
     {
-        // TODO: Return `NullReactant` if not set?
-        return $this->getAttribute('reactant');
+        return $this->getAttribute('reactant') ?? new NullReactant($this);
     }
 
     public function isRegisteredAsReactant(): bool
