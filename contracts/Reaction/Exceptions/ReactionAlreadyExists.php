@@ -15,6 +15,6 @@ namespace Cog\Contracts\Love\Reaction\Exceptions;
 
 use RuntimeException;
 
-class ReactionAlreadyExists extends RuntimeException
+final class ReactionAlreadyExists extends RuntimeException
 {
 }

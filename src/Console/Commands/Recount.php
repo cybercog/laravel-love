@@ -23,7 +23,7 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
-class Recount extends Command
+final class Recount extends Command
 {
     /**
      * The name and signature of the console command.

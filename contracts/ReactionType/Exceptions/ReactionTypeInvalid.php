@@ -15,7 +15,7 @@ namespace Cog\Contracts\Love\ReactionType\Exceptions;
 
 use DomainException;
 
-class ReactionTypeInvalid extends DomainException
+final class ReactionTypeInvalid extends DomainException
 {
     public static function notExists(string $name): self
     {

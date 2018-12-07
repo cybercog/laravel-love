@@ -15,7 +15,7 @@ namespace Cog\Laravel\Love\Reaction\Events;
 
 use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
 
-class ReactionWasCreated
+final class ReactionWasCreated
 {
     private $reaction;
 

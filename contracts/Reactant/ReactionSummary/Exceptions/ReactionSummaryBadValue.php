@@ -15,7 +15,7 @@ namespace Cog\Contracts\Love\Reactant\ReactionSummary\Exceptions;
 
 use UnexpectedValueException;
 
-class ReactionSummaryBadValue extends UnexpectedValueException
+final class ReactionSummaryBadValue extends UnexpectedValueException
 {
     public static function totalCountBelowZero(): self
     {

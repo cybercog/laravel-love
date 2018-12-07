@@ -16,7 +16,7 @@ namespace Cog\Laravel\Love\Reactant\Observers;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Services\ReactionCounterService;
 
-class ReactantObserver
+final class ReactantObserver
 {
     public function created(ReactantContract $reactant): void
     {

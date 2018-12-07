@@ -16,7 +16,7 @@ namespace Cog\Contracts\Love\Reactant\ReactionSummary\Exceptions;
 use Cog\Contracts\Love\Reactant\Models\Reactant;
 use OutOfBoundsException;
 
-class ReactionSummaryMissing extends OutOfBoundsException
+final class ReactionSummaryMissing extends OutOfBoundsException
 {
     public static function forReactant(Reactant $reactant): self
     {

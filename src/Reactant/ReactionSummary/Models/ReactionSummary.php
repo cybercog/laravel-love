@@ -19,7 +19,7 @@ use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class ReactionSummary extends Model implements ReactionSummaryContract
+final class ReactionSummary extends Model implements ReactionSummaryContract
 {
     /**
      * The table associated with the model.

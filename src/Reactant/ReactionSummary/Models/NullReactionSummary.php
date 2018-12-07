@@ -16,7 +16,7 @@ namespace Cog\Laravel\Love\Reactant\ReactionSummary\Models;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reactant\ReactionSummary\Models\ReactionSummary as ReactionSummaryContract;
 
-class NullReactionSummary implements ReactionSummaryContract
+final class NullReactionSummary implements ReactionSummaryContract
 {
     private $reactant;
 

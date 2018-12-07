@@ -21,7 +21,7 @@ use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class ReactionCounter extends Model implements ReactionCounterContract
+final class ReactionCounter extends Model implements ReactionCounterContract
 {
     /**
      * The table associated with the model.

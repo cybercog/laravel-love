@@ -20,7 +20,7 @@ use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 
-class ReactionCounterService
+final class ReactionCounterService
 {
     private $reactant;
 

@@ -17,7 +17,7 @@ use Cog\Contracts\Love\Reactant\Models\Reactant;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use OutOfBoundsException;
 
-class ReactionCounterMissing extends OutOfBoundsException
+final class ReactionCounterMissing extends OutOfBoundsException
 {
     public static function ofTypeForReactant(Reactant $reactant, ReactionTypeContract $reactionType): self
     {

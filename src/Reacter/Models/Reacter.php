@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
-class Reacter extends Model implements ReacterContract
+final class Reacter extends Model implements ReacterContract
 {
     protected $table = 'love_reacters';
 

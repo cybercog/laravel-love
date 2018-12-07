@@ -22,7 +22,7 @@ use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\Reaction\Observers\ReactionObserver;
 use Illuminate\Support\ServiceProvider;
 
-class LoveServiceProvider extends ServiceProvider
+final class LoveServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application events.
@@ -52,7 +52,7 @@ class LoveServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerObservers(): void
+    private function registerObservers(): void
     {
         $this->app->make(ReactantContract::class)->observe(ReactantObserver::class);
         $this->app->make(ReactionContract::class)->observe(ReactionObserver::class);
@@ -63,7 +63,7 @@ class LoveServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerConsoleCommands(): void
+    private function registerConsoleCommands(): void
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
@@ -77,7 +77,7 @@ class LoveServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerContracts(): void
+    private function registerContracts(): void
     {
         $this->app->bind(ReactantContract::class, Reactant::class);
         $this->app->bind(ReactionContract::class, Reaction::class);
@@ -88,7 +88,7 @@ class LoveServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerPublishes(): void
+    private function registerPublishes(): void
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
@@ -102,7 +102,7 @@ class LoveServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerMigrations(): void
+    private function registerMigrations(): void
     {
         if ($this->app->runningInConsole()) {
             $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');

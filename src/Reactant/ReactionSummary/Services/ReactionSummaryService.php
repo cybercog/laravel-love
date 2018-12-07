@@ -20,7 +20,7 @@ use Cog\Contracts\Love\Reactant\ReactionSummary\Models\ReactionSummary as Reacti
 use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
 use Cog\Laravel\Love\Reactant\ReactionSummary\Models\NullReactionSummary;
 
-class ReactionSummaryService
+final class ReactionSummaryService
 {
     private $reactant;
 

@@ -20,7 +20,7 @@ use Cog\Laravel\Love\Reaction\Events\ReactionWasCreated;
 use Cog\Laravel\Love\Reaction\Events\ReactionWasDeleted;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 
-class ReactionObserver
+final class ReactionObserver
 {
     public function created(ReactionContract $reaction): void
     {

@@ -25,7 +25,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
-class Reactant extends Model implements ReactantContract
+final class Reactant extends Model implements ReactantContract
 {
     protected $table = 'love_reactants';
 

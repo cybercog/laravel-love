@@ -16,7 +16,7 @@ namespace Cog\Contracts\Love\Reactable\Exceptions;
 use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
 use DomainException;
 
-class ReactableInvalid extends DomainException
+final class ReactableInvalid extends DomainException
 {
     public static function notExists(string $type): self
     {
