@@ -29,7 +29,6 @@ final class NullReactant implements ReactantContract
 
     public function getReactable(): ReactableContract
     {
-        // TODO: Return `NullReactable` if not set?
         return $this->reactable;
     }
 
