@@ -17,7 +17,7 @@ use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
 use Cog\Laravel\Love\Reacterable\Models\Traits\Reacterable;
 use Illuminate\Database\Eloquent\Model;
 
-class Bot extends Model implements ReacterableContract
+final class Bot extends Model implements ReacterableContract
 {
     use Reacterable;
 

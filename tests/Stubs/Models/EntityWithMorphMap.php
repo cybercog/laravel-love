@@ -17,7 +17,7 @@ use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
 use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
 use Illuminate\Database\Eloquent\Model;
 
-class EntityWithMorphMap extends Model implements ReactableContract
+final class EntityWithMorphMap extends Model implements ReactableContract
 {
     use Reactable;
 
