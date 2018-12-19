@@ -59,12 +59,12 @@ final class NullReacter implements ReacterContract
         return true;
     }
 
-    public function isReactedWithTypeTo(Reactant $reactant, ReactionType $reactionType): bool
+    public function isReactedToWithTypeOf(Reactant $reactant, ReactionType $reactionType): bool
     {
         return false;
     }
 
-    public function isNotReactedWithTypeTo(Reactant $reactant, ReactionType $reactionType): bool
+    public function isNotReactedToWithTypeOf(Reactant $reactant, ReactionType $reactionType): bool
     {
         return true;
     }

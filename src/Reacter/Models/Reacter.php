@@ -55,7 +55,7 @@ final class Reacter extends Model implements ReacterContract
 
     public function reactTo(ReactantContract $reactant, ReactionTypeContract $reactionType): void
     {
-        if ($this->isReactedWithTypeTo($reactant, $reactionType)) {
+        if ($this->isReactedToWithTypeOf($reactant, $reactionType)) {
             throw new ReactionAlreadyExists(
                 sprintf('Reaction of type `%s` already exists.', $reactionType->getName())
             );
@@ -95,7 +95,7 @@ final class Reacter extends Model implements ReacterContract
         return !$this->isReactedTo($reactant);
     }
 
-    public function isReactedWithTypeTo(ReactantContract $reactant, ReactionTypeContract $reactionType): bool
+    public function isReactedToWithTypeOf(ReactantContract $reactant, ReactionTypeContract $reactionType): bool
     {
         return $this->reactions()->where([
             'reaction_type_id' => $reactionType->getKey(),
@@ -103,8 +103,8 @@ final class Reacter extends Model implements ReacterContract
         ])->exists();
     }
 
-    public function isNotReactedWithTypeTo(ReactantContract $reactant, ReactionTypeContract $reactionType): bool
+    public function isNotReactedToWithTypeOf(ReactantContract $reactant, ReactionTypeContract $reactionType): bool
     {
-        return !$this->isReactedWithTypeTo($reactant, $reactionType);
+        return !$this->isReactedToWithTypeOf($reactant, $reactionType);
     }
 }

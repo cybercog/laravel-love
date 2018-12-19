@@ -55,7 +55,7 @@ final class Love
             return false;
         }
 
-        return $reacter->isReactedWithTypeTo($reactant, ReactionType::fromName($type));
+        return $reacter->isReactedToWithTypeOf($reactant, ReactionType::fromName($type));
     }
 
     public static function isReacterableNotReactedWithTypeTo(
