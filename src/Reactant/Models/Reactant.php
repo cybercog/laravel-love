@@ -15,10 +15,10 @@ namespace Cog\Laravel\Love\Reactant\Models;
 
 use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
-use Cog\Contracts\Love\Reactant\ReactionSummary\Models\ReactionSummary as ReactionSummaryContract;
+use Cog\Contracts\Love\Reactant\ReactionTotality\Models\ReactionTotality as ReactionTotalityContract;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
-use Cog\Laravel\Love\Reactant\ReactionSummary\Models\NullReactionSummary;
-use Cog\Laravel\Love\Reactant\ReactionSummary\Models\ReactionSummary;
+use Cog\Laravel\Love\Reactant\ReactionTotality\Models\NullReactionTotality;
+use Cog\Laravel\Love\Reactant\ReactionTotality\Models\ReactionTotality;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -48,9 +48,9 @@ final class Reactant extends Model implements ReactantContract
         return $this->hasMany(ReactionCounter::class, 'reactant_id');
     }
 
-    public function reactionSummary(): HasOne
+    public function reactionTotality(): HasOne
     {
-        return $this->hasOne(ReactionSummary::class, 'reactant_id');
+        return $this->hasOne(ReactionTotality::class, 'reactant_id');
     }
 
     public function getReactable(): ReactableContract
@@ -69,8 +69,8 @@ final class Reactant extends Model implements ReactantContract
         return $this->getAttribute('reactionCounters');
     }
 
-    public function getReactionSummary(): ReactionSummaryContract
+    public function getReactionTotality(): ReactionTotalityContract
     {
-        return $this->getAttribute('reactionSummary') ?? new NullReactionSummary($this);
+        return $this->getAttribute('reactionTotality') ?? new NullReactionTotality($this);
     }
 }

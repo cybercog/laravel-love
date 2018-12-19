@@ -11,25 +11,25 @@
 
 declare(strict_types=1);
 
-namespace Cog\Laravel\Love\Reactant\ReactionSummary\Services;
+namespace Cog\Laravel\Love\Reactant\ReactionTotality\Services;
 
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
-use Cog\Contracts\Love\Reactant\ReactionSummary\Exceptions\ReactionSummaryBadValue;
-use Cog\Contracts\Love\Reactant\ReactionSummary\Exceptions\ReactionSummaryMissing;
-use Cog\Contracts\Love\Reactant\ReactionSummary\Models\ReactionSummary as ReactionSummaryContract;
+use Cog\Contracts\Love\Reactant\ReactionTotality\Exceptions\ReactionTotalityBadValue;
+use Cog\Contracts\Love\Reactant\ReactionTotality\Exceptions\ReactionTotalityMissing;
+use Cog\Contracts\Love\Reactant\ReactionTotality\Models\ReactionTotality as ReactionTotalityContract;
 use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
-use Cog\Laravel\Love\Reactant\ReactionSummary\Models\NullReactionSummary;
+use Cog\Laravel\Love\Reactant\ReactionTotality\Models\NullReactionTotality;
 
-final class ReactionSummaryService
+final class ReactionTotalityService
 {
     private $reactant;
 
-    private $reactionSummary;
+    private $reactionTotality;
 
     public function __construct(ReactantContract $reactant)
     {
         $this->reactant = $reactant;
-        $this->reactionSummary = $this->findReactionSummaryFor($reactant);
+        $this->reactionTotality = $this->findReactionTotalityFor($reactant);
     }
 
     public function addReaction(ReactionContract $reaction): void
@@ -68,27 +68,27 @@ final class ReactionSummaryService
 
     private function incrementOrDecrementTotalCount(int $amount = 1): void
     {
-        if ($this->reactionSummary->getTotalCount() + $amount < 0) {
-            throw ReactionSummaryBadValue::totalCountBelowZero();
+        if ($this->reactionTotality->getTotalCount() + $amount < 0) {
+            throw ReactionTotalityBadValue::totalCountBelowZero();
         }
 
-        $this->reactionSummary->increment('total_count', $amount);
+        $this->reactionTotality->increment('total_count', $amount);
     }
 
     private function incrementOrDecrementTotalWeight(int $amount = 1): void
     {
-        $this->reactionSummary->increment('total_weight', $amount);
+        $this->reactionTotality->increment('total_weight', $amount);
     }
 
-    private function findReactionSummaryFor(ReactantContract $reactant): ReactionSummaryContract
+    private function findReactionTotalityFor(ReactantContract $reactant): ReactionTotalityContract
     {
-        /** @var \Cog\Laravel\Love\Reactant\ReactionSummary\Models\ReactionSummary $summary */
-        $summary = $reactant->getReactionSummary();
+        /** @var \Cog\Laravel\Love\Reactant\ReactionTotality\Models\ReactionTotality $totality */
+        $totality = $reactant->getReactionTotality();
 
-        if ($summary instanceof NullReactionSummary) {
-            throw ReactionSummaryMissing::forReactant($reactant);
+        if ($totality instanceof NullReactionTotality) {
+            throw ReactionTotalityMissing::forReactant($reactant);
         }
 
-        return $summary;
+        return $totality;
     }
 }

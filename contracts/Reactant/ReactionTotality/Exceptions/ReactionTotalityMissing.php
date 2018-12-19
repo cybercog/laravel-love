@@ -11,17 +11,17 @@
 
 declare(strict_types=1);
 
-namespace Cog\Contracts\Love\Reactant\ReactionSummary\Exceptions;
+namespace Cog\Contracts\Love\Reactant\ReactionTotality\Exceptions;
 
 use Cog\Contracts\Love\Reactant\Models\Reactant;
 use OutOfBoundsException;
 
-final class ReactionSummaryMissing extends OutOfBoundsException
+final class ReactionTotalityMissing extends OutOfBoundsException
 {
     public static function forReactant(Reactant $reactant): self
     {
         return new static(sprintf(
-            'Reactant with ID `%s` missing ReactionSummary.',
+            'Reactant with ID `%s` missing ReactionTotality.',
             $reactant->getKey()
         ));
     }

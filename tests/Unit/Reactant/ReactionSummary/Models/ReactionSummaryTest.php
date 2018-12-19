@@ -11,55 +11,55 @@
 
 declare(strict_types=1);
 
-namespace Cog\Tests\Laravel\Love\Unit\Reactant\ReactionSummary\Models;
+namespace Cog\Tests\Laravel\Love\Unit\Reactant\ReactionTotality\Models;
 
 use Cog\Laravel\Love\Reactant\Models\Reactant;
-use Cog\Laravel\Love\Reactant\ReactionSummary\Models\ReactionSummary;
+use Cog\Laravel\Love\Reactant\ReactionTotality\Models\ReactionTotality;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-final class ReactionSummaryTest extends TestCase
+final class ReactionTotalityTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
     public function it_can_fill_total_count(): void
     {
-        $summary = new ReactionSummary([
+        $totality = new ReactionTotality([
             'total_count' => 4,
         ]);
 
-        $this->assertSame(4, $summary->getAttribute('total_count'));
+        $this->assertSame(4, $totality->getAttribute('total_count'));
     }
 
     /** @test */
     public function it_can_fill_total_weight(): void
     {
-        $summary = new ReactionSummary([
+        $totality = new ReactionTotality([
             'total_weight' => 4,
         ]);
 
-        $this->assertSame(4, $summary->getAttribute('total_weight'));
+        $this->assertSame(4, $totality->getAttribute('total_weight'));
     }
 
     /** @test */
     public function it_casts_total_count_to_integer(): void
     {
-        $summary = new ReactionSummary([
+        $totality = new ReactionTotality([
             'total_count' => '4',
         ]);
 
-        $this->assertSame(4, $summary->getAttribute('total_count'));
+        $this->assertSame(4, $totality->getAttribute('total_count'));
     }
 
     /** @test */
     public function it_casts_total_weight_to_integer(): void
     {
-        $summary = new ReactionSummary([
+        $totality = new ReactionTotality([
             'total_weight' => '4',
         ]);
 
-        $this->assertSame(4, $summary->getAttribute('total_weight'));
+        $this->assertSame(4, $totality->getAttribute('total_weight'));
     }
 
     /** @test */
@@ -67,11 +67,11 @@ final class ReactionSummaryTest extends TestCase
     {
         $reactant = factory(Reactant::class)->create();
 
-        $summary = factory(ReactionSummary::class)->create([
+        $totality = factory(ReactionTotality::class)->create([
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $this->assertTrue($summary->reactant->is($reactant));
+        $this->assertTrue($totality->reactant->is($reactant));
     }
 
     /** @test */
@@ -79,46 +79,46 @@ final class ReactionSummaryTest extends TestCase
     {
         $reactant = factory(Reactant::class)->create();
 
-        $summary = factory(ReactionSummary::class)->create([
+        $totality = factory(ReactionTotality::class)->create([
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $this->assertTrue($summary->getReactant()->is($reactant));
+        $this->assertTrue($totality->getReactant()->is($reactant));
     }
 
     /** @test */
     public function it_can_get_total_count(): void
     {
-        $summary = new ReactionSummary([
+        $totality = new ReactionTotality([
             'total_count' => '4',
         ]);
 
-        $this->assertSame(4, $summary->getTotalCount());
+        $this->assertSame(4, $totality->getTotalCount());
     }
 
     /** @test */
     public function it_can_get_total_count_if_not_set(): void
     {
-        $summary = new ReactionSummary();
+        $totality = new ReactionTotality();
 
-        $this->assertSame(0, $summary->getTotalCount());
+        $this->assertSame(0, $totality->getTotalCount());
     }
 
     /** @test */
     public function it_can_get_total_weight(): void
     {
-        $summary = new ReactionSummary([
+        $totality = new ReactionTotality([
             'total_weight' => '4',
         ]);
 
-        $this->assertSame(4, $summary->getTotalWeight());
+        $this->assertSame(4, $totality->getTotalWeight());
     }
 
     /** @test */
     public function it_can_get_total_weight_if_not_set(): void
     {
-        $summary = new ReactionSummary();
+        $totality = new ReactionTotality();
 
-        $this->assertSame(0, $summary->getTotalWeight());
+        $this->assertSame(0, $totality->getTotalWeight());
     }
 }

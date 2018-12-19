@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Cog\Tests\Laravel\Love\Unit\Reactant\Models;
 
 use Cog\Laravel\Love\Reactant\Models\NullReactant;
-use Cog\Laravel\Love\Reactant\ReactionSummary\Models\NullReactionSummary;
+use Cog\Laravel\Love\Reactant\ReactionTotality\Models\NullReactionTotality;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -59,13 +59,13 @@ final class NullReactantTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_reaction_summary(): void
+    public function it_can_get_reaction_totality(): void
     {
         $reactable = new Article();
         $reactant = new NullReactant($reactable);
 
-        $summary = $reactant->getReactionSummary();
+        $totality = $reactant->getReactionTotality();
 
-        $this->assertInstanceOf(NullReactionSummary::class, $summary);
+        $this->assertInstanceOf(NullReactionTotality::class, $totality);
     }
 }

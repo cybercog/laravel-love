@@ -11,15 +11,15 @@
 
 declare(strict_types=1);
 
-namespace Cog\Tests\Laravel\Love\Unit\Reactant\ReactionSummary\Models;
+namespace Cog\Tests\Laravel\Love\Unit\Reactant\ReactionTotality\Models;
 
 use Cog\Laravel\Love\Reactant\Models\NullReactant;
-use Cog\Laravel\Love\Reactant\ReactionSummary\Models\NullReactionSummary;
+use Cog\Laravel\Love\Reactant\ReactionTotality\Models\NullReactionTotality;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class NullReactionSummaryTest extends TestCase
+class NullReactionTotalityTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -28,9 +28,9 @@ class NullReactionSummaryTest extends TestCase
     {
         $reactable = new Article();
         $reactant = new NullReactant($reactable);
-        $summary = new NullReactionSummary($reactant);
+        $totality = new NullReactionTotality($reactant);
 
-        $totalCount = $summary->getTotalCount();
+        $totalCount = $totality->getTotalCount();
 
         $this->assertSame(0, $totalCount);
     }
@@ -40,9 +40,9 @@ class NullReactionSummaryTest extends TestCase
     {
         $reactable = new Article();
         $reactant = new NullReactant($reactable);
-        $summary = new NullReactionSummary($reactant);
+        $totality = new NullReactionTotality($reactant);
 
-        $totalWeight = $summary->getTotalWeight();
+        $totalWeight = $totality->getTotalWeight();
 
         $this->assertSame(0, $totalWeight);
     }
@@ -52,9 +52,9 @@ class NullReactionSummaryTest extends TestCase
     {
         $reactable = new Article();
         $reactant = new NullReactant($reactable);
-        $summary = new NullReactionSummary($reactant);
+        $totality = new NullReactionTotality($reactant);
 
-        $assertReactant = $summary->getReactant();
+        $assertReactant = $totality->getReactant();
 
         $this->assertSame($reactant, $assertReactant);
     }

@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Cog\Contracts\Love\Reactant\ReactionSummary\Models;
+namespace Cog\Contracts\Love\Reactant\ReactionTotality\Models;
 
 use Cog\Contracts\Love\Reactant\Models\Reactant;
 
-interface ReactionSummary
+interface ReactionTotality
 {
     public function getReactant(): Reactant;
 

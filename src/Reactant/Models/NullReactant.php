@@ -15,8 +15,8 @@ namespace Cog\Laravel\Love\Reactant\Models;
 
 use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
-use Cog\Contracts\Love\Reactant\ReactionSummary\Models\ReactionSummary as ReactionSummaryContract;
-use Cog\Laravel\Love\Reactant\ReactionSummary\Models\NullReactionSummary;
+use Cog\Contracts\Love\Reactant\ReactionTotality\Models\ReactionTotality as ReactionTotalityContract;
+use Cog\Laravel\Love\Reactant\ReactionTotality\Models\NullReactionTotality;
 
 final class NullReactant implements ReactantContract
 {
@@ -42,8 +42,8 @@ final class NullReactant implements ReactantContract
         return [];
     }
 
-    public function getReactionSummary(): ReactionSummaryContract
+    public function getReactionTotality(): ReactionTotalityContract
     {
-        return new NullReactionSummary($this);
+        return new NullReactionTotality($this);
     }
 }

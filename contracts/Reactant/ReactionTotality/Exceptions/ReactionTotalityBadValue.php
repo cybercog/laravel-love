@@ -11,14 +11,14 @@
 
 declare(strict_types=1);
 
-namespace Cog\Contracts\Love\Reactant\ReactionSummary\Exceptions;
+namespace Cog\Contracts\Love\Reactant\ReactionTotality\Exceptions;
 
 use UnexpectedValueException;
 
-final class ReactionSummaryBadValue extends UnexpectedValueException
+final class ReactionTotalityBadValue extends UnexpectedValueException
 {
     public static function totalCountBelowZero(): self
     {
-        return new static('ReactionSummary `total_count` could not be below zero.');
+        return new static('ReactionTotality `total_count` could not be below zero.');
     }
 }

@@ -402,11 +402,11 @@ final class ReactableTest extends TestCase
         ]);
 
         $reactablesOrderedAsc = Article::query()
-            ->withReactionSummary()
+            ->withReactionTotality()
             ->orderBy('reactions_total_count', 'asc')
             ->get();
         $reactablesOrderedDesc = Article::query()
-            ->withReactionSummary()
+            ->withReactionTotality()
             ->orderBy('reactions_total_count', 'desc')
             ->get();
 
@@ -436,7 +436,7 @@ final class ReactableTest extends TestCase
         ]);
 
         $reactablesOrderedAsc = Article::query()
-            ->withReactionSummary()
+            ->withReactionTotality()
             ->orderBy('reactions_total_count', 'asc')
             ->get();
 
@@ -470,7 +470,7 @@ final class ReactableTest extends TestCase
 
         $reactablesOrderedAsc = Article::query()
             ->select('name')
-            ->withReactionSummary()
+            ->withReactionTotality()
             ->orderBy('reactions_total_count', 'asc')
             ->get();
 
@@ -510,11 +510,11 @@ final class ReactableTest extends TestCase
         ]);
 
         $reactablesOrderedAsc = Article::query()
-            ->withReactionSummary()
+            ->withReactionTotality()
             ->orderBy('reactions_total_weight', 'asc')
             ->get();
         $reactablesOrderedDesc = Article::query()
-            ->withReactionSummary()
+            ->withReactionTotality()
             ->orderBy('reactions_total_weight', 'desc')
             ->get();
 
@@ -546,7 +546,7 @@ final class ReactableTest extends TestCase
         ]);
 
         $reactablesOrderedAsc = Article::query()
-            ->withReactionSummary()
+            ->withReactionTotality()
             ->orderBy('reactions_total_weight', 'asc')
             ->get();
 
@@ -582,7 +582,7 @@ final class ReactableTest extends TestCase
 
         $reactablesOrderedAsc = Article::query()
             ->select('name')
-            ->withReactionSummary()
+            ->withReactionTotality()
             ->orderBy('reactions_total_weight', 'asc')
             ->get();
 
@@ -599,7 +599,7 @@ final class ReactableTest extends TestCase
     }
 
     /** @test */
-    public function it_chain_with_reaction_counter_of_type_and_with_reaction_summary(): void
+    public function it_chain_with_reaction_counter_of_type_and_with_reaction_totality(): void
     {
         factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactionType1 = factory(ReactionType::class)->create([
@@ -638,7 +638,7 @@ final class ReactableTest extends TestCase
 
         $reactablesOrderedAsc = Article::query()
             ->withReactionCounterOfType($reactionType1)
-            ->withReactionSummary()
+            ->withReactionTotality()
             ->orderBy('reactions_total_weight', 'asc')
             ->get();
 
@@ -672,7 +672,7 @@ final class ReactableTest extends TestCase
     }
 
     /** @test */
-    public function it_include_reaction_summary_null_values_replaced_with_zero(): void
+    public function it_include_reaction_totality_null_values_replaced_with_zero(): void
     {
         factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactionType1 = factory(ReactionType::class)->create([
@@ -694,7 +694,7 @@ final class ReactableTest extends TestCase
         ]);
 
         $reactablesOrderedAsc = Article::query()
-            ->withReactionSummary()
+            ->withReactionTotality()
             ->orderBy('reactions_total_weight', 'asc')
             ->get();
 
@@ -776,7 +776,7 @@ final class ReactableTest extends TestCase
     }
 
     /** @test */
-    public function it_include_null_counter_and_summary_values_in_chain_with_reaction_counter_of_type_and_with_reaction_summary(): void
+    public function it_include_null_counter_and_totality_values_in_chain_with_reaction_counter_of_type_and_with_reaction_totality(): void
     {
         factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactionType1 = factory(ReactionType::class)->create([
@@ -799,7 +799,7 @@ final class ReactableTest extends TestCase
 
         $reactablesOrderedAsc = Article::query()
             ->withReactionCounterOfType($reactionType1)
-            ->withReactionSummary()
+            ->withReactionTotality()
             ->orderBy('reactions_total_weight', 'asc')
             ->get();
 
