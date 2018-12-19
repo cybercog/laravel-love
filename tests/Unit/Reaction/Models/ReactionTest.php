@@ -140,4 +140,32 @@ final class ReactionTest extends TestCase
 
         $this->assertSame(4, $reaction->getWeight());
     }
+
+    /** @test */
+    public function it_can_determine_if_reaction_is_type_of()
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $otherReactionType = factory(ReactionType::class)->create();
+
+        $reaction = factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+        ]);
+
+        $this->assertTrue($reaction->isTypeOf($reactionType));
+        $this->assertFalse($reaction->isTypeOf($otherReactionType));
+    }
+
+    /** @test */
+    public function it_can_determine_if_reaction_is_not_type_of()
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $otherReactionType = factory(ReactionType::class)->create();
+
+        $reaction = factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+        ]);
+
+        $this->assertTrue($reaction->isNotTypeOf($otherReactionType));
+        $this->assertFalse($reaction->isNotTypeOf($reactionType));
+    }
 }

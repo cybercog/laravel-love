@@ -15,13 +15,13 @@ namespace Cog\Contracts\Love\ReactionType\Models;
 
 interface ReactionType
 {
-    public static function fromName(string $name): self;
+    public static function fromName(string $name): ReactionType;
 
     public function getName(): string;
 
     public function getWeight(): int;
 
-    public function isEqualTo(self $type): bool;
+    public function isEqualTo(ReactionType $type): bool;
 
-    public function isNotEqualTo(self $type): bool;
+    public function isNotEqualTo(ReactionType $type): bool;
 }
