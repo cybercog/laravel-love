@@ -37,7 +37,7 @@ final class CreateLoveReactantReactionCountersTable extends Migration
             $table->index([
                 'reactant_id',
                 'reaction_type_id',
-            ]);
+            ], 'love_reactant_reaction_counters_reactant_reaction_type_index');
 
             $table
                 ->foreign('reactant_id')
