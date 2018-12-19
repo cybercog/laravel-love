@@ -243,10 +243,10 @@ Determine if Reacter reacted to Reactant with exact type of Reaction.
 $reactionType = ReactionType::fromName('Like');
 
 $isReacted = $reacter
-    ->isReactedWithTypeTo($reactant, $reactionType);
+    ->isReactedToWithTypeOf($reactant, $reactionType);
 
 $isNotReacted = $reacter
-    ->isNotReactedWithTypeTo($reactant, $reactionType);
+    ->isNotReactedToWithTypeOf($reactant, $reactionType);
 ```
 
 #### Reactable Methods
@@ -321,7 +321,7 @@ Article::whereReactedBy($reacter)
 $reacter = $user->getReacter();
 $reactionType = ReactionType::fromName('Like');
 
-Article::whereReactedWithTypeBy($reacter, $reactionType)
+Article::whereReactedByWithTypeOf($reacter, $reactionType)
     ->with([
         'reactionCounters', // Eager load (optional)
         'reactionSummary',
@@ -334,7 +334,7 @@ Article::whereReactedWithTypeBy($reacter, $reactionType)
 ```php
 $reactionType = ReactionType::fromName('Like'); 
 
-$articles = Article::withReactionCounterOfType($reactionType)->get();
+$articles = Article::withReactionCounterTypeOf($reactionType)->get();
 ```
 
 Each Reactable model will contain extra column: `reactions_count`.
@@ -342,7 +342,7 @@ Each Reactable model will contain extra column: `reactions_count`.
 You can order Reactables by `reactions_count`:
 
 ```php
-$articles = Article::withReactionCounterOfType($reactionType)
+$articles = Article::withReactionCounterTypeOf($reactionType)
     ->orderBy('reactions_count', 'desc')->get();
 ```
 

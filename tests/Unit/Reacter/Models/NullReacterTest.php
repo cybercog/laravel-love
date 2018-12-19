@@ -72,27 +72,27 @@ final class NullReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_determine_is_reacted_to_with_type_of(): void
+    public function it_can_determine_is_reacted_to_with_type(): void
     {
         $reacterable = new User();
         $reacter = new NullReacter($reacterable);
         $reactant = factory(Reactant::class)->make();
         $reactionType = new ReactionType();
 
-        $isReacted = $reacter->isReactedToWithTypeOf($reactant, $reactionType);
+        $isReacted = $reacter->isReactedToWithType($reactant, $reactionType);
 
         $this->assertFalse($isReacted);
     }
 
     /** @test */
-    public function it_can_determine_is_not_reacted_to_with_type_of(): void
+    public function it_can_determine_is_not_reacted_to_with_type(): void
     {
         $reacterable = new User();
         $reacter = new NullReacter($reacterable);
         $reactant = factory(Reactant::class)->make();
         $reactionType = new ReactionType();
 
-        $isReacted = $reacter->isNotReactedToWithTypeOf($reactant, $reactionType);
+        $isReacted = $reacter->isNotReactedToWithType($reactant, $reactionType);
 
         $this->assertTrue($isReacted);
     }

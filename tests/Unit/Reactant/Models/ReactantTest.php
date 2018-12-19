@@ -17,6 +17,7 @@ use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal;
+use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
@@ -197,5 +198,81 @@ final class ReactantTest extends TestCase
 
         $this->assertInstanceOf(NullReactionTotal::class, $reactant->getReactionTotal());
         $this->assertSame($reactant, $reactant->getReactionTotal()->getReactant());
+    }
+
+    /** @test */
+    public function it_can_check_is_reacted_by_reacter(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = factory(Reacter::class)->create();
+        $reactant = factory(Reactant::class)->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reacter_id' => $reacter->getKey(),
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $isReacted = $reactant->isReactedBy($reacter);
+
+        $this->assertTrue($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_not_reacted_by_reacter(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = factory(Reacter::class)->create();
+        $reactant = factory(Reactant::class)->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reacter_id' => $reacter->getKey(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $isNotReacted = $reactant->isNotReactedBy($reacter);
+
+        $this->assertTrue($isNotReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_reacted_by_reacter_with_type(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = factory(Reacter::class)->create();
+        $reactant = factory(Reactant::class)->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reacter_id' => $reacter->getKey(),
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $isReacted = $reactant->isReactedByWithType($reacter, $reactionType);
+
+        $this->assertTrue($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_not_reacted_by_reacter_with_type(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $otherReactionType = factory(ReactionType::class)->create();
+        $reacter = factory(Reacter::class)->create();
+        $reactant = factory(Reactant::class)->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $otherReactionType->getKey(),
+            'reacter_id' => $reacter->getKey(),
+            'reactant_id' => $reactant->getKey(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $isNotReacted = $reactant->isNotReactedByWithType($reacter, $reactionType);
+
+        $this->assertTrue($isNotReacted);
     }
 }

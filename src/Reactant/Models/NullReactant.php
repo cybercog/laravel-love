@@ -16,6 +16,8 @@ namespace Cog\Laravel\Love\Reactant\Models;
 use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalContract;
+use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
+use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
 
 final class NullReactant implements ReactantContract
@@ -45,5 +47,25 @@ final class NullReactant implements ReactantContract
     public function getReactionTotal(): ReactionTotalContract
     {
         return new NullReactionTotal($this);
+    }
+
+    public function isReactedBy(ReacterContract $reacter): bool
+    {
+        return false;
+    }
+
+    public function isNotReactedBy(ReacterContract $reacter): bool
+    {
+        return true;
+    }
+
+    public function isReactedByWithType(ReacterContract $reacter, ReactionTypeContract $reactionType): bool
+    {
+        return false;
+    }
+
+    public function isNotReactedByWithType(ReacterContract $reacter, ReactionTypeContract $reactionType): bool
+    {
+        return true;
     }
 }

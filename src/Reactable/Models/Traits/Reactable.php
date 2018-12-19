@@ -75,7 +75,7 @@ trait Reactable
         });
     }
 
-    public function scopeWhereReactedWithTypeBy(
+    public function scopeWhereReactedByWithType(
         Builder $query,
         ReacterContract $reacter,
         ReactionTypeContract $reactionType
@@ -86,7 +86,7 @@ trait Reactable
         });
     }
 
-    public function scopeWithReactionCounterOfType(Builder $query, ReactionTypeContract $reactionType): Builder
+    public function scopeJoinReactionCounterWithType(Builder $query, ReactionTypeContract $reactionType): Builder
     {
         $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
         $select[] = 'lrrc.count as reactions_count';
@@ -100,7 +100,7 @@ trait Reactable
             ->select($select);
     }
 
-    public function scopeWithReactionTotal(Builder $query): Builder
+    public function scopeJoinReactionTotal(Builder $query): Builder
     {
         $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
         $select[] = 'lrrt.count as reactions_total_count';

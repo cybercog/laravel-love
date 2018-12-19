@@ -16,6 +16,8 @@ namespace Cog\Laravel\Love\Reactant\Models;
 use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalContract;
+use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
+use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal;
@@ -72,5 +74,30 @@ final class Reactant extends Model implements ReactantContract
     public function getReactionTotal(): ReactionTotalContract
     {
         return $this->getAttribute('reactionTotal') ?? new NullReactionTotal($this);
+    }
+
+    public function isReactedBy(ReacterContract $reacter): bool
+    {
+        return $this->reactions()->where([
+            'reacter_id' => $reacter->getKey(),
+        ])->exists();
+    }
+
+    public function isNotReactedBy(ReacterContract $reacter): bool
+    {
+        return !$this->isReactedBy($reacter);
+    }
+
+    public function isReactedByWithType(ReacterContract $reacter, ReactionTypeContract $reactionType): bool
+    {
+        return $this->reactions()->where([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reacter_id' => $reacter->getKey(),
+        ])->exists();
+    }
+
+    public function isNotReactedByWithType(ReacterContract $reacter, ReactionTypeContract $reactionType): bool
+    {
+        return !$this->isReactedByWithType($reacter, $reactionType);
     }
 }

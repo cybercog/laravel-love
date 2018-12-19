@@ -80,12 +80,12 @@ final class Reaction extends Model implements ReactionContract
         return $this->getType()->getWeight();
     }
 
-    public function isTypeOf(ReactionTypeContract $reactionType): bool
+    public function isOfType(ReactionTypeContract $reactionType): bool
     {
         return $this->getType()->isEqualTo($reactionType);
     }
 
-    public function isNotTypeOf(ReactionTypeContract $reactionType): bool
+    public function isNotOfType(ReactionTypeContract $reactionType): bool
     {
         return $this->getType()->isNotEqualTo($reactionType);
     }

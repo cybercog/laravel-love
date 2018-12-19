@@ -29,7 +29,7 @@ final class LoveTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function it_can_check_if_reaction_of_type(): void
+    public function it_can_check_is_reaction_type_name(): void
     {
         $reactionType1 = factory(ReactionType::class)->create();
         $reactionType2 = factory(ReactionType::class)->create();
@@ -37,21 +37,47 @@ final class LoveTest extends TestCase
             'reaction_type_id' => $reactionType1->getKey(),
         ]);
 
-        $true = Love::isReactionOfType($reaction, $reactionType1->getName());
-        $false = Love::isReactionOfType($reaction, $reactionType2->getName());
+        $true = Love::isReactionTypeName($reaction, $reactionType1->getName());
+        $false = Love::isReactionTypeName($reaction, $reactionType2->getName());
 
         $this->assertTrue($true);
         $this->assertFalse($false);
     }
 
     /** @test */
-    public function it_throw_exception_on_invalid_reaction_type_in_check_if_reaction_of_type(): void
+    public function it_throw_exception_on_invalid_reaction_type_in_check_is_reaction_type_name(): void
     {
         $this->expectException(ReactionTypeInvalid::class);
 
         $reaction = factory(Reaction::class)->create();
 
-        Love::isReactionOfType($reaction, 'InvalidType');
+        Love::isReactionTypeName($reaction, 'InvalidType');
+    }
+
+    /** @test */
+    public function it_can_check_is_reaction_not_type_name(): void
+    {
+        $reactionType1 = factory(ReactionType::class)->create();
+        $reactionType2 = factory(ReactionType::class)->create();
+        $reaction = factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType1->getKey(),
+        ]);
+
+        $false = Love::isReactionNotTypeName($reaction, $reactionType1->getName());
+        $true = Love::isReactionNotTypeName($reaction, $reactionType2->getName());
+
+        $this->assertFalse($false);
+        $this->assertTrue($true);
+    }
+
+    /** @test */
+    public function it_throw_exception_on_invalid_reaction_type_in_check_is_reaction_not_type_name(): void
+    {
+        $this->expectException(ReactionTypeInvalid::class);
+
+        $reaction = factory(Reaction::class)->create();
+
+        Love::isReactionNotTypeName($reaction, 'InvalidType');
     }
 
     /** @test */
@@ -67,12 +93,12 @@ final class LoveTest extends TestCase
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $isReacted = Love::isReacterableReactedWithTypeTo(
+        $isReacted = Love::isReacterableReactedToWithTypeName(
             $reacter->getReacterable(),
             $reactionType->getName(),
             $reactant->getReactable()
         );
-        $isNotReacted = Love::isReacterableReactedWithTypeTo(
+        $isNotReacted = Love::isReacterableReactedToWithTypeName(
             $reacter->getReacterable(),
             $otherReactionType->getName(),
             $reactant->getReactable()
@@ -80,16 +106,6 @@ final class LoveTest extends TestCase
 
         $this->assertTrue($isReacted);
         $this->assertFalse($isNotReacted);
-    }
-
-    /** @test */
-    public function it_throw_exception_on_invalid_reaction_type_in_check_if_reaction_not_of_type(): void
-    {
-        $this->expectException(ReactionTypeInvalid::class);
-
-        $reaction = factory(Reaction::class)->create();
-
-        Love::isReactionNotOfType($reaction, 'InvalidType');
     }
 
     /** @test */
@@ -105,12 +121,12 @@ final class LoveTest extends TestCase
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $isReacted = Love::isReacterableReactedWithTypeTo(
+        $isReacted = Love::isReacterableReactedToWithTypeName(
             null,
             $reactionType->getName(),
             $reactant->getReactable()
         );
-        $isNotReacted = Love::isReacterableReactedWithTypeTo(
+        $isNotReacted = Love::isReacterableReactedToWithTypeName(
             null,
             $otherReactionType->getName(),
             $reactant->getReactable()
@@ -132,12 +148,12 @@ final class LoveTest extends TestCase
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $isReacted = Love::isReacterableReactedWithTypeTo(
+        $isReacted = Love::isReacterableReactedToWithTypeName(
             $reacterable,
             $reactionType->getName(),
             $reactant->getReactable()
         );
-        $isNotReacted = Love::isReacterableReactedWithTypeTo(
+        $isNotReacted = Love::isReacterableReactedToWithTypeName(
             $reacterable,
             $otherReactionType->getName(),
             $reactant->getReactable()
@@ -159,12 +175,12 @@ final class LoveTest extends TestCase
             'reacter_id' => $reacter->getKey(),
         ]);
 
-        $isReacted = Love::isReacterableReactedWithTypeTo(
+        $isReacted = Love::isReacterableReactedToWithTypeName(
             $reacter->getReacterable(),
             $reactionType->getName(),
             $reactable
         );
-        $isNotReacted = Love::isReacterableReactedWithTypeTo(
+        $isNotReacted = Love::isReacterableReactedToWithTypeName(
             $reacter->getReacterable(),
             $otherReactionType->getName(),
             $reactable
@@ -182,7 +198,7 @@ final class LoveTest extends TestCase
         $reacter = factory(Reacter::class)->states('withReacterable')->create();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
 
-        Love::isReacterableReactedWithTypeTo(
+        Love::isReacterableReactedToWithTypeName(
             $reacter->getReacterable(),
             'UnknownType',
             $reactant->getReactable()
@@ -202,12 +218,12 @@ final class LoveTest extends TestCase
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $isReacted = Love::isReacterableNotReactedWithTypeTo(
+        $isReacted = Love::isReacterableNotReactedToWithTypeName(
             $reacter->getReacterable(),
             $reactionType->getName(),
             $reactant->getReactable()
         );
-        $isNotReacted = Love::isReacterableNotReactedWithTypeTo(
+        $isNotReacted = Love::isReacterableNotReactedToWithTypeName(
             $reacter->getReacterable(),
             $otherReactionType->getName(),
             $reactant->getReactable()
@@ -230,12 +246,12 @@ final class LoveTest extends TestCase
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $isReacted = Love::isReacterableNotReactedWithTypeTo(
+        $isReacted = Love::isReacterableNotReactedToWithTypeName(
             null,
             $reactionType->getName(),
             $reactant->getReactable()
         );
-        $isNotReacted = Love::isReacterableNotReactedWithTypeTo(
+        $isNotReacted = Love::isReacterableNotReactedToWithTypeName(
             null,
             $otherReactionType->getName(),
             $reactant->getReactable()
@@ -257,12 +273,12 @@ final class LoveTest extends TestCase
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $isReacted = Love::isReacterableNotReactedWithTypeTo(
+        $isReacted = Love::isReacterableNotReactedToWithTypeName(
             $reacterable,
             $reactionType->getName(),
             $reactant->getReactable()
         );
-        $isNotReacted = Love::isReacterableNotReactedWithTypeTo(
+        $isNotReacted = Love::isReacterableNotReactedToWithTypeName(
             $reacterable,
             $otherReactionType->getName(),
             $reactant->getReactable()
@@ -284,12 +300,12 @@ final class LoveTest extends TestCase
             'reacter_id' => $reacter->getKey(),
         ]);
 
-        $isReacted = Love::isReacterableNotReactedWithTypeTo(
+        $isReacted = Love::isReacterableNotReactedToWithTypeName(
             $reacter->getReacterable(),
             $reactionType->getName(),
             $reactable
         );
-        $isNotReacted = Love::isReacterableNotReactedWithTypeTo(
+        $isNotReacted = Love::isReacterableNotReactedToWithTypeName(
             $reacter->getReacterable(),
             $otherReactionType->getName(),
             $reactable
@@ -472,7 +488,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_reactable_reactions_count_of_type(): void
+    public function it_can_get_reactable_reactions_count_for_type_name(): void
     {
         $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
@@ -481,7 +497,7 @@ final class LoveTest extends TestCase
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $count = Love::getReactableReactionsCountOfType(
+        $count = Love::getReactableReactionsCountForTypeName(
             $reactant->getReactable(),
             $reactionType->getName()
         );
@@ -490,7 +506,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_reactable_with_null_reactant_reactions_count_of_type(): void
+    public function it_can_get_reactable_with_null_reactant_reactions_count_for_type_name(): void
     {
         $reactionType = factory(ReactionType::class)->create();
         $reactable = new Article();
@@ -498,7 +514,7 @@ final class LoveTest extends TestCase
             'reaction_type_id' => $reactionType->getKey(),
         ]);
 
-        $count = Love::getReactableReactionsCountOfType(
+        $count = Love::getReactableReactionsCountForTypeName(
             $reactable,
             $reactionType->getName()
         );
@@ -507,7 +523,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_reactable_reactions_count_of_type_if_no_reactions_exists(): void
+    public function it_can_get_reactable_reactions_count_for_type_name_if_no_reactions_exists(): void
     {
         $reactionType = factory(ReactionType::class)->create();
         $otherReactionType = factory(ReactionType::class)->create();
@@ -517,7 +533,7 @@ final class LoveTest extends TestCase
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $count = Love::getReactableReactionsCountOfType(
+        $count = Love::getReactableReactionsCountForTypeName(
             $reactant->getReactable(),
             $otherReactionType->getName()
         );
@@ -526,7 +542,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_throw_exception_on_invalid_reaction_type_in_get_reactable_reactions_count_of_type(): void
+    public function it_throw_exception_on_invalid_reaction_type_in_get_reactable_reactions_count_for_type_name(): void
     {
         $this->expectException(ReactionTypeInvalid::class);
 
@@ -537,14 +553,14 @@ final class LoveTest extends TestCase
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        Love::getReactableReactionsCountOfType(
+        Love::getReactableReactionsCountForTypeName(
             $reactant->getReactable(),
             'InvalidType'
         );
     }
 
     /** @test */
-    public function it_can_get_reactable_reactions_weight_of_type(): void
+    public function it_can_get_reactable_reactions_weight_for_type_name(): void
     {
         $reactionType = factory(ReactionType::class)->create([
             'weight' => 2,
@@ -555,7 +571,7 @@ final class LoveTest extends TestCase
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $weight = Love::getReactableReactionsWeightOfType(
+        $weight = Love::getReactableReactionsWeightForTypeName(
             $reactant->getReactable(),
             $reactionType->getName()
         );
@@ -564,7 +580,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_reactable_with_null_reactant_reactions_weight_of_type(): void
+    public function it_can_get_reactable_with_null_reactant_reactions_weight_for_type_name(): void
     {
         $reactionType = factory(ReactionType::class)->create();
         $reactable = new Article();
@@ -572,7 +588,7 @@ final class LoveTest extends TestCase
             'reaction_type_id' => $reactionType->getKey(),
         ]);
 
-        $weight = Love::getReactableReactionsWeightOfType(
+        $weight = Love::getReactableReactionsWeightForTypeName(
             $reactable,
             $reactionType->getName()
         );
@@ -581,7 +597,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_reactable_reactions_weight_of_type_if_no_reactions_exists(): void
+    public function it_can_get_reactable_reactions_weight_for_type_name_if_no_reactions_exists(): void
     {
         $reactionType = factory(ReactionType::class)->create();
         $otherReactionType = factory(ReactionType::class)->create();
@@ -591,7 +607,7 @@ final class LoveTest extends TestCase
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $weight = Love::getReactableReactionsWeightOfType(
+        $weight = Love::getReactableReactionsWeightForTypeName(
             $reactant->getReactable(),
             $otherReactionType->getName()
         );
@@ -600,7 +616,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_throw_exception_on_invalid_reaction_type_in_get_reactable_reactions_weight_of_type(): void
+    public function it_throw_exception_on_invalid_reaction_type_in_get_reactable_reactions_weight_for_type_name(): void
     {
         $this->expectException(ReactionTypeInvalid::class);
 
@@ -611,7 +627,7 @@ final class LoveTest extends TestCase
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        Love::getReactableReactionsWeightOfType(
+        Love::getReactableReactionsWeightForTypeName(
             $reactant->getReactable(),
             'InvalidType'
         );

@@ -142,7 +142,7 @@ final class ReactionTest extends TestCase
     }
 
     /** @test */
-    public function it_can_determine_if_reaction_is_type_of()
+    public function it_can_determine_if_reaction_is_of_type()
     {
         $reactionType = factory(ReactionType::class)->create();
         $otherReactionType = factory(ReactionType::class)->create();
@@ -151,12 +151,12 @@ final class ReactionTest extends TestCase
             'reaction_type_id' => $reactionType->getKey(),
         ]);
 
-        $this->assertTrue($reaction->isTypeOf($reactionType));
-        $this->assertFalse($reaction->isTypeOf($otherReactionType));
+        $this->assertTrue($reaction->isOfType($reactionType));
+        $this->assertFalse($reaction->isOfType($otherReactionType));
     }
 
     /** @test */
-    public function it_can_determine_if_reaction_is_not_type_of()
+    public function it_can_determine_if_reaction_is_not_of_type()
     {
         $reactionType = factory(ReactionType::class)->create();
         $otherReactionType = factory(ReactionType::class)->create();
@@ -165,7 +165,7 @@ final class ReactionTest extends TestCase
             'reaction_type_id' => $reactionType->getKey(),
         ]);
 
-        $this->assertTrue($reaction->isNotTypeOf($otherReactionType));
-        $this->assertFalse($reaction->isNotTypeOf($reactionType));
+        $this->assertTrue($reaction->isNotOfType($otherReactionType));
+        $this->assertFalse($reaction->isNotOfType($reactionType));
     }
 }

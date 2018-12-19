@@ -15,6 +15,8 @@ namespace Cog\Tests\Laravel\Love\Unit\Reactant\Models;
 
 use Cog\Laravel\Love\Reactant\Models\NullReactant;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
+use Cog\Laravel\Love\Reacter\Models\Reacter;
+use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -67,5 +69,55 @@ final class NullReactantTest extends TestCase
         $total = $reactant->getReactionTotal();
 
         $this->assertInstanceOf(NullReactionTotal::class, $total);
+    }
+
+    /** @test */
+    public function it_can_determine_is_reacted_by(): void
+    {
+        $reactable = new Article();
+        $reactant = new NullReactant($reactable);
+        $reacter = factory(Reacter::class)->make();
+
+        $isReacted = $reactant->isReactedBy($reacter);
+
+        $this->assertFalse($isReacted);
+    }
+
+    /** @test */
+    public function it_can_determine_is_not_reacted_by(): void
+    {
+        $reactable = new Article();
+        $reactant = new NullReactant($reactable);
+        $reacter = factory(Reacter::class)->make();
+
+        $isReacted = $reactant->isNotReactedBy($reacter);
+
+        $this->assertTrue($isReacted);
+    }
+
+    /** @test */
+    public function it_can_determine_is_reacted_by_with_type(): void
+    {
+        $reactable = new Article();
+        $reactant = new NullReactant($reactable);
+        $reacter = factory(Reacter::class)->make();
+        $reactionType = new ReactionType();
+
+        $isReacted = $reactant->isReactedByWithType($reacter, $reactionType);
+
+        $this->assertFalse($isReacted);
+    }
+
+    /** @test */
+    public function it_can_determine_is_not_reacted_by_with_type(): void
+    {
+        $reactable = new Article();
+        $reactant = new NullReactant($reactable);
+        $reacter = factory(Reacter::class)->make();
+        $reactionType = new ReactionType();
+
+        $isReacted = $reactant->isNotReactedByWithType($reacter, $reactionType);
+
+        $this->assertTrue($isReacted);
     }
 }

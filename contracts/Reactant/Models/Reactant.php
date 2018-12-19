@@ -15,6 +15,8 @@ namespace Cog\Contracts\Love\Reactant\Models;
 
 use Cog\Contracts\Love\Reactable\Models\Reactable;
 use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal;
+use Cog\Contracts\Love\Reacter\Models\Reacter;
+use Cog\Contracts\Love\ReactionType\Models\ReactionType;
 
 interface Reactant
 {
@@ -31,4 +33,12 @@ interface Reactant
     public function getReactionCounters(): iterable;
 
     public function getReactionTotal(): ReactionTotal;
+
+    public function isReactedBy(Reacter $reacter): bool;
+
+    public function isNotReactedBy(Reacter $reacter): bool;
+
+    public function isReactedByWithType(Reacter $reacter, ReactionType $reactionType): bool;
+
+    public function isNotReactedByWithType(Reacter $reacter, ReactionType $reactionType): bool;
 }
