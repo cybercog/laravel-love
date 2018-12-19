@@ -24,22 +24,22 @@ final class Love
 {
     public static function isReactionTypeName(
         ReactionContract $reaction,
-        string $reactionType
+        string $typeName
     ): bool {
-        return $reaction->isOfType(ReactionType::fromName($reactionType));
+        return $reaction->isOfType(ReactionType::fromName($typeName));
     }
 
     public static function isReactionNotTypeName(
         ReactionContract $reaction,
-        string $reactionType
+        string $typeName
     ): bool {
-        return !self::isReactionTypeName($reaction, $reactionType);
+        return !self::isReactionTypeName($reaction, $typeName);
     }
 
     public static function isReacterableReactedToWithTypeName(
         ?ReacterableContract $reacterable,
-        string $type,
-        ReactableContract $reactable
+        ReactableContract $reactable,
+        string $typeName
     ): bool {
         if (is_null($reacterable)) {
             return false;
@@ -55,15 +55,15 @@ final class Love
             return false;
         }
 
-        return $reacter->isReactedToWithType($reactant, ReactionType::fromName($type));
+        return $reacter->isReactedToWithType($reactant, ReactionType::fromName($typeName));
     }
 
     public static function isReacterableNotReactedToWithTypeName(
         ?ReacterableContract $reacterable,
-        string $type,
-        ReactableContract $reactable
+        ReactableContract $reactable,
+        string $typeName
     ): bool {
-        return !self::isReacterableReactedToWithTypeName($reacterable, $type, $reactable);
+        return !self::isReacterableReactedToWithTypeName($reacterable, $reactable, $typeName);
     }
 
     public static function isReacterableReactedTo(
@@ -94,9 +94,67 @@ final class Love
         return !self::isReacterableReactedTo($reacterable, $reactable);
     }
 
+    public static function isReactableReactedByWithTypeName(
+        ReactableContract $reactable,
+        ?ReacterableContract $reacterable,
+        string $typeName
+    ): bool {
+        if (is_null($reacterable)) {
+            return false;
+        }
+
+        $reacter = $reacterable->getReacter();
+        if ($reacter instanceof NullReacter) {
+            return false;
+        }
+
+        $reactant = $reactable->getReactant();
+        if ($reactant instanceof NullReactant) {
+            return false;
+        }
+
+        return $reactant->isReactedByWithType($reacter, ReactionType::fromName($typeName));
+    }
+
+    public static function isReactableNotReactedByWithTypeName(
+        ReactableContract $reactable,
+        ?ReacterableContract $reacterable,
+        string $typeName
+    ): bool {
+        return !self::isReactableReactedByWithTypeName($reactable, $reacterable, $typeName);
+    }
+
+    public static function isReactableReactedBy(
+        ReactableContract $reactable,
+        ?ReacterableContract $reacterable
+    ): bool {
+        if (is_null($reacterable)) {
+            return false;
+        }
+
+        $reacter = $reacterable->getReacter();
+        if ($reacter instanceof NullReacter) {
+            return false;
+        }
+
+        $reactant = $reactable->getReactant();
+        if ($reactant instanceof NullReactant) {
+            return false;
+        }
+
+        return $reactant->isReactedBy($reacter);
+    }
+
+    public static function isReactableNotReactedBy(
+        ReactableContract $reactable,
+        ?ReacterableContract $reacterable
+    ): bool {
+        return !self::isReactableReactedBy($reactable, $reacterable);
+    }
+
     public static function getReactableReactionsCountForTypeName(
         ReactableContract $reactable,
-        string $reactionType
+        string $typeName
     ): int {
         $reactant = $reactable->getReactant();
         if ($reactant instanceof NullReactant) {
@@ -105,7 +163,7 @@ final class Love
 
         $counter = $reactant
             ->getReactionCounters()
-            ->where('reaction_type_id', ReactionType::fromName($reactionType)->getKey())
+            ->where('reaction_type_id', ReactionType::fromName($typeName)->getKey())
             ->first();
 
         if (is_null($counter)) {
@@ -117,7 +175,7 @@ final class Love
 
     public static function getReactableReactionsWeightForTypeName(
         ReactableContract $reactable,
-        string $reactionType
+        string $typeName
     ): int {
         $reactant = $reactable->getReactant();
         if ($reactant instanceof NullReactant) {
@@ -126,7 +184,7 @@ final class Love
 
         $counter = $reactant
             ->getReactionCounters()
-            ->where('reaction_type_id', ReactionType::fromName($reactionType)->getKey())
+            ->where('reaction_type_id', ReactionType::fromName($typeName)->getKey())
             ->first();
 
         if (is_null($counter)) {

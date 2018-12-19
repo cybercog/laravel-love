@@ -45,16 +45,6 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_throw_exception_on_invalid_reaction_type_in_check_is_reaction_type_name(): void
-    {
-        $this->expectException(ReactionTypeInvalid::class);
-
-        $reaction = factory(Reaction::class)->create();
-
-        Love::isReactionTypeName($reaction, 'InvalidType');
-    }
-
-    /** @test */
     public function it_can_check_is_reaction_not_type_name(): void
     {
         $reactionType1 = factory(ReactionType::class)->create();
@@ -71,6 +61,16 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
+    public function it_throw_exception_on_invalid_reaction_type_in_check_is_reaction_type_name(): void
+    {
+        $this->expectException(ReactionTypeInvalid::class);
+
+        $reaction = factory(Reaction::class)->create();
+
+        Love::isReactionTypeName($reaction, 'InvalidType');
+    }
+
+    /** @test */
     public function it_throw_exception_on_invalid_reaction_type_in_check_is_reaction_not_type_name(): void
     {
         $this->expectException(ReactionTypeInvalid::class);
@@ -81,7 +81,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_if_reacterable_reacted_with_type_to_reactable(): void
+    public function it_can_check_is_reacterable_reacted_to_reactable_with_type_name(): void
     {
         $reactionType = factory(ReactionType::class)->create();
         $otherReactionType = factory(ReactionType::class)->create();
@@ -95,13 +95,13 @@ final class LoveTest extends TestCase
 
         $isReacted = Love::isReacterableReactedToWithTypeName(
             $reacter->getReacterable(),
-            $reactionType->getName(),
-            $reactant->getReactable()
+            $reactant->getReactable(),
+            $reactionType->getName()
         );
         $isNotReacted = Love::isReacterableReactedToWithTypeName(
             $reacter->getReacterable(),
-            $otherReactionType->getName(),
-            $reactant->getReactable()
+            $reactant->getReactable(),
+            $otherReactionType->getName()
         );
 
         $this->assertTrue($isReacted);
@@ -109,7 +109,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_if_null_reacted_with_type_to_reactable(): void
+    public function it_can_check_is_reacterable_reacted_to_reactable_with_type_name_when_reacterable_is_null(): void
     {
         $reactionType = factory(ReactionType::class)->create();
         $otherReactionType = factory(ReactionType::class)->create();
@@ -123,13 +123,13 @@ final class LoveTest extends TestCase
 
         $isReacted = Love::isReacterableReactedToWithTypeName(
             null,
-            $reactionType->getName(),
-            $reactant->getReactable()
+            $reactant->getReactable(),
+            $reactionType->getName()
         );
         $isNotReacted = Love::isReacterableReactedToWithTypeName(
             null,
-            $otherReactionType->getName(),
-            $reactant->getReactable()
+            $reactant->getReactable(),
+            $otherReactionType->getName()
         );
 
         $this->assertFalse($isReacted);
@@ -137,7 +137,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_if_reacterable_with_null_reacter_reacted_with_type_to_reactable(): void
+    public function it_can_check_is_reacterable_reacted_to_reactable_with_type_name_when_reacterable_has_null_reacter(): void
     {
         $reactionType = factory(ReactionType::class)->create();
         $otherReactionType = factory(ReactionType::class)->create();
@@ -150,13 +150,13 @@ final class LoveTest extends TestCase
 
         $isReacted = Love::isReacterableReactedToWithTypeName(
             $reacterable,
-            $reactionType->getName(),
-            $reactant->getReactable()
+            $reactant->getReactable(),
+            $reactionType->getName()
         );
         $isNotReacted = Love::isReacterableReactedToWithTypeName(
             $reacterable,
-            $otherReactionType->getName(),
-            $reactant->getReactable()
+            $reactant->getReactable(),
+            $otherReactionType->getName()
         );
 
         $this->assertFalse($isReacted);
@@ -164,7 +164,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_if_reacterable_reacted_with_type_to_reactable_with_null_reactant(): void
+    public function it_can_check_is_reacterable_reacted_to_reactable_with_type_name_when_null_reactant(): void
     {
         $reactionType = factory(ReactionType::class)->create();
         $otherReactionType = factory(ReactionType::class)->create();
@@ -177,13 +177,13 @@ final class LoveTest extends TestCase
 
         $isReacted = Love::isReacterableReactedToWithTypeName(
             $reacter->getReacterable(),
-            $reactionType->getName(),
-            $reactable
+            $reactable,
+            $reactionType->getName()
         );
         $isNotReacted = Love::isReacterableReactedToWithTypeName(
             $reacter->getReacterable(),
-            $otherReactionType->getName(),
-            $reactable
+            $reactable,
+            $otherReactionType->getName()
         );
 
         $this->assertFalse($isReacted);
@@ -191,22 +191,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_throw_exception_on_check_if_unknown_type_passed_to_reacterable_reacted_with_type_to_reactable(): void
-    {
-        $this->expectException(ReactionTypeInvalid::class);
-
-        $reacter = factory(Reacter::class)->states('withReacterable')->create();
-        $reactant = factory(Reactant::class)->states('withReactable')->create();
-
-        Love::isReacterableReactedToWithTypeName(
-            $reacter->getReacterable(),
-            'UnknownType',
-            $reactant->getReactable()
-        );
-    }
-
-    /** @test */
-    public function it_can_check_if_reacterable_not_reacted_with_type_to_reactable(): void
+    public function it_can_check_is_reacterable_not_reacted_to_reactable_with_type_name(): void
     {
         $reactionType = factory(ReactionType::class)->create();
         $otherReactionType = factory(ReactionType::class)->create();
@@ -220,13 +205,13 @@ final class LoveTest extends TestCase
 
         $isReacted = Love::isReacterableNotReactedToWithTypeName(
             $reacter->getReacterable(),
-            $reactionType->getName(),
-            $reactant->getReactable()
+            $reactant->getReactable(),
+            $reactionType->getName()
         );
         $isNotReacted = Love::isReacterableNotReactedToWithTypeName(
             $reacter->getReacterable(),
-            $otherReactionType->getName(),
-            $reactant->getReactable()
+            $reactant->getReactable(),
+            $otherReactionType->getName()
         );
 
         $this->assertFalse($isReacted);
@@ -234,7 +219,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_if_null_not_reacted_with_type_to_reactable(): void
+    public function it_can_check_is_reacterable_not_reacted_to_reactable_with_type_name_when_reacterable_is_null(): void
     {
         $reactionType = factory(ReactionType::class)->create();
         $otherReactionType = factory(ReactionType::class)->create();
@@ -248,13 +233,13 @@ final class LoveTest extends TestCase
 
         $isReacted = Love::isReacterableNotReactedToWithTypeName(
             null,
-            $reactionType->getName(),
-            $reactant->getReactable()
+            $reactant->getReactable(),
+            $reactionType->getName()
         );
         $isNotReacted = Love::isReacterableNotReactedToWithTypeName(
             null,
-            $otherReactionType->getName(),
-            $reactant->getReactable()
+            $reactant->getReactable(),
+            $otherReactionType->getName()
         );
 
         $this->assertTrue($isReacted);
@@ -262,7 +247,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_if_reacterable_with_null_reacter_not_reacted_with_type_to_reactable(): void
+    public function it_can_check_is_reacterable_not_reacted_to_reactable_with_type_name_when_reacterable_has_null_reacter(): void
     {
         $reactionType = factory(ReactionType::class)->create();
         $otherReactionType = factory(ReactionType::class)->create();
@@ -275,13 +260,13 @@ final class LoveTest extends TestCase
 
         $isReacted = Love::isReacterableNotReactedToWithTypeName(
             $reacterable,
-            $reactionType->getName(),
-            $reactant->getReactable()
+            $reactant->getReactable(),
+            $reactionType->getName()
         );
         $isNotReacted = Love::isReacterableNotReactedToWithTypeName(
             $reacterable,
-            $otherReactionType->getName(),
-            $reactant->getReactable()
+            $reactant->getReactable(),
+            $otherReactionType->getName()
         );
 
         $this->assertTrue($isReacted);
@@ -289,7 +274,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_if_reacterable_not_reacted_with_type_to_reactable_with_null_reactant(): void
+    public function it_can_check_is_reacterable_not_reacted_to_reactable_with_type_name_when_reactable_has_null_reactant(): void
     {
         $reactionType = factory(ReactionType::class)->create();
         $otherReactionType = factory(ReactionType::class)->create();
@@ -302,13 +287,13 @@ final class LoveTest extends TestCase
 
         $isReacted = Love::isReacterableNotReactedToWithTypeName(
             $reacter->getReacterable(),
-            $reactionType->getName(),
-            $reactable
+            $reactable,
+            $reactionType->getName()
         );
         $isNotReacted = Love::isReacterableNotReactedToWithTypeName(
             $reacter->getReacterable(),
-            $otherReactionType->getName(),
-            $reactable
+            $reactable,
+            $otherReactionType->getName()
         );
 
         $this->assertTrue($isReacted);
@@ -316,7 +301,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_if_reacterable_reacted_to_reactable(): void
+    public function it_can_check_is_reacterable_reacted_to_reactable(): void
     {
         $reactionType = factory(ReactionType::class)->create();
         $reacter = factory(Reacter::class)->states('withReacterable')->create();
@@ -346,7 +331,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_if_null_reacted_to_reactable(): void
+    public function it_can_check_is_reacterable_reacted_to_reactable_when_reacterable_is_null(): void
     {
         $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
@@ -364,7 +349,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_if_reacterable_with_null_reacter_reacted_to_reactable(): void
+    public function it_can_check_is_reacterable_reacted_to_reactable_when_reacterable_has_null_reacter(): void
     {
         $reactionType = factory(ReactionType::class)->create();
         $reacterable = new User();
@@ -383,7 +368,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_if_reacterable_reacted_to_reactable_with_null_reactant(): void
+    public function it_can_check_is_reacterable_reacted_to_reactable_when_reactable_has_null_reactant(): void
     {
         $reactionType = factory(ReactionType::class)->create();
         $reacter = factory(Reacter::class)->states('withReacterable')->create();
@@ -402,7 +387,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_if_reacterable_not_reacted_to_reactable(): void
+    public function it_can_check_is_reacterable_not_reacted_to_reactable(): void
     {
         $reactionType = factory(ReactionType::class)->create();
         $reacter = factory(Reacter::class)->states('withReacterable')->create();
@@ -432,7 +417,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_if_null_not_reacted_to_reactable(): void
+    public function it_can_check_is_reacterable_not_reacted_to_reactable_when_reacterable_is_null(): void
     {
         $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
@@ -450,7 +435,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_if_reacterable_with_null_reacter_not_reacted_to_reactable(): void
+    public function it_can_check_is_reacterable_not_reacted_to_reactable_when_reacterable_has_null_reacter(): void
     {
         $reactionType = factory(ReactionType::class)->create();
         $reacterable = new User();
@@ -469,7 +454,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_if_reacterable_not_reacted_to_reactable_with_null_reactant(): void
+    public function it_can_check_is_reacterable_not_reacted_to_reactable_when_reactable_has_null_reactant(): void
     {
         $reactionType = factory(ReactionType::class)->create();
         $reacter = factory(Reacter::class)->states('withReacterable')->create();
@@ -485,6 +470,458 @@ final class LoveTest extends TestCase
         );
 
         $this->assertTrue($isReacted);
+    }
+
+    /** @test */
+    public function it_throw_reaction_type_invalid_exception_on_is_reacterable_reacted_to_reactable_with_type_name_when_type_unknown(): void
+    {
+        $this->expectException(ReactionTypeInvalid::class);
+
+        $reacter = factory(Reacter::class)->states('withReacterable')->create();
+        $reactant = factory(Reactant::class)->states('withReactable')->create();
+
+        Love::isReacterableReactedToWithTypeName(
+            $reacter->getReacterable(),
+            $reactant->getReactable(),
+            'UnknownType'
+        );
+    }
+
+    /** @test */
+    public function it_throw_reaction_type_invalid_exception_on_is_reacterable_not_reacted_to_reactable_with_type_name_when_type_unknown(): void
+    {
+        $this->expectException(ReactionTypeInvalid::class);
+
+        $reacter = factory(Reacter::class)->states('withReacterable')->create();
+        $reactant = factory(Reactant::class)->states('withReactable')->create();
+
+        Love::isReacterableNotReactedToWithTypeName(
+            $reacter->getReacterable(),
+            $reactant->getReactable(),
+            'UnknownType'
+        );
+    }
+
+    /** @test */
+    public function it_can_check_is_reactable_reacted_by_reacterable_with_type_name(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $otherReactionType = factory(ReactionType::class)->create();
+        $reacter = factory(Reacter::class)->states('withReacterable')->create();
+        $reactant = factory(Reactant::class)->states('withReactable')->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reacter_id' => $reacter->getKey(),
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $isReacted = Love::isReactableReactedByWithTypeName(
+            $reactant->getReactable(),
+            $reacter->getReacterable(),
+            $reactionType->getName()
+        );
+        $isNotReacted = Love::isReactableReactedByWithTypeName(
+            $reactant->getReactable(),
+            $reacter->getReacterable(),
+            $otherReactionType->getName()
+        );
+
+        $this->assertTrue($isReacted);
+        $this->assertFalse($isNotReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_reactable_reacted_by_reacterable_with_type_name_when_reacterable_is_null(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $otherReactionType = factory(ReactionType::class)->create();
+        $reacter = factory(Reacter::class)->states('withReacterable')->create();
+        $reactant = factory(Reactant::class)->states('withReactable')->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reacter_id' => $reacter->getKey(),
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $isReacted = Love::isReactableReactedByWithTypeName(
+            $reactant->getReactable(),
+            null,
+            $reactionType->getName()
+        );
+        $isNotReacted = Love::isReactableReactedByWithTypeName(
+            $reactant->getReactable(),
+            null,
+            $otherReactionType->getName()
+        );
+
+        $this->assertFalse($isReacted);
+        $this->assertFalse($isNotReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_reactable_reacted_by_reacterable_with_type_name_when_reacterable_has_null_reacter(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $otherReactionType = factory(ReactionType::class)->create();
+        $reacterable = new User();
+        $reactant = factory(Reactant::class)->states('withReactable')->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $isReacted = Love::isReactableReactedByWithTypeName(
+            $reactant->getReactable(),
+            $reacterable,
+            $reactionType->getName()
+        );
+        $isNotReacted = Love::isReactableReactedByWithTypeName(
+            $reactant->getReactable(),
+            $reacterable,
+            $otherReactionType->getName()
+        );
+
+        $this->assertFalse($isReacted);
+        $this->assertFalse($isNotReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_reactable_reacted_by_reacterable_with_type_name_when_null_reactant(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $otherReactionType = factory(ReactionType::class)->create();
+        $reacter = factory(Reacter::class)->states('withReacterable')->create();
+        $reactable = new Article();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reacter_id' => $reacter->getKey(),
+        ]);
+
+        $isReacted = Love::isReactableReactedByWithTypeName(
+            $reactable,
+            $reacter->getReacterable(),
+            $reactionType->getName()
+        );
+        $isNotReacted = Love::isReactableReactedByWithTypeName(
+            $reactable,
+            $reacter->getReacterable(),
+            $otherReactionType->getName()
+        );
+
+        $this->assertFalse($isReacted);
+        $this->assertFalse($isNotReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_reactable_not_reacted_by_reacterable_with_type_name(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $otherReactionType = factory(ReactionType::class)->create();
+        $reacter = factory(Reacter::class)->states('withReacterable')->create();
+        $reactant = factory(Reactant::class)->states('withReactable')->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reacter_id' => $reacter->getKey(),
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $isReacted = Love::isReactableNotReactedByWithTypeName(
+            $reactant->getReactable(),
+            $reacter->getReacterable(),
+            $reactionType->getName()
+        );
+        $isNotReacted = Love::isReactableNotReactedByWithTypeName(
+            $reactant->getReactable(),
+            $reacter->getReacterable(),
+            $otherReactionType->getName()
+        );
+
+        $this->assertFalse($isReacted);
+        $this->assertTrue($isNotReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_reactable_not_reacted_by_reacterable_with_type_name_when_reacterable_is_null(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $otherReactionType = factory(ReactionType::class)->create();
+        $reacter = factory(Reacter::class)->states('withReacterable')->create();
+        $reactant = factory(Reactant::class)->states('withReactable')->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reacter_id' => $reacter->getKey(),
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $isReacted = Love::isReactableNotReactedByWithTypeName(
+            $reactant->getReactable(),
+            null,
+            $reactionType->getName()
+        );
+        $isNotReacted = Love::isReactableNotReactedByWithTypeName(
+            $reactant->getReactable(),
+            null,
+            $otherReactionType->getName()
+        );
+
+        $this->assertTrue($isReacted);
+        $this->assertTrue($isNotReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_reactable_not_reacted_by_reacterable_with_type_name_when_reacterable_has_null_reacter(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $otherReactionType = factory(ReactionType::class)->create();
+        $reacterable = new User();
+        $reactant = factory(Reactant::class)->states('withReactable')->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $isReacted = Love::isReactableNotReactedByWithTypeName(
+            $reactant->getReactable(),
+            $reacterable,
+            $reactionType->getName()
+        );
+        $isNotReacted = Love::isReactableNotReactedByWithTypeName(
+            $reactant->getReactable(),
+            $reacterable,
+            $otherReactionType->getName()
+        );
+
+        $this->assertTrue($isReacted);
+        $this->assertTrue($isNotReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_reactable_not_reacted_by_reacterable_with_type_name_when_reactable_has_null_reactant(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $otherReactionType = factory(ReactionType::class)->create();
+        $reacter = factory(Reacter::class)->states('withReacterable')->create();
+        $reactable = new Article();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reacter_id' => $reacter->getKey(),
+        ]);
+
+        $isReacted = Love::isReactableNotReactedByWithTypeName(
+            $reactable,
+            $reacter->getReacterable(),
+            $reactionType->getName()
+        );
+        $isNotReacted = Love::isReactableNotReactedByWithTypeName(
+            $reactable,
+            $reacter->getReacterable(),
+            $otherReactionType->getName()
+        );
+
+        $this->assertTrue($isReacted);
+        $this->assertTrue($isNotReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_reactable_reacted_by_reacterable(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = factory(Reacter::class)->states('withReacterable')->create();
+        $reactant1 = factory(Reactant::class)->states('withReactable')->create();
+        $reactant2 = factory(Reactant::class)->states('withReactable')->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reacter_id' => $reacter->getKey(),
+            'reactant_id' => $reactant1->getKey(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant2->getKey(),
+        ]);
+
+        $isReacted = Love::isReactableReactedBy(
+            $reactant1->getReactable(),
+            $reacter->getReacterable()
+        );
+        $isNotReacted = Love::isReactableReactedBy(
+            $reactant2->getReactable(),
+            $reacter->getReacterable()
+        );
+
+        $this->assertTrue($isReacted);
+        $this->assertFalse($isNotReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_reactable_reacted_by_reacterable_when_reacterable_is_null(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reactant = factory(Reactant::class)->states('withReactable')->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $isReacted = Love::isReactableReactedBy(
+            $reactant->getReactable(),
+            null
+        );
+
+        $this->assertFalse($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_reactable_reacted_by_reacterable_when_reacterable_has_null_reacter(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacterable = new User();
+        $reactant = factory(Reactant::class)->states('withReactable')->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $isReacted = Love::isReactableReactedBy(
+            $reactant->getReactable(),
+            $reacterable
+        );
+
+        $this->assertFalse($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_reactable_reacted_by_reacterable_when_reactable_has_null_reactant(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = factory(Reacter::class)->states('withReacterable')->create();
+        $reactable = new Article();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reacter_id' => $reacter->getKey(),
+        ]);
+
+        $isReacted = Love::isReactableReactedBy(
+            $reactable,
+            $reacter->getReacterable()
+        );
+
+        $this->assertFalse($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_reactable_not_reacted_by_reacterable(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = factory(Reacter::class)->states('withReacterable')->create();
+        $reactant1 = factory(Reactant::class)->states('withReactable')->create();
+        $reactant2 = factory(Reactant::class)->states('withReactable')->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant1->getKey(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reacter_id' => $reacter->getKey(),
+            'reactant_id' => $reactant2->getKey(),
+        ]);
+
+        $isNotReacted = Love::isReactableNotReactedBy(
+            $reactant1->getReactable(),
+            $reacter->getReacterable()
+        );
+        $isReacted = Love::isReactableNotReactedBy(
+            $reactant2->getReactable(),
+            $reacter->getReacterable()
+        );
+
+        $this->assertTrue($isNotReacted);
+        $this->assertFalse($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_reactable_not_reacted_by_reacterable_when_reacterable_is_null(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reactant = factory(Reactant::class)->states('withReactable')->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $isReacted = Love::isReactableNotReactedBy(
+            $reactant->getReactable(),
+            null
+        );
+
+        $this->assertTrue($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_reactable_not_reacted_by_reacterable_when_reacterable_has_null_reacter(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacterable = new User();
+        $reactant = factory(Reactant::class)->states('withReactable')->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $isReacted = Love::isReactableNotReactedBy(
+            $reactant->getReactable(),
+            $reacterable
+        );
+
+        $this->assertTrue($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_reactable_not_reacted_by_reacterable_when_reactable_has_null_reactant(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = factory(Reacter::class)->states('withReacterable')->create();
+        $reactable = new Article();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reacter_id' => $reacter->getKey(),
+        ]);
+
+        $isReacted = Love::isReactableNotReactedBy(
+            $reactable,
+            $reacter->getReacterable()
+        );
+
+        $this->assertTrue($isReacted);
+    }
+
+    /** @test */
+    public function it_throw_reaction_type_invalid_exception_on_is_reactable_reacted_by_reacterable_with_type_name_when_type_unknown(): void
+    {
+        $this->expectException(ReactionTypeInvalid::class);
+
+        $reacter = factory(Reacter::class)->states('withReacterable')->create();
+        $reactant = factory(Reactant::class)->states('withReactable')->create();
+
+        Love::isReactableReactedByWithTypeName(
+            $reactant->getReactable(),
+            $reacter->getReacterable(),
+            'UnknownType'
+        );
+    }
+
+    /** @test */
+    public function it_throw_reaction_type_invalid_exception_on_is_reactable_not_reacted_by_reacterable_with_type_name_when_type_unknown(): void
+    {
+        $this->expectException(ReactionTypeInvalid::class);
+
+        $reacter = factory(Reacter::class)->states('withReacterable')->create();
+        $reactant = factory(Reactant::class)->states('withReactable')->create();
+
+        Love::isReactableNotReactedByWithTypeName(
+            $reactant->getReactable(),
+            $reacter->getReacterable(),
+            'UnknownType'
+        );
     }
 
     /** @test */
