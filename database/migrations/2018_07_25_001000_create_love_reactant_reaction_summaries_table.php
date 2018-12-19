@@ -33,7 +33,10 @@ final class CreateLoveReactantReactionSummariesTable extends Migration
 
             $table->index('reactant_id');
 
-            $table->foreign('reactant_id')->references('id')->on('love_reactants')
+            $table
+                ->foreign('reactant_id')
+                ->references('id')
+                ->on('love_reactants')
                 ->onDelete('cascade');
         });
     }

@@ -52,11 +52,20 @@ final class CreateLoveReactionsTable extends Migration
                 'reaction_type_id',
             ]);
 
-            $table->foreign('reactant_id')->references('id')->on('love_reactants')
+            $table
+                ->foreign('reactant_id')
+                ->references('id')
+                ->on('love_reactants')
                 ->onDelete('cascade');
-            $table->foreign('reacter_id')->references('id')->on('love_reacters')
+            $table
+                ->foreign('reacter_id')
+                ->references('id')
+                ->on('love_reacters')
                 ->onDelete('cascade');
-            $table->foreign('reaction_type_id')->references('id')->on('love_reaction_types')
+            $table
+                ->foreign('reaction_type_id')
+                ->references('id')
+                ->on('love_reaction_types')
                 ->onDelete('cascade');
         });
     }

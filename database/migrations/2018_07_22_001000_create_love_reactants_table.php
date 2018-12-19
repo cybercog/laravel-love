@@ -25,7 +25,7 @@ final class CreateLoveReactantsTable extends Migration
     public function up(): void
     {
         Schema::create('love_reactants', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('type');
             $table->timestamps();
 
