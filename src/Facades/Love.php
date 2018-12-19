@@ -22,12 +22,18 @@ use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 
 final class Love
 {
-    public static function isReactionOfType(ReactionContract $reaction, string $reactionType): bool
+    public static function isReactionOfType(
+        ReactionContract $reaction,
+        string $reactionType
+    ): bool
     {
         return $reaction->isTypeOf(ReactionType::fromName($reactionType));
     }
 
-    public static function isReactionNotOfType(ReactionContract $reaction, string $reactionType): bool
+    public static function isReactionNotOfType(
+        ReactionContract $reaction,
+        string $reactionType
+    ): bool
     {
         return !self::isReactionOfType($reaction, $reactionType);
     }
@@ -36,7 +42,8 @@ final class Love
         ?ReacterableContract $reacterable,
         string $type,
         ReactableContract $reactable
-    ) {
+    ): bool
+    {
         if (is_null($reacterable)) {
             return false;
         }
@@ -58,14 +65,16 @@ final class Love
         ?ReacterableContract $reacterable,
         string $type,
         ReactableContract $reactable
-    ) {
+    ): bool
+    {
         return !self::isReacterableReactedWithTypeTo($reacterable, $type, $reactable);
     }
 
     public static function isReacterableReactedTo(
         ?ReacterableContract $reacterable,
         ReactableContract $reactable
-    ) {
+    ): bool
+    {
         if (is_null($reacterable)) {
             return false;
         }
@@ -86,18 +95,21 @@ final class Love
     public static function isReacterableNotReactedTo(
         ?ReacterableContract $reacterable,
         ReactableContract $reactable
-    ) {
+    ): bool
+    {
         return !self::isReacterableReactedTo($reacterable, $reactable);
     }
 
-    public static function getReactableReactionsOfTypeCount(ReactableContract $reactable, string $reactionType): int
+    public static function getReactableReactionsOfTypeCount(
+        ReactableContract $reactable,
+        string $reactionType
+    ): int
     {
         $reactant = $reactable->getReactant();
         if ($reactant instanceof NullReactant) {
             return 0;
         }
 
-        /** @var \Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter $counter */
         $counter = $reactant
             ->getReactionCounters()
             ->where('reaction_type_id', ReactionType::fromName($reactionType)->getKey())
@@ -110,14 +122,16 @@ final class Love
         return $counter->getCount();
     }
 
-    public static function getReactableReactionsOfTypeWeight(ReactableContract $reactable, string $reactionType): int
+    public static function getReactableReactionsOfTypeWeight(
+        ReactableContract $reactable,
+        string $reactionType
+    ): int
     {
         $reactant = $reactable->getReactant();
         if ($reactant instanceof NullReactant) {
             return 0;
         }
 
-        /** @var \Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter $counter */
         $counter = $reactant
             ->getReactionCounters()
             ->where('reaction_type_id', ReactionType::fromName($reactionType)->getKey())
@@ -130,7 +144,9 @@ final class Love
         return $counter->getWeight();
     }
 
-    public static function getReactableReactionsTotalCount(ReactableContract $reactable): int
+    public static function getReactableReactionsTotalCount(
+        ReactableContract $reactable
+    ): int
     {
         $reactant = $reactable->getReactant();
         if ($reactant instanceof NullReactant) {
@@ -140,7 +156,9 @@ final class Love
         return $reactant->getReactionTotal()->getCount();
     }
 
-    public static function getReactableReactionsTotalWeight(ReactableContract $reactable): int
+    public static function getReactableReactionsTotalWeight(
+        ReactableContract $reactable
+    ): int
     {
         $reactant = $reactable->getReactant();
         if ($reactant instanceof NullReactant) {
