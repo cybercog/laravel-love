@@ -21,3 +21,9 @@ $factory->define(Reacter::class, function (Faker $faker) {
         'type' => (new User())->getMorphClass(),
     ];
 });
+
+$factory->afterCreatingState(Reacter::class, 'withReacterable', function (Reacter $reacter, Faker $faker) {
+    factory(User::class)->create([
+        'love_reacter_id' => $reacter->getKey(),
+    ]);
+});
