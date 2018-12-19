@@ -68,16 +68,16 @@ final class ReactionTotalityService
 
     private function incrementOrDecrementTotalCount(int $amount = 1): void
     {
-        if ($this->reactionTotality->getTotalCount() + $amount < 0) {
+        if ($this->reactionTotality->getCount() + $amount < 0) {
             throw ReactionTotalityBadValue::totalCountBelowZero();
         }
 
-        $this->reactionTotality->increment('total_count', $amount);
+        $this->reactionTotality->increment('count', $amount);
     }
 
     private function incrementOrDecrementTotalWeight(int $amount = 1): void
     {
-        $this->reactionTotality->increment('total_weight', $amount);
+        $this->reactionTotality->increment('weight', $amount);
     }
 
     private function findReactionTotalityFor(ReactantContract $reactant): ReactionTotalityContract

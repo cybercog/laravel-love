@@ -148,7 +148,7 @@ final class ReactionObserverTest extends TestCase
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $this->assertSame(1, $totality->fresh()->total_count);
+        $this->assertSame(1, $totality->fresh()->count);
     }
 
     /** @test */
@@ -164,7 +164,7 @@ final class ReactionObserverTest extends TestCase
 
         $reactions->get(0)->delete();
 
-        $this->assertSame(1, $totality->fresh()->total_count);
+        $this->assertSame(1, $totality->fresh()->count);
     }
 
     /** @test */
@@ -181,7 +181,7 @@ final class ReactionObserverTest extends TestCase
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $this->assertSame(8, $totality->fresh()->total_weight);
+        $this->assertSame(8, $totality->fresh()->weight);
     }
 
     /** @test */
@@ -199,7 +199,7 @@ final class ReactionObserverTest extends TestCase
 
         $reactions->get(0)->delete();
 
-        $this->assertSame(8, $totality->fresh()->total_weight);
+        $this->assertSame(8, $totality->fresh()->weight);
     }
 
     /** @test */
@@ -216,7 +216,7 @@ final class ReactionObserverTest extends TestCase
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $this->assertSame(-8, $totality->fresh()->total_weight);
+        $this->assertSame(-8, $totality->fresh()->weight);
     }
 
     /** @test */
@@ -234,6 +234,6 @@ final class ReactionObserverTest extends TestCase
 
         $reactions->get(0)->delete();
 
-        $this->assertSame(-8, $totality->fresh()->total_weight);
+        $this->assertSame(-8, $totality->fresh()->weight);
     }
 }

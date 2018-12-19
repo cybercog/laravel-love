@@ -49,8 +49,8 @@ final class ReactionTotalityServiceTest extends TestCase
         $service->addReaction($reaction1);
         $service->addReaction($reaction2);
 
-        $this->assertSame(2, $totality->fresh()->total_count);
-        $this->assertSame(8, $totality->fresh()->total_weight);
+        $this->assertSame(2, $totality->fresh()->count);
+        $this->assertSame(8, $totality->fresh()->weight);
     }
 
     /** @test */
@@ -62,8 +62,8 @@ final class ReactionTotalityServiceTest extends TestCase
         $reactant = factory(Reactant::class)->create();
         $totality = $reactant->reactionTotality;
         $totality->update([
-            'total_count' => 4,
-            'total_weight' => 16,
+            'count' => 4,
+            'weight' => 16,
         ]);
         $service = new ReactionTotalityService($reactant);
         Event::fake(); // To not fire ReactionObserver methods
@@ -79,12 +79,12 @@ final class ReactionTotalityServiceTest extends TestCase
         $service->removeReaction($reaction1);
         $service->removeReaction($reaction2);
 
-        $this->assertSame(2, $totality->fresh()->total_count);
-        $this->assertSame(8, $totality->fresh()->total_weight);
+        $this->assertSame(2, $totality->fresh()->count);
+        $this->assertSame(8, $totality->fresh()->weight);
     }
 
     /** @test */
-    public function it_throws_exception_on_decrement_total_count_below_zero(): void
+    public function it_throws_exception_on_decrement_count_below_zero(): void
     {
         $this->expectException(ReactionTotalityBadValue::class);
 
@@ -124,8 +124,8 @@ final class ReactionTotalityServiceTest extends TestCase
         $service->addReaction($reaction1);
         $service->addReaction($reaction2);
 
-        $this->assertSame(2, $totality->fresh()->total_count);
-        $this->assertSame(-8, $totality->fresh()->total_weight);
+        $this->assertSame(2, $totality->fresh()->count);
+        $this->assertSame(-8, $totality->fresh()->weight);
     }
 
     /** @test */
@@ -167,7 +167,7 @@ final class ReactionTotalityServiceTest extends TestCase
     }
 
 //    /** @test */
-//    public function it_can_increment_total_count(): void
+//    public function it_can_increment_count(): void
 //    {
 //        $this->markTestSkipped('Do we really need to manipulate totality manually?');
 //
@@ -177,11 +177,11 @@ final class ReactionTotalityServiceTest extends TestCase
 //
 //        $service->incrementTotalCount();
 //
-//        $this->assertSame(1, $totality->fresh()->total_count);
+//        $this->assertSame(1, $totality->fresh()->count);
 //    }
 //
 //    /** @test */
-//    public function it_can_increment_total_count_on_custom_amount(): void
+//    public function it_can_increment_count_on_custom_amount(): void
 //    {
 //        $this->markTestSkipped('Do we really need to manipulate totality manually?');
 //
@@ -191,41 +191,41 @@ final class ReactionTotalityServiceTest extends TestCase
 //
 //        $service->incrementTotalCount(4);
 //
-//        $this->assertSame(4, $totality->fresh()->total_count);
+//        $this->assertSame(4, $totality->fresh()->count);
 //    }
 //
 //    /** @test */
-//    public function it_can_decrement_total_count(): void
+//    public function it_can_decrement_count(): void
 //    {
 //        $this->markTestSkipped('Do we really need to manipulate totality manually?');
 //
 //        $reactant = factory(Reactant::class)->create();
 //        $totality = $reactant->reactionTotality;
 //        $totality->update([
-//            'total_count' => 4,
+//            'count' => 4,
 //        ]);
 //        $service = new ReactionTotalityService($reactant);
 //
 //        $service->decrementTotalCount();
 //
-//        $this->assertSame(3, $totality->fresh()->total_count);
+//        $this->assertSame(3, $totality->fresh()->count);
 //    }
 //
 //    /** @test */
-//    public function it_can_decrement_total_count_on_custom_amount(): void
+//    public function it_can_decrement_count_on_custom_amount(): void
 //    {
 //        $this->markTestSkipped('Do we really need to manipulate totality manually?');
 //
 //        $reactant = factory(Reactant::class)->create();
 //        $totality = $reactant->reactionTotality;
 //        $totality->update([
-//            'total_count' => 4,
+//            'count' => 4,
 //        ]);
 //        $service = new ReactionTotalityService($reactant);
 //
 //        $service->decrementTotalCount(2);
 //
-//        $this->assertSame(2, $totality->fresh()->total_count);
+//        $this->assertSame(2, $totality->fresh()->count);
 //    }
 //
 //    /** @test */
@@ -267,7 +267,7 @@ final class ReactionTotalityServiceTest extends TestCase
 //    }
 //
 //    /** @test */
-//    public function it_throws_exception_on_decrement_total_count_below_zero(): void
+//    public function it_throws_exception_on_decrement_count_below_zero(): void
 //    {
 //        $this->markTestSkipped('Do we really need to manipulate totality manually?');
 //
@@ -276,7 +276,7 @@ final class ReactionTotalityServiceTest extends TestCase
 //        $reactant = factory(Reactant::class)->create();
 //        factory(ReactionTotality::class)->create([
 //            'reactant_id' => $reactant->getKey(),
-//            'total_count' => 1,
+//            'count' => 1,
 //        ]);
 //        $service = new ReactionTotalityService($reactant);
 //
@@ -284,7 +284,7 @@ final class ReactionTotalityServiceTest extends TestCase
 //    }
 //
 //    /** @test */
-//    public function it_can_increment_total_weight(): void
+//    public function it_can_increment_weight(): void
 //    {
 //        $this->markTestSkipped('Do we really need to manipulate totality manually?');
 //
@@ -294,11 +294,11 @@ final class ReactionTotalityServiceTest extends TestCase
 //
 //        $service->incrementTotalWeight();
 //
-//        $this->assertSame(1, $totality->fresh()->total_weight);
+//        $this->assertSame(1, $totality->fresh()->weight);
 //    }
 //
 //    /** @test */
-//    public function it_can_increment_total_weight_on_custom_amount(): void
+//    public function it_can_increment_weight_on_custom_amount(): void
 //    {
 //        $this->markTestSkipped('Do we really need to manipulate totality manually?');
 //
@@ -308,57 +308,57 @@ final class ReactionTotalityServiceTest extends TestCase
 //
 //        $service->incrementTotalWeight(4);
 //
-//        $this->assertSame(4, $totality->fresh()->total_weight);
+//        $this->assertSame(4, $totality->fresh()->weight);
 //    }
 //
 //    /** @test */
-//    public function it_can_decrement_total_weight(): void
+//    public function it_can_decrement_weight(): void
 //    {
 //        $this->markTestSkipped('Do we really need to manipulate totality manually?');
 //
 //        $reactant = factory(Reactant::class)->create();
 //        $totality = $reactant->reactionTotality;
 //        $totality->update([
-//            'total_weight' => 4,
+//            'weight' => 4,
 //        ]);
 //        $service = new ReactionTotalityService($reactant);
 //
 //        $service->decrementTotalWeight();
 //
-//        $this->assertSame(3, $totality->fresh()->total_weight);
+//        $this->assertSame(3, $totality->fresh()->weight);
 //    }
 //
 //    /** @test */
-//    public function it_can_decrement_total_weight_on_custom_amount(): void
+//    public function it_can_decrement_weight_on_custom_amount(): void
 //    {
 //        $this->markTestSkipped('Do we really need to manipulate totality manually?');
 //
 //        $reactant = factory(Reactant::class)->create();
 //        $totality = $reactant->reactionTotality;
 //        $totality->update([
-//            'total_weight' => 4,
+//            'weight' => 4,
 //        ]);
 //        $service = new ReactionTotalityService($reactant);
 //
 //        $service->decrementTotalWeight(2);
 //
-//        $this->assertSame(2, $totality->fresh()->total_weight);
+//        $this->assertSame(2, $totality->fresh()->weight);
 //    }
 //
 //    /** @test */
-//    public function it_can_decrement_total_weight_below_zero(): void
+//    public function it_can_decrement_weight_below_zero(): void
 //    {
 //        $this->markTestSkipped('Do we really need to manipulate totality manually?');
 //
 //        $reactant = factory(Reactant::class)->create();
 //        $totality = $reactant->reactionTotality;
 //        $totality->update([
-//            'total_weight' => 1,
+//            'weight' => 1,
 //        ]);
 //        $service = new ReactionTotalityService($reactant);
 //
 //        $service->decrementTotalWeight(4);
 //
-//        $this->assertSame(-3, $totality->fresh()->total_weight);
+//        $this->assertSame(-3, $totality->fresh()->weight);
 //    }
 }

@@ -24,25 +24,25 @@ class NullReactionTotalityTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function it_can_get_total_count(): void
+    public function it_can_get_count(): void
     {
         $reactable = new Article();
         $reactant = new NullReactant($reactable);
         $totality = new NullReactionTotality($reactant);
 
-        $totalCount = $totality->getTotalCount();
+        $totalCount = $totality->getCount();
 
         $this->assertSame(0, $totalCount);
     }
 
     /** @test */
-    public function it_can_get_total_weight(): void
+    public function it_can_get_weight(): void
     {
         $reactable = new Article();
         $reactant = new NullReactant($reactable);
         $totality = new NullReactionTotality($reactant);
 
-        $totalWeight = $totality->getTotalWeight();
+        $totalWeight = $totality->getWeight();
 
         $this->assertSame(0, $totalWeight);
     }

@@ -19,7 +19,7 @@ interface ReactionTotality
 {
     public function getReactant(): Reactant;
 
-    public function getTotalCount(): int;
+    public function getCount(): int;
 
-    public function getTotalWeight(): int;
+    public function getWeight(): int;
 }

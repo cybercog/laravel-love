@@ -103,11 +103,11 @@ trait Reactable
     public function scopeWithReactionTotality(Builder $query): Builder
     {
         $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
-        $select[] = 'lrrs.total_count as reactions_total_count';
-        $select[] = 'lrrs.total_weight as reactions_total_weight';
+        $select[] = 'lrrt.count as reactions_total_count';
+        $select[] = 'lrrt.weight as reactions_total_weight';
 
         return $query
-            ->join((new ReactionTotality())->getTable() . ' as lrrs', 'lrrs.reactant_id', '=', "{$this->getTable()}.love_reactant_id")
+            ->join((new ReactionTotality())->getTable() . ' as lrrt', 'lrrt.reactant_id', '=', "{$this->getTable()}.love_reactant_id")
             ->select($select);
     }
 }

@@ -137,7 +137,7 @@ final class Love
             return 0;
         }
 
-        return $reactant->getReactionTotality()->getTotalCount();
+        return $reactant->getReactionTotality()->getCount();
     }
 
     public static function getReactableReactionsTotalWeight(ReactableContract $reactable): int
@@ -147,6 +147,6 @@ final class Love
             return 0;
         }
 
-        return $reactant->getReactionTotality()->getTotalWeight();
+        return $reactant->getReactionTotality()->getWeight();
     }
 }

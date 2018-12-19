@@ -30,12 +30,12 @@ final class NullReactionTotality implements ReactionTotalityContract
         return $this->reactant;
     }
 
-    public function getTotalCount(): int
+    public function getCount(): int
     {
         return 0;
     }
 
-    public function getTotalWeight(): int
+    public function getWeight(): int
     {
         return 0;
     }

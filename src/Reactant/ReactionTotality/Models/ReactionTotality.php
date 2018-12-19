@@ -34,8 +34,8 @@ final class ReactionTotality extends Model implements ReactionTotalityContract
      * @var array
      */
     protected $fillable = [
-        'total_count',
-        'total_weight',
+        'count',
+        'weight',
     ];
 
     /**
@@ -44,8 +44,8 @@ final class ReactionTotality extends Model implements ReactionTotalityContract
      * @var array
      */
     protected $casts = [
-        'total_count' => 'integer',
-        'total_weight' => 'integer',
+        'count' => 'integer',
+        'weight' => 'integer',
     ];
 
     public function reactant(): BelongsTo
@@ -58,13 +58,13 @@ final class ReactionTotality extends Model implements ReactionTotalityContract
         return $this->getAttribute('reactant');
     }
 
-    public function getTotalCount(): int
+    public function getCount(): int
     {
-        return $this->getAttribute('total_count') ?? 0;
+        return $this->getAttribute('count') ?? 0;
     }
 
-    public function getTotalWeight(): int
+    public function getWeight(): int
     {
-        return $this->getAttribute('total_weight') ?? 0;
+        return $this->getAttribute('weight') ?? 0;
     }
 }

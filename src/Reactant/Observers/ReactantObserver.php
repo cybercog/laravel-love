@@ -30,8 +30,8 @@ final class ReactantObserver
         // TODO: Make it asynchronously
         // TODO: Cover with tests
         $reactant->reactionTotality()->create([
-            'total_count' => 0,
-            'total_weight' => 0,
+            'count' => 0,
+            'weight' => 0,
         ]);
     }
 }
