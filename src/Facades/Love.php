@@ -32,7 +32,7 @@ final class Love
         return !self::isReactionOfType($reaction, $reactionType);
     }
 
-    public static function itReacterableReactedWithTypeTo(
+    public static function isReacterableReactedWithTypeTo(
         ?ReacterableContract $reacterable,
         string $type,
         ReactableContract $reactable
@@ -54,15 +54,15 @@ final class Love
         return $reacter->isReactedWithTypeTo($reactant, ReactionType::fromName($type));
     }
 
-    public static function itReacterableNotReactedWithTypeTo(
+    public static function isReacterableNotReactedWithTypeTo(
         ?ReacterableContract $reacterable,
         string $type,
         ReactableContract $reactable
     ) {
-        return !self::itReacterableReactedWithTypeTo($reacterable, $type, $reactable);
+        return !self::isReacterableReactedWithTypeTo($reacterable, $type, $reactable);
     }
 
-    public static function itReacterableReactedTo(
+    public static function isReacterableReactedTo(
         ?ReacterableContract $reacterable,
         ReactableContract $reactable
     ) {
@@ -83,11 +83,11 @@ final class Love
         return $reacter->isReactedTo($reactant);
     }
 
-    public static function itReacterableNotReactedTo(
+    public static function isReacterableNotReactedTo(
         ?ReacterableContract $reacterable,
         ReactableContract $reactable
     ) {
-        return !self::itReacterableReactedTo($reacterable, $reactable);
+        return !self::isReacterableReactedTo($reacterable, $reactable);
     }
 
     public static function getReactableReactionsOfTypeCount(ReactableContract $reactable, string $reactionType): int

@@ -67,12 +67,12 @@ final class LoveTest extends TestCase
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $isReacted = Love::itReacterableReactedWithTypeTo(
+        $isReacted = Love::isReacterableReactedWithTypeTo(
             $reacter->getReacterable(),
             $reactionType->getName(),
             $reactant->getReactable()
         );
-        $isNotReacted = Love::itReacterableReactedWithTypeTo(
+        $isNotReacted = Love::isReacterableReactedWithTypeTo(
             $reacter->getReacterable(),
             $otherReactionType->getName(),
             $reactant->getReactable()
@@ -105,12 +105,12 @@ final class LoveTest extends TestCase
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $isReacted = Love::itReacterableReactedWithTypeTo(
+        $isReacted = Love::isReacterableReactedWithTypeTo(
             null,
             $reactionType->getName(),
             $reactant->getReactable()
         );
-        $isNotReacted = Love::itReacterableReactedWithTypeTo(
+        $isNotReacted = Love::isReacterableReactedWithTypeTo(
             null,
             $otherReactionType->getName(),
             $reactant->getReactable()
@@ -132,12 +132,12 @@ final class LoveTest extends TestCase
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $isReacted = Love::itReacterableReactedWithTypeTo(
+        $isReacted = Love::isReacterableReactedWithTypeTo(
             $reacterable,
             $reactionType->getName(),
             $reactant->getReactable()
         );
-        $isNotReacted = Love::itReacterableReactedWithTypeTo(
+        $isNotReacted = Love::isReacterableReactedWithTypeTo(
             $reacterable,
             $otherReactionType->getName(),
             $reactant->getReactable()
@@ -159,12 +159,12 @@ final class LoveTest extends TestCase
             'reacter_id' => $reacter->getKey(),
         ]);
 
-        $isReacted = Love::itReacterableReactedWithTypeTo(
+        $isReacted = Love::isReacterableReactedWithTypeTo(
             $reacter->getReacterable(),
             $reactionType->getName(),
             $reactable
         );
-        $isNotReacted = Love::itReacterableReactedWithTypeTo(
+        $isNotReacted = Love::isReacterableReactedWithTypeTo(
             $reacter->getReacterable(),
             $otherReactionType->getName(),
             $reactable
@@ -182,7 +182,7 @@ final class LoveTest extends TestCase
         $reacter = factory(Reacter::class)->states('withReacterable')->create();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
 
-        Love::itReacterableReactedWithTypeTo(
+        Love::isReacterableReactedWithTypeTo(
             $reacter->getReacterable(),
             'UnknownType',
             $reactant->getReactable()
@@ -202,12 +202,12 @@ final class LoveTest extends TestCase
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $isReacted = Love::itReacterableNotReactedWithTypeTo(
+        $isReacted = Love::isReacterableNotReactedWithTypeTo(
             $reacter->getReacterable(),
             $reactionType->getName(),
             $reactant->getReactable()
         );
-        $isNotReacted = Love::itReacterableNotReactedWithTypeTo(
+        $isNotReacted = Love::isReacterableNotReactedWithTypeTo(
             $reacter->getReacterable(),
             $otherReactionType->getName(),
             $reactant->getReactable()
@@ -230,12 +230,12 @@ final class LoveTest extends TestCase
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $isReacted = Love::itReacterableNotReactedWithTypeTo(
+        $isReacted = Love::isReacterableNotReactedWithTypeTo(
             null,
             $reactionType->getName(),
             $reactant->getReactable()
         );
-        $isNotReacted = Love::itReacterableNotReactedWithTypeTo(
+        $isNotReacted = Love::isReacterableNotReactedWithTypeTo(
             null,
             $otherReactionType->getName(),
             $reactant->getReactable()
@@ -257,12 +257,12 @@ final class LoveTest extends TestCase
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $isReacted = Love::itReacterableNotReactedWithTypeTo(
+        $isReacted = Love::isReacterableNotReactedWithTypeTo(
             $reacterable,
             $reactionType->getName(),
             $reactant->getReactable()
         );
-        $isNotReacted = Love::itReacterableNotReactedWithTypeTo(
+        $isNotReacted = Love::isReacterableNotReactedWithTypeTo(
             $reacterable,
             $otherReactionType->getName(),
             $reactant->getReactable()
@@ -284,12 +284,12 @@ final class LoveTest extends TestCase
             'reacter_id' => $reacter->getKey(),
         ]);
 
-        $isReacted = Love::itReacterableNotReactedWithTypeTo(
+        $isReacted = Love::isReacterableNotReactedWithTypeTo(
             $reacter->getReacterable(),
             $reactionType->getName(),
             $reactable
         );
-        $isNotReacted = Love::itReacterableNotReactedWithTypeTo(
+        $isNotReacted = Love::isReacterableNotReactedWithTypeTo(
             $reacter->getReacterable(),
             $otherReactionType->getName(),
             $reactable
@@ -316,11 +316,11 @@ final class LoveTest extends TestCase
             'reactant_id' => $reactant2->getKey(),
         ]);
 
-        $isReacted = Love::itReacterableReactedTo(
+        $isReacted = Love::isReacterableReactedTo(
             $reacter->getReacterable(),
             $reactant1->getReactable()
         );
-        $isNotReacted = Love::itReacterableReactedTo(
+        $isNotReacted = Love::isReacterableReactedTo(
             $reacter->getReacterable(),
             $reactant2->getReactable()
         );
@@ -339,7 +339,7 @@ final class LoveTest extends TestCase
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $isReacted = Love::itReacterableReactedTo(
+        $isReacted = Love::isReacterableReactedTo(
             null,
             $reactant->getReactable()
         );
@@ -358,7 +358,7 @@ final class LoveTest extends TestCase
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $isReacted = Love::itReacterableReactedTo(
+        $isReacted = Love::isReacterableReactedTo(
             $reacterable,
             $reactant->getReactable()
         );
@@ -377,7 +377,7 @@ final class LoveTest extends TestCase
             'reacter_id' => $reacter->getKey(),
         ]);
 
-        $isReacted = Love::itReacterableReactedTo(
+        $isReacted = Love::isReacterableReactedTo(
             $reacter->getReacterable(),
             $reactable
         );
@@ -402,11 +402,11 @@ final class LoveTest extends TestCase
             'reactant_id' => $reactant2->getKey(),
         ]);
 
-        $isNotReacted = Love::itReacterableNotReactedTo(
+        $isNotReacted = Love::isReacterableNotReactedTo(
             $reacter->getReacterable(),
             $reactant1->getReactable()
         );
-        $isReacted = Love::itReacterableNotReactedTo(
+        $isReacted = Love::isReacterableNotReactedTo(
             $reacter->getReacterable(),
             $reactant2->getReactable()
         );
@@ -425,7 +425,7 @@ final class LoveTest extends TestCase
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $isReacted = Love::itReacterableNotReactedTo(
+        $isReacted = Love::isReacterableNotReactedTo(
             null,
             $reactant->getReactable()
         );
@@ -444,7 +444,7 @@ final class LoveTest extends TestCase
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $isReacted = Love::itReacterableNotReactedTo(
+        $isReacted = Love::isReacterableNotReactedTo(
             $reacterable,
             $reactant->getReactable()
         );
@@ -463,7 +463,7 @@ final class LoveTest extends TestCase
             'reacter_id' => $reacter->getKey(),
         ]);
 
-        $isReacted = Love::itReacterableNotReactedTo(
+        $isReacted = Love::isReacterableNotReactedTo(
             $reacter->getReacterable(),
             $reactable
         );
