@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Cog\Laravel\Love\Reactant\ReactionTotality\Models;
+namespace Cog\Laravel\Love\Reactant\ReactionTotal\Models;
 
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
-use Cog\Contracts\Love\Reactant\ReactionTotality\Models\ReactionTotality as ReactionTotalityContract;
+use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalContract;
 
-final class NullReactionTotality implements ReactionTotalityContract
+final class NullReactionTotal implements ReactionTotalContract
 {
     private $reactant;
 

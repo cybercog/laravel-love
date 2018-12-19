@@ -11,19 +11,19 @@
 
 declare(strict_types=1);
 
-namespace Cog\Tests\Laravel\Love\Unit\Reactant\ReactionTotality\Services;
+namespace Cog\Tests\Laravel\Love\Unit\Reactant\ReactionTotal\Services;
 
-use Cog\Contracts\Love\Reactant\ReactionTotality\Exceptions\ReactionTotalityBadValue;
-use Cog\Contracts\Love\Reactant\ReactionTotality\Exceptions\ReactionTotalityMissing;
+use Cog\Contracts\Love\Reactant\ReactionTotal\Exceptions\ReactionTotalBadValue;
+use Cog\Contracts\Love\Reactant\ReactionTotal\Exceptions\ReactionTotalMissing;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
-use Cog\Laravel\Love\Reactant\ReactionTotality\Services\ReactionTotalityService;
+use Cog\Laravel\Love\Reactant\ReactionTotal\Services\ReactionTotalService;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 
-final class ReactionTotalityServiceTest extends TestCase
+final class ReactionTotalServiceTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -34,8 +34,8 @@ final class ReactionTotalityServiceTest extends TestCase
             'weight' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
-        $totality = $reactant->reactionTotality;
-        $service = new ReactionTotalityService($reactant);
+        $total = $reactant->reactionTotal;
+        $service = new ReactionTotalService($reactant);
         Event::fake(); // To not fire ReactionObserver methods
         $reaction1 = factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType->getKey(),
@@ -49,8 +49,8 @@ final class ReactionTotalityServiceTest extends TestCase
         $service->addReaction($reaction1);
         $service->addReaction($reaction2);
 
-        $this->assertSame(2, $totality->fresh()->count);
-        $this->assertSame(8, $totality->fresh()->weight);
+        $this->assertSame(2, $total->fresh()->count);
+        $this->assertSame(8, $total->fresh()->weight);
     }
 
     /** @test */
@@ -60,12 +60,12 @@ final class ReactionTotalityServiceTest extends TestCase
             'weight' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
-        $totality = $reactant->reactionTotality;
-        $totality->update([
+        $total = $reactant->reactionTotal;
+        $total->update([
             'count' => 4,
             'weight' => 16,
         ]);
-        $service = new ReactionTotalityService($reactant);
+        $service = new ReactionTotalService($reactant);
         Event::fake(); // To not fire ReactionObserver methods
         $reaction1 = factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType->getKey(),
@@ -79,20 +79,20 @@ final class ReactionTotalityServiceTest extends TestCase
         $service->removeReaction($reaction1);
         $service->removeReaction($reaction2);
 
-        $this->assertSame(2, $totality->fresh()->count);
-        $this->assertSame(8, $totality->fresh()->weight);
+        $this->assertSame(2, $total->fresh()->count);
+        $this->assertSame(8, $total->fresh()->weight);
     }
 
     /** @test */
     public function it_throws_exception_on_decrement_count_below_zero(): void
     {
-        $this->expectException(ReactionTotalityBadValue::class);
+        $this->expectException(ReactionTotalBadValue::class);
 
         $reactionType = factory(ReactionType::class)->create([
             'weight' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
-        $service = new ReactionTotalityService($reactant);
+        $service = new ReactionTotalService($reactant);
         Event::fake(); // To not fire ReactionObserver methods
         $reaction1 = factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType->getKey(),
@@ -109,8 +109,8 @@ final class ReactionTotalityServiceTest extends TestCase
             'weight' => -4,
         ]);
         $reactant = factory(Reactant::class)->create();
-        $totality = $reactant->reactionTotality;
-        $service = new ReactionTotalityService($reactant);
+        $total = $reactant->reactionTotal;
+        $service = new ReactionTotalService($reactant);
         Event::fake(); // To not fire ReactionObserver methods
         $reaction1 = factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType->getKey(),
@@ -124,21 +124,21 @@ final class ReactionTotalityServiceTest extends TestCase
         $service->addReaction($reaction1);
         $service->addReaction($reaction2);
 
-        $this->assertSame(2, $totality->fresh()->count);
-        $this->assertSame(-8, $totality->fresh()->weight);
+        $this->assertSame(2, $total->fresh()->count);
+        $this->assertSame(-8, $total->fresh()->weight);
     }
 
     /** @test */
-    public function it_throws_exception_on_add_reaction_when_totality_not_exists(): void
+    public function it_throws_exception_on_add_reaction_when_total_not_exists(): void
     {
-        $this->expectException(ReactionTotalityMissing::class);
+        $this->expectException(ReactionTotalMissing::class);
 
-        Event::fake(); // Prevent totality auto creation
+        Event::fake(); // Prevent total auto creation
         $reactionType = factory(ReactionType::class)->create([
             'weight' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
-        $service = new ReactionTotalityService($reactant);
+        $service = new ReactionTotalService($reactant);
         $reaction1 = factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType->getKey(),
             'reactant_id' => $reactant->getKey(),
@@ -148,16 +148,16 @@ final class ReactionTotalityServiceTest extends TestCase
     }
 
     /** @test */
-    public function it_throws_exception_on_remove_reaction_when_totality_not_exists(): void
+    public function it_throws_exception_on_remove_reaction_when_total_not_exists(): void
     {
-        $this->expectException(ReactionTotalityMissing::class);
+        $this->expectException(ReactionTotalMissing::class);
 
-        Event::fake(); // Prevent totality auto creation
+        Event::fake(); // Prevent total auto creation
         $reactionType = factory(ReactionType::class)->create([
             'weight' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
-        $service = new ReactionTotalityService($reactant);
+        $service = new ReactionTotalService($reactant);
         $reaction1 = factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType->getKey(),
             'reactant_id' => $reactant->getKey(),
@@ -169,116 +169,116 @@ final class ReactionTotalityServiceTest extends TestCase
 //    /** @test */
 //    public function it_can_increment_count(): void
 //    {
-//        $this->markTestSkipped('Do we really need to manipulate totality manually?');
+//        $this->markTestSkipped('Do we really need to manipulate total manually?');
 //
 //        $reactant = factory(Reactant::class)->create();
-//        $totality = $reactant->reactionTotality;
-//        $service = new ReactionTotalityService($reactant);
+//        $total = $reactant->reactionTotal;
+//        $service = new ReactionTotalService($reactant);
 //
 //        $service->incrementTotalCount();
 //
-//        $this->assertSame(1, $totality->fresh()->count);
+//        $this->assertSame(1, $total->fresh()->count);
 //    }
 //
 //    /** @test */
 //    public function it_can_increment_count_on_custom_amount(): void
 //    {
-//        $this->markTestSkipped('Do we really need to manipulate totality manually?');
+//        $this->markTestSkipped('Do we really need to manipulate total manually?');
 //
 //        $reactant = factory(Reactant::class)->create();
-//        $totality = $reactant->reactionTotality;
-//        $service = new ReactionTotalityService($reactant);
+//        $total = $reactant->reactionTotal;
+//        $service = new ReactionTotalService($reactant);
 //
 //        $service->incrementTotalCount(4);
 //
-//        $this->assertSame(4, $totality->fresh()->count);
+//        $this->assertSame(4, $total->fresh()->count);
 //    }
 //
 //    /** @test */
 //    public function it_can_decrement_count(): void
 //    {
-//        $this->markTestSkipped('Do we really need to manipulate totality manually?');
+//        $this->markTestSkipped('Do we really need to manipulate total manually?');
 //
 //        $reactant = factory(Reactant::class)->create();
-//        $totality = $reactant->reactionTotality;
-//        $totality->update([
+//        $total = $reactant->reactionTotal;
+//        $total->update([
 //            'count' => 4,
 //        ]);
-//        $service = new ReactionTotalityService($reactant);
+//        $service = new ReactionTotalService($reactant);
 //
 //        $service->decrementTotalCount();
 //
-//        $this->assertSame(3, $totality->fresh()->count);
+//        $this->assertSame(3, $total->fresh()->count);
 //    }
 //
 //    /** @test */
 //    public function it_can_decrement_count_on_custom_amount(): void
 //    {
-//        $this->markTestSkipped('Do we really need to manipulate totality manually?');
+//        $this->markTestSkipped('Do we really need to manipulate total manually?');
 //
 //        $reactant = factory(Reactant::class)->create();
-//        $totality = $reactant->reactionTotality;
-//        $totality->update([
+//        $total = $reactant->reactionTotal;
+//        $total->update([
 //            'count' => 4,
 //        ]);
-//        $service = new ReactionTotalityService($reactant);
+//        $service = new ReactionTotalService($reactant);
 //
 //        $service->decrementTotalCount(2);
 //
-//        $this->assertSame(2, $totality->fresh()->count);
+//        $this->assertSame(2, $total->fresh()->count);
 //    }
 //
 //    /** @test */
-//    public function it_throws_exception_on_incrementing_when_totality_not_exists(): void
+//    public function it_throws_exception_on_incrementing_when_total_not_exists(): void
 //    {
-//        Event::fake(); // Prevent totality auto creation
-//        $this->expectException(ReactionTotalityMissing::class);
+//        Event::fake(); // Prevent total auto creation
+//        $this->expectException(ReactionTotalMissing::class);
 //
 //        $reactant = factory(Reactant::class)->create();
-//        $service = new ReactionTotalityService($reactant);
+//        $service = new ReactionTotalService($reactant);
 //
 //        $service->incrementTotalCount();
 //    }
 //
 //    /** @test */
-//    public function it_throws_exception_on_decrementing_when_totality_not_exists(): void
+//    public function it_throws_exception_on_decrementing_when_total_not_exists(): void
 //    {
-//        Event::fake(); // Prevent totality auto creation
-//        $this->expectException(ReactionTotalityMissing::class);
+//        Event::fake(); // Prevent total auto creation
+//        $this->expectException(ReactionTotalMissing::class);
 //
 //        $reactant = factory(Reactant::class)->create();
-//        $service = new ReactionTotalityService($reactant);
+//        $service = new ReactionTotalService($reactant);
 //
 //        $service->decrementTotalCount();
 //    }
 //
 //    /** @test */
-//    public function it_creates_totality_on_instantiating_service_if_totality_not_exist(): void
+//    public function it_creates_total_on_instantiating_service_if_total_not_exist(): void
 //    {
 //        $this->markTestSkipped('Not sure we need this behavior.');
 //
 //        $reactant = factory(Reactant::class)->create();
-//        $oldCount = $reactant->reactionTotality()->count();
+//        $oldCount = $reactant->reactionTotal()->count();
 //
-//        new ReactionTotalityService($reactant);
+//        new ReactionTotalService($reactant);
 //
-//        $assertCount = $reactant->reactionTotality()->count();
+//        $assertCount = $reactant->reactionTotal()->count();
 //        $this->assertSame($oldCount + 1, $assertCount);
 //    }
 //
 //    /** @test */
 //    public function it_throws_exception_on_decrement_count_below_zero(): void
 //    {
-//        $this->markTestSkipped('Do we really need to manipulate totality manually?');
+//        $this->markTestSkipped('Do we really need to manipulate total manually?');
 //
-//        $this->expectException(ReactionTotalityBadValue::class);
+//        $this->expectException(ReactionTotalBadValue::class);
 //
 //        $reactant = factory(Reactant::class)->create();
-//        factory(ReactionTotality::class)->create([
+//        factory(ReactionTotal::class)->create([
 //            'reactant_id' => $reactant->getKey(),
 //            'count' => 1,
 //        ]);
-//        $service = new ReactionTotalityService($reactant);
+//        $service = new ReactionTotalService($reactant);
 //
 //        $service->decrementTotalCount(2);
 //    }
@@ -286,79 +286,79 @@ final class ReactionTotalityServiceTest extends TestCase
 //    /** @test */
 //    public function it_can_increment_weight(): void
 //    {
-//        $this->markTestSkipped('Do we really need to manipulate totality manually?');
+//        $this->markTestSkipped('Do we really need to manipulate total manually?');
 //
 //        $reactant = factory(Reactant::class)->create();
-//        $totality = $reactant->reactionTotality;
-//        $service = new ReactionTotalityService($reactant);
+//        $total = $reactant->reactionTotal;
+//        $service = new ReactionTotalService($reactant);
 //
 //        $service->incrementTotalWeight();
 //
-//        $this->assertSame(1, $totality->fresh()->weight);
+//        $this->assertSame(1, $total->fresh()->weight);
 //    }
 //
 //    /** @test */
 //    public function it_can_increment_weight_on_custom_amount(): void
 //    {
-//        $this->markTestSkipped('Do we really need to manipulate totality manually?');
+//        $this->markTestSkipped('Do we really need to manipulate total manually?');
 //
 //        $reactant = factory(Reactant::class)->create();
-//        $totality = $reactant->reactionTotality;
-//        $service = new ReactionTotalityService($reactant);
+//        $total = $reactant->reactionTotal;
+//        $service = new ReactionTotalService($reactant);
 //
 //        $service->incrementTotalWeight(4);
 //
-//        $this->assertSame(4, $totality->fresh()->weight);
+//        $this->assertSame(4, $total->fresh()->weight);
 //    }
 //
 //    /** @test */
 //    public function it_can_decrement_weight(): void
 //    {
-//        $this->markTestSkipped('Do we really need to manipulate totality manually?');
+//        $this->markTestSkipped('Do we really need to manipulate total manually?');
 //
 //        $reactant = factory(Reactant::class)->create();
-//        $totality = $reactant->reactionTotality;
-//        $totality->update([
+//        $total = $reactant->reactionTotal;
+//        $total->update([
 //            'weight' => 4,
 //        ]);
-//        $service = new ReactionTotalityService($reactant);
+//        $service = new ReactionTotalService($reactant);
 //
 //        $service->decrementTotalWeight();
 //
-//        $this->assertSame(3, $totality->fresh()->weight);
+//        $this->assertSame(3, $total->fresh()->weight);
 //    }
 //
 //    /** @test */
 //    public function it_can_decrement_weight_on_custom_amount(): void
 //    {
-//        $this->markTestSkipped('Do we really need to manipulate totality manually?');
+//        $this->markTestSkipped('Do we really need to manipulate total manually?');
 //
 //        $reactant = factory(Reactant::class)->create();
-//        $totality = $reactant->reactionTotality;
-//        $totality->update([
+//        $total = $reactant->reactionTotal;
+//        $total->update([
 //            'weight' => 4,
 //        ]);
-//        $service = new ReactionTotalityService($reactant);
+//        $service = new ReactionTotalService($reactant);
 //
 //        $service->decrementTotalWeight(2);
 //
-//        $this->assertSame(2, $totality->fresh()->weight);
+//        $this->assertSame(2, $total->fresh()->weight);
 //    }
 //
 //    /** @test */
 //    public function it_can_decrement_weight_below_zero(): void
 //    {
-//        $this->markTestSkipped('Do we really need to manipulate totality manually?');
+//        $this->markTestSkipped('Do we really need to manipulate total manually?');
 //
 //        $reactant = factory(Reactant::class)->create();
-//        $totality = $reactant->reactionTotality;
-//        $totality->update([
+//        $total = $reactant->reactionTotal;
+//        $total->update([
 //            'weight' => 1,
 //        ]);
-//        $service = new ReactionTotalityService($reactant);
+//        $service = new ReactionTotalService($reactant);
 //
 //        $service->decrementTotalWeight(4);
 //
-//        $this->assertSame(-3, $totality->fresh()->weight);
+//        $this->assertSame(-3, $total->fresh()->weight);
 //    }
 }

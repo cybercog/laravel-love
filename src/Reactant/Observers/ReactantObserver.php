@@ -26,10 +26,10 @@ final class ReactantObserver
         $counterService = new ReactionCounterService($reactant);
         $counterService->createCounters();
 
-        // TODO: Do it in service or in `ReactionTotality` or `Reactant` method?
+        // TODO: Do it in service or in `ReactionTotal` or `Reactant` method?
         // TODO: Make it asynchronously
         // TODO: Cover with tests
-        $reactant->reactionTotality()->create([
+        $reactant->reactionTotal()->create([
             'count' => 0,
             'weight' => 0,
         ]);

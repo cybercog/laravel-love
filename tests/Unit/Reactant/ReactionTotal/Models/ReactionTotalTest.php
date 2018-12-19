@@ -11,55 +11,55 @@
 
 declare(strict_types=1);
 
-namespace Cog\Tests\Laravel\Love\Unit\Reactant\ReactionTotality\Models;
+namespace Cog\Tests\Laravel\Love\Unit\Reactant\ReactionTotal\Models;
 
 use Cog\Laravel\Love\Reactant\Models\Reactant;
-use Cog\Laravel\Love\Reactant\ReactionTotality\Models\ReactionTotality;
+use Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-final class ReactionTotalityTest extends TestCase
+final class ReactionTotalTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
     public function it_can_fill_count(): void
     {
-        $totality = new ReactionTotality([
+        $total = new ReactionTotal([
             'count' => 4,
         ]);
 
-        $this->assertSame(4, $totality->getAttribute('count'));
+        $this->assertSame(4, $total->getAttribute('count'));
     }
 
     /** @test */
     public function it_can_fill_weight(): void
     {
-        $totality = new ReactionTotality([
+        $total = new ReactionTotal([
             'weight' => 4,
         ]);
 
-        $this->assertSame(4, $totality->getAttribute('weight'));
+        $this->assertSame(4, $total->getAttribute('weight'));
     }
 
     /** @test */
     public function it_casts_count_to_integer(): void
     {
-        $totality = new ReactionTotality([
+        $total = new ReactionTotal([
             'count' => '4',
         ]);
 
-        $this->assertSame(4, $totality->getAttribute('count'));
+        $this->assertSame(4, $total->getAttribute('count'));
     }
 
     /** @test */
     public function it_casts_weight_to_integer(): void
     {
-        $totality = new ReactionTotality([
+        $total = new ReactionTotal([
             'weight' => '4',
         ]);
 
-        $this->assertSame(4, $totality->getAttribute('weight'));
+        $this->assertSame(4, $total->getAttribute('weight'));
     }
 
     /** @test */
@@ -67,11 +67,11 @@ final class ReactionTotalityTest extends TestCase
     {
         $reactant = factory(Reactant::class)->create();
 
-        $totality = factory(ReactionTotality::class)->create([
+        $total = factory(ReactionTotal::class)->create([
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $this->assertTrue($totality->reactant->is($reactant));
+        $this->assertTrue($total->reactant->is($reactant));
     }
 
     /** @test */
@@ -79,46 +79,46 @@ final class ReactionTotalityTest extends TestCase
     {
         $reactant = factory(Reactant::class)->create();
 
-        $totality = factory(ReactionTotality::class)->create([
+        $total = factory(ReactionTotal::class)->create([
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $this->assertTrue($totality->getReactant()->is($reactant));
+        $this->assertTrue($total->getReactant()->is($reactant));
     }
 
     /** @test */
     public function it_can_get_count(): void
     {
-        $totality = new ReactionTotality([
+        $total = new ReactionTotal([
             'count' => '4',
         ]);
 
-        $this->assertSame(4, $totality->getCount());
+        $this->assertSame(4, $total->getCount());
     }
 
     /** @test */
     public function it_can_get_count_if_not_set(): void
     {
-        $totality = new ReactionTotality();
+        $total = new ReactionTotal();
 
-        $this->assertSame(0, $totality->getCount());
+        $this->assertSame(0, $total->getCount());
     }
 
     /** @test */
     public function it_can_get_weight(): void
     {
-        $totality = new ReactionTotality([
+        $total = new ReactionTotal([
             'weight' => '4',
         ]);
 
-        $this->assertSame(4, $totality->getWeight());
+        $this->assertSame(4, $total->getWeight());
     }
 
     /** @test */
     public function it_can_get_weight_if_not_set(): void
     {
-        $totality = new ReactionTotality();
+        $total = new ReactionTotal();
 
-        $this->assertSame(0, $totality->getWeight());
+        $this->assertSame(0, $total->getWeight());
     }
 }

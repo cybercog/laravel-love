@@ -15,8 +15,8 @@ namespace Cog\Tests\Laravel\Love\Unit\Reactant\Models;
 
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
-use Cog\Laravel\Love\Reactant\ReactionTotality\Models\NullReactionTotality;
-use Cog\Laravel\Love\Reactant\ReactionTotality\Models\ReactionTotality;
+use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
+use Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
@@ -111,16 +111,16 @@ final class ReactantTest extends TestCase
     }
 
     /** @test */
-    public function it_can_has_reaction_totality(): void
+    public function it_can_has_reaction_total(): void
     {
-        Event::fake(); // Prevent totality auto creation
+        Event::fake(); // Prevent total auto creation
         $reactant = factory(Reactant::class)->create();
 
-        $totality = factory(ReactionTotality::class)->create([
+        $total = factory(ReactionTotal::class)->create([
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $this->assertTrue($reactant->reactionTotality->is($totality));
+        $this->assertTrue($reactant->reactionTotal->is($total));
     }
 
     /** @test */
@@ -168,34 +168,34 @@ final class ReactantTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_reaction_totality(): void
+    public function it_can_get_reaction_total(): void
     {
-        Event::fake(); // Prevent totality auto creation
+        Event::fake(); // Prevent total auto creation
         $reactant = factory(Reactant::class)->create();
 
-        $totality = factory(ReactionTotality::class)->create([
+        $total = factory(ReactionTotal::class)->create([
             'reactant_id' => $reactant->getKey(),
         ]);
 
-        $this->assertTrue($reactant->getReactionTotality()->is($totality));
+        $this->assertTrue($reactant->getReactionTotal()->is($total));
     }
 
     /** @test */
-    public function it_can_get_null_reaction_totality(): void
+    public function it_can_get_null_reaction_total(): void
     {
-        Event::fake(); // Prevent totality auto creation
+        Event::fake(); // Prevent total auto creation
         $reactant = factory(Reactant::class)->create();
 
-        $this->assertInstanceOf(NullReactionTotality::class, $reactant->getReactionTotality());
+        $this->assertInstanceOf(NullReactionTotal::class, $reactant->getReactionTotal());
     }
 
     /** @test */
-    public function it_can_get_null_reaction_totality_with_same_reactant(): void
+    public function it_can_get_null_reaction_total_with_same_reactant(): void
     {
-        Event::fake(); // Prevent totality auto creation
+        Event::fake(); // Prevent total auto creation
         $reactant = factory(Reactant::class)->create();
 
-        $this->assertInstanceOf(NullReactionTotality::class, $reactant->getReactionTotality());
-        $this->assertSame($reactant, $reactant->getReactionTotality()->getReactant());
+        $this->assertInstanceOf(NullReactionTotal::class, $reactant->getReactionTotal());
+        $this->assertSame($reactant, $reactant->getReactionTotal()->getReactant());
     }
 }

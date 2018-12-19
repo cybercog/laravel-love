@@ -12,11 +12,11 @@
 declare(strict_types=1);
 
 use Cog\Laravel\Love\Reactant\Models\Reactant;
-use Cog\Laravel\Love\Reactant\ReactionTotality\Models\ReactionTotality;
+use Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal;
 use Faker\Generator as Faker;
 
 /* @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(ReactionTotality::class, function (Faker $faker) {
+$factory->define(ReactionTotal::class, function (Faker $faker) {
     return [
         'reactant_id' => factory(Reactant::class),
     ];

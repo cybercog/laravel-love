@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Cog\Contracts\Love\Reactant\Models;
 
 use Cog\Contracts\Love\Reactable\Models\Reactable;
-use Cog\Contracts\Love\Reactant\ReactionTotality\Models\ReactionTotality;
+use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal;
 
 interface Reactant
 {
@@ -30,5 +30,5 @@ interface Reactant
      */
     public function getReactionCounters(): iterable;
 
-    public function getReactionTotality(): ReactionTotality;
+    public function getReactionTotal(): ReactionTotal;
 }

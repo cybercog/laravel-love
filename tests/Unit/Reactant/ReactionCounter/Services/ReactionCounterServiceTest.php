@@ -135,9 +135,9 @@ final class ReactionCounterServiceTest extends TestCase
     }
 
     /** @test */
-    public function it_throws_exception_on_add_reaction_when_totality_not_exists(): void
+    public function it_throws_exception_on_add_reaction_when_total_not_exists(): void
     {
-        Event::fake(); // Prevent totality auto creation
+        Event::fake(); // Prevent total auto creation
         $this->expectException(ReactionCounterMissing::class);
 
         $reactionType = factory(ReactionType::class)->create([
@@ -154,7 +154,7 @@ final class ReactionCounterServiceTest extends TestCase
     }
 
     /** @test */
-    public function it_throws_exception_on_remove_reaction_when_totality_not_exists(): void
+    public function it_throws_exception_on_remove_reaction_when_total_not_exists(): void
     {
         Event::fake(); // Prevent counter auto creation
         $this->expectException(ReactionCounterMissing::class);

@@ -20,7 +20,7 @@ use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\Reactant\Models\NullReactant;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
-use Cog\Laravel\Love\Reactant\ReactionTotality\Models\ReactionTotality;
+use Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Query\JoinClause;
@@ -100,14 +100,14 @@ trait Reactable
             ->select($select);
     }
 
-    public function scopeWithReactionTotality(Builder $query): Builder
+    public function scopeWithReactionTotal(Builder $query): Builder
     {
         $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
         $select[] = 'lrrt.count as reactions_total_count';
         $select[] = 'lrrt.weight as reactions_total_weight';
 
         return $query
-            ->join((new ReactionTotality())->getTable() . ' as lrrt', 'lrrt.reactant_id', '=', "{$this->getTable()}.love_reactant_id")
+            ->join((new ReactionTotal())->getTable() . ' as lrrt', 'lrrt.reactant_id', '=', "{$this->getTable()}.love_reactant_id")
             ->select($select);
     }
 }

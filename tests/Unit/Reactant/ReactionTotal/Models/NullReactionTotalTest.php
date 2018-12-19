@@ -11,15 +11,15 @@
 
 declare(strict_types=1);
 
-namespace Cog\Tests\Laravel\Love\Unit\Reactant\ReactionTotality\Models;
+namespace Cog\Tests\Laravel\Love\Unit\Reactant\ReactionTotal\Models;
 
 use Cog\Laravel\Love\Reactant\Models\NullReactant;
-use Cog\Laravel\Love\Reactant\ReactionTotality\Models\NullReactionTotality;
+use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class NullReactionTotalityTest extends TestCase
+class NullReactionTotalTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -28,9 +28,9 @@ class NullReactionTotalityTest extends TestCase
     {
         $reactable = new Article();
         $reactant = new NullReactant($reactable);
-        $totality = new NullReactionTotality($reactant);
+        $total = new NullReactionTotal($reactant);
 
-        $totalCount = $totality->getCount();
+        $totalCount = $total->getCount();
 
         $this->assertSame(0, $totalCount);
     }
@@ -40,9 +40,9 @@ class NullReactionTotalityTest extends TestCase
     {
         $reactable = new Article();
         $reactant = new NullReactant($reactable);
-        $totality = new NullReactionTotality($reactant);
+        $total = new NullReactionTotal($reactant);
 
-        $totalWeight = $totality->getWeight();
+        $totalWeight = $total->getWeight();
 
         $this->assertSame(0, $totalWeight);
     }
@@ -52,9 +52,9 @@ class NullReactionTotalityTest extends TestCase
     {
         $reactable = new Article();
         $reactant = new NullReactant($reactable);
-        $totality = new NullReactionTotality($reactant);
+        $total = new NullReactionTotal($reactant);
 
-        $assertReactant = $totality->getReactant();
+        $assertReactant = $total->getReactant();
 
         $this->assertSame($reactant, $assertReactant);
     }

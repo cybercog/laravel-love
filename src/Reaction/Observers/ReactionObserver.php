@@ -15,7 +15,7 @@ namespace Cog\Laravel\Love\Reaction\Observers;
 
 use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Services\ReactionCounterService;
-use Cog\Laravel\Love\Reactant\ReactionTotality\Services\ReactionTotalityService;
+use Cog\Laravel\Love\Reactant\ReactionTotal\Services\ReactionTotalService;
 use Cog\Laravel\Love\Reaction\Events\ReactionWasCreated;
 use Cog\Laravel\Love\Reaction\Events\ReactionWasDeleted;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
@@ -33,7 +33,7 @@ final class ReactionObserver
         (new ReactionCounterService($reactant))
             ->addReaction($reaction);
 
-        (new ReactionTotalityService($reactant))
+        (new ReactionTotalService($reactant))
             ->addReaction($reaction);
     }
 
@@ -48,7 +48,7 @@ final class ReactionObserver
         (new ReactionCounterService($reactant))
             ->removeReaction($reaction);
 
-        (new ReactionTotalityService($reactant))
+        (new ReactionTotalService($reactant))
             ->removeReaction($reaction);
     }
 }

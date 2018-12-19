@@ -11,22 +11,22 @@
 
 declare(strict_types=1);
 
-namespace Cog\Laravel\Love\Reactant\ReactionTotality\Models;
+namespace Cog\Laravel\Love\Reactant\ReactionTotal\Models;
 
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
-use Cog\Contracts\Love\Reactant\ReactionTotality\Models\ReactionTotality as ReactionTotalityContract;
+use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalContract;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-final class ReactionTotality extends Model implements ReactionTotalityContract
+final class ReactionTotal extends Model implements ReactionTotalContract
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'love_reactant_reaction_totalities';
+    protected $table = 'love_reactant_reaction_totals';
 
     /**
      * The attributes that are mass assignable.
