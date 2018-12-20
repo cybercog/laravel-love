@@ -13,9 +13,6 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Reaction\Models;
 
-use Cog\Contracts\Love\Reaction\Exceptions\ReactionHasNoReactant;
-use Cog\Contracts\Love\Reaction\Exceptions\ReactionHasNoReacter;
-use Cog\Contracts\Love\Reaction\Exceptions\ReactionHasNoType;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
