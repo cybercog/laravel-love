@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Cog\Tests\Laravel\Love\Unit\Reactant\Models;
 
 use Cog\Laravel\Love\Reactant\Models\Reactant;
+use Cog\Laravel\Love\Reactant\ReactionCounter\Models\NullReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal;
@@ -166,6 +167,62 @@ final class ReactantTest extends TestCase
         $assertCounters = $reactant->getReactionCounters();
         $this->assertTrue($assertCounters->get(0)->is($counters->get(0)));
         $this->assertTrue($assertCounters->get(1)->is($counters->get(1)));
+    }
+
+    /** @test */
+    public function it_can_get_reaction_counter_of_type(): void
+    {
+        $reactant = factory(Reactant::class)->create();
+        $reactionType = factory(ReactionType::class)->create();
+        factory(ReactionCounter::class, 2)->create([
+            'reactant_id' => $reactant->getKey(),
+        ]);
+        $counter = factory(ReactionCounter::class)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant->getKey(),
+        ]);
+
+        $assertCounter = $reactant->getReactionCounterOfType($reactionType);
+
+        $this->assertTrue($assertCounter->is($counter));
+    }
+
+    /** @test */
+    public function it_can_get_null_reaction_counter_of_type(): void
+    {
+        Event::fake(); // Prevent total auto creation
+        $reactant = factory(Reactant::class)->create();
+        $reactionType = factory(ReactionType::class)->create();
+
+        $counter = $reactant->getReactionCounterOfType($reactionType);
+
+        $this->assertInstanceOf(NullReactionCounter::class, $counter);
+    }
+
+    /** @test */
+    public function it_can_get_null_reaction_counter_of_type_with_same_reactant(): void
+    {
+        Event::fake(); // Prevent total auto creation
+        $reactant = factory(Reactant::class)->create();
+        $reactionType = factory(ReactionType::class)->create();
+
+        $counter = $reactant->getReactionCounterOfType($reactionType);
+
+        $this->assertInstanceOf(NullReactionCounter::class, $counter);
+        $this->assertSame($reactant, $counter->getReactant());
+    }
+
+    /** @test */
+    public function it_can_get_null_reaction_counter_of_type_with_same_reaction_type(): void
+    {
+        Event::fake(); // Prevent total auto creation
+        $reactant = factory(Reactant::class)->create();
+        $reactionType = factory(ReactionType::class)->create();
+
+        $counter = $reactant->getReactionCounterOfType($reactionType);
+
+        $this->assertInstanceOf(NullReactionCounter::class, $counter);
+        $this->assertSame($reactionType, $counter->getReactionType());
     }
 
     /** @test */

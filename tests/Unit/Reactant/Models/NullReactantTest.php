@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Cog\Tests\Laravel\Love\Unit\Reactant\Models;
 
 use Cog\Laravel\Love\Reactant\Models\NullReactant;
+use Cog\Laravel\Love\Reactant\ReactionCounter\Models\NullReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
@@ -61,7 +62,45 @@ final class NullReactantTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_reaction_total(): void
+    public function it_can_get_null_reaction_counter_of_type(): void
+    {
+        $reactable = new Article();
+        $reactant = new NullReactant($reactable);
+        $reactionType = factory(ReactionType::class)->create();
+
+        $counter = $reactant->getReactionCounterOfType($reactionType);
+
+        $this->assertInstanceOf(NullReactionCounter::class, $counter);
+    }
+
+    /** @test */
+    public function it_can_get_null_reaction_counter_of_type_with_same_reactant(): void
+    {
+        $reactable = new Article();
+        $reactant = new NullReactant($reactable);
+        $reactionType = factory(ReactionType::class)->create();
+
+        $counter = $reactant->getReactionCounterOfType($reactionType);
+
+        $this->assertInstanceOf(NullReactionCounter::class, $counter);
+        $this->assertSame($reactant, $counter->getReactant());
+    }
+
+    /** @test */
+    public function it_can_get_null_reaction_counter_of_type_with_same_reaction_type(): void
+    {
+        $reactable = new Article();
+        $reactant = new NullReactant($reactable);
+        $reactionType = factory(ReactionType::class)->create();
+
+        $counter = $reactant->getReactionCounterOfType($reactionType);
+
+        $this->assertInstanceOf(NullReactionCounter::class, $counter);
+        $this->assertSame($reactionType, $counter->getReactionType());
+    }
+
+    /** @test */
+    public function it_can_get_null_reaction_total(): void
     {
         $reactable = new Article();
         $reactant = new NullReactant($reactable);
@@ -69,6 +108,18 @@ final class NullReactantTest extends TestCase
         $total = $reactant->getReactionTotal();
 
         $this->assertInstanceOf(NullReactionTotal::class, $total);
+    }
+
+    /** @test */
+    public function it_can_get_null_reaction_total_with_same_reactant(): void
+    {
+        $reactable = new Article();
+        $reactant = new NullReactant($reactable);
+
+        $total = $reactant->getReactionTotal();
+
+        $this->assertInstanceOf(NullReactionTotal::class, $total);
+        $this->assertSame($reactant, $total->getReactant());
     }
 
     /** @test */

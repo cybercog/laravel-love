@@ -15,9 +15,11 @@ namespace Cog\Laravel\Love\Reactant\Models;
 
 use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
+use Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter as ReactionCounterContract;
 use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalContract;
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
+use Cog\Laravel\Love\Reactant\ReactionCounter\Models\NullReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
 
 final class NullReactant implements ReactantContract
@@ -42,6 +44,11 @@ final class NullReactant implements ReactantContract
     public function getReactionCounters(): iterable
     {
         return [];
+    }
+
+    public function getReactionCounterOfType(ReactionTypeContract $reactionType): ReactionCounterContract
+    {
+        return new NullReactionCounter($this, $reactionType);
     }
 
     public function getReactionTotal(): ReactionTotalContract

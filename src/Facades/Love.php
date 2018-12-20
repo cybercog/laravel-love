@@ -161,16 +161,9 @@ final class Love
             return 0;
         }
 
-        $counter = $reactant
-            ->getReactionCounters()
-            ->where('reaction_type_id', ReactionType::fromName($typeName)->getKey())
-            ->first();
-
-        if (is_null($counter)) {
-            return 0;
-        }
-
-        return $counter->getCount();
+        return $reactant
+            ->getReactionCounterOfType(ReactionType::fromName($typeName))
+            ->getCount();
     }
 
     public static function getReactableReactionsWeightForTypeName(
@@ -182,16 +175,9 @@ final class Love
             return 0;
         }
 
-        $counter = $reactant
-            ->getReactionCounters()
-            ->where('reaction_type_id', ReactionType::fromName($typeName)->getKey())
-            ->first();
-
-        if (is_null($counter)) {
-            return 0;
-        }
-
-        return $counter->getWeight();
+        return $reactant
+            ->getReactionCounterOfType(ReactionType::fromName($typeName))
+            ->getWeight();
     }
 
     public static function getReactableReactionsTotalCount(

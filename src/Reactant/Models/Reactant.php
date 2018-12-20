@@ -15,9 +15,11 @@ namespace Cog\Laravel\Love\Reactant\Models;
 
 use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
+use Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter as ReactionCounterContract;
 use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalContract;
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
+use Cog\Laravel\Love\Reactant\ReactionCounter\Models\NullReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal;
@@ -69,6 +71,21 @@ final class Reactant extends Model implements ReactantContract
     public function getReactionCounters(): iterable
     {
         return $this->getAttribute('reactionCounters');
+    }
+
+    public function getReactionCounterOfType(ReactionTypeContract $reactionType): ReactionCounterContract
+    {
+        /** @var null|\Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter $counter */
+        $counter = $this
+            ->reactionCounters()
+            ->where('reaction_type_id', $reactionType->getKey())
+            ->first();
+
+        if (is_null($counter)) {
+            return new NullReactionCounter($this, $reactionType);
+        }
+
+        return $counter;
     }
 
     public function getReactionTotal(): ReactionTotalContract
