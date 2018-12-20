@@ -118,6 +118,8 @@ final class Reactant extends Model implements ReactantContract
             return false;
         }
 
+        // TODO: Test it
+        // TODO: Test if relation was loaded partially
         if ($this->relationLoaded('reactions')) {
             return $this
                 ->getAttribute('reactions')
@@ -144,6 +146,8 @@ final class Reactant extends Model implements ReactantContract
             return false;
         }
 
+        // TODO: Test it
+        // TODO: Test if relation was loaded partially
         if ($this->relationLoaded('reactions')) {
             return $this
                 ->getAttribute('reactions')
