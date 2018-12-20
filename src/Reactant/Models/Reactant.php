@@ -76,9 +76,10 @@ final class Reactant extends Model implements ReactantContract
 
     public function getReactionCounterOfType(ReactionTypeContract $reactionType): ReactionCounterContract
     {
-        /** @var null|\Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter $counter */
+        // TODO: Test query count with eager loaded relation
+        // TODO: Test query count without eager loaded relation
         $counter = $this
-            ->reactionCounters()
+            ->getReactionCounters()
             ->where('reaction_type_id', $reactionType->getKey())
             ->first();
 
