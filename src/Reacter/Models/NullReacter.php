@@ -28,6 +28,13 @@ final class NullReacter implements ReacterContract
         $this->reacterable = $reacterable;
     }
 
+    public function getId(): string
+    {
+        // TODO: Throw exception instead of return
+        // TODO: Test it
+        return '';
+    }
+
     public function getReacterable(): ReacterableContract
     {
         return $this->reacterable;

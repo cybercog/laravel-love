@@ -17,6 +17,8 @@ interface ReactionType
 {
     public static function fromName(string $name): self;
 
+    public function getId(): string;
+
     public function getName(): string;
 
     public function getWeight(): int;

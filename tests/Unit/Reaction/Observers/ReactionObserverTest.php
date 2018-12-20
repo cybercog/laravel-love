@@ -29,12 +29,12 @@ final class ReactionObserverTest extends TestCase
         $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->create();
         $counter = $reactant->reactionCounters()
-            ->where('reaction_type_id', $reactionType->getKey())
+            ->where('reaction_type_id', $reactionType->getId())
             ->firstOrFail();
 
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $this->assertSame(1, $counter->fresh()->count);
@@ -46,11 +46,11 @@ final class ReactionObserverTest extends TestCase
         $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->create();
         $counter = $reactant->reactionCounters()
-            ->where('reaction_type_id', $reactionType->getKey())
+            ->where('reaction_type_id', $reactionType->getId())
             ->firstOrFail();
         $reactions = factory(Reaction::class, 2)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $reactions->get(0)->delete();
@@ -66,12 +66,12 @@ final class ReactionObserverTest extends TestCase
         ]);
         $reactant = factory(Reactant::class)->create();
         $counter = $reactant->reactionCounters()
-            ->where('reaction_type_id', $reactionType->getKey())
+            ->where('reaction_type_id', $reactionType->getId())
             ->firstOrFail();
 
         factory(Reaction::class, 2)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $this->assertSame(8, $counter->fresh()->weight);
@@ -85,11 +85,11 @@ final class ReactionObserverTest extends TestCase
         ]);
         $reactant = factory(Reactant::class)->create();
         $counter = $reactant->reactionCounters()
-            ->where('reaction_type_id', $reactionType->getKey())
+            ->where('reaction_type_id', $reactionType->getId())
             ->firstOrFail();
         $reactions = factory(Reaction::class, 3)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $reactions->get(0)->delete();
@@ -105,12 +105,12 @@ final class ReactionObserverTest extends TestCase
         ]);
         $reactant = factory(Reactant::class)->create();
         $counter = $reactant->reactionCounters()
-            ->where('reaction_type_id', $reactionType->getKey())
+            ->where('reaction_type_id', $reactionType->getId())
             ->firstOrFail();
 
         factory(Reaction::class, 2)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $this->assertSame(-8, $counter->fresh()->weight);
@@ -124,11 +124,11 @@ final class ReactionObserverTest extends TestCase
         ]);
         $reactant = factory(Reactant::class)->create();
         $counter = $reactant->reactionCounters()
-            ->where('reaction_type_id', $reactionType->getKey())
+            ->where('reaction_type_id', $reactionType->getId())
             ->firstOrFail();
         $reactions = factory(Reaction::class, 3)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $reactions->get(0)->delete();
@@ -144,8 +144,8 @@ final class ReactionObserverTest extends TestCase
         $total = $reactant->reactionTotal;
 
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $this->assertSame(1, $total->fresh()->count);
@@ -158,8 +158,8 @@ final class ReactionObserverTest extends TestCase
         $reactant = factory(Reactant::class)->create();
         $total = $reactant->reactionTotal;
         $reactions = factory(Reaction::class, 2)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $reactions->get(0)->delete();
@@ -177,8 +177,8 @@ final class ReactionObserverTest extends TestCase
         $total = $reactant->reactionTotal;
 
         factory(Reaction::class, 2)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $this->assertSame(8, $total->fresh()->weight);
@@ -193,8 +193,8 @@ final class ReactionObserverTest extends TestCase
         $reactant = factory(Reactant::class)->create();
         $total = $reactant->reactionTotal;
         $reactions = factory(Reaction::class, 3)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $reactions->get(0)->delete();
@@ -212,8 +212,8 @@ final class ReactionObserverTest extends TestCase
         $total = $reactant->reactionTotal;
 
         factory(Reaction::class, 2)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $this->assertSame(-8, $total->fresh()->weight);
@@ -228,8 +228,8 @@ final class ReactionObserverTest extends TestCase
         $reactant = factory(Reactant::class)->create();
         $total = $reactant->reactionTotal;
         $reactions = factory(Reaction::class, 3)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $reactions->get(0)->delete();

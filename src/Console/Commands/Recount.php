@@ -64,7 +64,7 @@ final class Recount extends Command
             $query = $reactant->reactions();
 
             if ($reactionType) {
-                $query->where('reaction_type_id', $reactionType->getKey());
+                $query->where('reaction_type_id', $reactionType->getId());
             }
 
             if ($modelType) {

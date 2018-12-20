@@ -88,7 +88,7 @@ final class ReactionCounterService
     private function incrementOrDecrementCountOfType(ReactionTypeContract $reactionType, int $amount = 1): void
     {
         $counter = $this->reactant->reactionCounters()
-            ->where('reaction_type_id', $reactionType->getKey())
+            ->where('reaction_type_id', $reactionType->getId())
             ->first();
 
         if (is_null($counter)) {
@@ -105,7 +105,7 @@ final class ReactionCounterService
     private function incrementOrDecrementWeightOfType(ReactionTypeContract $reactionType, int $amount = 1): void
     {
         $counter = $this->reactant->reactionCounters()
-            ->where('reaction_type_id', $reactionType->getKey())
+            ->where('reaction_type_id', $reactionType->getId())
             ->first();
 
         if (is_null($counter)) {
@@ -118,7 +118,7 @@ final class ReactionCounterService
     private function createCounterOfType(ReactionTypeContract $reactionType): void
     {
         $this->reactant->reactionCounters()->create([
-            'reaction_type_id' => $reactionType->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
             'count' => 0,
         ]);
     }

@@ -45,6 +45,16 @@ final class ReactionTypeTest extends TestCase
     }
 
     /** @test */
+    public function it_casts_id_to_string(): void
+    {
+        $type = factory(ReactionType::class)->make([
+            'id' => 4,
+        ]);
+
+        $this->assertSame('4', $type->getAttribute('id'));
+    }
+
+    /** @test */
     public function it_casts_weight_to_integer(): void
     {
         $type = new ReactionType([
@@ -60,7 +70,7 @@ final class ReactionTypeTest extends TestCase
         $type = factory(ReactionType::class)->create();
 
         $reaction = factory(Reaction::class)->create([
-            'reaction_type_id' => $type->getKey(),
+            'reaction_type_id' => $type->getId(),
         ]);
 
         $assertReaction = $type->reactions->first();
@@ -73,7 +83,7 @@ final class ReactionTypeTest extends TestCase
         $type = factory(ReactionType::class)->create();
 
         $reactions = factory(Reaction::class, 2)->create([
-            'reaction_type_id' => $type->getKey(),
+            'reaction_type_id' => $type->getId(),
         ]);
 
         $assertReactions = $type->reactions;
@@ -91,6 +101,16 @@ final class ReactionTypeTest extends TestCase
         $assertType = ReactionType::fromName('TestType');
 
         $this->assertTrue($assertType->is($type));
+    }
+
+    /** @test */
+    public function it_can_get_id(): void
+    {
+        $type = factory(ReactionType::class)->make([
+            'id' => '4',
+        ]);
+
+        $this->assertSame('4', $type->getId());
     }
 
     /** @test */

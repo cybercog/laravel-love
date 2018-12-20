@@ -34,7 +34,7 @@ final class ReactableTest extends TestCase
         ]);
 
         $reactable = factory(Article::class)->create([
-            'love_reactant_id' => $reactant->getKey(),
+            'love_reactant_id' => $reactant->getId(),
         ]);
 
         $this->assertTrue($reactable->reactant->is($reactant));
@@ -48,7 +48,7 @@ final class ReactableTest extends TestCase
         ]);
 
         $reactable = factory(Article::class)->create([
-            'love_reactant_id' => $reactant->getKey(),
+            'love_reactant_id' => $reactant->getId(),
         ]);
 
         $this->assertTrue($reactable->getReactant()->is($reactant));
@@ -85,7 +85,7 @@ final class ReactableTest extends TestCase
         $reactable = new Article([
             'name' => 'Test Article',
         ]);
-        $reactable->setAttribute('love_reactant_id', $reactant->getKey());
+        $reactable->setAttribute('love_reactant_id', $reactant->getId());
         $reactable->save();
 
         $this->assertSame(1, Reactant::query()->count());
@@ -101,7 +101,7 @@ final class ReactableTest extends TestCase
         ]);
         $notRegisteredReactable = new Article();
         $registeredReactable = factory(Article::class)->create([
-            'love_reactant_id' => $reactant->getKey(),
+            'love_reactant_id' => $reactant->getId(),
         ]);
 
         $this->assertTrue($registeredReactable->isRegisteredAsReactant());
@@ -116,7 +116,7 @@ final class ReactableTest extends TestCase
         ]);
         $notRegisteredReactable = new Article();
         $registeredReactable = factory(Article::class)->create([
-            'love_reactant_id' => $reactant->getKey(),
+            'love_reactant_id' => $reactant->getId(),
         ]);
 
         $this->assertFalse($registeredReactable->isNotRegisteredAsReactant());
@@ -134,24 +134,24 @@ final class ReactableTest extends TestCase
         $reacter1 = factory(Reacter::class)->create();
         $reacter2 = factory(Reacter::class)->create();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactable1->getReactant()->getKey(),
-            'reacter_id' => $reacter1->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable1->getReactant()->getId(),
+            'reacter_id' => $reacter1->getId(),
         ]);
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactable2->getReactant()->getKey(),
-            'reacter_id' => $reacter2->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable2->getReactant()->getId(),
+            'reacter_id' => $reacter2->getId(),
         ]);
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactable3->getReactant()->getKey(),
-            'reacter_id' => $reacter1->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable3->getReactant()->getId(),
+            'reacter_id' => $reacter1->getId(),
         ]);
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactable3->getReactant()->getKey(),
-            'reacter_id' => $reacter2->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable3->getReactant()->getId(),
+            'reacter_id' => $reacter2->getId(),
         ]);
 
         $reactedByReacter1 = Article::query()
@@ -183,34 +183,34 @@ final class ReactableTest extends TestCase
         $reacter1 = factory(Reacter::class)->create();
         $reacter2 = factory(Reacter::class)->create();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType1->getKey(),
-            'reactant_id' => $reactable1->getReactant()->getKey(),
-            'reacter_id' => $reacter1->getKey(),
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable1->getReactant()->getId(),
+            'reacter_id' => $reacter1->getId(),
         ]);
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType2->getKey(),
-            'reactant_id' => $reactable1->getReactant()->getKey(),
-            'reacter_id' => $reacter2->getKey(),
+            'reaction_type_id' => $reactionType2->getId(),
+            'reactant_id' => $reactable1->getReactant()->getId(),
+            'reacter_id' => $reacter2->getId(),
         ]);
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType2->getKey(),
-            'reactant_id' => $reactable2->getReactant()->getKey(),
-            'reacter_id' => $reacter1->getKey(),
+            'reaction_type_id' => $reactionType2->getId(),
+            'reactant_id' => $reactable2->getReactant()->getId(),
+            'reacter_id' => $reacter1->getId(),
         ]);
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType1->getKey(),
-            'reactant_id' => $reactable2->getReactant()->getKey(),
-            'reacter_id' => $reacter2->getKey(),
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable2->getReactant()->getId(),
+            'reacter_id' => $reacter2->getId(),
         ]);
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType1->getKey(),
-            'reactant_id' => $reactable3->getReactant()->getKey(),
-            'reacter_id' => $reacter1->getKey(),
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable3->getReactant()->getId(),
+            'reacter_id' => $reacter1->getId(),
         ]);
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType1->getKey(),
-            'reactant_id' => $reactable3->getReactant()->getKey(),
-            'reacter_id' => $reacter2->getKey(),
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable3->getReactant()->getId(),
+            'reacter_id' => $reacter2->getId(),
         ]);
 
         $reactedByReacter1WithReactionType1 = Article::query()
@@ -256,28 +256,28 @@ final class ReactableTest extends TestCase
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
         factory(Reaction::class, 2)->create([
-            'reaction_type_id' => $reactionType1->getKey(),
-            'reactant_id' => $reactable1->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable1->getReactant()->getId(),
         ]);
         factory(Reaction::class, 3)->create([
-            'reaction_type_id' => $reactionType1->getKey(),
-            'reactant_id' => $reactable2->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable2->getReactant()->getId(),
         ]);
         factory(Reaction::class, 1)->create([
-            'reaction_type_id' => $reactionType1->getKey(),
-            'reactant_id' => $reactable3->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable3->getReactant()->getId(),
         ]);
         factory(Reaction::class, 4)->create([
-            'reaction_type_id' => $reactionType2->getKey(),
-            'reactant_id' => $reactable1->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType2->getId(),
+            'reactant_id' => $reactable1->getReactant()->getId(),
         ]);
         factory(Reaction::class, 5)->create([
-            'reaction_type_id' => $reactionType2->getKey(),
-            'reactant_id' => $reactable2->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType2->getId(),
+            'reactant_id' => $reactable2->getReactant()->getId(),
         ]);
         factory(Reaction::class, 6)->create([
-            'reaction_type_id' => $reactionType2->getKey(),
-            'reactant_id' => $reactable3->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType2->getId(),
+            'reactant_id' => $reactable3->getReactant()->getId(),
         ]);
 
         $reactablesOrderedAsc = Article::query()
@@ -320,16 +320,16 @@ final class ReactableTest extends TestCase
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
         factory(Reaction::class, 2)->create([
-            'reaction_type_id' => $reactionType1->getKey(),
-            'reactant_id' => $reactable1->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable1->getReactant()->getId(),
         ]);
         factory(Reaction::class, 3)->create([
-            'reaction_type_id' => $reactionType1->getKey(),
-            'reactant_id' => $reactable2->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable2->getReactant()->getId(),
         ]);
         factory(Reaction::class, 1)->create([
-            'reaction_type_id' => $reactionType1->getKey(),
-            'reactant_id' => $reactable3->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable3->getReactant()->getId(),
         ]);
 
         $reactablesOrderedAsc = Article::query()
@@ -355,16 +355,16 @@ final class ReactableTest extends TestCase
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
         factory(Reaction::class, 2)->create([
-            'reaction_type_id' => $reactionType1->getKey(),
-            'reactant_id' => $reactable1->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable1->getReactant()->getId(),
         ]);
         factory(Reaction::class, 3)->create([
-            'reaction_type_id' => $reactionType1->getKey(),
-            'reactant_id' => $reactable2->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable2->getReactant()->getId(),
         ]);
         factory(Reaction::class, 1)->create([
-            'reaction_type_id' => $reactionType1->getKey(),
-            'reactant_id' => $reactable3->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable3->getReactant()->getId(),
         ]);
 
         $reactablesOrderedAsc = Article::query()
@@ -389,16 +389,16 @@ final class ReactableTest extends TestCase
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
         factory(Reaction::class, 2)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactable1->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable1->getReactant()->getId(),
         ]);
         factory(Reaction::class, 4)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactable2->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable2->getReactant()->getId(),
         ]);
         factory(Reaction::class, 1)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactable3->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable3->getReactant()->getId(),
         ]);
 
         $reactablesOrderedAsc = Article::query()
@@ -423,16 +423,16 @@ final class ReactableTest extends TestCase
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
         factory(Reaction::class, 2)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactable1->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable1->getReactant()->getId(),
         ]);
         factory(Reaction::class, 4)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactable2->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable2->getReactant()->getId(),
         ]);
         factory(Reaction::class, 1)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactable3->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable3->getReactant()->getId(),
         ]);
 
         $reactablesOrderedAsc = Article::query()
@@ -456,16 +456,16 @@ final class ReactableTest extends TestCase
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
         factory(Reaction::class, 2)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactable1->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable1->getReactant()->getId(),
         ]);
         factory(Reaction::class, 4)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactable2->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable2->getReactant()->getId(),
         ]);
         factory(Reaction::class, 1)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactable3->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable3->getReactant()->getId(),
         ]);
 
         $reactablesOrderedAsc = Article::query()
@@ -497,16 +497,16 @@ final class ReactableTest extends TestCase
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
         factory(Reaction::class, 2)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactable1->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable1->getReactant()->getId(),
         ]);
         factory(Reaction::class, 4)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactable2->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable2->getReactant()->getId(),
         ]);
         factory(Reaction::class, 1)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactable3->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable3->getReactant()->getId(),
         ]);
 
         $reactablesOrderedAsc = Article::query()
@@ -533,16 +533,16 @@ final class ReactableTest extends TestCase
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
         factory(Reaction::class, 2)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactable1->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable1->getReactant()->getId(),
         ]);
         factory(Reaction::class, 4)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactable2->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable2->getReactant()->getId(),
         ]);
         factory(Reaction::class, 1)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactable3->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable3->getReactant()->getId(),
         ]);
 
         $reactablesOrderedAsc = Article::query()
@@ -568,16 +568,16 @@ final class ReactableTest extends TestCase
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
         factory(Reaction::class, 2)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactable1->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable1->getReactant()->getId(),
         ]);
         factory(Reaction::class, 4)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactable2->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable2->getReactant()->getId(),
         ]);
         factory(Reaction::class, 1)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactable3->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable3->getReactant()->getId(),
         ]);
 
         $reactablesOrderedAsc = Article::query()
@@ -612,28 +612,28 @@ final class ReactableTest extends TestCase
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
         factory(Reaction::class, 2)->create([
-            'reaction_type_id' => $reactionType1->getKey(),
-            'reactant_id' => $reactable1->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable1->getReactant()->getId(),
         ]);
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType2->getKey(),
-            'reactant_id' => $reactable1->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType2->getId(),
+            'reactant_id' => $reactable1->getReactant()->getId(),
         ]);
         factory(Reaction::class, 4)->create([
-            'reaction_type_id' => $reactionType1->getKey(),
-            'reactant_id' => $reactable2->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable2->getReactant()->getId(),
         ]);
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType2->getKey(),
-            'reactant_id' => $reactable2->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType2->getId(),
+            'reactant_id' => $reactable2->getReactant()->getId(),
         ]);
         factory(Reaction::class, 1)->create([
-            'reaction_type_id' => $reactionType1->getKey(),
-            'reactant_id' => $reactable3->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable3->getReactant()->getId(),
         ]);
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType2->getKey(),
-            'reactant_id' => $reactable3->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType2->getId(),
+            'reactant_id' => $reactable3->getReactant()->getId(),
         ]);
 
         $reactablesOrderedAsc = Article::query()
@@ -685,12 +685,12 @@ final class ReactableTest extends TestCase
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
         factory(Reaction::class, 2)->create([
-            'reaction_type_id' => $reactionType1->getKey(),
-            'reactant_id' => $reactable1->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable1->getReactant()->getId(),
         ]);
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType2->getKey(),
-            'reactant_id' => $reactable3->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType2->getId(),
+            'reactant_id' => $reactable3->getReactant()->getId(),
         ]);
 
         $reactablesOrderedAsc = Article::query()
@@ -737,16 +737,16 @@ final class ReactableTest extends TestCase
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
         factory(Reaction::class, 2)->create([
-            'reaction_type_id' => $reactionType1->getKey(),
-            'reactant_id' => $reactable1->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable1->getReactant()->getId(),
         ]);
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType1->getKey(),
-            'reactant_id' => $reactable3->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable3->getReactant()->getId(),
         ]);
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType2->getKey(),
-            'reactant_id' => $reactable2->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType2->getId(),
+            'reactant_id' => $reactable2->getReactant()->getId(),
         ]);
 
         $reactablesOrderedAsc = Article::query()
@@ -789,12 +789,12 @@ final class ReactableTest extends TestCase
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
         factory(Reaction::class, 2)->create([
-            'reaction_type_id' => $reactionType1->getKey(),
-            'reactant_id' => $reactable1->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable1->getReactant()->getId(),
         ]);
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType2->getKey(),
-            'reactant_id' => $reactable3->getReactant()->getKey(),
+            'reaction_type_id' => $reactionType2->getId(),
+            'reactant_id' => $reactable3->getReactant()->getId(),
         ]);
 
         $reactablesOrderedAsc = Article::query()

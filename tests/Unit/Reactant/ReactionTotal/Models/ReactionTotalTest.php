@@ -68,7 +68,7 @@ final class ReactionTotalTest extends TestCase
         $reactant = factory(Reactant::class)->create();
 
         $total = factory(ReactionTotal::class)->create([
-            'reactant_id' => $reactant->getKey(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $this->assertTrue($total->reactant->is($reactant));
@@ -80,7 +80,7 @@ final class ReactionTotalTest extends TestCase
         $reactant = factory(Reactant::class)->create();
 
         $total = factory(ReactionTotal::class)->create([
-            'reactant_id' => $reactant->getKey(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $this->assertTrue($total->getReactant()->is($reactant));

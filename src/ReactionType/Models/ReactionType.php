@@ -44,6 +44,7 @@ final class ReactionType extends Model implements ReactionTypeContract
      * @var array
      */
     protected $casts = [
+        'id' => 'string',
         'weight' => 'integer',
     ];
 
@@ -85,6 +86,11 @@ final class ReactionType extends Model implements ReactionTypeContract
         return $type;
     }
 
+    public function getId(): string
+    {
+        return $this->getAttribute('id');
+    }
+
     public function getName(): string
     {
         return $this->getAttribute('name') ?? '';
@@ -97,7 +103,7 @@ final class ReactionType extends Model implements ReactionTypeContract
 
     public function isEqualTo(ReactionTypeContract $type): bool
     {
-        return $type->getKey() === $this->getKey();
+        return $type->getId() === $this->getId();
     }
 
     public function isNotEqualTo(ReactionTypeContract $type): bool

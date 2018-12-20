@@ -31,6 +31,13 @@ final class NullReactant implements ReactantContract
         $this->reactable = $reactable;
     }
 
+    public function getId(): string
+    {
+        // TODO: Throw exception instead of return
+        // TODO: Test it
+        return '';
+    }
+
     public function getReactable(): ReactableContract
     {
         return $this->reactable;

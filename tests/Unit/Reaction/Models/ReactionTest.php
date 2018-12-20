@@ -53,7 +53,7 @@ final class ReactionTest extends TestCase
         $type = factory(ReactionType::class)->create();
 
         $reaction = factory(Reaction::class)->create([
-            'reaction_type_id' => $type->getKey(),
+            'reaction_type_id' => $type->getId(),
         ]);
 
         $this->assertTrue($reaction->type->is($type));
@@ -66,8 +66,8 @@ final class ReactionTest extends TestCase
         $reactant = factory(Reactant::class)->create();
 
         $reaction = factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $this->assertTrue($reaction->reactant->is($reactant));
@@ -79,7 +79,7 @@ final class ReactionTest extends TestCase
         $reacter = factory(Reacter::class)->create();
 
         $reaction = factory(Reaction::class)->create([
-            'reacter_id' => $reacter->getKey(),
+            'reacter_id' => $reacter->getId(),
         ]);
 
         $this->assertTrue($reaction->reacter->is($reacter));
@@ -92,7 +92,7 @@ final class ReactionTest extends TestCase
 
         /** @var \Cog\Laravel\Love\Reaction\Models\Reaction $reaction */
         $reaction = factory(Reaction::class)->create([
-            'reaction_type_id' => $type->getKey(),
+            'reaction_type_id' => $type->getId(),
         ]);
 
         $assertType = $reaction->getType();
@@ -117,8 +117,8 @@ final class ReactionTest extends TestCase
 
         /** @var \Cog\Laravel\Love\Reaction\Models\Reaction $reaction */
         $reaction = factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $assertReactant = $reaction->getReactant();
@@ -142,7 +142,7 @@ final class ReactionTest extends TestCase
 
         /** @var \Cog\Laravel\Love\Reaction\Models\Reaction $reaction */
         $reaction = factory(Reaction::class)->create([
-            'reacter_id' => $reacter->getKey(),
+            'reacter_id' => $reacter->getId(),
         ]);
 
         $assertReacter = $reaction->getReacter();
@@ -168,7 +168,7 @@ final class ReactionTest extends TestCase
 
         /** @var \Cog\Laravel\Love\Reaction\Models\Reaction $reaction */
         $reaction = factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
         ]);
 
         $this->assertSame(4, $reaction->getWeight());
@@ -181,7 +181,7 @@ final class ReactionTest extends TestCase
         $otherReactionType = factory(ReactionType::class)->create();
 
         $reaction = factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
         ]);
 
         $this->assertTrue($reaction->isOfType($reactionType));
@@ -195,7 +195,7 @@ final class ReactionTest extends TestCase
         $otherReactionType = factory(ReactionType::class)->create();
 
         $reaction = factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
         ]);
 
         $this->assertTrue($reaction->isNotOfType($otherReactionType));

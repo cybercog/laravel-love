@@ -32,7 +32,7 @@ trait Reacterable
                     'type' => $reacterable->getMorphClass(),
                 ]);
 
-                $reacterable->setAttribute('love_reacter_id', $reacter->getKey());
+                $reacterable->setAttribute('love_reacter_id', $reacter->getId());
             }
         });
     }

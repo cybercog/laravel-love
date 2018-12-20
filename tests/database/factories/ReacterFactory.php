@@ -24,6 +24,6 @@ $factory->define(Reacter::class, function (Faker $faker) {
 
 $factory->afterCreatingState(Reacter::class, 'withReacterable', function (Reacter $reacter, Faker $faker) {
     factory(User::class)->create([
-        'love_reacter_id' => $reacter->getKey(),
+        'love_reacter_id' => $reacter->getId(),
     ]);
 });

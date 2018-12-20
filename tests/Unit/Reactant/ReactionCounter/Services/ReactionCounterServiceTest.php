@@ -35,17 +35,17 @@ final class ReactionCounterServiceTest extends TestCase
         ]);
         $reactant = factory(Reactant::class)->create();
         $counter = $reactant->reactionCounters()
-            ->where('reaction_type_id', $reactionType->getKey())
+            ->where('reaction_type_id', $reactionType->getId())
             ->firstOrFail();
         $service = new ReactionCounterService($reactant);
         Event::fake(); // To not fire ReactionObserver methods
         $reaction1 = factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
         $reaction2 = factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $service->addReaction($reaction1);
@@ -63,7 +63,7 @@ final class ReactionCounterServiceTest extends TestCase
         ]);
         $reactant = factory(Reactant::class)->create();
         $counter = $reactant->reactionCounters()
-            ->where('reaction_type_id', $reactionType->getKey())
+            ->where('reaction_type_id', $reactionType->getId())
             ->firstOrFail();
         $counter->update([
             'count' => 4,
@@ -72,12 +72,12 @@ final class ReactionCounterServiceTest extends TestCase
         $service = new ReactionCounterService($reactant);
         Event::fake(); // To not fire ReactionObserver methods
         $reaction1 = factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
         $reaction2 = factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $service->removeReaction($reaction1);
@@ -99,8 +99,8 @@ final class ReactionCounterServiceTest extends TestCase
         $service = new ReactionCounterService($reactant);
         Event::fake(); // To not fire ReactionObserver methods
         $reaction1 = factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $service->removeReaction($reaction1);
@@ -114,17 +114,17 @@ final class ReactionCounterServiceTest extends TestCase
         ]);
         $reactant = factory(Reactant::class)->create();
         $counter = $reactant->reactionCounters()
-            ->where('reaction_type_id', $reactionType->getKey())
+            ->where('reaction_type_id', $reactionType->getId())
             ->firstOrFail();
         $service = new ReactionCounterService($reactant);
         Event::fake(); // To not fire ReactionObserver methods
         $reaction1 = factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
         $reaction2 = factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $service->addReaction($reaction1);
@@ -146,8 +146,8 @@ final class ReactionCounterServiceTest extends TestCase
         $reactant = factory(Reactant::class)->create();
         $service = new ReactionCounterService($reactant);
         $reaction1 = factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $service->addReaction($reaction1);
@@ -165,8 +165,8 @@ final class ReactionCounterServiceTest extends TestCase
         $reactant = factory(Reactant::class)->create();
         $service = new ReactionCounterService($reactant);
         $reaction1 = factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $service->removeReaction($reaction1);
@@ -181,7 +181,7 @@ final class ReactionCounterServiceTest extends TestCase
 //        $reactant = factory(Reactant::class)->create();
 //        $service = new ReactionCounterService($reactant);
 //        $counter = $reactant->reactionCounters()
-//            ->where('reaction_type_id', $reactionType->getKey())
+//            ->where('reaction_type_id', $reactionType->getId())
 //            ->firstOrFail();
 //
 //        $service->incrementCountOfType($reactionType);
@@ -198,7 +198,7 @@ final class ReactionCounterServiceTest extends TestCase
 //        $reactant = factory(Reactant::class)->create();
 //        $service = new ReactionCounterService($reactant);
 //        $counter = $reactant->reactionCounters()
-//            ->where('reaction_type_id', $reactionType->getKey())
+//            ->where('reaction_type_id', $reactionType->getId())
 //            ->firstOrFail();
 //
 //        $service->incrementCountOfType($reactionType, 4);
@@ -215,7 +215,7 @@ final class ReactionCounterServiceTest extends TestCase
 //        $reactant = factory(Reactant::class)->create();
 //        $service = new ReactionCounterService($reactant);
 //        $counter = $reactant->reactionCounters()
-//            ->where('reaction_type_id', $reactionType->getKey())
+//            ->where('reaction_type_id', $reactionType->getId())
 //            ->firstOrFail();
 //        $counter->update(['count' => 4]);
 //
@@ -233,7 +233,7 @@ final class ReactionCounterServiceTest extends TestCase
 //        $reactant = factory(Reactant::class)->create();
 //        $service = new ReactionCounterService($reactant);
 //        $counter = $reactant->reactionCounters()
-//            ->where('reaction_type_id', $reactionType->getKey())
+//            ->where('reaction_type_id', $reactionType->getId())
 //            ->firstOrFail();
 //        $counter->update(['count' => 4]);
 //
@@ -308,7 +308,7 @@ final class ReactionCounterServiceTest extends TestCase
 //        $reactionType = factory(ReactionType::class)->create();
 //        $reactant = factory(Reactant::class)->create();
 //        $counter = $reactant->reactionCounters()
-//            ->where('reaction_type_id', $reactionType->getKey())
+//            ->where('reaction_type_id', $reactionType->getId())
 //            ->firstOrFail();
 //        $service = new ReactionCounterService($reactant);
 //
@@ -325,7 +325,7 @@ final class ReactionCounterServiceTest extends TestCase
 //        $reactionType = factory(ReactionType::class)->create();
 //        $reactant = factory(Reactant::class)->create();
 //        $counter = $reactant->reactionCounters()
-//            ->where('reaction_type_id', $reactionType->getKey())
+//            ->where('reaction_type_id', $reactionType->getId())
 //            ->firstOrFail();
 //        $service = new ReactionCounterService($reactant);
 //
@@ -342,7 +342,7 @@ final class ReactionCounterServiceTest extends TestCase
 //        $reactionType = factory(ReactionType::class)->create();
 //        $reactant = factory(Reactant::class)->create();
 //        $counter = $reactant->reactionCounters()
-//            ->where('reaction_type_id', $reactionType->getKey())
+//            ->where('reaction_type_id', $reactionType->getId())
 //            ->firstOrFail();
 //        $counter->update(['weight' => 4]);
 //        $service = new ReactionCounterService($reactant);
@@ -360,7 +360,7 @@ final class ReactionCounterServiceTest extends TestCase
 //        $reactionType = factory(ReactionType::class)->create();
 //        $reactant = factory(Reactant::class)->create();
 //        $counter = $reactant->reactionCounters()
-//            ->where('reaction_type_id', $reactionType->getKey())
+//            ->where('reaction_type_id', $reactionType->getId())
 //            ->firstOrFail();
 //        $counter->update(['weight' => 4]);
 //        $service = new ReactionCounterService($reactant);
@@ -406,7 +406,7 @@ final class ReactionCounterServiceTest extends TestCase
 //        $reactionType = factory(ReactionType::class)->create();
 //        $reactant = factory(Reactant::class)->create();
 //        $counter = $reactant->reactionCounters()
-//            ->where('reaction_type_id', $reactionType->getKey())
+//            ->where('reaction_type_id', $reactionType->getId())
 //            ->firstOrFail();
 //        $counter->update(['weight' => 1]);
 //        $service = new ReactionCounterService($reactant);

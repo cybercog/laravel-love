@@ -34,6 +34,10 @@ final class Reacter extends Model implements ReacterContract
         'type',
     ];
 
+    protected $casts = [
+        'id' => 'string',
+    ];
+
     public function reacterable(): MorphTo
     {
         return $this->morphTo('reacterable', 'type', 'id', 'love_reacter_id');
@@ -42,6 +46,11 @@ final class Reacter extends Model implements ReacterContract
     public function reactions(): HasMany
     {
         return $this->hasMany(Reaction::class, 'reacter_id');
+    }
+
+    public function getId(): string
+    {
+        return $this->getAttribute('id');
     }
 
     public function getReacterable(): ReacterableContract
@@ -74,8 +83,8 @@ final class Reacter extends Model implements ReacterContract
         }
 
         $this->reactions()->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
     }
 
@@ -88,8 +97,8 @@ final class Reacter extends Model implements ReacterContract
         }
 
         $reaction = $this->reactions()->where([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ])->first();
 
         if (is_null($reaction)) {
@@ -108,7 +117,7 @@ final class Reacter extends Model implements ReacterContract
         }
 
         return $this->reactions()->where([
-            'reactant_id' => $reactant->getKey(),
+            'reactant_id' => $reactant->getId(),
         ])->exists();
     }
 
@@ -126,8 +135,8 @@ final class Reacter extends Model implements ReacterContract
         }
 
         return $this->reactions()->where([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ])->exists();
     }
 

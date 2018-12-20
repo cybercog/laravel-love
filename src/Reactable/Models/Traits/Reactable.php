@@ -38,7 +38,7 @@ trait Reactable
                     'type' => $reactable->getMorphClass(),
                 ]);
 
-                $reactable->setAttribute('love_reactant_id', $reactant->getKey());
+                $reactable->setAttribute('love_reactant_id', $reactant->getId());
             }
         });
     }
@@ -66,7 +66,7 @@ trait Reactable
     public function scopeWhereReactedBy(Builder $query, ReacterContract $reacter): Builder
     {
         return $query->whereHas('reactant.reactions', function (Builder $reactionsQuery) use ($reacter) {
-            $reactionsQuery->where('reacter_id', $reacter->getKey());
+            $reactionsQuery->where('reacter_id', $reacter->getId());
         });
     }
 
@@ -76,8 +76,8 @@ trait Reactable
         ReactionTypeContract $reactionType
     ): Builder {
         return $query->whereHas('reactant.reactions', function (Builder $reactionsQuery) use ($reacter, $reactionType) {
-            $reactionsQuery->where('reacter_id', $reacter->getKey());
-            $reactionsQuery->where('reaction_type_id', $reactionType->getKey());
+            $reactionsQuery->where('reacter_id', $reacter->getId());
+            $reactionsQuery->where('reaction_type_id', $reactionType->getId());
         });
     }
 
@@ -90,7 +90,7 @@ trait Reactable
         return $query
             ->join((new ReactionCounter())->getTable() . ' as lrrc', function (JoinClause $join) use ($reactionType) {
                 $join->on('lrrc.reactant_id', '=', "{$this->getTable()}.love_reactant_id");
-                $join->where('lrrc.reaction_type_id', $reactionType->getKey());
+                $join->where('lrrc.reaction_type_id', $reactionType->getId());
             })
             ->select($select);
     }

@@ -38,6 +38,10 @@ final class Reactant extends Model implements ReactantContract
         'type',
     ];
 
+    protected $casts = [
+        'id' => 'string',
+    ];
+
     public function reactable(): MorphTo
     {
         return $this->morphTo('reactable', 'type', 'id', 'love_reactant_id');
@@ -56,6 +60,11 @@ final class Reactant extends Model implements ReactantContract
     public function reactionTotal(): HasOne
     {
         return $this->hasOne(ReactionTotal::class, 'reactant_id');
+    }
+
+    public function getId(): string
+    {
+        return $this->getAttribute('id');
     }
 
     public function getReactable(): ReactableContract
@@ -84,7 +93,7 @@ final class Reactant extends Model implements ReactantContract
         // TODO: Test query count without eager loaded relation
         $counter = $this
             ->getReactionCounters()
-            ->where('reaction_type_id', $reactionType->getKey())
+            ->where('reaction_type_id', $reactionType->getId())
             ->first();
 
         if (is_null($counter)) {
@@ -106,7 +115,7 @@ final class Reactant extends Model implements ReactantContract
         }
 
         return $this->reactions()->where([
-            'reacter_id' => $reacter->getKey(),
+            'reacter_id' => $reacter->getId(),
         ])->exists();
     }
 
@@ -122,8 +131,8 @@ final class Reactant extends Model implements ReactantContract
         }
 
         return $this->reactions()->where([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reacter_id' => $reacter->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
         ])->exists();
     }
 

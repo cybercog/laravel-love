@@ -32,7 +32,7 @@ final class ReacterableTest extends TestCase
         ]);
 
         $reacterable = factory(User::class)->create([
-            'love_reacter_id' => $reacter->getKey(),
+            'love_reacter_id' => $reacter->getId(),
         ]);
 
         $this->assertTrue($reacterable->reacter->is($reacter));
@@ -46,7 +46,7 @@ final class ReacterableTest extends TestCase
         ]);
 
         $reacterable = factory(User::class)->create([
-            'love_reacter_id' => $reacter->getKey(),
+            'love_reacter_id' => $reacter->getId(),
         ]);
 
         $this->assertTrue($reacterable->getReacter()->is($reacter));
@@ -83,7 +83,7 @@ final class ReacterableTest extends TestCase
         $reacterable = new Bot([
             'name' => 'TestBot',
         ]);
-        $reacterable->setAttribute('love_reacter_id', $reacter->getKey());
+        $reacterable->setAttribute('love_reacter_id', $reacter->getId());
         $reacterable->save();
 
         $this->assertSame(1, Reacter::query()->count());
@@ -99,7 +99,7 @@ final class ReacterableTest extends TestCase
         ]);
         $notRegisteredReacterable = new User();
         $registeredReacterable = factory(User::class)->create([
-            'love_reacter_id' => $reacter->getKey(),
+            'love_reacter_id' => $reacter->getId(),
         ]);
 
         $this->assertTrue($registeredReacterable->isRegisteredAsReacter());
@@ -114,7 +114,7 @@ final class ReacterableTest extends TestCase
         ]);
         $notRegisteredReacterable = new User();
         $registeredReacterable = factory(User::class)->create([
-            'love_reacter_id' => $reacter->getKey(),
+            'love_reacter_id' => $reacter->getId(),
         ]);
 
         $this->assertFalse($registeredReacterable->isNotRegisteredAsReacter());

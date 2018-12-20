@@ -38,7 +38,17 @@ final class ReacterTest extends TestCase
             'type' => 'TestType',
         ]);
 
-        $this->assertSame('TestType', $reacter->type);
+        $this->assertSame('TestType', $reacter->getAttribute('type'));
+    }
+
+    /** @test */
+    public function it_casts_id_to_string(): void
+    {
+        $reacter = factory(Reacter::class)->make([
+            'id' => 4,
+        ]);
+
+        $this->assertSame('4', $reacter->getAttribute('id'));
     }
 
     /** @test */
@@ -49,7 +59,7 @@ final class ReacterTest extends TestCase
         ]);
 
         $reacterable = factory(User::class)->create([
-            'love_reacter_id' => $reacter->getKey(),
+            'love_reacter_id' => $reacter->getId(),
         ]);
 
         $this->assertTrue($reacter->reacterable->is($reacterable));
@@ -61,7 +71,7 @@ final class ReacterTest extends TestCase
         $reacter = factory(Reacter::class)->create();
 
         $reaction = factory(Reaction::class)->create([
-            'reacter_id' => $reacter->getKey(),
+            'reacter_id' => $reacter->getId(),
         ]);
 
         $assertReaction = $reacter->reactions->first();
@@ -74,12 +84,22 @@ final class ReacterTest extends TestCase
         $reacter = factory(Reacter::class)->create();
 
         $reactions = factory(Reaction::class, 2)->create([
-            'reacter_id' => $reacter->getKey(),
+            'reacter_id' => $reacter->getId(),
         ]);
 
         $assertReactions = $reacter->reactions;
         $this->assertTrue($assertReactions->get(0)->is($reactions->get(0)));
         $this->assertTrue($assertReactions->get(1)->is($reactions->get(1)));
+    }
+
+    /** @test */
+    public function it_can_get_id(): void
+    {
+        $reacter = factory(Reacter::class)->make([
+            'id' => '4',
+        ]);
+
+        $this->assertSame('4', $reacter->getId());
     }
 
     /** @test */
@@ -90,7 +110,7 @@ final class ReacterTest extends TestCase
         ]);
 
         $reacterable = factory(User::class)->create([
-            'love_reacter_id' => $reacter->getKey(),
+            'love_reacter_id' => $reacter->getId(),
         ]);
 
         $this->assertTrue($reacter->getReacterable()->is($reacterable));
@@ -114,7 +134,7 @@ final class ReacterTest extends TestCase
         $reacter = factory(Reacter::class)->create();
 
         $reactions = factory(Reaction::class, 2)->create([
-            'reacter_id' => $reacter->getKey(),
+            'reacter_id' => $reacter->getId(),
         ]);
 
         $assertReactions = $reacter->getReactions();
@@ -184,8 +204,8 @@ final class ReacterTest extends TestCase
         $reactant = factory(Reactant::class)->create();
         $reaction = factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType,
-            'reactant_id' => $reactant->getKey(),
-            'reacter_id' => $reacter->getKey(),
+            'reactant_id' => $reactant->getId(),
+            'reacter_id' => $reacter->getId(),
         ]);
 
         $reacter->unreactTo($reactant, $reactionType);
@@ -241,11 +261,11 @@ final class ReacterTest extends TestCase
         $reactant = factory(Reactant::class)->create();
         factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType,
-            'reacter_id' => $reacter->getKey(),
+            'reacter_id' => $reacter->getId(),
         ]);
         factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType,
-            'reactant_id' => $reactant->getKey(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $reacter->unreactTo($reactant, $reactionType);
@@ -258,9 +278,9 @@ final class ReacterTest extends TestCase
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reacter_id' => $reacter->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $isReacted = $reacter->isReactedTo($reactant);
@@ -297,12 +317,12 @@ final class ReacterTest extends TestCase
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reacter_id' => $reacter->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
         ]);
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $isNotReacted = $reacter->isNotReactedTo($reactant);
@@ -339,9 +359,9 @@ final class ReacterTest extends TestCase
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reacter_id' => $reacter->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $isReacted = $reacter->isReactedToWithType($reactant, $reactionType);
@@ -381,13 +401,13 @@ final class ReacterTest extends TestCase
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $otherReactionType->getKey(),
-            'reacter_id' => $reacter->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $otherReactionType->getId(),
+            'reacter_id' => $reacter->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $isNotReacted = $reacter->isNotReactedToWithType($reactant, $reactionType);

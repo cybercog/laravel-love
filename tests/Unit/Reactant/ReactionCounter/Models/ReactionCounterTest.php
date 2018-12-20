@@ -79,7 +79,7 @@ final class ReactionCounterTest extends TestCase
         $reactant = factory(Reactant::class)->create();
 
         $counter = factory(ReactionCounter::class)->create([
-            'reactant_id' => $reactant->getKey(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $this->assertTrue($counter->reactant->is($reactant));
@@ -91,7 +91,7 @@ final class ReactionCounterTest extends TestCase
         $reactionType = factory(ReactionType::class)->create();
 
         $counter = factory(ReactionCounter::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
         ]);
 
         $this->assertTrue($counter->reactionType->is($reactionType));
@@ -103,7 +103,7 @@ final class ReactionCounterTest extends TestCase
         $reactant = factory(Reactant::class)->create();
 
         $counter = factory(ReactionCounter::class)->create([
-            'reactant_id' => $reactant->getKey(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $this->assertTrue($counter->getReactant()->is($reactant));
@@ -115,7 +115,7 @@ final class ReactionCounterTest extends TestCase
         $reactionType = factory(ReactionType::class)->create();
 
         $counter = factory(ReactionCounter::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
         ]);
 
         $this->assertTrue($counter->getReactionType()->is($reactionType));
@@ -128,7 +128,7 @@ final class ReactionCounterTest extends TestCase
         $anotherReactionType = factory(ReactionType::class)->create();
 
         $counter = factory(ReactionCounter::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
         ]);
 
         $this->assertTrue($counter->isReactionOfType($reactionType));
@@ -142,7 +142,7 @@ final class ReactionCounterTest extends TestCase
         $anotherReactionType = factory(ReactionType::class)->create();
 
         $counter = factory(ReactionCounter::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
         ]);
 
         $this->assertTrue($counter->isNotReactionOfType($anotherReactionType));

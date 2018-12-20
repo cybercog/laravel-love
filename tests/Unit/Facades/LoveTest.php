@@ -34,7 +34,7 @@ final class LoveTest extends TestCase
         $reactionType1 = factory(ReactionType::class)->create();
         $reactionType2 = factory(ReactionType::class)->create();
         $reaction = factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType1->getKey(),
+            'reaction_type_id' => $reactionType1->getId(),
         ]);
 
         $true = Love::isReactionOfTypeName($reaction, $reactionType1->getName());
@@ -50,7 +50,7 @@ final class LoveTest extends TestCase
         $reactionType1 = factory(ReactionType::class)->create();
         $reactionType2 = factory(ReactionType::class)->create();
         $reaction = factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType1->getKey(),
+            'reaction_type_id' => $reactionType1->getId(),
         ]);
 
         $false = Love::isReactionNotOfTypeName($reaction, $reactionType1->getName());
@@ -88,9 +88,9 @@ final class LoveTest extends TestCase
         $reacter = factory(Reacter::class)->states('withReacterable')->create();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reacter_id' => $reacter->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $isReacted = Love::isReacterableReactedToWithTypeName(
@@ -116,9 +116,9 @@ final class LoveTest extends TestCase
         $reacter = factory(Reacter::class)->states('withReacterable')->create();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reacter_id' => $reacter->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $isReacted = Love::isReacterableReactedToWithTypeName(
@@ -144,8 +144,8 @@ final class LoveTest extends TestCase
         $reacterable = new User();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $isReacted = Love::isReacterableReactedToWithTypeName(
@@ -171,8 +171,8 @@ final class LoveTest extends TestCase
         $reacter = factory(Reacter::class)->states('withReacterable')->create();
         $reactable = new Article();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reacter_id' => $reacter->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
         ]);
 
         $isReacted = Love::isReacterableReactedToWithTypeName(
@@ -198,9 +198,9 @@ final class LoveTest extends TestCase
         $reacter = factory(Reacter::class)->states('withReacterable')->create();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reacter_id' => $reacter->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $isReacted = Love::isReacterableNotReactedToWithTypeName(
@@ -226,9 +226,9 @@ final class LoveTest extends TestCase
         $reacter = factory(Reacter::class)->states('withReacterable')->create();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reacter_id' => $reacter->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $isReacted = Love::isReacterableNotReactedToWithTypeName(
@@ -254,8 +254,8 @@ final class LoveTest extends TestCase
         $reacterable = new User();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $isReacted = Love::isReacterableNotReactedToWithTypeName(
@@ -281,8 +281,8 @@ final class LoveTest extends TestCase
         $reacter = factory(Reacter::class)->states('withReacterable')->create();
         $reactable = new Article();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reacter_id' => $reacter->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
         ]);
 
         $isReacted = Love::isReacterableNotReactedToWithTypeName(
@@ -308,13 +308,13 @@ final class LoveTest extends TestCase
         $reactant1 = factory(Reactant::class)->states('withReactable')->create();
         $reactant2 = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reacter_id' => $reacter->getKey(),
-            'reactant_id' => $reactant1->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
+            'reactant_id' => $reactant1->getId(),
         ]);
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant2->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant2->getId(),
         ]);
 
         $isReacted = Love::isReacterableReactedTo(
@@ -336,8 +336,8 @@ final class LoveTest extends TestCase
         $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $isReacted = Love::isReacterableReactedTo(
@@ -355,8 +355,8 @@ final class LoveTest extends TestCase
         $reacterable = new User();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $isReacted = Love::isReacterableReactedTo(
@@ -374,8 +374,8 @@ final class LoveTest extends TestCase
         $reacter = factory(Reacter::class)->states('withReacterable')->create();
         $reactable = new Article();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reacter_id' => $reacter->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
         ]);
 
         $isReacted = Love::isReacterableReactedTo(
@@ -394,13 +394,13 @@ final class LoveTest extends TestCase
         $reactant1 = factory(Reactant::class)->states('withReactable')->create();
         $reactant2 = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant1->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant1->getId(),
         ]);
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reacter_id' => $reacter->getKey(),
-            'reactant_id' => $reactant2->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
+            'reactant_id' => $reactant2->getId(),
         ]);
 
         $isNotReacted = Love::isReacterableNotReactedTo(
@@ -422,8 +422,8 @@ final class LoveTest extends TestCase
         $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $isReacted = Love::isReacterableNotReactedTo(
@@ -441,8 +441,8 @@ final class LoveTest extends TestCase
         $reacterable = new User();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $isReacted = Love::isReacterableNotReactedTo(
@@ -460,8 +460,8 @@ final class LoveTest extends TestCase
         $reacter = factory(Reacter::class)->states('withReacterable')->create();
         $reactable = new Article();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reacter_id' => $reacter->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
         ]);
 
         $isReacted = Love::isReacterableNotReactedTo(
@@ -510,9 +510,9 @@ final class LoveTest extends TestCase
         $reacter = factory(Reacter::class)->states('withReacterable')->create();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reacter_id' => $reacter->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $isReacted = Love::isReactableReactedByWithTypeName(
@@ -538,9 +538,9 @@ final class LoveTest extends TestCase
         $reacter = factory(Reacter::class)->states('withReacterable')->create();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reacter_id' => $reacter->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $isReacted = Love::isReactableReactedByWithTypeName(
@@ -566,8 +566,8 @@ final class LoveTest extends TestCase
         $reacterable = new User();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $isReacted = Love::isReactableReactedByWithTypeName(
@@ -593,8 +593,8 @@ final class LoveTest extends TestCase
         $reacter = factory(Reacter::class)->states('withReacterable')->create();
         $reactable = new Article();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reacter_id' => $reacter->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
         ]);
 
         $isReacted = Love::isReactableReactedByWithTypeName(
@@ -620,9 +620,9 @@ final class LoveTest extends TestCase
         $reacter = factory(Reacter::class)->states('withReacterable')->create();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reacter_id' => $reacter->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $isReacted = Love::isReactableNotReactedByWithTypeName(
@@ -648,9 +648,9 @@ final class LoveTest extends TestCase
         $reacter = factory(Reacter::class)->states('withReacterable')->create();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reacter_id' => $reacter->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $isReacted = Love::isReactableNotReactedByWithTypeName(
@@ -676,8 +676,8 @@ final class LoveTest extends TestCase
         $reacterable = new User();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $isReacted = Love::isReactableNotReactedByWithTypeName(
@@ -703,8 +703,8 @@ final class LoveTest extends TestCase
         $reacter = factory(Reacter::class)->states('withReacterable')->create();
         $reactable = new Article();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reacter_id' => $reacter->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
         ]);
 
         $isReacted = Love::isReactableNotReactedByWithTypeName(
@@ -730,13 +730,13 @@ final class LoveTest extends TestCase
         $reactant1 = factory(Reactant::class)->states('withReactable')->create();
         $reactant2 = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reacter_id' => $reacter->getKey(),
-            'reactant_id' => $reactant1->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
+            'reactant_id' => $reactant1->getId(),
         ]);
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant2->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant2->getId(),
         ]);
 
         $isReacted = Love::isReactableReactedBy(
@@ -758,8 +758,8 @@ final class LoveTest extends TestCase
         $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $isReacted = Love::isReactableReactedBy(
@@ -777,8 +777,8 @@ final class LoveTest extends TestCase
         $reacterable = new User();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $isReacted = Love::isReactableReactedBy(
@@ -796,8 +796,8 @@ final class LoveTest extends TestCase
         $reacter = factory(Reacter::class)->states('withReacterable')->create();
         $reactable = new Article();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reacter_id' => $reacter->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
         ]);
 
         $isReacted = Love::isReactableReactedBy(
@@ -816,13 +816,13 @@ final class LoveTest extends TestCase
         $reactant1 = factory(Reactant::class)->states('withReactable')->create();
         $reactant2 = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant1->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant1->getId(),
         ]);
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reacter_id' => $reacter->getKey(),
-            'reactant_id' => $reactant2->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
+            'reactant_id' => $reactant2->getId(),
         ]);
 
         $isNotReacted = Love::isReactableNotReactedBy(
@@ -844,8 +844,8 @@ final class LoveTest extends TestCase
         $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $isReacted = Love::isReactableNotReactedBy(
@@ -863,8 +863,8 @@ final class LoveTest extends TestCase
         $reacterable = new User();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $isReacted = Love::isReactableNotReactedBy(
@@ -882,8 +882,8 @@ final class LoveTest extends TestCase
         $reacter = factory(Reacter::class)->states('withReacterable')->create();
         $reactable = new Article();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reacter_id' => $reacter->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
         ]);
 
         $isReacted = Love::isReactableNotReactedBy(
@@ -930,8 +930,8 @@ final class LoveTest extends TestCase
         $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class, 3)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $count = Love::getReactableReactionsCountForTypeName(
@@ -948,7 +948,7 @@ final class LoveTest extends TestCase
         $reactionType = factory(ReactionType::class)->create();
         $reactable = new Article();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
         ]);
 
         $count = Love::getReactableReactionsCountForTypeName(
@@ -966,8 +966,8 @@ final class LoveTest extends TestCase
         $otherReactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class, 3)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $count = Love::getReactableReactionsCountForTypeName(
@@ -986,8 +986,8 @@ final class LoveTest extends TestCase
         $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class, 3)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         Love::getReactableReactionsCountForTypeName(
@@ -1004,8 +1004,8 @@ final class LoveTest extends TestCase
         ]);
         $reactant = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class, 3)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $weight = Love::getReactableReactionsWeightForTypeName(
@@ -1022,7 +1022,7 @@ final class LoveTest extends TestCase
         $reactionType = factory(ReactionType::class)->create();
         $reactable = new Article();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
         ]);
 
         $weight = Love::getReactableReactionsWeightForTypeName(
@@ -1040,8 +1040,8 @@ final class LoveTest extends TestCase
         $otherReactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class, 3)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $weight = Love::getReactableReactionsWeightForTypeName(
@@ -1060,8 +1060,8 @@ final class LoveTest extends TestCase
         $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class, 3)->create([
-            'reaction_type_id' => $reactionType->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         Love::getReactableReactionsWeightForTypeName(
@@ -1077,12 +1077,12 @@ final class LoveTest extends TestCase
         $reactionType2 = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class, 2)->create([
-            'reaction_type_id' => $reactionType1->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType2->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType2->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $count = Love::getReactableReactionsTotalCount(
@@ -1098,7 +1098,7 @@ final class LoveTest extends TestCase
         $reactionType = factory(ReactionType::class)->create();
         $reactable = new Article();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
         ]);
 
         $count = Love::getReactableReactionsTotalCount(
@@ -1119,12 +1119,12 @@ final class LoveTest extends TestCase
         ]);
         $reactant = factory(Reactant::class)->states('withReactable')->create();
         factory(Reaction::class, 2)->create([
-            'reaction_type_id' => $reactionType1->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType2->getKey(),
-            'reactant_id' => $reactant->getKey(),
+            'reaction_type_id' => $reactionType2->getId(),
+            'reactant_id' => $reactant->getId(),
         ]);
 
         $weight = Love::getReactableReactionsTotalWeight(
@@ -1140,7 +1140,7 @@ final class LoveTest extends TestCase
         $reactionType = factory(ReactionType::class)->create();
         $reactable = new Article();
         factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getKey(),
+            'reaction_type_id' => $reactionType->getId(),
         ]);
 
         $weight = Love::getReactableReactionsTotalWeight(
