@@ -87,8 +87,9 @@ final class Reactant extends Model implements ReactantContract
         return $this->getAttribute('reactionCounters');
     }
 
-    public function getReactionCounterOfType(ReactionTypeContract $reactionType): ReactionCounterContract
-    {
+    public function getReactionCounterOfType(
+        ReactionTypeContract $reactionType
+    ): ReactionCounterContract {
         // TODO: Test query count with eager loaded relation
         // TODO: Test query count without eager loaded relation
         $counter = $this
@@ -114,9 +115,7 @@ final class Reactant extends Model implements ReactantContract
             return false;
         }
 
-        return $this->reactions()->where([
-            'reacter_id' => $reacter->getId(),
-        ])->exists();
+        return $reacter->isReactedTo($this);
     }
 
     public function isNotReactedBy(ReacterContract $reacter): bool
@@ -124,20 +123,21 @@ final class Reactant extends Model implements ReactantContract
         return !$this->isReactedBy($reacter);
     }
 
-    public function isReactedByWithType(ReacterContract $reacter, ReactionTypeContract $reactionType): bool
-    {
+    public function isReactedByWithType(
+        ReacterContract $reacter,
+        ReactionTypeContract $reactionType
+    ): bool {
         if ($reacter->isNull()) {
             return false;
         }
 
-        return $this->reactions()->where([
-            'reaction_type_id' => $reactionType->getId(),
-            'reacter_id' => $reacter->getId(),
-        ])->exists();
+        return $reacter->isReactedToWithType($this, $reactionType);
     }
 
-    public function isNotReactedByWithType(ReacterContract $reacter, ReactionTypeContract $reactionType): bool
-    {
+    public function isNotReactedByWithType(
+        ReacterContract $reacter,
+        ReactionTypeContract $reactionType
+    ): bool {
         return !$this->isReactedByWithType($reacter, $reactionType);
     }
 
@@ -146,8 +146,9 @@ final class Reactant extends Model implements ReactantContract
         return !$this->exists;
     }
 
-    public function createReactionCounterOfType(ReactionTypeContract $reactionType): void
-    {
+    public function createReactionCounterOfType(
+        ReactionTypeContract $reactionType
+    ): void {
         // TODO: (?) Prevent create if already exists?
         $this->reactionCounters()->create([
             'reaction_type_id' => $reactionType->getId(),

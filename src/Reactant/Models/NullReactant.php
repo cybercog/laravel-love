@@ -52,8 +52,9 @@ final class NullReactant implements ReactantContract
         return [];
     }
 
-    public function getReactionCounterOfType(ReactionTypeContract $reactionType): ReactionCounterContract
-    {
+    public function getReactionCounterOfType(
+        ReactionTypeContract $reactionType
+    ): ReactionCounterContract {
         return new NullReactionCounter($this, $reactionType);
     }
 
@@ -72,13 +73,17 @@ final class NullReactant implements ReactantContract
         return true;
     }
 
-    public function isReactedByWithType(ReacterContract $reacter, ReactionTypeContract $reactionType): bool
-    {
+    public function isReactedByWithType(
+        ReacterContract $reacter,
+        ReactionTypeContract $reactionType
+    ): bool {
         return false;
     }
 
-    public function isNotReactedByWithType(ReacterContract $reacter, ReactionTypeContract $reactionType): bool
-    {
+    public function isNotReactedByWithType(
+        ReacterContract $reacter,
+        ReactionTypeContract $reactionType
+    ): bool {
         return true;
     }
 
@@ -87,8 +92,9 @@ final class NullReactant implements ReactantContract
         return true;
     }
 
-    public function createReactionCounterOfType(ReactionTypeContract $reactionType): void
-    {
+    public function createReactionCounterOfType(
+        ReactionTypeContract $reactionType
+    ): void {
         throw ReactantInvalid::notExists();
     }
 
