@@ -16,8 +16,6 @@ namespace Cog\Laravel\Love\Facades;
 use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
 use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
 use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
-use Cog\Laravel\Love\Reactant\Models\NullReactant;
-use Cog\Laravel\Love\Reacter\Models\NullReacter;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 
 final class Love
@@ -45,17 +43,12 @@ final class Love
             return false;
         }
 
-        $reacter = $reacterable->getReacter();
-        if ($reacter instanceof NullReacter) {
-            return false;
-        }
-
-        $reactant = $reactable->getReactant();
-        if ($reactant instanceof NullReactant) {
-            return false;
-        }
-
-        return $reacter->isReactedToWithType($reactant, ReactionType::fromName($typeName));
+        return $reacterable
+            ->getReacter()
+            ->isReactedToWithType(
+                $reactable->getReactant(),
+                ReactionType::fromName($typeName)
+            );
     }
 
     public static function isReacterableNotReactedToWithTypeName(
@@ -63,7 +56,11 @@ final class Love
         ReactableContract $reactable,
         string $typeName
     ): bool {
-        return !self::isReacterableReactedToWithTypeName($reacterable, $reactable, $typeName);
+        return !self::isReacterableReactedToWithTypeName(
+            $reacterable,
+            $reactable,
+            $typeName
+        );
     }
 
     public static function isReacterableReactedTo(
@@ -74,17 +71,9 @@ final class Love
             return false;
         }
 
-        $reacter = $reacterable->getReacter();
-        if ($reacter instanceof NullReacter) {
-            return false;
-        }
-
-        $reactant = $reactable->getReactant();
-        if ($reactant instanceof NullReactant) {
-            return false;
-        }
-
-        return $reacter->isReactedTo($reactant);
+        return $reacterable
+            ->getReacter()
+            ->isReactedTo($reactable->getReactant());
     }
 
     public static function isReacterableNotReactedTo(
@@ -103,17 +92,12 @@ final class Love
             return false;
         }
 
-        $reacter = $reacterable->getReacter();
-        if ($reacter instanceof NullReacter) {
-            return false;
-        }
-
-        $reactant = $reactable->getReactant();
-        if ($reactant instanceof NullReactant) {
-            return false;
-        }
-
-        return $reactant->isReactedByWithType($reacter, ReactionType::fromName($typeName));
+        return $reactable
+            ->getReactant()
+            ->isReactedByWithType(
+                $reacterable->getReacter(),
+                ReactionType::fromName($typeName)
+            );
     }
 
     public static function isReactableNotReactedByWithTypeName(
@@ -121,7 +105,11 @@ final class Love
         ?ReacterableContract $reacterable,
         string $typeName
     ): bool {
-        return !self::isReactableReactedByWithTypeName($reactable, $reacterable, $typeName);
+        return !self::isReactableReactedByWithTypeName(
+            $reactable,
+            $reacterable,
+            $typeName
+        );
     }
 
     public static function isReactableReactedBy(
@@ -132,17 +120,9 @@ final class Love
             return false;
         }
 
-        $reacter = $reacterable->getReacter();
-        if ($reacter instanceof NullReacter) {
-            return false;
-        }
-
-        $reactant = $reactable->getReactant();
-        if ($reactant instanceof NullReactant) {
-            return false;
-        }
-
-        return $reactant->isReactedBy($reacter);
+        return $reactable
+            ->getReactant()
+            ->isReactedBy($reacterable->getReacter());
     }
 
     public static function isReactableNotReactedBy(

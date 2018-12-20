@@ -20,11 +20,7 @@ use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * Trait Reacterable.
- *
- * @mixin \Illuminate\Database\Eloquent\Model
  * @mixin \Cog\Contracts\Love\Reacterable\Models\Reacterable
- * @package Cog\Laravel\Love\Reacterable\Models\Traits
  */
 trait Reacterable
 {
@@ -48,7 +44,6 @@ trait Reacterable
 
     public function getReacter(): ReacterContract
     {
-        // TODO: (?) Return `NullReacter` or throw exception `NotRegisteredAsReacter`?
         return $this->getAttribute('reacter') ?? new NullReacter($this);
     }
 

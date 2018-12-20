@@ -19,6 +19,7 @@ use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
 use Cog\Contracts\Love\Reaction\Exceptions\ReactionAlreadyExists;
 use Cog\Contracts\Love\Reaction\Exceptions\ReactionNotExists;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
+use Cog\Laravel\Love\Reactant\Models\NullReactant;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -53,8 +54,12 @@ final class Reacter extends Model implements ReacterContract
         return $this->getAttribute('reactions');
     }
 
-    public function reactTo(ReactantContract $reactant, ReactionTypeContract $reactionType): void
-    {
+    public function reactTo(
+        ReactantContract $reactant,
+        ReactionTypeContract $reactionType
+    ): void {
+        // TODO: Throw exception when `NullReactant` will be passed
+
         if ($this->isReactedToWithType($reactant, $reactionType)) {
             throw new ReactionAlreadyExists(
                 sprintf('Reaction of type `%s` already exists.', $reactionType->getName())
@@ -67,8 +72,12 @@ final class Reacter extends Model implements ReacterContract
         ]);
     }
 
-    public function unreactTo(ReactantContract $reactant, ReactionTypeContract $reactionType): void
-    {
+    public function unreactTo(
+        ReactantContract $reactant,
+        ReactionTypeContract $reactionType
+    ): void {
+        // TODO: Throw exception when `NullReactant` will be passed
+
         $reaction = $this->reactions()->where([
             'reaction_type_id' => $reactionType->getKey(),
             'reactant_id' => $reactant->getKey(),
@@ -85,6 +94,10 @@ final class Reacter extends Model implements ReacterContract
 
     public function isReactedTo(ReactantContract $reactant): bool
     {
+        if ($reactant instanceof NullReactant) {
+            return false;
+        }
+
         return $this->reactions()->where([
             'reactant_id' => $reactant->getKey(),
         ])->exists();
@@ -95,16 +108,24 @@ final class Reacter extends Model implements ReacterContract
         return !$this->isReactedTo($reactant);
     }
 
-    public function isReactedToWithType(ReactantContract $reactant, ReactionTypeContract $reactionType): bool
-    {
+    public function isReactedToWithType(
+        ReactantContract $reactant,
+        ReactionTypeContract $reactionType
+    ): bool {
+        if ($reactant instanceof NullReactant) {
+            return false;
+        }
+
         return $this->reactions()->where([
             'reaction_type_id' => $reactionType->getKey(),
             'reactant_id' => $reactant->getKey(),
         ])->exists();
     }
 
-    public function isNotReactedToWithType(ReactantContract $reactant, ReactionTypeContract $reactionType): bool
-    {
+    public function isNotReactedToWithType(
+        ReactantContract $reactant,
+        ReactionTypeContract $reactionType
+    ): bool {
         return !$this->isReactedToWithType($reactant, $reactionType);
     }
 }

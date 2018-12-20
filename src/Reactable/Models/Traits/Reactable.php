@@ -26,11 +26,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Query\JoinClause;
 
 /**
- * Trait Reactable.
- *
- * @mixin \Illuminate\Database\Eloquent\Model
  * @mixin \Cog\Contracts\Love\Reactable\Models\Reactable
- * @package Cog\Laravel\Love\Reacterable\Models\Traits
  */
 trait Reactable
 {
@@ -54,7 +50,6 @@ trait Reactable
 
     public function getReactant(): ReactantContract
     {
-        // TODO: (?) Return `NullReactant` or throw exception `NotRegisteredAsReactant`?
         return $this->getAttribute('reactant') ?? new NullReactant($this);
     }
 
