@@ -29,7 +29,7 @@ final class LoveTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function it_can_check_is_reaction_type_name(): void
+    public function it_can_check_is_reaction_of_type_name(): void
     {
         $reactionType1 = factory(ReactionType::class)->create();
         $reactionType2 = factory(ReactionType::class)->create();
@@ -45,7 +45,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_is_reaction_not_type_name(): void
+    public function it_can_check_is_reaction_not_of_type_name(): void
     {
         $reactionType1 = factory(ReactionType::class)->create();
         $reactionType2 = factory(ReactionType::class)->create();
@@ -61,23 +61,23 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_throw_exception_on_invalid_reaction_type_in_check_is_reaction_type_name(): void
+    public function it_throw_invalid_reaction_type_exception_on_check_is_reaction_of_type_name_when_type_name_in_unknown(): void
     {
         $this->expectException(ReactionTypeInvalid::class);
 
         $reaction = factory(Reaction::class)->create();
 
-        Love::isReactionTypeName($reaction, 'InvalidType');
+        Love::isReactionOfTypeName($reaction, 'UnknownType');
     }
 
     /** @test */
-    public function it_throw_exception_on_invalid_reaction_type_in_check_is_reaction_not_type_name(): void
+    public function it_throw_invalid_reaction_type_exception_on_check_is_reaction_not_of_type_name_when_type_name_in_unknown(): void
     {
         $this->expectException(ReactionTypeInvalid::class);
 
         $reaction = factory(Reaction::class)->create();
 
-        Love::isReactionNotTypeName($reaction, 'InvalidType');
+        Love::isReactionNotOfTypeName($reaction, 'UnknownType');
     }
 
     /** @test */
