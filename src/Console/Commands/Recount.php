@@ -138,7 +138,7 @@ final class Recount extends Command
         $morphMap = Relation::morphMap();
 
         if (!isset($morphMap[$modelType])) {
-            throw ReactableInvalid::notExists($modelType);
+            throw ReactableInvalid::classNotExists($modelType);
         }
 
         $modelClass = $morphMap[$modelType];

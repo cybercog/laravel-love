@@ -92,7 +92,7 @@ final class ReactionCounterService
             ->first();
 
         if (is_null($counter)) {
-            throw ReactionCounterMissing::ofTypeForReactant($this->reactant, $reactionType);
+            throw ReactionCounterMissing::forReactantOfReactionType($this->reactant, $reactionType);
         }
 
         if ($counter->count + $amount < 0) {
@@ -109,7 +109,7 @@ final class ReactionCounterService
             ->first();
 
         if (is_null($counter)) {
-            throw ReactionCounterMissing::ofTypeForReactant($this->reactant, $reactionType);
+            throw ReactionCounterMissing::forReactantOfReactionType($this->reactant, $reactionType);
         }
 
         $counter->increment('weight', $amount);

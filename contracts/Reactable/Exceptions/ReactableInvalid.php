@@ -18,7 +18,7 @@ use DomainException;
 
 final class ReactableInvalid extends DomainException
 {
-    public static function notExists(string $type): self
+    public static function classNotExists(string $type): self
     {
         return new static("[{$type}] class or morph map not found.");
     }

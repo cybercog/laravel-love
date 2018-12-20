@@ -59,19 +59,19 @@ final class Reaction extends Model implements ReactionContract
 
     public function getType(): ReactionTypeContract
     {
-        // TODO: (?) Return `NullReactionType` or throw exception `ReactionTypeNotFound`?
+        // TODO: Throw exception `ReactionTypeNotFound`
         return $this->getAttribute('type');
     }
 
     public function getReactant(): ReactantContract
     {
-        // TODO: (?) Return `NullReactionType` or throw exception `ReactantNotFound`?
+        // TODO: Throw exception `ReactantNotFound`
         return $this->getAttribute('reactant');
     }
 
     public function getReacter(): ReacterContract
     {
-        // TODO: (?) Return `NullReacter` or throw exception `ReacterNotFound`?
+        // TODO: Throw exception `ReacterNotFound`
         return $this->getAttribute('reacter');
     }
 

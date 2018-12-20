@@ -77,7 +77,7 @@ final class ReactionType extends Model implements ReactionTypeContract
         $type = static::query()->where('name', $name)->first();
 
         if (!$type) {
-            throw ReactionTypeInvalid::notExists($name);
+            throw ReactionTypeInvalid::nameNotExists($name);
         }
 
         static::$instances[$name] = $type;

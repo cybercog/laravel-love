@@ -19,8 +19,10 @@ use OutOfBoundsException;
 
 final class ReactionCounterMissing extends OutOfBoundsException
 {
-    public static function ofTypeForReactant(Reactant $reactant, ReactionTypeContract $reactionType): self
-    {
+    public static function forReactantOfReactionType(
+        Reactant $reactant,
+        ReactionTypeContract $reactionType
+    ): self {
         return new static(sprintf(
             'Reactant with ID `%s` missing ReactionCounter with ReactionType `%s`.',
             $reactant->getKey(),

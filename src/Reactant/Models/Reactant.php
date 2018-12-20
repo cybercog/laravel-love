@@ -60,7 +60,7 @@ final class Reactant extends Model implements ReactantContract
 
     public function getReactable(): ReactableContract
     {
-        // TODO: (?) Return `NullReactable` or throw exception `NotAssignedToReactable`?
+        // TODO: Throw exception `NotAssignedToReactable`
         return $this->getAttribute('reactable');
     }
 

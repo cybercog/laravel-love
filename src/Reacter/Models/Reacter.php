@@ -46,7 +46,7 @@ final class Reacter extends Model implements ReacterContract
 
     public function getReacterable(): ReacterableContract
     {
-        // TODO: (?) Return `NullReacterable` or throw exception `NotAssignedToReacterable`?
+        // TODO: Throw exception `NotAssignedToReacterable`
         return $this->getAttribute('reacterable');
     }
 

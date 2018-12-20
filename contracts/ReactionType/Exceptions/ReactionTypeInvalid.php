@@ -17,8 +17,8 @@ use DomainException;
 
 final class ReactionTypeInvalid extends DomainException
 {
-    public static function notExists(string $name): self
+    public static function nameNotExists(string $name): self
     {
-        return new static("ReactionType with name `{$name}` not found.");
+        return new static("ReactionType with name `{$name}` not exists.");
     }
 }
