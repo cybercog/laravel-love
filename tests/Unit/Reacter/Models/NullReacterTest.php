@@ -29,6 +29,16 @@ final class NullReacterTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
+    public function it_throws_exception_on_get_reacterable()
+    {
+        $this->expectException(ReacterInvalid::class);
+
+        $reacter = new NullReacter(new User());
+
+        $reacter->getId();
+    }
+
+    /** @test */
     public function it_can_get_reacterable()
     {
         $reacterable = new User();
@@ -42,8 +52,7 @@ final class NullReacterTest extends TestCase
     /** @test */
     public function it_can_get_reactions(): void
     {
-        $reacterable = new User();
-        $reacter = new NullReacter($reacterable);
+        $reacter = new NullReacter(new User());
 
         $reactions = $reacter->getReactions();
 

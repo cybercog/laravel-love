@@ -30,9 +30,7 @@ final class NullReacter implements ReacterContract
 
     public function getId(): string
     {
-        // TODO: Throw exception instead of return
-        // TODO: Test it
-        return '';
+        throw ReacterInvalid::notExists();
     }
 
     public function getReacterable(): ReacterableContract

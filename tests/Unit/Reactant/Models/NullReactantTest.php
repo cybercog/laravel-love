@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Reactant\Models;
 
+use Cog\Contracts\Love\Reactant\Exceptions\ReactantInvalid;
 use Cog\Laravel\Love\Reactant\Models\NullReactant;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\NullReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
@@ -25,6 +26,16 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 final class NullReactantTest extends TestCase
 {
     use RefreshDatabase;
+
+    /** @test */
+    public function it_throws_exception_on_get_reacterable()
+    {
+        $this->expectException(ReactantInvalid::class);
+
+        $reactant = new NullReactant(new Article());
+
+        $reactant->getId();
+    }
 
     /** @test */
     public function it_can_get_reactant(): void
@@ -40,8 +51,7 @@ final class NullReactantTest extends TestCase
     /** @test */
     public function it_can_get_reactions(): void
     {
-        $reactable = new Article();
-        $reactant = new NullReactant($reactable);
+        $reactant = new NullReactant(new Article());
 
         $reactions = $reactant->getReactions();
 
@@ -52,8 +62,7 @@ final class NullReactantTest extends TestCase
     /** @test */
     public function it_can_get_reaction_counters(): void
     {
-        $reactable = new Article();
-        $reactant = new NullReactant($reactable);
+        $reactant = new NullReactant(new Article());
 
         $counters = $reactant->getReactionCounters();
 
@@ -64,8 +73,7 @@ final class NullReactantTest extends TestCase
     /** @test */
     public function it_can_get_null_reaction_counter_of_type(): void
     {
-        $reactable = new Article();
-        $reactant = new NullReactant($reactable);
+        $reactant = new NullReactant(new Article());
         $reactionType = factory(ReactionType::class)->create();
 
         $counter = $reactant->getReactionCounterOfType($reactionType);
@@ -76,8 +84,7 @@ final class NullReactantTest extends TestCase
     /** @test */
     public function it_can_get_null_reaction_counter_of_type_with_same_reactant(): void
     {
-        $reactable = new Article();
-        $reactant = new NullReactant($reactable);
+        $reactant = new NullReactant(new Article());
         $reactionType = factory(ReactionType::class)->create();
 
         $counter = $reactant->getReactionCounterOfType($reactionType);
@@ -89,8 +96,7 @@ final class NullReactantTest extends TestCase
     /** @test */
     public function it_can_get_null_reaction_counter_of_type_with_same_reaction_type(): void
     {
-        $reactable = new Article();
-        $reactant = new NullReactant($reactable);
+        $reactant = new NullReactant(new Article());
         $reactionType = factory(ReactionType::class)->create();
 
         $counter = $reactant->getReactionCounterOfType($reactionType);
@@ -102,8 +108,7 @@ final class NullReactantTest extends TestCase
     /** @test */
     public function it_can_get_null_reaction_total(): void
     {
-        $reactable = new Article();
-        $reactant = new NullReactant($reactable);
+        $reactant = new NullReactant(new Article());
 
         $total = $reactant->getReactionTotal();
 
@@ -113,8 +118,7 @@ final class NullReactantTest extends TestCase
     /** @test */
     public function it_can_get_null_reaction_total_with_same_reactant(): void
     {
-        $reactable = new Article();
-        $reactant = new NullReactant($reactable);
+        $reactant = new NullReactant(new Article());
 
         $total = $reactant->getReactionTotal();
 
@@ -125,8 +129,7 @@ final class NullReactantTest extends TestCase
     /** @test */
     public function it_can_determine_is_reacted_by(): void
     {
-        $reactable = new Article();
-        $reactant = new NullReactant($reactable);
+        $reactant = new NullReactant(new Article());
         $reacter = factory(Reacter::class)->make();
 
         $isReacted = $reactant->isReactedBy($reacter);
@@ -137,8 +140,7 @@ final class NullReactantTest extends TestCase
     /** @test */
     public function it_can_determine_is_not_reacted_by(): void
     {
-        $reactable = new Article();
-        $reactant = new NullReactant($reactable);
+        $reactant = new NullReactant(new Article());
         $reacter = factory(Reacter::class)->make();
 
         $isReacted = $reactant->isNotReactedBy($reacter);
@@ -149,8 +151,7 @@ final class NullReactantTest extends TestCase
     /** @test */
     public function it_can_determine_is_reacted_by_with_type(): void
     {
-        $reactable = new Article();
-        $reactant = new NullReactant($reactable);
+        $reactant = new NullReactant(new Article());
         $reacter = factory(Reacter::class)->make();
         $reactionType = new ReactionType();
 
@@ -162,8 +163,7 @@ final class NullReactantTest extends TestCase
     /** @test */
     public function it_can_determine_is_not_reacted_by_with_type(): void
     {
-        $reactable = new Article();
-        $reactant = new NullReactant($reactable);
+        $reactant = new NullReactant(new Article());
         $reacter = factory(Reacter::class)->make();
         $reactionType = new ReactionType();
 

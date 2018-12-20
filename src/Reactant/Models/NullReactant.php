@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Cog\Laravel\Love\Reactant\Models;
 
 use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
+use Cog\Contracts\Love\Reactant\Exceptions\ReactantInvalid;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter as ReactionCounterContract;
 use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalContract;
@@ -33,9 +34,7 @@ final class NullReactant implements ReactantContract
 
     public function getId(): string
     {
-        // TODO: Throw exception instead of return
-        // TODO: Test it
-        return '';
+        throw ReactantInvalid::notExists();
     }
 
     public function getReactable(): ReactableContract
