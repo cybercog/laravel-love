@@ -31,6 +31,10 @@ interface Reaction
 
     public function isNotOfType(ReactionType $reactionType): bool;
 
+    public function isToReactant(Reactant $reactant): bool;
+
+    public function isNotToReactant(Reactant $reactant): bool;
+
     public function isByReacter(Reacter $reacter): bool;
 
     public function isNotByReacter(Reacter $reacter): bool;

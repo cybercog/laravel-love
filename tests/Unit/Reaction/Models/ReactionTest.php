@@ -22,6 +22,7 @@ use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
 
 final class ReactionTest extends TestCase
 {
@@ -221,6 +222,42 @@ final class ReactionTest extends TestCase
 
         $true = $reaction->isNotOfType($reactionType2);
         $false = $reaction->isNotOfType($reactionType1);
+
+        $this->assertTrue($true);
+        $this->assertFalse($false);
+    }
+
+    /** @test */
+    public function it_can_determine_if_reaction_is_to_reactant()
+    {
+        // To skip counters creation
+        Event::fake();
+        $reactant1 = factory(Reactant::class)->create();
+        $reactant2 = factory(Reactant::class)->create();
+        $reaction = factory(Reaction::class)->create([
+            'reactant_id' => $reactant1->getId(),
+        ]);
+
+        $true = $reaction->isToReactant($reactant1);
+        $false = $reaction->isToReactant($reactant2);
+
+        $this->assertTrue($true);
+        $this->assertFalse($false);
+    }
+
+    /** @test */
+    public function it_can_determine_if_reaction_is_not_to_reactant()
+    {
+        // To skip counters creation
+        Event::fake();
+        $reactant1 = factory(Reactant::class)->create();
+        $reactant2 = factory(Reactant::class)->create();
+        $reaction = factory(Reaction::class)->create([
+            'reactant_id' => $reactant1->getId(),
+        ]);
+
+        $true = $reaction->isNotToReactant($reactant2);
+        $false = $reaction->isNotToReactant($reactant1);
 
         $this->assertTrue($true);
         $this->assertFalse($false);
