@@ -28,22 +28,21 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 final class Reaction extends Model implements ReactionContract
 {
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
     protected $table = 'love_reactions';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'reaction_type_id',
         'reactant_id',
     ];
+
+    protected $casts = [
+        'id' => 'string',
+    ];
+
+    public function getId(): string
+    {
+        return $this->getAttribute('id');
+    }
 
     public function type(): BelongsTo
     {

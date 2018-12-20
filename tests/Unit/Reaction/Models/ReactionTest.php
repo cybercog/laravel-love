@@ -48,6 +48,16 @@ final class ReactionTest extends TestCase
     }
 
     /** @test */
+    public function it_casts_id_to_string(): void
+    {
+        $reaction = factory(Reaction::class)->make([
+            'id' => 4,
+        ]);
+
+        $this->assertSame('4', $reaction->getAttribute('id'));
+    }
+
+    /** @test */
     public function it_can_belong_to_type(): void
     {
         $type = factory(ReactionType::class)->create();
@@ -83,6 +93,16 @@ final class ReactionTest extends TestCase
         ]);
 
         $this->assertTrue($reaction->reacter->is($reacter));
+    }
+
+    /** @test */
+    public function it_can_get_id(): void
+    {
+        $reaction = factory(Reaction::class)->make([
+            'id' => '4',
+        ]);
+
+        $this->assertSame('4', $reaction->getId());
     }
 
     /** @test */
