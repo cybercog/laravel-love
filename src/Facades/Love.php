@@ -156,12 +156,8 @@ final class Love
         ReactableContract $reactable,
         string $typeName
     ): int {
-        $reactant = $reactable->getReactant();
-        if ($reactant instanceof NullReactant) {
-            return 0;
-        }
-
-        return $reactant
+        return $reactable
+            ->getReactant()
             ->getReactionCounterOfType(ReactionType::fromName($typeName))
             ->getCount();
     }
@@ -170,12 +166,8 @@ final class Love
         ReactableContract $reactable,
         string $typeName
     ): int {
-        $reactant = $reactable->getReactant();
-        if ($reactant instanceof NullReactant) {
-            return 0;
-        }
-
-        return $reactant
+        return $reactable
+            ->getReactant()
             ->getReactionCounterOfType(ReactionType::fromName($typeName))
             ->getWeight();
     }
@@ -183,22 +175,18 @@ final class Love
     public static function getReactableReactionsTotalCount(
         ReactableContract $reactable
     ): int {
-        $reactant = $reactable->getReactant();
-        if ($reactant instanceof NullReactant) {
-            return 0;
-        }
-
-        return $reactant->getReactionTotal()->getCount();
+        return $reactable
+            ->getReactant()
+            ->getReactionTotal()
+            ->getCount();
     }
 
     public static function getReactableReactionsTotalWeight(
         ReactableContract $reactable
     ): int {
-        $reactant = $reactable->getReactant();
-        if ($reactant instanceof NullReactant) {
-            return 0;
-        }
-
-        return $reactant->getReactionTotal()->getWeight();
+        return $reactable
+            ->getReactant()
+            ->getReactionTotal()
+            ->getWeight();
     }
 }
