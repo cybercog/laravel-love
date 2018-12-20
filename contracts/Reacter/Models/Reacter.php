@@ -25,17 +25,33 @@ interface Reacter
 
     public function getReactions(): iterable;
 
-    public function reactTo(Reactant $reactant, ReactionType $reactionType): void;
+    public function reactTo(
+        Reactant $reactant,
+        ReactionType $reactionType
+    ): void;
 
-    public function unreactTo(Reactant $reactant, ReactionType $reactionType): void;
+    public function unreactTo(
+        Reactant $reactant,
+        ReactionType $reactionType
+    ): void;
 
-    public function isReactedTo(Reactant $reactant): bool;
+    public function isReactedTo(
+        Reactant $reactant
+    ): bool;
 
-    public function isNotReactedTo(Reactant $reactant): bool;
+    public function isNotReactedTo(
+        Reactant $reactant
+    ): bool;
 
-    public function isReactedToWithType(Reactant $reactant, ReactionType $reactionType): bool;
+    public function isReactedToWithType(
+        Reactant $reactant,
+        ReactionType $reactionType
+    ): bool;
 
-    public function isNotReactedToWithType(Reactant $reactant, ReactionType $reactionType): bool;
+    public function isNotReactedToWithType(
+        Reactant $reactant,
+        ReactionType $reactionType
+    ): bool;
 
     public function isNull(): bool;
 }

@@ -111,8 +111,9 @@ final class Reacter extends Model implements ReacterContract
         $reaction->delete();
     }
 
-    public function isReactedTo(ReactantContract $reactant): bool
-    {
+    public function isReactedTo(
+        ReactantContract $reactant
+    ): bool {
         if ($reactant->isNull()) {
             return false;
         }
@@ -120,8 +121,9 @@ final class Reacter extends Model implements ReacterContract
         return $reactant->isReactedBy($this);
     }
 
-    public function isNotReactedTo(ReactantContract $reactant): bool
-    {
+    public function isNotReactedTo(
+        ReactantContract $reactant
+    ): bool {
         return !$this->isReactedTo($reactant);
     }
 
