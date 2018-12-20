@@ -124,7 +124,7 @@ final class Reactant extends Model implements ReactantContract
             return $this
                 ->getAttribute('reactions')
                 ->contains(function (ReactionContract $reaction) use ($reacter) {
-                    return $reaction->getReacter()->getId() === $reacter->getId();
+                    return $reaction->isByReacter($reacter);
                 });
         }
 
@@ -152,8 +152,7 @@ final class Reactant extends Model implements ReactantContract
             return $this
                 ->getAttribute('reactions')
                 ->contains(function (ReactionContract $reaction) use ($reacter, $reactionType) {
-                    return $reaction->getReacter()->getId() === $reacter->getId()
-                        && $reaction->isOfType($reactionType);
+                    return $reaction->isByReacter($reacter) && $reaction->isOfType($reactionType);
                 });
         }
 

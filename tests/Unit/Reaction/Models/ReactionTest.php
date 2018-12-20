@@ -197,28 +197,64 @@ final class ReactionTest extends TestCase
     /** @test */
     public function it_can_determine_if_reaction_is_of_type()
     {
-        $reactionType = factory(ReactionType::class)->create();
-        $otherReactionType = factory(ReactionType::class)->create();
-
+        $reactionType1 = factory(ReactionType::class)->create();
+        $reactionType2 = factory(ReactionType::class)->create();
         $reaction = factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getId(),
+            'reaction_type_id' => $reactionType1->getId(),
         ]);
 
-        $this->assertTrue($reaction->isOfType($reactionType));
-        $this->assertFalse($reaction->isOfType($otherReactionType));
+        $true = $reaction->isOfType($reactionType1);
+        $false = $reaction->isOfType($reactionType2);
+
+        $this->assertTrue($true);
+        $this->assertFalse($false);
     }
 
     /** @test */
     public function it_can_determine_if_reaction_is_not_of_type()
     {
-        $reactionType = factory(ReactionType::class)->create();
-        $otherReactionType = factory(ReactionType::class)->create();
-
+        $reactionType1 = factory(ReactionType::class)->create();
+        $reactionType2 = factory(ReactionType::class)->create();
         $reaction = factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getId(),
+            'reaction_type_id' => $reactionType1->getId(),
         ]);
 
-        $this->assertTrue($reaction->isNotOfType($otherReactionType));
-        $this->assertFalse($reaction->isNotOfType($reactionType));
+        $true = $reaction->isNotOfType($reactionType2);
+        $false = $reaction->isNotOfType($reactionType1);
+
+        $this->assertTrue($true);
+        $this->assertFalse($false);
+    }
+
+    /** @test */
+    public function it_can_determine_if_reaction_is_by_reacter()
+    {
+        $reacter1 = factory(Reacter::class)->create();
+        $reacter2 = factory(Reacter::class)->create();
+        $reaction = factory(Reaction::class)->create([
+            'reacter_id' => $reacter1->getId(),
+        ]);
+
+        $true = $reaction->isByReacter($reacter1);
+        $false = $reaction->isByReacter($reacter2);
+
+        $this->assertTrue($true);
+        $this->assertFalse($false);
+    }
+
+    /** @test */
+    public function it_can_determine_if_reaction_is_not_by_reacter()
+    {
+        $reacter1 = factory(Reacter::class)->create();
+        $reacter2 = factory(Reacter::class)->create();
+        $reaction = factory(Reaction::class)->create([
+            'reacter_id' => $reacter1->getId(),
+        ]);
+
+        $true = $reaction->isNotByReacter($reacter2);
+        $false = $reaction->isNotByReacter($reacter1);
+
+        $this->assertTrue($true);
+        $this->assertFalse($false);
     }
 }

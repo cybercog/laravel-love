@@ -103,4 +103,14 @@ final class Reaction extends Model implements ReactionContract
     {
         return $this->getType()->isNotEqualTo($reactionType);
     }
+
+    public function isByReacter(ReacterContract $reacter): bool
+    {
+        return $this->getReacter()->getId() === $reacter->getId();
+    }
+
+    public function isNotByReacter(ReacterContract $reacter): bool
+    {
+        return !$this->isByReacter($reacter);
+    }
 }
