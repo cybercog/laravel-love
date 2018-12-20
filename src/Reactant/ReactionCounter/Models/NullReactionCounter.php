@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reactant\ReactionCounter\Models;
 
-
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter as ReactionCounterContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
