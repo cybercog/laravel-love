@@ -22,18 +22,18 @@ use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 
 final class Love
 {
-    public static function isReactionTypeName(
+    public static function isReactionOfTypeName(
         ReactionContract $reaction,
         string $typeName
     ): bool {
         return $reaction->isOfType(ReactionType::fromName($typeName));
     }
 
-    public static function isReactionNotTypeName(
+    public static function isReactionNotOfTypeName(
         ReactionContract $reaction,
         string $typeName
     ): bool {
-        return !self::isReactionTypeName($reaction, $typeName);
+        return !self::isReactionOfTypeName($reaction, $typeName);
     }
 
     public static function isReacterableReactedToWithTypeName(

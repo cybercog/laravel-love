@@ -37,8 +37,8 @@ final class LoveTest extends TestCase
             'reaction_type_id' => $reactionType1->getKey(),
         ]);
 
-        $true = Love::isReactionTypeName($reaction, $reactionType1->getName());
-        $false = Love::isReactionTypeName($reaction, $reactionType2->getName());
+        $true = Love::isReactionOfTypeName($reaction, $reactionType1->getName());
+        $false = Love::isReactionOfTypeName($reaction, $reactionType2->getName());
 
         $this->assertTrue($true);
         $this->assertFalse($false);
@@ -53,8 +53,8 @@ final class LoveTest extends TestCase
             'reaction_type_id' => $reactionType1->getKey(),
         ]);
 
-        $false = Love::isReactionNotTypeName($reaction, $reactionType1->getName());
-        $true = Love::isReactionNotTypeName($reaction, $reactionType2->getName());
+        $false = Love::isReactionNotOfTypeName($reaction, $reactionType1->getName());
+        $true = Love::isReactionNotOfTypeName($reaction, $reactionType2->getName());
 
         $this->assertFalse($false);
         $this->assertTrue($true);
