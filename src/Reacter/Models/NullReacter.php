@@ -18,6 +18,7 @@ use Cog\Contracts\Love\Reacter\Exceptions\ReacterInvalid;
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
 use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType;
+use TypeError;
 
 final class NullReacter implements ReacterContract
 {
@@ -30,7 +31,7 @@ final class NullReacter implements ReacterContract
 
     public function getId(): string
     {
-        throw ReacterInvalid::notExists();
+        throw new TypeError();
     }
 
     public function getReacterable(): ReacterableContract

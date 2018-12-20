@@ -40,7 +40,13 @@ final class ReactionTotal extends Model implements ReactionTotalContract
 
     public function getReactant(): ReactantContract
     {
-        return $this->getAttribute('reactant');
+        $reactant = $this->getAttribute('reactant');
+
+        if (is_null($reactant)) {
+            throw new \TypeError();
+        }
+
+        return $reactant;
     }
 
     public function getCount(): int

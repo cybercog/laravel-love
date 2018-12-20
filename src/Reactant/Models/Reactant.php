@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use TypeError;
 
 final class Reactant extends Model implements ReactantContract
 {
@@ -65,7 +66,13 @@ final class Reactant extends Model implements ReactantContract
 
     public function getId(): string
     {
-        return $this->getAttribute('id');
+        $id = $this->getAttribute('id');
+
+        if (is_null($id)) {
+            throw new TypeError();
+        }
+
+        return $id;
     }
 
     public function getReactable(): ReactableContract

@@ -18,6 +18,7 @@ use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use TypeError;
 
 final class ReactionCounterTest extends TestCase
 {
@@ -110,6 +111,16 @@ final class ReactionCounterTest extends TestCase
     }
 
     /** @test */
+    public function it_throws_exception_on_get_reactant_when_reactant_is_null(): void
+    {
+        $this->expectException(TypeError::class);
+
+        $counter = new ReactionCounter();
+
+        $counter->getReactant();
+    }
+
+    /** @test */
     public function it_can_get_reaction_type(): void
     {
         $reactionType = factory(ReactionType::class)->create();
@@ -119,6 +130,16 @@ final class ReactionCounterTest extends TestCase
         ]);
 
         $this->assertTrue($counter->getReactionType()->is($reactionType));
+    }
+
+    /** @test */
+    public function it_throws_exception_on_get_reaction_type_when_reaction_type_is_null(): void
+    {
+        $this->expectException(TypeError::class);
+
+        $counter = new ReactionCounter();
+
+        $counter->getReactionType();
     }
 
     /** @test */

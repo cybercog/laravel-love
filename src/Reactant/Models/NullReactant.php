@@ -22,6 +22,7 @@ use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\NullReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
+use TypeError;
 
 final class NullReactant implements ReactantContract
 {
@@ -34,7 +35,7 @@ final class NullReactant implements ReactantContract
 
     public function getId(): string
     {
-        throw ReactantInvalid::notExists();
+        throw new TypeError();
     }
 
     public function getReactable(): ReactableContract

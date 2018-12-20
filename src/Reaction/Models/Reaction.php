@@ -15,9 +15,6 @@ namespace Cog\Laravel\Love\Reaction\Models;
 
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
-use Cog\Contracts\Love\Reaction\Exceptions\ReactionHasNoReactant;
-use Cog\Contracts\Love\Reaction\Exceptions\ReactionHasNoReacter;
-use Cog\Contracts\Love\Reaction\Exceptions\ReactionHasNoType;
 use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
@@ -25,6 +22,7 @@ use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use TypeError;
 
 final class Reaction extends Model implements ReactionContract
 {
@@ -56,14 +54,21 @@ final class Reaction extends Model implements ReactionContract
 
     public function getId(): string
     {
-        return $this->getAttribute('id');
+        $id = $this->getAttribute('id');
+
+        if (is_null($id)) {
+            throw new TypeError();
+        }
+
+        return $id;
     }
 
     public function getType(): ReactionTypeContract
     {
         $type = $this->getAttribute('type');
+
         if (is_null($type)) {
-            throw new ReactionHasNoType();
+            throw new TypeError();
         }
 
         return $type;
@@ -72,8 +77,9 @@ final class Reaction extends Model implements ReactionContract
     public function getReactant(): ReactantContract
     {
         $reactant = $this->getAttribute('reactant');
+
         if (is_null($reactant)) {
-            throw new ReactionHasNoReactant();
+            throw new TypeError();
         }
 
         return $reactant;
@@ -82,8 +88,9 @@ final class Reaction extends Model implements ReactionContract
     public function getReacter(): ReacterContract
     {
         $reacter = $this->getAttribute('reacter');
+
         if (is_null($reacter)) {
-            throw new ReactionHasNoReacter();
+            throw new TypeError();
         }
 
         return $reacter;

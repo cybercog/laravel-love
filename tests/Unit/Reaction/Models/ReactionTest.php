@@ -23,6 +23,7 @@ use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
+use TypeError;
 
 final class ReactionTest extends TestCase
 {
@@ -107,6 +108,16 @@ final class ReactionTest extends TestCase
     }
 
     /** @test */
+    public function it_throws_exception_on_get_id_when_id_is_null()
+    {
+        $this->expectException(TypeError::class);
+
+        $reaction = new Reaction();
+
+        $reaction->getId();
+    }
+
+    /** @test */
     public function it_can_get_type(): void
     {
         $type = factory(ReactionType::class)->create();
@@ -123,7 +134,7 @@ final class ReactionTest extends TestCase
     /** @test */
     public function it_throws_exception_on_get_type_when_type_is_null(): void
     {
-        $this->expectException(ReactionHasNoType::class);
+        $this->expectException(TypeError::class);
 
         $reaction = new Reaction();
 
@@ -149,7 +160,7 @@ final class ReactionTest extends TestCase
     /** @test */
     public function it_throws_exception_on_get_type_when_reactant_is_null(): void
     {
-        $this->expectException(ReactionHasNoReactant::class);
+        $this->expectException(TypeError::class);
 
         $reaction = new Reaction();
 
@@ -173,7 +184,7 @@ final class ReactionTest extends TestCase
     /** @test */
     public function it_throws_exception_on_get_type_when_reacter_is_null(): void
     {
-        $this->expectException(ReactionHasNoReacter::class);
+        $this->expectException(TypeError::class);
 
         $reaction = new Reaction();
 

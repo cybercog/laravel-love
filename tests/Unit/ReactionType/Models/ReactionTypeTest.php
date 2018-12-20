@@ -19,6 +19,7 @@ use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use TypeError;
 
 final class ReactionTypeTest extends TestCase
 {
@@ -114,6 +115,16 @@ final class ReactionTypeTest extends TestCase
     }
 
     /** @test */
+    public function it_throws_exception_on_get_id_when_id_is_null()
+    {
+        $this->expectException(TypeError::class);
+
+        $type = new ReactionType();
+
+        $type->getId();
+    }
+
+    /** @test */
     public function it_can_get_name(): void
     {
         $type = new ReactionType([
@@ -124,11 +135,13 @@ final class ReactionTypeTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_name_if_not_set(): void
+    public function it_throws_exception_on_get_name_when_name_is_null(): void
     {
+        $this->expectException(TypeError::class);
+
         $type = new ReactionType();
 
-        $this->assertSame('', $type->getName());
+        $type->getName();
     }
 
     /** @test */
@@ -142,7 +155,7 @@ final class ReactionTypeTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_weight_if_not_set(): void
+    public function it_can_get_weight_when_weight_is_null(): void
     {
         $type = new ReactionType();
 

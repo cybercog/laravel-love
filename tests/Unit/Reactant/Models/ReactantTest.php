@@ -28,6 +28,7 @@ use Cog\Tests\Laravel\Love\Stubs\Models\Bot;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
+use TypeError;
 
 final class ReactantTest extends TestCase
 {
@@ -146,6 +147,16 @@ final class ReactantTest extends TestCase
         ]);
 
         $this->assertSame('4', $reactant->getId());
+    }
+
+    /** @test */
+    public function it_throws_exception_on_get_id_when_id_is_null(): void
+    {
+        $this->expectException(TypeError::class);
+
+        $reactant = new Reactant();
+
+        $reactant->getId();
     }
 
     /** @test */

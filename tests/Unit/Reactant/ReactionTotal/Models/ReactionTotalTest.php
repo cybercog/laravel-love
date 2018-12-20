@@ -17,6 +17,7 @@ use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use TypeError;
 
 final class ReactionTotalTest extends TestCase
 {
@@ -84,6 +85,16 @@ final class ReactionTotalTest extends TestCase
         ]);
 
         $this->assertTrue($total->getReactant()->is($reactant));
+    }
+
+    /** @test */
+    public function it_throws_exception_on_get_reactant_when_reactant_is_null(): void
+    {
+        $this->expectException(TypeError::class);
+
+        $total = new ReactionTotal();
+
+        $total->getReactant();
     }
 
     /** @test */

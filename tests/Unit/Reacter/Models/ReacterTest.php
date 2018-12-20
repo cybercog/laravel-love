@@ -26,6 +26,7 @@ use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use TypeError;
 
 final class ReacterTest extends TestCase
 {
@@ -100,6 +101,16 @@ final class ReacterTest extends TestCase
         ]);
 
         $this->assertSame('4', $reacter->getId());
+    }
+
+    /** @test */
+    public function it_throws_exception_on_get_id_when_id_is_null(): void
+    {
+        $this->expectException(TypeError::class);
+
+        $reacter = new Reacter();
+
+        $reacter->getId();
     }
 
     /** @test */

@@ -20,6 +20,7 @@ use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use TypeError;
 
 final class ReactionCounter extends Model implements ReactionCounterContract
 {
@@ -48,12 +49,24 @@ final class ReactionCounter extends Model implements ReactionCounterContract
 
     public function getReactant(): ReactantContract
     {
-        return $this->getAttribute('reactant');
+        $reactant = $this->getAttribute('reactant');
+
+        if (is_null($reactant)) {
+            throw new TypeError();
+        }
+
+        return $reactant;
     }
 
     public function getReactionType(): ReactionTypeContract
     {
-        return $this->getAttribute('reactionType');
+        $reactionType = $this->getAttribute('reactionType');
+
+        if (is_null($reactionType)) {
+            throw new TypeError();
+        }
+
+        return $reactionType;
     }
 
     public function isReactionOfType(ReactionTypeContract $reactionType): bool
