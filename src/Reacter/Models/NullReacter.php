@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Cog\Laravel\Love\Reacter\Models;
 
 use Cog\Contracts\Love\Reactant\Models\Reactant;
+use Cog\Contracts\Love\Reacter\Exceptions\ReacterInvalid;
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
 use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType;
@@ -39,14 +40,12 @@ final class NullReacter implements ReacterContract
 
     public function reactTo(Reactant $reactant, ReactionType $reactionType): void
     {
-        // TODO: Throw cannot `reactTo`
-        // TODO: Cover with tests
+        throw ReacterInvalid::notExists();
     }
 
     public function unreactTo(Reactant $reactant, ReactionType $reactionType): void
     {
-        // TODO: Throw cannot `reactTo`
-        // TODO: Cover with tests
+        throw ReacterInvalid::notExists();
     }
 
     public function isReactedTo(Reactant $reactant): bool

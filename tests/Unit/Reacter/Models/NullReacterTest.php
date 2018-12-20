@@ -13,9 +13,13 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Reacter\Models;
 
+use Cog\Contracts\Love\Reacter\Exceptions\ReacterInvalid;
+use Cog\Laravel\Love\Reactant\Models\NullReactant;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reacter\Models\NullReacter;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
+use Cog\Tests\Laravel\Love\Stubs\Models\Article;
+use Cog\Tests\Laravel\Love\Stubs\Models\Bot;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -45,6 +49,56 @@ final class NullReacterTest extends TestCase
 
         $this->assertCount(0, $reactions);
         $this->assertInternalType('iterable', $reactions);
+    }
+
+    /** @test */
+    public function it_throws_reactant_invalid_on_react_to(): void
+    {
+        $this->expectException(ReacterInvalid::class);
+
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = new NullReacter(new Bot());
+        $reactable = factory(Article::class)->create();
+        $reactant = $reactable->reactant;
+
+        $reacter->reactTo($reactant, $reactionType);
+    }
+
+    /** @test */
+    public function it_throws_reactant_invalid_on_react_to_when_reactant_is_null_object(): void
+    {
+        $this->expectException(ReacterInvalid::class);
+
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = new NullReacter(new Bot());
+        $reactant = new NullReactant(new Article());
+
+        $reacter->reactTo($reactant, $reactionType);
+    }
+
+    /** @test */
+    public function it_throws_reactant_invalid_on_unreact_to(): void
+    {
+        $this->expectException(ReacterInvalid::class);
+
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = new NullReacter(new Bot());
+        $reactable = factory(Article::class)->create();
+        $reactant = $reactable->reactant;
+
+        $reacter->unreactTo($reactant, $reactionType);
+    }
+
+    /** @test */
+    public function it_throws_reactant_invalid_on_unreact_to_when_reactant_is_null_object(): void
+    {
+        $this->expectException(ReacterInvalid::class);
+
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = new NullReacter(new Bot());
+        $reactant = new NullReactant(new Article());
+
+        $reacter->unreactTo($reactant, $reactionType);
     }
 
     /** @test */

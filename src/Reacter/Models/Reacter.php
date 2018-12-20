@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reacter\Models;
 
+use Cog\Contracts\Love\Reactant\Exceptions\ReactantInvalid;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
 use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
@@ -58,7 +59,9 @@ final class Reacter extends Model implements ReacterContract
         ReactantContract $reactant,
         ReactionTypeContract $reactionType
     ): void {
-        // TODO: Throw exception when `NullReactant` will be passed
+        if ($reactant instanceof NullReactant) {
+            throw ReactantInvalid::notExists();
+        }
 
         if ($this->isReactedToWithType($reactant, $reactionType)) {
             throw new ReactionAlreadyExists(
@@ -76,7 +79,9 @@ final class Reacter extends Model implements ReacterContract
         ReactantContract $reactant,
         ReactionTypeContract $reactionType
     ): void {
-        // TODO: Throw exception when `NullReactant` will be passed
+        if ($reactant instanceof NullReactant) {
+            throw ReactantInvalid::notExists();
+        }
 
         $reaction = $this->reactions()->where([
             'reaction_type_id' => $reactionType->getKey(),

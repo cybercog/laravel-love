@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Reacter\Models;
 
+use Cog\Contracts\Love\Reactant\Exceptions\ReactantInvalid;
 use Cog\Contracts\Love\Reaction\Exceptions\ReactionAlreadyExists;
 use Cog\Contracts\Love\Reaction\Exceptions\ReactionNotExists;
 use Cog\Laravel\Love\Reactant\Models\NullReactant;
@@ -139,6 +140,18 @@ final class ReacterTest extends TestCase
     }
 
     /** @test */
+    public function it_throws_reactant_invalid_on_react_to_when_reactant_is_null_object(): void
+    {
+        $this->expectException(ReactantInvalid::class);
+
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = factory(Reacter::class)->create();
+        $reactant = new NullReactant(new Article());
+
+        $reacter->reactTo($reactant, $reactionType);
+    }
+
+    /** @test */
     public function it_can_unreact_to_reactant(): void
     {
         $reactionType = factory(ReactionType::class)->create();
@@ -154,6 +167,18 @@ final class ReacterTest extends TestCase
 
         $this->assertCount(0, $reacter->reactions);
         $this->assertFalse($reaction->exists());
+    }
+
+    /** @test */
+    public function it_throws_reactant_invalid_on_unreact_to_when_reactant_is_null_object(): void
+    {
+        $this->expectException(ReactantInvalid::class);
+
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = factory(Reacter::class)->create();
+        $reactant = new NullReactant(new Article());
+
+        $reacter->unreactTo($reactant, $reactionType);
     }
 
     /** @test */

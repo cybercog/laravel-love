@@ -20,7 +20,7 @@ final class ReacterableInvalid extends DomainException
 {
     public static function notExists(string $type): self
     {
-        return new static("[{$type}] class or morph map not found.");
+        return new static("[{$type}] class or morph map not exists.");
     }
 
     public static function notImplementInterface(string $type): self
