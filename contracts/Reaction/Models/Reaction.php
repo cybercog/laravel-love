@@ -19,6 +19,8 @@ use Cog\Contracts\Love\ReactionType\Models\ReactionType;
 
 interface Reaction
 {
+    public function getId(): string;
+
     public function getType(): ReactionType;
 
     public function getReactant(): Reactant;

@@ -39,11 +39,6 @@ final class Reaction extends Model implements ReactionContract
         'id' => 'string',
     ];
 
-    public function getId(): string
-    {
-        return $this->getAttribute('id');
-    }
-
     public function type(): BelongsTo
     {
         return $this->belongsTo(ReactionType::class, 'reaction_type_id');
@@ -57,6 +52,11 @@ final class Reaction extends Model implements ReactionContract
     public function reacter(): BelongsTo
     {
         return $this->belongsTo(Reacter::class, 'reacter_id');
+    }
+
+    public function getId(): string
+    {
+        return $this->getAttribute('id');
     }
 
     public function getType(): ReactionTypeContract
