@@ -55,7 +55,7 @@ final class ReactableTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_null_reactant(): void
+    public function it_can_get_reactant_null_object_when_reactant_is_null(): void
     {
         $reactable = new Article();
 

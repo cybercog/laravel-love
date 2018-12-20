@@ -53,7 +53,7 @@ final class ReacterableTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_null_reacter(): void
+    public function it_can_get_reacter_null_object_when_reacter_is_null(): void
     {
         $reacterable = new User();
 

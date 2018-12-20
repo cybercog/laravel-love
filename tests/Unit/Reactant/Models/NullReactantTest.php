@@ -72,7 +72,7 @@ final class NullReactantTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_null_reaction_counter_of_type(): void
+    public function it_can_get_reaction_counter_of_type_null_object_when_reaction_counter_not_exist(): void
     {
         $reactant = new NullReactant(new Article());
         $reactionType = factory(ReactionType::class)->create();
@@ -83,7 +83,7 @@ final class NullReactantTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_null_reaction_counter_of_type_with_same_reactant(): void
+    public function it_can_get_reaction_counter_of_type_null_object_with_same_reactant(): void
     {
         $reactant = new NullReactant(new Article());
         $reactionType = factory(ReactionType::class)->create();
@@ -95,7 +95,7 @@ final class NullReactantTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_null_reaction_counter_of_type_with_same_reaction_type(): void
+    public function it_can_get_reaction_counter_of_type_null_object_with_same_reaction_type(): void
     {
         $reactant = new NullReactant(new Article());
         $reactionType = factory(ReactionType::class)->create();
@@ -107,7 +107,7 @@ final class NullReactantTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_null_reaction_total(): void
+    public function it_can_get_reaction_total_null_object_when_total_not_exist(): void
     {
         $reactant = new NullReactant(new Article());
 
@@ -117,7 +117,7 @@ final class NullReactantTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_null_reaction_total_with_same_reactant(): void
+    public function it_can_get_reaction_total_null_object_with_same_reactant(): void
     {
         $reactant = new NullReactant(new Article());
 

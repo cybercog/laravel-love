@@ -1019,7 +1019,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_reactable_with_null_reactant_reactions_count_for_type_name(): void
+    public function it_can_get_reactable_reactions_count_for_type_name_when_reactable_reactant_is_null(): void
     {
         $reactionType = factory(ReactionType::class)->create();
         $reactable = new Article();
@@ -1097,7 +1097,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_reactable_with_null_reactant_reactions_weight_for_type_name(): void
+    public function it_can_get_reactable_reactions_weight_for_type_name_when_reactable_reactant_is_null(): void
     {
         $reactionType = factory(ReactionType::class)->create();
         $reactable = new Article();
@@ -1181,7 +1181,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_reactable_with_null_reactant_reactions_total_count(): void
+    public function it_can_get_reactable_reactions_total_count_when_reactable_reactant_is_null(): void
     {
         $reactionType = factory(ReactionType::class)->create();
         $reactable = new Article();
@@ -1225,7 +1225,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_reactable_with_null_reactant_reactions_total_weight(): void
+    public function it_can_get_reactable_reactions_total_weight_when_reactable_reactant_is_null(): void
     {
         $reactionType = factory(ReactionType::class)->create();
         $reactable = new Article();
