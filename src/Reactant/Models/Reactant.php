@@ -145,4 +145,23 @@ final class Reactant extends Model implements ReactantContract
     {
         return !$this->exists;
     }
+
+    public function createReactionCounterOfType(ReactionTypeContract $reactionType): void
+    {
+        // TODO: (?) Prevent create if already exists?
+        $this->reactionCounters()->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'count' => 0,
+            'weight' => 0,
+        ]);
+    }
+
+    public function createReactionTotal(): void
+    {
+        // TODO: (?) Prevent create if already exists?
+        $this->reactionTotal()->create([
+            'count' => 0,
+            'weight' => 0,
+        ]);
+    }
 }

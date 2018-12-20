@@ -86,4 +86,14 @@ final class NullReactant implements ReactantContract
     {
         return true;
     }
+
+    public function createReactionCounterOfType(ReactionTypeContract $reactionType): void
+    {
+        throw ReactantInvalid::notExists();
+    }
+
+    public function createReactionTotal(): void
+    {
+        throw ReactantInvalid::notExists();
+    }
 }

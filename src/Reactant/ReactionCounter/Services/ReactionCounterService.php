@@ -18,6 +18,7 @@ use Cog\Contracts\Love\Reactant\ReactionCounter\Exceptions\ReactionCounterBadVal
 use Cog\Contracts\Love\Reactant\ReactionCounter\Exceptions\ReactionCounterMissing;
 use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
+use Cog\Laravel\Love\Reactant\ReactionCounter\Models\NullReactionCounter;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 
 final class ReactionCounterService
@@ -50,6 +51,9 @@ final class ReactionCounterService
 
             $this->createCounterOfType($reactionType);
         }
+
+        // TODO: FIX IT! Need to repopulate already loaded counters relation
+        $this->reactant->refresh();
     }
 
     public function addReaction(ReactionContract $reaction): void
@@ -88,15 +92,14 @@ final class ReactionCounterService
 
     private function incrementOrDecrementCountOfType(ReactionTypeContract $reactionType, int $amount = 1): void
     {
-        $counter = $this->reactant->reactionCounters()
-            ->where('reaction_type_id', $reactionType->getId())
-            ->first();
+        $counter = $this->reactant->getReactionCounterOfType($reactionType);
 
-        if (is_null($counter)) {
+        // TODO: Test it
+        if ($counter instanceof NullReactionCounter) {
             throw ReactionCounterMissing::forReactantOfReactionType($this->reactant, $reactionType);
         }
 
-        if ($counter->count + $amount < 0) {
+        if ($counter->getCount() + $amount < 0) {
             throw ReactionCounterBadValue::countBelowZero();
         }
 
@@ -105,11 +108,10 @@ final class ReactionCounterService
 
     private function incrementOrDecrementWeightOfType(ReactionTypeContract $reactionType, int $amount = 1): void
     {
-        $counter = $this->reactant->reactionCounters()
-            ->where('reaction_type_id', $reactionType->getId())
-            ->first();
+        $counter = $this->reactant->getReactionCounterOfType($reactionType);
 
-        if (is_null($counter)) {
+        // TODO: Test it
+        if ($counter instanceof NullReactionCounter) {
             throw ReactionCounterMissing::forReactantOfReactionType($this->reactant, $reactionType);
         }
 
@@ -118,9 +120,6 @@ final class ReactionCounterService
 
     private function createCounterOfType(ReactionTypeContract $reactionType): void
     {
-        $this->reactant->reactionCounters()->create([
-            'reaction_type_id' => $reactionType->getId(),
-            'count' => 0,
-        ]);
+        $this->reactant->createReactionCounterOfType($reactionType);
     }
 }

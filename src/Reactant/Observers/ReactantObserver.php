@@ -29,9 +29,6 @@ final class ReactantObserver
         // TODO: Do it in service or in `ReactionTotal` or `Reactant` method?
         // TODO: Call it asynchronously
         // TODO: Cover with tests
-        $reactant->reactionTotal()->create([
-            'count' => 0,
-            'weight' => 0,
-        ]);
+        $reactant->createReactionTotal();
     }
 }

@@ -135,7 +135,7 @@ final class ReactionCounterServiceTest extends TestCase
     }
 
     /** @test */
-    public function it_throws_exception_on_add_reaction_when_total_not_exists(): void
+    public function it_throws_exception_on_add_reaction_when_counter_not_exists(): void
     {
         Event::fake(); // Prevent total auto creation
         $this->expectException(ReactionCounterMissing::class);
@@ -154,7 +154,7 @@ final class ReactionCounterServiceTest extends TestCase
     }
 
     /** @test */
-    public function it_throws_exception_on_remove_reaction_when_total_not_exists(): void
+    public function it_throws_exception_on_remove_reaction_when_counter_not_exists(): void
     {
         Event::fake(); // Prevent counter auto creation
         $this->expectException(ReactionCounterMissing::class);

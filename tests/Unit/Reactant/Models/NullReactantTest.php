@@ -171,4 +171,25 @@ final class NullReactantTest extends TestCase
 
         $this->assertTrue($isReacted);
     }
+
+    /** @test */
+    public function it_throw_exception_on_create_reaction_counter_of_type(): void
+    {
+        $this->expectException(ReactantInvalid::class);
+
+        $reactant = new NullReactant(new Article());
+        $reactionType = factory(ReactionType::class)->create();
+
+        $reactant->createReactionCounterOfType($reactionType);
+    }
+
+    /** @test */
+    public function it_throw_exception_on_create_reaction_total(): void
+    {
+        $this->expectException(ReactantInvalid::class);
+
+        $reactant = new NullReactant(new Article());
+
+        $reactant->createReactionTotal();
+    }
 }
