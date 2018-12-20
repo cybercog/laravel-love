@@ -22,6 +22,7 @@ use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 
 final class ReactionCounterService
 {
+    /** @var \Cog\Laravel\Love\Reactant\Models\Reactant */
     private $reactant;
 
     public function __construct(ReactantContract $reactant)
@@ -41,6 +42,7 @@ final class ReactionCounterService
         // TODO: Instead of `all` use custom cacheable static method
         $reactionTypes = ReactionType::all();
         foreach ($reactionTypes as $reactionType) {
+            /** @var \Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter $counter */
             foreach ($existCounters as $counter) {
                 if ($counter->isReactionOfType($reactionType)) {
                     continue 2;

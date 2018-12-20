@@ -21,13 +21,13 @@ final class ReactantObserver
     public function created(ReactantContract $reactant): void
     {
         // TODO: Do it in service or in`ReactionCounter` or `Reactant` method?
-        // TODO: Make it asynchronously
+        // TODO: Call it asynchronously
         // TODO: Cover with tests
         $counterService = new ReactionCounterService($reactant);
         $counterService->createCounters();
 
         // TODO: Do it in service or in `ReactionTotal` or `Reactant` method?
-        // TODO: Make it asynchronously
+        // TODO: Call it asynchronously
         // TODO: Cover with tests
         $reactant->reactionTotal()->create([
             'count' => 0,

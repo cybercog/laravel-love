@@ -82,7 +82,6 @@ final class ReactionTotalService
 
     private function findReactionTotalFor(ReactantContract $reactant): ReactionTotalContract
     {
-        /** @var \Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal $total */
         $total = $reactant->getReactionTotal();
 
         if ($total instanceof NullReactionTotal) {

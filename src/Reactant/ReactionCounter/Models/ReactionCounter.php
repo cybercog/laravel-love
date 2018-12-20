@@ -23,29 +23,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 final class ReactionCounter extends Model implements ReactionCounterContract
 {
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
     protected $table = 'love_reactant_reaction_counters';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'reaction_type_id',
         'count',
         'weight',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'count' => 'integer',
         'weight' => 'integer',
