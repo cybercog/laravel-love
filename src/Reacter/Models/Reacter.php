@@ -56,6 +56,7 @@ final class Reacter extends Model implements ReacterContract
     public function getReacterable(): ReacterableContract
     {
         $reacterable = $this->getAttribute('reacterable');
+
         if (is_null($reacterable)) {
             throw new NotAssignedToReacterable();
         }
@@ -116,9 +117,7 @@ final class Reacter extends Model implements ReacterContract
             return false;
         }
 
-        return $this->reactions()->where([
-            'reactant_id' => $reactant->getId(),
-        ])->exists();
+        return $reactant->isReactedBy($this);
     }
 
     public function isNotReactedTo(ReactantContract $reactant): bool
@@ -134,10 +133,7 @@ final class Reacter extends Model implements ReacterContract
             return false;
         }
 
-        return $this->reactions()->where([
-            'reaction_type_id' => $reactionType->getId(),
-            'reactant_id' => $reactant->getId(),
-        ])->exists();
+        return $reactant->isReactedByWithType($this, $reactionType);
     }
 
     public function isNotReactedToWithType(
