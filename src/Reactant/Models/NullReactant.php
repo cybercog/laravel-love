@@ -75,4 +75,9 @@ final class NullReactant implements ReactantContract
     {
         return true;
     }
+
+    public function isNull(): bool
+    {
+        return true;
+    }
 }

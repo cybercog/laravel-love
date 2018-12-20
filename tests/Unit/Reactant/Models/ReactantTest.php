@@ -190,7 +190,7 @@ final class ReactantTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_null_reaction_counter_of_type(): void
+    public function it_can_get_null_object_reaction_counter_of_type(): void
     {
         Event::fake(); // Prevent total auto creation
         $reactant = factory(Reactant::class)->create();
@@ -202,7 +202,7 @@ final class ReactantTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_null_reaction_counter_of_type_with_same_reactant(): void
+    public function it_can_get_null_object_reaction_counter_of_type_with_same_reactant(): void
     {
         Event::fake(); // Prevent total auto creation
         $reactant = factory(Reactant::class)->create();
@@ -215,7 +215,7 @@ final class ReactantTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_null_reaction_counter_of_type_with_same_reaction_type(): void
+    public function it_can_get_null_object_reaction_counter_of_type_with_same_reaction_type(): void
     {
         Event::fake(); // Prevent total auto creation
         $reactant = factory(Reactant::class)->create();
@@ -241,7 +241,7 @@ final class ReactantTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_null_reaction_total(): void
+    public function it_can_get_null_object_reaction_total(): void
     {
         Event::fake(); // Prevent total auto creation
         $reactant = factory(Reactant::class)->create();
@@ -250,7 +250,7 @@ final class ReactantTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_null_reaction_total_with_same_reactant(): void
+    public function it_can_get_null_object_reaction_total_with_same_reactant(): void
     {
         Event::fake(); // Prevent total auto creation
         $reactant = factory(Reactant::class)->create();
@@ -277,9 +277,20 @@ final class ReactantTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_is_reacted_by_reacter_when_null_reacter(): void
+    public function it_can_check_is_reacted_by_reacter_when_reacter_is_null_object(): void
     {
         $reacter = new NullReacter(new Bot());
+        $reactant = factory(Reactant::class)->create();
+
+        $isReacted = $reactant->isReactedBy($reacter);
+
+        $this->assertFalse($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_reacted_by_reacter_when_reacter_is_not_persisted(): void
+    {
+        $reacter = Reacter::query()->make();
         $reactant = factory(Reactant::class)->create();
 
         $isReacted = $reactant->isReactedBy($reacter);
@@ -308,9 +319,20 @@ final class ReactantTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_is_not_reacted_by_reacter_when_null_reacter(): void
+    public function it_can_check_is_not_reacted_by_reacter_when_reacter_is_null_object(): void
     {
         $reacter = new NullReacter(new Bot());
+        $reactant = factory(Reactant::class)->create();
+
+        $isNotReacted = $reactant->isNotReactedBy($reacter);
+
+        $this->assertTrue($isNotReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_not_reacted_by_reacter_when_reacter_is_not_persisted(): void
+    {
+        $reacter = Reacter::query()->make();
         $reactant = factory(Reactant::class)->create();
 
         $isNotReacted = $reactant->isNotReactedBy($reacter);
@@ -336,10 +358,22 @@ final class ReactantTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_is_reacted_by_reacter_with_type_when_null_reacter(): void
+    public function it_can_check_is_reacted_by_reacter_with_type_when_reacter_is_null_object(): void
     {
         $reactionType = factory(ReactionType::class)->create();
         $reacter = new NullReacter(new Bot());
+        $reactant = factory(Reactant::class)->create();
+
+        $isReacted = $reactant->isReactedByWithType($reacter, $reactionType);
+
+        $this->assertFalse($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_reacted_by_reacter_with_type_when_reacter_is_not_persisted(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = Reacter::query()->make();
         $reactant = factory(Reactant::class)->create();
 
         $isReacted = $reactant->isReactedByWithType($reacter, $reactionType);
@@ -370,10 +404,22 @@ final class ReactantTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_is_not_reacted_by_reacter_with_type_when_null_reacter(): void
+    public function it_can_check_is_not_reacted_by_reacter_with_type_when_reacter_is_null_object(): void
     {
         $reactionType = factory(ReactionType::class)->create();
         $reacter = new NullReacter(new Bot());
+        $reactant = factory(Reactant::class)->create();
+
+        $isNotReacted = $reactant->isNotReactedByWithType($reacter, $reactionType);
+
+        $this->assertTrue($isNotReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_not_reacted_by_reacter_with_type_when_reacter_is_not_persisted(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = Reacter::query()->make();
         $reactant = factory(Reactant::class)->create();
 
         $isNotReacted = $reactant->isNotReactedByWithType($reacter, $reactionType);

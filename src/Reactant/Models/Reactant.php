@@ -23,7 +23,6 @@ use Cog\Laravel\Love\Reactant\ReactionCounter\Models\NullReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal;
-use Cog\Laravel\Love\Reacter\Models\NullReacter;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -97,7 +96,7 @@ final class Reactant extends Model implements ReactantContract
 
     public function isReactedBy(ReacterContract $reacter): bool
     {
-        if ($reacter instanceof NullReacter) {
+        if ($reacter->isNull()) {
             return false;
         }
 
@@ -113,7 +112,7 @@ final class Reactant extends Model implements ReactantContract
 
     public function isReactedByWithType(ReacterContract $reacter, ReactionTypeContract $reactionType): bool
     {
-        if ($reacter instanceof NullReacter) {
+        if ($reacter->isNull()) {
             return false;
         }
 
@@ -126,5 +125,10 @@ final class Reactant extends Model implements ReactantContract
     public function isNotReactedByWithType(ReacterContract $reacter, ReactionTypeContract $reactionType): bool
     {
         return !$this->isReactedByWithType($reacter, $reactionType);
+    }
+
+    public function isNull(): bool
+    {
+        return !$this->exists;
     }
 }

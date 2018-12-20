@@ -67,4 +67,9 @@ final class NullReacter implements ReacterContract
     {
         return true;
     }
+
+    public function isNull(): bool
+    {
+        return true;
+    }
 }

@@ -34,4 +34,6 @@ interface Reacter
     public function isReactedToWithType(Reactant $reactant, ReactionType $reactionType): bool;
 
     public function isNotReactedToWithType(Reactant $reactant, ReactionType $reactionType): bool;
+
+    public function isNull(): bool;
 }

@@ -20,7 +20,6 @@ use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
 use Cog\Contracts\Love\Reaction\Exceptions\ReactionAlreadyExists;
 use Cog\Contracts\Love\Reaction\Exceptions\ReactionNotExists;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
-use Cog\Laravel\Love\Reactant\Models\NullReactant;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -59,7 +58,7 @@ final class Reacter extends Model implements ReacterContract
         ReactantContract $reactant,
         ReactionTypeContract $reactionType
     ): void {
-        if ($reactant instanceof NullReactant) {
+        if ($reactant->isNull()) {
             throw ReactantInvalid::notExists();
         }
 
@@ -79,7 +78,7 @@ final class Reacter extends Model implements ReacterContract
         ReactantContract $reactant,
         ReactionTypeContract $reactionType
     ): void {
-        if ($reactant instanceof NullReactant) {
+        if ($reactant->isNull()) {
             throw ReactantInvalid::notExists();
         }
 
@@ -99,7 +98,7 @@ final class Reacter extends Model implements ReacterContract
 
     public function isReactedTo(ReactantContract $reactant): bool
     {
-        if ($reactant instanceof NullReactant) {
+        if ($reactant->isNull()) {
             return false;
         }
 
@@ -117,7 +116,7 @@ final class Reacter extends Model implements ReacterContract
         ReactantContract $reactant,
         ReactionTypeContract $reactionType
     ): bool {
-        if ($reactant instanceof NullReactant) {
+        if ($reactant->isNull()) {
             return false;
         }
 
@@ -132,5 +131,10 @@ final class Reacter extends Model implements ReacterContract
         ReactionTypeContract $reactionType
     ): bool {
         return !$this->isReactedToWithType($reactant, $reactionType);
+    }
+
+    public function isNull(): bool
+    {
+        return !$this->exists;
     }
 }
