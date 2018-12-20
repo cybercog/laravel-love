@@ -22,7 +22,6 @@ use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 
 final class ReactionCounterService
 {
-    /** @var \Cog\Laravel\Love\Reactant\Models\Reactant */
     private $reactant;
 
     public function __construct(ReactantContract $reactant)
@@ -101,7 +100,7 @@ final class ReactionCounterService
             throw ReactionCounterBadValue::countBelowZero();
         }
 
-        $counter->increment('count', $amount);
+        $counter->incrementCount($amount);
     }
 
     private function incrementOrDecrementWeightOfType(ReactionTypeContract $reactionType, int $amount = 1): void
@@ -114,7 +113,7 @@ final class ReactionCounterService
             throw ReactionCounterMissing::forReactantOfReactionType($this->reactant, $reactionType);
         }
 
-        $counter->increment('weight', $amount);
+        $counter->incrementWeight($amount);
     }
 
     private function createCounterOfType(ReactionTypeContract $reactionType): void

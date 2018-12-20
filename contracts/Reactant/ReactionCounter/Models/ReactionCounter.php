@@ -29,4 +29,8 @@ interface ReactionCounter
     public function getCount(): int;
 
     public function getWeight(): int;
+
+    public function incrementCount(int $amount): void;
+
+    public function incrementWeight(int $amount): void;
 }

@@ -126,13 +126,15 @@ final class ReactionCounterTest extends TestCase
     {
         $reactionType = factory(ReactionType::class)->create();
         $anotherReactionType = factory(ReactionType::class)->create();
-
         $counter = factory(ReactionCounter::class)->create([
             'reaction_type_id' => $reactionType->getId(),
         ]);
 
-        $this->assertTrue($counter->isReactionOfType($reactionType));
-        $this->assertFalse($counter->isReactionOfType($anotherReactionType));
+        $true = $counter->isReactionOfType($reactionType);
+        $false = $counter->isReactionOfType($anotherReactionType);
+
+        $this->assertTrue($true);
+        $this->assertFalse($false);
     }
 
     /** @test */
@@ -140,13 +142,15 @@ final class ReactionCounterTest extends TestCase
     {
         $reactionType = factory(ReactionType::class)->create();
         $anotherReactionType = factory(ReactionType::class)->create();
-
         $counter = factory(ReactionCounter::class)->create([
             'reaction_type_id' => $reactionType->getId(),
         ]);
 
-        $this->assertTrue($counter->isNotReactionOfType($anotherReactionType));
-        $this->assertFalse($counter->isNotReactionOfType($reactionType));
+        $true = $counter->isNotReactionOfType($anotherReactionType);
+        $false = $counter->isNotReactionOfType($reactionType);
+
+        $this->assertTrue($true);
+        $this->assertFalse($false);
     }
 
     /** @test */
@@ -183,5 +187,55 @@ final class ReactionCounterTest extends TestCase
         $counter = new ReactionCounter();
 
         $this->assertSame(0, $counter->getWeight());
+    }
+
+    /** @test */
+    public function it_can_increment_count(): void
+    {
+        $counter = factory(ReactionCounter::class)->create([
+            'count' => 0,
+        ]);
+
+        $counter->incrementCount(2);
+
+        $this->assertSame(2, $counter->getCount());
+    }
+
+    /** @test */
+    public function it_can_increment_count_many_times(): void
+    {
+        $counter = factory(ReactionCounter::class)->create([
+            'count' => 0,
+        ]);
+
+        $counter->incrementCount(2);
+        $counter->incrementCount(3);
+
+        $this->assertSame(5, $counter->getCount());
+    }
+
+    /** @test */
+    public function it_can_increment_weight(): void
+    {
+        $counter = factory(ReactionCounter::class)->create([
+            'weight' => 0,
+        ]);
+
+        $counter->incrementWeight(2);
+
+        $this->assertSame(2, $counter->getWeight());
+    }
+
+    /** @test */
+    public function it_can_increment_weight_many_times(): void
+    {
+        $counter = factory(ReactionCounter::class)->create([
+            'weight' => 0,
+        ]);
+
+        $counter->incrementWeight(2);
+        $counter->incrementWeight(3);
+
+        $this->assertSame(5, $counter->getWeight());
     }
 }

@@ -72,12 +72,12 @@ final class ReactionTotalService
             throw ReactionTotalBadValue::totalCountBelowZero();
         }
 
-        $this->reactionTotal->increment('count', $amount);
+        $this->reactionTotal->incrementCount($amount);
     }
 
     private function incrementOrDecrementTotalWeight(int $amount = 1): void
     {
-        $this->reactionTotal->increment('weight', $amount);
+        $this->reactionTotal->incrementWeight($amount);
     }
 
     private function findReactionTotalFor(ReactantContract $reactant): ReactionTotalContract

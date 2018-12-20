@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Reactant\ReactionTotal\Models;
 
+use Cog\Contracts\Love\Reactant\ReactionTotal\Exceptions\ReactionTotalInvalid;
 use Cog\Laravel\Love\Reactant\Models\NullReactant;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
@@ -26,8 +27,7 @@ class NullReactionTotalTest extends TestCase
     /** @test */
     public function it_can_get_count(): void
     {
-        $reactable = new Article();
-        $reactant = new NullReactant($reactable);
+        $reactant = new NullReactant(new Article());
         $total = new NullReactionTotal($reactant);
 
         $totalCount = $total->getCount();
@@ -38,8 +38,7 @@ class NullReactionTotalTest extends TestCase
     /** @test */
     public function it_can_get_weight(): void
     {
-        $reactable = new Article();
-        $reactant = new NullReactant($reactable);
+        $reactant = new NullReactant(new Article());
         $total = new NullReactionTotal($reactant);
 
         $totalWeight = $total->getWeight();
@@ -57,5 +56,25 @@ class NullReactionTotalTest extends TestCase
         $assertReactant = $total->getReactant();
 
         $this->assertSame($reactant, $assertReactant);
+    }
+
+    /** @test */
+    public function it_throws_exception_on_increment_count(): void
+    {
+        $this->expectException(ReactionTotalInvalid::class);
+
+        $total = new NullReactionTotal(new NullReactant(new Article()));
+
+        $total->incrementCount(2);
+    }
+
+    /** @test */
+    public function it_throws_exception_on_increment_weight(): void
+    {
+        $this->expectException(ReactionTotalInvalid::class);
+
+        $total = new NullReactionTotal(new NullReactant(new Article()));
+
+        $total->incrementWeight(2);
     }
 }

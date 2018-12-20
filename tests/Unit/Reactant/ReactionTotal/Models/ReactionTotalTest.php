@@ -121,4 +121,54 @@ final class ReactionTotalTest extends TestCase
 
         $this->assertSame(0, $total->getWeight());
     }
+
+    /** @test */
+    public function it_can_increment_count(): void
+    {
+        $total = factory(ReactionTotal::class)->create([
+            'count' => 0,
+        ]);
+
+        $total->incrementCount(2);
+
+        $this->assertSame(2, $total->getCount());
+    }
+
+    /** @test */
+    public function it_can_increment_count_many_times(): void
+    {
+        $total = factory(ReactionTotal::class)->create([
+            'count' => 0,
+        ]);
+
+        $total->incrementCount(2);
+        $total->incrementCount(3);
+
+        $this->assertSame(5, $total->getCount());
+    }
+
+    /** @test */
+    public function it_can_increment_weight(): void
+    {
+        $total = factory(ReactionTotal::class)->create([
+            'weight' => 0,
+        ]);
+
+        $total->incrementWeight(2);
+
+        $this->assertSame(2, $total->getWeight());
+    }
+
+    /** @test */
+    public function it_can_increment_weight_many_times(): void
+    {
+        $total = factory(ReactionTotal::class)->create([
+            'weight' => 0,
+        ]);
+
+        $total->incrementWeight(2);
+        $total->incrementWeight(3);
+
+        $this->assertSame(5, $total->getWeight());
+    }
 }

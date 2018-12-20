@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Cog\Laravel\Love\Reactant\ReactionCounter\Models;
 
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
+use Cog\Contracts\Love\Reactant\ReactionCounter\Exceptions\ReactionCounterInvalid;
 use Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter as ReactionCounterContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 
@@ -57,5 +58,15 @@ final class NullReactionCounter implements ReactionCounterContract
     public function getWeight(): int
     {
         return 0;
+    }
+
+    public function incrementCount(int $amount): void
+    {
+        throw ReactionCounterInvalid::notExists();
+    }
+
+    public function incrementWeight(int $amount): void
+    {
+        throw ReactionCounterInvalid::notExists();
     }
 }
