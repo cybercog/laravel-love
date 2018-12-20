@@ -13,6 +13,9 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Reaction\Models;
 
+use Cog\Contracts\Love\Reaction\Exceptions\ReactionHasNoReactant;
+use Cog\Contracts\Love\Reaction\Exceptions\ReactionHasNoReacter;
+use Cog\Contracts\Love\Reaction\Exceptions\ReactionHasNoType;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
@@ -97,6 +100,16 @@ final class ReactionTest extends TestCase
     }
 
     /** @test */
+    public function it_throw_exception_on_get_type_when_type_not_set(): void
+    {
+        $this->expectException(ReactionHasNoType::class);
+
+        $reaction = new Reaction();
+
+        $reaction->getType();
+    }
+
+    /** @test */
     public function it_can_get_reactant(): void
     {
         $reactionType = factory(ReactionType::class)->create();
@@ -113,6 +126,16 @@ final class ReactionTest extends TestCase
     }
 
     /** @test */
+    public function it_throw_exception_on_get_type_when_reactant_not_set(): void
+    {
+        $this->expectException(ReactionHasNoReactant::class);
+
+        $reaction = new Reaction();
+
+        $reaction->getReactant();
+    }
+
+    /** @test */
     public function it_can_get_reacter(): void
     {
         $reacter = factory(Reacter::class)->create();
@@ -124,6 +147,16 @@ final class ReactionTest extends TestCase
 
         $assertReacter = $reaction->getReacter();
         $this->assertTrue($assertReacter->is($reacter));
+    }
+
+    /** @test */
+    public function it_throw_exception_on_get_type_when_reacter_not_set(): void
+    {
+        $this->expectException(ReactionHasNoReacter::class);
+
+        $reaction = new Reaction();
+
+        $reaction->getReacter();
     }
 
     /** @test */

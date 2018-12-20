@@ -15,6 +15,9 @@ namespace Cog\Laravel\Love\Reaction\Models;
 
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
+use Cog\Contracts\Love\Reaction\Exceptions\ReactionHasNoReactant;
+use Cog\Contracts\Love\Reaction\Exceptions\ReactionHasNoReacter;
+use Cog\Contracts\Love\Reaction\Exceptions\ReactionHasNoType;
 use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
@@ -59,20 +62,32 @@ final class Reaction extends Model implements ReactionContract
 
     public function getType(): ReactionTypeContract
     {
-        // TODO: Throw exception `ReactionTypeNotFound`
-        return $this->getAttribute('type');
+        $type = $this->getAttribute('type');
+        if (is_null($type)) {
+            throw new ReactionHasNoType();
+        }
+
+        return $type;
     }
 
     public function getReactant(): ReactantContract
     {
-        // TODO: Throw exception `ReactantNotFound`
-        return $this->getAttribute('reactant');
+        $reactant = $this->getAttribute('reactant');
+        if (is_null($reactant)) {
+            throw new ReactionHasNoReactant();
+        }
+
+        return $reactant;
     }
 
     public function getReacter(): ReacterContract
     {
-        // TODO: Throw exception `ReacterNotFound`
-        return $this->getAttribute('reacter');
+        $reacter = $this->getAttribute('reacter');
+        if (is_null($reacter)) {
+            throw new ReactionHasNoReacter();
+        }
+
+        return $reacter;
     }
 
     public function getWeight(): int

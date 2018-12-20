@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Cog\Tests\Laravel\Love\Unit\Reacter\Models;
 
 use Cog\Contracts\Love\Reactant\Exceptions\ReactantInvalid;
+use Cog\Contracts\Love\Reacter\Exceptions\NotAssignedToReacterable;
 use Cog\Contracts\Love\Reaction\Exceptions\ReactionAlreadyExists;
 use Cog\Contracts\Love\Reaction\Exceptions\ReactionNotExists;
 use Cog\Laravel\Love\Reactant\Models\NullReactant;
@@ -93,6 +94,18 @@ final class ReacterTest extends TestCase
         ]);
 
         $this->assertTrue($reacter->getReacterable()->is($reacterable));
+    }
+
+    /** @test */
+    public function it_can_throw_exception_on_get_reacterable_when_not_assigned_to_any_reacterable(): void
+    {
+        $this->expectException(NotAssignedToReacterable::class);
+
+        $reacter = factory(Reacter::class)->create([
+            'type' => (new User())->getMorphClass(),
+        ]);
+
+        $reacter->getReacterable();
     }
 
     /** @test */

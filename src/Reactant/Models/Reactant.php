@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Cog\Laravel\Love\Reactant\Models;
 
 use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
+use Cog\Contracts\Love\Reactant\Exceptions\NotAssignedToReactable;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter as ReactionCounterContract;
 use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalContract;
@@ -59,8 +60,12 @@ final class Reactant extends Model implements ReactantContract
 
     public function getReactable(): ReactableContract
     {
-        // TODO: Throw exception `NotAssignedToReactable`
-        return $this->getAttribute('reactable');
+        $reactable = $this->getAttribute('reactable');
+        if (is_null($reactable)) {
+            throw new NotAssignedToReactable();
+        }
+
+        return $reactable;
     }
 
     public function getReactions(): iterable

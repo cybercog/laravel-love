@@ -15,6 +15,7 @@ namespace Cog\Laravel\Love\Reacter\Models;
 
 use Cog\Contracts\Love\Reactant\Exceptions\ReactantInvalid;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
+use Cog\Contracts\Love\Reacter\Exceptions\NotAssignedToReacterable;
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
 use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
 use Cog\Contracts\Love\Reaction\Exceptions\ReactionAlreadyExists;
@@ -45,8 +46,12 @@ final class Reacter extends Model implements ReacterContract
 
     public function getReacterable(): ReacterableContract
     {
-        // TODO: Throw exception `NotAssignedToReacterable`
-        return $this->getAttribute('reacterable');
+        $reacterable = $this->getAttribute('reacterable');
+        if (is_null($reacterable)) {
+            throw new NotAssignedToReacterable();
+        }
+
+        return $reacterable;
     }
 
     public function getReactions(): iterable

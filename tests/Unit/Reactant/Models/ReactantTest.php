@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Reactant\Models;
 
+use Cog\Contracts\Love\Reactant\Exceptions\NotAssignedToReactable;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\NullReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
@@ -139,6 +140,18 @@ final class ReactantTest extends TestCase
         ]);
 
         $this->assertTrue($reactant->getReactable()->is($reactable));
+    }
+
+    /** @test */
+    public function it_can_throw_exception_on_get_reacterable_when_not_assigned_to_any_reactable(): void
+    {
+        $this->expectException(NotAssignedToReactable::class);
+
+        $reactant = factory(Reactant::class)->create([
+            'type' => (new Article())->getMorphClass(),
+        ]);
+
+        $reactant->getReactable();
     }
 
     /** @test */
