@@ -121,7 +121,7 @@ final class ReactionTest extends TestCase
     }
 
     /** @test */
-    public function it_throw_exception_on_get_type_when_type_not_set(): void
+    public function it_throws_exception_on_get_type_when_type_is_null(): void
     {
         $this->expectException(ReactionHasNoType::class);
 
@@ -147,7 +147,7 @@ final class ReactionTest extends TestCase
     }
 
     /** @test */
-    public function it_throw_exception_on_get_type_when_reactant_not_set(): void
+    public function it_throws_exception_on_get_type_when_reactant_is_null(): void
     {
         $this->expectException(ReactionHasNoReactant::class);
 
@@ -171,7 +171,7 @@ final class ReactionTest extends TestCase
     }
 
     /** @test */
-    public function it_throw_exception_on_get_type_when_reacter_not_set(): void
+    public function it_throws_exception_on_get_type_when_reacter_is_null(): void
     {
         $this->expectException(ReactionHasNoReacter::class);
 

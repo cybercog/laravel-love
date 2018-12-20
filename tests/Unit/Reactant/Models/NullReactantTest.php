@@ -28,7 +28,7 @@ final class NullReactantTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function it_throws_exception_on_get_reacterable()
+    public function it_throws_exception_on_get_reacterable_when_reacterable_is_null()
     {
         $this->expectException(ReactantInvalid::class);
 
@@ -173,7 +173,7 @@ final class NullReactantTest extends TestCase
     }
 
     /** @test */
-    public function it_throw_exception_on_create_reaction_counter_of_type(): void
+    public function it_throws_exception_on_create_reaction_counter_of_type(): void
     {
         $this->expectException(ReactantInvalid::class);
 
@@ -184,7 +184,7 @@ final class NullReactantTest extends TestCase
     }
 
     /** @test */
-    public function it_throw_exception_on_create_reaction_total(): void
+    public function it_throws_exception_on_create_reaction_total(): void
     {
         $this->expectException(ReactantInvalid::class);
 

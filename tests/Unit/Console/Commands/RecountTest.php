@@ -444,7 +444,7 @@ final class RecountTest extends TestCase
     }
 
     /** @test */
-    public function it_throw_model_invalid_exception_on_not_exist_morph_map(): void
+    public function it_throws_model_invalid_exception_on_not_exist_morph_map(): void
     {
         $this->expectException(ReactableInvalid::class);
 
@@ -456,7 +456,7 @@ final class RecountTest extends TestCase
     }
 
     /** @test */
-    public function it_throw_model_invalid_exception_if_class_not_implemented_reactable_interface(): void
+    public function it_throws_model_invalid_exception_if_class_not_implemented_reactable_interface(): void
     {
         $this->expectException(ReactableInvalid::class);
 

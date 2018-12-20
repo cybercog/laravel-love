@@ -73,7 +73,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_throw_invalid_reaction_type_exception_on_check_is_reaction_of_type_name_when_type_name_in_unknown(): void
+    public function it_throws_invalid_reaction_type_exception_on_check_is_reaction_of_type_name_when_type_name_in_unknown(): void
     {
         $this->expectException(ReactionTypeInvalid::class);
 
@@ -83,7 +83,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_throw_invalid_reaction_type_exception_on_check_is_reaction_not_of_type_name_when_type_name_in_unknown(): void
+    public function it_throws_invalid_reaction_type_exception_on_check_is_reaction_not_of_type_name_when_type_name_in_unknown(): void
     {
         $this->expectException(ReactionTypeInvalid::class);
 
@@ -517,7 +517,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_throw_reaction_type_invalid_exception_on_is_reacterable_reacted_to_reactable_with_type_name_when_type_unknown(): void
+    public function it_throws_reaction_type_invalid_exception_on_is_reacterable_reacted_to_reactable_with_type_name_when_type_unknown(): void
     {
         $this->expectException(ReactionTypeInvalid::class);
 
@@ -532,7 +532,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_throw_reaction_type_invalid_exception_on_is_reacterable_not_reacted_to_reactable_with_type_name_when_type_unknown(): void
+    public function it_throws_reaction_type_invalid_exception_on_is_reacterable_not_reacted_to_reactable_with_type_name_when_type_unknown(): void
     {
         $this->expectException(ReactionTypeInvalid::class);
 
@@ -971,7 +971,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_throw_reaction_type_invalid_exception_on_is_reactable_reacted_by_reacterable_with_type_name_when_type_unknown(): void
+    public function it_throws_reaction_type_invalid_exception_on_is_reactable_reacted_by_reacterable_with_type_name_when_type_unknown(): void
     {
         $this->expectException(ReactionTypeInvalid::class);
 
@@ -986,7 +986,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_throw_reaction_type_invalid_exception_on_is_reactable_not_reacted_by_reacterable_with_type_name_when_type_unknown(): void
+    public function it_throws_reaction_type_invalid_exception_on_is_reactable_not_reacted_by_reacterable_with_type_name_when_type_unknown(): void
     {
         $this->expectException(ReactionTypeInvalid::class);
 
@@ -1059,7 +1059,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_throw_exception_on_invalid_reaction_type_in_get_reactable_reactions_count_for_type_name(): void
+    public function it_throws_exception_on_invalid_reaction_type_in_get_reactable_reactions_count_for_type_name(): void
     {
         $this->expectException(ReactionTypeInvalid::class);
 
@@ -1137,7 +1137,7 @@ final class LoveTest extends TestCase
     }
 
     /** @test */
-    public function it_throw_exception_on_invalid_reaction_type_in_get_reactable_reactions_weight_for_type_name(): void
+    public function it_throws_exception_on_invalid_reaction_type_in_get_reactable_reactions_weight_for_type_name(): void
     {
         $this->expectException(ReactionTypeInvalid::class);
 
