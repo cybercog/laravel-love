@@ -19,6 +19,7 @@ use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter as ReactionCounterContract;
 use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalContract;
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
+use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\NullReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
@@ -117,6 +118,14 @@ final class Reactant extends Model implements ReactantContract
             return false;
         }
 
+        if ($this->relationLoaded('reactions')) {
+            return $this
+                ->getAttribute('reactions')
+                ->contains(function (ReactionContract $reaction) use ($reacter) {
+                    return $reaction->getReacter()->getId() === $reacter->getId();
+                });
+        }
+
         return $this->reactions()->where([
             'reacter_id' => $reacter->getId(),
         ])->exists();
@@ -133,6 +142,15 @@ final class Reactant extends Model implements ReactantContract
     ): bool {
         if ($reacter->isNull()) {
             return false;
+        }
+
+        if ($this->relationLoaded('reactions')) {
+            return $this
+                ->getAttribute('reactions')
+                ->contains(function (ReactionContract $reaction) use ($reacter, $reactionType) {
+                    return $reaction->getReacter()->getId() === $reacter->getId()
+                        && $reaction->isOfType($reactionType);
+                });
         }
 
         return $this->reactions()->where([
