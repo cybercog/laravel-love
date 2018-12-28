@@ -23,6 +23,9 @@ interface Reacter
 
     public function getReacterable(): Reacterable;
 
+    /**
+     * @return iterable|\Cog\Contracts\Love\Reaction\Models\Reaction[]
+     */
     public function getReactions(): iterable;
 
     public function reactTo(Reactant $reactant, ReactionType $type): void;
