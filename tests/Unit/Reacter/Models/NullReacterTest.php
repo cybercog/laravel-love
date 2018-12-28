@@ -139,6 +139,15 @@ final class NullReacterTest extends TestCase
     }
 
     /** @test */
+    public function it_can_check_is_equal_to_not_null_object_reacter_and_not_persisted(): void
+    {
+        $nullReacter = new NullReacter(new User());
+        $reacter = new Reacter();
+
+        $this->assertFalse($nullReacter->isEqualTo($reacter));
+    }
+
+    /** @test */
     public function it_can_check_is_not_equal_to_self(): void
     {
         $nullReacter = new NullReacter(new User());
@@ -160,6 +169,15 @@ final class NullReacterTest extends TestCase
     {
         $nullReacter = new NullReacter(new User());
         $reacter = factory(Reacter::class)->create();
+
+        $this->assertTrue($nullReacter->isNotEqualTo($reacter));
+    }
+
+    /** @test */
+    public function it_can_check_is_not_equal_to_not_null_object_reacter_and_not_persisted(): void
+    {
+        $nullReacter = new NullReacter(new User());
+        $reacter = new Reacter();
 
         $this->assertTrue($nullReacter->isNotEqualTo($reacter));
     }

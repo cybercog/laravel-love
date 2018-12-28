@@ -331,6 +331,15 @@ final class ReactantTest extends TestCase
     }
 
     /** @test */
+    public function it_can_check_is_equal_to_null_object_reactant_when_not_null_object_not_persisted(): void
+    {
+        $reactant = new Reactant();
+        $nullReactant = new NullReactant(new Article());
+
+        $this->assertFalse($reactant->isEqualTo($nullReactant));
+    }
+
+    /** @test */
     public function it_can_check_is_not_equal_to_self(): void
     {
         $reactant = factory(Reactant::class)->create();
@@ -351,6 +360,15 @@ final class ReactantTest extends TestCase
     public function it_can_check_is_not_equal_to_null_object_reactant(): void
     {
         $reactant = factory(Reactant::class)->create();
+        $nullReactant = new NullReactant(new Article());
+
+        $this->assertTrue($reactant->isNotEqualTo($nullReactant));
+    }
+
+    /** @test */
+    public function it_can_check_is_not_equal_to_null_object_reactant_when_not_null_object_not_persisted(): void
+    {
+        $reactant = new Reactant();
         $nullReactant = new NullReactant(new Article());
 
         $this->assertTrue($reactant->isNotEqualTo($nullReactant));
