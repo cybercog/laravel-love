@@ -70,7 +70,7 @@ final class NullReacterTest extends TestCase
         $reactionType = factory(ReactionType::class)->create();
         $reacter = new NullReacter(new Bot());
         $reactable = factory(Article::class)->create();
-        $reactant = $reactable->reactant;
+        $reactant = $reactable->loveReactant;
 
         $reacter->reactTo($reactant, $reactionType);
     }
@@ -95,7 +95,7 @@ final class NullReacterTest extends TestCase
         $reactionType = factory(ReactionType::class)->create();
         $reacter = new NullReacter(new Bot());
         $reactable = factory(Article::class)->create();
-        $reactant = $reactable->reactant;
+        $reactant = $reactable->loveReactant;
 
         $reacter->unreactTo($reactant, $reactionType);
     }

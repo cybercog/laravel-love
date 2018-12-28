@@ -25,7 +25,7 @@ final class ReacterableTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function it_can_belong_to_reacter(): void
+    public function it_can_belong_to_love_reacter(): void
     {
         $reacter = factory(Reacter::class)->create([
             'type' => (new User())->getMorphClass(),
@@ -35,11 +35,11 @@ final class ReacterableTest extends TestCase
             'love_reacter_id' => $reacter->getId(),
         ]);
 
-        $this->assertTrue($reacterable->reacter->is($reacter));
+        $this->assertTrue($reacterable->loveReacter->is($reacter));
     }
 
     /** @test */
-    public function it_can_get_reacter(): void
+    public function it_can_get_love_reacter(): void
     {
         $reacter = factory(Reacter::class)->create([
             'type' => (new User())->getMorphClass(),
@@ -49,7 +49,7 @@ final class ReacterableTest extends TestCase
             'love_reacter_id' => $reacter->getId(),
         ]);
 
-        $this->assertTrue($reacterable->getReacter()->is($reacter));
+        $this->assertTrue($reacterable->getLoveReacter()->is($reacter));
     }
 
     /** @test */
@@ -57,7 +57,7 @@ final class ReacterableTest extends TestCase
     {
         $reacterable = new User();
 
-        $reacter = $reacterable->getReacter();
+        $reacter = $reacterable->getLoveReacter();
 
         $this->assertInstanceOf(NullReacter::class, $reacter);
     }
@@ -70,8 +70,8 @@ final class ReacterableTest extends TestCase
         ]);
         $reacterable->save();
 
-        $this->assertTrue($reacterable->isRegisteredAsReacter());
-        $this->assertInstanceOf(Reacter::class, $reacterable->getReacter());
+        $this->assertTrue($reacterable->isRegisteredAsLoveReacter());
+        $this->assertInstanceOf(Reacter::class, $reacterable->getLoveReacter());
     }
 
     /** @test */
@@ -87,12 +87,12 @@ final class ReacterableTest extends TestCase
         $reacterable->save();
 
         $this->assertSame(1, Reacter::query()->count());
-        $this->assertTrue($reacterable->isRegisteredAsReacter());
-        $this->assertInstanceOf(Reacter::class, $reacterable->getReacter());
+        $this->assertTrue($reacterable->isRegisteredAsLoveReacter());
+        $this->assertInstanceOf(Reacter::class, $reacterable->getLoveReacter());
     }
 
     /** @test */
-    public function it_can_determine_if_registered_as_reacter(): void
+    public function it_can_determine_if_registered_as_love_reacter(): void
     {
         $reacter = factory(Reacter::class)->create([
             'type' => (new User())->getMorphClass(),
@@ -102,12 +102,12 @@ final class ReacterableTest extends TestCase
             'love_reacter_id' => $reacter->getId(),
         ]);
 
-        $this->assertTrue($registeredReacterable->isRegisteredAsReacter());
-        $this->assertFalse($notRegisteredReacterable->isRegisteredAsReacter());
+        $this->assertTrue($registeredReacterable->isRegisteredAsLoveReacter());
+        $this->assertFalse($notRegisteredReacterable->isRegisteredAsLoveReacter());
     }
 
     /** @test */
-    public function it_can_determine_if_not_registered_as_reacter(): void
+    public function it_can_determine_if_not_registered_as_love_reacter(): void
     {
         $reacter = factory(Reacter::class)->create([
             'type' => (new User())->getMorphClass(),
@@ -117,7 +117,7 @@ final class ReacterableTest extends TestCase
             'love_reacter_id' => $reacter->getId(),
         ]);
 
-        $this->assertFalse($registeredReacterable->isNotRegisteredAsReacter());
-        $this->assertTrue($notRegisteredReacterable->isNotRegisteredAsReacter());
+        $this->assertFalse($registeredReacterable->isNotRegisteredAsLoveReacter());
+        $this->assertTrue($notRegisteredReacterable->isNotRegisteredAsLoveReacter());
     }
 }

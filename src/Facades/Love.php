@@ -44,9 +44,9 @@ final class Love
         }
 
         return $reacterable
-            ->getReacter()
+            ->getLoveReacter()
             ->isReactedToWithType(
-                $reactable->getReactant(),
+                $reactable->getLoveReactant(),
                 ReactionType::fromName($typeName)
             );
     }
@@ -72,8 +72,8 @@ final class Love
         }
 
         return $reacterable
-            ->getReacter()
-            ->isReactedTo($reactable->getReactant());
+            ->getLoveReacter()
+            ->isReactedTo($reactable->getLoveReactant());
     }
 
     public static function isReacterableNotReactedTo(
@@ -93,9 +93,9 @@ final class Love
         }
 
         return $reactable
-            ->getReactant()
+            ->getLoveReactant()
             ->isReactedByWithType(
-                $reacterable->getReacter(),
+                $reacterable->getLoveReacter(),
                 ReactionType::fromName($typeName)
             );
     }
@@ -121,8 +121,8 @@ final class Love
         }
 
         return $reactable
-            ->getReactant()
-            ->isReactedBy($reacterable->getReacter());
+            ->getLoveReactant()
+            ->isReactedBy($reacterable->getLoveReacter());
     }
 
     public static function isReactableNotReactedBy(
@@ -137,7 +137,7 @@ final class Love
         string $typeName
     ): int {
         return $reactable
-            ->getReactant()
+            ->getLoveReactant()
             ->getReactionCounterOfType(ReactionType::fromName($typeName))
             ->getCount();
     }
@@ -147,7 +147,7 @@ final class Love
         string $typeName
     ): int {
         return $reactable
-            ->getReactant()
+            ->getLoveReactant()
             ->getReactionCounterOfType(ReactionType::fromName($typeName))
             ->getWeight();
     }
@@ -156,7 +156,7 @@ final class Love
         ReactableContract $reactable
     ): int {
         return $reactable
-            ->getReactant()
+            ->getLoveReactant()
             ->getReactionTotal()
             ->getCount();
     }
@@ -165,7 +165,7 @@ final class Love
         ReactableContract $reactable
     ): int {
         return $reactable
-            ->getReactant()
+            ->getLoveReactant()
             ->getReactionTotal()
             ->getWeight();
     }

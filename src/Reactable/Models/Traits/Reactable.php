@@ -33,7 +33,7 @@ trait Reactable
     protected static function bootReactable(): void
     {
         static::creating(function (ReactableContract $reactable) {
-            if ($reactable->isNotRegisteredAsReactant()) {
+            if ($reactable->isNotRegisteredAsLoveReactant()) {
                 $reactant = Reactant::query()->create([
                     'type' => $reactable->getMorphClass(),
                 ]);
@@ -43,29 +43,29 @@ trait Reactable
         });
     }
 
-    public function reactant(): BelongsTo
+    public function loveReactant(): BelongsTo
     {
         return $this->belongsTo(Reactant::class, 'love_reactant_id');
     }
 
-    public function getReactant(): ReactantContract
+    public function getLoveReactant(): ReactantContract
     {
-        return $this->getAttribute('reactant') ?? new NullReactant($this);
+        return $this->getAttribute('loveReactant') ?? new NullReactant($this);
     }
 
-    public function isRegisteredAsReactant(): bool
+    public function isRegisteredAsLoveReactant(): bool
     {
-        return !$this->isNotRegisteredAsReactant();
+        return !$this->isNotRegisteredAsLoveReactant();
     }
 
-    public function isNotRegisteredAsReactant(): bool
+    public function isNotRegisteredAsLoveReactant(): bool
     {
         return is_null($this->getAttributeValue('love_reactant_id'));
     }
 
     public function scopeWhereReactedBy(Builder $query, ReacterContract $reacter): Builder
     {
-        return $query->whereHas('reactant.reactions', function (Builder $reactionsQuery) use ($reacter) {
+        return $query->whereHas('loveReactant.reactions', function (Builder $reactionsQuery) use ($reacter) {
             $reactionsQuery->where('reacter_id', $reacter->getId());
         });
     }
@@ -75,7 +75,7 @@ trait Reactable
         ReacterContract $reacter,
         ReactionTypeContract $reactionType
     ): Builder {
-        return $query->whereHas('reactant.reactions', function (Builder $reactionsQuery) use ($reacter, $reactionType) {
+        return $query->whereHas('loveReactant.reactions', function (Builder $reactionsQuery) use ($reacter, $reactionType) {
             $reactionsQuery->where('reacter_id', $reacter->getId());
             $reactionsQuery->where('reaction_type_id', $reactionType->getId());
         });

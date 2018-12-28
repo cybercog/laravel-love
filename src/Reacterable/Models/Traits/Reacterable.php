@@ -27,7 +27,7 @@ trait Reacterable
     protected static function bootReacterable(): void
     {
         static::creating(function (ReacterableContract $reacterable) {
-            if ($reacterable->isNotRegisteredAsReacter()) {
+            if ($reacterable->isNotRegisteredAsLoveReacter()) {
                 $reacter = Reacter::query()->create([
                     'type' => $reacterable->getMorphClass(),
                 ]);
@@ -37,23 +37,23 @@ trait Reacterable
         });
     }
 
-    public function reacter(): BelongsTo
+    public function loveReacter(): BelongsTo
     {
         return $this->belongsTo(Reacter::class, 'love_reacter_id');
     }
 
-    public function getReacter(): ReacterContract
+    public function getLoveReacter(): ReacterContract
     {
-        return $this->getAttribute('reacter') ?? new NullReacter($this);
+        return $this->getAttribute('loveReacter') ?? new NullReacter($this);
     }
 
-    public function isRegisteredAsReacter(): bool
+    public function isRegisteredAsLoveReacter(): bool
     {
-        return !$this->isNotRegisteredAsReacter();
+        return !$this->isNotRegisteredAsLoveReacter();
     }
 
-    public function isNotRegisteredAsReacter(): bool
+    public function isNotRegisteredAsLoveReacter(): bool
     {
-        return is_null($this->getAttribute('love_reacter_id'));
+        return is_null($this->getAttributeValue('love_reacter_id'));
     }
 }

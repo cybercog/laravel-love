@@ -50,9 +50,9 @@ final class RecountTest extends TestCase
         $reacter2 = factory(Reacter::class)->create();
         $reacter3 = factory(Reacter::class)->create();
         $reacter4 = factory(Reacter::class)->create();
-        $entity1 = factory(Entity::class)->create()->reactant;
-        $entity2 = factory(EntityWithMorphMap::class)->create()->reactant;
-        $entity3 = factory(Article::class)->create()->reactant;
+        $entity1 = factory(Entity::class)->create()->getLoveReactant();
+        $entity2 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
+        $entity3 = factory(Article::class)->create()->getLoveReactant();
 
         $reacter1->reactTo($entity1, $like);
         $reacter1->reactTo($entity2, $like);
@@ -96,9 +96,9 @@ final class RecountTest extends TestCase
         $reacter2 = factory(Reacter::class)->create();
         $reacter3 = factory(Reacter::class)->create();
         $reacter4 = factory(Reacter::class)->create();
-        $entity1 = factory(Entity::class)->create()->reactant;
-        $entity2 = factory(EntityWithMorphMap::class)->create()->reactant;
-        $entity3 = factory(Article::class)->create()->reactant;
+        $entity1 = factory(Entity::class)->create()->getLoveReactant();
+        $entity2 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
+        $entity3 = factory(Article::class)->create()->getLoveReactant();
 
         $reacter1->reactTo($entity1, $like);
         $reacter1->reactTo($entity2, $like);
@@ -140,9 +140,9 @@ final class RecountTest extends TestCase
         $reacter2 = factory(Reacter::class)->create();
         $reacter3 = factory(Reacter::class)->create();
         $reacter4 = factory(Reacter::class)->create();
-        $entity1 = factory(Entity::class)->create()->reactant;
-        $entity2 = factory(EntityWithMorphMap::class)->create()->reactant;
-        $entity3 = factory(Entity::class)->create()->reactant;
+        $entity1 = factory(Entity::class)->create()->getLoveReactant();
+        $entity2 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
+        $entity3 = factory(Entity::class)->create()->getLoveReactant();
 
         $reacter1->reactTo($entity1, $like);
         $reacter1->reactTo($entity2, $like);
@@ -185,9 +185,9 @@ final class RecountTest extends TestCase
         $reacter2 = factory(Reacter::class)->create();
         $reacter3 = factory(Reacter::class)->create();
         $reacter4 = factory(Reacter::class)->create();
-        $entity1 = factory(EntityWithMorphMap::class)->create()->reactant;
-        $entity2 = factory(Entity::class)->create()->reactant;
-        $entity3 = factory(EntityWithMorphMap::class)->create()->reactant;
+        $entity1 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
+        $entity2 = factory(Entity::class)->create()->getLoveReactant();
+        $entity3 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
 
         $reacter1->reactTo($entity1, $like);
         $reacter1->reactTo($entity2, $like);
@@ -231,9 +231,9 @@ final class RecountTest extends TestCase
         $reacter2 = factory(Reacter::class)->create();
         $reacter3 = factory(Reacter::class)->create();
         $reacter4 = factory(Reacter::class)->create();
-        $entity1 = factory(EntityWithMorphMap::class)->create()->reactant;
-        $entity2 = factory(Entity::class)->create()->reactant;
-        $entity3 = factory(EntityWithMorphMap::class)->create()->reactant;
+        $entity1 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
+        $entity2 = factory(Entity::class)->create()->getLoveReactant();
+        $entity3 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
 
         $reacter1->reactTo($entity1, $like);
         $reacter1->reactTo($entity2, $like);
@@ -276,9 +276,9 @@ final class RecountTest extends TestCase
         $reacter2 = factory(Reacter::class)->create();
         $reacter3 = factory(Reacter::class)->create();
         $reacter4 = factory(Reacter::class)->create();
-        $entity1 = factory(Entity::class)->create()->reactant;
-        $entity2 = factory(EntityWithMorphMap::class)->create()->reactant;
-        $entity3 = factory(Article::class)->create()->reactant;
+        $entity1 = factory(Entity::class)->create()->getLoveReactant();
+        $entity2 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
+        $entity3 = factory(Article::class)->create()->getLoveReactant();
 
         $reacter1->reactTo($entity1, $like);
         $reacter1->reactTo($entity2, $like);
@@ -320,9 +320,9 @@ final class RecountTest extends TestCase
         $reacter2 = factory(Reacter::class)->create();
         $reacter3 = factory(Reacter::class)->create();
         $reacter4 = factory(Reacter::class)->create();
-        $entity1 = factory(Entity::class)->create()->reactant;
-        $entity2 = factory(EntityWithMorphMap::class)->create()->reactant;
-        $entity3 = factory(Entity::class)->create()->reactant;
+        $entity1 = factory(Entity::class)->create()->getLoveReactant();
+        $entity2 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
+        $entity3 = factory(Entity::class)->create()->getLoveReactant();
 
         $reacter1->reactTo($entity1, $like);
         $reacter1->reactTo($entity2, $like);
@@ -366,9 +366,9 @@ final class RecountTest extends TestCase
         $reacter2 = factory(Reacter::class)->create();
         $reacter3 = factory(Reacter::class)->create();
         $reacter4 = factory(Reacter::class)->create();
-        $entity1 = factory(EntityWithMorphMap::class)->create()->reactant;
-        $entity2 = factory(Entity::class)->create()->reactant;
-        $entity3 = factory(EntityWithMorphMap::class)->create()->reactant;
+        $entity1 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
+        $entity2 = factory(Entity::class)->create()->getLoveReactant();
+        $entity3 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
 
         $reacter1->reactTo($entity1, $like);
         $reacter1->reactTo($entity2, $like);
@@ -411,9 +411,9 @@ final class RecountTest extends TestCase
         $reacter2 = factory(Reacter::class)->create();
         $reacter3 = factory(Reacter::class)->create();
         $reacter4 = factory(Reacter::class)->create();
-        $entity1 = factory(EntityWithMorphMap::class)->create()->reactant;
-        $entity2 = factory(Entity::class)->create()->reactant;
-        $entity3 = factory(EntityWithMorphMap::class)->create()->reactant;
+        $entity1 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
+        $entity2 = factory(Entity::class)->create()->getLoveReactant();
+        $entity3 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
 
         $reacter1->reactTo($entity1, $like);
         $reacter1->reactTo($entity2, $like);

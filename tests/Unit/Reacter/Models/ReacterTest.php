@@ -160,7 +160,7 @@ final class ReacterTest extends TestCase
         $reactionType = factory(ReactionType::class)->create();
         $reacter = factory(Reacter::class)->create();
         $reactable = factory(Article::class)->create();
-        $reactant = $reactable->reactant;
+        $reactant = $reactable->loveReactant;
 
         $reacter->reactTo($reactant, $reactionType);
 
@@ -175,7 +175,7 @@ final class ReacterTest extends TestCase
         $reactionType = factory(ReactionType::class)->create();
         $reacter = factory(Reacter::class)->create();
         $reactable = factory(User::class)->create();
-        $reactant = $reactable->reactant;
+        $reactant = $reactable->loveReactant;
 
         $reacter->reactTo($reactant, $reactionType);
 
