@@ -58,7 +58,7 @@ final class NullReactantTest extends TestCase
         $reactions = $reactant->getReactions();
 
         $this->assertCount(0, $reactions);
-        $this->assertInternalType('iterable', $reactions);
+        $this->assertIsIterable($reactions);
     }
 
     /** @test */
@@ -69,7 +69,7 @@ final class NullReactantTest extends TestCase
         $counters = $reactant->getReactionCounters();
 
         $this->assertCount(0, $counters);
-        $this->assertInternalType('iterable', $counters);
+        $this->assertIsIterable($counters);
     }
 
     /** @test */
