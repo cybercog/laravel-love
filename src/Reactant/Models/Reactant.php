@@ -66,7 +66,7 @@ final class Reactant extends Model implements ReactantContract
 
     public function getId(): string
     {
-        $id = $this->getAttribute('id');
+        $id = $this->getAttributeValue('id');
 
         if (is_null($id)) {
             throw new TypeError();
@@ -117,6 +117,18 @@ final class Reactant extends Model implements ReactantContract
     {
         return $this->getAttribute('reactionTotal')
             ?? new NullReactionTotal($this);
+    }
+
+    public function isEqualTo(
+        ReactantContract $reactant
+    ): bool {
+        return $reactant->isNotNull() && $this->getId() === $reactant->getId();
+    }
+
+    public function isNotEqualTo(
+        ReactantContract $reactant
+    ): bool {
+        return !$this->isEqualTo($reactant);
     }
 
     public function isReactedBy(ReacterContract $reacter): bool
@@ -179,6 +191,11 @@ final class Reactant extends Model implements ReactantContract
     public function isNull(): bool
     {
         return !$this->exists;
+    }
+
+    public function isNotNull(): bool
+    {
+        return $this->exists;
     }
 
     public function createReactionCounterOfType(

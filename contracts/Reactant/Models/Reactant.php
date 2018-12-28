@@ -41,6 +41,14 @@ interface Reactant
 
     public function getReactionTotal(): ReactionTotal;
 
+    public function isEqualTo(
+        self $reactant
+    ): bool;
+
+    public function isNotEqualTo(
+        self $reactant
+    ): bool;
+
     public function isReactedBy(
         Reacter $reacter
     ): bool;
@@ -60,6 +68,8 @@ interface Reactant
     ): bool;
 
     public function isNull(): bool;
+
+    public function isNotNull(): bool;
 
     public function createReactionCounterOfType(
         ReactionType $reactionType

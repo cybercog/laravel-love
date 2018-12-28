@@ -44,38 +44,65 @@ final class NullReacter implements ReacterContract
         return [];
     }
 
-    public function reactTo(Reactant $reactant, ReactionType $reactionType): void
-    {
+    public function reactTo(
+        Reactant $reactant,
+        ReactionType $reactionType
+    ): void {
         throw ReacterInvalid::notExists();
     }
 
-    public function unreactTo(Reactant $reactant, ReactionType $reactionType): void
-    {
+    public function unreactTo(
+        Reactant $reactant,
+        ReactionType $reactionType
+    ): void {
         throw ReacterInvalid::notExists();
     }
 
-    public function isReactedTo(Reactant $reactant): bool
-    {
+    public function isEqualTo(
+        ReacterContract $reacter
+    ): bool {
+        return $reacter instanceof self;
+    }
+
+    public function isNotEqualTo(
+        ReacterContract $reacter
+    ): bool {
+        return !$this->isEqualTo($reacter);
+    }
+
+    public function isReactedTo(
+        Reactant $reactant
+    ): bool {
         return false;
     }
 
-    public function isNotReactedTo(Reactant $reactant): bool
-    {
+    public function isNotReactedTo(
+        Reactant $reactant
+    ): bool {
         return true;
     }
 
-    public function isReactedToWithType(Reactant $reactant, ReactionType $reactionType): bool
-    {
+    public function isReactedToWithType(
+        Reactant $reactant,
+        ReactionType $reactionType
+    ): bool {
         return false;
     }
 
-    public function isNotReactedToWithType(Reactant $reactant, ReactionType $reactionType): bool
-    {
+    public function isNotReactedToWithType(
+        Reactant $reactant,
+        ReactionType $reactionType
+    ): bool {
         return true;
     }
 
     public function isNull(): bool
     {
         return true;
+    }
+
+    public function isNotNull(): bool
+    {
+        return false;
     }
 }

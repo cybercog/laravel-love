@@ -60,7 +60,7 @@ trait Reactable
 
     public function isNotRegisteredAsReactant(): bool
     {
-        return is_null($this->getAttribute('love_reactant_id'));
+        return is_null($this->getAttributeValue('love_reactant_id'));
     }
 
     public function scopeWhereReactedBy(Builder $query, ReacterContract $reacter): Builder

@@ -13,10 +13,14 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Reaction\Models;
 
+use Cog\Laravel\Love\Reactant\Models\NullReactant;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
+use Cog\Laravel\Love\Reacter\Models\NullReacter;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
+use Cog\Tests\Laravel\Love\Stubs\Models\Article;
+use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
@@ -254,6 +258,22 @@ final class ReactionTest extends TestCase
     }
 
     /** @test */
+    public function it_can_determine_if_reaction_is_to_reactant_when_reactant_is_null_object()
+    {
+        // To skip counters creation
+        Event::fake();
+        $reactant = factory(Reactant::class)->create();
+        $nullReactant = new NullReactant(new Article());
+        $reaction = factory(Reaction::class)->create([
+            'reactant_id' => $reactant->getId(),
+        ]);
+
+        $true = $reaction->isToReactant($nullReactant);
+
+        $this->assertFalse($true);
+    }
+
+    /** @test */
     public function it_can_determine_if_reaction_is_not_to_reactant()
     {
         // To skip counters creation
@@ -269,6 +289,22 @@ final class ReactionTest extends TestCase
 
         $this->assertTrue($true);
         $this->assertFalse($false);
+    }
+
+    /** @test */
+    public function it_can_determine_if_reaction_is_not_to_reactant_when_reactant_is_null_object()
+    {
+        // To skip counters creation
+        Event::fake();
+        $reactant = factory(Reactant::class)->create();
+        $nullReactant = new NullReactant(new Article());
+        $reaction = factory(Reaction::class)->create([
+            'reactant_id' => $reactant->getId(),
+        ]);
+
+        $true = $reaction->isNotToReactant($nullReactant);
+
+        $this->assertTrue($true);
     }
 
     /** @test */
@@ -288,6 +324,20 @@ final class ReactionTest extends TestCase
     }
 
     /** @test */
+    public function it_can_determine_if_reaction_is_by_reacter_when_reacter_is_null_object()
+    {
+        $reacter1 = factory(Reacter::class)->create();
+        $nullReacter = new NullReacter(new User());
+        $reaction = factory(Reaction::class)->create([
+            'reacter_id' => $reacter1->getId(),
+        ]);
+
+        $true = $reaction->isByReacter($nullReacter);
+
+        $this->assertFalse($true);
+    }
+
+    /** @test */
     public function it_can_determine_if_reaction_is_not_by_reacter()
     {
         $reacter1 = factory(Reacter::class)->create();
@@ -301,5 +351,19 @@ final class ReactionTest extends TestCase
 
         $this->assertTrue($true);
         $this->assertFalse($false);
+    }
+
+    /** @test */
+    public function it_can_determine_if_reaction_is_not_by_reacter_when_reacter_is_null_object()
+    {
+        $reacter1 = factory(Reacter::class)->create();
+        $nullReacter = new NullReacter(new User());
+        $reaction = factory(Reaction::class)->create([
+            'reacter_id' => $reacter1->getId(),
+        ]);
+
+        $true = $reaction->isNotByReacter($nullReacter);
+
+        $this->assertTrue($true);
     }
 }

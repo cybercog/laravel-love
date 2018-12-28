@@ -74,7 +74,7 @@ final class ReactionType extends Model implements ReactionTypeContract
 
     public function getId(): string
     {
-        $id = $this->getAttribute('id');
+        $id = $this->getAttributeValue('id');
 
         if (is_null($id)) {
             throw new TypeError();
@@ -85,7 +85,7 @@ final class ReactionType extends Model implements ReactionTypeContract
 
     public function getName(): string
     {
-        $name = $this->getAttribute('name');
+        $name = $this->getAttributeValue('name');
 
         if (is_null($name)) {
             throw new TypeError();
@@ -96,7 +96,7 @@ final class ReactionType extends Model implements ReactionTypeContract
 
     public function getWeight(): int
     {
-        return $this->getAttribute('weight') ?? 0;
+        return $this->getAttributeValue('weight') ?? 0;
     }
 
     public function isEqualTo(ReactionTypeContract $type): bool

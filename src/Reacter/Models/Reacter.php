@@ -51,7 +51,7 @@ final class Reacter extends Model implements ReacterContract
 
     public function getId(): string
     {
-        $id = $this->getAttribute('id');
+        $id = $this->getAttributeValue('id');
 
         if (is_null($id)) {
             throw new TypeError();
@@ -118,6 +118,18 @@ final class Reacter extends Model implements ReacterContract
         $reaction->delete();
     }
 
+    public function isEqualTo(
+        ReacterContract $reacter
+    ): bool {
+        return $reacter->isNotNull() && $this->getId() === $reacter->getId();
+    }
+
+    public function isNotEqualTo(
+        ReacterContract $reacter
+    ): bool {
+        return !$this->isEqualTo($reacter);
+    }
+
     public function isReactedTo(
         ReactantContract $reactant
     ): bool {
@@ -155,5 +167,10 @@ final class Reacter extends Model implements ReacterContract
     public function isNull(): bool
     {
         return !$this->exists;
+    }
+
+    public function isNotNull(): bool
+    {
+        return $this->exists;
     }
 }

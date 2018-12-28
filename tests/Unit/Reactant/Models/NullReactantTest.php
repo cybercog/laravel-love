@@ -15,6 +15,7 @@ namespace Cog\Tests\Laravel\Love\Unit\Reactant\Models;
 
 use Cog\Contracts\Love\Reactant\Exceptions\ReactantInvalid;
 use Cog\Laravel\Love\Reactant\Models\NullReactant;
+use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\NullReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
@@ -128,6 +129,58 @@ final class NullReactantTest extends TestCase
     }
 
     /** @test */
+    public function it_can_check_is_equal_to_self(): void
+    {
+        $nullReactant = new NullReactant(new Article());
+
+        $this->assertTrue($nullReactant->isEqualTo($nullReactant));
+    }
+
+    /** @test */
+    public function it_can_check_is_equal_to_other_null_object_reactant(): void
+    {
+        $nullReactant = new NullReactant(new Article());
+        $otherNullReactant = new NullReactant(new Article());
+
+        $this->assertTrue($nullReactant->isEqualTo($otherNullReactant));
+    }
+
+    /** @test */
+    public function it_can_check_is_equal_to_not_null_object_reactant(): void
+    {
+        $nullReactant = new NullReactant(new Article());
+        $reactant = factory(Reactant::class)->create();
+
+        $this->assertFalse($nullReactant->isEqualTo($reactant));
+    }
+
+    /** @test */
+    public function it_can_check_is_not_equal_to_self(): void
+    {
+        $nullReactant = new NullReactant(new Article());
+
+        $this->assertFalse($nullReactant->isNotEqualTo($nullReactant));
+    }
+
+    /** @test */
+    public function it_can_check_is_not_equal_to_other_null_object_reactant(): void
+    {
+        $nullReactant = new NullReactant(new Article());
+        $otherNullReactant = new NullReactant(new Article());
+
+        $this->assertFalse($nullReactant->isNotEqualTo($otherNullReactant));
+    }
+
+    /** @test */
+    public function it_can_check_is_not_equal_to_not_null_object_reactant(): void
+    {
+        $nullReactant = new NullReactant(new Article());
+        $reactant = factory(Reactant::class)->create();
+
+        $this->assertTrue($nullReactant->isNotEqualTo($reactant));
+    }
+
+    /** @test */
     public function it_can_determine_is_reacted_by(): void
     {
         $reactant = new NullReactant(new Article());
@@ -192,5 +245,21 @@ final class NullReactantTest extends TestCase
         $reactant = new NullReactant(new Article());
 
         $reactant->createReactionTotal();
+    }
+
+    /** @test */
+    public function it_can_check_is_null(): void
+    {
+        $reactant = new NullReactant(new Article());
+
+        $this->assertTrue($reactant->isNull());
+    }
+
+    /** @test */
+    public function it_can_check_is_not_null(): void
+    {
+        $reactant = new NullReactant(new Article());
+
+        $this->assertFalse($reactant->isNotNull());
     }
 }

@@ -35,6 +35,14 @@ interface Reacter
         ReactionType $reactionType
     ): void;
 
+    public function isEqualTo(
+        self $reacter
+    ): bool;
+
+    public function isNotEqualTo(
+        self $reacter
+    ): bool;
+
     public function isReactedTo(
         Reactant $reactant
     ): bool;
@@ -54,4 +62,6 @@ interface Reacter
     ): bool;
 
     public function isNull(): bool;
+
+    public function isNotNull(): bool;
 }
