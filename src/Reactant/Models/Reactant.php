@@ -122,7 +122,8 @@ final class Reactant extends Model implements ReactantContract
     public function isEqualTo(
         ReactantContract $reactant
     ): bool {
-        return $reactant->isNotNull() && $this->getId() === $reactant->getId();
+        return $reactant->isNotNull()
+            && $this->getId() === $reactant->getId();
     }
 
     public function isNotEqualTo(
@@ -131,8 +132,9 @@ final class Reactant extends Model implements ReactantContract
         return !$this->isEqualTo($reactant);
     }
 
-    public function isReactedBy(ReacterContract $reacter): bool
-    {
+    public function isReactedBy(
+        ReacterContract $reacter
+    ): bool {
         if ($reacter->isNull()) {
             return false;
         }
@@ -152,8 +154,9 @@ final class Reactant extends Model implements ReactantContract
         ])->exists();
     }
 
-    public function isNotReactedBy(ReacterContract $reacter): bool
-    {
+    public function isNotReactedBy(
+        ReacterContract $reacter
+    ): bool {
         return !$this->isReactedBy($reacter);
     }
 
@@ -171,7 +174,8 @@ final class Reactant extends Model implements ReactantContract
             return $this
                 ->getAttribute('reactions')
                 ->contains(function (ReactionContract $reaction) use ($reacter, $reactionType) {
-                    return $reaction->isByReacter($reacter) && $reaction->isOfType($reactionType);
+                    return $reaction->isByReacter($reacter)
+                        && $reaction->isOfType($reactionType);
                 });
         }
 

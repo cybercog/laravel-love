@@ -28,8 +28,9 @@ final class NullReactant implements ReactantContract
 {
     private $reactable;
 
-    public function __construct(ReactableContract $reactable)
-    {
+    public function __construct(
+        ReactableContract $reactable
+    ) {
         $this->reactable = $reactable;
     }
 

@@ -24,8 +24,9 @@ final class NullReacter implements ReacterContract
 {
     private $reacterable;
 
-    public function __construct(ReacterableContract $reacterable)
-    {
+    public function __construct(
+        ReacterableContract $reacterable
+    ) {
         $this->reacterable = $reacterable;
     }
 
