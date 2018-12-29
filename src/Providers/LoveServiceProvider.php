@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Providers;
 
-use App\Console\Commands\UpgradeFromV5ToV6;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
 use Cog\Laravel\Love\Console\Commands\Recount;
+use Cog\Laravel\Love\Console\Commands\UpgradeFromV5ToV6;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\Observers\ReactantObserver;
 use Cog\Laravel\Love\Reaction\Models\Reaction;

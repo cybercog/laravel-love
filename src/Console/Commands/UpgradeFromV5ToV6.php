@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Console\Commands;
 
-namespace App\Console\Commands;
-
 use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
 use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
