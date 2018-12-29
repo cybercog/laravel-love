@@ -21,7 +21,7 @@ use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
 
-class UpgradeFromV5ToV6 extends Command
+final class UpgradeFromV5ToV6 extends Command
 {
     /**
      * The name and signature of the console command.
@@ -36,16 +36,6 @@ class UpgradeFromV5ToV6 extends Command
      * @var string
      */
     protected $description = 'Upgrade love package from v5 to v6';
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Execute the console command.

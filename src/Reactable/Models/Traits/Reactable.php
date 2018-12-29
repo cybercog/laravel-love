@@ -34,7 +34,7 @@ trait Reactable
     {
         static::creating(function (ReactableContract $reactable) {
             if ($reactable->isNotRegisteredAsLoveReactant()) {
-                $reactant = Reactant::query()->create([
+                $reactant = $reactable->loveReactant()->create([
                     'type' => $reactable->getMorphClass(),
                 ]);
 

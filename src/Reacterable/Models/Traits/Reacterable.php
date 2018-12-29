@@ -28,7 +28,7 @@ trait Reacterable
     {
         static::creating(function (ReacterableContract $reacterable) {
             if ($reacterable->isNotRegisteredAsLoveReacter()) {
-                $reacter = Reacter::query()->create([
+                $reacter = $reacterable->loveReacter()->create([
                     'type' => $reacterable->getMorphClass(),
                 ]);
 
