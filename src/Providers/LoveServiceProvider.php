@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Providers;
 
+use App\Console\Commands\UpgradeFromV5ToV6;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
 use Cog\Laravel\Love\Console\Commands\Recount;
@@ -54,8 +55,12 @@ final class LoveServiceProvider extends ServiceProvider
      */
     private function registerObservers(): void
     {
-        $this->app->make(ReactantContract::class)->observe(ReactantObserver::class);
-        $this->app->make(ReactionContract::class)->observe(ReactionObserver::class);
+        $this->app
+            ->make(ReactantContract::class)
+            ->observe(ReactantObserver::class);
+        $this->app
+            ->make(ReactionContract::class)
+            ->observe(ReactionObserver::class);
     }
 
     /**
@@ -68,6 +73,7 @@ final class LoveServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 Recount::class,
+                UpgradeFromV5ToV6::class,
             ]);
         }
     }
