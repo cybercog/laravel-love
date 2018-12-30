@@ -14,9 +14,9 @@ declare(strict_types=1);
 namespace Cog\Laravel\Love\Reacterable\Models\Traits;
 
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
-use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
 use Cog\Laravel\Love\Reacter\Models\NullReacter;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
+use Cog\Laravel\Love\Reacterable\Observers\ReacterableObserver;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -26,12 +26,7 @@ trait Reacterable
 {
     protected static function bootReacterable(): void
     {
-        static::created(function (ReacterableContract $reacterable) {
-            // TODO: Configure if model should be registered as Reacter on create
-            if ($reacterable->isNotRegisteredAsLoveReacter()) {
-                $reacterable->registerAsLoveReacter();
-            }
-        });
+        static::observe(ReacterableObserver::class);
     }
 
     public function loveReacter(): BelongsTo
