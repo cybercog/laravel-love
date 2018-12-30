@@ -19,7 +19,9 @@ use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
 use Cog\Laravel\Love\Reacterable\Models\Traits\Reacterable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-final class User extends Authenticatable implements ReacterableContract, ReactableContract
+final class User extends Authenticatable implements
+    ReacterableContract,
+    ReactableContract
 {
     use Reactable;
     use Reacterable;

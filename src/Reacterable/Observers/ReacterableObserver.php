@@ -15,7 +15,7 @@ namespace Cog\Laravel\Love\Reacterable\Observers;
 
 use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
 
-class ReacterableObserver
+final class ReacterableObserver
 {
     public function created(ReacterableContract $reacterable): void
     {
