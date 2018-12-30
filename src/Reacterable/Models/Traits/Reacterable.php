@@ -26,13 +26,10 @@ trait Reacterable
 {
     protected static function bootReacterable(): void
     {
-        static::creating(function (ReacterableContract $reacterable) {
+        static::created(function (ReacterableContract $reacterable) {
+            // TODO: Configure if model should be registered as Reacter on create
             if ($reacterable->isNotRegisteredAsLoveReacter()) {
-                $reacter = $reacterable->loveReacter()->create([
-                    'type' => $reacterable->getMorphClass(),
-                ]);
-
-                $reacterable->setAttribute('love_reacter_id', $reacter->getId());
+                $reacterable->registerAsLoveReacter();
             }
         });
     }
@@ -55,5 +52,20 @@ trait Reacterable
     public function isNotRegisteredAsLoveReacter(): bool
     {
         return is_null($this->getAttributeValue('love_reacter_id'));
+    }
+
+    public function registerAsLoveReacter(): void
+    {
+        if ($this->isRegisteredAsLoveReacter()) {
+            throw new \RuntimeException('Already Registered');
+        }
+
+        /** @var \Cog\Contracts\Love\Reacter\Models\Reacter $reacter */
+        $reacter = $this->loveReacter()->create([
+            'type' => $this->getMorphClass(),
+        ]);
+
+        $this->setAttribute('love_reacter_id', $reacter->getId());
+        $this->save();
     }
 }
