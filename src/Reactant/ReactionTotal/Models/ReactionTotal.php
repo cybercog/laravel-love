@@ -53,13 +53,15 @@ final class ReactionTotal extends Model implements ReactionTotalContract
         return $this->getAttributeValue('weight') ?? 0;
     }
 
-    public function incrementCount(int $amount): void
-    {
+    public function incrementCount(
+        int $amount
+    ): void {
         $this->increment('count', $amount);
     }
 
-    public function incrementWeight(int $amount): void
-    {
+    public function incrementWeight(
+        int $amount
+    ): void {
         $this->increment('weight', $amount);
     }
 }

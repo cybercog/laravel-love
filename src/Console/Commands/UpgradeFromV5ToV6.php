@@ -262,8 +262,9 @@ final class UpgradeFromV5ToV6 extends Command
         return $class;
     }
 
-    private function reactionTypeNameFromLikeTypeName(string $name): string
-    {
+    private function reactionTypeNameFromLikeTypeName(
+        string $name
+    ): string {
         return studly_case(strtolower($name));
     }
 }

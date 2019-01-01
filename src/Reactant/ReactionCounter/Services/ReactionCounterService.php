@@ -25,8 +25,9 @@ final class ReactionCounterService
 {
     private $reactant;
 
-    public function __construct(ReactantContract $reactant)
-    {
+    public function __construct(
+        ReactantContract $reactant
+    ) {
         $this->reactant = $reactant;
     }
 
@@ -37,8 +38,9 @@ final class ReactionCounterService
     }
 
     // TODO: Cover with tests
-    public function createMissingCounters(iterable $existCounters): void
-    {
+    public function createMissingCounters(
+        iterable $existCounters
+    ): void {
         // TODO: Instead of `all` use custom cacheable static method
         $reactionTypes = ReactionType::all();
         foreach ($reactionTypes as $reactionType) {
@@ -56,42 +58,54 @@ final class ReactionCounterService
         $this->reactant->refresh();
     }
 
-    public function addReaction(ReactionContract $reaction): void
-    {
+    public function addReaction(
+        ReactionContract $reaction
+    ): void {
         $this->incrementCountOfType($reaction->getType());
         $this->incrementWeightOfType($reaction->getType(), $reaction->getWeight());
     }
 
-    public function removeReaction(ReactionContract $reaction): void
-    {
+    public function removeReaction(
+        ReactionContract $reaction
+    ): void {
         $this->decrementCountOfType($reaction->getType());
         $this->decrementWeightOfType($reaction->getType(), $reaction->getWeight());
     }
 
-    private function incrementCountOfType(ReactionTypeContract $reactionType, int $amount = 1): void
-    {
+    private function incrementCountOfType(
+        ReactionTypeContract $reactionType,
+        int $amount = 1
+    ): void {
         $this->incrementOrDecrementCountOfType($reactionType, $amount);
     }
 
-    private function decrementCountOfType(ReactionTypeContract $reactionType, int $amount = 1): void
-    {
+    private function decrementCountOfType(
+        ReactionTypeContract $reactionType,
+        int $amount = 1
+    ): void {
         $amount *= -1;
         $this->incrementOrDecrementCountOfType($reactionType, $amount);
     }
 
-    private function incrementWeightOfType(ReactionTypeContract $reactionType, int $amount = 1): void
-    {
+    private function incrementWeightOfType(
+        ReactionTypeContract $reactionType,
+        int $amount = 1
+    ): void {
         $this->incrementOrDecrementWeightOfType($reactionType, $amount);
     }
 
-    private function decrementWeightOfType(ReactionTypeContract $reactionType, int $amount = 1): void
-    {
+    private function decrementWeightOfType(
+        ReactionTypeContract $reactionType,
+        int $amount = 1
+    ): void {
         $amount *= -1;
         $this->incrementOrDecrementWeightOfType($reactionType, $amount);
     }
 
-    private function incrementOrDecrementCountOfType(ReactionTypeContract $reactionType, int $amount = 1): void
-    {
+    private function incrementOrDecrementCountOfType(
+        ReactionTypeContract $reactionType,
+        int $amount = 1
+    ): void {
         $counter = $this->reactant->getReactionCounterOfType($reactionType);
 
         // TODO: Test it
@@ -106,8 +120,10 @@ final class ReactionCounterService
         $counter->incrementCount($amount);
     }
 
-    private function incrementOrDecrementWeightOfType(ReactionTypeContract $reactionType, int $amount = 1): void
-    {
+    private function incrementOrDecrementWeightOfType(
+        ReactionTypeContract $reactionType,
+        int $amount = 1
+    ): void {
         $counter = $this->reactant->getReactionCounterOfType($reactionType);
 
         // TODO: Test it
@@ -118,8 +134,9 @@ final class ReactionCounterService
         $counter->incrementWeight($amount);
     }
 
-    private function createCounterOfType(ReactionTypeContract $reactionType): void
-    {
+    private function createCounterOfType(
+        ReactionTypeContract $reactionType
+    ): void {
         $this->reactant->createReactionCounterOfType($reactionType);
     }
 }

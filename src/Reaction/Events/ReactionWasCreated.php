@@ -19,8 +19,9 @@ final class ReactionWasCreated
 {
     private $reaction;
 
-    public function __construct(ReactionContract $reaction)
-    {
+    public function __construct(
+        ReactionContract $reaction
+    ) {
         $this->reaction = $reaction;
     }
 

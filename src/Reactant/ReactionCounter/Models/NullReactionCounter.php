@@ -24,8 +24,10 @@ final class NullReactionCounter implements ReactionCounterContract
 
     private $reactionType;
 
-    public function __construct(ReactantContract $reactant, ReactionTypeContract $reactionType)
-    {
+    public function __construct(
+        ReactantContract $reactant,
+        ReactionTypeContract $reactionType
+    ) {
         $this->reactant = $reactant;
         $this->reactionType = $reactionType;
     }
@@ -40,13 +42,15 @@ final class NullReactionCounter implements ReactionCounterContract
         return $this->reactionType;
     }
 
-    public function isReactionOfType(ReactionTypeContract $reactionType): bool
-    {
+    public function isReactionOfType(
+        ReactionTypeContract $reactionType
+    ): bool {
         return $this->getReactionType()->isEqualTo($reactionType);
     }
 
-    public function isNotReactionOfType(ReactionTypeContract $reactionType): bool
-    {
+    public function isNotReactionOfType(
+        ReactionTypeContract $reactionType
+    ): bool {
         return !$this->isReactionOfType($reactionType);
     }
 
@@ -60,13 +64,15 @@ final class NullReactionCounter implements ReactionCounterContract
         return 0;
     }
 
-    public function incrementCount(int $amount): void
-    {
+    public function incrementCount(
+        int $amount
+    ): void {
         throw ReactionCounterInvalid::notExists();
     }
 
-    public function incrementWeight(int $amount): void
-    {
+    public function incrementWeight(
+        int $amount
+    ): void {
         throw ReactionCounterInvalid::notExists();
     }
 }

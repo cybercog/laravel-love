@@ -53,8 +53,9 @@ final class ReactionType extends Model implements ReactionTypeContract
         return $this->hasMany(Reaction::class, 'reaction_type_id');
     }
 
-    public static function fromName(string $name): ReactionTypeContract
-    {
+    public static function fromName(
+        string $name
+    ): ReactionTypeContract {
         if (isset(static::$instances[$name])) {
             return static::$instances[$name];
         }
@@ -86,13 +87,15 @@ final class ReactionType extends Model implements ReactionTypeContract
         return $this->getAttributeValue('weight') ?? 0;
     }
 
-    public function isEqualTo(ReactionTypeContract $type): bool
-    {
+    public function isEqualTo(
+        ReactionTypeContract $type
+    ): bool {
         return $type->getId() === $this->getId();
     }
 
-    public function isNotEqualTo(ReactionTypeContract $type): bool
-    {
+    public function isNotEqualTo(
+        ReactionTypeContract $type
+    ): bool {
         return !$this->isEqualTo($type);
     }
 }

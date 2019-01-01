@@ -56,13 +56,15 @@ final class ReactionCounter extends Model implements ReactionCounterContract
         return $this->getAttribute('reactionType');
     }
 
-    public function isReactionOfType(ReactionTypeContract $reactionType): bool
-    {
+    public function isReactionOfType(
+        ReactionTypeContract $reactionType
+    ): bool {
         return $this->getReactionType()->isEqualTo($reactionType);
     }
 
-    public function isNotReactionOfType(ReactionTypeContract $reactionType): bool
-    {
+    public function isNotReactionOfType(
+        ReactionTypeContract $reactionType
+    ): bool {
         return !$this->isReactionOfType($reactionType);
     }
 
@@ -76,13 +78,15 @@ final class ReactionCounter extends Model implements ReactionCounterContract
         return $this->getAttributeValue('weight') ?? 0;
     }
 
-    public function incrementCount(int $amount): void
-    {
+    public function incrementCount(
+        int $amount
+    ): void {
         $this->increment('count', $amount);
     }
 
-    public function incrementWeight(int $amount): void
-    {
+    public function incrementWeight(
+        int $amount
+    ): void {
         $this->increment('weight', $amount);
     }
 }

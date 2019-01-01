@@ -26,48 +26,56 @@ final class ReactionTotalService
 
     private $reactionTotal;
 
-    public function __construct(ReactantContract $reactant)
-    {
+    public function __construct(
+        ReactantContract $reactant
+    ) {
         $this->reactant = $reactant;
         $this->reactionTotal = $this->findReactionTotalFor($reactant);
     }
 
-    public function addReaction(ReactionContract $reaction): void
-    {
+    public function addReaction(
+        ReactionContract $reaction
+    ): void {
         $this->incrementTotalCount();
         $this->incrementTotalWeight($reaction->getWeight());
     }
 
-    public function removeReaction(ReactionContract $reaction): void
-    {
+    public function removeReaction(
+        ReactionContract $reaction
+    ): void {
         $this->decrementTotalCount();
         $this->decrementTotalWeight($reaction->getWeight());
     }
 
-    private function incrementTotalCount(int $amount = 1): void
-    {
+    private function incrementTotalCount(
+        int $amount = 1
+    ): void {
         $this->incrementOrDecrementTotalCount($amount);
     }
 
-    private function decrementTotalCount(int $amount = 1): void
-    {
+    private function decrementTotalCount(
+        int $amount = 1
+    ): void {
         $amount *= -1;
         $this->incrementOrDecrementTotalCount($amount);
     }
 
-    private function incrementTotalWeight(int $amount = 1): void
-    {
+    private function incrementTotalWeight(
+        int $amount = 1
+    ): void {
         $this->incrementOrDecrementTotalWeight($amount);
     }
 
-    private function decrementTotalWeight(int $amount = 1): void
-    {
+    private function decrementTotalWeight(
+        int $amount = 1
+    ): void {
         $amount *= -1;
         $this->incrementOrDecrementTotalWeight($amount);
     }
 
-    private function incrementOrDecrementTotalCount(int $amount = 1): void
-    {
+    private function incrementOrDecrementTotalCount(
+        int $amount = 1
+    ): void {
         if ($this->reactionTotal->getCount() + $amount < 0) {
             throw ReactionTotalBadValue::totalCountBelowZero();
         }
@@ -75,13 +83,15 @@ final class ReactionTotalService
         $this->reactionTotal->incrementCount($amount);
     }
 
-    private function incrementOrDecrementTotalWeight(int $amount = 1): void
-    {
+    private function incrementOrDecrementTotalWeight(
+        int $amount = 1
+    ): void {
         $this->reactionTotal->incrementWeight($amount);
     }
 
-    private function findReactionTotalFor(ReactantContract $reactant): ReactionTotalContract
-    {
+    private function findReactionTotalFor(
+        ReactantContract $reactant
+    ): ReactionTotalContract {
         $total = $reactant->getReactionTotal();
 
         if ($total instanceof NullReactionTotal) {

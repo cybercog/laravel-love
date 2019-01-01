@@ -21,8 +21,9 @@ final class NullReactionTotal implements ReactionTotalContract
 {
     private $reactant;
 
-    public function __construct(ReactantContract $reactant)
-    {
+    public function __construct(
+        ReactantContract $reactant
+    ) {
         $this->reactant = $reactant;
     }
 
@@ -41,13 +42,15 @@ final class NullReactionTotal implements ReactionTotalContract
         return 0;
     }
 
-    public function incrementCount(int $amount): void
-    {
+    public function incrementCount(
+        int $amount
+    ): void {
         throw ReactionTotalInvalid::notExists();
     }
 
-    public function incrementWeight(int $amount): void
-    {
+    public function incrementWeight(
+        int $amount
+    ): void {
         throw ReactionTotalInvalid::notExists();
     }
 }

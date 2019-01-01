@@ -47,8 +47,9 @@ final class Recount extends Command
      *
      * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
      */
-    public function handle(Dispatcher $events): void
-    {
+    public function handle(
+        Dispatcher $events
+    ): void {
         if ($reactionType = $this->argument('type')) {
             $reactionType = ReactionType::fromName($reactionType);
         }
@@ -109,8 +110,9 @@ final class Recount extends Command
      *
      * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
      */
-    private function normalizeModelType(string $modelType): string
-    {
+    private function normalizeModelType(
+        string $modelType
+    ): string {
         $model = $this->newModelFromType($modelType);
         $modelType = $model->getMorphClass();
 
@@ -129,8 +131,9 @@ final class Recount extends Command
      *
      * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
      */
-    private function newModelFromType(string $modelType)
-    {
+    private function newModelFromType(
+        string $modelType
+    ) {
         if (class_exists($modelType)) {
             return new $modelType;
         }

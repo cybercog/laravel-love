@@ -18,8 +18,9 @@ use Cog\Laravel\Love\Reactant\ReactionCounter\Services\ReactionCounterService;
 
 final class ReactantObserver
 {
-    public function created(ReactantContract $reactant): void
-    {
+    public function created(
+        ReactantContract $reactant
+    ): void {
         // TODO: Do it in service or in`ReactionCounter` or `Reactant` method?
         // TODO: Call it asynchronously
         // TODO: Cover with tests

@@ -22,8 +22,9 @@ use Cog\Laravel\Love\Reaction\Models\Reaction;
 
 final class ReactionObserver
 {
-    public function created(ReactionContract $reaction): void
-    {
+    public function created(
+        ReactionContract $reaction
+    ): void {
         event(new ReactionWasCreated($reaction));
 
         // TODO: Remove statistics updates to background jobs
@@ -37,8 +38,9 @@ final class ReactionObserver
             ->addReaction($reaction);
     }
 
-    public function deleted(Reaction $reaction): void
-    {
+    public function deleted(
+        Reaction $reaction
+    ): void {
         event(new ReactionWasDeleted($reaction));
 
         // TODO: Remove statistics updates to background jobs

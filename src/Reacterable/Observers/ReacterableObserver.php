@@ -17,16 +17,18 @@ use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
 
 final class ReacterableObserver
 {
-    public function created(ReacterableContract $reacterable): void
-    {
+    public function created(
+        ReacterableContract $reacterable
+    ): void {
         if ($this->shouldRegisterAsReacterOnCreate($reacterable)
             && $reacterable->isNotRegisteredAsLoveReacter()) {
             $reacterable->registerAsLoveReacter();
         }
     }
 
-    private function shouldRegisterAsReacterOnCreate(ReacterableContract $reacterable): bool
-    {
+    private function shouldRegisterAsReacterOnCreate(
+        ReacterableContract $reacterable
+    ): bool {
         return !method_exists($reacterable, 'shouldRegisterAsLoveReacterOnCreate')
             || $reacterable->shouldRegisterAsLoveReacterOnCreate();
     }
