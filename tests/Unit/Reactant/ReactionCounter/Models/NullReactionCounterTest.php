@@ -21,7 +21,7 @@ use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class NullReactionCounterTest extends TestCase
+final class NullReactionCounterTest extends TestCase
 {
     use RefreshDatabase;
 

@@ -20,7 +20,7 @@ use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class NullReactionTotalTest extends TestCase
+final class NullReactionTotalTest extends TestCase
 {
     use RefreshDatabase;
 
