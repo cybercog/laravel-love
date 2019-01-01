@@ -15,6 +15,7 @@ namespace Cog\Laravel\Love\Console\Commands;
 
 use Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid;
 use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
+use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Services\ReactionCounterService;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
@@ -96,6 +97,8 @@ final class Recount extends Command
             foreach ($reactions as $reaction) {
                 $service->addReaction($reaction);
             }
+
+            $this->recountTotals($reactant);
         }
     }
 
@@ -157,5 +160,24 @@ final class Recount extends Command
         }
 
         return $morphMap[$modelType];
+    }
+
+    private function recountTotals(
+        ReactantContract $reactant
+    ): void {
+        $counters = $reactant->getReactionCounters();
+        $totalCount = 0;
+        $totalWeight = 0;
+        foreach ($counters as $counter) {
+            $totalCount += $counter->getCount();
+            $totalWeight += $counter->getWeight();
+        }
+
+        /** @var \Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal $total */
+        $total = $reactant->getReactionTotal();
+        $total->update([
+            'count' => $totalCount,
+            'weight' => $totalWeight,
+        ]);
     }
 }
