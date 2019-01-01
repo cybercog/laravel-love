@@ -17,7 +17,8 @@ use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reactant\ReactionTotal\Exceptions\ReactionTotalInvalid;
 use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalContract;
 
-final class NullReactionTotal implements ReactionTotalContract
+final class NullReactionTotal implements
+    ReactionTotalContract
 {
     private $reactant;
 

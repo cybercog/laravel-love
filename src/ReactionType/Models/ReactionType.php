@@ -19,7 +19,8 @@ use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-final class ReactionType extends Model implements ReactionTypeContract
+final class ReactionType extends Model implements
+    ReactionTypeContract
 {
     protected $table = 'love_reaction_types';
 

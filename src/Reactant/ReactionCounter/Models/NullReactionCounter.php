@@ -18,7 +18,8 @@ use Cog\Contracts\Love\Reactant\ReactionCounter\Exceptions\ReactionCounterInvali
 use Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter as ReactionCounterContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 
-final class NullReactionCounter implements ReactionCounterContract
+final class NullReactionCounter implements
+    ReactionCounterContract
 {
     private $reactant;
 

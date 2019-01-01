@@ -23,7 +23,8 @@ use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-final class Reaction extends Model implements ReactionContract
+final class Reaction extends Model implements
+    ReactionContract
 {
     protected $table = 'love_reactions';
 

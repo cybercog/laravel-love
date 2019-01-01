@@ -20,7 +20,8 @@ use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType;
 use TypeError;
 
-final class NullReacter implements ReacterContract
+final class NullReacter implements
+    ReacterContract
 {
     private $reacterable;
 

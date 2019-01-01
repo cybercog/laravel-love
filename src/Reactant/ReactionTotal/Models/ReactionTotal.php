@@ -19,7 +19,8 @@ use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-final class ReactionTotal extends Model implements ReactionTotalContract
+final class ReactionTotal extends Model implements
+    ReactionTotalContract
 {
     protected $table = 'love_reactant_reaction_totals';
 

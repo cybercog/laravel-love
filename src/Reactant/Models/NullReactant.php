@@ -24,7 +24,8 @@ use Cog\Laravel\Love\Reactant\ReactionCounter\Models\NullReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
 use TypeError;
 
-final class NullReactant implements ReactantContract
+final class NullReactant implements
+    ReactantContract
 {
     private $reactable;
 
