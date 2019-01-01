@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Love.
+ * This file is part of PHP Contracts: Love.
  *
  * (c) Anton Komarev <a.komarev@cybercog.su>
  *
@@ -13,16 +13,18 @@ declare(strict_types=1);
 
 namespace Cog\Contracts\Love\Reactant\ReactionTotal\Exceptions;
 
+use Cog\Contracts\Love\Exceptions\LoveThrowable;
 use Cog\Contracts\Love\Reactant\Models\Reactant;
 use OutOfBoundsException;
 
-final class ReactionTotalMissing extends OutOfBoundsException
+final class ReactionTotalMissing extends OutOfBoundsException implements
+    LoveThrowable
 {
     public static function forReactant(Reactant $reactant): self
     {
         return new static(sprintf(
             'Reactant with ID `%s` missing ReactionTotal.',
-            $reactant->getKey()
+            $reactant->getId()
         ));
     }
 }

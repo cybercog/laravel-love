@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Love.
+ * This file is part of PHP Contracts: Love.
  *
  * (c) Anton Komarev <a.komarev@cybercog.su>
  *
@@ -13,10 +13,12 @@ declare(strict_types=1);
 
 namespace Cog\Contracts\Love\Reactable\Exceptions;
 
+use Cog\Contracts\Love\Exceptions\LoveThrowable;
 use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
 use DomainException;
 
-final class ReactableInvalid extends DomainException
+final class ReactableInvalid extends DomainException implements
+    LoveThrowable
 {
     public static function classNotExists(string $type): self
     {

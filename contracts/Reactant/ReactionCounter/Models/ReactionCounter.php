@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Love.
+ * This file is part of PHP Contracts: Love.
  *
  * (c) Anton Komarev <a.komarev@cybercog.su>
  *

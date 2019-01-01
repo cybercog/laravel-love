@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Love.
+ * This file is part of PHP Contracts: Love.
  *
  * (c) Anton Komarev <a.komarev@cybercog.su>
  *
@@ -13,9 +13,11 @@ declare(strict_types=1);
 
 namespace Cog\Contracts\Love\Reactant\ReactionTotal\Exceptions;
 
+use Cog\Contracts\Love\Exceptions\LoveThrowable;
 use UnexpectedValueException;
 
-final class ReactionTotalBadValue extends UnexpectedValueException
+final class ReactionTotalBadValue extends UnexpectedValueException implements
+    LoveThrowable
 {
     public static function totalCountBelowZero(): self
     {
