@@ -22,7 +22,6 @@ use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use TypeError;
 
 final class Reaction extends Model implements ReactionContract
 {
@@ -54,46 +53,22 @@ final class Reaction extends Model implements ReactionContract
 
     public function getId(): string
     {
-        $id = $this->getAttributeValue('id');
-
-        if (is_null($id)) {
-            throw new TypeError();
-        }
-
-        return $id;
+        return $this->getAttributeValue('id');
     }
 
     public function getType(): ReactionTypeContract
     {
-        $type = $this->getAttribute('type');
-
-        if (is_null($type)) {
-            throw new TypeError();
-        }
-
-        return $type;
+        return $this->getAttribute('type');
     }
 
     public function getReactant(): ReactantContract
     {
-        $reactant = $this->getAttribute('reactant');
-
-        if (is_null($reactant)) {
-            throw new TypeError();
-        }
-
-        return $reactant;
+        return $this->getAttribute('reactant');
     }
 
     public function getReacter(): ReacterContract
     {
-        $reacter = $this->getAttribute('reacter');
-
-        if (is_null($reacter)) {
-            throw new TypeError();
-        }
-
-        return $reacter;
+        return $this->getAttribute('reacter');
     }
 
     public function getWeight(): int

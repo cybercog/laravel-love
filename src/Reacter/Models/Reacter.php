@@ -25,7 +25,6 @@ use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use TypeError;
 
 final class Reacter extends Model implements ReacterContract
 {
@@ -51,13 +50,7 @@ final class Reacter extends Model implements ReacterContract
 
     public function getId(): string
     {
-        $id = $this->getAttributeValue('id');
-
-        if (is_null($id)) {
-            throw new TypeError();
-        }
-
-        return $id;
+        return $this->getAttributeValue('id');
     }
 
     public function getReacterable(): ReacterableContract

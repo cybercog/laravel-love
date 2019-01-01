@@ -18,7 +18,6 @@ use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use TypeError;
 
 final class ReactionType extends Model implements ReactionTypeContract
 {
@@ -74,24 +73,12 @@ final class ReactionType extends Model implements ReactionTypeContract
 
     public function getId(): string
     {
-        $id = $this->getAttributeValue('id');
-
-        if (is_null($id)) {
-            throw new TypeError();
-        }
-
-        return $id;
+        return $this->getAttributeValue('id');
     }
 
     public function getName(): string
     {
-        $name = $this->getAttributeValue('name');
-
-        if (is_null($name)) {
-            throw new TypeError();
-        }
-
-        return $name;
+        return $this->getAttributeValue('name');
     }
 
     public function getWeight(): int
