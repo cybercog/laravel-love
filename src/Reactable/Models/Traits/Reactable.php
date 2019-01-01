@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reactable\Models\Traits;
 
+use Cog\Contracts\Love\Reactable\Exceptions\AlreadyRegisteredAsReactant;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
@@ -58,7 +59,7 @@ trait Reactable
     public function registerAsLoveReactant(): void
     {
         if ($this->isRegisteredAsLoveReactant()) {
-            throw new \RuntimeException('Already registered');
+            throw new AlreadyRegisteredAsReactant();
         }
 
         /** @var \Cog\Contracts\Love\Reactant\Models\Reactant $reactant */
@@ -70,8 +71,10 @@ trait Reactable
         $this->save();
     }
 
-    public function scopeWhereReactedBy(Builder $query, ReacterContract $reacter): Builder
-    {
+    public function scopeWhereReactedBy(
+        Builder $query,
+        ReacterContract $reacter
+    ): Builder {
         return $query->whereHas('loveReactant.reactions', function (Builder $reactionsQuery) use ($reacter) {
             $reactionsQuery->where('reacter_id', $reacter->getId());
         });
@@ -88,8 +91,10 @@ trait Reactable
         });
     }
 
-    public function scopeJoinReactionCounterWithType(Builder $query, ReactionTypeContract $reactionType): Builder
-    {
+    public function scopeJoinReactionCounterWithType(
+        Builder $query,
+        ReactionTypeContract $reactionType
+    ): Builder {
         $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
         $select[] = 'lrrc.count as reactions_count';
         $select[] = 'lrrc.weight as reactions_weight';
@@ -102,8 +107,9 @@ trait Reactable
             ->select($select);
     }
 
-    public function scopeJoinReactionTotal(Builder $query): Builder
-    {
+    public function scopeJoinReactionTotal(
+        Builder $query
+    ): Builder {
         $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
         $select[] = 'lrrt.count as reactions_total_count';
         $select[] = 'lrrt.weight as reactions_total_weight';

@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Reactable\Models\Traits;
 
+use Cog\Contracts\Love\Reactable\Exceptions\AlreadyRegisteredAsReactant;
 use Cog\Laravel\Love\Reactant\Models\NullReactant;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
@@ -21,6 +22,7 @@ use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
 
 final class ReactableTest extends TestCase
 {
@@ -121,6 +123,27 @@ final class ReactableTest extends TestCase
 
         $this->assertFalse($registeredReactable->isNotRegisteredAsLoveReactant());
         $this->assertTrue($notRegisteredReactable->isNotRegisteredAsLoveReactant());
+    }
+
+    /** @test */
+    public function it_can_register_as_love_reactant(): void
+    {
+        Event::fake();
+        $article = factory(Article::class)->create();
+
+        $article->registerAsLoveReactant();
+
+        $this->assertInstanceOf(Reactant::class, $article->getLoveReactant());
+    }
+
+    /** @test */
+    public function it_throws_exception_on_register_as_love_reactant_when_already_registered(): void
+    {
+        $this->expectException(AlreadyRegisteredAsReactant::class);
+
+        $article = factory(Article::class)->create();
+
+        $article->registerAsLoveReactant();
     }
 
     /** @test */
