@@ -37,7 +37,7 @@ final class Recount extends Command
      *
      * @var string
      */
-    protected $description = 'Recount likes and dislikes of the likeable models';
+    protected $description = 'Recount reactions of the reactable models';
 
     /**
      * Execute the console command.
@@ -50,12 +50,12 @@ final class Recount extends Command
     public function handle(
         Dispatcher $events
     ): void {
-        if ($reactionType = $this->argument('type')) {
-            $reactionType = ReactionType::fromName($reactionType);
-        }
-
         if ($modelType = $this->argument('model')) {
             $modelType = $this->normalizeModelType($modelType);
+        }
+
+        if ($reactionType = $this->argument('type')) {
+            $reactionType = ReactionType::fromName($reactionType);
         }
 
         $reactants = Reactant::query()->get();
@@ -103,7 +103,7 @@ final class Recount extends Command
     }
 
     /**
-     * Normalize likeable model type.
+     * Normalize reactable model type.
      *
      * @param string $modelType
      * @return string
@@ -113,39 +113,52 @@ final class Recount extends Command
     private function normalizeModelType(
         string $modelType
     ): string {
-        $model = $this->newModelFromType($modelType);
-        $modelType = $model->getMorphClass();
-
-        if (!$model instanceof ReactableContract) {
-            throw ReactableInvalid::notImplementInterface($modelType);
-        }
-
-        return $modelType;
+        return $this
+            ->reactableModelFromType($modelType)
+            ->getMorphClass();
     }
 
     /**
      * Instantiate model from type or morph map value.
      *
      * @param string $modelType
-     * @return mixed
+     * @return \Cog\Contracts\Love\Reactable\Models\Reactable|\Illuminate\Database\Eloquent\Model
      *
      * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
      */
-    private function newModelFromType(
+    private function reactableModelFromType(
         string $modelType
-    ) {
-        if (class_exists($modelType)) {
-            return new $modelType;
+    ): ReactableContract {
+        if (!class_exists($modelType)) {
+            $modelType = $this->findModelTypeInMorphMap($modelType);
         }
 
+        $model = new $modelType;
+
+        if (!$model instanceof ReactableContract) {
+            throw ReactableInvalid::notImplementInterface($modelType);
+        }
+
+        return $model;
+    }
+
+    /**
+     * Find model type in morph mappings registry.
+     *
+     * @param string $modelType
+     * @return string
+     *
+     * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
+     */
+    private function findModelTypeInMorphMap(
+        string $modelType
+    ): string {
         $morphMap = Relation::morphMap();
 
         if (!isset($morphMap[$modelType])) {
             throw ReactableInvalid::classNotExists($modelType);
         }
 
-        $modelClass = $morphMap[$modelType];
-
-        return new $modelClass;
+        return $morphMap[$modelType];
     }
 }
