@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reactable\Models\Traits;
 
-use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
+use Cog\Laravel\Love\Reactable\Observers\ReactableObserver;
 use Cog\Laravel\Love\Reactant\Models\NullReactant;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
@@ -32,15 +32,7 @@ trait Reactable
 {
     protected static function bootReactable(): void
     {
-        static::creating(function (ReactableContract $reactable) {
-            if ($reactable->isNotRegisteredAsLoveReactant()) {
-                $reactant = $reactable->loveReactant()->create([
-                    'type' => $reactable->getMorphClass(),
-                ]);
-
-                $reactable->setAttribute('love_reactant_id', $reactant->getId());
-            }
-        });
+        static::observe(ReactableObserver::class);
     }
 
     public function loveReactant(): BelongsTo
@@ -61,6 +53,21 @@ trait Reactable
     public function isNotRegisteredAsLoveReactant(): bool
     {
         return is_null($this->getAttributeValue('love_reactant_id'));
+    }
+
+    public function registerAsLoveReactant(): void
+    {
+        if ($this->isRegisteredAsLoveReactant()) {
+            throw new \RuntimeException('Already registered');
+        }
+
+        /** @var \Cog\Contracts\Love\Reactant\Models\Reactant $reactant */
+        $reactant = $this->loveReactant()->create([
+            'type' => $this->getMorphClass(),
+        ]);
+
+        $this->setAttribute('love_reactant_id', $reactant->getId());
+        $this->save();
     }
 
     public function scopeWhereReactedBy(Builder $query, ReacterContract $reacter): Builder

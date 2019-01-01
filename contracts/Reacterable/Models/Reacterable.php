@@ -22,4 +22,6 @@ interface Reacterable
     public function isRegisteredAsLoveReacter(): bool;
 
     public function isNotRegisteredAsLoveReacter(): bool;
+
+    public function registerAsLoveReacter(): void;
 }

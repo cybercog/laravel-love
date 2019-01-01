@@ -14,9 +14,9 @@ declare(strict_types=1);
 namespace Cog\Laravel\Love\Reacterable\Models\Traits;
 
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
-use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
 use Cog\Laravel\Love\Reacter\Models\NullReacter;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
+use Cog\Laravel\Love\Reacterable\Observers\ReacterableObserver;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -26,15 +26,7 @@ trait Reacterable
 {
     protected static function bootReacterable(): void
     {
-        static::creating(function (ReacterableContract $reacterable) {
-            if ($reacterable->isNotRegisteredAsLoveReacter()) {
-                $reacter = $reacterable->loveReacter()->create([
-                    'type' => $reacterable->getMorphClass(),
-                ]);
-
-                $reacterable->setAttribute('love_reacter_id', $reacter->getId());
-            }
-        });
+        static::observe(ReacterableObserver::class);
     }
 
     public function loveReacter(): BelongsTo
@@ -55,5 +47,20 @@ trait Reacterable
     public function isNotRegisteredAsLoveReacter(): bool
     {
         return is_null($this->getAttributeValue('love_reacter_id'));
+    }
+
+    public function registerAsLoveReacter(): void
+    {
+        if ($this->isRegisteredAsLoveReacter()) {
+            throw new \RuntimeException('Already Registered');
+        }
+
+        /** @var \Cog\Contracts\Love\Reacter\Models\Reacter $reacter */
+        $reacter = $this->loveReacter()->create([
+            'type' => $this->getMorphClass(),
+        ]);
+
+        $this->setAttribute('love_reacter_id', $reacter->getId());
+        $this->save();
     }
 }

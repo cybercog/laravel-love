@@ -17,7 +17,7 @@ use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
 use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
 use Illuminate\Database\Eloquent\Model;
 
-final class Entity extends Model implements
+final class ArticleWithoutAutoReactantCreate extends Model implements
     ReactableContract
 {
     use Reactable;
@@ -27,7 +27,7 @@ final class Entity extends Model implements
      *
      * @var string
      */
-    protected $table = 'entities';
+    protected $table = 'articles';
 
     /**
      * The attributes that are mass assignable.
@@ -37,4 +37,9 @@ final class Entity extends Model implements
     protected $fillable = [
         'name',
     ];
+
+    public function shouldRegisterAsLoveReactantOnCreate(): bool
+    {
+        return false;
+    }
 }

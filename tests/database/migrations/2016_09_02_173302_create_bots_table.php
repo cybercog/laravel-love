@@ -27,7 +27,7 @@ final class CreateBotsTable extends Migration
         Schema::create('bots', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->unsignedBigInteger('love_reacter_id');
+            $table->unsignedBigInteger('love_reacter_id')->nullable();
             $table->timestamps();
         });
     }
