@@ -82,11 +82,8 @@ final class Recount extends Command
                     continue;
                 }
 
-                // TODO: Cover with tests that we don't delete counter
                 $counter->update([
-                    // TODO: Cover with test that count is resetting
                     'count' => 0,
-                    // TODO: Cover with test that weight is resetting
                     'weight' => 0,
                 ]);
             }

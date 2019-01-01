@@ -14,8 +14,10 @@ declare(strict_types=1);
 namespace Cog\Tests\Laravel\Love\Unit\Console\Commands;
 
 use Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid;
+use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
+use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\Stubs\Models\Bot;
@@ -465,5 +467,85 @@ final class RecountTest extends TestCase
         ]);
 
         $this->assertSame(1, $status);
+    }
+
+    /** @test */
+    public function it_not_delete_counters_on_recount(): void
+    {
+        $reactionType = factory(ReactionType::class)->create([
+            'name' => 'Like',
+        ]);
+        $reactant1 = factory(Reactant::class)->create();
+        $reactant2 = factory(Reactant::class)->create();
+        factory(Reaction::class, 2)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant1,
+        ]);
+        factory(Reaction::class, 3)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant2,
+        ]);
+        $reactantCounter1 = $reactant1->reactionCounters->first();
+        $reactantCounter2 = $reactant2->reactionCounters->first();
+
+        // Deleting reactions without events
+        Reaction::query()->delete();
+        $this->artisan('love:recount', [
+            'type' => 'Like',
+        ]);
+        $this->assertTrue($reactant1->reactionCounters->first()->is($reactantCounter1));
+        $this->assertTrue($reactant2->reactionCounters->first()->is($reactantCounter2));
+    }
+
+    /** @test */
+    public function it_resets_count_on_recount(): void
+    {
+        $reactionType = factory(ReactionType::class)->create([
+            'name' => 'Like',
+        ]);
+        $reactant1 = factory(Reactant::class)->create();
+        $reactant2 = factory(Reactant::class)->create();
+        factory(Reaction::class, 2)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant1,
+        ]);
+        factory(Reaction::class, 3)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant2,
+        ]);
+
+        // Deleting reactions without events
+        Reaction::query()->delete();
+        $this->artisan('love:recount', [
+            'type' => 'Like',
+        ]);
+        $this->assertSame(0, $reactant1->reactionCounters->first()->count);
+        $this->assertSame(0, $reactant2->reactionCounters->first()->count);
+    }
+
+    /** @test */
+    public function it_resets_weight_on_recount(): void
+    {
+        $reactionType = factory(ReactionType::class)->create([
+            'name' => 'Like',
+        ]);
+        $reactant1 = factory(Reactant::class)->create();
+        $reactant2 = factory(Reactant::class)->create();
+        factory(Reaction::class, 2)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant1,
+        ]);
+        factory(Reaction::class, 3)->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant2,
+        ]);
+
+        // Deleting reactions without events
+        Reaction::query()->delete();
+        $this->artisan('love:recount', [
+            'type' => 'Like',
+        ]);
+        $this->assertSame(0, $reactant1->reactionCounters->first()->weight);
+        $this->assertSame(0, $reactant2->reactionCounters->first()->weight);
     }
 }

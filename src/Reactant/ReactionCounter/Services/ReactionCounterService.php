@@ -51,7 +51,7 @@ final class ReactionCounterService
                 }
             }
 
-            $this->createCounterOfType($reactionType);
+            $this->reactant->createReactionCounterOfType($reactionType);
         }
 
         // TODO: FIX IT! Need to repopulate already loaded counters relation
@@ -132,11 +132,5 @@ final class ReactionCounterService
         }
 
         $counter->incrementWeight($amount);
-    }
-
-    private function createCounterOfType(
-        ReactionTypeContract $reactionType
-    ): void {
-        $this->reactant->createReactionCounterOfType($reactionType);
     }
 }
