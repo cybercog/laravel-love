@@ -21,7 +21,6 @@ use Cog\Laravel\Love\Reactant\ReactionCounter\Services\ReactionCounterService;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 final class Recount extends Command
@@ -31,7 +30,7 @@ final class Recount extends Command
      *
      * @var string
      */
-    protected $signature = 'love:recount {model?} {type?}';
+    protected $signature = 'love:recount {reactableType?} {type?}';
 
     /**
      * The console command description.
@@ -51,16 +50,21 @@ final class Recount extends Command
     public function handle(
         Dispatcher $events
     ): void {
-        if ($modelType = $this->argument('model')) {
-            $modelType = $this->normalizeModelType($modelType);
+        if ($reactableType = $this->argument('reactableType')) {
+            $reactableType = $this->normalizeReactableModelType($reactableType);
         }
 
         if ($reactionType = $this->argument('type')) {
             $reactionType = ReactionType::fromName($reactionType);
         }
 
-        $reactants = Reactant::query()->get();
-        // TODO: What to do if we asked to recount only reactions of exact reactant type?
+        $reactantsQuery = Reactant::query();
+
+        if ($reactableType) {
+            $reactantsQuery->where('type', $reactableType);
+        }
+
+        $reactants = $reactantsQuery->get();
         foreach ($reactants as $reactant) {
             /** @var \Illuminate\Database\Eloquent\Builder $query */
             $query = $reactant->reactions();
@@ -69,17 +73,11 @@ final class Recount extends Command
                 $query->where('reaction_type_id', $reactionType->getId());
             }
 
-            if ($modelType) {
-                $query->whereHas('reactant', function (Builder $reactantQuery) use ($modelType) {
-                    $reactantQuery->where('type', $modelType);
-                });
-            }
-
             $counters = $reactant->getReactionCounters();
 
             /** @var \Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter $counter */
             foreach ($counters as $counter) {
-                if (!$counter->isReactionOfType($reactionType)) {
+                if ($reactionType && !$counter->isReactionOfType($reactionType)) {
                     continue;
                 }
 
@@ -89,15 +87,9 @@ final class Recount extends Command
                 ]);
             }
 
-            $service = new ReactionCounterService($reactant);
-
             $reactions = $query->get();
-
-            foreach ($reactions as $reaction) {
-                $service->addReaction($reaction);
-            }
-
-            $this->recountTotals($reactant);
+            $this->recountCounters($reactant, $reactions);
+            $this->recountTotal($reactant);
         }
     }
 
@@ -109,7 +101,7 @@ final class Recount extends Command
      *
      * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
      */
-    private function normalizeModelType(
+    private function normalizeReactableModelType(
         string $modelType
     ): string {
         return $this
@@ -161,7 +153,7 @@ final class Recount extends Command
         return $morphMap[$modelType];
     }
 
-    private function recountTotals(
+    private function recountTotal(
         ReactantContract $reactant
     ): void {
         $counters = $reactant->getReactionCounters();
@@ -178,5 +170,16 @@ final class Recount extends Command
             'count' => $totalCount,
             'weight' => $totalWeight,
         ]);
+    }
+
+    private function recountCounters(
+        ReactantContract $reactant,
+        iterable $reactions
+    ): void {
+        $service = new ReactionCounterService($reactant);
+
+        foreach ($reactions as $reaction) {
+            $service->addReaction($reaction);
+        }
     }
 }
