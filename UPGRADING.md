@@ -1,7 +1,16 @@
 # Upgrade Guide
 
+- [From v5 to v6](#from-v5-to-v6)
 - [From v4 to v5](#from-v4-to-v5)
 - [From v3 to v4](#from-v3-to-v4)
+
+## From v5 to v6
+
+Run artisan command:
+
+```sh
+php artisan love:upgrade-v5-to-v6
+```
 
 ## From v4 to v5
 

@@ -21,14 +21,14 @@ use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
 
-final class UpgradeFromV5ToV6 extends Command
+final class UpgradeV5ToV6 extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'love:upgrade-from-v5-to-v6';
+    protected $signature = 'love:upgrade-v5-to-v6';
 
     /**
      * The console command description.
