@@ -33,13 +33,7 @@ final class ReactionCounterService
     public function addReaction(
         ReactionContract $reaction
     ): void {
-        // TODO: Test that counter creates on `addReaction` if not exists
-        // TODO: Test that counter not duplicates on `addReaction` if exists
-        $counter = $this->reactant->getReactionCounterOfType($reaction->getType());
-        if ($counter instanceof NullReactionCounter && $this->reactant->isNotNull()) {
-            $this->reactant->createReactionCounterOfType($reaction->getType());
-            $this->reactant->refresh();
-        }
+        $this->createMissingCounterOfType($reaction->getType());
         $this->incrementCountOfType($reaction->getType());
         $this->incrementWeightOfType($reaction->getType(), $reaction->getWeight());
     }
@@ -111,5 +105,14 @@ final class ReactionCounterService
         }
 
         $counter->incrementWeight($amount);
+    }
+
+    private function createMissingCounterOfType(
+        ReactionTypeContract $reactionType
+    ): void {
+        $counter = $this->reactant->getReactionCounterOfType($reactionType);
+        if ($counter instanceof NullReactionCounter) {
+            $this->reactant->createReactionCounterOfType($reactionType);
+        }
     }
 }
