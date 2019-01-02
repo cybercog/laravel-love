@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Cog\Tests\Laravel\Love\Unit\Console\Commands;
 
 use Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid;
+use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
@@ -76,7 +77,7 @@ final class RecountTest extends TestCase
 
         $this->assertSame(0, $status);
         $counters = ReactionCounter::query()->count();
-        $this->assertSame(6, $counters);
+        $this->assertSame(3, $counters);
         $this->assertSame(3, $this->reactionsCount($entity1, $likeType));
         $this->assertSame(2, $this->reactionsCount($entity2, $likeType));
         $this->assertSame(2, $this->reactionsCount($entity3, $likeType));
@@ -121,7 +122,7 @@ final class RecountTest extends TestCase
 
         $this->assertSame(0, $status);
         $counters = ReactionCounter::query()->count();
-        $this->assertSame(6, $counters);
+        $this->assertSame(3, $counters);
         $this->assertSame(6, $this->reactionsWeight($entity1, $likeType));
         $this->assertSame(4, $this->reactionsWeight($entity2, $likeType));
         $this->assertSame(4, $this->reactionsWeight($entity3, $likeType));
@@ -148,7 +149,6 @@ final class RecountTest extends TestCase
         $entity1 = factory(Entity::class)->create()->getLoveReactant();
         $entity2 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
         $entity3 = factory(Article::class)->create()->getLoveReactant();
-
         $reacter1->reactTo($entity1, $likeType);
         $reacter1->reactTo($entity2, $likeType);
         $reacter1->reactTo($entity3, $dislikeType);
@@ -165,9 +165,8 @@ final class RecountTest extends TestCase
         ]);
 
         $this->assertSame(0, $status);
-
         $counters = ReactionCounter::query()->count();
-        $this->assertSame(6, $counters);
+        $this->assertSame(5, $counters);
         $this->assertSame(3, $this->reactionsCount($entity1, $likeType));
         $this->assertSame(2, $this->reactionsCount($entity2, $likeType));
         $this->assertSame(2, $this->reactionsCount($entity3, $likeType));
@@ -194,7 +193,6 @@ final class RecountTest extends TestCase
         $entity1 = factory(Entity::class)->create()->getLoveReactant();
         $entity2 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
         $entity3 = factory(Article::class)->create()->getLoveReactant();
-
         $reacter1->reactTo($entity1, $likeType);
         $reacter1->reactTo($entity2, $likeType);
         $reacter1->reactTo($entity3, $dislikeType);
@@ -211,9 +209,8 @@ final class RecountTest extends TestCase
         ]);
 
         $this->assertSame(0, $status);
-
         $counters = ReactionCounter::query()->count();
-        $this->assertSame(6, $counters);
+        $this->assertSame(5, $counters);
         $this->assertSame(6, $this->reactionsWeight($entity1, $likeType));
         $this->assertSame(4, $this->reactionsWeight($entity2, $likeType));
         $this->assertSame(4, $this->reactionsWeight($entity3, $likeType));
@@ -240,7 +237,6 @@ final class RecountTest extends TestCase
         $entity1 = factory(Entity::class)->create()->getLoveReactant();
         $entity2 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
         $entity3 = factory(Entity::class)->create()->getLoveReactant();
-
         $reacter1->reactTo($entity1, $likeType);
         $reacter1->reactTo($entity2, $likeType);
         $reacter1->reactTo($entity3, $dislikeType);
@@ -259,7 +255,7 @@ final class RecountTest extends TestCase
         ]);
 
         $this->assertSame(0, $status);
-        $this->assertSame(6, ReactionCounter::query()->count());
+        $this->assertSame(2, ReactionCounter::query()->count());
         $this->assertSame(3, $this->reactionsCount($entity1, $likeType));
         $this->assertSame(0, $this->reactionsCount($entity2, $likeType));
         $this->assertSame(2, $this->reactionsCount($entity3, $likeType));
@@ -304,7 +300,7 @@ final class RecountTest extends TestCase
         ]);
 
         $this->assertSame(0, $status);
-        $this->assertSame(6, ReactionCounter::query()->count());
+        $this->assertSame(2, ReactionCounter::query()->count());
         $this->assertSame(3, $this->reactionsCount($entity1, $likeType));
         $this->assertSame(0, $this->reactionsCount($entity2, $likeType));
         $this->assertSame(2, $this->reactionsCount($entity3, $likeType));
@@ -350,7 +346,7 @@ final class RecountTest extends TestCase
         ]);
 
         $this->assertSame(0, $status);
-        $this->assertSame(6, ReactionCounter::query()->count());
+        $this->assertSame(2, ReactionCounter::query()->count());
         $this->assertSame(3, $this->reactionsCount($entity1, $likeType));
         $this->assertSame(0, $this->reactionsCount($entity2, $likeType));
         $this->assertSame(2, $this->reactionsCount($entity3, $likeType));
@@ -393,7 +389,7 @@ final class RecountTest extends TestCase
 
         $this->assertSame(0, $status);
         $counters = ReactionCounter::query()->count();
-        $this->assertSame(6, $counters);
+        $this->assertSame(5, $counters);
         $this->assertSame(3, $this->reactionsCount($entity1, $likeType));
         $this->assertSame(2, $this->reactionsCount($entity2, $likeType));
         $this->assertSame(2, $this->reactionsCount($entity3, $likeType));
@@ -438,7 +434,7 @@ final class RecountTest extends TestCase
 
         $this->assertSame(0, $status);
         $counters = ReactionCounter::query()->count();
-        $this->assertSame(6, $counters);
+        $this->assertSame(3, $counters);
         $this->assertSame(3, $this->reactionsCount($entity1, $likeType));
         $this->assertSame(0, $this->reactionsCount($entity2, $likeType));
         $this->assertSame(2, $this->reactionsCount($entity3, $likeType));
@@ -475,7 +471,6 @@ final class RecountTest extends TestCase
         $reacter3->reactTo($entity2, $likeType);
         $reacter3->reactTo($entity3, $likeType);
         $reacter4->reactTo($entity3, $dislikeType);
-
         ReactionCounter::query()->truncate();
 
         $status = $this->artisan('love:recount', [
@@ -484,7 +479,7 @@ final class RecountTest extends TestCase
 
         $counters = ReactionCounter::query()->count();
         $this->assertSame(0, $status);
-        $this->assertSame(6, $counters);
+        $this->assertSame(3, $counters);
         $this->assertSame(3, $this->reactionsCount($entity1, $likeType));
         $this->assertSame(0, $this->reactionsCount($entity2, $likeType));
         $this->assertSame(2, $this->reactionsCount($entity3, $likeType));
@@ -529,7 +524,7 @@ final class RecountTest extends TestCase
 
         $counters = ReactionCounter::query()->count();
         $this->assertSame(0, $status);
-        $this->assertSame(6, $counters);
+        $this->assertSame(3, $counters);
         $this->assertSame(3, $this->reactionsCount($entity1, $likeType));
         $this->assertSame(0, $this->reactionsCount($entity2, $likeType));
         $this->assertSame(2, $this->reactionsCount($entity3, $likeType));
@@ -723,21 +718,17 @@ final class RecountTest extends TestCase
         $this->assertSame(0, $reactant2->reactionTotal->weight);
     }
 
-    private function reactionsCount($reactable, ReactionTypeContract $reactionType): int
+    private function reactionsCount(ReactantContract $reactant, ReactionTypeContract $reactionType): int
     {
-        return $reactable
-            ->reactionCounters()
-            ->where('reaction_type_id', $reactionType->getId())
-            ->first()
+        return $reactant
+            ->getReactionCounterOfType($reactionType)
             ->getCount();
     }
 
-    private function reactionsWeight($reactable, ReactionTypeContract $reactionType): int
+    private function reactionsWeight(ReactantContract $reactant, ReactionTypeContract $reactionType): int
     {
-        return $reactable
-            ->reactionCounters()
-            ->where('reaction_type_id', $reactionType->getId())
-            ->first()
+        return $reactant
+            ->getReactionCounterOfType($reactionType)
             ->getWeight();
     }
 }
