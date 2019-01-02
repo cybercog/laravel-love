@@ -55,7 +55,7 @@ final class RecountTest extends TestCase
     }
 
     /** @test */
-    public function it_can_recount_all_models_reactions_count_only_of_type_like_when_counters_not_exist(): void
+    public function it_can_recount_reactions_of_one_reaction_type_for_any_reactable_type_when_counters_not_exists(): void
     {
         list(
             $reactant1,
@@ -76,14 +76,22 @@ final class RecountTest extends TestCase
         $this->assertReactantLikesCount($reactant2, 2);
         $this->assertReactantLikesCount($reactant3, 2);
         $this->assertReactantLikesCount($reactant4, 1);
+        $this->assertReactantLikesWeight($reactant1, 6);
+        $this->assertReactantLikesWeight($reactant2, 4);
+        $this->assertReactantLikesWeight($reactant3, 4);
+        $this->assertReactantLikesWeight($reactant4, 2);
         $this->assertReactantDislikesCount($reactant1, 0);
         $this->assertReactantDislikesCount($reactant2, 0);
         $this->assertReactantDislikesCount($reactant3, 0);
         $this->assertReactantDislikesCount($reactant1, 0);
+        $this->assertReactantDislikesWeight($reactant1, 0);
+        $this->assertReactantDislikesWeight($reactant2, 0);
+        $this->assertReactantDislikesWeight($reactant3, 0);
+        $this->assertReactantDislikesWeight($reactant4, 0);
     }
 
     /** @test */
-    public function it_can_recount_all_models_reactions_count_only_of_type_like_when_counters_exist(): void
+    public function it_can_recount_reactions_of_one_reaction_type_for_any_reactable_type_when_counters_exists(): void
     {
         list(
             $reactant1,
@@ -107,53 +115,6 @@ final class RecountTest extends TestCase
         $this->assertReactantDislikesCount($reactant2, 1);
         $this->assertReactantDislikesCount($reactant3, 2);
         $this->assertReactantDislikesCount($reactant4, 2);
-    }
-
-    /** @test */
-    public function it_can_recount_all_models_reactions_weight_only_of_type_like_when_counters_not_exist(): void
-    {
-        list(
-            $reactant1,
-            $reactant2,
-            $reactant3,
-            $reactant4
-        ) = $this->seedTestData();
-        ReactionCounter::query()->truncate();
-
-        $status = $this->artisan('love:recount', [
-            'type' => 'Like',
-        ]);
-
-        $this->assertSame(0, $status);
-        $counters = ReactionCounter::query()->count();
-        $this->assertSame(4, $counters);
-        $this->assertReactantLikesWeight($reactant1, 6);
-        $this->assertReactantLikesWeight($reactant2, 4);
-        $this->assertReactantLikesWeight($reactant3, 4);
-        $this->assertReactantLikesWeight($reactant4, 2);
-        $this->assertReactantDislikesWeight($reactant1, 0);
-        $this->assertReactantDislikesWeight($reactant2, 0);
-        $this->assertReactantDislikesWeight($reactant3, 0);
-        $this->assertReactantDislikesWeight($reactant4, 0);
-    }
-
-    /** @test */
-    public function it_can_recount_all_models_reactions_weight_only_of_type_like_when_counters_exist(): void
-    {
-        list(
-            $reactant1,
-            $reactant2,
-            $reactant3,
-            $reactant4
-        ) = $this->seedTestData();
-
-        $status = $this->artisan('love:recount', [
-            'type' => 'Like',
-        ]);
-
-        $this->assertSame(0, $status);
-        $counters = ReactionCounter::query()->count();
-        $this->assertSame(7, $counters);
         $this->assertReactantLikesWeight($reactant1, 6);
         $this->assertReactantLikesWeight($reactant2, 4);
         $this->assertReactantLikesWeight($reactant3, 4);
@@ -165,7 +126,7 @@ final class RecountTest extends TestCase
     }
 
     /** @test */
-    public function it_can_recount_model_likes(): void
+    public function it_can_recount_reactions_of_one_reaction_type_for_one_reactable_type_when_counters_not_exists(): void
     {
         list(
             $reactant1,
@@ -186,14 +147,57 @@ final class RecountTest extends TestCase
         $this->assertReactantLikesCount($reactant2, 0);
         $this->assertReactantLikesCount($reactant3, 0);
         $this->assertReactantLikesCount($reactant4, 0);
+        $this->assertReactantLikesWeight($reactant1, 6);
+        $this->assertReactantLikesWeight($reactant2, 0);
+        $this->assertReactantLikesWeight($reactant3, 0);
+        $this->assertReactantLikesWeight($reactant4, 0);
         $this->assertReactantDislikesCount($reactant1, 0);
         $this->assertReactantDislikesCount($reactant2, 0);
         $this->assertReactantDislikesCount($reactant3, 0);
         $this->assertReactantDislikesCount($reactant4, 0);
+        $this->assertReactantDislikesWeight($reactant1, 0);
+        $this->assertReactantDislikesWeight($reactant2, 0);
+        $this->assertReactantDislikesWeight($reactant3, 0);
+        $this->assertReactantDislikesWeight($reactant4, 0);
     }
 
     /** @test */
-    public function it_can_recount_model_likes_using_morph_map(): void
+    public function it_can_recount_reactions_of_one_reaction_type_for_one_reactable_type_when_counters_exists(): void
+    {
+        list(
+            $reactant1,
+            $reactant2,
+            $reactant3,
+            $reactant4
+        ) = $this->seedTestData();
+
+        $status = $this->artisan('love:recount', [
+            'reactableType' => Entity::class,
+            'type' => 'Like',
+        ]);
+
+        $this->assertSame(0, $status);
+        $this->assertSame(7, ReactionCounter::query()->count());
+        $this->assertReactantLikesCount($reactant1, 3);
+        $this->assertReactantLikesCount($reactant2, 2);
+        $this->assertReactantLikesCount($reactant3, 2);
+        $this->assertReactantLikesCount($reactant4, 1);
+        $this->assertReactantLikesWeight($reactant1, 6);
+        $this->assertReactantLikesWeight($reactant2, 4);
+        $this->assertReactantLikesWeight($reactant3, 4);
+        $this->assertReactantLikesWeight($reactant4, 2);
+        $this->assertReactantDislikesCount($reactant1, 0);
+        $this->assertReactantDislikesCount($reactant2, 1);
+        $this->assertReactantDislikesCount($reactant3, 2);
+        $this->assertReactantDislikesCount($reactant4, 2);
+        $this->assertReactantDislikesWeight($reactant1, 0);
+        $this->assertReactantDislikesWeight($reactant2, -2);
+        $this->assertReactantDislikesWeight($reactant3, -4);
+        $this->assertReactantDislikesWeight($reactant4, -4);
+    }
+
+    /** @test */
+    public function it_can_recount_reactions_of_one_reaction_type_for_one_reactable_morph_type_when_counters_not_exists(): void
     {
         list(
             $reactant1,
@@ -214,14 +218,57 @@ final class RecountTest extends TestCase
         $this->assertReactantLikesCount($reactant2, 2);
         $this->assertReactantLikesCount($reactant3, 0);
         $this->assertReactantLikesCount($reactant4, 1);
+        $this->assertReactantLikesWeight($reactant1, 0);
+        $this->assertReactantLikesWeight($reactant2, 4);
+        $this->assertReactantLikesWeight($reactant3, 0);
+        $this->assertReactantLikesWeight($reactant4, 2);
         $this->assertReactantDislikesCount($reactant1, 0);
         $this->assertReactantDislikesCount($reactant2, 0);
         $this->assertReactantDislikesCount($reactant3, 0);
         $this->assertReactantDislikesCount($reactant4, 0);
+        $this->assertReactantDislikesWeight($reactant1, 0);
+        $this->assertReactantDislikesWeight($reactant2, 0);
+        $this->assertReactantDislikesWeight($reactant3, 0);
+        $this->assertReactantDislikesWeight($reactant4, 0);
     }
 
     /** @test */
-    public function it_can_recount_model_likes_with_morph_map_using_full_class_name(): void
+    public function it_can_recount_reactions_of_one_reaction_type_for_one_reactable_morph_type_when_counters_exists(): void
+    {
+        list(
+            $reactant1,
+            $reactant2,
+            $reactant3,
+            $reactant4
+        ) = $this->seedTestData();
+
+        $status = $this->artisan('love:recount', [
+            'reactableType' => 'entity-with-morph-map',
+            'type' => 'Like',
+        ]);
+
+        $this->assertSame(0, $status);
+        $this->assertSame(7, ReactionCounter::query()->count());
+        $this->assertReactantLikesCount($reactant1, 3);
+        $this->assertReactantLikesCount($reactant2, 2);
+        $this->assertReactantLikesCount($reactant3, 2);
+        $this->assertReactantLikesCount($reactant4, 1);
+        $this->assertReactantLikesWeight($reactant1, 6);
+        $this->assertReactantLikesWeight($reactant2, 4);
+        $this->assertReactantLikesWeight($reactant3, 4);
+        $this->assertReactantLikesWeight($reactant4, 2);
+        $this->assertReactantDislikesCount($reactant1, 0);
+        $this->assertReactantDislikesCount($reactant2, 1);
+        $this->assertReactantDislikesCount($reactant3, 2);
+        $this->assertReactantDislikesCount($reactant4, 2);
+        $this->assertReactantDislikesWeight($reactant1, 0);
+        $this->assertReactantDislikesWeight($reactant2, -2);
+        $this->assertReactantDislikesWeight($reactant3, -4);
+        $this->assertReactantDislikesWeight($reactant4, -4);
+    }
+
+    /** @test */
+    public function it_can_recount_reactions_of_one_reaction_type_for_one_reactable_fqcn_morph_type_when_counters_not_exists(): void
     {
         list(
             $reactant1,
@@ -242,14 +289,57 @@ final class RecountTest extends TestCase
         $this->assertReactantLikesCount($reactant2, 2);
         $this->assertReactantLikesCount($reactant3, 0);
         $this->assertReactantLikesCount($reactant4, 1);
+        $this->assertReactantLikesWeight($reactant1, 0);
+        $this->assertReactantLikesWeight($reactant2, 4);
+        $this->assertReactantLikesWeight($reactant3, 0);
+        $this->assertReactantLikesWeight($reactant4, 2);
         $this->assertReactantDislikesCount($reactant1, 0);
         $this->assertReactantDislikesCount($reactant2, 0);
         $this->assertReactantDislikesCount($reactant3, 0);
         $this->assertReactantDislikesCount($reactant4, 0);
+        $this->assertReactantDislikesWeight($reactant1, 0);
+        $this->assertReactantDislikesWeight($reactant2, 0);
+        $this->assertReactantDislikesWeight($reactant3, 0);
+        $this->assertReactantDislikesWeight($reactant4, 0);
     }
 
     /** @test */
-    public function it_can_recount_all_models_all_reaction_types(): void
+    public function it_can_recount_reactions_of_one_reaction_type_for_one_reactable_fqcn_morph_type_when_counters_exists(): void
+    {
+        list(
+            $reactant1,
+            $reactant2,
+            $reactant3,
+            $reactant4
+        ) = $this->seedTestData();
+
+        $status = $this->artisan('love:recount', [
+            'reactableType' => EntityWithMorphMap::class,
+            'type' => 'Like',
+        ]);
+
+        $this->assertSame(0, $status);
+        $this->assertSame(7, ReactionCounter::query()->count());
+        $this->assertReactantLikesCount($reactant1, 3);
+        $this->assertReactantLikesCount($reactant2, 2);
+        $this->assertReactantLikesCount($reactant3, 2);
+        $this->assertReactantLikesCount($reactant4, 1);
+        $this->assertReactantLikesWeight($reactant1, 6);
+        $this->assertReactantLikesWeight($reactant2, 4);
+        $this->assertReactantLikesWeight($reactant3, 4);
+        $this->assertReactantLikesWeight($reactant4, 2);
+        $this->assertReactantDislikesCount($reactant1, 0);
+        $this->assertReactantDislikesCount($reactant2, 1);
+        $this->assertReactantDislikesCount($reactant3, 2);
+        $this->assertReactantDislikesCount($reactant4, 2);
+        $this->assertReactantDislikesWeight($reactant1, 0);
+        $this->assertReactantDislikesWeight($reactant2, -2);
+        $this->assertReactantDislikesWeight($reactant3, -4);
+        $this->assertReactantDislikesWeight($reactant4, -4);
+    }
+
+    /** @test */
+    public function it_can_recount_reactions_of_any_reaction_type_for_any_reactable_type_when_counters_not_exists(): void
     {
         list(
             $reactant1,
@@ -268,14 +358,22 @@ final class RecountTest extends TestCase
         $this->assertReactantLikesCount($reactant2, 2);
         $this->assertReactantLikesCount($reactant3, 2);
         $this->assertReactantLikesCount($reactant4, 1);
+        $this->assertReactantLikesWeight($reactant1, 6);
+        $this->assertReactantLikesWeight($reactant2, 4);
+        $this->assertReactantLikesWeight($reactant3, 4);
+        $this->assertReactantLikesWeight($reactant4, 2);
         $this->assertReactantDislikesCount($reactant1, 0);
         $this->assertReactantDislikesCount($reactant2, 1);
         $this->assertReactantDislikesCount($reactant3, 2);
         $this->assertReactantDislikesCount($reactant4, 2);
+        $this->assertReactantDislikesWeight($reactant1, 0);
+        $this->assertReactantDislikesWeight($reactant2, -2);
+        $this->assertReactantDislikesWeight($reactant3, -4);
+        $this->assertReactantDislikesWeight($reactant4, -4);
     }
 
     /** @test */
-    public function it_can_recount_all_models_all_reaction_types_when_counters_exists(): void
+    public function it_can_recount_reactions_of_any_reaction_type_for_any_reactable_type_when_counters_exists(): void
     {
         list(
             $reactant1,
@@ -293,14 +391,22 @@ final class RecountTest extends TestCase
         $this->assertReactantLikesCount($reactant2, 2);
         $this->assertReactantLikesCount($reactant3, 2);
         $this->assertReactantLikesCount($reactant4, 1);
+        $this->assertReactantLikesWeight($reactant1, 6);
+        $this->assertReactantLikesWeight($reactant2, 4);
+        $this->assertReactantLikesWeight($reactant3, 4);
+        $this->assertReactantLikesWeight($reactant4, 2);
         $this->assertReactantDislikesCount($reactant1, 0);
         $this->assertReactantDislikesCount($reactant2, 1);
         $this->assertReactantDislikesCount($reactant3, 2);
         $this->assertReactantDislikesCount($reactant4, 2);
+        $this->assertReactantDislikesWeight($reactant1, 0);
+        $this->assertReactantDislikesWeight($reactant2, -2);
+        $this->assertReactantDislikesWeight($reactant3, -4);
+        $this->assertReactantDislikesWeight($reactant4, -4);
     }
 
     /** @test */
-    public function it_can_recount_model_all_reaction_types(): void
+    public function it_can_recount_reactions_of_any_reaction_type_for_one_reactable_type_when_counters_not_exists(): void
     {
         list(
             $reactant1,
@@ -321,14 +427,57 @@ final class RecountTest extends TestCase
         $this->assertReactantLikesCount($reactant2, 0);
         $this->assertReactantLikesCount($reactant3, 0);
         $this->assertReactantLikesCount($reactant4, 0);
+        $this->assertReactantLikesWeight($reactant1, 6);
+        $this->assertReactantLikesWeight($reactant2, 0);
+        $this->assertReactantLikesWeight($reactant3, 0);
+        $this->assertReactantLikesWeight($reactant4, 0);
         $this->assertReactantDislikesCount($reactant1, 0);
         $this->assertReactantDislikesCount($reactant2, 0);
         $this->assertReactantDislikesCount($reactant3, 0);
         $this->assertReactantDislikesCount($reactant4, 0);
+        $this->assertReactantDislikesWeight($reactant1, 0);
+        $this->assertReactantDislikesWeight($reactant2, 0);
+        $this->assertReactantDislikesWeight($reactant3, 0);
+        $this->assertReactantDislikesWeight($reactant4, 0);
     }
 
     /** @test */
-    public function it_can_recount_model_all_reaction_types_using_morph_map(): void
+    public function it_can_recount_reactions_of_any_reaction_type_for_one_reactable_type_when_counters_exists(): void
+    {
+        list(
+            $reactant1,
+            $reactant2,
+            $reactant3,
+            $reactant4
+        ) = $this->seedTestData();
+
+        $status = $this->artisan('love:recount', [
+            'reactableType' => Entity::class,
+        ]);
+
+        $this->assertSame(0, $status);
+        $counters = ReactionCounter::query()->count();
+        $this->assertSame(7, $counters);
+        $this->assertReactantLikesCount($reactant1, 3);
+        $this->assertReactantLikesCount($reactant2, 2);
+        $this->assertReactantLikesCount($reactant3, 2);
+        $this->assertReactantLikesCount($reactant4, 1);
+        $this->assertReactantLikesWeight($reactant1, 6);
+        $this->assertReactantLikesWeight($reactant2, 4);
+        $this->assertReactantLikesWeight($reactant3, 4);
+        $this->assertReactantLikesWeight($reactant4, 2);
+        $this->assertReactantDislikesCount($reactant1, 0);
+        $this->assertReactantDislikesCount($reactant2, 1);
+        $this->assertReactantDislikesCount($reactant3, 2);
+        $this->assertReactantDislikesCount($reactant4, 2);
+        $this->assertReactantDislikesWeight($reactant1, 0);
+        $this->assertReactantDislikesWeight($reactant2, -2);
+        $this->assertReactantDislikesWeight($reactant3, -4);
+        $this->assertReactantDislikesWeight($reactant4, -4);
+    }
+
+    /** @test */
+    public function it_can_recount_reactions_of_any_reaction_type_for_one_reactable_morph_type_when_counters_not_exists(): void
     {
         list(
             $reactant1,
@@ -349,14 +498,57 @@ final class RecountTest extends TestCase
         $this->assertReactantLikesCount($reactant2, 2);
         $this->assertReactantLikesCount($reactant3, 0);
         $this->assertReactantLikesCount($reactant4, 1);
+        $this->assertReactantLikesWeight($reactant1, 0);
+        $this->assertReactantLikesWeight($reactant2, 4);
+        $this->assertReactantLikesWeight($reactant3, 0);
+        $this->assertReactantLikesWeight($reactant4, 2);
         $this->assertReactantDislikesCount($reactant1, 0);
         $this->assertReactantDislikesCount($reactant2, 1);
         $this->assertReactantDislikesCount($reactant3, 0);
         $this->assertReactantDislikesCount($reactant4, 2);
+        $this->assertReactantDislikesWeight($reactant1, 0);
+        $this->assertReactantDislikesWeight($reactant2, -2);
+        $this->assertReactantDislikesWeight($reactant3, 0);
+        $this->assertReactantDislikesWeight($reactant4, -4);
     }
 
     /** @test */
-    public function it_can_recount_model_all_reaction_types_with_morph_map_using_full_class_name(): void
+    public function it_can_recount_reactions_of_any_reaction_type_for_one_reactable_morph_type_when_counters_exists(): void
+    {
+        list(
+            $reactant1,
+            $reactant2,
+            $reactant3,
+            $reactant4
+        ) = $this->seedTestData();
+
+        $status = $this->artisan('love:recount', [
+            'reactableType' => 'entity-with-morph-map',
+        ]);
+
+        $counters = ReactionCounter::query()->count();
+        $this->assertSame(0, $status);
+        $this->assertSame(7, $counters);
+        $this->assertReactantLikesCount($reactant1, 3);
+        $this->assertReactantLikesCount($reactant2, 2);
+        $this->assertReactantLikesCount($reactant3, 2);
+        $this->assertReactantLikesCount($reactant4, 1);
+        $this->assertReactantLikesWeight($reactant1, 6);
+        $this->assertReactantLikesWeight($reactant2, 4);
+        $this->assertReactantLikesWeight($reactant3, 4);
+        $this->assertReactantLikesWeight($reactant4, 2);
+        $this->assertReactantDislikesCount($reactant1, 0);
+        $this->assertReactantDislikesCount($reactant2, 1);
+        $this->assertReactantDislikesCount($reactant3, 2);
+        $this->assertReactantDislikesCount($reactant4, 2);
+        $this->assertReactantDislikesWeight($reactant1, 0);
+        $this->assertReactantDislikesWeight($reactant2, -2);
+        $this->assertReactantDislikesWeight($reactant3, -4);
+        $this->assertReactantDislikesWeight($reactant4, -4);
+    }
+
+    /** @test */
+    public function it_can_recount_reactions_of_any_reaction_type_for_one_reactable_fqcn_morph_type_when_counters_not_exists(): void
     {
         list(
             $reactant1,
@@ -377,10 +569,53 @@ final class RecountTest extends TestCase
         $this->assertReactantLikesCount($reactant2, 2);
         $this->assertReactantLikesCount($reactant3, 0);
         $this->assertReactantLikesCount($reactant4, 1);
+        $this->assertReactantLikesWeight($reactant1, 0);
+        $this->assertReactantLikesWeight($reactant2, 4);
+        $this->assertReactantLikesWeight($reactant3, 0);
+        $this->assertReactantLikesWeight($reactant4, 2);
         $this->assertReactantDislikesCount($reactant1, 0);
         $this->assertReactantDislikesCount($reactant2, 1);
         $this->assertReactantDislikesCount($reactant3, 0);
         $this->assertReactantDislikesCount($reactant4, 2);
+        $this->assertReactantDislikesWeight($reactant1, 0);
+        $this->assertReactantDislikesWeight($reactant2, -2);
+        $this->assertReactantDislikesWeight($reactant3, 0);
+        $this->assertReactantDislikesWeight($reactant4, -4);
+    }
+
+    /** @test */
+    public function it_can_recount_reactions_of_any_reaction_type_for_one_reactable_fqcn_morph_type_when_counters_exists(): void
+    {
+        list(
+            $reactant1,
+            $reactant2,
+            $reactant3,
+            $reactant4
+        ) = $this->seedTestData();
+
+        $status = $this->artisan('love:recount', [
+            'reactableType' => EntityWithMorphMap::class,
+        ]);
+
+        $counters = ReactionCounter::query()->count();
+        $this->assertSame(0, $status);
+        $this->assertSame(7, $counters);
+        $this->assertReactantLikesCount($reactant1, 3);
+        $this->assertReactantLikesCount($reactant2, 2);
+        $this->assertReactantLikesCount($reactant3, 2);
+        $this->assertReactantLikesCount($reactant4, 1);
+        $this->assertReactantLikesWeight($reactant1, 6);
+        $this->assertReactantLikesWeight($reactant2, 4);
+        $this->assertReactantLikesWeight($reactant3, 4);
+        $this->assertReactantLikesWeight($reactant4, 2);
+        $this->assertReactantDislikesCount($reactant1, 0);
+        $this->assertReactantDislikesCount($reactant2, 1);
+        $this->assertReactantDislikesCount($reactant3, 2);
+        $this->assertReactantDislikesCount($reactant4, 2);
+        $this->assertReactantDislikesWeight($reactant1, 0);
+        $this->assertReactantDislikesWeight($reactant2, -2);
+        $this->assertReactantDislikesWeight($reactant3, -4);
+        $this->assertReactantDislikesWeight($reactant4, -4);
     }
 
     /** @test */
