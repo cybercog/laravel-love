@@ -32,6 +32,10 @@ final class RecountTest extends TestCase
 {
     use RefreshDatabase;
 
+    private $likeType;
+
+    private $dislikeType;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -39,36 +43,21 @@ final class RecountTest extends TestCase
         if (starts_with($this->app->version(), '5.7')) {
             $this->withoutMockingConsoleOutput();
         }
+
+        $this->likeType = factory(ReactionType::class)->create([
+            'name' => 'Like',
+            'weight' => 2,
+        ]);
+        $this->dislikeType = factory(ReactionType::class)->create([
+            'name' => 'Dislike',
+            'weight' => -2,
+        ]);
     }
 
     /** @test */
     public function it_can_recount_all_models_reactions_count_only_of_type_like_when_counters_not_exist(): void
     {
-        $likeType = factory(ReactionType::class)->create([
-            'name' => 'Like',
-            'weight' => 2,
-        ]);
-        $dislikeType = factory(ReactionType::class)->create([
-            'name' => 'Dislike',
-            'weight' => -2,
-        ]);
-        $reacter1 = factory(Reacter::class)->create();
-        $reacter2 = factory(Reacter::class)->create();
-        $reacter3 = factory(Reacter::class)->create();
-        $reacter4 = factory(Reacter::class)->create();
-        $entity1 = factory(Entity::class)->create()->getLoveReactant();
-        $entity2 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
-        $entity3 = factory(Article::class)->create()->getLoveReactant();
-        $reacter1->reactTo($entity1, $likeType);
-        $reacter1->reactTo($entity2, $likeType);
-        $reacter1->reactTo($entity3, $dislikeType);
-        $reacter2->reactTo($entity1, $likeType);
-        $reacter2->reactTo($entity2, $dislikeType);
-        $reacter2->reactTo($entity3, $likeType);
-        $reacter3->reactTo($entity1, $likeType);
-        $reacter3->reactTo($entity2, $likeType);
-        $reacter3->reactTo($entity3, $likeType);
-        $reacter4->reactTo($entity3, $dislikeType);
+        list($reactant1, $reactant2, $reactant3) = $this->seedTestData();
         ReactionCounter::query()->truncate();
 
         $status = $this->artisan('love:recount', [
@@ -78,42 +67,38 @@ final class RecountTest extends TestCase
         $this->assertSame(0, $status);
         $counters = ReactionCounter::query()->count();
         $this->assertSame(3, $counters);
-        $this->assertSame(3, $this->reactionsCount($entity1, $likeType));
-        $this->assertSame(2, $this->reactionsCount($entity2, $likeType));
-        $this->assertSame(2, $this->reactionsCount($entity3, $likeType));
-        $this->assertSame(0, $this->reactionsCount($entity1, $dislikeType));
-        $this->assertSame(0, $this->reactionsCount($entity2, $dislikeType));
-        $this->assertSame(0, $this->reactionsCount($entity3, $dislikeType));
+        $this->assertSame(3, $this->reactionsCount($reactant1, $this->likeType));
+        $this->assertSame(2, $this->reactionsCount($reactant2, $this->likeType));
+        $this->assertSame(2, $this->reactionsCount($reactant3, $this->likeType));
+        $this->assertSame(0, $this->reactionsCount($reactant1, $this->dislikeType));
+        $this->assertSame(0, $this->reactionsCount($reactant2, $this->dislikeType));
+        $this->assertSame(0, $this->reactionsCount($reactant3, $this->dislikeType));
+    }
+
+    /** @test */
+    public function it_can_recount_all_models_reactions_count_only_of_type_like_when_counters_exist(): void
+    {
+        list($reactant1, $reactant2, $reactant3) = $this->seedTestData();
+
+        $status = $this->artisan('love:recount', [
+            'type' => 'Like',
+        ]);
+
+        $this->assertSame(0, $status);
+        $counters = ReactionCounter::query()->count();
+        $this->assertSame(5, $counters);
+        $this->assertSame(3, $this->reactionsCount($reactant1, $this->likeType));
+        $this->assertSame(2, $this->reactionsCount($reactant2, $this->likeType));
+        $this->assertSame(2, $this->reactionsCount($reactant3, $this->likeType));
+        $this->assertSame(0, $this->reactionsCount($reactant1, $this->dislikeType));
+        $this->assertSame(1, $this->reactionsCount($reactant2, $this->dislikeType));
+        $this->assertSame(2, $this->reactionsCount($reactant3, $this->dislikeType));
     }
 
     /** @test */
     public function it_can_recount_all_models_reactions_weight_only_of_type_like_when_counters_not_exist(): void
     {
-        $likeType = factory(ReactionType::class)->create([
-            'name' => 'Like',
-            'weight' => 2,
-        ]);
-        $dislikeType = factory(ReactionType::class)->create([
-            'name' => 'Dislike',
-            'weight' => -2,
-        ]);
-        $reacter1 = factory(Reacter::class)->create();
-        $reacter2 = factory(Reacter::class)->create();
-        $reacter3 = factory(Reacter::class)->create();
-        $reacter4 = factory(Reacter::class)->create();
-        $entity1 = factory(Entity::class)->create()->getLoveReactant();
-        $entity2 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
-        $entity3 = factory(Article::class)->create()->getLoveReactant();
-        $reacter1->reactTo($entity1, $likeType);
-        $reacter1->reactTo($entity2, $likeType);
-        $reacter1->reactTo($entity3, $dislikeType);
-        $reacter2->reactTo($entity1, $likeType);
-        $reacter2->reactTo($entity2, $dislikeType);
-        $reacter2->reactTo($entity3, $likeType);
-        $reacter3->reactTo($entity1, $likeType);
-        $reacter3->reactTo($entity2, $likeType);
-        $reacter3->reactTo($entity3, $likeType);
-        $reacter4->reactTo($entity3, $dislikeType);
+        list($reactant1, $reactant2, $reactant3) = $this->seedTestData();
         ReactionCounter::query()->truncate();
 
         $status = $this->artisan('love:recount', [
@@ -123,42 +108,18 @@ final class RecountTest extends TestCase
         $this->assertSame(0, $status);
         $counters = ReactionCounter::query()->count();
         $this->assertSame(3, $counters);
-        $this->assertSame(6, $this->reactionsWeight($entity1, $likeType));
-        $this->assertSame(4, $this->reactionsWeight($entity2, $likeType));
-        $this->assertSame(4, $this->reactionsWeight($entity3, $likeType));
-        $this->assertSame(0, $this->reactionsWeight($entity1, $dislikeType));
-        $this->assertSame(0, $this->reactionsWeight($entity2, $dislikeType));
-        $this->assertSame(0, $this->reactionsWeight($entity3, $dislikeType));
+        $this->assertSame(6, $this->reactionsWeight($reactant1, $this->likeType));
+        $this->assertSame(4, $this->reactionsWeight($reactant2, $this->likeType));
+        $this->assertSame(4, $this->reactionsWeight($reactant3, $this->likeType));
+        $this->assertSame(0, $this->reactionsWeight($reactant1, $this->dislikeType));
+        $this->assertSame(0, $this->reactionsWeight($reactant2, $this->dislikeType));
+        $this->assertSame(0, $this->reactionsWeight($reactant3, $this->dislikeType));
     }
 
     /** @test */
-    public function it_can_recount_all_models_reactions_count_only_of_type_like_when_counters_not_truncated(): void
+    public function it_can_recount_all_models_reactions_weight_only_of_type_like_when_counters_exist(): void
     {
-        $likeType = factory(ReactionType::class)->create([
-            'name' => 'Like',
-            'weight' => 2,
-        ]);
-        $dislikeType = factory(ReactionType::class)->create([
-            'name' => 'Dislike',
-            'weight' => -2,
-        ]);
-        $reacter1 = factory(Reacter::class)->create();
-        $reacter2 = factory(Reacter::class)->create();
-        $reacter3 = factory(Reacter::class)->create();
-        $reacter4 = factory(Reacter::class)->create();
-        $entity1 = factory(Entity::class)->create()->getLoveReactant();
-        $entity2 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
-        $entity3 = factory(Article::class)->create()->getLoveReactant();
-        $reacter1->reactTo($entity1, $likeType);
-        $reacter1->reactTo($entity2, $likeType);
-        $reacter1->reactTo($entity3, $dislikeType);
-        $reacter2->reactTo($entity1, $likeType);
-        $reacter2->reactTo($entity2, $dislikeType);
-        $reacter2->reactTo($entity3, $likeType);
-        $reacter3->reactTo($entity1, $likeType);
-        $reacter3->reactTo($entity2, $likeType);
-        $reacter3->reactTo($entity3, $likeType);
-        $reacter4->reactTo($entity3, $dislikeType);
+        list($reactant1, $reactant2, $reactant3) = $this->seedTestData();
 
         $status = $this->artisan('love:recount', [
             'type' => 'Like',
@@ -167,86 +128,34 @@ final class RecountTest extends TestCase
         $this->assertSame(0, $status);
         $counters = ReactionCounter::query()->count();
         $this->assertSame(5, $counters);
-        $this->assertSame(3, $this->reactionsCount($entity1, $likeType));
-        $this->assertSame(2, $this->reactionsCount($entity2, $likeType));
-        $this->assertSame(2, $this->reactionsCount($entity3, $likeType));
-        $this->assertSame(0, $this->reactionsCount($entity1, $dislikeType));
-        $this->assertSame(1, $this->reactionsCount($entity2, $dislikeType));
-        $this->assertSame(2, $this->reactionsCount($entity3, $dislikeType));
-    }
-
-    /** @test */
-    public function it_can_recount_all_models_reactions_weight_only_of_type_like_when_counters_not_truncated(): void
-    {
-        $likeType = factory(ReactionType::class)->create([
-            'name' => 'Like',
-            'weight' => 2,
-        ]);
-        $dislikeType = factory(ReactionType::class)->create([
-            'name' => 'Dislike',
-            'weight' => -2,
-        ]);
-        $reacter1 = factory(Reacter::class)->create();
-        $reacter2 = factory(Reacter::class)->create();
-        $reacter3 = factory(Reacter::class)->create();
-        $reacter4 = factory(Reacter::class)->create();
-        $entity1 = factory(Entity::class)->create()->getLoveReactant();
-        $entity2 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
-        $entity3 = factory(Article::class)->create()->getLoveReactant();
-        $reacter1->reactTo($entity1, $likeType);
-        $reacter1->reactTo($entity2, $likeType);
-        $reacter1->reactTo($entity3, $dislikeType);
-        $reacter2->reactTo($entity1, $likeType);
-        $reacter2->reactTo($entity2, $dislikeType);
-        $reacter2->reactTo($entity3, $likeType);
-        $reacter3->reactTo($entity1, $likeType);
-        $reacter3->reactTo($entity2, $likeType);
-        $reacter3->reactTo($entity3, $likeType);
-        $reacter4->reactTo($entity3, $dislikeType);
-
-        $status = $this->artisan('love:recount', [
-            'type' => 'Like',
-        ]);
-
-        $this->assertSame(0, $status);
-        $counters = ReactionCounter::query()->count();
-        $this->assertSame(5, $counters);
-        $this->assertSame(6, $this->reactionsWeight($entity1, $likeType));
-        $this->assertSame(4, $this->reactionsWeight($entity2, $likeType));
-        $this->assertSame(4, $this->reactionsWeight($entity3, $likeType));
-        $this->assertSame(0, $this->reactionsWeight($entity1, $dislikeType));
-        $this->assertSame(-2, $this->reactionsWeight($entity2, $dislikeType));
-        $this->assertSame(-4, $this->reactionsWeight($entity3, $dislikeType));
+        $this->assertSame(6, $this->reactionsWeight($reactant1, $this->likeType));
+        $this->assertSame(4, $this->reactionsWeight($reactant2, $this->likeType));
+        $this->assertSame(4, $this->reactionsWeight($reactant3, $this->likeType));
+        $this->assertSame(0, $this->reactionsWeight($reactant1, $this->dislikeType));
+        $this->assertSame(-2, $this->reactionsWeight($reactant2, $this->dislikeType));
+        $this->assertSame(-4, $this->reactionsWeight($reactant3, $this->dislikeType));
     }
 
     /** @test */
     public function it_can_recount_model_likes(): void
     {
-        $likeType = factory(ReactionType::class)->create([
-            'name' => 'Like',
-            'weight' => 2,
-        ]);
-        $dislikeType = factory(ReactionType::class)->create([
-            'name' => 'Dislike',
-            'weight' => -2,
-        ]);
         $reacter1 = factory(Reacter::class)->create();
         $reacter2 = factory(Reacter::class)->create();
         $reacter3 = factory(Reacter::class)->create();
         $reacter4 = factory(Reacter::class)->create();
-        $entity1 = factory(Entity::class)->create()->getLoveReactant();
-        $entity2 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
-        $entity3 = factory(Entity::class)->create()->getLoveReactant();
-        $reacter1->reactTo($entity1, $likeType);
-        $reacter1->reactTo($entity2, $likeType);
-        $reacter1->reactTo($entity3, $dislikeType);
-        $reacter2->reactTo($entity1, $likeType);
-        $reacter2->reactTo($entity2, $dislikeType);
-        $reacter2->reactTo($entity3, $likeType);
-        $reacter3->reactTo($entity1, $likeType);
-        $reacter3->reactTo($entity2, $likeType);
-        $reacter3->reactTo($entity3, $likeType);
-        $reacter4->reactTo($entity3, $dislikeType);
+        $reactant1 = factory(Entity::class)->create()->getLoveReactant();
+        $reactant2 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
+        $reactant3 = factory(Entity::class)->create()->getLoveReactant();
+        $reacter1->reactTo($reactant1, $this->likeType);
+        $reacter1->reactTo($reactant2, $this->likeType);
+        $reacter1->reactTo($reactant3, $this->dislikeType);
+        $reacter2->reactTo($reactant1, $this->likeType);
+        $reacter2->reactTo($reactant2, $this->dislikeType);
+        $reacter2->reactTo($reactant3, $this->likeType);
+        $reacter3->reactTo($reactant1, $this->likeType);
+        $reacter3->reactTo($reactant2, $this->likeType);
+        $reacter3->reactTo($reactant3, $this->likeType);
+        $reacter4->reactTo($reactant3, $this->dislikeType);
         ReactionCounter::query()->truncate();
 
         $status = $this->artisan('love:recount', [
@@ -256,42 +165,34 @@ final class RecountTest extends TestCase
 
         $this->assertSame(0, $status);
         $this->assertSame(2, ReactionCounter::query()->count());
-        $this->assertSame(3, $this->reactionsCount($entity1, $likeType));
-        $this->assertSame(0, $this->reactionsCount($entity2, $likeType));
-        $this->assertSame(2, $this->reactionsCount($entity3, $likeType));
-        $this->assertSame(0, $this->reactionsCount($entity1, $dislikeType));
-        $this->assertSame(0, $this->reactionsCount($entity2, $dislikeType));
-        $this->assertSame(0, $this->reactionsCount($entity3, $dislikeType));
+        $this->assertSame(3, $this->reactionsCount($reactant1, $this->likeType));
+        $this->assertSame(0, $this->reactionsCount($reactant2, $this->likeType));
+        $this->assertSame(2, $this->reactionsCount($reactant3, $this->likeType));
+        $this->assertSame(0, $this->reactionsCount($reactant1, $this->dislikeType));
+        $this->assertSame(0, $this->reactionsCount($reactant2, $this->dislikeType));
+        $this->assertSame(0, $this->reactionsCount($reactant3, $this->dislikeType));
     }
 
     /** @test */
     public function it_can_recount_model_likes_using_morph_map(): void
     {
-        $likeType = factory(ReactionType::class)->create([
-            'name' => 'Like',
-            'weight' => 2,
-        ]);
-        $dislikeType = factory(ReactionType::class)->create([
-            'name' => 'Dislike',
-            'weight' => -2,
-        ]);
         $reacter1 = factory(Reacter::class)->create();
         $reacter2 = factory(Reacter::class)->create();
         $reacter3 = factory(Reacter::class)->create();
         $reacter4 = factory(Reacter::class)->create();
-        $entity1 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
-        $entity2 = factory(Entity::class)->create()->getLoveReactant();
-        $entity3 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
-        $reacter1->reactTo($entity1, $likeType);
-        $reacter1->reactTo($entity2, $likeType);
-        $reacter1->reactTo($entity3, $dislikeType);
-        $reacter2->reactTo($entity1, $likeType);
-        $reacter2->reactTo($entity2, $dislikeType);
-        $reacter2->reactTo($entity3, $likeType);
-        $reacter3->reactTo($entity1, $likeType);
-        $reacter3->reactTo($entity2, $likeType);
-        $reacter3->reactTo($entity3, $likeType);
-        $reacter4->reactTo($entity3, $dislikeType);
+        $reactant1 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
+        $reactant2 = factory(Entity::class)->create()->getLoveReactant();
+        $reactant3 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
+        $reacter1->reactTo($reactant1, $this->likeType);
+        $reacter1->reactTo($reactant2, $this->likeType);
+        $reacter1->reactTo($reactant3, $this->dislikeType);
+        $reacter2->reactTo($reactant1, $this->likeType);
+        $reacter2->reactTo($reactant2, $this->dislikeType);
+        $reacter2->reactTo($reactant3, $this->likeType);
+        $reacter3->reactTo($reactant1, $this->likeType);
+        $reacter3->reactTo($reactant2, $this->likeType);
+        $reacter3->reactTo($reactant3, $this->likeType);
+        $reacter4->reactTo($reactant3, $this->dislikeType);
         ReactionCounter::query()->truncate();
 
         $status = $this->artisan('love:recount', [
@@ -301,42 +202,34 @@ final class RecountTest extends TestCase
 
         $this->assertSame(0, $status);
         $this->assertSame(2, ReactionCounter::query()->count());
-        $this->assertSame(3, $this->reactionsCount($entity1, $likeType));
-        $this->assertSame(0, $this->reactionsCount($entity2, $likeType));
-        $this->assertSame(2, $this->reactionsCount($entity3, $likeType));
-        $this->assertSame(0, $this->reactionsCount($entity1, $dislikeType));
-        $this->assertSame(0, $this->reactionsCount($entity2, $dislikeType));
-        $this->assertSame(0, $this->reactionsCount($entity3, $dislikeType));
+        $this->assertSame(3, $this->reactionsCount($reactant1, $this->likeType));
+        $this->assertSame(0, $this->reactionsCount($reactant2, $this->likeType));
+        $this->assertSame(2, $this->reactionsCount($reactant3, $this->likeType));
+        $this->assertSame(0, $this->reactionsCount($reactant1, $this->dislikeType));
+        $this->assertSame(0, $this->reactionsCount($reactant2, $this->dislikeType));
+        $this->assertSame(0, $this->reactionsCount($reactant3, $this->dislikeType));
     }
 
     /** @test */
     public function it_can_recount_model_likes_with_morph_map_using_full_class_name(): void
     {
-        $likeType = factory(ReactionType::class)->create([
-            'name' => 'Like',
-            'weight' => 2,
-        ]);
-        $dislikeType = factory(ReactionType::class)->create([
-            'name' => 'Dislike',
-            'weight' => -2,
-        ]);
         $reacter1 = factory(Reacter::class)->create();
         $reacter2 = factory(Reacter::class)->create();
         $reacter3 = factory(Reacter::class)->create();
         $reacter4 = factory(Reacter::class)->create();
-        $entity1 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
-        $entity2 = factory(Entity::class)->create()->getLoveReactant();
-        $entity3 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
-        $reacter1->reactTo($entity1, $likeType);
-        $reacter1->reactTo($entity2, $likeType);
-        $reacter1->reactTo($entity3, $dislikeType);
-        $reacter2->reactTo($entity1, $likeType);
-        $reacter2->reactTo($entity2, $dislikeType);
-        $reacter2->reactTo($entity3, $likeType);
-        $reacter3->reactTo($entity1, $likeType);
-        $reacter3->reactTo($entity2, $likeType);
-        $reacter3->reactTo($entity3, $likeType);
-        $reacter4->reactTo($entity3, $dislikeType);
+        $reactant1 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
+        $reactant2 = factory(Entity::class)->create()->getLoveReactant();
+        $reactant3 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
+        $reacter1->reactTo($reactant1, $this->likeType);
+        $reacter1->reactTo($reactant2, $this->likeType);
+        $reacter1->reactTo($reactant3, $this->dislikeType);
+        $reacter2->reactTo($reactant1, $this->likeType);
+        $reacter2->reactTo($reactant2, $this->dislikeType);
+        $reacter2->reactTo($reactant3, $this->likeType);
+        $reacter3->reactTo($reactant1, $this->likeType);
+        $reacter3->reactTo($reactant2, $this->likeType);
+        $reacter3->reactTo($reactant3, $this->likeType);
+        $reacter4->reactTo($reactant3, $this->dislikeType);
 
         ReactionCounter::query()->truncate();
 
@@ -347,42 +240,18 @@ final class RecountTest extends TestCase
 
         $this->assertSame(0, $status);
         $this->assertSame(2, ReactionCounter::query()->count());
-        $this->assertSame(3, $this->reactionsCount($entity1, $likeType));
-        $this->assertSame(0, $this->reactionsCount($entity2, $likeType));
-        $this->assertSame(2, $this->reactionsCount($entity3, $likeType));
-        $this->assertSame(0, $this->reactionsCount($entity1, $dislikeType));
-        $this->assertSame(0, $this->reactionsCount($entity2, $dislikeType));
-        $this->assertSame(0, $this->reactionsCount($entity3, $dislikeType));
+        $this->assertSame(3, $this->reactionsCount($reactant1, $this->likeType));
+        $this->assertSame(0, $this->reactionsCount($reactant2, $this->likeType));
+        $this->assertSame(2, $this->reactionsCount($reactant3, $this->likeType));
+        $this->assertSame(0, $this->reactionsCount($reactant1, $this->dislikeType));
+        $this->assertSame(0, $this->reactionsCount($reactant2, $this->dislikeType));
+        $this->assertSame(0, $this->reactionsCount($reactant3, $this->dislikeType));
     }
 
     /** @test */
     public function it_can_recount_all_models_all_reaction_types(): void
     {
-        $likeType = factory(ReactionType::class)->create([
-            'name' => 'Like',
-            'weight' => 2,
-        ]);
-        $dislikeType = factory(ReactionType::class)->create([
-            'name' => 'Dislike',
-            'weight' => -2,
-        ]);
-        $reacter1 = factory(Reacter::class)->create();
-        $reacter2 = factory(Reacter::class)->create();
-        $reacter3 = factory(Reacter::class)->create();
-        $reacter4 = factory(Reacter::class)->create();
-        $entity1 = factory(Entity::class)->create()->getLoveReactant();
-        $entity2 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
-        $entity3 = factory(Article::class)->create()->getLoveReactant();
-        $reacter1->reactTo($entity1, $likeType);
-        $reacter1->reactTo($entity2, $likeType);
-        $reacter1->reactTo($entity3, $dislikeType);
-        $reacter2->reactTo($entity1, $likeType);
-        $reacter2->reactTo($entity2, $dislikeType);
-        $reacter2->reactTo($entity3, $likeType);
-        $reacter3->reactTo($entity1, $likeType);
-        $reacter3->reactTo($entity2, $likeType);
-        $reacter3->reactTo($entity3, $likeType);
-        $reacter4->reactTo($entity3, $dislikeType);
+        list($reactant1, $reactant2, $reactant3) = $this->seedTestData();
         ReactionCounter::query()->truncate();
 
         $status = $this->artisan('love:recount');
@@ -390,84 +259,52 @@ final class RecountTest extends TestCase
         $this->assertSame(0, $status);
         $counters = ReactionCounter::query()->count();
         $this->assertSame(5, $counters);
-        $this->assertSame(3, $this->reactionsCount($entity1, $likeType));
-        $this->assertSame(2, $this->reactionsCount($entity2, $likeType));
-        $this->assertSame(2, $this->reactionsCount($entity3, $likeType));
-        $this->assertSame(0, $this->reactionsCount($entity1, $dislikeType));
-        $this->assertSame(1, $this->reactionsCount($entity2, $dislikeType));
-        $this->assertSame(2, $this->reactionsCount($entity3, $dislikeType));
+        $this->assertSame(3, $this->reactionsCount($reactant1, $this->likeType));
+        $this->assertSame(2, $this->reactionsCount($reactant2, $this->likeType));
+        $this->assertSame(2, $this->reactionsCount($reactant3, $this->likeType));
+        $this->assertSame(0, $this->reactionsCount($reactant1, $this->dislikeType));
+        $this->assertSame(1, $this->reactionsCount($reactant2, $this->dislikeType));
+        $this->assertSame(2, $this->reactionsCount($reactant3, $this->dislikeType));
     }
 
     /** @test */
     public function it_can_recount_all_models_all_reaction_types_when_counters_exists(): void
     {
-        $likeType = factory(ReactionType::class)->create([
-            'name' => 'Like',
-            'weight' => 2,
-        ]);
-        $dislikeType = factory(ReactionType::class)->create([
-            'name' => 'Dislike',
-            'weight' => -2,
-        ]);
-        $reacter1 = factory(Reacter::class)->create();
-        $reacter2 = factory(Reacter::class)->create();
-        $reacter3 = factory(Reacter::class)->create();
-        $reacter4 = factory(Reacter::class)->create();
-        $entity1 = factory(Entity::class)->create()->getLoveReactant();
-        $entity2 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
-        $entity3 = factory(Article::class)->create()->getLoveReactant();
-        $reacter1->reactTo($entity1, $likeType);
-        $reacter1->reactTo($entity2, $likeType);
-        $reacter1->reactTo($entity3, $dislikeType);
-        $reacter2->reactTo($entity1, $likeType);
-        $reacter2->reactTo($entity2, $dislikeType);
-        $reacter2->reactTo($entity3, $likeType);
-        $reacter3->reactTo($entity1, $likeType);
-        $reacter3->reactTo($entity2, $likeType);
-        $reacter3->reactTo($entity3, $likeType);
-        $reacter4->reactTo($entity3, $dislikeType);
+        list($reactant1, $reactant2, $reactant3) = $this->seedTestData();
 
         $status = $this->artisan('love:recount');
 
         $this->assertSame(0, $status);
         $counters = ReactionCounter::query()->count();
         $this->assertSame(5, $counters);
-        $this->assertSame(3, $this->reactionsCount($entity1, $likeType));
-        $this->assertSame(2, $this->reactionsCount($entity2, $likeType));
-        $this->assertSame(2, $this->reactionsCount($entity3, $likeType));
-        $this->assertSame(0, $this->reactionsCount($entity1, $dislikeType));
-        $this->assertSame(1, $this->reactionsCount($entity2, $dislikeType));
-        $this->assertSame(2, $this->reactionsCount($entity3, $dislikeType));
+        $this->assertSame(3, $this->reactionsCount($reactant1, $this->likeType));
+        $this->assertSame(2, $this->reactionsCount($reactant2, $this->likeType));
+        $this->assertSame(2, $this->reactionsCount($reactant3, $this->likeType));
+        $this->assertSame(0, $this->reactionsCount($reactant1, $this->dislikeType));
+        $this->assertSame(1, $this->reactionsCount($reactant2, $this->dislikeType));
+        $this->assertSame(2, $this->reactionsCount($reactant3, $this->dislikeType));
     }
 
     /** @test */
     public function it_can_recount_model_all_reaction_types(): void
     {
-        $likeType = factory(ReactionType::class)->create([
-            'name' => 'Like',
-            'weight' => 2,
-        ]);
-        $dislikeType = factory(ReactionType::class)->create([
-            'name' => 'Dislike',
-            'weight' => -2,
-        ]);
         $reacter1 = factory(Reacter::class)->create();
         $reacter2 = factory(Reacter::class)->create();
         $reacter3 = factory(Reacter::class)->create();
         $reacter4 = factory(Reacter::class)->create();
-        $entity1 = factory(Entity::class)->create()->getLoveReactant();
-        $entity2 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
-        $entity3 = factory(Entity::class)->create()->getLoveReactant();
-        $reacter1->reactTo($entity1, $likeType);
-        $reacter1->reactTo($entity2, $likeType);
-        $reacter1->reactTo($entity3, $dislikeType);
-        $reacter2->reactTo($entity1, $likeType);
-        $reacter2->reactTo($entity2, $dislikeType);
-        $reacter2->reactTo($entity3, $likeType);
-        $reacter3->reactTo($entity1, $likeType);
-        $reacter3->reactTo($entity2, $likeType);
-        $reacter3->reactTo($entity3, $likeType);
-        $reacter4->reactTo($entity3, $dislikeType);
+        $reactant1 = factory(Entity::class)->create()->getLoveReactant();
+        $reactant2 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
+        $reactant3 = factory(Entity::class)->create()->getLoveReactant();
+        $reacter1->reactTo($reactant1, $this->likeType);
+        $reacter1->reactTo($reactant2, $this->likeType);
+        $reacter1->reactTo($reactant3, $this->dislikeType);
+        $reacter2->reactTo($reactant1, $this->likeType);
+        $reacter2->reactTo($reactant2, $this->dislikeType);
+        $reacter2->reactTo($reactant3, $this->likeType);
+        $reacter3->reactTo($reactant1, $this->likeType);
+        $reacter3->reactTo($reactant2, $this->likeType);
+        $reacter3->reactTo($reactant3, $this->likeType);
+        $reacter4->reactTo($reactant3, $this->dislikeType);
         ReactionCounter::query()->truncate();
 
         $status = $this->artisan('love:recount', [
@@ -477,42 +314,34 @@ final class RecountTest extends TestCase
         $this->assertSame(0, $status);
         $counters = ReactionCounter::query()->count();
         $this->assertSame(3, $counters);
-        $this->assertSame(3, $this->reactionsCount($entity1, $likeType));
-        $this->assertSame(0, $this->reactionsCount($entity2, $likeType));
-        $this->assertSame(2, $this->reactionsCount($entity3, $likeType));
-        $this->assertSame(0, $this->reactionsCount($entity1, $dislikeType));
-        $this->assertSame(0, $this->reactionsCount($entity2, $dislikeType));
-        $this->assertSame(2, $this->reactionsCount($entity3, $dislikeType));
+        $this->assertSame(3, $this->reactionsCount($reactant1, $this->likeType));
+        $this->assertSame(0, $this->reactionsCount($reactant2, $this->likeType));
+        $this->assertSame(2, $this->reactionsCount($reactant3, $this->likeType));
+        $this->assertSame(0, $this->reactionsCount($reactant1, $this->dislikeType));
+        $this->assertSame(0, $this->reactionsCount($reactant2, $this->dislikeType));
+        $this->assertSame(2, $this->reactionsCount($reactant3, $this->dislikeType));
     }
 
     /** @test */
     public function it_can_recount_model_all_reaction_types_using_morph_map(): void
     {
-        $likeType = factory(ReactionType::class)->create([
-            'name' => 'Like',
-            'weight' => 2,
-        ]);
-        $dislikeType = factory(ReactionType::class)->create([
-            'name' => 'Dislike',
-            'weight' => -2,
-        ]);
         $reacter1 = factory(Reacter::class)->create();
         $reacter2 = factory(Reacter::class)->create();
         $reacter3 = factory(Reacter::class)->create();
         $reacter4 = factory(Reacter::class)->create();
-        $entity1 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
-        $entity2 = factory(Entity::class)->create()->getLoveReactant();
-        $entity3 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
-        $reacter1->reactTo($entity1, $likeType);
-        $reacter1->reactTo($entity2, $likeType);
-        $reacter1->reactTo($entity3, $dislikeType);
-        $reacter2->reactTo($entity1, $likeType);
-        $reacter2->reactTo($entity2, $dislikeType);
-        $reacter2->reactTo($entity3, $likeType);
-        $reacter3->reactTo($entity1, $likeType);
-        $reacter3->reactTo($entity2, $likeType);
-        $reacter3->reactTo($entity3, $likeType);
-        $reacter4->reactTo($entity3, $dislikeType);
+        $reactant1 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
+        $reactant2 = factory(Entity::class)->create()->getLoveReactant();
+        $reactant3 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
+        $reacter1->reactTo($reactant1, $this->likeType);
+        $reacter1->reactTo($reactant2, $this->likeType);
+        $reacter1->reactTo($reactant3, $this->dislikeType);
+        $reacter2->reactTo($reactant1, $this->likeType);
+        $reacter2->reactTo($reactant2, $this->dislikeType);
+        $reacter2->reactTo($reactant3, $this->likeType);
+        $reacter3->reactTo($reactant1, $this->likeType);
+        $reacter3->reactTo($reactant2, $this->likeType);
+        $reacter3->reactTo($reactant3, $this->likeType);
+        $reacter4->reactTo($reactant3, $this->dislikeType);
         ReactionCounter::query()->truncate();
 
         $status = $this->artisan('love:recount', [
@@ -522,42 +351,34 @@ final class RecountTest extends TestCase
         $counters = ReactionCounter::query()->count();
         $this->assertSame(0, $status);
         $this->assertSame(3, $counters);
-        $this->assertSame(3, $this->reactionsCount($entity1, $likeType));
-        $this->assertSame(0, $this->reactionsCount($entity2, $likeType));
-        $this->assertSame(2, $this->reactionsCount($entity3, $likeType));
-        $this->assertSame(0, $this->reactionsCount($entity1, $dislikeType));
-        $this->assertSame(0, $this->reactionsCount($entity2, $dislikeType));
-        $this->assertSame(2, $this->reactionsCount($entity3, $dislikeType));
+        $this->assertSame(3, $this->reactionsCount($reactant1, $this->likeType));
+        $this->assertSame(0, $this->reactionsCount($reactant2, $this->likeType));
+        $this->assertSame(2, $this->reactionsCount($reactant3, $this->likeType));
+        $this->assertSame(0, $this->reactionsCount($reactant1, $this->dislikeType));
+        $this->assertSame(0, $this->reactionsCount($reactant2, $this->dislikeType));
+        $this->assertSame(2, $this->reactionsCount($reactant3, $this->dislikeType));
     }
 
     /** @test */
     public function it_can_recount_model_all_reaction_types_with_morph_map_using_full_class_name(): void
     {
-        $likeType = factory(ReactionType::class)->create([
-            'name' => 'Like',
-            'weight' => 2,
-        ]);
-        $dislikeType = factory(ReactionType::class)->create([
-            'name' => 'Dislike',
-            'weight' => -2,
-        ]);
         $reacter1 = factory(Reacter::class)->create();
         $reacter2 = factory(Reacter::class)->create();
         $reacter3 = factory(Reacter::class)->create();
         $reacter4 = factory(Reacter::class)->create();
-        $entity1 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
-        $entity2 = factory(Entity::class)->create()->getLoveReactant();
-        $entity3 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
-        $reacter1->reactTo($entity1, $likeType);
-        $reacter1->reactTo($entity2, $likeType);
-        $reacter1->reactTo($entity3, $dislikeType);
-        $reacter2->reactTo($entity1, $likeType);
-        $reacter2->reactTo($entity2, $dislikeType);
-        $reacter2->reactTo($entity3, $likeType);
-        $reacter3->reactTo($entity1, $likeType);
-        $reacter3->reactTo($entity2, $likeType);
-        $reacter3->reactTo($entity3, $likeType);
-        $reacter4->reactTo($entity3, $dislikeType);
+        $reactant1 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
+        $reactant2 = factory(Entity::class)->create()->getLoveReactant();
+        $reactant3 = factory(EntityWithMorphMap::class)->create()->getLoveReactant();
+        $reacter1->reactTo($reactant1, $this->likeType);
+        $reacter1->reactTo($reactant2, $this->likeType);
+        $reacter1->reactTo($reactant3, $this->dislikeType);
+        $reacter2->reactTo($reactant1, $this->likeType);
+        $reacter2->reactTo($reactant2, $this->dislikeType);
+        $reacter2->reactTo($reactant3, $this->likeType);
+        $reacter3->reactTo($reactant1, $this->likeType);
+        $reacter3->reactTo($reactant2, $this->likeType);
+        $reacter3->reactTo($reactant3, $this->likeType);
+        $reacter4->reactTo($reactant3, $this->dislikeType);
         ReactionCounter::query()->truncate();
 
         $status = $this->artisan('love:recount', [
@@ -567,12 +388,12 @@ final class RecountTest extends TestCase
         $counters = ReactionCounter::query()->count();
         $this->assertSame(0, $status);
         $this->assertSame(3, $counters);
-        $this->assertSame(3, $this->reactionsCount($entity1, $likeType));
-        $this->assertSame(0, $this->reactionsCount($entity2, $likeType));
-        $this->assertSame(2, $this->reactionsCount($entity3, $likeType));
-        $this->assertSame(0, $this->reactionsCount($entity1, $dislikeType));
-        $this->assertSame(0, $this->reactionsCount($entity2, $dislikeType));
-        $this->assertSame(2, $this->reactionsCount($entity3, $dislikeType));
+        $this->assertSame(3, $this->reactionsCount($reactant1, $this->likeType));
+        $this->assertSame(0, $this->reactionsCount($reactant2, $this->likeType));
+        $this->assertSame(2, $this->reactionsCount($reactant3, $this->likeType));
+        $this->assertSame(0, $this->reactionsCount($reactant1, $this->dislikeType));
+        $this->assertSame(0, $this->reactionsCount($reactant2, $this->dislikeType));
+        $this->assertSame(2, $this->reactionsCount($reactant3, $this->dislikeType));
     }
 
     /** @test */
@@ -602,17 +423,14 @@ final class RecountTest extends TestCase
     /** @test */
     public function it_not_delete_reaction_counters_on_recount(): void
     {
-        $reactionType = factory(ReactionType::class)->create([
-            'name' => 'Like',
-        ]);
         $reactant1 = factory(Reactant::class)->create();
         $reactant2 = factory(Reactant::class)->create();
         factory(Reaction::class, 2)->create([
-            'reaction_type_id' => $reactionType->getKey(),
+            'reaction_type_id' => $this->likeType->getKey(),
             'reactant_id' => $reactant1,
         ]);
         factory(Reaction::class, 3)->create([
-            'reaction_type_id' => $reactionType->getKey(),
+            'reaction_type_id' => $this->likeType->getKey(),
             'reactant_id' => $reactant2,
         ]);
         $reactantCounter1 = $reactant1->reactionCounters->first();
@@ -629,17 +447,14 @@ final class RecountTest extends TestCase
     /** @test */
     public function it_resets_reaction_counters_count_on_recount(): void
     {
-        $reactionType = factory(ReactionType::class)->create([
-            'name' => 'Like',
-        ]);
         $reactant1 = factory(Reactant::class)->create();
         $reactant2 = factory(Reactant::class)->create();
         factory(Reaction::class, 2)->create([
-            'reaction_type_id' => $reactionType->getKey(),
+            'reaction_type_id' => $this->likeType->getKey(),
             'reactant_id' => $reactant1,
         ]);
         factory(Reaction::class, 3)->create([
-            'reaction_type_id' => $reactionType->getKey(),
+            'reaction_type_id' => $this->likeType->getKey(),
             'reactant_id' => $reactant2,
         ]);
         Reaction::query()->truncate();
@@ -655,18 +470,14 @@ final class RecountTest extends TestCase
     /** @test */
     public function it_resets_reaction_counters_weight_on_recount(): void
     {
-        $reactionType = factory(ReactionType::class)->create([
-            'name' => 'Like',
-            'weight' => 2,
-        ]);
         $reactant1 = factory(Reactant::class)->create();
         $reactant2 = factory(Reactant::class)->create();
         factory(Reaction::class, 2)->create([
-            'reaction_type_id' => $reactionType->getKey(),
+            'reaction_type_id' => $this->likeType->getKey(),
             'reactant_id' => $reactant1,
         ]);
         factory(Reaction::class, 3)->create([
-            'reaction_type_id' => $reactionType->getKey(),
+            'reaction_type_id' => $this->likeType->getKey(),
             'reactant_id' => $reactant2,
         ]);
         Reaction::query()->truncate();
@@ -682,17 +493,14 @@ final class RecountTest extends TestCase
     /** @test */
     public function it_not_delete_reaction_total_on_recount(): void
     {
-        $reactionType = factory(ReactionType::class)->create([
-            'name' => 'Like',
-        ]);
         $reactant1 = factory(Reactant::class)->create();
         $reactant2 = factory(Reactant::class)->create();
         factory(Reaction::class, 2)->create([
-            'reaction_type_id' => $reactionType->getKey(),
+            'reaction_type_id' => $this->likeType->getKey(),
             'reactant_id' => $reactant1,
         ]);
         factory(Reaction::class, 3)->create([
-            'reaction_type_id' => $reactionType->getKey(),
+            'reaction_type_id' => $this->likeType->getKey(),
             'reactant_id' => $reactant2,
         ]);
         $reactantTotal1 = $reactant1->reactionTotal;
@@ -710,17 +518,14 @@ final class RecountTest extends TestCase
     /** @test */
     public function it_resets_reaction_total_count_on_recount(): void
     {
-        $reactionType = factory(ReactionType::class)->create([
-            'name' => 'Like',
-        ]);
         $reactant1 = factory(Reactant::class)->create();
         $reactant2 = factory(Reactant::class)->create();
         factory(Reaction::class, 2)->create([
-            'reaction_type_id' => $reactionType->getKey(),
+            'reaction_type_id' => $this->likeType->getKey(),
             'reactant_id' => $reactant1,
         ]);
         factory(Reaction::class, 3)->create([
-            'reaction_type_id' => $reactionType->getKey(),
+            'reaction_type_id' => $this->likeType->getKey(),
             'reactant_id' => $reactant2,
         ]);
         Reaction::query()->truncate();
@@ -736,18 +541,14 @@ final class RecountTest extends TestCase
     /** @test */
     public function it_resets_reaction_total_weight_on_recount(): void
     {
-        $reactionType = factory(ReactionType::class)->create([
-            'name' => 'Like',
-            'weight' => 2,
-        ]);
         $reactant1 = factory(Reactant::class)->create();
         $reactant2 = factory(Reactant::class)->create();
         factory(Reaction::class, 2)->create([
-            'reaction_type_id' => $reactionType->getKey(),
+            'reaction_type_id' => $this->likeType->getKey(),
             'reactant_id' => $reactant1,
         ]);
         factory(Reaction::class, 3)->create([
-            'reaction_type_id' => $reactionType->getKey(),
+            'reaction_type_id' => $this->likeType->getKey(),
             'reactant_id' => $reactant2,
         ]);
         Reaction::query()->truncate();
@@ -772,5 +573,37 @@ final class RecountTest extends TestCase
         return $reactant
             ->getReactionCounterOfType($reactionType)
             ->getWeight();
+    }
+
+    private function seedTestData(): array
+    {
+        $reactant1 = factory(Entity::class)->create()
+            ->getLoveReactant();
+        $reactant2 = factory(EntityWithMorphMap::class)->create()
+            ->getLoveReactant();
+        $reactant3 = factory(Article::class)->create()
+            ->getLoveReactant();
+
+        $reacter1 = factory(Reacter::class)->create();
+        $reacter2 = factory(Reacter::class)->create();
+        $reacter3 = factory(Reacter::class)->create();
+        $reacter4 = factory(Reacter::class)->create();
+
+        $reacter1->reactTo($reactant1, $this->likeType);
+        $reacter1->reactTo($reactant2, $this->likeType);
+        $reacter1->reactTo($reactant3, $this->dislikeType);
+        $reacter2->reactTo($reactant1, $this->likeType);
+        $reacter2->reactTo($reactant2, $this->dislikeType);
+        $reacter2->reactTo($reactant3, $this->likeType);
+        $reacter3->reactTo($reactant1, $this->likeType);
+        $reacter3->reactTo($reactant2, $this->likeType);
+        $reacter3->reactTo($reactant3, $this->likeType);
+        $reacter4->reactTo($reactant3, $this->dislikeType);
+
+        return [
+            $reactant1,
+            $reactant2,
+            $reactant3,
+        ];
     }
 }
