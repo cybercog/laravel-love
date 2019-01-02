@@ -88,6 +88,14 @@ final class RecountTest extends TestCase
         $this->assertReactantDislikesWeight($reactant2, 0);
         $this->assertReactantDislikesWeight($reactant3, 0);
         $this->assertReactantDislikesWeight($reactant4, 0);
+        $this->assertReactantTotalCount($reactant1, 3);
+        $this->assertReactantTotalCount($reactant2, 2);
+        $this->assertReactantTotalCount($reactant3, 2);
+        $this->assertReactantTotalCount($reactant4, 1);
+        $this->assertReactantTotalWeight($reactant1, 6);
+        $this->assertReactantTotalWeight($reactant2, 4);
+        $this->assertReactantTotalWeight($reactant3, 4);
+        $this->assertReactantTotalWeight($reactant4, 2);
     }
 
     /** @test */
@@ -123,6 +131,14 @@ final class RecountTest extends TestCase
         $this->assertReactantDislikesWeight($reactant2, -2);
         $this->assertReactantDislikesWeight($reactant3, -4);
         $this->assertReactantDislikesWeight($reactant4, -4);
+        $this->assertReactantTotalCount($reactant1, 3);
+        $this->assertReactantTotalCount($reactant2, 3);
+        $this->assertReactantTotalCount($reactant3, 4);
+        $this->assertReactantTotalCount($reactant4, 3);
+        $this->assertReactantTotalWeight($reactant1, 6);
+        $this->assertReactantTotalWeight($reactant2, 2);
+        $this->assertReactantTotalWeight($reactant3, 0);
+        $this->assertReactantTotalWeight($reactant4, -2);
     }
 
     /** @test */
@@ -159,6 +175,14 @@ final class RecountTest extends TestCase
         $this->assertReactantDislikesWeight($reactant2, 0);
         $this->assertReactantDislikesWeight($reactant3, 0);
         $this->assertReactantDislikesWeight($reactant4, 0);
+        $this->assertReactantTotalCount($reactant1, 3);
+        $this->assertReactantTotalCount($reactant2, 3);
+        $this->assertReactantTotalCount($reactant3, 4);
+        $this->assertReactantTotalCount($reactant4, 3);
+        $this->assertReactantTotalWeight($reactant1, 6);
+        $this->assertReactantTotalWeight($reactant2, 2);
+        $this->assertReactantTotalWeight($reactant3, 0);
+        $this->assertReactantTotalWeight($reactant4, -2);
     }
 
     /** @test */
@@ -194,6 +218,14 @@ final class RecountTest extends TestCase
         $this->assertReactantDislikesWeight($reactant2, -2);
         $this->assertReactantDislikesWeight($reactant3, -4);
         $this->assertReactantDislikesWeight($reactant4, -4);
+        $this->assertReactantTotalCount($reactant1, 3);
+        $this->assertReactantTotalCount($reactant2, 3);
+        $this->assertReactantTotalCount($reactant3, 4);
+        $this->assertReactantTotalCount($reactant4, 3);
+        $this->assertReactantTotalWeight($reactant1, 6);
+        $this->assertReactantTotalWeight($reactant2, 2);
+        $this->assertReactantTotalWeight($reactant3, 0);
+        $this->assertReactantTotalWeight($reactant4, -2);
     }
 
     /** @test */
@@ -230,6 +262,14 @@ final class RecountTest extends TestCase
         $this->assertReactantDislikesWeight($reactant2, 0);
         $this->assertReactantDislikesWeight($reactant3, 0);
         $this->assertReactantDislikesWeight($reactant4, 0);
+        $this->assertReactantTotalCount($reactant1, 3);
+        $this->assertReactantTotalCount($reactant2, 2);
+        $this->assertReactantTotalCount($reactant3, 4);
+        $this->assertReactantTotalCount($reactant4, 1);
+        $this->assertReactantTotalWeight($reactant1, 6);
+        $this->assertReactantTotalWeight($reactant2, 4);
+        $this->assertReactantTotalWeight($reactant3, 0);
+        $this->assertReactantTotalWeight($reactant4, 2);
     }
 
     /** @test */
@@ -265,6 +305,14 @@ final class RecountTest extends TestCase
         $this->assertReactantDislikesWeight($reactant2, -2);
         $this->assertReactantDislikesWeight($reactant3, -4);
         $this->assertReactantDislikesWeight($reactant4, -4);
+        $this->assertReactantTotalCount($reactant1, 3);
+        $this->assertReactantTotalCount($reactant2, 3);
+        $this->assertReactantTotalCount($reactant3, 4);
+        $this->assertReactantTotalCount($reactant4, 3);
+        $this->assertReactantTotalWeight($reactant1, 6);
+        $this->assertReactantTotalWeight($reactant2, 2);
+        $this->assertReactantTotalWeight($reactant3, 0);
+        $this->assertReactantTotalWeight($reactant4, -2);
     }
 
     /** @test */
@@ -301,6 +349,14 @@ final class RecountTest extends TestCase
         $this->assertReactantDislikesWeight($reactant2, 0);
         $this->assertReactantDislikesWeight($reactant3, 0);
         $this->assertReactantDislikesWeight($reactant4, 0);
+        $this->assertReactantTotalCount($reactant1, 3);
+        $this->assertReactantTotalCount($reactant2, 2);
+        $this->assertReactantTotalCount($reactant3, 4);
+        $this->assertReactantTotalCount($reactant4, 1);
+        $this->assertReactantTotalWeight($reactant1, 6);
+        $this->assertReactantTotalWeight($reactant2, 4);
+        $this->assertReactantTotalWeight($reactant3, 0);
+        $this->assertReactantTotalWeight($reactant4, 2);
     }
 
     /** @test */
@@ -336,6 +392,14 @@ final class RecountTest extends TestCase
         $this->assertReactantDislikesWeight($reactant2, -2);
         $this->assertReactantDislikesWeight($reactant3, -4);
         $this->assertReactantDislikesWeight($reactant4, -4);
+        $this->assertReactantTotalCount($reactant1, 3);
+        $this->assertReactantTotalCount($reactant2, 3);
+        $this->assertReactantTotalCount($reactant3, 4);
+        $this->assertReactantTotalCount($reactant4, 3);
+        $this->assertReactantTotalWeight($reactant1, 6);
+        $this->assertReactantTotalWeight($reactant2, 2);
+        $this->assertReactantTotalWeight($reactant3, 0);
+        $this->assertReactantTotalWeight($reactant4, -2);
     }
 
     /** @test */
@@ -370,6 +434,14 @@ final class RecountTest extends TestCase
         $this->assertReactantDislikesWeight($reactant2, -2);
         $this->assertReactantDislikesWeight($reactant3, -4);
         $this->assertReactantDislikesWeight($reactant4, -4);
+        $this->assertReactantTotalCount($reactant1, 3);
+        $this->assertReactantTotalCount($reactant2, 3);
+        $this->assertReactantTotalCount($reactant3, 4);
+        $this->assertReactantTotalCount($reactant4, 3);
+        $this->assertReactantTotalWeight($reactant1, 6);
+        $this->assertReactantTotalWeight($reactant2, 2);
+        $this->assertReactantTotalWeight($reactant3, 0);
+        $this->assertReactantTotalWeight($reactant4, -2);
     }
 
     /** @test */
@@ -403,6 +475,14 @@ final class RecountTest extends TestCase
         $this->assertReactantDislikesWeight($reactant2, -2);
         $this->assertReactantDislikesWeight($reactant3, -4);
         $this->assertReactantDislikesWeight($reactant4, -4);
+        $this->assertReactantTotalCount($reactant1, 3);
+        $this->assertReactantTotalCount($reactant2, 3);
+        $this->assertReactantTotalCount($reactant3, 4);
+        $this->assertReactantTotalCount($reactant4, 3);
+        $this->assertReactantTotalWeight($reactant1, 6);
+        $this->assertReactantTotalWeight($reactant2, 2);
+        $this->assertReactantTotalWeight($reactant3, 0);
+        $this->assertReactantTotalWeight($reactant4, -2);
     }
 
     /** @test */
@@ -439,6 +519,14 @@ final class RecountTest extends TestCase
         $this->assertReactantDislikesWeight($reactant2, 0);
         $this->assertReactantDislikesWeight($reactant3, 0);
         $this->assertReactantDislikesWeight($reactant4, 0);
+        $this->assertReactantTotalCount($reactant1, 3);
+        $this->assertReactantTotalCount($reactant2, 3);
+        $this->assertReactantTotalCount($reactant3, 4);
+        $this->assertReactantTotalCount($reactant4, 3);
+        $this->assertReactantTotalWeight($reactant1, 6);
+        $this->assertReactantTotalWeight($reactant2, 2);
+        $this->assertReactantTotalWeight($reactant3, 0);
+        $this->assertReactantTotalWeight($reactant4, -2);
     }
 
     /** @test */
@@ -474,6 +562,14 @@ final class RecountTest extends TestCase
         $this->assertReactantDislikesWeight($reactant2, -2);
         $this->assertReactantDislikesWeight($reactant3, -4);
         $this->assertReactantDislikesWeight($reactant4, -4);
+        $this->assertReactantTotalCount($reactant1, 3);
+        $this->assertReactantTotalCount($reactant2, 3);
+        $this->assertReactantTotalCount($reactant3, 4);
+        $this->assertReactantTotalCount($reactant4, 3);
+        $this->assertReactantTotalWeight($reactant1, 6);
+        $this->assertReactantTotalWeight($reactant2, 2);
+        $this->assertReactantTotalWeight($reactant3, 0);
+        $this->assertReactantTotalWeight($reactant4, -2);
     }
 
     /** @test */
@@ -510,6 +606,14 @@ final class RecountTest extends TestCase
         $this->assertReactantDislikesWeight($reactant2, -2);
         $this->assertReactantDislikesWeight($reactant3, 0);
         $this->assertReactantDislikesWeight($reactant4, -4);
+        $this->assertReactantTotalCount($reactant1, 3);
+        $this->assertReactantTotalCount($reactant2, 3);
+        $this->assertReactantTotalCount($reactant3, 4);
+        $this->assertReactantTotalCount($reactant4, 3);
+        $this->assertReactantTotalWeight($reactant1, 6);
+        $this->assertReactantTotalWeight($reactant2, 2);
+        $this->assertReactantTotalWeight($reactant3, 0);
+        $this->assertReactantTotalWeight($reactant4, -2);
     }
 
     /** @test */
@@ -545,6 +649,14 @@ final class RecountTest extends TestCase
         $this->assertReactantDislikesWeight($reactant2, -2);
         $this->assertReactantDislikesWeight($reactant3, -4);
         $this->assertReactantDislikesWeight($reactant4, -4);
+        $this->assertReactantTotalCount($reactant1, 3);
+        $this->assertReactantTotalCount($reactant2, 3);
+        $this->assertReactantTotalCount($reactant3, 4);
+        $this->assertReactantTotalCount($reactant4, 3);
+        $this->assertReactantTotalWeight($reactant1, 6);
+        $this->assertReactantTotalWeight($reactant2, 2);
+        $this->assertReactantTotalWeight($reactant3, 0);
+        $this->assertReactantTotalWeight($reactant4, -2);
     }
 
     /** @test */
@@ -581,6 +693,14 @@ final class RecountTest extends TestCase
         $this->assertReactantDislikesWeight($reactant2, -2);
         $this->assertReactantDislikesWeight($reactant3, 0);
         $this->assertReactantDislikesWeight($reactant4, -4);
+        $this->assertReactantTotalCount($reactant1, 3);
+        $this->assertReactantTotalCount($reactant2, 3);
+        $this->assertReactantTotalCount($reactant3, 4);
+        $this->assertReactantTotalCount($reactant4, 3);
+        $this->assertReactantTotalWeight($reactant1, 6);
+        $this->assertReactantTotalWeight($reactant2, 2);
+        $this->assertReactantTotalWeight($reactant3, 0);
+        $this->assertReactantTotalWeight($reactant4, -2);
     }
 
     /** @test */
@@ -616,10 +736,18 @@ final class RecountTest extends TestCase
         $this->assertReactantDislikesWeight($reactant2, -2);
         $this->assertReactantDislikesWeight($reactant3, -4);
         $this->assertReactantDislikesWeight($reactant4, -4);
+        $this->assertReactantTotalCount($reactant1, 3);
+        $this->assertReactantTotalCount($reactant2, 3);
+        $this->assertReactantTotalCount($reactant3, 4);
+        $this->assertReactantTotalCount($reactant4, 3);
+        $this->assertReactantTotalWeight($reactant1, 6);
+        $this->assertReactantTotalWeight($reactant2, 2);
+        $this->assertReactantTotalWeight($reactant3, 0);
+        $this->assertReactantTotalWeight($reactant4, -2);
     }
 
     /** @test */
-    public function it_throws_model_invalid_exception_on_not_exist_morph_map(): void
+    public function it_throws_reactable_invalid_exception_on_not_exist_morph_map(): void
     {
         $this->expectException(ReactableInvalid::class);
 
@@ -631,7 +759,7 @@ final class RecountTest extends TestCase
     }
 
     /** @test */
-    public function it_throws_model_invalid_exception_if_class_not_implemented_reactable_interface(): void
+    public function it_throws_reactable_invalid_exception_if_class_not_implemented_reactable_interface(): void
     {
         $this->expectException(ReactableInvalid::class);
 
@@ -783,15 +911,19 @@ final class RecountTest extends TestCase
         $this->assertSame(0, $reactant2->reactionTotal->weight);
     }
 
-    private function reactionsCount(ReactantContract $reactant, ReactionTypeContract $reactionType): int
-    {
+    private function reactionsCount(
+        ReactantContract $reactant,
+        ReactionTypeContract $reactionType
+    ): int {
         return $reactant
             ->getReactionCounterOfType($reactionType)
             ->getCount();
     }
 
-    private function reactionsWeight(ReactantContract $reactant, ReactionTypeContract $reactionType): int
-    {
+    private function reactionsWeight(
+        ReactantContract $reactant,
+        ReactionTypeContract $reactionType
+    ): int {
         return $reactant
             ->getReactionCounterOfType($reactionType)
             ->getWeight();
@@ -834,6 +966,26 @@ final class RecountTest extends TestCase
         $this->assertSame(
             $count,
             $this->reactionsWeight($reactant, $this->dislikeType)
+        );
+    }
+
+    private function assertReactantTotalCount(
+        ReactantContract $reactant,
+        int $count
+    ): void {
+        $this->assertSame(
+            $count,
+            $reactant->getReactionTotal()->getCount()
+        );
+    }
+
+    private function assertReactantTotalWeight(
+        ReactantContract $reactant,
+        int $count
+    ): void {
+        $this->assertSame(
+            $count,
+            $reactant->getReactionTotal()->getWeight()
         );
     }
 
