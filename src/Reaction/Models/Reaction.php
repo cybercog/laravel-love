@@ -29,18 +29,13 @@ final class Reaction extends Model implements
     protected $table = 'love_reactions';
 
     protected $fillable = [
-        'reaction_type_id',
         'reactant_id',
+        'reaction_type_id',
     ];
 
     protected $casts = [
         'id' => 'string',
     ];
-
-    public function type(): BelongsTo
-    {
-        return $this->belongsTo(ReactionType::class, 'reaction_type_id');
-    }
 
     public function reactant(): BelongsTo
     {
@@ -52,14 +47,14 @@ final class Reaction extends Model implements
         return $this->belongsTo(Reacter::class, 'reacter_id');
     }
 
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(ReactionType::class, 'reaction_type_id');
+    }
+
     public function getId(): string
     {
         return $this->getAttributeValue('id');
-    }
-
-    public function getType(): ReactionTypeContract
-    {
-        return $this->getAttribute('type');
     }
 
     public function getReactant(): ReactantContract
@@ -70,6 +65,11 @@ final class Reaction extends Model implements
     public function getReacter(): ReacterContract
     {
         return $this->getAttribute('reacter');
+    }
+
+    public function getType(): ReactionTypeContract
+    {
+        return $this->getAttribute('type');
     }
 
     public function getWeight(): int

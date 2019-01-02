@@ -27,9 +27,8 @@ final class ReactionObserver
     ): void {
         event(new ReactionWasCreated($reaction));
 
-        // TODO: Remove statistics updates to background jobs
-        // TODO: Remove `fresh` (added to reload changes made in previous service calls)
-        $reactant = $reaction->getReactant()->fresh();
+        // TODO: Move statistics updates to background jobs
+        $reactant = $reaction->getReactant();
 
         (new ReactionCounterService($reactant))
             ->addReaction($reaction);
@@ -43,9 +42,8 @@ final class ReactionObserver
     ): void {
         event(new ReactionWasDeleted($reaction));
 
-        // TODO: Remove statistics updates to background jobs
-        // TODO: Remove `fresh` (added to reload changes made in previous service calls)
-        $reactant = $reaction->getReactant()->fresh();
+        // TODO: Move statistics updates to background jobs
+        $reactant = $reaction->getReactant();
 
         (new ReactionCounterService($reactant))
             ->removeReaction($reaction);

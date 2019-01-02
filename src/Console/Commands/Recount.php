@@ -90,7 +90,6 @@ final class Recount extends Command
             }
 
             $service = new ReactionCounterService($reactant);
-            $service->createMissingCounters($counters);
 
             $reactions = $query->get();
 
