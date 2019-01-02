@@ -25,6 +25,7 @@ use Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Query\JoinClause;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @mixin \Cog\Contracts\Love\Reactable\Models\Reactable
@@ -96,11 +97,11 @@ trait Reactable
         ReactionTypeContract $reactionType
     ): Builder {
         $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
-        $select[] = 'lrrc.count as reactions_count';
-        $select[] = 'lrrc.weight as reactions_weight';
+        $select[] = DB::raw('COALESCE(lrrc.count, 0) as reactions_count');
+        $select[] = DB::raw('COALESCE(lrrc.weight, 0) as reactions_weight');
 
         return $query
-            ->join((new ReactionCounter())->getTable() . ' as lrrc', function (JoinClause $join) use ($reactionType) {
+            ->leftJoin((new ReactionCounter())->getTable() . ' as lrrc', function (JoinClause $join) use ($reactionType) {
                 $join->on('lrrc.reactant_id', '=', "{$this->getTable()}.love_reactant_id");
                 $join->where('lrrc.reaction_type_id', $reactionType->getId());
             })
@@ -115,7 +116,7 @@ trait Reactable
         $select[] = 'lrrt.weight as reactions_total_weight';
 
         return $query
-            ->join((new ReactionTotal())->getTable() . ' as lrrt', 'lrrt.reactant_id', '=', "{$this->getTable()}.love_reactant_id")
+            ->leftJoin((new ReactionTotal())->getTable() . ' as lrrt', 'lrrt.reactant_id', '=', "{$this->getTable()}.love_reactant_id")
             ->select($select);
     }
 }
