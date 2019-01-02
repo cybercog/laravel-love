@@ -72,14 +72,14 @@ final class RecountTest extends TestCase
         $this->assertSame(0, $status);
         $counters = ReactionCounter::query()->count();
         $this->assertSame(4, $counters);
-        $this->assertSame(3, $this->reactionsCount($reactant1, $this->likeType));
-        $this->assertSame(2, $this->reactionsCount($reactant2, $this->likeType));
-        $this->assertSame(2, $this->reactionsCount($reactant3, $this->likeType));
-        $this->assertSame(1, $this->reactionsCount($reactant4, $this->likeType));
-        $this->assertSame(0, $this->reactionsCount($reactant1, $this->dislikeType));
-        $this->assertSame(0, $this->reactionsCount($reactant2, $this->dislikeType));
-        $this->assertSame(0, $this->reactionsCount($reactant3, $this->dislikeType));
-        $this->assertSame(0, $this->reactionsCount($reactant4, $this->dislikeType));
+        $this->assertReactantLikesCount($reactant1, 3);
+        $this->assertReactantLikesCount($reactant2, 2);
+        $this->assertReactantLikesCount($reactant3, 2);
+        $this->assertReactantLikesCount($reactant4, 1);
+        $this->assertReactantDislikesCount($reactant1, 0);
+        $this->assertReactantDislikesCount($reactant2, 0);
+        $this->assertReactantDislikesCount($reactant3, 0);
+        $this->assertReactantDislikesCount($reactant1, 0);
     }
 
     /** @test */
@@ -99,14 +99,14 @@ final class RecountTest extends TestCase
         $this->assertSame(0, $status);
         $counters = ReactionCounter::query()->count();
         $this->assertSame(7, $counters);
-        $this->assertSame(3, $this->reactionsCount($reactant1, $this->likeType));
-        $this->assertSame(2, $this->reactionsCount($reactant2, $this->likeType));
-        $this->assertSame(2, $this->reactionsCount($reactant3, $this->likeType));
-        $this->assertSame(1, $this->reactionsCount($reactant4, $this->likeType));
-        $this->assertSame(0, $this->reactionsCount($reactant1, $this->dislikeType));
-        $this->assertSame(1, $this->reactionsCount($reactant2, $this->dislikeType));
-        $this->assertSame(2, $this->reactionsCount($reactant3, $this->dislikeType));
-        $this->assertSame(2, $this->reactionsCount($reactant4, $this->dislikeType));
+        $this->assertReactantLikesCount($reactant1, 3);
+        $this->assertReactantLikesCount($reactant2, 2);
+        $this->assertReactantLikesCount($reactant3, 2);
+        $this->assertReactantLikesCount($reactant4, 1);
+        $this->assertReactantDislikesCount($reactant1, 0);
+        $this->assertReactantDislikesCount($reactant2, 1);
+        $this->assertReactantDislikesCount($reactant3, 2);
+        $this->assertReactantDislikesCount($reactant4, 2);
     }
 
     /** @test */
@@ -127,14 +127,14 @@ final class RecountTest extends TestCase
         $this->assertSame(0, $status);
         $counters = ReactionCounter::query()->count();
         $this->assertSame(4, $counters);
-        $this->assertSame(6, $this->reactionsWeight($reactant1, $this->likeType));
-        $this->assertSame(4, $this->reactionsWeight($reactant2, $this->likeType));
-        $this->assertSame(4, $this->reactionsWeight($reactant3, $this->likeType));
-        $this->assertSame(2, $this->reactionsWeight($reactant4, $this->likeType));
-        $this->assertSame(0, $this->reactionsWeight($reactant1, $this->dislikeType));
-        $this->assertSame(0, $this->reactionsWeight($reactant2, $this->dislikeType));
-        $this->assertSame(0, $this->reactionsWeight($reactant3, $this->dislikeType));
-        $this->assertSame(0, $this->reactionsWeight($reactant4, $this->dislikeType));
+        $this->assertReactantLikesWeight($reactant1, 6);
+        $this->assertReactantLikesWeight($reactant2, 4);
+        $this->assertReactantLikesWeight($reactant3, 4);
+        $this->assertReactantLikesWeight($reactant4, 2);
+        $this->assertReactantDislikesWeight($reactant1, 0);
+        $this->assertReactantDislikesWeight($reactant2, 0);
+        $this->assertReactantDislikesWeight($reactant3, 0);
+        $this->assertReactantDislikesWeight($reactant4, 0);
     }
 
     /** @test */
@@ -154,14 +154,14 @@ final class RecountTest extends TestCase
         $this->assertSame(0, $status);
         $counters = ReactionCounter::query()->count();
         $this->assertSame(7, $counters);
-        $this->assertSame(6, $this->reactionsWeight($reactant1, $this->likeType));
-        $this->assertSame(4, $this->reactionsWeight($reactant2, $this->likeType));
-        $this->assertSame(4, $this->reactionsWeight($reactant3, $this->likeType));
-        $this->assertSame(2, $this->reactionsWeight($reactant4, $this->likeType));
-        $this->assertSame(0, $this->reactionsWeight($reactant1, $this->dislikeType));
-        $this->assertSame(-2, $this->reactionsWeight($reactant2, $this->dislikeType));
-        $this->assertSame(-4, $this->reactionsWeight($reactant3, $this->dislikeType));
-        $this->assertSame(-4, $this->reactionsWeight($reactant4, $this->dislikeType));
+        $this->assertReactantLikesWeight($reactant1, 6);
+        $this->assertReactantLikesWeight($reactant2, 4);
+        $this->assertReactantLikesWeight($reactant3, 4);
+        $this->assertReactantLikesWeight($reactant4, 2);
+        $this->assertReactantDislikesWeight($reactant1, 0);
+        $this->assertReactantDislikesWeight($reactant2, -2);
+        $this->assertReactantDislikesWeight($reactant3, -4);
+        $this->assertReactantDislikesWeight($reactant4, -4);
     }
 
     /** @test */
@@ -182,14 +182,14 @@ final class RecountTest extends TestCase
 
         $this->assertSame(0, $status);
         $this->assertSame(1, ReactionCounter::query()->count());
-        $this->assertSame(3, $this->reactionsCount($reactant1, $this->likeType));
-        $this->assertSame(0, $this->reactionsCount($reactant2, $this->likeType));
-        $this->assertSame(0, $this->reactionsCount($reactant3, $this->likeType));
-        $this->assertSame(0, $this->reactionsCount($reactant4, $this->likeType));
-        $this->assertSame(0, $this->reactionsCount($reactant1, $this->dislikeType));
-        $this->assertSame(0, $this->reactionsCount($reactant2, $this->dislikeType));
-        $this->assertSame(0, $this->reactionsCount($reactant3, $this->dislikeType));
-        $this->assertSame(0, $this->reactionsCount($reactant4, $this->dislikeType));
+        $this->assertReactantLikesCount($reactant1, 3);
+        $this->assertReactantLikesCount($reactant2, 0);
+        $this->assertReactantLikesCount($reactant3, 0);
+        $this->assertReactantLikesCount($reactant4, 0);
+        $this->assertReactantDislikesCount($reactant1, 0);
+        $this->assertReactantDislikesCount($reactant2, 0);
+        $this->assertReactantDislikesCount($reactant3, 0);
+        $this->assertReactantDislikesCount($reactant4, 0);
     }
 
     /** @test */
@@ -210,14 +210,14 @@ final class RecountTest extends TestCase
 
         $this->assertSame(0, $status);
         $this->assertSame(2, ReactionCounter::query()->count());
-        $this->assertSame(0, $this->reactionsCount($reactant1, $this->likeType));
-        $this->assertSame(2, $this->reactionsCount($reactant2, $this->likeType));
-        $this->assertSame(0, $this->reactionsCount($reactant3, $this->likeType));
-        $this->assertSame(1, $this->reactionsCount($reactant4, $this->likeType));
-        $this->assertSame(0, $this->reactionsCount($reactant1, $this->dislikeType));
-        $this->assertSame(0, $this->reactionsCount($reactant2, $this->dislikeType));
-        $this->assertSame(0, $this->reactionsCount($reactant3, $this->dislikeType));
-        $this->assertSame(0, $this->reactionsCount($reactant4, $this->dislikeType));
+        $this->assertReactantLikesCount($reactant1, 0);
+        $this->assertReactantLikesCount($reactant2, 2);
+        $this->assertReactantLikesCount($reactant3, 0);
+        $this->assertReactantLikesCount($reactant4, 1);
+        $this->assertReactantDislikesCount($reactant1, 0);
+        $this->assertReactantDislikesCount($reactant2, 0);
+        $this->assertReactantDislikesCount($reactant3, 0);
+        $this->assertReactantDislikesCount($reactant4, 0);
     }
 
     /** @test */
@@ -238,14 +238,14 @@ final class RecountTest extends TestCase
 
         $this->assertSame(0, $status);
         $this->assertSame(2, ReactionCounter::query()->count());
-        $this->assertSame(0, $this->reactionsCount($reactant1, $this->likeType));
-        $this->assertSame(2, $this->reactionsCount($reactant2, $this->likeType));
-        $this->assertSame(0, $this->reactionsCount($reactant3, $this->likeType));
-        $this->assertSame(1, $this->reactionsCount($reactant4, $this->likeType));
-        $this->assertSame(0, $this->reactionsCount($reactant1, $this->dislikeType));
-        $this->assertSame(0, $this->reactionsCount($reactant2, $this->dislikeType));
-        $this->assertSame(0, $this->reactionsCount($reactant3, $this->dislikeType));
-        $this->assertSame(0, $this->reactionsCount($reactant4, $this->dislikeType));
+        $this->assertReactantLikesCount($reactant1, 0);
+        $this->assertReactantLikesCount($reactant2, 2);
+        $this->assertReactantLikesCount($reactant3, 0);
+        $this->assertReactantLikesCount($reactant4, 1);
+        $this->assertReactantDislikesCount($reactant1, 0);
+        $this->assertReactantDislikesCount($reactant2, 0);
+        $this->assertReactantDislikesCount($reactant3, 0);
+        $this->assertReactantDislikesCount($reactant4, 0);
     }
 
     /** @test */
@@ -264,14 +264,14 @@ final class RecountTest extends TestCase
         $this->assertSame(0, $status);
         $counters = ReactionCounter::query()->count();
         $this->assertSame(7, $counters);
-        $this->assertSame(3, $this->reactionsCount($reactant1, $this->likeType));
-        $this->assertSame(2, $this->reactionsCount($reactant2, $this->likeType));
-        $this->assertSame(2, $this->reactionsCount($reactant3, $this->likeType));
-        $this->assertSame(1, $this->reactionsCount($reactant4, $this->likeType));
-        $this->assertSame(0, $this->reactionsCount($reactant1, $this->dislikeType));
-        $this->assertSame(1, $this->reactionsCount($reactant2, $this->dislikeType));
-        $this->assertSame(2, $this->reactionsCount($reactant3, $this->dislikeType));
-        $this->assertSame(2, $this->reactionsCount($reactant4, $this->dislikeType));
+        $this->assertReactantLikesCount($reactant1, 3);
+        $this->assertReactantLikesCount($reactant2, 2);
+        $this->assertReactantLikesCount($reactant3, 2);
+        $this->assertReactantLikesCount($reactant4, 1);
+        $this->assertReactantDislikesCount($reactant1, 0);
+        $this->assertReactantDislikesCount($reactant2, 1);
+        $this->assertReactantDislikesCount($reactant3, 2);
+        $this->assertReactantDislikesCount($reactant4, 2);
     }
 
     /** @test */
@@ -289,14 +289,14 @@ final class RecountTest extends TestCase
         $this->assertSame(0, $status);
         $counters = ReactionCounter::query()->count();
         $this->assertSame(7, $counters);
-        $this->assertSame(3, $this->reactionsCount($reactant1, $this->likeType));
-        $this->assertSame(2, $this->reactionsCount($reactant2, $this->likeType));
-        $this->assertSame(2, $this->reactionsCount($reactant3, $this->likeType));
-        $this->assertSame(1, $this->reactionsCount($reactant4, $this->likeType));
-        $this->assertSame(0, $this->reactionsCount($reactant1, $this->dislikeType));
-        $this->assertSame(1, $this->reactionsCount($reactant2, $this->dislikeType));
-        $this->assertSame(2, $this->reactionsCount($reactant3, $this->dislikeType));
-        $this->assertSame(2, $this->reactionsCount($reactant4, $this->dislikeType));
+        $this->assertReactantLikesCount($reactant1, 3);
+        $this->assertReactantLikesCount($reactant2, 2);
+        $this->assertReactantLikesCount($reactant3, 2);
+        $this->assertReactantLikesCount($reactant4, 1);
+        $this->assertReactantDislikesCount($reactant1, 0);
+        $this->assertReactantDislikesCount($reactant2, 1);
+        $this->assertReactantDislikesCount($reactant3, 2);
+        $this->assertReactantDislikesCount($reactant4, 2);
     }
 
     /** @test */
@@ -317,14 +317,14 @@ final class RecountTest extends TestCase
         $this->assertSame(0, $status);
         $counters = ReactionCounter::query()->count();
         $this->assertSame(1, $counters);
-        $this->assertSame(3, $this->reactionsCount($reactant1, $this->likeType));
-        $this->assertSame(0, $this->reactionsCount($reactant2, $this->likeType));
-        $this->assertSame(0, $this->reactionsCount($reactant3, $this->likeType));
-        $this->assertSame(0, $this->reactionsCount($reactant4, $this->likeType));
-        $this->assertSame(0, $this->reactionsCount($reactant1, $this->dislikeType));
-        $this->assertSame(0, $this->reactionsCount($reactant2, $this->dislikeType));
-        $this->assertSame(0, $this->reactionsCount($reactant3, $this->dislikeType));
-        $this->assertSame(0, $this->reactionsCount($reactant4, $this->dislikeType));
+        $this->assertReactantLikesCount($reactant1, 3);
+        $this->assertReactantLikesCount($reactant2, 0);
+        $this->assertReactantLikesCount($reactant3, 0);
+        $this->assertReactantLikesCount($reactant4, 0);
+        $this->assertReactantDislikesCount($reactant1, 0);
+        $this->assertReactantDislikesCount($reactant2, 0);
+        $this->assertReactantDislikesCount($reactant3, 0);
+        $this->assertReactantDislikesCount($reactant4, 0);
     }
 
     /** @test */
@@ -345,14 +345,14 @@ final class RecountTest extends TestCase
         $counters = ReactionCounter::query()->count();
         $this->assertSame(0, $status);
         $this->assertSame(4, $counters);
-        $this->assertSame(0, $this->reactionsCount($reactant1, $this->likeType));
-        $this->assertSame(2, $this->reactionsCount($reactant2, $this->likeType));
-        $this->assertSame(0, $this->reactionsCount($reactant3, $this->likeType));
-        $this->assertSame(1, $this->reactionsCount($reactant4, $this->likeType));
-        $this->assertSame(0, $this->reactionsCount($reactant1, $this->dislikeType));
-        $this->assertSame(1, $this->reactionsCount($reactant2, $this->dislikeType));
-        $this->assertSame(0, $this->reactionsCount($reactant3, $this->dislikeType));
-        $this->assertSame(2, $this->reactionsCount($reactant4, $this->dislikeType));
+        $this->assertReactantLikesCount($reactant1, 0);
+        $this->assertReactantLikesCount($reactant2, 2);
+        $this->assertReactantLikesCount($reactant3, 0);
+        $this->assertReactantLikesCount($reactant4, 1);
+        $this->assertReactantDislikesCount($reactant1, 0);
+        $this->assertReactantDislikesCount($reactant2, 1);
+        $this->assertReactantDislikesCount($reactant3, 0);
+        $this->assertReactantDislikesCount($reactant4, 2);
     }
 
     /** @test */
@@ -373,14 +373,14 @@ final class RecountTest extends TestCase
         $counters = ReactionCounter::query()->count();
         $this->assertSame(0, $status);
         $this->assertSame(4, $counters);
-        $this->assertSame(0, $this->reactionsCount($reactant1, $this->likeType));
-        $this->assertSame(2, $this->reactionsCount($reactant2, $this->likeType));
-        $this->assertSame(0, $this->reactionsCount($reactant3, $this->likeType));
-        $this->assertSame(1, $this->reactionsCount($reactant4, $this->likeType));
-        $this->assertSame(0, $this->reactionsCount($reactant1, $this->dislikeType));
-        $this->assertSame(1, $this->reactionsCount($reactant2, $this->dislikeType));
-        $this->assertSame(0, $this->reactionsCount($reactant3, $this->dislikeType));
-        $this->assertSame(2, $this->reactionsCount($reactant4, $this->dislikeType));
+        $this->assertReactantLikesCount($reactant1, 0);
+        $this->assertReactantLikesCount($reactant2, 2);
+        $this->assertReactantLikesCount($reactant3, 0);
+        $this->assertReactantLikesCount($reactant4, 1);
+        $this->assertReactantDislikesCount($reactant1, 0);
+        $this->assertReactantDislikesCount($reactant2, 1);
+        $this->assertReactantDislikesCount($reactant3, 0);
+        $this->assertReactantDislikesCount($reactant4, 2);
     }
 
     /** @test */
@@ -560,6 +560,46 @@ final class RecountTest extends TestCase
         return $reactant
             ->getReactionCounterOfType($reactionType)
             ->getWeight();
+    }
+
+    private function assertReactantLikesCount(
+        ReactantContract $reactant,
+        int $count
+    ): void {
+        $this->assertSame(
+            $count,
+            $this->reactionsCount($reactant, $this->likeType)
+        );
+    }
+
+    private function assertReactantDislikesCount(
+        ReactantContract $reactant,
+        int $count
+    ): void {
+        $this->assertSame(
+            $count,
+            $this->reactionsCount($reactant, $this->dislikeType)
+        );
+    }
+
+    private function assertReactantLikesWeight(
+        ReactantContract $reactant,
+        int $count
+    ): void {
+        $this->assertSame(
+            $count,
+            $this->reactionsWeight($reactant, $this->likeType)
+        );
+    }
+
+    private function assertReactantDislikesWeight(
+        ReactantContract $reactant,
+        int $count
+    ): void {
+        $this->assertSame(
+            $count,
+            $this->reactionsWeight($reactant, $this->dislikeType)
+        );
     }
 
     private function seedTestData(): array
