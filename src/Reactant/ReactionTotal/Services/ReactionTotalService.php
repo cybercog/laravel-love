@@ -42,9 +42,8 @@ final class ReactionTotalService
             return;
         }
 
-        $this->reactionTotal->incrementCount(-1);
-        $amount = -1 * $reaction->getWeight();
-        $this->reactionTotal->incrementWeight($amount);
+        $this->reactionTotal->decrementCount(1);
+        $this->reactionTotal->decrementWeight($reaction->getWeight());
     }
 
     private function findOrCreateReactionTotalFor(

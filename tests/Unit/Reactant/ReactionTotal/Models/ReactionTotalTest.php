@@ -159,6 +159,31 @@ final class ReactionTotalTest extends TestCase
     }
 
     /** @test */
+    public function it_can_decrement_count(): void
+    {
+        $total = factory(ReactionTotal::class)->create([
+            'count' => 10,
+        ]);
+
+        $total->decrementCount(2);
+
+        $this->assertSame(8, $total->getCount());
+    }
+
+    /** @test */
+    public function it_can_decrement_count_many_times(): void
+    {
+        $total = factory(ReactionTotal::class)->create([
+            'count' => 10,
+        ]);
+
+        $total->decrementCount(2);
+        $total->decrementCount(3);
+
+        $this->assertSame(5, $total->getCount());
+    }
+
+    /** @test */
     public function it_can_increment_weight(): void
     {
         $total = factory(ReactionTotal::class)->create([
@@ -179,6 +204,31 @@ final class ReactionTotalTest extends TestCase
 
         $total->incrementWeight(2);
         $total->incrementWeight(3);
+
+        $this->assertSame(5, $total->getWeight());
+    }
+
+    /** @test */
+    public function it_can_decrement_weight(): void
+    {
+        $total = factory(ReactionTotal::class)->create([
+            'weight' => 10,
+        ]);
+
+        $total->decrementWeight(2);
+
+        $this->assertSame(8, $total->getWeight());
+    }
+
+    /** @test */
+    public function it_can_decrement_weight_many_times(): void
+    {
+        $total = factory(ReactionTotal::class)->create([
+            'weight' => 10,
+        ]);
+
+        $total->decrementWeight(2);
+        $total->decrementWeight(3);
 
         $this->assertSame(5, $total->getWeight());
     }

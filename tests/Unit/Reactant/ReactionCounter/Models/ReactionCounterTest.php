@@ -236,6 +236,31 @@ final class ReactionCounterTest extends TestCase
     }
 
     /** @test */
+    public function it_can_decrement_count(): void
+    {
+        $counter = factory(ReactionCounter::class)->create([
+            'count' => 10,
+        ]);
+
+        $counter->decrementCount(2);
+
+        $this->assertSame(8, $counter->getCount());
+    }
+
+    /** @test */
+    public function it_can_decrement_count_many_times(): void
+    {
+        $counter = factory(ReactionCounter::class)->create([
+            'count' => 10,
+        ]);
+
+        $counter->decrementCount(2);
+        $counter->decrementCount(3);
+
+        $this->assertSame(5, $counter->getCount());
+    }
+
+    /** @test */
     public function it_can_increment_weight(): void
     {
         $counter = factory(ReactionCounter::class)->create([
@@ -256,6 +281,31 @@ final class ReactionCounterTest extends TestCase
 
         $counter->incrementWeight(2);
         $counter->incrementWeight(3);
+
+        $this->assertSame(5, $counter->getWeight());
+    }
+
+    /** @test */
+    public function it_can_decrement_weight(): void
+    {
+        $counter = factory(ReactionCounter::class)->create([
+            'weight' => 10,
+        ]);
+
+        $counter->decrementWeight(2);
+
+        $this->assertSame(8, $counter->getWeight());
+    }
+
+    /** @test */
+    public function it_can_decrement_weight_many_times(): void
+    {
+        $counter = factory(ReactionCounter::class)->create([
+            'weight' => 10,
+        ]);
+
+        $counter->decrementWeight(2);
+        $counter->decrementWeight(3);
 
         $this->assertSame(5, $counter->getWeight());
     }

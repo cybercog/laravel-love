@@ -69,6 +69,16 @@ final class NullReactionTotalTest extends TestCase
     }
 
     /** @test */
+    public function it_throws_exception_on_decrement_count(): void
+    {
+        $this->expectException(ReactionTotalInvalid::class);
+
+        $total = new NullReactionTotal(new NullReactant(new Article()));
+
+        $total->decrementCount(2);
+    }
+
+    /** @test */
     public function it_throws_exception_on_increment_weight(): void
     {
         $this->expectException(ReactionTotalInvalid::class);
@@ -76,5 +86,15 @@ final class NullReactionTotalTest extends TestCase
         $total = new NullReactionTotal(new NullReactant(new Article()));
 
         $total->incrementWeight(2);
+    }
+
+    /** @test */
+    public function it_throws_exception_on_decrement_weight(): void
+    {
+        $this->expectException(ReactionTotalInvalid::class);
+
+        $total = new NullReactionTotal(new NullReactant(new Article()));
+
+        $total->decrementWeight(2);
     }
 }

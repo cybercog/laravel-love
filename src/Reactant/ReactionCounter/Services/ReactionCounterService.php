@@ -46,9 +46,8 @@ final class ReactionCounterService
             return;
         }
 
-        $counter->incrementCount(-1);
-        $amount = -1 * $reaction->getWeight();
-        $counter->incrementWeight($amount);
+        $counter->decrementCount(1);
+        $counter->decrementWeight($reaction->getWeight());
     }
 
     private function findCounterOfType(

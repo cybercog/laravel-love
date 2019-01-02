@@ -25,5 +25,9 @@ interface ReactionTotal
 
     public function incrementCount(int $amount): void;
 
+    public function decrementCount(int $amount): void;
+
     public function incrementWeight(int $amount): void;
+
+    public function decrementWeight(int $amount): void;
 }

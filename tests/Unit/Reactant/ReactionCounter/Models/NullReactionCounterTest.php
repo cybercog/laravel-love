@@ -113,6 +113,17 @@ final class NullReactionCounterTest extends TestCase
     }
 
     /** @test */
+    public function it_throws_exception_on_decrement_count(): void
+    {
+        $this->expectException(ReactionCounterInvalid::class);
+
+        $reactionType = factory(ReactionType::class)->create();
+        $counter = new NullReactionCounter(new NullReactant(new Article()), $reactionType);
+
+        $counter->decrementCount(2);
+    }
+
+    /** @test */
     public function it_throws_exception_on_increment_weight(): void
     {
         $this->expectException(ReactionCounterInvalid::class);
@@ -121,5 +132,16 @@ final class NullReactionCounterTest extends TestCase
         $counter = new NullReactionCounter(new NullReactant(new Article()), $reactionType);
 
         $counter->incrementWeight(2);
+    }
+
+    /** @test */
+    public function it_throws_exception_on_decrement_weight(): void
+    {
+        $this->expectException(ReactionCounterInvalid::class);
+
+        $reactionType = factory(ReactionType::class)->create();
+        $counter = new NullReactionCounter(new NullReactant(new Article()), $reactionType);
+
+        $counter->decrementWeight(2);
     }
 }

@@ -71,7 +71,19 @@ final class NullReactionCounter implements
         throw ReactionCounterInvalid::notExists();
     }
 
+    public function decrementCount(
+        int $amount
+    ): void {
+        throw ReactionCounterInvalid::notExists();
+    }
+
     public function incrementWeight(
+        int $amount
+    ): void {
+        throw ReactionCounterInvalid::notExists();
+    }
+
+    public function decrementWeight(
         int $amount
     ): void {
         throw ReactionCounterInvalid::notExists();
