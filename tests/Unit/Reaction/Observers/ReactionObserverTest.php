@@ -79,6 +79,23 @@ final class ReactionObserverTest extends TestCase
     }
 
     /** @test */
+    public function it_not_creates_counter_on_reaction_deleted(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reactant = factory(Reactant::class)->create();
+        $reaction = factory(Reaction::class)->create([
+            'reactant_id' => $reactant->getId(),
+            'reaction_type_id' => $reactionType->getId(),
+        ]);
+        ReactionCounter::query()->truncate();
+
+        $reaction->fresh()->delete();
+
+        $assertCounters = $reactant->fresh()->reactionCounters;
+        $this->assertCount(0, $assertCounters);
+    }
+
+    /** @test */
     public function it_decrement_reactions_count_on_reaction_deleted()
     {
         $reactionType = factory(ReactionType::class)->create();
