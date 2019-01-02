@@ -13,10 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Reactant\ReactionCounter\Services;
 
-use Cog\Contracts\Love\Reactant\ReactionCounter\Exceptions\ReactionCounterBadValue;
-use Cog\Contracts\Love\Reactant\ReactionCounter\Exceptions\ReactionCounterMissing;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
-use Cog\Laravel\Love\Reactant\ReactionCounter\Models\NullReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Services\ReactionCounterService;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
@@ -88,7 +85,7 @@ final class ReactionCounterServiceTest extends TestCase
     }
 
     /** @test */
-    public function it_not_makes_reaction_count_below_zero_on_decrement_count(): void
+    public function it_not_makes_count_below_zero_on_decrement_count(): void
     {
         Event::fake(); // To not fire `ReactionObserver` methods
 
@@ -143,7 +140,9 @@ final class ReactionCounterServiceTest extends TestCase
     public function it_creates_counter_on_add_reaction_when_counter_not_exists(): void
     {
         Event::fake(); // To not fire `ReactionObserver` methods
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = factory(ReactionType::class)->create([
+            'weight' => 4,
+        ]);
         $reactant = factory(Reactant::class)->create();
         $initialCounters = $reactant->reactionCounters;
         $reaction = factory(Reaction::class)->create([
@@ -156,23 +155,31 @@ final class ReactionCounterServiceTest extends TestCase
 
         $this->assertCount(0, $initialCounters);
         $this->assertCount(1, $reactant->reactionCounters);
+        $this->assertSame(1, $reactant->reactionCounters->get(0)->count);
+        $this->assertSame(4, $reactant->reactionCounters->get(0)->weight);
     }
 
     /** @test */
-    public function it_can_remove_reaction_when_counter_not_exists(): void
+    public function it_creates_counter_on_remove_reaction_when_counter_not_exists(): void
     {
         Event::fake(); // To not fire `ReactionObserver` methods
 
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = factory(ReactionType::class)->create([
+            'weight' => 4,
+        ]);
         $reactant = factory(Reactant::class)->create();
+        $initialCounters = $reactant->reactionCounters;
         $service = new ReactionCounterService($reactant);
-        $reaction1 = factory(Reaction::class)->create([
+        $reaction = factory(Reaction::class)->create([
             'reactant_id' => $reactant->getId(),
             'reaction_type_id' => $reactionType->getId(),
         ]);
 
-        $service->removeReaction($reaction1);
+        $service->removeReaction($reaction);
 
-        $this->assertCount(0, $reactant->getReactionCounters());
+        $this->assertCount(0, $initialCounters);
+        $this->assertCount(1, $reactant->reactionCounters);
+        $this->assertSame(0, $reactant->reactionCounters->get(0)->count);
+        $this->assertSame(0, $reactant->reactionCounters->get(0)->weight);
     }
 }

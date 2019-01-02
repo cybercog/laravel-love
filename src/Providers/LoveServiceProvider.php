@@ -18,7 +18,6 @@ use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
 use Cog\Laravel\Love\Console\Commands\Recount;
 use Cog\Laravel\Love\Console\Commands\UpgradeFromV5ToV6;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
-use Cog\Laravel\Love\Reactant\Observers\ReactantObserver;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\Reaction\Observers\ReactionObserver;
 use Illuminate\Support\ServiceProvider;
@@ -55,9 +54,6 @@ final class LoveServiceProvider extends ServiceProvider
      */
     private function registerObservers(): void
     {
-        $this->app
-            ->make(ReactantContract::class)
-            ->observe(ReactantObserver::class);
         $this->app
             ->make(ReactionContract::class)
             ->observe(ReactionObserver::class);

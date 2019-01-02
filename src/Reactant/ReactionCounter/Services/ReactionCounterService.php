@@ -40,7 +40,7 @@ final class ReactionCounterService
     public function removeReaction(
         ReactionContract $reaction
     ): void {
-        $counter = $this->findCounterOfType($reaction->getType());
+        $counter = $this->findOrCreateCounterOfType($reaction->getType());
 
         if ($counter->getCount() === 0) {
             return;

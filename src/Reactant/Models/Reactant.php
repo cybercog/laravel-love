@@ -217,5 +217,8 @@ final class Reactant extends Model implements
             'count' => 0,
             'weight' => 0,
         ]);
+
+        // Need to reload relation with fresh data
+        $this->load('reactionTotal');
     }
 }

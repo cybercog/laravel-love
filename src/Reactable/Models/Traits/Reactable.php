@@ -112,8 +112,8 @@ trait Reactable
         Builder $query
     ): Builder {
         $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
-        $select[] = 'lrrt.count as reactions_total_count';
-        $select[] = 'lrrt.weight as reactions_total_weight';
+        $select[] = DB::raw('COALESCE(lrrt.count, 0) as reactions_total_count');
+        $select[] = DB::raw('COALESCE(lrrt.weight, 0) as reactions_total_weight');
 
         return $query
             ->leftJoin((new ReactionTotal())->getTable() . ' as lrrt', 'lrrt.reactant_id', '=', "{$this->getTable()}.love_reactant_id")
