@@ -19,7 +19,6 @@ use Cog\Contracts\Love\Reactant\ReactionCounter\Exceptions\ReactionCounterMissin
 use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\NullReactionCounter;
-use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 
 final class ReactionCounterService
 {
@@ -31,36 +30,16 @@ final class ReactionCounterService
         $this->reactant = $reactant;
     }
 
-    // TODO: Cover with tests
-    public function createCounters(): void
-    {
-        $this->createMissingCounters([]);
-    }
-
-    // TODO: Cover with tests
-    public function createMissingCounters(
-        iterable $existCounters
-    ): void {
-        // TODO: Instead of `all` use custom cacheable static method
-        $reactionTypes = ReactionType::all();
-        foreach ($reactionTypes as $reactionType) {
-            /** @var \Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter $counter */
-            foreach ($existCounters as $counter) {
-                if ($counter->isReactionOfType($reactionType)) {
-                    continue 2;
-                }
-            }
-
-            $this->reactant->createReactionCounterOfType($reactionType);
-        }
-
-        // TODO: FIX IT! Need to repopulate already loaded counters relation
-        $this->reactant->refresh();
-    }
-
     public function addReaction(
         ReactionContract $reaction
     ): void {
+        // TODO: Test that counter creates on `addReaction` if not exists
+        // TODO: Test that counter not duplicates on `addReaction` if exists
+        $counter = $this->reactant->getReactionCounterOfType($reaction->getType());
+        if ($counter instanceof NullReactionCounter && $this->reactant->isNotNull()) {
+            $this->reactant->createReactionCounterOfType($reaction->getType());
+            $this->reactant->refresh();
+        }
         $this->incrementCountOfType($reaction->getType());
         $this->incrementWeightOfType($reaction->getType(), $reaction->getWeight());
     }

@@ -19,7 +19,7 @@ use Faker\Generator as Faker;
 /* @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(ReactionCounter::class, function (Faker $faker) {
     return [
-        'reaction_type_id' => factory(ReactionType::class),
         'reactant_id' => factory(Reactant::class),
+        'reaction_type_id' => factory(ReactionType::class),
     ];
 });

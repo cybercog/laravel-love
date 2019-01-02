@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Cog\Tests\Laravel\Love\Unit\Reaction\Observers;
 
 use Cog\Laravel\Love\Reactant\Models\Reactant;
+use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\TestCase;
@@ -28,9 +29,10 @@ final class ReactionObserverTest extends TestCase
     {
         $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->create();
-        $counter = $reactant->reactionCounters()
-            ->where('reaction_type_id', $reactionType->getId())
-            ->firstOrFail();
+        $counter = factory(ReactionCounter::class)->create([
+            'reactant_id' => $reactant->getId(),
+            'reaction_type_id' => $reactionType->getId(),
+        ]);
 
         factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType->getId(),
@@ -45,9 +47,10 @@ final class ReactionObserverTest extends TestCase
     {
         $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->create();
-        $counter = $reactant->reactionCounters()
-            ->where('reaction_type_id', $reactionType->getId())
-            ->firstOrFail();
+        $counter = factory(ReactionCounter::class)->create([
+            'reactant_id' => $reactant->getId(),
+            'reaction_type_id' => $reactionType->getId(),
+        ]);
         $reactions = factory(Reaction::class, 2)->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactant->getId(),
@@ -65,9 +68,10 @@ final class ReactionObserverTest extends TestCase
             'weight' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
-        $counter = $reactant->reactionCounters()
-            ->where('reaction_type_id', $reactionType->getId())
-            ->firstOrFail();
+        $counter = factory(ReactionCounter::class)->create([
+            'reactant_id' => $reactant->getId(),
+            'reaction_type_id' => $reactionType->getId(),
+        ]);
 
         factory(Reaction::class, 2)->create([
             'reaction_type_id' => $reactionType->getId(),
@@ -84,9 +88,10 @@ final class ReactionObserverTest extends TestCase
             'weight' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
-        $counter = $reactant->reactionCounters()
-            ->where('reaction_type_id', $reactionType->getId())
-            ->firstOrFail();
+        $counter = factory(ReactionCounter::class)->create([
+            'reactant_id' => $reactant->getId(),
+            'reaction_type_id' => $reactionType->getId(),
+        ]);
         $reactions = factory(Reaction::class, 3)->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactant->getId(),
@@ -104,9 +109,10 @@ final class ReactionObserverTest extends TestCase
             'weight' => -4,
         ]);
         $reactant = factory(Reactant::class)->create();
-        $counter = $reactant->reactionCounters()
-            ->where('reaction_type_id', $reactionType->getId())
-            ->firstOrFail();
+        $counter = factory(ReactionCounter::class)->create([
+            'reactant_id' => $reactant->getId(),
+            'reaction_type_id' => $reactionType->getId(),
+        ]);
 
         factory(Reaction::class, 2)->create([
             'reaction_type_id' => $reactionType->getId(),
@@ -123,9 +129,10 @@ final class ReactionObserverTest extends TestCase
             'weight' => -4,
         ]);
         $reactant = factory(Reactant::class)->create();
-        $counter = $reactant->reactionCounters()
-            ->where('reaction_type_id', $reactionType->getId())
-            ->firstOrFail();
+        $counter = factory(ReactionCounter::class)->create([
+            'reactant_id' => $reactant->getId(),
+            'reaction_type_id' => $reactionType->getId(),
+        ]);
         $reactions = factory(Reaction::class, 3)->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactant->getId(),
