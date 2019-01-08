@@ -72,7 +72,7 @@ final class NullReactionCounterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_determine_is_reaction_of_type(): void
+    public function it_can_check_is_reaction_of_type(): void
     {
         $reactant = new NullReactant(new Article());
         $reactionType = factory(ReactionType::class)->create();
@@ -87,7 +87,7 @@ final class NullReactionCounterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_determine_is_not_reaction_of_type(): void
+    public function it_can_check_is_not_reaction_of_type(): void
     {
         $reactant = new NullReactant(new Article());
         $reactionType = factory(ReactionType::class)->create();

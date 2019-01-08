@@ -183,7 +183,7 @@ final class NullReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_determine_is_reacted_to(): void
+    public function it_can_check_is_reacted_to(): void
     {
         $reacterable = new User();
         $reacter = new NullReacter($reacterable);
@@ -195,7 +195,7 @@ final class NullReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_determine_is_not_reacted_to(): void
+    public function it_can_check_is_not_reacted_to(): void
     {
         $reacterable = new User();
         $reacter = new NullReacter($reacterable);
@@ -207,7 +207,7 @@ final class NullReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_determine_is_reacted_to_with_type(): void
+    public function it_can_check_is_reacted_to_with_type(): void
     {
         $reacterable = new User();
         $reacter = new NullReacter($reacterable);
@@ -220,7 +220,7 @@ final class NullReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_determine_is_not_reacted_to_with_type(): void
+    public function it_can_check_is_not_reacted_to_with_type(): void
     {
         $reacterable = new User();
         $reacter = new NullReacter($reacterable);

@@ -96,7 +96,7 @@ final class ReactableTest extends TestCase
     }
 
     /** @test */
-    public function it_can_determine_if_registered_as_reactant(): void
+    public function it_can_check_if_registered_as_reactant(): void
     {
         $reactant = factory(Reactant::class)->create([
             'type' => (new Article())->getMorphClass(),
@@ -111,7 +111,7 @@ final class ReactableTest extends TestCase
     }
 
     /** @test */
-    public function it_can_determine_if_not_registered_as_reactant(): void
+    public function it_can_check_if_not_registered_as_reactant(): void
     {
         $reactant = factory(Reactant::class)->create([
             'type' => (new Article())->getMorphClass(),

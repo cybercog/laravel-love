@@ -163,7 +163,7 @@ final class ReactionTypeTest extends TestCase
     }
 
     /** @test */
-    public function it_can_determine_is_equal_to(): void
+    public function it_can_check_is_equal_to(): void
     {
         $type = factory(ReactionType::class)->create();
         $otherType = factory(ReactionType::class)->create();
@@ -173,13 +173,13 @@ final class ReactionTypeTest extends TestCase
     }
 
     /** @test */
-    public function it_can_determine_is_not_equal_to(): void
+    public function it_can_check_is_not_equal_to(): void
     {
         $type = factory(ReactionType::class)->create();
         $otherType = factory(ReactionType::class)->create();
 
-        $this->assertTrue($type->isNotEqualTo($otherType));
         $this->assertFalse($type->isNotEqualTo($type));
+        $this->assertTrue($type->isNotEqualTo($otherType));
     }
 
     /** @test */

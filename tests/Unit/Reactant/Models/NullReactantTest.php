@@ -199,7 +199,7 @@ final class NullReactantTest extends TestCase
     }
 
     /** @test */
-    public function it_can_determine_is_reacted_by(): void
+    public function it_can_check_is_reacted_by(): void
     {
         $reactant = new NullReactant(new Article());
         $reacter = factory(Reacter::class)->make();
@@ -210,7 +210,7 @@ final class NullReactantTest extends TestCase
     }
 
     /** @test */
-    public function it_can_determine_is_not_reacted_by(): void
+    public function it_can_check_is_not_reacted_by(): void
     {
         $reactant = new NullReactant(new Article());
         $reacter = factory(Reacter::class)->make();
@@ -221,7 +221,7 @@ final class NullReactantTest extends TestCase
     }
 
     /** @test */
-    public function it_can_determine_is_reacted_by_with_type(): void
+    public function it_can_check_is_reacted_by_with_type(): void
     {
         $reactant = new NullReactant(new Article());
         $reacter = factory(Reacter::class)->make();
@@ -233,7 +233,7 @@ final class NullReactantTest extends TestCase
     }
 
     /** @test */
-    public function it_can_determine_is_not_reacted_by_with_type(): void
+    public function it_can_check_is_not_reacted_by_with_type(): void
     {
         $reactant = new NullReactant(new Article());
         $reacter = factory(Reacter::class)->make();

@@ -94,7 +94,7 @@ final class ReacterableTest extends TestCase
     }
 
     /** @test */
-    public function it_can_determine_if_registered_as_love_reacter(): void
+    public function it_can_check_if_registered_as_love_reacter(): void
     {
         $reacter = factory(Reacter::class)->create([
             'type' => (new User())->getMorphClass(),
@@ -109,7 +109,7 @@ final class ReacterableTest extends TestCase
     }
 
     /** @test */
-    public function it_can_determine_if_not_registered_as_love_reacter(): void
+    public function it_can_check_if_not_registered_as_love_reacter(): void
     {
         $reacter = factory(Reacter::class)->create([
             'type' => (new User())->getMorphClass(),
