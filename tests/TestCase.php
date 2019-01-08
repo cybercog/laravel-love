@@ -13,11 +13,10 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love;
 
-use Cog\Laravel\Love\Providers\LoveServiceProvider;
+use Cog\Laravel\Love\LoveServiceProvider;
 use Cog\Tests\Laravel\Love\Stubs\Models\EntityWithMorphMap;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Support\Facades\File;
 use Mockery;
 use Orchestra\Database\ConsoleServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;

@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Cog\Laravel\Love\Providers;
+namespace Cog\Laravel\Love;
 
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
@@ -94,7 +94,7 @@ final class LoveServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../../database/migrations' => database_path('migrations'),
+                __DIR__ . '/../database/migrations' => database_path('migrations'),
             ], 'love-migrations');
         }
     }
@@ -107,7 +107,7 @@ final class LoveServiceProvider extends ServiceProvider
     private function registerMigrations(): void
     {
         if ($this->app->runningInConsole()) {
-            $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
+            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         }
     }
 }
