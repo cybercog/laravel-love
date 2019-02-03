@@ -60,18 +60,6 @@ final class NullReacter implements
         throw ReacterInvalid::notExists();
     }
 
-    public function isEqualTo(
-        ReacterContract $reacter
-    ): bool {
-        return $reacter instanceof self;
-    }
-
-    public function isNotEqualTo(
-        ReacterContract $reacter
-    ): bool {
-        return !$this->isEqualTo($reacter);
-    }
-
     public function isReactedTo(
         Reactant $reactant
     ): bool {
@@ -96,6 +84,18 @@ final class NullReacter implements
         ReactionType $reactionType
     ): bool {
         return true;
+    }
+
+    public function isEqualTo(
+        ReacterContract $reacter
+    ): bool {
+        return $reacter instanceof self;
+    }
+
+    public function isNotEqualTo(
+        ReacterContract $reacter
+    ): bool {
+        return !$this->isEqualTo($reacter);
     }
 
     public function isNull(): bool

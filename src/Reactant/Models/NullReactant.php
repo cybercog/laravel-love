@@ -66,18 +66,6 @@ final class NullReactant implements
         return new NullReactionTotal($this);
     }
 
-    public function isEqualTo(
-        ReactantContract $reactant
-    ): bool {
-        return $reactant instanceof self;
-    }
-
-    public function isNotEqualTo(
-        ReactantContract $reactant
-    ): bool {
-        return !$this->isEqualTo($reactant);
-    }
-
     public function isReactedBy(
         ReacterContract $reacter
     ): bool {
@@ -102,6 +90,18 @@ final class NullReactant implements
         ReactionTypeContract $reactionType
     ): bool {
         return true;
+    }
+
+    public function isEqualTo(
+        ReactantContract $reactant
+    ): bool {
+        return $reactant instanceof self;
+    }
+
+    public function isNotEqualTo(
+        ReactantContract $reactant
+    ): bool {
+        return !$this->isEqualTo($reactant);
     }
 
     public function isNull(): bool

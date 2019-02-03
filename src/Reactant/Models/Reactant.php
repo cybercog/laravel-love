@@ -113,19 +113,6 @@ final class Reactant extends Model implements
             ?? new NullReactionTotal($this);
     }
 
-    public function isEqualTo(
-        ReactantContract $reactant
-    ): bool {
-        return $reactant->isNotNull()
-            && $this->getId() === $reactant->getId();
-    }
-
-    public function isNotEqualTo(
-        ReactantContract $reactant
-    ): bool {
-        return !$this->isEqualTo($reactant);
-    }
-
     public function isReactedBy(
         ReacterContract $reacter
     ): bool {
@@ -184,6 +171,19 @@ final class Reactant extends Model implements
         ReactionTypeContract $reactionType
     ): bool {
         return !$this->isReactedByWithType($reacter, $reactionType);
+    }
+
+    public function isEqualTo(
+        ReactantContract $reactant
+    ): bool {
+        return $reactant->isNotNull()
+            && $this->getId() === $reactant->getId();
+    }
+
+    public function isNotEqualTo(
+        ReactantContract $reactant
+    ): bool {
+        return !$this->isEqualTo($reactant);
     }
 
     public function isNull(): bool

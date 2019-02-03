@@ -112,19 +112,6 @@ final class Reacter extends Model implements
         $reaction->delete();
     }
 
-    public function isEqualTo(
-        ReacterContract $reacter
-    ): bool {
-        return $reacter->isNotNull()
-            && $this->getId() === $reacter->getId();
-    }
-
-    public function isNotEqualTo(
-        ReacterContract $reacter
-    ): bool {
-        return !$this->isEqualTo($reacter);
-    }
-
     public function isReactedTo(
         ReactantContract $reactant
     ): bool {
@@ -157,6 +144,19 @@ final class Reacter extends Model implements
         ReactionTypeContract $reactionType
     ): bool {
         return !$this->isReactedToWithType($reactant, $reactionType);
+    }
+
+    public function isEqualTo(
+        ReacterContract $reacter
+    ): bool {
+        return $reacter->isNotNull()
+            && $this->getId() === $reacter->getId();
+    }
+
+    public function isNotEqualTo(
+        ReacterContract $reacter
+    ): bool {
+        return !$this->isEqualTo($reacter);
     }
 
     public function isNull(): bool
