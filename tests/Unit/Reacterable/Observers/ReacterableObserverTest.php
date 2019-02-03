@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Cog\Tests\Laravel\Love\Unit\Reacterable\Models\Traits;
+namespace Cog\Tests\Laravel\Love\Unit\Reacterable\Observers;
 
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
 use Cog\Laravel\Love\Reacter\Models\NullReacter;

@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Cog\Tests\Laravel\Love\Unit\Reactable\Models\Traits;
+namespace Cog\Tests\Laravel\Love\Unit\Reactable\Observers;
 
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Laravel\Love\Reactant\Models\NullReactant;
