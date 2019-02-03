@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Reacterable\Models\Traits;
 
-use Cog\Contracts\Love\Reacterable\Exceptions\AlreadyRegisteredAsReacter;
+use Cog\Contracts\Love\Reacterable\Exceptions\AlreadyRegisteredAsLoveReacter;
 use Cog\Laravel\Love\Reacter\Models\NullReacter;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Tests\Laravel\Love\Stubs\Models\Bot;
@@ -137,7 +137,7 @@ final class ReacterableTest extends TestCase
     /** @test */
     public function it_throws_exception_on_register_as_love_reacter_when_already_registered(): void
     {
-        $this->expectException(AlreadyRegisteredAsReacter::class);
+        $this->expectException(AlreadyRegisteredAsLoveReacter::class);
 
         $user = factory(User::class)->create();
 

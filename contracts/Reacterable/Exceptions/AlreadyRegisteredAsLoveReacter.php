@@ -16,7 +16,7 @@ namespace Cog\Contracts\Love\Reacterable\Exceptions;
 use Cog\Contracts\Love\Exceptions\LoveThrowable;
 use DomainException;
 
-final class AlreadyRegisteredAsReacter extends DomainException implements
+final class AlreadyRegisteredAsLoveReacter extends DomainException implements
     LoveThrowable
 {
 }

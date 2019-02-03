@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Cog\Laravel\Love\Reacterable\Models\Traits;
 
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
-use Cog\Contracts\Love\Reacterable\Exceptions\AlreadyRegisteredAsReacter;
+use Cog\Contracts\Love\Reacterable\Exceptions\AlreadyRegisteredAsLoveReacter;
 use Cog\Laravel\Love\Reacter\Models\NullReacter;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\Reacterable\Observers\ReacterableObserver;
@@ -53,7 +53,7 @@ trait Reacterable
     public function registerAsLoveReacter(): void
     {
         if ($this->isRegisteredAsLoveReacter()) {
-            throw new AlreadyRegisteredAsReacter();
+            throw new AlreadyRegisteredAsLoveReacter();
         }
 
         /** @var \Cog\Contracts\Love\Reacter\Models\Reacter $reacter */

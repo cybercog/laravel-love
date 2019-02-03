@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reactable\Models\Traits;
 
-use Cog\Contracts\Love\Reactable\Exceptions\AlreadyRegisteredAsReactant;
+use Cog\Contracts\Love\Reactable\Exceptions\AlreadyRegisteredAsLoveReactant;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
@@ -60,7 +60,7 @@ trait Reactable
     public function registerAsLoveReactant(): void
     {
         if ($this->isRegisteredAsLoveReactant()) {
-            throw new AlreadyRegisteredAsReactant();
+            throw new AlreadyRegisteredAsLoveReactant();
         }
 
         /** @var \Cog\Contracts\Love\Reactant\Models\Reactant $reactant */

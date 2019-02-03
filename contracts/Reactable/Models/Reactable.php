@@ -23,5 +23,8 @@ interface Reactable
 
     public function isNotRegisteredAsLoveReactant(): bool;
 
+    /**
+     * @throws \Cog\Contracts\Love\Reactable\Exceptions\AlreadyRegisteredAsLoveReactant
+     */
     public function registerAsLoveReactant(): void;
 }

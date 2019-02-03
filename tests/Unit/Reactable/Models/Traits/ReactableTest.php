@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Reactable\Models\Traits;
 
-use Cog\Contracts\Love\Reactable\Exceptions\AlreadyRegisteredAsReactant;
+use Cog\Contracts\Love\Reactable\Exceptions\AlreadyRegisteredAsLoveReactant;
 use Cog\Laravel\Love\Reactant\Models\NullReactant;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
@@ -139,7 +139,7 @@ final class ReactableTest extends TestCase
     /** @test */
     public function it_throws_exception_on_register_as_love_reactant_when_already_registered(): void
     {
-        $this->expectException(AlreadyRegisteredAsReactant::class);
+        $this->expectException(AlreadyRegisteredAsLoveReactant::class);
 
         $article = factory(Article::class)->create();
 

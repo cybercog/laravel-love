@@ -23,5 +23,8 @@ interface Reacterable
 
     public function isNotRegisteredAsLoveReacter(): bool;
 
+    /**
+     * @throws \Cog\Contracts\Love\Reacterable\Exceptions\AlreadyRegisteredAsLoveReacter
+     */
     public function registerAsLoveReacter(): void;
 }
