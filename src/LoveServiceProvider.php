@@ -13,17 +13,25 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love;
 
-use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
 use Cog\Laravel\Love\Console\Commands\Recount;
 use Cog\Laravel\Love\Console\Commands\UpgradeV5ToV6;
-use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\Reaction\Observers\ReactionObserver;
 use Illuminate\Support\ServiceProvider;
 
 final class LoveServiceProvider extends ServiceProvider
 {
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register(): void
+    {
+        $this->registerContracts();
+    }
+
     /**
      * Bootstrap the application events.
      *
@@ -35,16 +43,6 @@ final class LoveServiceProvider extends ServiceProvider
         $this->registerObservers();
         $this->registerPublishes();
         $this->registerMigrations();
-    }
-
-    /**
-     * Register the service provider.
-     *
-     * @return void
-     */
-    public function register(): void
-    {
-        $this->registerContracts();
     }
 
     /**
@@ -81,7 +79,6 @@ final class LoveServiceProvider extends ServiceProvider
      */
     private function registerContracts(): void
     {
-        $this->app->bind(ReactantContract::class, Reactant::class);
         $this->app->bind(ReactionContract::class, Reaction::class);
     }
 
