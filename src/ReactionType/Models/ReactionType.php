@@ -64,7 +64,7 @@ final class ReactionType extends Model implements
         /** @var \Cog\Laravel\Love\ReactionType\Models\ReactionType $type */
         $type = static::query()->where('name', $name)->first();
 
-        if (!$type) {
+        if (is_null($type)) {
             throw ReactionTypeInvalid::nameNotExists($name);
         }
 
