@@ -74,7 +74,7 @@ abstract class TestCase extends Orchestra
      *
      * @return void
      */
-    protected function migrateUnitTestTables(): void
+    private function migrateUnitTestTables(): void
     {
         $this->loadMigrationsFrom([
             '--realpath' => realpath(__DIR__ . '/database/migrations'),
@@ -86,7 +86,7 @@ abstract class TestCase extends Orchestra
      *
      * @return void
      */
-    protected function registerPackageFactories(): void
+    private function registerPackageFactories(): void
     {
         $pathToFactories = realpath(__DIR__ . '/database/factories');
         $this->withFactories($pathToFactories);
@@ -97,7 +97,7 @@ abstract class TestCase extends Orchestra
      *
      * @return void
      */
-    protected function registerTestMorphMaps(): void
+    private function registerTestMorphMaps(): void
     {
         Relation::morphMap([
             'entity-with-morph-map' => EntityWithMorphMap::class,
@@ -109,7 +109,7 @@ abstract class TestCase extends Orchestra
      *
      * @return void
      */
-    protected function registerUserModel(): void
+    private function registerUserModel(): void
     {
         $this->app['config']->set('auth.providers.users.model', User::class);
     }
