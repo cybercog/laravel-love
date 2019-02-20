@@ -23,7 +23,7 @@ interface ReactionType
 
     public function getWeight(): int;
 
-    public function isEqualTo(self $type): bool;
+    public function isEqualTo(self $that): bool;
 
-    public function isNotEqualTo(self $type): bool;
+    public function isNotEqualTo(self $that): bool;
 }

@@ -147,16 +147,16 @@ final class Reacter extends Model implements
     }
 
     public function isEqualTo(
-        ReacterContract $reacter
+        ReacterContract $that
     ): bool {
-        return $reacter->isNotNull()
-            && $this->getId() === $reacter->getId();
+        return $that->isNotNull()
+            && $this->getId() === $that->getId();
     }
 
     public function isNotEqualTo(
-        ReacterContract $reacter
+        ReacterContract $that
     ): bool {
-        return !$this->isEqualTo($reacter);
+        return !$this->isEqualTo($that);
     }
 
     public function isNull(): bool

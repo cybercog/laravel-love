@@ -87,15 +87,15 @@ final class NullReacter implements
     }
 
     public function isEqualTo(
-        ReacterContract $reacter
+        ReacterContract $that
     ): bool {
-        return $reacter instanceof self;
+        return $that instanceof self;
     }
 
     public function isNotEqualTo(
-        ReacterContract $reacter
+        ReacterContract $that
     ): bool {
-        return !$this->isEqualTo($reacter);
+        return !$this->isEqualTo($that);
     }
 
     public function isNull(): bool

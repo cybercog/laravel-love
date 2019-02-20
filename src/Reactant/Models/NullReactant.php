@@ -93,15 +93,15 @@ final class NullReactant implements
     }
 
     public function isEqualTo(
-        ReactantContract $reactant
+        ReactantContract $that
     ): bool {
-        return $reactant instanceof self;
+        return $that instanceof self;
     }
 
     public function isNotEqualTo(
-        ReactantContract $reactant
+        ReactantContract $that
     ): bool {
-        return !$this->isEqualTo($reactant);
+        return !$this->isEqualTo($that);
     }
 
     public function isNull(): bool

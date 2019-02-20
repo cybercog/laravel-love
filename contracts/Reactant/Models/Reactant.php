@@ -47,9 +47,9 @@ interface Reactant
 
     public function isNotReactedByWithType(Reacter $reacter, ReactionType $type): bool;
 
-    public function isEqualTo(self $reactant): bool;
+    public function isEqualTo(self $that): bool;
 
-    public function isNotEqualTo(self $reactant): bool;
+    public function isNotEqualTo(self $that): bool;
 
     public function isNull(): bool;
 

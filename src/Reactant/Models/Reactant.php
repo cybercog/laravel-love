@@ -174,16 +174,16 @@ final class Reactant extends Model implements
     }
 
     public function isEqualTo(
-        ReactantContract $reactant
+        ReactantContract $that
     ): bool {
-        return $reactant->isNotNull()
-            && $this->getId() === $reactant->getId();
+        return $that->isNotNull()
+            && $this->getId() === $that->getId();
     }
 
     public function isNotEqualTo(
-        ReactantContract $reactant
+        ReactantContract $that
     ): bool {
-        return !$this->isEqualTo($reactant);
+        return !$this->isEqualTo($that);
     }
 
     public function isNull(): bool

@@ -89,14 +89,14 @@ final class ReactionType extends Model implements
     }
 
     public function isEqualTo(
-        ReactionTypeContract $type
+        ReactionTypeContract $that
     ): bool {
-        return $type->getId() === $this->getId();
+        return $this->getId() === $that->getId();
     }
 
     public function isNotEqualTo(
-        ReactionTypeContract $type
+        ReactionTypeContract $that
     ): bool {
-        return !$this->isEqualTo($type);
+        return !$this->isEqualTo($that);
     }
 }
