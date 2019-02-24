@@ -174,6 +174,7 @@ final class UpgradeV5ToV6 extends Command
             ->orderBy('created_at', 'asc')
             ->get();
 
+        $progress = $this->output->createProgressBar($likes->count());
         foreach ($likes as $like) {
             $class = $like->likeable_type;
             $actualClass = Relation::getMorphedModel($class);
@@ -183,6 +184,7 @@ final class UpgradeV5ToV6 extends Command
 
             if (!class_exists($class)) {
                 $this->warn("Class `{$class}` is not found.");
+                $progress->advance();
                 continue;
             }
 
@@ -193,6 +195,7 @@ final class UpgradeV5ToV6 extends Command
 
             if (!class_exists($class)) {
                 $this->warn("Class `{$userClass}` is not found.");
+                $progress->advance();
                 continue;
             }
 
@@ -211,6 +214,7 @@ final class UpgradeV5ToV6 extends Command
                 ->exists();
 
             if ($isReactionExists) {
+                $progress->advance();
                 continue;
             }
 
@@ -223,7 +227,9 @@ final class UpgradeV5ToV6 extends Command
                 'updated_at' => $like->updated_at,
             ]);
             $reaction->save();
+            $progress->advance();
         }
+        $progress->finish();
     }
 
     private function collectLikeableTypes(): iterable
