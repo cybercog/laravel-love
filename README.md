@@ -21,12 +21,15 @@ This package is a fork of the more simple but abandoned package: [Laravel Likeab
 - [Features](#features)
 - [Requirements](#requirements)
 - [Installation](#installation)
+- [Integration](#integration)
+  - [Prepare Reacterable Models](#prepare-reacterable-models)
+  - [Prepare Reactable Models](#prepare-reactable-models)
 - [Usage](#usage)
-  - [Prepare Models](#prepare-models)
   - [Reaction Types](#reaction-types)
   - [Reacters](#reacters)
   - [Reactants](#reactants)
-  - [Available Methods](#available-methods)
+  - [Reactant Reaction Counters](#reactant-reaction-counters)
+  - [Reactant Reaction Totals](#reactant-reaction-totals)
   - [Scopes](#scopes)
   - [Events](#events)
   - [Console Commands](#console-commands)
@@ -94,18 +97,18 @@ If you want to make changes in migrations, publish them to your application firs
 $ php artisan vendor:publish --tag=love-migrations
 ```
 
-## Usage
-
-### Prepare Models
+## Integration
 
 To start using package you need to have:
 
 1. At least one `Reacterable` model, which will act as `Reacter` and will react to the content. 
 2. At least one `Reactable` model, which will act as `Reactant` and will receive reactions.
 
-#### Prepare Reacterable Model
+### Prepare Reacterable Models
 
-Declare `Cog\Contracts\Love\Reacterable\Models\Reacterable` contract
+Each model which can act as `Reacter` and will react to content must implement `Reacterable` contract.
+
+Declare that model implements `Cog\Contracts\Love\Reacterable\Models\Reacterable` contract
 and use `Cog\Laravel\Love\Reacterable\Models\Traits\Reacterable` trait. 
 
 ```php
@@ -119,9 +122,13 @@ class User extends Authenticatable implements ReacterableContract
 }
 ```
 
-#### Prepare Reactable Model
+> TODO: Write that BIGINT `love_reacter_id` database column must be added
 
-Declare `Cog\Contracts\Love\Reactable\Models\Reactable` contract
+### Prepare Reactable Models
+
+Each model which can act as `Reactant` and will receive reactions must implement `Reactable` contract.
+
+Declare that model implements `Cog\Contracts\Love\Reactable\Models\Reactable` contract
 and use `Cog\Laravel\Love\Reactable\Models\Traits\Reactable` trait. 
 
 ```php
@@ -134,6 +141,10 @@ class Article extends Model implements ReactableContract
     use Reactable;
 }
 ```
+
+> TODO: Write that BIGINT `love_reactant_id` database column must be added
+
+## Usage
 
 ### Reaction Types
 
@@ -175,11 +186,11 @@ $likeType->isNotEqualTo($dislikeType); // true
 
 ### Reacters
 
-#### Register as Reacter
+#### Register as reacter
 
-To let `User` react to the content it need to register it as `Reacter`.
+To let `User` react to the content it need to be registered as `Reacter`.
 
-By default it's creating automatically on successful `Reacterable` creation,
+By default it will be done automatically on successful `Reacterable` creation,
 but if this behavior was changed you still can do it manually. 
 
 ```php
@@ -191,7 +202,9 @@ $user->registerAsLoveReacter();
 If you will try to register `Reacterable` as `Reacter` one more time then
 `Cog\Contracts\Love\Reacterable\Exceptions\AlreadyRegisteredAsLoveReacter` exception will be thrown.
 
-#### Verify Reacter Registration
+> TODO: How to skip auto creation of Reacter
+
+#### Verify reacter registration
 
 If you want to verify if `Reacterable` is registered as `Reacter` or not you can use boolean methods.
 
@@ -201,7 +214,7 @@ $isRegistered = $user->isRegisteredAsLoveReacter(); // true
 $isNotRegistered = $user->isNotRegisteredAsLoveReacter(); // false
 ```
 
-#### Get Reacter Model
+#### Get reacter model
 
 Only `Reacter` model can react to content. Get `Reacter` model from your `Reacterable` model. 
 
@@ -209,21 +222,21 @@ Only `Reacter` model can react to content. Get `Reacter` model from your `Reacte
 $reacter = $user->getReacter();
 ```
 
-> If `Reacterable` model not registered as `Reacter` you will receive `NullReacter` model instead (also known as NullObject design pattern).
-> All methods will be callable, but will throw exceptions or return `false`.
+> If `Reacterable` model is not registered as `Reacter` you will receive `NullReacter` model instead (also known as NullObject design pattern).
+> All it's methods will be callable, but will throw exceptions or return `false`.
 
-#### React to Reactant
+#### React to reactant
 
 ```php
 $reacter->reactTo($reactant, $reactionType);
 ```
 
-#### Remove Reaction to Reactant
+#### Remove reaction from reactant
 
 ```php
 $reacter->unreactTo($reactant, $reactionType);
 ```
-#### Check if Reacter Reacted to Reactant
+#### Check if reacter reacted to reactant
 
 Determine if `Reacter` reacted to `Reactant` with any type of Reaction.
 
@@ -245,7 +258,7 @@ $isNotReacted = $reacter
     ->isNotReactedToWithType($reactant, $reactionType);
 ```
 
-#### Get Reactions Which Reacter Has Made
+#### Get reactions which reacter has made
 
 ```php
 $reactions = $reacter->getReactions();
@@ -255,11 +268,11 @@ $reactions = $reacter->getReactions();
 
 ### Reactants
 
-#### Register as Reactant
+#### Register as reactant
 
-To let `Article` to receive reactions from users it need to register it as `Reactant`.
+To let `Article` to receive reactions from users it need to be registered as `Reactant`.
 
-By default it's creating automatically on successful `Reactable` creation,
+By default it will be done automatically on successful `Reactable` creation,
 but if this behavior was changed you still can do it manually. 
 
 ```php
@@ -271,7 +284,9 @@ $user->registerAsLoveReactant();
 If you will try to register `Reactable` as `Reactant` one more time then
 `Cog\Contracts\Love\Reactable\Exceptions\AlreadyRegisteredAsLoveReactant` exception will be thrown.
 
-#### Verify Reactant Registration
+> TODO: How to skip auto creation of Reactant
+
+#### Verify reactant registration
 
 If you want to verify if `Reactable` is registered as `Reactant` or not you can use boolean methods.
 
@@ -281,7 +296,7 @@ $isRegistered = $user->isRegisteredAsLoveReactant(); // true
 $isNotRegistered = $user->isNotRegisteredAsLoveReactant(); // false
 ```
 
-#### Get Reactant Model
+#### Get reactant model
 
 Only `Reacter` model can react to content. Get `Reacter` model from your `Reactable` model. 
 
@@ -289,10 +304,10 @@ Only `Reacter` model can react to content. Get `Reacter` model from your `Reacta
 $reactant = $user->getReactant();
 ```
 
-> If `Reactable` model not registered as `Reactant` you will receive `NullReactant` model instead (also known as NullObject design pattern).
-> All methods will be callable, but will throw exceptions or return `false`.
+> If `Reactable` model is not registered as `Reactant` you will receive `NullReactant` model instead (also known as NullObject design pattern).
+> All it's methods will be callable, but will throw exceptions or return `false`.
 
-#### Get Reactions Which Reactant Received
+#### Get reactions which reactant received
 
 ```php
 $reactions = $reactant->getReactions();
@@ -304,7 +319,7 @@ $reactions = $reactant->getReactions();
 
 Each `Reactant` has many counters (one for each reaction type) with aggregated data.
 
-#### Get Reaction Counters of Reactant
+#### Get reaction counters of reactant
 
 ```php
 $reactionCounters = $reactant->getReactionCounters();
@@ -318,7 +333,7 @@ $reactionType = ReactionType::fromName('Like');
 $reactionCounter = $reactant->getReactionCounterOfType($reactionType);
 ```
 
-#### Get Reactions Count
+#### Get reactions count
 
 When you need to determine count of reactions of this type you can get count.
 
@@ -326,7 +341,7 @@ When you need to determine count of reactions of this type you can get count.
 $totalWeight = $reactionCounter->getCount();
 ```
 
-#### Get Reactions Weight
+#### Get reactions weight
 
 When you need to determine weight which all reactions of this type gives you can get weight.
 
@@ -338,13 +353,13 @@ $totalWeight = $reactionCounter->getWeight();
 
 Each `Reactant` has one total with aggregated data. Total is sum of counters of all reaction types.
 
-#### Get Reaction Total of Reactant
+#### Get reaction total of reactant
 
 ```php
 $reactionTotal = $reactant->getReactionTotal();
 ```
 
-#### Get Reactions Total Count
+#### Get reactions total count
 
 When you need to determine total reactions count you can get count.
 
@@ -352,7 +367,7 @@ When you need to determine total reactions count you can get count.
 $totalWeight = $reactionTotal->getCount();
 ```
 
-#### Get Reactions Total Weight
+#### Get reactions total weight
 
 When you need to determine total weight of reactions you can get weight.
 
@@ -364,7 +379,7 @@ $totalWeight = $reactionTotal->getWeight();
 
 ### Scopes
 
-#### Find all Articles reacted by User
+#### Find all articles reacted by user
 
 ```php
 $reacter = $user->getReacter();
@@ -372,7 +387,7 @@ $reacter = $user->getReacter();
 Article::whereReactedBy($reacter)->get();
 ```
 
-#### Find all Articles reacted by User with exact type of reaction
+#### Find all articles reacted by user with exact type of reaction
 
 ```php
 $reacter = $user->getReacter();
@@ -381,7 +396,7 @@ $reactionType = ReactionType::fromName('Like');
 Article::whereReactedByWithTypeOf($reacter, $reactionType)->get();
 ```
 
-#### Add ReactionCounter aggregate of exact ReactionType to Reactables
+#### Add reaction counter aggregate of exact reaction type to reactables
 
 ```php
 $reactionType = ReactionType::fromName('Like'); 
@@ -398,7 +413,7 @@ $articles = Article::withReactionCounterTypeOf($reactionType)
     ->orderBy('reactions_count', 'desc')->get();
 ```
 
-#### Add ReactionSummary aggregate to Reactables
+#### Add reaction total aggregate to reactables
 
 ```php
 $articles = Article::withReactionTotal()->get();
@@ -528,7 +543,7 @@ If you discover any security related issues, please email open@cybercog.su inste
 
 ## License
 
-- `Laravel Love` package is open-sourced software licensed under the [MIT license](LICENSE) by Anton Komarev.
+- `Laravel Love` package is open-sourced software licensed under the [MIT license](LICENSE) by [Anton Komarev](https://github.com/antonkomarev).
 - `Devil` image licensed under [Creative Commons 3.0](https://creativecommons.org/licenses/by/3.0/us/) by YuguDesign.
 
 ## About CyberCog
