@@ -42,7 +42,7 @@ final class NullReacterTest extends TestCase
 
     /** @test */
     public function it_can_get_reacterable(): void
-{
+    {
         $reacterable = new User();
         $reacter = new NullReacter($reacterable);
 

@@ -110,7 +110,7 @@ final class ReactionTest extends TestCase
 
     /** @test */
     public function it_throws_exception_on_get_id_when_id_is_null(): void
-{
+    {
         $this->expectException(TypeError::class);
 
         $reaction = new Reaction();
@@ -209,7 +209,7 @@ final class ReactionTest extends TestCase
 
     /** @test */
     public function it_can_check_if_reaction_is_of_type(): void
-{
+    {
         $reactionType1 = factory(ReactionType::class)->create();
         $reactionType2 = factory(ReactionType::class)->create();
         $reaction = factory(Reaction::class)->create([
@@ -225,7 +225,7 @@ final class ReactionTest extends TestCase
 
     /** @test */
     public function it_can_check_if_reaction_is_not_of_type(): void
-{
+    {
         $reactionType1 = factory(ReactionType::class)->create();
         $reactionType2 = factory(ReactionType::class)->create();
         $reaction = factory(Reaction::class)->create([
@@ -241,7 +241,7 @@ final class ReactionTest extends TestCase
 
     /** @test */
     public function it_can_check_if_reaction_is_to_reactant(): void
-{
+    {
         // To skip counters creation
         Event::fake();
         $reactant1 = factory(Reactant::class)->create();
@@ -259,7 +259,7 @@ final class ReactionTest extends TestCase
 
     /** @test */
     public function it_can_check_if_reaction_is_to_reactant_when_reactant_is_null_object(): void
-{
+    {
         // To skip counters creation
         Event::fake();
         $reactant = factory(Reactant::class)->create();
@@ -275,7 +275,7 @@ final class ReactionTest extends TestCase
 
     /** @test */
     public function it_can_check_if_reaction_is_not_to_reactant(): void
-{
+    {
         // To skip counters creation
         Event::fake();
         $reactant1 = factory(Reactant::class)->create();
@@ -293,7 +293,7 @@ final class ReactionTest extends TestCase
 
     /** @test */
     public function it_can_check_if_reaction_is_not_to_reactant_when_reactant_is_null_object(): void
-{
+    {
         // To skip counters creation
         Event::fake();
         $reactant = factory(Reactant::class)->create();
@@ -309,7 +309,7 @@ final class ReactionTest extends TestCase
 
     /** @test */
     public function it_can_check_if_reaction_is_by_reacter(): void
-{
+    {
         $reacter1 = factory(Reacter::class)->create();
         $reacter2 = factory(Reacter::class)->create();
         $reaction = factory(Reaction::class)->create([
@@ -325,7 +325,7 @@ final class ReactionTest extends TestCase
 
     /** @test */
     public function it_can_check_if_reaction_is_by_reacter_when_reacter_is_null_object(): void
-{
+    {
         $reacter1 = factory(Reacter::class)->create();
         $nullReacter = new NullReacter(new User());
         $reaction = factory(Reaction::class)->create([
@@ -339,7 +339,7 @@ final class ReactionTest extends TestCase
 
     /** @test */
     public function it_can_check_if_reaction_is_not_by_reacter(): void
-{
+    {
         $reacter1 = factory(Reacter::class)->create();
         $reacter2 = factory(Reacter::class)->create();
         $reaction = factory(Reaction::class)->create([
@@ -355,7 +355,7 @@ final class ReactionTest extends TestCase
 
     /** @test */
     public function it_can_check_if_reaction_is_not_by_reacter_when_reacter_is_null_object(): void
-{
+    {
         $reacter1 = factory(Reacter::class)->create();
         $nullReacter = new NullReacter(new User());
         $reaction = factory(Reaction::class)->create([
