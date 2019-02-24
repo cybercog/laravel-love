@@ -153,25 +153,25 @@ By default there are 2 types of reactions `Like` and `Dislike`.
 
 `Like` type adds `+1` weight to reactant's importance while `Dislike` type subtract `-1` from it's weight.
 
-##### Instantiate Reaction Type From Name
+##### Instantiate reaction type from name
 
 ```php
 $reactionType = ReactionType::fromName('Like');
 ```
 
-##### Get Type Name 
+##### Get type name
 
 ```php
 $typeName = $reactionType->getName(); // 'Like'
 ```
 
-##### Get Type Weight
+##### Get type weight
 
 ```php
 $typeWeight = $reactionType->getWeight(); // 3
 ```
 
-##### Determine Types Equality
+##### Determine types equality
 
 ```php
 $likeType = ReactionType::fromName('Like'); 
