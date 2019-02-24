@@ -45,11 +45,11 @@ final class UpgradeV5ToV6 extends Command
     public function handle(): void
     {
         $this->dbMigrate();
-        $this->createReactionTypes();
-        $this->createReacters();
-        $this->createReactants();
-        $this->convertLikesToReactions();
-        $this->dbFinish();
+        $this->populateReactionTypes();
+        $this->populateReacters();
+        $this->populateReactants();
+        $this->populateReactions();
+        $this->dbCleanup();
     }
 
     private function dbMigrate(): void
@@ -57,8 +57,9 @@ final class UpgradeV5ToV6 extends Command
         $this->call('migrate');
     }
 
-    private function dbFinish(): void
+    private function dbCleanup(): void
     {
+        $this->info('Deleting old database tables');
         DB::statement('
             DROP TABLE `love_like_counters`;
         ');
@@ -67,7 +68,7 @@ final class UpgradeV5ToV6 extends Command
         ');
     }
 
-    private function createReactionTypes(): void
+    private function populateReactionTypes(): void
     {
         $this->info('Populating Reaction Types');
         $names = $this->collectLikeTypes();
@@ -95,7 +96,7 @@ final class UpgradeV5ToV6 extends Command
         }
     }
 
-    private function createReacters(): void
+    private function populateReacters(): void
     {
         $this->info('Populating Reacters');
         $classes = $this->collectLikerTypes();
@@ -137,7 +138,7 @@ final class UpgradeV5ToV6 extends Command
         $this->info('');
     }
 
-    private function createReactants(): void
+    private function populateReactants(): void
     {
         $this->info('Populating Reactants');
         $classes = $this->collectLikeableTypes();
@@ -184,7 +185,7 @@ final class UpgradeV5ToV6 extends Command
         $this->info('');
     }
 
-    private function convertLikesToReactions(): void
+    private function populateReactions(): void
     {
         $this->info('Converting Likes & Dislikes to Reactions');
         /** @var \Illuminate\Database\Query\Builder $query */
