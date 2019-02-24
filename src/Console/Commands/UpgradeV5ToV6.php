@@ -49,11 +49,22 @@ final class UpgradeV5ToV6 extends Command
         $this->createReacters();
         $this->createReactants();
         $this->convertLikesToReactions();
+        $this->dbFinish();
     }
 
     private function dbMigrate(): void
     {
         $this->call('migrate');
+    }
+
+    private function dbFinish(): void
+    {
+        DB::statement('
+            DROP TABLE `love_like_counters`;
+        ');
+        DB::statement('
+            DROP TABLE `love_likes`;
+        ');
     }
 
     private function createReactionTypes(): void
@@ -123,6 +134,7 @@ final class UpgradeV5ToV6 extends Command
             }
             $progress->finish();
         }
+        $this->info('');
     }
 
     private function createReactants(): void
@@ -169,6 +181,7 @@ final class UpgradeV5ToV6 extends Command
             }
             $progress->finish();
         }
+        $this->info('');
     }
 
     private function convertLikesToReactions(): void
@@ -238,6 +251,7 @@ final class UpgradeV5ToV6 extends Command
             $progress->advance();
         }
         $progress->finish();
+        $this->info('');
     }
 
     private function collectLikeableTypes(): iterable
