@@ -11,30 +11,28 @@
 
 declare(strict_types=1);
 
-namespace Cog\Laravel\Love\Tests\Unit\Reaction\Events;
+namespace Cog\Tests\Laravel\Love\Unit\Reaction\Events;
 
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
-use Cog\Laravel\Love\Reaction\Events\ReactionWasDeleted;
+use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenAdded;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-final class ReactionWasDeletedTest extends TestCase
+final class ReactionHasBeenAddedTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
-    public function it_fire_reaction_was_deleted_event()
+    public function it_fires_reaction_has_been_added_event(): void
     {
-        $this->expectsEvents(ReactionWasDeleted::class);
+        $this->expectsEvents(ReactionHasBeenAdded::class);
 
         $reactionType = factory(ReactionType::class)->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
 
         $reacter->reactTo($reactant, $reactionType);
-
-        $reacter->unreactTo($reactant, $reactionType);
     }
 }

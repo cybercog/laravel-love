@@ -15,8 +15,8 @@ namespace Cog\Laravel\Love\Reaction\Observers;
 
 use Cog\Laravel\Love\Reactant\ReactionCounter\Services\ReactionCounterService;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Services\ReactionTotalService;
-use Cog\Laravel\Love\Reaction\Events\ReactionWasCreated;
-use Cog\Laravel\Love\Reaction\Events\ReactionWasDeleted;
+use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenAdded;
+use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenRemoved;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 
 final class ReactionObserver
@@ -24,7 +24,7 @@ final class ReactionObserver
     public function created(
         Reaction $reaction
     ): void {
-        event(new ReactionWasCreated($reaction));
+        event(new ReactionHasBeenAdded($reaction));
 
         // TODO: Move statistics updates to background jobs
         $reactant = $reaction->getReactant();
@@ -39,7 +39,7 @@ final class ReactionObserver
     public function deleted(
         Reaction $reaction
     ): void {
-        event(new ReactionWasDeleted($reaction));
+        event(new ReactionHasBeenRemoved($reaction));
 
         // TODO: Move statistics updates to background jobs
         $reactant = $reaction->getReactant();

@@ -543,9 +543,9 @@ $articles = Article::query()
 
 ### Events
 
-On each added reaction `Cog\Laravel\Love\Reaction\Events\ReactionWasCreated` event is fired.
+On each added reaction `Cog\Laravel\Love\Reaction\Events\ReactionHasBeenAdded` event is fired.
 
-On each removed reaction `Cog\Laravel\Love\Reaction\Events\ReactionWasDeleted` event is fired.
+On each removed reaction `Cog\Laravel\Love\Reaction\Events\ReactionHasBeenRemoved` event is fired.
 
 ### Console Commands
 

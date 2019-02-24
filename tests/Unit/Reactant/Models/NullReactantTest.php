@@ -30,7 +30,7 @@ final class NullReactantTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function it_throws_exception_on_get_id_when_id_is_null()
+    public function it_throws_exception_on_get_id_when_id_is_null(): void
     {
         $this->expectException(TypeError::class);
 

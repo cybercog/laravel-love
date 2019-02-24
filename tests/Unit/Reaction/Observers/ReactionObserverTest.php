@@ -66,8 +66,8 @@ final class ReactionObserverTest extends TestCase
     }
 
     /** @test */
-    public function it_increment_reactions_count_on_reaction_created()
-    {
+    public function it_increment_reactions_count_on_reaction_created(): void
+{
         $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->create();
         $counter = factory(ReactionCounter::class)->create([
@@ -103,8 +103,8 @@ final class ReactionObserverTest extends TestCase
     }
 
     /** @test */
-    public function it_decrement_reactions_count_on_reaction_deleted()
-    {
+    public function it_decrement_reactions_count_on_reaction_deleted(): void
+{
         $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->create();
         $counter = factory(ReactionCounter::class)->create([
@@ -122,8 +122,8 @@ final class ReactionObserverTest extends TestCase
     }
 
     /** @test */
-    public function it_increment_reactions_weight_on_reaction_created()
-    {
+    public function it_increment_reactions_weight_on_reaction_created(): void
+{
         $reactionType = factory(ReactionType::class)->create([
             'weight' => 4,
         ]);
@@ -142,8 +142,8 @@ final class ReactionObserverTest extends TestCase
     }
 
     /** @test */
-    public function it_decrement_reactions_weight_on_reaction_deleted()
-    {
+    public function it_decrement_reactions_weight_on_reaction_deleted(): void
+{
         $reactionType = factory(ReactionType::class)->create([
             'weight' => 4,
         ]);
@@ -163,8 +163,8 @@ final class ReactionObserverTest extends TestCase
     }
 
     /** @test */
-    public function it_increment_reactions_weight_on_reaction_with_negative_weight_created()
-    {
+    public function it_increment_reactions_weight_on_reaction_with_negative_weight_created(): void
+{
         $reactionType = factory(ReactionType::class)->create([
             'weight' => -4,
         ]);
@@ -183,8 +183,8 @@ final class ReactionObserverTest extends TestCase
     }
 
     /** @test */
-    public function it_decrement_reactions_weight_on_reaction_with_negative_weight_deleted()
-    {
+    public function it_decrement_reactions_weight_on_reaction_with_negative_weight_deleted(): void
+{
         $reactionType = factory(ReactionType::class)->create([
             'weight' => -4,
         ]);
@@ -204,8 +204,8 @@ final class ReactionObserverTest extends TestCase
     }
 
     /** @test */
-    public function it_increment_reactions_total_count_on_reaction_created()
-    {
+    public function it_increment_reactions_total_count_on_reaction_created(): void
+{
         $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->create();
 
@@ -219,8 +219,8 @@ final class ReactionObserverTest extends TestCase
     }
 
     /** @test */
-    public function it_decrement_reactions_total_count_on_reaction_deleted()
-    {
+    public function it_decrement_reactions_total_count_on_reaction_deleted(): void
+{
         $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->create();
         $reactions = factory(Reaction::class, 2)->create([
@@ -235,8 +235,8 @@ final class ReactionObserverTest extends TestCase
     }
 
     /** @test */
-    public function it_increment_reactions_total_weight_on_reaction_created()
-    {
+    public function it_increment_reactions_total_weight_on_reaction_created(): void
+{
         $reactionType = factory(ReactionType::class)->create([
             'weight' => 4,
         ]);
@@ -252,8 +252,8 @@ final class ReactionObserverTest extends TestCase
     }
 
     /** @test */
-    public function it_decrement_reactions_total_weight_on_reaction_deleted()
-    {
+    public function it_decrement_reactions_total_weight_on_reaction_deleted(): void
+{
         $reactionType = factory(ReactionType::class)->create([
             'weight' => 4,
         ]);
@@ -270,8 +270,8 @@ final class ReactionObserverTest extends TestCase
     }
 
     /** @test */
-    public function it_increment_reactions_total_weight_on_reaction_with_negative_weight_created()
-    {
+    public function it_increment_reactions_total_weight_on_reaction_with_negative_weight_created(): void
+{
         $reactionType = factory(ReactionType::class)->create([
             'weight' => -4,
         ]);
@@ -287,8 +287,8 @@ final class ReactionObserverTest extends TestCase
     }
 
     /** @test */
-    public function it_decrement_reactions_total_weight_on_reaction_with_negative_weight_deleted()
-    {
+    public function it_decrement_reactions_total_weight_on_reaction_with_negative_weight_deleted(): void
+{
         $reactionType = factory(ReactionType::class)->create([
             'weight' => -4,
         ]);
