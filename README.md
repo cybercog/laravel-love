@@ -12,9 +12,21 @@
 
 ## Introduction
 
-Laravel Love simplify management of Eloquent model's multi typed reactions. Make any model reactable in a minutes!
+Laravel Love is emotional part of the application. It let people express how they feel about the content.
+Make any model reactable in a minutes!
 
-This package is a fork of the more simple but abandoned package: [Laravel Likeable](https://github.com/cybercog/laravel-likeable).
+There are many different implementations in modern applications:
+
+- Github Reactions
+- Facebook Reactions
+- YouTube Likes
+- Slack Reactions
+- Medium Claps
+
+This package developed in mind that it should cover all the possible use cases and will be viable in enterprise applications.
+
+It is a successor of the very simple abandoned package:
+[Laravel Likeable](https://github.com/cybercog/laravel-likeable).
 
 ## Contents
 
@@ -51,13 +63,13 @@ This package is a fork of the more simple but abandoned package: [Laravel Likeab
 
 - Fully customizable types of reactions.
 - Any model can react to models and receive reactions at the same time.
-- `Reactant` can has many types of reactions.
-- `Reacter` can add many reactions to one `Reactant` or they could be mutually exclusive.
+- Reactant can has many types of reactions.
+- Reacter can add many reactions to one reactant.
 - Reaction counters with detailed aggregated data for each reactant.
 - Reaction totals with total aggregated data for each reactant.
 - Can work with any database `id` column types.
-- Sort `Reactable` models by reactions total count.
-- Sort `Reactable` models by reactions total weight.
+- Sort reactable models by reactions total count.
+- Sort reactable models by reactions total weight.
 - Events for `created` & `deleted` reactions.
 - Has Artisan command `love:recount {model?} {type?}` to re-fetch reactions stats.
 - Designed to work with Laravel Eloquent models.
