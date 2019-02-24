@@ -488,9 +488,9 @@ $articles = Article::query()
     ->get();
 ```
 
-Each Reactable model will contain extra column: `reactions_count`.
+Each Reactable model will contain `reactions_count` & `reactions_weight` virtual attributes.
 
-You can order Reactables by `reactions_count`:
+After adding counter aggregate models could be ordered by this value.
 
 ```php
 $articles = Article::query()
@@ -507,9 +507,11 @@ $articles = Article::query()
     ->get();
 ```
 
-Each Reactable model will contain extra columns: `reactions_total_count` & `reactions_total_weight`.
+Each Reactable model will contain `reactions_total_count` & `reactions_total_weight` virtual attributes.
 
-You can order Reactables by `reactions_total_count`:
+After adding total aggregate models could be ordered by this values.
+
+Order by `reactions_total_count`:
 
 ```php
 $articles = Article::query()
@@ -518,7 +520,7 @@ $articles = Article::query()
     ->get();
 ```
 
-You can order Reactables by `reactions_total_weight`:
+Order by `reactions_total_weight`:
 
 ```php
 $articles = Article::query()
