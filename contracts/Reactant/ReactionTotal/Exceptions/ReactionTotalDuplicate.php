@@ -14,13 +14,18 @@ declare(strict_types=1);
 namespace Cog\Contracts\Love\Reactant\ReactionTotal\Exceptions;
 
 use Cog\Contracts\Love\Exceptions\LoveThrowable;
+use Cog\Contracts\Love\Reactant\Models\Reactant;
 use RuntimeException;
 
-final class ReactionTotalInvalid extends RuntimeException implements
+final class ReactionTotalDuplicate extends RuntimeException implements
     LoveThrowable
 {
-    public static function notExists(): self
-    {
-        return new static('ReactionTotal not exists.');
+    public static function forReactant(
+        Reactant $reactant
+    ): self {
+        return new static(sprintf(
+            'ReactionTotal for Reactant `%s` already exists.',
+            $reactant->getId()
+        ));
     }
 }

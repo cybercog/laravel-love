@@ -14,9 +14,9 @@ declare(strict_types=1);
 namespace Cog\Contracts\Love\Reacter\Exceptions;
 
 use Cog\Contracts\Love\Exceptions\LoveThrowable;
-use DomainException;
+use RuntimeException;
 
-final class NotAssignedToReacterable extends DomainException implements
+final class NotAssignedToReacterable extends RuntimeException implements
     LoveThrowable
 {
 }

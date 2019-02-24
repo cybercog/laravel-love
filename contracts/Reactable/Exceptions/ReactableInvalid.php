@@ -15,9 +15,9 @@ namespace Cog\Contracts\Love\Reactable\Exceptions;
 
 use Cog\Contracts\Love\Exceptions\LoveThrowable;
 use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
-use DomainException;
+use RuntimeException;
 
-final class ReactableInvalid extends DomainException implements
+final class ReactableInvalid extends RuntimeException implements
     LoveThrowable
 {
     public static function classNotExists(string $type): self

@@ -14,9 +14,9 @@ declare(strict_types=1);
 namespace Cog\Contracts\Love\Reacter\Exceptions;
 
 use Cog\Contracts\Love\Exceptions\LoveThrowable;
-use DomainException;
+use RuntimeException;
 
-final class ReacterInvalid extends DomainException implements
+final class ReacterInvalid extends RuntimeException implements
     LoveThrowable
 {
     public static function notExists(): self

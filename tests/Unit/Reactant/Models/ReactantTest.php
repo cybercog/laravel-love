@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace Cog\Tests\Laravel\Love\Unit\Reactant\Models;
 
 use Cog\Contracts\Love\Reactant\Exceptions\NotAssignedToReactable;
+use Cog\Contracts\Love\Reactant\ReactionCounter\Exceptions\ReactionCounterDuplicate;
+use Cog\Contracts\Love\Reactant\ReactionTotal\Exceptions\ReactionTotalDuplicate;
 use Cog\Laravel\Love\Reactant\Models\NullReactant;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\NullReactionCounter;
@@ -561,6 +563,18 @@ final class ReactantTest extends TestCase
     }
 
     /** @test */
+    public function it_throw_exception_on_can_create_reaction_counter_of_type_when_counter_of_same_type_already_exists(): void
+    {
+        $this->expectException(ReactionCounterDuplicate::class);
+
+        $reactant = factory(Reactant::class)->create();
+        $reactionType = factory(ReactionType::class)->create();
+
+        $reactant->createReactionCounterOfType($reactionType);
+        $reactant->createReactionCounterOfType($reactionType);
+    }
+
+    /** @test */
     public function it_can_create_reaction_total(): void
     {
         /** @var \Cog\Contracts\Love\Reactant\Models\Reactant $reactant */
@@ -572,6 +586,17 @@ final class ReactantTest extends TestCase
         $this->assertTrue($total->getReactant()->is($reactant));
         $this->assertSame(0, $total->getCount());
         $this->assertSame(0, $total->getWeight());
+    }
+
+    /** @test */
+    public function it_throw_exception_on_can_create_reaction_total_when_total_already_exists(): void
+    {
+        $this->expectException(ReactionTotalDuplicate::class);
+
+        $reactant = factory(Reactant::class)->create();
+
+        $reactant->createReactionTotal();
+        $reactant->createReactionTotal();
     }
 
     /** @test */

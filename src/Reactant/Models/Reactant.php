@@ -16,7 +16,9 @@ namespace Cog\Laravel\Love\Reactant\Models;
 use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
 use Cog\Contracts\Love\Reactant\Exceptions\NotAssignedToReactable;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
+use Cog\Contracts\Love\Reactant\ReactionCounter\Exceptions\ReactionCounterDuplicate;
 use Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter as ReactionCounterContract;
+use Cog\Contracts\Love\Reactant\ReactionTotal\Exceptions\ReactionTotalDuplicate;
 use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalContract;
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
 use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
@@ -96,7 +98,7 @@ final class Reactant extends Model implements
         // TODO: Test query count with eager loaded relation
         // TODO: Test query count without eager loaded relation
         $counter = $this
-            ->getReactionCounters()
+            ->getAttribute('reactionCounters')
             ->where('reaction_type_id', $reactionType->getId())
             ->first();
 
@@ -120,7 +122,6 @@ final class Reactant extends Model implements
             return false;
         }
 
-        // TODO: Test it
         // TODO: Test if relation was loaded partially
         if ($this->relationLoaded('reactions')) {
             return $this
@@ -149,7 +150,6 @@ final class Reactant extends Model implements
             return false;
         }
 
-        // TODO: Test it
         // TODO: Test if relation was loaded partially
         if ($this->relationLoaded('reactions')) {
             return $this
@@ -199,7 +199,10 @@ final class Reactant extends Model implements
     public function createReactionCounterOfType(
         ReactionTypeContract $reactionType
     ): void {
-        // TODO: (?) Prevent create if already exists?
+        if ($this->reactionCounters()->where('reaction_type_id', $reactionType->getId())->exists()) {
+            throw ReactionCounterDuplicate::forReactantWithType($this, $reactionType);
+        }
+
         $this->reactionCounters()->create([
             'reaction_type_id' => $reactionType->getId(),
             'count' => 0,
@@ -212,7 +215,10 @@ final class Reactant extends Model implements
 
     public function createReactionTotal(): void
     {
-        // TODO: (?) Prevent create if already exists?
+        if ($this->reactionTotal()->exists()) {
+            throw ReactionTotalDuplicate::forReactant($this);
+        }
+
         $this->reactionTotal()->create([
             'count' => 0,
             'weight' => 0,
