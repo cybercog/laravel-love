@@ -6,6 +6,9 @@
 
 ## From v5 to v6
 
+Release v6 is a total package refactoring with a lot of breaking changes.
+Most of the upgrade requirements couldn't be done automatically because of completely different API. 
+
 ### Prepare models
 
 - Replace all `Cog\Contracts\Love\Likeable\Models\Likeable` with `Cog\Contracts\Love\Reactable\Models\Reactable`
@@ -17,6 +20,27 @@
 
 - Add `$table->unsignedBigInteger('love_reacter_id');` column to each table which models can react on content.
 - Add `$table->unsignedBigInteger('love_reactant_id');` column to each table which models can be reacted.
+
+### Reactable model methods
+
+- Find all `whereLikedBy` method and replace it with `whereReactedWithTypeBy`
+- Find all `whereDislikedBy` method and replace it with `whereReactedWithTypeBy`
+- Find all `like` method and replace it with `reactTo`
+- Find all `dislike` method and replace it with `reactTo`
+- Find all `unlike` method and replace it with `unreactTo`
+- Find all `undislike` method and replace it with `unreactTo`
+- Find all `orderByLikesCount` method and replace it with `joinReactionCounterOfType` and common `orderBy`
+- Find all `orderByDislikesCount` method and replace it with `joinReactionCounterOfType` and common `orderBy`
+
+### Eager loading
+
+- Find all `likes` and replaced it with `loveReactant.reactions.type`
+- Find all `dislikes` and replaced it with `loveReactant.reactions.type`
+- Find all `likesAndDislikes` and replaced it with `loveReactant.reactions.type`
+- Find all `likesCounter` and replaced it with `loveReactant.reactionCounters`
+- Find all `dislikesCounter` and replaced it with `loveReactant.reactionCounters`
+- Load new relations `loveReactant.reactions.reacter.reacterable` if needed
+- Load new relations `loveReactant.reactionTotal` if needed
 
 ### Automatic migration process
 

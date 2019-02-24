@@ -70,7 +70,7 @@ It is a successor of the very simple abandoned package:
 - Can work with any database `id` column types.
 - Sort reactable models by reactions total count.
 - Sort reactable models by reactions total weight.
-- Events for `created` & `deleted` reactions.
+- Events for added & removed reactions.
 - Has Artisan command `love:recount {model?} {type?}` to re-fetch reactions stats.
 - Designed to work with Laravel Eloquent models.
 - Using contracts to keep high customization capabilities.
