@@ -75,14 +75,14 @@ This package is a fork of the more simple but abandoned package: [Laravel Likeab
 
 ## Glossary
 
-- `Reacter` — one who reacts.
-- `Reacterable` — polymorphic connection with Reacter (User, Person, Organization, etc).
-- `Reactant` — subject which could receive Reactions.
-- `Reactable` — polymorphic connection with Reactant (Article, Comment, etc).
 - `Reaction` — the response that reveals Reacter's feelings or attitude.
 - `ReactionType` — type of the emotional response (Like, Dislike, Love, Hate, etc).
-- `ReactionCounter` — computed statistical values of ReactionTypes related to Reactable entities.
-- `ReactionTotal` — computed statistical values of total Reactions count & their weight related to Reactable entities.
+- `Reacterable` — polymorphic connection with Reacter (User, Person, Organization, etc).
+- `Reacter` — one who reacts.
+- `Reactable` — polymorphic connection with Reactant (Article, Comment, etc).
+- `Reactant` — subject which could receive Reactions.
+- `ReactionCounter` — computed statistical values of ReactionTypes related to Reactant.
+- `ReactionTotal` — computed statistical values of total Reactions count & their weight related to Reactant.
 
 ## Requirements
 
@@ -139,7 +139,17 @@ class User extends Authenticatable implements ReacterableContract
 }
 ```
 
-> TODO: Write that BIGINT `love_reacter_id` database column must be added
+After that create & run migrations which will add unsigned big integer column `love_reacter_id`
+to each database table where reacterable models are stored.
+
+```php
+public function up(): void
+{
+    Schema::table('users', function (Blueprint $table) {
+        $table->unsignedBigInteger('love_reacter_id');
+    });
+}
+```
 
 ### Prepare Reactable Models
 
@@ -159,7 +169,17 @@ class Article extends Model implements ReactableContract
 }
 ```
 
-> TODO: Write that BIGINT `love_reactant_id` database column must be added
+After that create & run migrations which will add unsigned big integer column `love_reactant_id`
+to each database table where reactable models are stored.
+
+```php
+public function up(): void
+{
+    Schema::table('articles', function (Blueprint $table) {
+        $table->unsignedBigInteger('love_reactant_id');
+    });
+}
+```
 
 ## Usage
 
@@ -200,7 +220,7 @@ $likeType->isNotEqualTo($likeType); // false
 $likeType->isNotEqualTo($dislikeType); // true
 ```
 
-### Reacters
+### Reacterables
 
 #### Register reacterable as reacter
 
@@ -218,7 +238,8 @@ $user->registerAsLoveReacter();
 If you will try to register `Reacterable` as `Reacter` one more time then
 `Cog\Contracts\Love\Reacterable\Exceptions\AlreadyRegisteredAsLoveReacter` exception will be thrown.
 
-> TODO: How to skip auto creation of Reacter
+> If you want to skip auto-creation of related `Reacter` model just add boolean method
+> `shouldRegisterAsLoveReacterOnCreate` to `Reacterable` model which will return `false`.
 
 #### Verify reacter registration
 
@@ -238,8 +259,16 @@ Only `Reacter` model can react to content. Get `Reacter` model from your `Reacte
 $reacter = $user->getReacter();
 ```
 
-> If `Reacterable` model is not registered as `Reacter` you will receive `NullReacter` model instead (also known as NullObject design pattern).
-> All it's methods will be callable, but will throw exceptions or return `false`.
+> If `Reacterable` model is not registered as `Reacter` you will receive `NullReacter` model instead
+> (NullObject design pattern). All it's methods will be callable, but will throw exceptions or return `false`.
+
+### Reacters
+
+#### Get reacterable
+
+```php
+$reacterable = $reacter->getReacterable();
+```
 
 #### React to reactant
 
@@ -254,7 +283,7 @@ $reacter->unreactTo($reactant, $reactionType);
 ```
 #### Check if reacter reacted to reactant
 
-Determine if `Reacter` reacted to `Reactant` with any type of Reaction.
+Determine if `Reacter` reacted to `Reactant` with any type of reaction.
 
 ```php
 $isReacted = $reacter->isReactedTo($reactant);
@@ -262,7 +291,7 @@ $isReacted = $reacter->isReactedTo($reactant);
 $isNotReacted = $reacter->isNotReactedTo($reactant);
 ```
 
-Determine if Reacter reacted to Reactant with exact type of Reaction.
+Determine if `Reacter` reacted to `Reactant` with exact type of reaction.
 
 ```php
 $reactionType = ReactionType::fromName('Like');
@@ -282,7 +311,7 @@ $reactions = $reacter->getReactions();
 
 > TODO: Need to add pagination
 
-### Reactants
+### Reactable
 
 #### Register reactable as reactant
 
@@ -300,7 +329,8 @@ $user->registerAsLoveReactant();
 If you will try to register `Reactable` as `Reactant` one more time then
 `Cog\Contracts\Love\Reactable\Exceptions\AlreadyRegisteredAsLoveReactant` exception will be thrown.
 
-> TODO: How to skip auto creation of Reactant
+> If you want to skip auto-creation of related `Reactant` model just add boolean method
+> `shouldRegisterAsLoveReactantOnCreate` to `Reactable` model which will return `false`.
 
 #### Verify reactant registration
 
@@ -320,8 +350,38 @@ Only `Reacter` model can react to content. Get `Reacter` model from your `Reacta
 $reactant = $user->getReactant();
 ```
 
-> If `Reactable` model is not registered as `Reactant` you will receive `NullReactant` model instead (also known as NullObject design pattern).
-> All it's methods will be callable, but will throw exceptions or return `false`.
+> If `Reactable` model is not registered as `Reactant` you will receive `NullReactant` model instead
+> (NullObject design pattern). All it's methods will be callable, but will throw exceptions or return `false`.
+
+### Reactants
+
+#### Get reactable model
+
+```php
+$reactable = $reactant->getReactable();
+```
+
+#### Check if reactant reacted by reacter
+
+Determine if `Reacter` reacted to `Reactant` with any type of reaction.
+
+```php
+$isReacted = $reactant->isReactedBy($reacter);
+
+$isNotReacted = $reactant->isNotReactedBy($reacter);
+```
+
+Determine if `Reacter` reacted to `Reactant` with exact type of reaction.
+
+```php
+$reactionType = ReactionType::fromName('Like');
+
+$isReacted = $reactant
+    ->isReactedByWithType($reacter, $reactionType);
+
+$isNotReacted = $reactant
+    ->isNotReactedByWithType($reacter, $reactionType);
+```
 
 #### Get reactions which reactant received
 
@@ -467,9 +527,9 @@ $articles = Article::query()
 
 ### Events
 
-On each added reaction `\Cog\Laravel\Love\Reaction\Events\ReactionWasCreated` event is fired.
+On each added reaction `Cog\Laravel\Love\Reaction\Events\ReactionWasCreated` event is fired.
 
-On each removed reaction `\Cog\Laravel\Love\Reaction\Events\ReactionWasDeleted` event is fired.
+On each removed reaction `Cog\Laravel\Love\Reaction\Events\ReactionWasDeleted` event is fired.
 
 ### Console Commands
 
