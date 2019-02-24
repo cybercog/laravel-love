@@ -25,7 +25,7 @@ final class CreateLoveReactionTypesTable extends Migration
     public function up(): void
     {
         Schema::create('love_reaction_types', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name');
             $table->tinyInteger('weight');
             $table->timestamps();
