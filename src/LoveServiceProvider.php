@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love;
 
-use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
 use Cog\Laravel\Love\Console\Commands\Recount;
 use Cog\Laravel\Love\Console\Commands\UpgradeV5ToV6;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
@@ -29,7 +28,6 @@ final class LoveServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->registerContracts();
     }
 
     /**
@@ -52,9 +50,7 @@ final class LoveServiceProvider extends ServiceProvider
      */
     private function registerObservers(): void
     {
-        $this->app
-            ->make(ReactionContract::class)
-            ->observe(ReactionObserver::class);
+        Reaction::observe(ReactionObserver::class);
     }
 
     /**
@@ -70,16 +66,6 @@ final class LoveServiceProvider extends ServiceProvider
                 UpgradeV5ToV6::class,
             ]);
         }
-    }
-
-    /**
-     * Register Love's classes in the container.
-     *
-     * @return void
-     */
-    private function registerContracts(): void
-    {
-        $this->app->bind(ReactionContract::class, Reaction::class);
     }
 
     /**
