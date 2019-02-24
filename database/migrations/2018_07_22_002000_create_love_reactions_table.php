@@ -28,7 +28,7 @@ final class CreateLoveReactionsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('reactant_id');
             $table->unsignedBigInteger('reacter_id');
-            $table->unsignedInteger('reaction_type_id');
+            $table->unsignedBigInteger('reaction_type_id');
             $table->timestamps();
 
             $table->index('reactant_id');
