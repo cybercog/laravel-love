@@ -23,6 +23,9 @@ This package is a fork of the more simple but abandoned package: [Laravel Likeab
 - [Installation](#installation)
 - [Usage](#usage)
   - [Prepare Models](#prepare-models)
+  - [Reaction Types](#reaction-types)
+  - [Reacters](#reacters)
+  - [Reactants](#reactants)
   - [Available Methods](#available-methods)
   - [Scopes](#scopes)
   - [Events](#events)
@@ -40,10 +43,12 @@ This package is a fork of the more simple but abandoned package: [Laravel Likeab
 ## Features
 
 - Fully customizable types of reactions.
+- Any model can react to models and receive reactions at the same time.
 - `Reactant` can has many types of reactions.
 - `Reacter` can add many reactions to one `Reactant` or they could be mutually exclusive.
 - Reaction counters with detailed aggregated data for each reactant.
 - Reaction totals with total aggregated data for each reactant.
+- Can work with any database `id` column types.
 - Sort `Reactable` models by reactions total count.
 - Sort `Reactable` models by reactions total weight.
 - Events for `created` & `deleted` reactions.
@@ -51,6 +56,8 @@ This package is a fork of the more simple but abandoned package: [Laravel Likeab
 - Designed to work with Laravel Eloquent models.
 - Using contracts to keep high customization capabilities.
 - Using traits to get functionality out of the box.
+- Strict typed.
+- Using Null Object design pattern.
 - Following PHP Standard Recommendations:
   - [PSR-1 (Basic Coding Standard)](http://www.php-fig.org/psr/psr-1/).
   - [PSR-2 (Coding Style Guide)](http://www.php-fig.org/psr/psr-2/).
@@ -128,67 +135,32 @@ class Article extends Model implements ReactableContract
 }
 ```
 
-### Create Required Related Models
+### Reaction Types
 
-#### Initialize Reacters
+`ReactionType` model describes how `Reacter` reacted to `Reactant`.
+By default there are 2 types of reactions `Like` and `Dislike`.
 
-To let `User` react to the content create `Reacter` model for it. 
+`Like` type adds `+1` weight to reactant's importance while `Dislike` type subtract `-1` from it's weight.
 
-```php
-$user->reacter()->create();
-``` 
-
-*Creation of the `Reacter` need to be done only once for each `Reacterable` model and usually done automatically on model creation.*
-
-To start reacting to the content you can always get `Reacter` model and use all its methods.
-
-```php
-$reacter = $user->getReacter();
-```
-
-#### Initialize Reactants
-
-To let content receive creations create `Reactant` model for it. 
-
-```php
-$article->reactant()->create();
-``` 
-
-*Creation of the `Reactant` need to be done only once for each `Reactable` model and usually done automatically on model creation.*
-
-To start reacting to the content you can always get `Reactant` model and use all its methods.
-
-```php
-$reactant = $article->getReactant();
-```
-
-#### Initialize Reaction Types
-
-> TODO: How to create reaction types
-
-### Available Methods
-
-#### Reaction Type Methods
-
-##### Get reaction type by name
+##### Instantiate Reaction Type From Name
 
 ```php
 $reactionType = ReactionType::fromName('Like');
 ```
 
-##### Get reaction type name
+##### Get Type Name 
 
 ```php
 $typeName = $reactionType->getName(); // 'Like'
 ```
 
-##### Get reaction type weight
+##### Get Type Weight
 
 ```php
 $typeWeight = $reactionType->getWeight(); // 3
 ```
 
-##### Determine if reaction types are equal
+##### Determine Types Equality
 
 ```php
 $likeType = ReactionType::fromName('Like'); 
@@ -201,35 +173,59 @@ $likeType->isNotEqualTo($likeType); // false
 $likeType->isNotEqualTo($dislikeType); // true
 ```
 
-#### Reacterable Methods
+### Reacters
 
-##### Get reacter model
+#### Register as Reacter
+
+To let `User` react to the content it need to register it as `Reacter`.
+
+By default it's creating automatically on successful `Reacterable` creation,
+but if this behavior was changed you still can do it manually. 
 
 ```php
-$reacterable = User::first();
-
-$reacter = $reacterable->getReacter();
+$user->registerAsLoveReacter();
 ```
 
-#### Reacter Methods
+*Creation of the `Reacter` could be done only once for each `Reacterable` model.*
 
-##### React to the content
+If you will try to register `Reacterable` as `Reacter` one more time then
+`Cog\Contracts\Love\Reacterable\Exceptions\AlreadyRegisteredAsLoveReacter` exception will be thrown.
+
+#### Verify Reacter Registration
+
+If you want to verify if `Reacterable` is registered as `Reacter` or not you can use boolean methods.
+
+```php
+$isRegistered = $user->isRegisteredAsLoveReacter(); // true
+
+$isNotRegistered = $user->isNotRegisteredAsLoveReacter(); // false
+```
+
+#### Get Reacter Model
+
+Only `Reacter` model can react to content. Get `Reacter` model from your `Reacterable` model. 
+
+```php
+$reacter = $user->getReacter();
+```
+
+> If `Reacterable` model not registered as `Reacter` you will receive `NullReacter` model instead (also known as NullObject design pattern).
+> All methods will be callable, but will throw exceptions or return `false`.
+
+#### React to Reactant
 
 ```php
 $reacter->reactTo($reactant, $reactionType);
 ```
 
-##### Remove Reaction from the content
+#### Remove Reaction to Reactant
 
 ```php
 $reacter->unreactTo($reactant, $reactionType);
 ```
+#### Check if Reacter Reacted to Reactant
 
-##### Check if Reacter reacted to Reactant
-
-> TODO: *Checks in eager loaded relations `reactions` first.*
-
-Determine if Reacter reacted to Reactant with any type of Reaction.
+Determine if `Reacter` reacted to `Reactant` with any type of Reaction.
 
 ```php
 $isReacted = $reacter->isReactedTo($reactant);
@@ -243,58 +239,132 @@ Determine if Reacter reacted to Reactant with exact type of Reaction.
 $reactionType = ReactionType::fromName('Like');
 
 $isReacted = $reacter
-    ->isReactedToWithTypeOf($reactant, $reactionType);
+    ->isReactedToWithType($reactant, $reactionType);
 
 $isNotReacted = $reacter
-    ->isNotReactedToWithTypeOf($reactant, $reactionType);
+    ->isNotReactedToWithType($reactant, $reactionType);
 ```
 
-#### Reactable Methods
-
-##### Get reactant model
+#### Get Reactions Which Reacter Has Made
 
 ```php
-$reactable = Article::first();
-
-$reactant = $reactable->getReactant();
+$reactions = $reacter->getReactions();
 ```
 
-#### Reactant Methods
+> TODO: Need to add pagination
 
-##### Get Reactable model of the Reactant
+### Reactants
+
+#### Register as Reactant
+
+To let `Article` to receive reactions from users it need to register it as `Reactant`.
+
+By default it's creating automatically on successful `Reactable` creation,
+but if this behavior was changed you still can do it manually. 
 
 ```php
-$reactable = $reactant->getReactable();
+$user->registerAsLoveReactant();
 ```
 
-##### Get Reaction Counters of the Reactant
+*Creation of the `Reactant` could be done only once for each `Reactable` model.*
+
+If you will try to register `Reactable` as `Reactant` one more time then
+`Cog\Contracts\Love\Reactable\Exceptions\AlreadyRegisteredAsLoveReactant` exception will be thrown.
+
+#### Verify Reactant Registration
+
+If you want to verify if `Reactable` is registered as `Reactant` or not you can use boolean methods.
+
+```php
+$isRegistered = $user->isRegisteredAsLoveReactant(); // true
+
+$isNotRegistered = $user->isNotRegisteredAsLoveReactant(); // false
+```
+
+#### Get Reactant Model
+
+Only `Reacter` model can react to content. Get `Reacter` model from your `Reactable` model. 
+
+```php
+$reactant = $user->getReactant();
+```
+
+> If `Reactable` model not registered as `Reactant` you will receive `NullReactant` model instead (also known as NullObject design pattern).
+> All methods will be callable, but will throw exceptions or return `false`.
+
+#### Get Reactions Which Reactant Received
+
+```php
+$reactions = $reactant->getReactions();
+```
+
+> TODO: Need to add pagination
+
+### Reactant Reaction Counters
+
+Each `Reactant` has many counters (one for each reaction type) with aggregated data.
+
+#### Get Reaction Counters of Reactant
 
 ```php
 $reactionCounters = $reactant->getReactionCounters();
 ```
 
-##### Get Reactions which Reactant received
+Or get only counter of exact type.
 
 ```php
-$reactions = $reactant->getReactions();
+$reactionType = ReactionType::fromName('Like');
+
+$reactionCounter = $reactant->getReactionCounterOfType($reactionType);
 ```
-##### Get ReactionTotal model of the Reactant
+
+#### Get Reactions Count
+
+When you need to determine count of reactions of this type you can get count.
+
+```php
+$totalWeight = $reactionCounter->getCount();
+```
+
+#### Get Reactions Weight
+
+When you need to determine weight which all reactions of this type gives you can get weight.
+
+```php
+$totalWeight = $reactionCounter->getWeight();
+```
+
+### Reactant Reaction Totals
+
+Each `Reactant` has one total with aggregated data. Total is sum of counters of all reaction types.
+
+#### Get Reaction Total of Reactant
 
 ```php
 $reactionTotal = $reactant->getReactionTotal();
 ```
 
-#### Stats
+#### Get Reactions Total Count
 
-##### Get difference between likes and dislikes
+When you need to determine total reactions count you can get count.
 
 ```php
-$article->getReactant()->getReactionTotal()->getWeight();
+$totalWeight = $reactionTotal->getCount();
 ```
+
+#### Get Reactions Total Weight
+
+When you need to determine total weight of reactions you can get weight.
+
+```php
+$totalWeight = $reactionTotal->getWeight();
+```
+
+> If each `Like` has weight `+1` and `Dislike` has weight `-1` then 3 likes and 5 dislikes will return `-2` total weight.  
 
 ### Scopes
 
-##### Find all Articles reacted by User
+#### Find all Articles reacted by User
 
 ```php
 $reacter = $user->getReacter();
@@ -302,7 +372,7 @@ $reacter = $user->getReacter();
 Article::whereReactedBy($reacter)->get();
 ```
 
-##### Find all Articles reacted by User with exact type of reaction
+#### Find all Articles reacted by User with exact type of reaction
 
 ```php
 $reacter = $user->getReacter();
@@ -311,7 +381,7 @@ $reactionType = ReactionType::fromName('Like');
 Article::whereReactedByWithTypeOf($reacter, $reactionType)->get();
 ```
 
-##### Add ReactionCounter aggregate of exact ReactionType to Reactables
+#### Add ReactionCounter aggregate of exact ReactionType to Reactables
 
 ```php
 $reactionType = ReactionType::fromName('Like'); 
@@ -328,7 +398,7 @@ $articles = Article::withReactionCounterTypeOf($reactionType)
     ->orderBy('reactions_count', 'desc')->get();
 ```
 
-##### Add ReactionSummary aggregate to Reactables
+#### Add ReactionSummary aggregate to Reactables
 
 ```php
 $articles = Article::withReactionTotal()->get();
