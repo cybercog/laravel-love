@@ -20,6 +20,7 @@ use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 final class UpgradeV5ToV6 extends Command
 {
@@ -50,6 +51,7 @@ final class UpgradeV5ToV6 extends Command
         $this->populateReactants();
         $this->populateReactions();
         $this->dbCleanup();
+        $this->filesystemCleanup();
     }
 
     private function dbMigrate(): void
@@ -66,6 +68,25 @@ final class UpgradeV5ToV6 extends Command
         DB::statement('
             DROP TABLE `love_likes`;
         ');
+        DB::statement('
+            DELETE FROM `migrations`
+            WHERE `migration` = "2016_09_02_153301_create_love_likes_table"
+            LIMIT 1;
+        ');
+        DB::statement('
+            DELETE FROM `migrations`
+            WHERE `migration` = "2016_09_02_163301_create_love_like_counters_table"
+            LIMIT 1;
+        ');
+    }
+
+    private function filesystemCleanup(): void
+    {
+        $this->info('Deleting old database migration files');
+        $this->deleteMigrationFiles([
+            '2016_09_02_153301_create_love_likes_table.php',
+            '2016_09_02_163301_create_love_like_counters_table.php',
+        ]);
     }
 
     private function populateReactionTypes(): void
@@ -303,5 +324,15 @@ final class UpgradeV5ToV6 extends Command
         string $name
     ): string {
         return studly_case(strtolower($name));
+    }
+
+    private function deleteMigrationFiles(array $files): void
+    {
+        foreach ($files as $file) {
+            $file = database_path("migrations/{$file}");
+            if (File::exists($file)) {
+                File::delete($file);
+            }
+        }
     }
 }

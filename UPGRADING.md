@@ -6,7 +6,21 @@
 
 ## From v5 to v6
 
-Run artisan command:
+### Prepare models
+
+- Replace all `Cog\Contracts\Love\Likeable\Models\Likeable` with `Cog\Contracts\Love\Reactable\Models\Reactable`
+- Replace all `Cog\Laravel\Love\Likeable\Models\Traits\Likeable` with `Cog\Laravel\Love\Reactable\Models\Traits\Reactable`
+- Replace all `Cog\Contracts\Love\Liker\Models\Liker` with `Cog\Contracts\Love\Reacterable\Models\Reacterable`
+- Replace all `Cog\Laravel\Love\Liker\Models\Traits\Liker` with `Cog\Laravel\Love\Reacterable\Models\Traits\Reacterable`
+
+### Prepare database tables
+
+- Add `$table->unsignedBigInteger('love_reacter_id');` column to each table which models can react on content.
+- Add `$table->unsignedBigInteger('love_reactant_id');` column to each table which models can be reacted.
+
+### Automatic migration process
+
+**Run only after all preparations are done.**
 
 ```sh
 php artisan love:upgrade-v5-to-v6
