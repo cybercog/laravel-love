@@ -28,7 +28,9 @@ This package is a fork of the more simple but abandoned package: [Laravel Likeab
   - [Prepare Reactable Models](#prepare-reactable-models)
 - [Usage](#usage)
   - [Reaction Types](#reaction-types)
+  - [Reacterables](#reacterables)
   - [Reacters](#reacters)
+  - [Reactables](#reactables)
   - [Reactants](#reactants)
   - [Reactant Reaction Counters](#reactant-reaction-counters)
   - [Reactant Reaction Totals](#reactant-reaction-totals)
@@ -311,7 +313,7 @@ $reactions = $reacter->getReactions();
 
 > TODO: Need to add pagination
 
-### Reactable
+### Reactables
 
 #### Register reactable as reactant
 
