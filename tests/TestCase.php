@@ -106,6 +106,8 @@ abstract class TestCase extends OrchestraTestCase
      */
     private function registerUserModel(): void
     {
-        $this->app['config']->set('auth.providers.users.model', User::class);
+        $this->app
+            ->make('config')
+            ->set('auth.providers.users.model', User::class);
     }
 }
