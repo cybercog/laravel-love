@@ -21,9 +21,9 @@ use RuntimeException;
 final class ReactionCounterDuplicate extends RuntimeException implements
     LoveThrowable
 {
-    public static function forReactantWithType(
-        Reactant $reactant,
-        ReactionType $reactionType
+    public static function ofTypeForReactant(
+        ReactionType $reactionType,
+        Reactant $reactant
     ): self {
         return new static(sprintf(
             'ReactionCounter for Reactant `%s` with ReactionType `%s` already exists.',

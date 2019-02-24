@@ -200,7 +200,7 @@ final class Reactant extends Model implements
         ReactionTypeContract $reactionType
     ): void {
         if ($this->reactionCounters()->where('reaction_type_id', $reactionType->getId())->exists()) {
-            throw ReactionCounterDuplicate::forReactantWithType($this, $reactionType);
+            throw ReactionCounterDuplicate::ofTypeForReactant($reactionType, $this);
         }
 
         $this->reactionCounters()->create([

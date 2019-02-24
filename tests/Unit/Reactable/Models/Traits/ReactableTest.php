@@ -304,11 +304,11 @@ final class ReactableTest extends TestCase
         ]);
 
         $reactablesOrderedAsc = Article::query()
-            ->joinReactionCounterWithType($reactionType1)
+            ->joinReactionCounterOfType($reactionType1)
             ->orderBy('reactions_count', 'asc')
             ->get();
         $reactablesOrderedDesc = Article::query()
-            ->joinReactionCounterWithType($reactionType1)
+            ->joinReactionCounterOfType($reactionType1)
             ->orderBy('reactions_count', 'desc')
             ->get();
 
@@ -356,7 +356,7 @@ final class ReactableTest extends TestCase
         ]);
 
         $reactablesOrderedAsc = Article::query()
-            ->joinReactionCounterWithType($reactionType1)
+            ->joinReactionCounterOfType($reactionType1)
             ->orderBy('reactions_count', 'asc')
             ->get();
 
@@ -392,7 +392,7 @@ final class ReactableTest extends TestCase
 
         $reactablesOrderedAsc = Article::query()
             ->select('name')
-            ->joinReactionCounterWithType($reactionType1)
+            ->joinReactionCounterOfType($reactionType1)
             ->orderBy('reactions_count', 'asc')
             ->get();
 
@@ -660,7 +660,7 @@ final class ReactableTest extends TestCase
         ]);
 
         $reactablesOrderedAsc = Article::query()
-            ->joinReactionCounterWithType($reactionType1)
+            ->joinReactionCounterOfType($reactionType1)
             ->joinReactionTotal()
             ->orderBy('reactions_total_weight', 'asc')
             ->get();
@@ -773,7 +773,7 @@ final class ReactableTest extends TestCase
         ]);
 
         $reactablesOrderedAsc = Article::query()
-            ->joinReactionCounterWithType($reactionType1)
+            ->joinReactionCounterOfType($reactionType1)
             ->orderBy('reactions_count', 'asc')
             ->get();
 
@@ -821,7 +821,7 @@ final class ReactableTest extends TestCase
         ]);
 
         $reactablesOrderedAsc = Article::query()
-            ->joinReactionCounterWithType($reactionType1)
+            ->joinReactionCounterOfType($reactionType1)
             ->joinReactionTotal()
             ->orderBy('reactions_total_weight', 'asc')
             ->get();

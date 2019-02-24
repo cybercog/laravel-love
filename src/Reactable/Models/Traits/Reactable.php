@@ -92,7 +92,7 @@ trait Reactable
         });
     }
 
-    public function scopeJoinReactionCounterWithType(
+    public function scopeJoinReactionCounterOfType(
         Builder $query,
         ReactionTypeContract $reactionType
     ): Builder {
