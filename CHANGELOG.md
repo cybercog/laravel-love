@@ -2,6 +2,13 @@
 
 All notable changes to `laravel-love` will be documented in this file.
 
+## [6.0.0] - WIP
+
+### Removed
+
+- Laravel 5.5 support obsolete
+- PHP < 7.1.3 support obsolete
+
 ## [5.2.0] - 2018-09-09
 
 ### Added
@@ -184,6 +191,7 @@ All notable changes to `laravel-love` will be documented in this file.
 
 - Initial release
 
+[6.0.0]: https://github.com/cybercog/laravel-love/compare/5.2.0...6.0.0
 [5.2.0]: https://github.com/cybercog/laravel-love/compare/5.1.1...5.2.0
 [5.1.1]: https://github.com/cybercog/laravel-love/compare/5.1.0...5.1.1
 [5.1.0]: https://github.com/cybercog/laravel-love/compare/5.0.0...5.1.0
