@@ -44,10 +44,16 @@ final class UpgradeV5ToV6 extends Command
      */
     public function handle(): void
     {
+        $this->dbMigrate();
         $this->createReactionTypes();
         $this->createReacters();
         $this->createReactants();
         $this->convertLikesToReactions();
+    }
+
+    private function dbMigrate(): void
+    {
+        $this->call('migrate');
     }
 
     private function createReactionTypes(): void
