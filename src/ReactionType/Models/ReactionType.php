@@ -34,18 +34,18 @@ final class ReactionType extends Model implements
         'weight' => 'integer',
     ];
 
-    private static $instances = [];
+    private static $nameCache = [];
 
     protected static function boot(): void
     {
         parent::boot();
 
         static::saved(function (ReactionTypeContract $reactionType) {
-            static::$instances[$reactionType->getName()] = $reactionType;
+            static::$nameCache[$reactionType->getName()] = $reactionType;
         });
 
         static::deleted(function (ReactionTypeContract $reactionType) {
-            unset(static::$instances[$reactionType->getName()]);
+            unset(static::$nameCache[$reactionType->getName()]);
         });
     }
 
@@ -57,8 +57,8 @@ final class ReactionType extends Model implements
     public static function fromName(
         string $name
     ): ReactionTypeContract {
-        if (isset(static::$instances[$name])) {
-            return static::$instances[$name];
+        if (isset(static::$nameCache[$name])) {
+            return static::$nameCache[$name];
         }
 
         /** @var \Cog\Laravel\Love\ReactionType\Models\ReactionType $type */
@@ -68,7 +68,7 @@ final class ReactionType extends Model implements
             throw ReactionTypeInvalid::nameNotExists($name);
         }
 
-        static::$instances[$name] = $type;
+        static::$nameCache[$name] = $type;
 
         return $type;
     }
