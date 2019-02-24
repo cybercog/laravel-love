@@ -22,13 +22,11 @@ This package is a fork of the more simple but abandoned package: [Laravel Likeab
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
-  - [Prepare Liker Model](#prepare-liker-model)
-  - [Prepare Likeable Model](#prepare-likeable-model)
+  - [Prepare Models](#prepare-models)
   - [Available Methods](#available-methods)
   - [Scopes](#scopes)
   - [Events](#events)
   - [Console Commands](#console-commands)
-- [Extending](#extending)
 - [Changelog](#changelog)
 - [Upgrading](#upgrading)
 - [Contributing](#contributing)
@@ -258,7 +256,7 @@ $isNotReacted = $reacter
 ```php
 $reactable = Article::first();
 
-$reactable->getReactant();
+$reactant = $reactable->getReactant();
 ```
 
 #### Reactant Methods
@@ -280,26 +278,18 @@ $reactionCounters = $reactant->getReactionCounters();
 ```php
 $reactions = $reactant->getReactions();
 ```
-##### Get ReactionSummary model of the Reactant
+##### Get ReactionTotal model of the Reactant
 
 ```php
-$reactionSummary = $reactant->getReactionSummary();
+$reactionTotal = $reactant->getReactionTotal();
 ```
 
 #### Stats
 
 ##### Get difference between likes and dislikes
 
-> Too complicated... need to simplify
-
 ```php
-// $article->getReactant()->getSummary()->getTotalWeight();
-// $article->getReactant()->getSummary()->totalWeight();
-
-// TODO: I want to write it this way.
-// $article->reactantSummary()->getTotalWeight();
-// or
-// $article->getReactionsTotalWeight();
+$article->getReactant()->getReactionTotal()->getWeight();
 ```
 
 ### Scopes
@@ -309,12 +299,7 @@ $reactionSummary = $reactant->getReactionSummary();
 ```php
 $reacter = $user->getReacter();
 
-Article::whereReactedBy($reacter)
-    ->with([
-        'reactionCounters', // Eager load (optional)
-        'reactionSummary',
-    ])
-    ->get();
+Article::whereReactedBy($reacter)->get();
 ```
 
 ##### Find all Articles reacted by User with exact type of reaction
@@ -323,12 +308,7 @@ Article::whereReactedBy($reacter)
 $reacter = $user->getReacter();
 $reactionType = ReactionType::fromName('Like');
 
-Article::whereReactedByWithTypeOf($reacter, $reactionType)
-    ->with([
-        'reactionCounters', // Eager load (optional)
-        'reactionSummary',
-    ])
-    ->get();
+Article::whereReactedByWithTypeOf($reacter, $reactionType)->get();
 ```
 
 ##### Add ReactionCounter aggregate of exact ReactionType to Reactables
@@ -336,7 +316,7 @@ Article::whereReactedByWithTypeOf($reacter, $reactionType)
 ```php
 $reactionType = ReactionType::fromName('Like'); 
 
-$articles = Article::withReactionCounterTypeOf($reactionType)->get();
+$articles = Article::joinReactionCounterWithType($reactionType)->get();
 ```
 
 Each Reactable model will contain extra column: `reactions_count`.
@@ -351,7 +331,7 @@ $articles = Article::withReactionCounterTypeOf($reactionType)
 ##### Add ReactionSummary aggregate to Reactables
 
 ```php
-$articles = Article::withReactionSummary()->get();
+$articles = Article::withReactionTotal()->get();
 ```
 
 Each Reactable model will contain extra columns: `reactions_total_count` & `reactions_total_weight`.
@@ -359,14 +339,14 @@ Each Reactable model will contain extra columns: `reactions_total_count` & `reac
 You can order Reactables by `reactions_total_count`:
 
 ```php
-$articles = Article::withReactionSummary()
+$articles = Article::withReactionTotal()
     ->orderBy('reactions_total_count', 'desc')->get();
 ```
 
 You can order Reactables by `reactions_total_weight`:
 
 ```php
-$articles = Article::withReactionSummary()
+$articles = Article::withReactionTotal()
     ->orderBy('reactions_total_weight', 'desc')->get();
 ```
 
@@ -430,43 +410,6 @@ $ love:recount --model="article" --type="Dislike"
 
 ```sh
 $ love:recount --model="App\Models\Article" --type="Dislike"
-```
-
-## Extending
-
-You can override core classes of package with your own implementations:
-
-- `Cog\Laravel\Love\Like\Models\Like`
-- `Cog\Laravel\Love\LikeCounter\Models\LikeCounter`
-- `Cog\Laravel\Love\Reactable\Services\ReactableService`
-
-*Note: Don't forget that all custom models must implement original models interfaces.*
-
-To make it you should use container [binding interfaces to implementations](https://laravel.com/docs/master/container#binding-interfaces-to-implementations) in your application service providers.
-
-##### Use model class own implementation
-
-```php
-$this->app->bind(
-    \Cog\Contracts\Love\Like\Models\Like::class,
-    \App\Models\CustomLike::class
-);
-```
-
-##### Use service class own implementation
-
-```php
-$this->app->singleton(
-    \Cog\Contracts\Love\Reactable\Services\ReactableService::class,
-    \App\Services\CustomService::class
-);
-```
-
-After that your `CustomLike` and `CustomService` classes will be instantiable with helper method `app()`.
-
-```php
-$model = app(\Cog\Contracts\Love\Like\Models\Like::class);
-$service = app(\Cog\Contracts\Love\Reactable\Services\ReactableService::class);
 ```
 
 ## Changelog
