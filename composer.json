@@ -78,7 +78,10 @@
         "laravel": {
             "providers": [
                 "Cog\\Laravel\\Love\\LoveServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "Love": "Cog\\Laravel\\Love\\Facades\\Love"
+            }
         }
     },
     "minimum-stability": "dev",
