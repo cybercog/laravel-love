@@ -20,7 +20,9 @@
 
 ### Automatic migration process
 
-**Run only after all preparations are done.**
+Run only after all preparations are done.
+
+**VERY IMPORTANT: Create backup of your production database!**
 
 ```sh
 php artisan love:upgrade-v5-to-v6
