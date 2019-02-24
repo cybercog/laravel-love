@@ -40,12 +40,12 @@ final class ReactionType extends Model implements
     {
         parent::boot();
 
-        static::saved(function (ReactionTypeContract $reactionType) {
-            static::$nameCache[$reactionType->getName()] = $reactionType;
+        self::saved(function (ReactionTypeContract $reactionType) {
+            self::$nameCache[$reactionType->getName()] = $reactionType;
         });
 
-        static::deleted(function (ReactionTypeContract $reactionType) {
-            unset(static::$nameCache[$reactionType->getName()]);
+        self::deleted(function (ReactionTypeContract $reactionType) {
+            unset(self::$nameCache[$reactionType->getName()]);
         });
     }
 
@@ -57,18 +57,18 @@ final class ReactionType extends Model implements
     public static function fromName(
         string $name
     ): ReactionTypeContract {
-        if (isset(static::$nameCache[$name])) {
-            return static::$nameCache[$name];
+        if (isset(self::$nameCache[$name])) {
+            return self::$nameCache[$name];
         }
 
         /** @var \Cog\Laravel\Love\ReactionType\Models\ReactionType $type */
-        $type = static::query()->where('name', $name)->first();
+        $type = self::query()->where('name', $name)->first();
 
         if (is_null($type)) {
             throw ReactionTypeInvalid::nameNotExists($name);
         }
 
-        static::$nameCache[$name] = $type;
+        self::$nameCache[$name] = $type;
 
         return $type;
     }
