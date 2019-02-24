@@ -44,10 +44,6 @@ final class LoveTest extends TestCase
         $true = Love::isReactionOfTypeName($reaction, $reactionType1->getName());
         $false = Love::isReactionOfTypeName($reaction, $reactionType2->getName());
 
-        if (!$true) {
-            dd($reactionType1->getName(), $reactionType2->getName());
-        }
-
         $this->assertTrue($true);
         $this->assertFalse($false);
     }
