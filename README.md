@@ -19,6 +19,8 @@ This package is a fork of the more simple but abandoned package: [Laravel Likeab
 ## Contents
 
 - [Features](#features)
+- [System Design](#system-design)
+- [Glossary](#glossary)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Integration](#integration)
@@ -30,7 +32,7 @@ This package is a fork of the more simple but abandoned package: [Laravel Likeab
   - [Reactants](#reactants)
   - [Reactant Reaction Counters](#reactant-reaction-counters)
   - [Reactant Reaction Totals](#reactant-reaction-totals)
-  - [Scopes](#scopes)
+  - [Reactable Scopes](#reactable-scopes)
   - [Events](#events)
   - [Console Commands](#console-commands)
 - [Changelog](#changelog)
@@ -67,6 +69,21 @@ This package is a fork of the more simple but abandoned package: [Laravel Likeab
   - [PSR-4 (Autoloading Standard)](http://www.php-fig.org/psr/psr-4/).
 - Covered with unit tests.
 
+## System Design
+
+![190102-cog-laravel-love-uml](https://user-images.githubusercontent.com/1849174/50601995-0fed4700-0ec7-11e9-856b-2856f4c58f67.png)
+
+## Glossary
+
+- `Reacter` — one who reacts.
+- `Reacterable` — polymorphic connection with Reacter (User, Person, Organization, etc).
+- `Reactant` — subject which could receive Reactions.
+- `Reactable` — polymorphic connection with Reactant (Article, Comment, etc).
+- `Reaction` — the response that reveals Reacter's feelings or attitude.
+- `ReactionType` — type of the emotional response (Like, Dislike, Love, Hate, etc).
+- `ReactionCounter` — computed statistical values of ReactionTypes related to Reactable entities.
+- `ReactionTotal` — computed statistical values of total Reactions count & their weight related to Reactable entities.
+
 ## Requirements
 
 Laravel Love has a few requirements you should be aware of before installing:
@@ -85,7 +102,7 @@ $ composer require cybercog/laravel-love
 
 #### Perform Database Migration
 
-At last you need to publish and run database migrations.
+Run database migrations.
 
 ```sh
 $ php artisan migrate
@@ -150,28 +167,27 @@ class Article extends Model implements ReactableContract
 
 `ReactionType` model describes how `Reacter` reacted to `Reactant`.
 By default there are 2 types of reactions `Like` and `Dislike`.
+Each `Like` adds `+1` to reactant's total weight while `Dislike` type subtract `-1` from it.
 
-`Like` type adds `+1` weight to reactant's importance while `Dislike` type subtract `-1` from it's weight.
-
-##### Instantiate reaction type from name
+#### Instantiate reaction type from name
 
 ```php
 $reactionType = ReactionType::fromName('Like');
 ```
 
-##### Get type name
+#### Get type name
 
 ```php
 $typeName = $reactionType->getName(); // 'Like'
 ```
 
-##### Get type weight
+#### Get type weight
 
 ```php
-$typeWeight = $reactionType->getWeight(); // 3
+$typeWeight = $reactionType->getWeight(); // 1
 ```
 
-##### Determine types equality
+#### Determine types equality
 
 ```php
 $likeType = ReactionType::fromName('Like'); 
@@ -186,7 +202,7 @@ $likeType->isNotEqualTo($dislikeType); // true
 
 ### Reacters
 
-#### Register as reacter
+#### Register reacterable as reacter
 
 To let `User` react to the content it need to be registered as `Reacter`.
 
@@ -268,7 +284,7 @@ $reactions = $reacter->getReactions();
 
 ### Reactants
 
-#### Register as reactant
+#### Register reactable as reactant
 
 To let `Article` to receive reactions from users it need to be registered as `Reactant`.
 
@@ -377,23 +393,27 @@ $totalWeight = $reactionTotal->getWeight();
 
 > If each `Like` has weight `+1` and `Dislike` has weight `-1` then 3 likes and 5 dislikes will return `-2` total weight.  
 
-### Scopes
+### Reactable Scopes
 
-#### Find all articles reacted by user
+#### Find all reactables reacted by user
 
 ```php
 $reacter = $user->getReacter();
 
-Article::whereReactedBy($reacter)->get();
+Article::query()
+    ->whereReactedBy($reacter)
+    ->get();
 ```
 
-#### Find all articles reacted by user with exact type of reaction
+#### Find all reactables reacted by user with exact type of reaction
 
 ```php
 $reacter = $user->getReacter();
 $reactionType = ReactionType::fromName('Like');
 
-Article::whereReactedByWithTypeOf($reacter, $reactionType)->get();
+$articles = Article::query()
+    ->whereReactedByWithType($reacter, $reactionType)
+    ->get();
 ```
 
 #### Add reaction counter aggregate of exact reaction type to reactables
@@ -401,7 +421,9 @@ Article::whereReactedByWithTypeOf($reacter, $reactionType)->get();
 ```php
 $reactionType = ReactionType::fromName('Like'); 
 
-$articles = Article::joinReactionCounterWithType($reactionType)->get();
+$articles = Article::query()
+    ->joinReactionCounterOfType($reactionType)
+    ->get();
 ```
 
 Each Reactable model will contain extra column: `reactions_count`.
@@ -409,14 +431,18 @@ Each Reactable model will contain extra column: `reactions_count`.
 You can order Reactables by `reactions_count`:
 
 ```php
-$articles = Article::withReactionCounterTypeOf($reactionType)
-    ->orderBy('reactions_count', 'desc')->get();
+$articles = Article::query()
+    ->joinReactionCounterOfType($reactionType)
+    ->orderBy('reactions_count', 'desc')
+    ->get();
 ```
 
 #### Add reaction total aggregate to reactables
 
 ```php
-$articles = Article::withReactionTotal()->get();
+$articles = Article::query()
+    ->joinReactionTotal()
+    ->get();
 ```
 
 Each Reactable model will contain extra columns: `reactions_total_count` & `reactions_total_weight`.
@@ -424,15 +450,19 @@ Each Reactable model will contain extra columns: `reactions_total_count` & `reac
 You can order Reactables by `reactions_total_count`:
 
 ```php
-$articles = Article::withReactionTotal()
-    ->orderBy('reactions_total_count', 'desc')->get();
+$articles = Article::query()
+    ->joinReactionTotal()
+    ->orderBy('reactions_total_count', 'desc')
+    ->get();
 ```
 
 You can order Reactables by `reactions_total_weight`:
 
 ```php
-$articles = Article::withReactionTotal()
-    ->orderBy('reactions_total_weight', 'desc')->get();
+$articles = Article::query()
+    ->joinReactionTotal()
+    ->orderBy('reactions_total_weight', 'desc')
+    ->get();
 ```
 
 ### Events
@@ -443,55 +473,55 @@ On each removed reaction `\Cog\Laravel\Love\Reaction\Events\ReactionWasDeleted` 
 
 ### Console Commands
 
-##### Recount likes and dislikes of all model types
+#### Recount likes and dislikes of all model types
 
 ```sh
 $ love:recount
 ```
 
-##### Recount likes and dislikes of concrete model type (using morph map alias)
+#### Recount likes and dislikes of concrete model type (using morph map alias)
 
 ```sh
 $ love:recount --model="article"
 ```
 
-##### Recount likes and dislikes of concrete model type (using fully qualified class name)
+#### Recount likes and dislikes of concrete model type (using fully qualified class name)
 
 ```sh
 $ love:recount --model="App\Models\Article"
 ```
 
-##### Recount only likes of all model types
+#### Recount only likes of all model types
 
 ```sh
 $ love:recount --type="Like"
 ```
 
-##### Recount only likes of concrete model type (using morph map alias)
+#### Recount only likes of concrete model type (using morph map alias)
 
 ```sh
 $ love:recount --model="article" --type="Like"
 ```
 
-##### Recount only likes of concrete model type (using fully qualified class name)
+#### Recount only likes of concrete model type (using fully qualified class name)
 
 ```sh
 $ love:recount --model="App\Models\Article" --type="Like"
 ```
 
-##### Recount only dislikes of all model types
+#### Recount only dislikes of all model types
 
 ```sh
 $ love:recount --type="Dislike"
 ```
 
-##### Recount only dislikes of concrete model type (using morph map alias)
+#### Recount only dislikes of concrete model type (using morph map alias)
 
 ```sh
 $ love:recount --model="article" --type="Dislike"
 ```
 
-##### Recount only dislikes of concrete model type (using fully qualified class name)
+#### Recount only dislikes of concrete model type (using fully qualified class name)
 
 ```sh
 $ love:recount --model="App\Models\Article" --type="Dislike"
