@@ -107,8 +107,10 @@ final class UpgradeV5ToV6 extends Command
         foreach ($reacterableClasses as $class) {
             /** @var \Illuminate\Database\Eloquent\Model[] $reacterables */
             $reacterables = $class::query()->get();
+            $progress = $this->output->createProgressBar($reacterables->count());
             foreach ($reacterables as $reacterable) {
                 if ($reacterable->getAttributeValue('love_reacter_id') > 0) {
+                    $progress->advance();
                     continue;
                 }
 
@@ -117,7 +119,9 @@ final class UpgradeV5ToV6 extends Command
                 ]);
                 $reacterable->setAttribute('love_reacter_id', $reacter->getId());
                 $reacterable->save();
+                $progress->advance();
             }
+            $progress->finish();
         }
     }
 
@@ -149,8 +153,10 @@ final class UpgradeV5ToV6 extends Command
         foreach ($reactableClasses as $class) {
             /** @var \Illuminate\Database\Eloquent\Model[] $reactables */
             $reactables = $class::query()->get();
+            $progress = $this->output->createProgressBar($reactables->count());
             foreach ($reactables as $reactable) {
                 if ($reactable->getAttributeValue('love_reactant_id') > 0) {
+                    $progress->advance();
                     continue;
                 }
 
@@ -159,7 +165,9 @@ final class UpgradeV5ToV6 extends Command
                 ]);
                 $reactable->setAttribute('love_reactant_id', $reactant->getId());
                 $reactable->save();
+                $progress->advance();
             }
+            $progress->finish();
         }
     }
 
