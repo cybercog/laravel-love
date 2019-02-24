@@ -44,6 +44,8 @@ This package is a fork of the more simple but abandoned package: [Laravel Likeab
 - Fully customizable types of reactions.
 - `Reactant` can has many types of reactions.
 - `Reacter` can add many reactions to one `Reactant` or they could be mutually exclusive.
+- Reaction counters with detailed aggregated data for each reactant.
+- Reaction totals with total aggregated data for each reactant.
 - Sort `Reactable` models by reactions total count.
 - Sort `Reactable` models by reactions total weight.
 - Events for `created` & `deleted` reactions.

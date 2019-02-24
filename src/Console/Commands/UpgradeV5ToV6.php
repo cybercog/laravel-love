@@ -180,6 +180,7 @@ final class UpgradeV5ToV6 extends Command
                 continue;
             }
 
+            /** @var \Cog\Contracts\Love\Reactable\Models\Reactable $reactable */
             $reactable = $class::whereKey($like->likeable_id)->firstOrFail();
 
             $userClass = $this->getUserClass();
@@ -189,12 +190,13 @@ final class UpgradeV5ToV6 extends Command
                 continue;
             }
 
+            /** @var \Cog\Contracts\Love\Reacterable\Models\Reacterable $reacterable */
             $reacterable = $userClass::whereKey($like->user_id)->firstOrFail();
             $reactionTypeName = $this->reactionTypeNameFromLikeTypeName($like->type_id);
 
-            $reactionTypeId = ReactionType::fromName($reactionTypeName)->getKey();
-            $reactantId = $reactable->getReactant()->getKey();
-            $reacterId = $reacterable->getReacter()->getKey();
+            $reactionTypeId = ReactionType::fromName($reactionTypeName)->getId();
+            $reactantId = $reactable->getLoveReactant()->getId();
+            $reacterId = $reacterable->getLoveReacter()->getId();
 
             $isReactionExists = Reaction::query()
                 ->where('reaction_type_id', $reactionTypeId)

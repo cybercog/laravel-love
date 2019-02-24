@@ -19,14 +19,9 @@ use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Mockery;
 use Orchestra\Database\ConsoleServiceProvider;
-use Orchestra\Testbench\TestCase as Orchestra;
+use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
-/**
- * Class TestCase.
- *
- * @package Cog\Tests\Laravel\Love
- */
-abstract class TestCase extends Orchestra
+abstract class TestCase extends OrchestraTestCase
 {
     /**
      * Actions to be performed on PHPUnit start.
