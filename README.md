@@ -671,7 +671,7 @@ How to do it without facade:
 ```php
 $reactionType = ReactionType::fromName('Like');
 
-$reactable
+$likesCount = $reactable
     ->getLoveReactant()
     ->getReactionCounterOfType($reactionType)
     ->getCount();
@@ -688,7 +688,7 @@ How to do it without facade:
 ```php
 $reactionType = ReactionType::fromName('Like');
 
-$reactable
+$likesWeight = $reactable
     ->getLoveReactant()
     ->getReactionCounterOfType($reactionType)
     ->getWeight();
@@ -703,7 +703,7 @@ $reactionsTotalCount = Love::getReactableReactionsTotalCount($article);
 How to do it without facade:
 
 ```php
-$reactable
+$reactionsTotalCount = $reactable
     ->getLoveReactant()
     ->getReactionTotal()
     ->getCount();
@@ -718,7 +718,7 @@ $reactionsTotalWeight = Love::getReactableReactionsTotalWeight($article);
 How to do it without facade:
 
 ```php
-$reactable
+$reactionsTotalWeight = $reactable
     ->getLoveReactant()
     ->getReactionTotal()
     ->getWeight();
