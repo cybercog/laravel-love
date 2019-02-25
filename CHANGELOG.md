@@ -5,7 +5,7 @@ All notable changes to `laravel-love` will be documented in this file.
 ## [6.0.0] - 2019-02-25
 
 Package API was refactored from a scratch.
-Code has a lot of breaking changes and cannot be easily updated.
+Code has a lot of breaking changes and cannot be updated easily.
 
 Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to new structure.
 

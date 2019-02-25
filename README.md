@@ -47,6 +47,7 @@ It is a successor of the very simple abandoned package:
   - [Reactant Reaction Counters](#reactant-reaction-counters)
   - [Reactant Reaction Totals](#reactant-reaction-totals)
   - [Reactable Scopes](#reactable-scopes)
+  - [Eager Loading](#eager-loading)
   - [Events](#events)
   - [Console Commands](#console-commands)
 - [Changelog](#changelog)
@@ -465,7 +466,8 @@ When you need to determine total weight of reactions you can get weight.
 $totalWeight = $reactionTotal->getWeight();
 ```
 
-> If each `Like` has weight `+1` and `Dislike` has weight `-1` then 3 likes and 5 dislikes will return `-2` total weight.  
+> If each `Like` has weight `+1` and `Dislike` has weight `-1`
+> then 3 likes and 5 dislikes will produce `-2` total weight.  
 
 ### Reactable Scopes
 
@@ -538,6 +540,32 @@ Order by `reactions_total_weight`:
 $articles = Article::query()
     ->joinReactionTotal()
     ->orderBy('reactions_total_weight', 'desc')
+    ->get();
+```
+
+### Eager Loading
+
+When accessing Eloquent relationships as properties, the relationship data is "lazy loaded".
+This means the relationship data is not actually loaded until you first access the property.
+However, Eloquent can "eager load" relationships at the time you query the parent model.
+Eager loading alleviates the N + 1 query problem.
+More details read in [official Laravel documentation](https://laravel.com/docs/master/eloquent-relationships#eager-loading).
+
+List of the most common eager loaded relations:
+
+- `loveReactant.reactions.type`
+- `loveReactant.reactions.reacter.reacterable`
+- `loveReactant.reactionCounters`
+- `loveReactant.reactionTotal`
+
+```php
+$articles = Article::query()
+    ->with([
+        'loveReactant.reactions.reacter.reacterable',
+        'loveReactant.reactions.type',
+        'loveReactant.reactionCounters',
+        'loveReactant.reactionTotal',
+    ])
     ->get();
 ```
 

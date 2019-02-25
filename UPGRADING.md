@@ -32,16 +32,6 @@ Most of the upgrade requirements couldn't be done automatically because of compl
 - Find all `orderByLikesCount` method and replace it with `joinReactionCounterOfType` and common `orderBy`
 - Find all `orderByDislikesCount` method and replace it with `joinReactionCounterOfType` and common `orderBy`
 
-### Eager loading
-
-- Find all `likes` and replaced it with `loveReactant.reactions.type`
-- Find all `dislikes` and replaced it with `loveReactant.reactions.type`
-- Find all `likesAndDislikes` and replaced it with `loveReactant.reactions.type`
-- Find all `likesCounter` and replaced it with `loveReactant.reactionCounters`
-- Find all `dislikesCounter` and replaced it with `loveReactant.reactionCounters`
-- Load new relations `loveReactant.reactions.reacter.reacterable` if needed
-- Load new relations `loveReactant.reactionTotal` if needed
-
 ### Automatic migration process
 
 Run only after all preparations are done.
