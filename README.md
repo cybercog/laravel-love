@@ -566,6 +566,7 @@ How to do it without facade:
 $reactionType = ReactionType::fromName('Like');
 
 $isOfType = $reaction->isOfType($reactionType);
+
 $isNotOfType = $reaction->isNotOfType($reactionType);
 ```
 
