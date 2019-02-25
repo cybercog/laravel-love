@@ -15,8 +15,13 @@ namespace Cog\Laravel\Love;
 
 use Cog\Laravel\Love\Console\Commands\Recount;
 use Cog\Laravel\Love\Console\Commands\UpgradeV5ToV6;
+use Cog\Laravel\Love\Reactant\Listeners\DecrementAggregates;
+use Cog\Laravel\Love\Reactant\Listeners\IncrementAggregates;
+use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenAdded;
+use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenRemoved;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\Reaction\Observers\ReactionObserver;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
 final class LoveServiceProvider extends ServiceProvider
@@ -41,6 +46,7 @@ final class LoveServiceProvider extends ServiceProvider
         $this->registerObservers();
         $this->registerPublishes();
         $this->registerMigrations();
+        $this->registerListeners();
     }
 
     /**
@@ -92,5 +98,16 @@ final class LoveServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         }
+    }
+
+    /**
+     * Register the Love event listeners.
+     *
+     * @return void
+     */
+    private function registerListeners(): void
+    {
+        Event::listen(ReactionHasBeenAdded::class, IncrementAggregates::class);
+        Event::listen(ReactionHasBeenRemoved::class, DecrementAggregates::class);
     }
 }
