@@ -546,9 +546,8 @@ $articles = Article::query()
 
 ### Facades
 
-Laravel Love ships with `Love` facade and provide a "static" interface to classes that are available in the application's service container.
-It allows to execute actions as `Reacterable` model instead of acting as `Reacter`
-and affect on `Reactable` models instead of `Reactant`. It just gets required models under the hood. 
+Laravel Love ships with `Love` facade and allows to execute actions as `Reacterable` model
+instead of acting as `Reacter` and affect on `Reactable` models instead of `Reactant`. 
 
 > Note: Love facade is experimental feature which will be refactored in next releases.
 > Try to avoid it's usage if possible
