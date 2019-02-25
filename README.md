@@ -47,6 +47,7 @@ It is a successor of the very simple abandoned package:
   - [Reactant Reaction Counters](#reactant-reaction-counters)
   - [Reactant Reaction Totals](#reactant-reaction-totals)
   - [Reactable Scopes](#reactable-scopes)
+  - [Facades](#facades)
   - [Eager Loading](#eager-loading)
   - [Events](#events)
   - [Console Commands](#console-commands)
@@ -541,6 +542,186 @@ $articles = Article::query()
     ->joinReactionTotal()
     ->orderBy('reactions_total_weight', 'desc')
     ->get();
+```
+
+### Facades
+
+Laravel Love ships with `Love` facade and provide a "static" interface to classes that are available in the application's service container.
+It allows to execute actions as `Reacterable` model instead of acting as `Reacter`
+and affect on `Reactable` models instead of `Reactant`. It just gets required models under the hood. 
+
+> Note: Love facade is experimental feature which will be refactored in next releases.
+> Try to avoid it's usage if possible
+
+#### Determine if reaction of type
+
+```php
+$isOfType = Love::isReactionOfTypeName($reaction, 'Like');
+
+$isNotOfType = Love::isReactionNotOfTypeName($reaction, 'Like');
+```
+
+How to do it without facade:
+
+```php
+$reactionType = ReactionType::fromName('Like');
+
+$isOfType = $reaction->isOfType($reactionType);
+$isNotOfType = $reaction->isNotOfType($reactionType);
+```
+
+#### Determine if reacterable reacted to reactable
+
+```php
+$isReacted = Love::isReacterableReactedTo($user, $article);
+
+$isNotReacted = Love::isReacterableNotReactedTo($user, $article);
+```
+
+How to do it without facade:
+
+```php
+$reactant = $article->getLoveReactant();
+
+$isReacted = $reacterable
+    ->getLoveReacter()
+    ->isReactedTo($reactant);
+
+$isNotReacted = $reacterable
+    ->getLoveReacter()
+    ->isNotReactedTo($reactant);
+```
+
+#### Determine if reacterable reacted to reactable with reaction type name
+
+```php
+$isReacted = Love::isReacterableReactedToWithTypeName($user, $article, 'Like');
+
+$isReacted = Love::isReacterableNotReactedToWithTypeName($user, $article, 'Like');
+```
+
+How to do it without facade:
+
+```php
+$reactant = $article->getLoveReactant();
+$reactionType = ReactionType::fromName('Like');
+
+$isReacted = $reacterable
+    ->getLoveReacter()
+    ->isReactedToWithType($reactant, $reactionType);
+
+$isNotReacted = $reacterable
+    ->getLoveReacter()
+    ->isNotReactedToWithType($reactant, $reactionType);
+```
+
+#### Determine if reactable reacted by reacterable
+
+```php
+$isReacted = Love::isReactableReactedBy($article, $user);
+
+$isReacted = Love::isReactableNotReactedBy($article, $user);
+```
+
+How to do it without facade:
+
+```php
+$reacter = $user->getLoveReacter();
+
+$isReacted = $reactable
+    ->getLoveReactant()
+    ->isReactedBy($reacter);
+
+$isNotReacted = $reactable
+    ->getLoveReactant()
+    ->isNotReactedBy($reacter);
+```
+
+#### Determine if reactable reacted by reacterable with reaction type name
+
+```php
+$isReacted = Love::isReactableReactedByWithTypeName($article, $user, 'Like');
+
+$isReacted = Love::isReactableNotReactedByWithTypeName($article, $user, 'Like');
+```
+
+How to do it without facade:
+
+```php
+$reacter = $user->getLoveReacter();
+$reactionType = ReactionType::fromName('Like');
+
+$isReacted = $reactable
+    ->getLoveReactant()
+    ->isReactedByWithType($reacter, $reactionType);
+
+$isNotReacted = $reactable
+    ->getLoveReactant()
+    ->isNotReactedByWithType($reacter, $reactionType);
+```
+
+#### Get reactable count of reactions for type name
+
+```php
+$likesCount = Love::getReactableReactionsCountForTypeName($article, 'Like');
+```
+
+How to do it without facade:
+
+```php
+$reactionType = ReactionType::fromName('Like');
+
+$reactable
+    ->getLoveReactant()
+    ->getReactionCounterOfType($reactionType)
+    ->getCount();
+```
+
+#### Get reactable weight of reactions for type name
+
+```php
+$likesWeight = Love::getReactableReactionsWeightForTypeName($article, 'Like');
+```
+
+How to do it without facade:
+
+```php
+$reactionType = ReactionType::fromName('Like');
+
+$reactable
+    ->getLoveReactant()
+    ->getReactionCounterOfType($reactionType)
+    ->getWeight();
+```
+
+#### Get reactable reactions total count
+
+```php
+$reactionsTotalCount = Love::getReactableReactionsTotalCount($article);
+```
+
+How to do it without facade:
+
+```php
+$reactable
+    ->getLoveReactant()
+    ->getReactionTotal()
+    ->getCount();
+```
+
+#### Get reactable reactions total weight
+
+```php
+$reactionsTotalWeight = Love::getReactableReactionsTotalWeight($article);
+```
+
+How to do it without facade:
+
+```php
+$reactable
+    ->getLoveReactant()
+    ->getReactionTotal()
+    ->getWeight();
 ```
 
 ### Eager Loading

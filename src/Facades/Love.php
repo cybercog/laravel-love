@@ -34,6 +34,26 @@ final class Love
         return !self::isReactionOfTypeName($reaction, $typeName);
     }
 
+    public static function isReacterableReactedTo(
+        ?ReacterableContract $reacterable,
+        ReactableContract $reactable
+    ): bool {
+        if (is_null($reacterable)) {
+            return false;
+        }
+
+        return $reacterable
+            ->getLoveReacter()
+            ->isReactedTo($reactable->getLoveReactant());
+    }
+
+    public static function isReacterableNotReactedTo(
+        ?ReacterableContract $reacterable,
+        ReactableContract $reactable
+    ): bool {
+        return !self::isReacterableReactedTo($reacterable, $reactable);
+    }
+
     public static function isReacterableReactedToWithTypeName(
         ?ReacterableContract $reacterable,
         ReactableContract $reactable,
@@ -63,24 +83,24 @@ final class Love
         );
     }
 
-    public static function isReacterableReactedTo(
-        ?ReacterableContract $reacterable,
-        ReactableContract $reactable
+    public static function isReactableReactedBy(
+        ReactableContract $reactable,
+        ?ReacterableContract $reacterable
     ): bool {
         if (is_null($reacterable)) {
             return false;
         }
 
-        return $reacterable
-            ->getLoveReacter()
-            ->isReactedTo($reactable->getLoveReactant());
+        return $reactable
+            ->getLoveReactant()
+            ->isReactedBy($reacterable->getLoveReacter());
     }
 
-    public static function isReacterableNotReactedTo(
-        ?ReacterableContract $reacterable,
-        ReactableContract $reactable
+    public static function isReactableNotReactedBy(
+        ReactableContract $reactable,
+        ?ReacterableContract $reacterable
     ): bool {
-        return !self::isReacterableReactedTo($reacterable, $reactable);
+        return !self::isReactableReactedBy($reactable, $reacterable);
     }
 
     public static function isReactableReactedByWithTypeName(
@@ -110,26 +130,6 @@ final class Love
             $reacterable,
             $typeName
         );
-    }
-
-    public static function isReactableReactedBy(
-        ReactableContract $reactable,
-        ?ReacterableContract $reacterable
-    ): bool {
-        if (is_null($reacterable)) {
-            return false;
-        }
-
-        return $reactable
-            ->getLoveReactant()
-            ->isReactedBy($reacterable->getLoveReacter());
-    }
-
-    public static function isReactableNotReactedBy(
-        ReactableContract $reactable,
-        ?ReacterableContract $reacterable
-    ): bool {
-        return !self::isReactableReactedBy($reactable, $reacterable);
     }
 
     public static function getReactableReactionsCountForTypeName(
