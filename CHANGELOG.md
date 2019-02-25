@@ -2,6 +2,43 @@
 
 All notable changes to `laravel-love` will be documented in this file.
 
+## [6.0.0] - 2019-02-25
+
+Package API was refactored from a scratch.
+Code has a lot of breaking changes and cannot be updated easily.
+
+Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to new structure.
+
+### Removed
+
+- Laravel 5.5 support obsolete
+- PHP < 7.1.3 support obsolete
+- `LikeableWasLiked` event was removed
+- `LikeableWasDisliked` event was removed
+- `LikeableWasUnliked` event was removed
+- `LikeableWasUndisliked` event was removed
+
+### Added
+
+- `ReactionType` model
+- `Reacter` model
+- `Reactant` model
+- `ReactionTotal` model
+- `ReactionHasBeenAdded` event
+- `ReactionHasBeenRemoved` event
+- `love_reacters` database table was added
+- `love_reactants` database table was added
+- `love_reaction_types` database table was added
+- `love_reactant_reaction_totals` database table was added
+
+### Changed
+
+- `Liker` trait replaced with `Reacterable`
+- `Likeable` trait replaced with `Reactable`
+- `LikeCounter` model replaced with `ReactionCounter`
+- `love_likes` database table was replaced with `love_reactions`
+- `love_like_counters` database table was replaced with `love_reactant_reaction_counters`
+
 ## [5.2.0] - 2018-09-09
 
 ### Added
@@ -184,6 +221,7 @@ All notable changes to `laravel-love` will be documented in this file.
 
 - Initial release
 
+[6.0.0]: https://github.com/cybercog/laravel-love/compare/5.2.0...6.0.0
 [5.2.0]: https://github.com/cybercog/laravel-love/compare/5.1.1...5.2.0
 [5.1.1]: https://github.com/cybercog/laravel-love/compare/5.1.0...5.1.1
 [5.1.0]: https://github.com/cybercog/laravel-love/compare/5.0.0...5.1.0

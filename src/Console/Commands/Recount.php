@@ -13,50 +13,31 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Console\Commands;
 
-use Cog\Contracts\Love\Like\Models\Like as LikeContract;
-use Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable;
-use Cog\Contracts\Love\Likeable\Models\Likeable as LikeableContract;
-use Cog\Contracts\Love\LikeCounter\Models\LikeCounter as LikeCounterContract;
-use Cog\Laravel\Love\Likeable\Services\LikeableService as LikeableServiceContract;
+use Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid;
+use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
+use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
+use Cog\Laravel\Love\Reactant\Models\Reactant;
+use Cog\Laravel\Love\Reactant\ReactionCounter\Services\ReactionCounterService;
+use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Support\Facades\DB;
 
-/**
- * Class Recount.
- *
- * @package Cog\Laravel\Love\Console\Commands
- */
-class Recount extends Command
+final class Recount extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'love:recount {model?} {type?}';
+    protected $signature = 'love:recount {reactableType?} {type?}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Recount likes and dislikes of the likeable models';
-
-    /**
-     * Type of likes to be recounted.
-     *
-     * @var null|string
-     */
-    protected $likeType;
-
-    /**
-     * Likeable service.
-     *
-     * @var \Cog\Contracts\Love\Likeable\Services\LikeableService
-     */
-    protected $service;
+    protected $description = 'Recount reactions of the reactable models';
 
     /**
      * Execute the console command.
@@ -64,104 +45,141 @@ class Recount extends Command
      * @param \Illuminate\Contracts\Events\Dispatcher $events
      * @return void
      *
-     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
-     * @throws \Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable
+     * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
      */
-    public function handle(Dispatcher $events)
-    {
-        $model = $this->argument('model');
-        $this->likeType = $this->argument('type');
-        $this->service = app(LikeableServiceContract::class);
+    public function handle(
+        Dispatcher $events
+    ): void {
+        if ($reactableType = $this->argument('reactableType')) {
+            $reactableType = $this->normalizeReactableModelType($reactableType);
+        }
 
-        if (empty($model)) {
-            $this->recountLikesOfAllModelTypes();
-        } else {
-            $this->recountLikesOfModelType($model);
+        if ($reactionType = $this->argument('type')) {
+            $reactionType = ReactionType::fromName($reactionType);
+        }
+
+        $reactantsQuery = Reactant::query();
+
+        if ($reactableType) {
+            $reactantsQuery->where('type', $reactableType);
+        }
+
+        $reactants = $reactantsQuery->get();
+        foreach ($reactants as $reactant) {
+            /** @var \Illuminate\Database\Eloquent\Builder $query */
+            $query = $reactant->reactions();
+
+            if ($reactionType) {
+                $query->where('reaction_type_id', $reactionType->getId());
+            }
+
+            $counters = $reactant->getReactionCounters();
+
+            /** @var \Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter $counter */
+            foreach ($counters as $counter) {
+                if ($reactionType && !$counter->isReactionOfType($reactionType)) {
+                    continue;
+                }
+
+                $counter->update([
+                    'count' => 0,
+                    'weight' => 0,
+                ]);
+            }
+
+            $reactions = $query->get();
+            $this->recountCounters($reactant, $reactions);
+            $this->recountTotal($reactant);
         }
     }
 
     /**
-     * Recount likes of all model types.
-     *
-     * @return void
-     *
-     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
-     * @throws \Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable
-     */
-    protected function recountLikesOfAllModelTypes()
-    {
-        $likeableTypes = app(LikeContract::class)->groupBy('likeable_type')->get();
-        foreach ($likeableTypes as $like) {
-            $this->recountLikesOfModelType($like->likeable_type);
-        }
-    }
-
-    /**
-     * Recount likes of model type.
-     *
-     * @param string $modelType
-     * @return void
-     *
-     * @throws \Cog\Contracts\Love\Like\Exceptions\InvalidLikeType
-     * @throws \Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable
-     */
-    protected function recountLikesOfModelType(string $modelType)
-    {
-        $modelType = $this->normalizeModelType($modelType);
-
-        $counters = $this->service->fetchLikesCounters($modelType, $this->likeType);
-
-        $this->service->removeLikeCountersOfType($modelType, $this->likeType);
-
-        $likesCounterTable = app(LikeCounterContract::class)->getTable();
-
-        DB::table($likesCounterTable)->insert($counters);
-
-        $this->info('All [' . $modelType . '] records likes has been recounted.');
-    }
-
-    /**
-     * Normalize likeable model type.
+     * Normalize reactable model type.
      *
      * @param string $modelType
      * @return string
      *
-     * @throws \Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable
+     * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
      */
-    protected function normalizeModelType(string $modelType): string
-    {
-        $model = $this->newModelFromType($modelType);
-        $modelType = $model->getMorphClass();
-
-        if (!$model instanceof LikeableContract) {
-            throw InvalidLikeable::notImplementInterface($modelType);
-        }
-
-        return $modelType;
+    private function normalizeReactableModelType(
+        string $modelType
+    ): string {
+        return $this
+            ->reactableModelFromType($modelType)
+            ->getMorphClass();
     }
 
     /**
      * Instantiate model from type or morph map value.
      *
      * @param string $modelType
-     * @return mixed
+     * @return \Cog\Contracts\Love\Reactable\Models\Reactable|\Illuminate\Database\Eloquent\Model
      *
-     * @throws \Cog\Contracts\Love\Likeable\Exceptions\InvalidLikeable
+     * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
      */
-    private function newModelFromType(string $modelType)
-    {
-        if (class_exists($modelType)) {
-            return new $modelType;
+    private function reactableModelFromType(
+        string $modelType
+    ): ReactableContract {
+        if (!class_exists($modelType)) {
+            $modelType = $this->findModelTypeInMorphMap($modelType);
         }
 
+        $model = new $modelType;
+
+        if (!$model instanceof ReactableContract) {
+            throw ReactableInvalid::notImplementInterface($modelType);
+        }
+
+        return $model;
+    }
+
+    /**
+     * Find model type in morph mappings registry.
+     *
+     * @param string $modelType
+     * @return string
+     *
+     * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
+     */
+    private function findModelTypeInMorphMap(
+        string $modelType
+    ): string {
         $morphMap = Relation::morphMap();
 
         if (!isset($morphMap[$modelType])) {
-            throw InvalidLikeable::notExists($modelType);
+            throw ReactableInvalid::classNotExists($modelType);
         }
 
-        $modelClass = $morphMap[$modelType];
+        return $morphMap[$modelType];
+    }
 
-        return new $modelClass;
+    private function recountTotal(
+        ReactantContract $reactant
+    ): void {
+        $counters = $reactant->getReactionCounters();
+        $totalCount = 0;
+        $totalWeight = 0;
+        foreach ($counters as $counter) {
+            $totalCount += $counter->getCount();
+            $totalWeight += $counter->getWeight();
+        }
+
+        /** @var \Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal $total */
+        $total = $reactant->getReactionTotal();
+        $total->update([
+            'count' => $totalCount,
+            'weight' => $totalWeight,
+        ]);
+    }
+
+    private function recountCounters(
+        ReactantContract $reactant,
+        iterable $reactions
+    ): void {
+        $service = new ReactionCounterService($reactant);
+
+        foreach ($reactions as $reaction) {
+            $service->addReaction($reaction);
+        }
     }
 }

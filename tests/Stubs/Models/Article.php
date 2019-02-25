@@ -13,18 +13,14 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Stubs\Models;
 
-use Cog\Contracts\Love\Likeable\Models\Likeable as LikeableContract;
-use Cog\Laravel\Love\Likeable\Models\Traits\Likeable;
+use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
+use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class Article.
- *
- * @package Cog\Tests\Laravel\Love\Stubs\Models
- */
-class Article extends Model implements LikeableContract
+final class Article extends Model implements
+    ReactableContract
 {
-    use Likeable;
+    use Reactable;
 
     /**
      * The table associated with the model.

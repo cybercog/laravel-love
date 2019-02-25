@@ -12,23 +12,45 @@
 
 ## Introduction
 
-Laravel Love simplify management of Eloquent model's likes & dislikes reactions. Make any model reactable with `likeable` & `dislikeable` in a minutes!
+Laravel Love is emotional part of the application. It let people express how they feel about the content.
+Make any model reactable in a minutes!
 
-This package is a fork of the abandoned [Laravel Likeable](https://github.com/cybercog/laravel-likeable).
-It completely changes package namespace architecture, aimed to API refactoring and adding new features.
+There are many different implementations in modern applications:
+
+- Github Reactions
+- Facebook Reactions
+- YouTube Likes
+- Slack Reactions
+- Medium Claps
+
+This package developed in mind that it should cover all the possible use cases and will be viable in enterprise applications.
+
+It is a successor of the very simple abandoned package:
+[Laravel Likeable](https://github.com/cybercog/laravel-likeable).
 
 ## Contents
 
 - [Features](#features)
+- [System Design](#system-design)
+- [Glossary](#glossary)
+- [Requirements](#requirements)
 - [Installation](#installation)
+- [Integration](#integration)
+  - [Prepare Reacterable Models](#prepare-reacterable-models)
+  - [Prepare Reactable Models](#prepare-reactable-models)
 - [Usage](#usage)
-  - [Prepare Liker Model](#prepare-liker-model)
-  - [Prepare Likeable Model](#prepare-likeable-model)
-  - [Available Methods](#available-methods)
-  - [Scopes](#scopes)
+  - [Reaction Types](#reaction-types)
+  - [Reacterables](#reacterables)
+  - [Reacters](#reacters)
+  - [Reactables](#reactables)
+  - [Reactants](#reactants)
+  - [Reactant Reaction Counters](#reactant-reaction-counters)
+  - [Reactant Reaction Totals](#reactant-reaction-totals)
+  - [Reactable Scopes](#reactable-scopes)
+  - [Facades](#facades)
+  - [Eager Loading](#eager-loading)
   - [Events](#events)
   - [Console Commands](#console-commands)
-- [Extending](#extending)
 - [Changelog](#changelog)
 - [Upgrading](#upgrading)
 - [Contributing](#contributing)
@@ -41,20 +63,50 @@ It completely changes package namespace architecture, aimed to API refactoring a
 
 ## Features
 
+- Fully customizable types of reactions.
+- Any model can react to models and receive reactions at the same time.
+- Reactant can has many types of reactions.
+- Reacter can add many reactions to one reactant.
+- Reaction counters with detailed aggregated data for each reactant.
+- Reaction totals with total aggregated data for each reactant.
+- Can work with any database `id` column types.
+- Sort reactable models by reactions total count.
+- Sort reactable models by reactions total weight.
+- Events for added & removed reactions.
+- Has Artisan command `love:recount {model?} {type?}` to re-fetch reactions stats.
 - Designed to work with Laravel Eloquent models.
 - Using contracts to keep high customization capabilities.
 - Using traits to get functionality out of the box.
-- Most part of the the logic is handled by the `LikeableService`.
-- Has Artisan command `love:recount {model?} {type?}` to re-fetch likes counters.
-- Likeable model can has Likes and Dislikes.
-- Likes and Dislikes for one model are mutually exclusive.
-- Get Likeable models ordered by likes count.
-- Events for `like`, `unlike`, `dislike`, `undislike` methods.
+- Strict typed.
+- Using Null Object design pattern.
 - Following PHP Standard Recommendations:
   - [PSR-1 (Basic Coding Standard)](http://www.php-fig.org/psr/psr-1/).
   - [PSR-2 (Coding Style Guide)](http://www.php-fig.org/psr/psr-2/).
   - [PSR-4 (Autoloading Standard)](http://www.php-fig.org/psr/psr-4/).
 - Covered with unit tests.
+
+## System Design
+
+![190102-cog-laravel-love-uml](https://user-images.githubusercontent.com/1849174/50601995-0fed4700-0ec7-11e9-856b-2856f4c58f67.png)
+
+## Glossary
+
+- `Reaction` — the response that reveals Reacter's feelings or attitude.
+- `ReactionType` — type of the emotional response (Like, Dislike, Love, Hate, etc).
+- `Reacterable` — polymorphic connection with Reacter (User, Person, Organization, etc).
+- `Reacter` — one who reacts.
+- `Reactable` — polymorphic connection with Reactant (Article, Comment, etc).
+- `Reactant` — subject which could receive Reactions.
+- `ReactionCounter` — computed statistical values of ReactionTypes related to Reactant.
+- `ReactionTotal` — computed statistical values of total Reactions count & their weight related to Reactant.
+
+## Requirements
+
+Laravel Love has a few requirements you should be aware of before installing:
+
+- PHP 7.1.3+
+- Composer
+- Laravel Framework 5.6+
 
 ## Installation
 
@@ -66,7 +118,7 @@ $ composer require cybercog/laravel-love
 
 #### Perform Database Migration
 
-At last you need to publish and run database migrations.
+Run database migrations.
 
 ```sh
 $ php artisan migrate
@@ -75,357 +127,689 @@ $ php artisan migrate
 If you want to make changes in migrations, publish them to your application first.
 
 ```sh
-$ php artisan vendor:publish --provider="Cog\Laravel\Love\Providers\LoveServiceProvider" --tag=migrations
+$ php artisan vendor:publish --tag=love-migrations
+```
+
+## Integration
+
+To start using package you need to have:
+
+1. At least one `Reacterable` model, which will act as `Reacter` and will react to the content. 
+2. At least one `Reactable` model, which will act as `Reactant` and will receive reactions.
+
+### Prepare Reacterable Models
+
+Each model which can act as `Reacter` and will react to content must implement `Reacterable` contract.
+
+Declare that model implements `Cog\Contracts\Love\Reacterable\Models\Reacterable` contract
+and use `Cog\Laravel\Love\Reacterable\Models\Traits\Reacterable` trait. 
+
+```php
+use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
+use Cog\Laravel\Love\Reacterable\Models\Traits\Reacterable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class User extends Authenticatable implements ReacterableContract
+{
+    use Reacterable;
+}
+```
+
+After that create & run migrations which will add unsigned big integer column `love_reacter_id`
+to each database table where reacterable models are stored.
+
+```php
+public function up(): void
+{
+    Schema::table('users', function (Blueprint $table) {
+        $table->unsignedBigInteger('love_reacter_id');
+    });
+}
+```
+
+### Prepare Reactable Models
+
+Each model which can act as `Reactant` and will receive reactions must implement `Reactable` contract.
+
+Declare that model implements `Cog\Contracts\Love\Reactable\Models\Reactable` contract
+and use `Cog\Laravel\Love\Reactable\Models\Traits\Reactable` trait. 
+
+```php
+use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
+use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
+use Illuminate\Database\Eloquent\Model;
+
+class Article extends Model implements ReactableContract
+{
+    use Reactable;
+}
+```
+
+After that create & run migrations which will add unsigned big integer column `love_reactant_id`
+to each database table where reactable models are stored.
+
+```php
+public function up(): void
+{
+    Schema::table('articles', function (Blueprint $table) {
+        $table->unsignedBigInteger('love_reactant_id');
+    });
+}
 ```
 
 ## Usage
 
-### Prepare Liker Model
+### Reaction Types
 
-Use `Cog\Contracts\Love\Liker\Models\Liker` contract in model which will get likes
-behavior and implement it or just use `Cog\Laravel\Love\Liker\Models\Traits\Liker` trait. 
+`ReactionType` model describes how `Reacter` reacted to `Reactant`.
+By default there are 2 types of reactions `Like` and `Dislike`.
+Each `Like` adds `+1` to reactant's total weight while `Dislike` type subtract `-1` from it.
+
+#### Instantiate reaction type from name
 
 ```php
-use Cog\Contracts\Love\Liker\Models\Liker as LikerContract;
-use Cog\Laravel\Love\Liker\Models\Traits\Liker;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-
-class User extends Authenticatable implements LikerContract
-{
-    use Liker;
-}
+$reactionType = ReactionType::fromName('Like');
 ```
 
-### Prepare Likeable Model
-
-Use `Cog\Contracts\Love\Likeable\Models\Likeable` contract in model which will get likes
-behavior and implement it or just use `Cog\Laravel\Love\Likeable\Models\Traits\Likeable` trait. 
+#### Get type name
 
 ```php
-use Cog\Contracts\Love\Likeable\Models\Likeable as LikeableContract;
-use Cog\Laravel\Love\Likeable\Models\Traits\Likeable;
-use Illuminate\Database\Eloquent\Model;
-
-class Article extends Model implements LikeableContract
-{
-    use Likeable;
-}
+$typeName = $reactionType->getName(); // 'Like'
 ```
 
-### Available Methods
-
-#### Likes
-
-##### Like model
-
+#### Get type weight
 
 ```php
-$user->like($article);
-
-$article->likeBy(); // current user
-$article->likeBy($user->id);
+$typeWeight = $reactionType->getWeight(); // 1
 ```
 
-##### Remove like mark from model
+#### Determine types equality
 
 ```php
-$user->unlike($article);
+$likeType = ReactionType::fromName('Like'); 
+$dislikeType = ReactionType::fromName('Dislike'); 
 
-$article->unlikeBy(); // current user
-$article->unlikeBy($user->id);
+$likeType->isEqualTo($likeType); // true
+$likeType->isEqualTo($dislikeType); // false
+
+$likeType->isNotEqualTo($likeType); // false
+$likeType->isNotEqualTo($dislikeType); // true
 ```
 
-##### Toggle like mark of model
+### Reacterables
+
+#### Register reacterable as reacter
+
+To let `User` react to the content it need to be registered as `Reacter`.
+
+By default it will be done automatically on successful `Reacterable` creation,
+but if this behavior was changed you still can do it manually. 
 
 ```php
-$user->toggleLike($article);
-
-$article->toggleLikeBy(); // current user
-$article->toggleLikeBy($user->id);
+$user->registerAsLoveReacter();
 ```
 
-##### Get model likes count
+*Creation of the `Reacter` could be done only once for each `Reacterable` model.*
+
+If you will try to register `Reacterable` as `Reacter` one more time then
+`Cog\Contracts\Love\Reacterable\Exceptions\AlreadyRegisteredAsLoveReacter` exception will be thrown.
+
+> If you want to skip auto-creation of related `Reacter` model just add boolean method
+> `shouldRegisterAsLoveReacterOnCreate` to `Reacterable` model which will return `false`.
+
+#### Verify reacter registration
+
+If you want to verify if `Reacterable` is registered as `Reacter` or not you can use boolean methods.
 
 ```php
-$article->likesCount;
+$isRegistered = $user->isRegisteredAsLoveReacter(); // true
+
+$isNotRegistered = $user->isNotRegisteredAsLoveReacter(); // false
 ```
 
-##### Get model likes counter
+#### Get reacter model
+
+Only `Reacter` model can react to content. Get `Reacter` model from your `Reacterable` model. 
 
 ```php
-$article->likesCounter;
+$reacter = $user->getReacter();
 ```
 
-##### Get likes relation
+> If `Reacterable` model is not registered as `Reacter` you will receive `NullReacter` model instead
+> (NullObject design pattern). All it's methods will be callable, but will throw exceptions or return `false`.
+
+### Reacters
+
+#### Get reacterable
 
 ```php
-$article->likes();
+$reacterable = $reacter->getReacterable();
 ```
 
-##### Get iterable `Illuminate\Database\Eloquent\Collection` of existing model likes
+#### React to reactant
 
 ```php
-$article->likes;
+$reacter->reactTo($reactant, $reactionType);
 ```
 
-##### Boolean check if user liked model
+#### Remove reaction from reactant
 
 ```php
-$user->hasLiked($article);
+$reacter->unreactTo($reactant, $reactionType);
+```
+#### Check if reacter reacted to reactant
 
-$article->liked; // current user
-$article->isLikedBy(); // current user
-$article->isLikedBy($user->id);
+Determine if `Reacter` reacted to `Reactant` with any type of reaction.
+
+```php
+$isReacted = $reacter->isReactedTo($reactant);
+
+$isNotReacted = $reacter->isNotReactedTo($reactant);
 ```
 
-*Checks in eager loaded relations `likes` & `likesAndDislikes` first.*
-
-##### Get collection of users who liked model
+Determine if `Reacter` reacted to `Reactant` with exact type of reaction.
 
 ```php
-$article->collectLikers();
+$reactionType = ReactionType::fromName('Like');
+
+$isReacted = $reacter
+    ->isReactedToWithType($reactant, $reactionType);
+
+$isNotReacted = $reacter
+    ->isNotReactedToWithType($reactant, $reactionType);
 ```
 
-##### Delete all likes for model
+#### Get reactions which reacter has made
 
 ```php
-$article->removeLikes();
+$reactions = $reacter->getReactions();
 ```
 
-#### Dislikes
+> TODO: Need to add pagination
 
-##### Dislike model
+### Reactables
+
+#### Register reactable as reactant
+
+To let `Article` to receive reactions from users it need to be registered as `Reactant`.
+
+By default it will be done automatically on successful `Reactable` creation,
+but if this behavior was changed you still can do it manually. 
 
 ```php
-$user->dislike($article);
-
-$article->dislikeBy(); // current user
-$article->dislikeBy($user->id);
+$user->registerAsLoveReactant();
 ```
 
-##### Remove dislike mark from model
+*Creation of the `Reactant` could be done only once for each `Reactable` model.*
+
+If you will try to register `Reactable` as `Reactant` one more time then
+`Cog\Contracts\Love\Reactable\Exceptions\AlreadyRegisteredAsLoveReactant` exception will be thrown.
+
+> If you want to skip auto-creation of related `Reactant` model just add boolean method
+> `shouldRegisterAsLoveReactantOnCreate` to `Reactable` model which will return `false`.
+
+#### Verify reactant registration
+
+If you want to verify if `Reactable` is registered as `Reactant` or not you can use boolean methods.
 
 ```php
-$user->undislike($article);
+$isRegistered = $user->isRegisteredAsLoveReactant(); // true
 
-$article->undislikeBy(); // current user
-$article->undislikeBy($user->id);
+$isNotRegistered = $user->isNotRegisteredAsLoveReactant(); // false
 ```
 
-##### Toggle dislike mark of model
+#### Get reactant model
+
+Only `Reacter` model can react to content. Get `Reacter` model from your `Reactable` model. 
 
 ```php
-$user->toggleDislike($article);
-
-$article->toggleDislikeBy(); // current user
-$article->toggleDislikeBy($user->id);
+$reactant = $user->getReactant();
 ```
 
-##### Get model dislikes count
+> If `Reactable` model is not registered as `Reactant` you will receive `NullReactant` model instead
+> (NullObject design pattern). All it's methods will be callable, but will throw exceptions or return `false`.
+
+### Reactants
+
+#### Get reactable model
 
 ```php
-$article->dislikesCount;
+$reactable = $reactant->getReactable();
 ```
 
-##### Get model dislikes counter
+#### Check if reactant reacted by reacter
+
+Determine if `Reacter` reacted to `Reactant` with any type of reaction.
 
 ```php
-$article->dislikesCounter;
+$isReacted = $reactant->isReactedBy($reacter);
+
+$isNotReacted = $reactant->isNotReactedBy($reacter);
 ```
 
-##### Get dislikes relation
+Determine if `Reacter` reacted to `Reactant` with exact type of reaction.
 
 ```php
-$article->dislikes();
+$reactionType = ReactionType::fromName('Like');
+
+$isReacted = $reactant
+    ->isReactedByWithType($reacter, $reactionType);
+
+$isNotReacted = $reactant
+    ->isNotReactedByWithType($reacter, $reactionType);
 ```
 
-##### Get iterable `Illuminate\Database\Eloquent\Collection` of existing model dislikes
+#### Get reactions which reactant received
 
 ```php
-$article->dislikes;
+$reactions = $reactant->getReactions();
 ```
 
-##### Boolean check if user disliked model
+> TODO: Need to add pagination
+
+### Reactant Reaction Counters
+
+Each `Reactant` has many counters (one for each reaction type) with aggregated data.
+
+#### Get reaction counters of reactant
 
 ```php
-$user->hasDisliked($article);
-
-$article->disliked; // current user
-$article->isDislikedBy(); // current user
-$article->isDislikedBy($user->id);
+$reactionCounters = $reactant->getReactionCounters();
 ```
 
-*Checks in eager loaded relations `dislikes` & `likesAndDislikes` first.*
-
-##### Get collection of users who disliked model
+Or get only counter of exact type.
 
 ```php
-$article->collectDislikers();
+$reactionType = ReactionType::fromName('Like');
+
+$reactionCounter = $reactant->getReactionCounterOfType($reactionType);
 ```
 
-##### Delete all dislikes for model
+#### Get reactions count
+
+When you need to determine count of reactions of this type you can get count.
 
 ```php
-$article->removeDislikes();
+$totalWeight = $reactionCounter->getCount();
 ```
 
-#### Likes and Dislikes
+#### Get reactions weight
 
-##### Get difference between likes and dislikes
+When you need to determine weight which all reactions of this type gives you can get weight.
 
 ```php
-$article->likesDiffDislikesCount;
+$totalWeight = $reactionCounter->getWeight();
 ```
 
-##### Get likes and dislikes relation
+### Reactant Reaction Totals
+
+Each `Reactant` has one total with aggregated data. Total is sum of counters of all reaction types.
+
+#### Get reaction total of reactant
 
 ```php
-$article->likesAndDislikes();
+$reactionTotal = $reactant->getReactionTotal();
 ```
 
-##### Get iterable `Illuminate\Database\Eloquent\Collection` of existing model likes and dislikes
+#### Get reactions total count
+
+When you need to determine total reactions count you can get count.
 
 ```php
-$article->likesAndDislikes;
+$totalWeight = $reactionTotal->getCount();
 ```
 
-### Scopes
+#### Get reactions total weight
 
-##### Find all articles liked by user
+When you need to determine total weight of reactions you can get weight.
 
 ```php
-Article::whereLikedBy($user->id)
-    ->with('likesCounter') // Allow eager load (optional)
+$totalWeight = $reactionTotal->getWeight();
+```
+
+> If each `Like` has weight `+1` and `Dislike` has weight `-1`
+> then 3 likes and 5 dislikes will produce `-2` total weight.  
+
+### Reactable Scopes
+
+#### Find all reactables reacted by user
+
+```php
+$reacter = $user->getReacter();
+
+Article::query()
+    ->whereReactedBy($reacter)
     ->get();
 ```
 
-##### Find all articles disliked by user
+#### Find all reactables reacted by user with exact type of reaction
 
 ```php
-Article::whereDislikedBy($user->id)
-    ->with('dislikesCounter') // Allow eager load (optional)
+$reacter = $user->getReacter();
+$reactionType = ReactionType::fromName('Like');
+
+$articles = Article::query()
+    ->whereReactedByWithType($reacter, $reactionType)
     ->get();
 ```
 
-##### Fetch Likeable models by likes count
+#### Add reaction counter aggregate of exact reaction type to reactables
 
 ```php
-$sortedArticles = Article::orderByLikesCount()->get();
-$sortedArticles = Article::orderByLikesCount('asc')->get();
+$reactionType = ReactionType::fromName('Like'); 
+
+$articles = Article::query()
+    ->joinReactionCounterOfType($reactionType)
+    ->get();
 ```
 
-*Uses `desc` as default order direction.*
+Each Reactable model will contain `reactions_count` & `reactions_weight` virtual attributes.
 
-##### Fetch Likeable models by dislikes count
+After adding counter aggregate models could be ordered by this value.
 
 ```php
-$sortedArticles = Article::orderByDislikesCount()->get();
-$sortedArticles = Article::orderByDislikesCount('asc')->get();
+$articles = Article::query()
+    ->joinReactionCounterOfType($reactionType)
+    ->orderBy('reactions_count', 'desc')
+    ->get();
 ```
 
-*Uses `desc` as default order direction.*
+#### Add reaction total aggregate to reactables
+
+```php
+$articles = Article::query()
+    ->joinReactionTotal()
+    ->get();
+```
+
+Each Reactable model will contain `reactions_total_count` & `reactions_total_weight` virtual attributes.
+
+After adding total aggregate models could be ordered by this values.
+
+Order by `reactions_total_count`:
+
+```php
+$articles = Article::query()
+    ->joinReactionTotal()
+    ->orderBy('reactions_total_count', 'desc')
+    ->get();
+```
+
+Order by `reactions_total_weight`:
+
+```php
+$articles = Article::query()
+    ->joinReactionTotal()
+    ->orderBy('reactions_total_weight', 'desc')
+    ->get();
+```
+
+### Facades
+
+Laravel Love ships with `Love` facade and allows to execute actions as `Reacterable` model
+instead of acting as `Reacter` and affect on `Reactable` models instead of `Reactant`. 
+
+> Note: Love facade is experimental feature which will be refactored in next releases.
+> Try to avoid it's usage if possible
+
+#### Determine if reaction of type
+
+```php
+$isOfType = Love::isReactionOfTypeName($reaction, 'Like');
+
+$isNotOfType = Love::isReactionNotOfTypeName($reaction, 'Like');
+```
+
+How to do it without facade:
+
+```php
+$reactionType = ReactionType::fromName('Like');
+
+$isOfType = $reaction->isOfType($reactionType);
+
+$isNotOfType = $reaction->isNotOfType($reactionType);
+```
+
+#### Determine if reacterable reacted to reactable
+
+```php
+$isReacted = Love::isReacterableReactedTo($user, $article);
+
+$isNotReacted = Love::isReacterableNotReactedTo($user, $article);
+```
+
+How to do it without facade:
+
+```php
+$reactant = $article->getLoveReactant();
+
+$isReacted = $reacterable
+    ->getLoveReacter()
+    ->isReactedTo($reactant);
+
+$isNotReacted = $reacterable
+    ->getLoveReacter()
+    ->isNotReactedTo($reactant);
+```
+
+#### Determine if reacterable reacted to reactable with reaction type name
+
+```php
+$isReacted = Love::isReacterableReactedToWithTypeName($user, $article, 'Like');
+
+$isReacted = Love::isReacterableNotReactedToWithTypeName($user, $article, 'Like');
+```
+
+How to do it without facade:
+
+```php
+$reactant = $article->getLoveReactant();
+$reactionType = ReactionType::fromName('Like');
+
+$isReacted = $reacterable
+    ->getLoveReacter()
+    ->isReactedToWithType($reactant, $reactionType);
+
+$isNotReacted = $reacterable
+    ->getLoveReacter()
+    ->isNotReactedToWithType($reactant, $reactionType);
+```
+
+#### Determine if reactable reacted by reacterable
+
+```php
+$isReacted = Love::isReactableReactedBy($article, $user);
+
+$isReacted = Love::isReactableNotReactedBy($article, $user);
+```
+
+How to do it without facade:
+
+```php
+$reacter = $user->getLoveReacter();
+
+$isReacted = $reactable
+    ->getLoveReactant()
+    ->isReactedBy($reacter);
+
+$isNotReacted = $reactable
+    ->getLoveReactant()
+    ->isNotReactedBy($reacter);
+```
+
+#### Determine if reactable reacted by reacterable with reaction type name
+
+```php
+$isReacted = Love::isReactableReactedByWithTypeName($article, $user, 'Like');
+
+$isReacted = Love::isReactableNotReactedByWithTypeName($article, $user, 'Like');
+```
+
+How to do it without facade:
+
+```php
+$reacter = $user->getLoveReacter();
+$reactionType = ReactionType::fromName('Like');
+
+$isReacted = $reactable
+    ->getLoveReactant()
+    ->isReactedByWithType($reacter, $reactionType);
+
+$isNotReacted = $reactable
+    ->getLoveReactant()
+    ->isNotReactedByWithType($reacter, $reactionType);
+```
+
+#### Get reactable count of reactions for type name
+
+```php
+$likesCount = Love::getReactableReactionsCountForTypeName($article, 'Like');
+```
+
+How to do it without facade:
+
+```php
+$reactionType = ReactionType::fromName('Like');
+
+$likesCount = $reactable
+    ->getLoveReactant()
+    ->getReactionCounterOfType($reactionType)
+    ->getCount();
+```
+
+#### Get reactable weight of reactions for type name
+
+```php
+$likesWeight = Love::getReactableReactionsWeightForTypeName($article, 'Like');
+```
+
+How to do it without facade:
+
+```php
+$reactionType = ReactionType::fromName('Like');
+
+$likesWeight = $reactable
+    ->getLoveReactant()
+    ->getReactionCounterOfType($reactionType)
+    ->getWeight();
+```
+
+#### Get reactable reactions total count
+
+```php
+$reactionsTotalCount = Love::getReactableReactionsTotalCount($article);
+```
+
+How to do it without facade:
+
+```php
+$reactionsTotalCount = $reactable
+    ->getLoveReactant()
+    ->getReactionTotal()
+    ->getCount();
+```
+
+#### Get reactable reactions total weight
+
+```php
+$reactionsTotalWeight = Love::getReactableReactionsTotalWeight($article);
+```
+
+How to do it without facade:
+
+```php
+$reactionsTotalWeight = $reactable
+    ->getLoveReactant()
+    ->getReactionTotal()
+    ->getWeight();
+```
+
+### Eager Loading
+
+When accessing Eloquent relationships as properties, the relationship data is "lazy loaded".
+This means the relationship data is not actually loaded until you first access the property.
+However, Eloquent can "eager load" relationships at the time you query the parent model.
+Eager loading alleviates the N + 1 query problem.
+More details read in [official Laravel documentation](https://laravel.com/docs/master/eloquent-relationships#eager-loading).
+
+List of the most common eager loaded relations:
+
+- `loveReactant.reactions.type`
+- `loveReactant.reactions.reacter.reacterable`
+- `loveReactant.reactionCounters`
+- `loveReactant.reactionTotal`
+
+```php
+$articles = Article::query()
+    ->with([
+        'loveReactant.reactions.reacter.reacterable',
+        'loveReactant.reactions.type',
+        'loveReactant.reactionCounters',
+        'loveReactant.reactionTotal',
+    ])
+    ->get();
+```
 
 ### Events
 
-On each like added `\Cog\Laravel\Love\Likeable\Events\LikeableWasLiked` event is fired.
+On each added reaction `Cog\Laravel\Love\Reaction\Events\ReactionHasBeenAdded` event is fired.
 
-On each like removed `\Cog\Laravel\Love\Likeable\Events\LikeableWasUnliked` event is fired.
-
-On each dislike added `\Cog\Laravel\Love\Likeable\Events\LikeableWasDisliked` event is fired.
-
-On each dislike removed `\Cog\Laravel\Love\Likeable\Events\LikeableWasUndisliked` event is fired.
+On each removed reaction `Cog\Laravel\Love\Reaction\Events\ReactionHasBeenRemoved` event is fired.
 
 ### Console Commands
 
-##### Recount likes and dislikes of all model types
+#### Recount likes and dislikes of all model types
 
 ```sh
 $ love:recount
 ```
 
-##### Recount likes and dislikes of concrete model type (using morph map alias)
+#### Recount likes and dislikes of concrete model type (using morph map alias)
 
 ```sh
 $ love:recount --model="article"
 ```
 
-##### Recount likes and dislikes of concrete model type (using fully qualified class name)
+#### Recount likes and dislikes of concrete model type (using fully qualified class name)
 
 ```sh
 $ love:recount --model="App\Models\Article"
 ```
 
-##### Recount only likes of all model types
+#### Recount only likes of all model types
 
 ```sh
-$ love:recount --type="LIKE"
+$ love:recount --type="Like"
 ```
 
-##### Recount only likes of concrete model type (using morph map alias)
+#### Recount only likes of concrete model type (using morph map alias)
 
 ```sh
-$ love:recount --model="article" --type="LIKE"
+$ love:recount --model="article" --type="Like"
 ```
 
-##### Recount only likes of concrete model type (using fully qualified class name)
+#### Recount only likes of concrete model type (using fully qualified class name)
 
 ```sh
-$ love:recount --model="App\Models\Article" --type="LIKE"
+$ love:recount --model="App\Models\Article" --type="Like"
 ```
 
-##### Recount only dislikes of all model types
+#### Recount only dislikes of all model types
 
 ```sh
-$ love:recount --type="DISLIKE"
+$ love:recount --type="Dislike"
 ```
 
-##### Recount only dislikes of concrete model type (using morph map alias)
+#### Recount only dislikes of concrete model type (using morph map alias)
 
 ```sh
-$ love:recount --model="article" --type="DISLIKE"
+$ love:recount --model="article" --type="Dislike"
 ```
 
-##### Recount only dislikes of concrete model type (using fully qualified class name)
+#### Recount only dislikes of concrete model type (using fully qualified class name)
 
 ```sh
-$ love:recount --model="App\Models\Article" --type="DISLIKE"
-```
-
-## Extending
-
-You can override core classes of package with your own implementations:
-
-- `Cog\Laravel\Love\Like\Models\Like`
-- `Cog\Laravel\Love\LikeCounter\Models\LikeCounter`
-- `Cog\Laravel\Love\Likeable\Services\LikeableService`
-
-*Note: Don't forget that all custom models must implement original models interfaces.*
-
-To make it you should use container [binding interfaces to implementations](https://laravel.com/docs/master/container#binding-interfaces-to-implementations) in your application service providers.
-
-##### Use model class own implementation
-
-```php
-$this->app->bind(
-    \Cog\Contracts\Love\Like\Models\Like::class,
-    \App\Models\CustomLike::class
-);
-```
-
-##### Use service class own implementation
-
-```php
-$this->app->singleton(
-    \Cog\Contracts\Love\Likeable\Services\LikeableService::class,
-    \App\Services\CustomService::class
-);
-```
-
-After that your `CustomLike` and `CustomService` classes will be instantiable with helper method `app()`.
-
-```php
-$model = app(\Cog\Contracts\Love\Like\Models\Like::class);
-$service = app(\Cog\Contracts\Love\Likeable\Services\LikeableService::class);
+$ love:recount --model="App\Models\Article" --type="Dislike"
 ```
 
 ## Changelog
@@ -468,12 +852,13 @@ If you discover any security related issues, please email open@cybercog.su inste
 - [zvermafia/lavoter](https://github.com/zvermafia/lavoter)
 - [francescomalatesta/laravel-reactions](https://github.com/francescomalatesta/laravel-reactions)
 - [muratbsts/laravel-reactable](https://github.com/muratbsts/laravel-reactable)
+- [hkp22/laravel-reactions](https://github.com/hkp22/laravel-reactions)
 
 *Feel free to add more alternatives as Pull Request.*
 
 ## License
 
-- `Laravel Love` package is open-sourced software licensed under the [MIT license](LICENSE) by Anton Komarev.
+- `Laravel Love` package is open-sourced software licensed under the [MIT license](LICENSE) by [Anton Komarev](https://github.com/antonkomarev).
 - `Devil` image licensed under [Creative Commons 3.0](https://creativecommons.org/licenses/by/3.0/us/) by YuguDesign.
 
 ## About CyberCog

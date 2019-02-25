@@ -1,7 +1,46 @@
 # Upgrade Guide
 
+- [From v5 to v6](#from-v5-to-v6)
 - [From v4 to v5](#from-v4-to-v5)
 - [From v3 to v4](#from-v3-to-v4)
+
+## From v5 to v6
+
+Release v6 is a total package refactoring with a lot of breaking changes.
+Most of the upgrade requirements couldn't be done automatically because of completely different API. 
+
+### Prepare models
+
+- Replace all `Cog\Contracts\Love\Likeable\Models\Likeable` with `Cog\Contracts\Love\Reactable\Models\Reactable`
+- Replace all `Cog\Laravel\Love\Likeable\Models\Traits\Likeable` with `Cog\Laravel\Love\Reactable\Models\Traits\Reactable`
+- Replace all `Cog\Contracts\Love\Liker\Models\Liker` with `Cog\Contracts\Love\Reacterable\Models\Reacterable`
+- Replace all `Cog\Laravel\Love\Liker\Models\Traits\Liker` with `Cog\Laravel\Love\Reacterable\Models\Traits\Reacterable`
+
+### Prepare database tables
+
+- Add `$table->unsignedBigInteger('love_reacter_id');` column to each table which models can react on content.
+- Add `$table->unsignedBigInteger('love_reactant_id');` column to each table which models can be reacted.
+
+### Reactable model methods
+
+- Find all `whereLikedBy` method and replace it with `whereReactedWithTypeBy`
+- Find all `whereDislikedBy` method and replace it with `whereReactedWithTypeBy`
+- Find all `like` method and replace it with `reactTo`
+- Find all `dislike` method and replace it with `reactTo`
+- Find all `unlike` method and replace it with `unreactTo`
+- Find all `undislike` method and replace it with `unreactTo`
+- Find all `orderByLikesCount` method and replace it with `joinReactionCounterOfType` and common `orderBy`
+- Find all `orderByDislikesCount` method and replace it with `joinReactionCounterOfType` and common `orderBy`
+
+### Automatic migration process
+
+Run only after all preparations are done.
+
+**VERY IMPORTANT: Create backup of your production database!**
+
+```sh
+php artisan love:upgrade-v5-to-v6
+```
 
 ## From v4 to v5
 

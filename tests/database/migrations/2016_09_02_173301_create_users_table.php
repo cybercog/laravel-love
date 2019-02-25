@@ -15,20 +15,19 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-/**
- * Class CreateUsersTable.
- */
-class CreateUsersTable extends Migration
+final class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedBigInteger('love_reactant_id')->nullable();
+            $table->unsignedBigInteger('love_reacter_id')->nullable();
             $table->string('name');
             $table->timestamps();
         });
@@ -39,7 +38,7 @@ class CreateUsersTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('users');
     }
