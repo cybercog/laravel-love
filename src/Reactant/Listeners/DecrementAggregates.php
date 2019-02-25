@@ -18,7 +18,7 @@ use Cog\Laravel\Love\Reactant\ReactionTotal\Services\ReactionTotalService;
 use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenRemoved;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-final class ReactionsRemoved implements ShouldQueue
+final class DecrementAggregates implements ShouldQueue
 {
     /**
      * Handle the event.

@@ -15,8 +15,8 @@ namespace Cog\Laravel\Love;
 
 use Cog\Laravel\Love\Console\Commands\Recount;
 use Cog\Laravel\Love\Console\Commands\UpgradeV5ToV6;
-use Cog\Laravel\Love\Reactant\Listeners\ReactionsAdded;
-use Cog\Laravel\Love\Reactant\Listeners\ReactionsRemoved;
+use Cog\Laravel\Love\Reactant\Listeners\DecrementAggregates;
+use Cog\Laravel\Love\Reactant\Listeners\IncrementAggregates;
 use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenAdded;
 use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenRemoved;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
@@ -107,7 +107,7 @@ final class LoveServiceProvider extends ServiceProvider
      */
     private function registerListeners(): void
     {
-        Event::listen(ReactionHasBeenAdded::class, ReactionsAdded::class);
-        Event::listen(ReactionHasBeenRemoved::class, ReactionsRemoved::class);
+        Event::listen(ReactionHasBeenAdded::class, IncrementAggregates::class);
+        Event::listen(ReactionHasBeenRemoved::class, DecrementAggregates::class);
     }
 }

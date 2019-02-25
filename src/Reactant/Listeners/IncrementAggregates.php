@@ -18,7 +18,7 @@ use Cog\Laravel\Love\Reactant\ReactionTotal\Services\ReactionTotalService;
 use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenAdded;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-final class ReactionsAdded implements ShouldQueue
+final class IncrementAggregates implements ShouldQueue
 {
     /**
      * Handle the event.
