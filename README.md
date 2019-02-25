@@ -77,8 +77,9 @@ It is a successor of the very simple abandoned package:
 - Designed to work with Laravel Eloquent models.
 - Using contracts to keep high customization capabilities.
 - Using traits to get functionality out of the box.
-- Strict typed.
+- Using database foreign keys.
 - Using Null Object design pattern.
+- Strict typed.
 - Following PHP Standard Recommendations:
   - [PSR-1 (Basic Coding Standard)](http://www.php-fig.org/psr/psr-1/).
   - [PSR-2 (Coding Style Guide)](http://www.php-fig.org/psr/psr-2/).
@@ -98,7 +99,7 @@ It is a successor of the very simple abandoned package:
 - `Reactable` — Article, Comment, User or any other model which can act as Reactant.
 - `Reactant` — subject which could receive Reactions.
 - `ReactionCounter` — aggregated statistical values of ReactionTypes related to Reactant.
-- `ReactionTotal` — aggregated statistical values of total Reactions count & their weight related to Reactant.
+- `ReactionTotal` — aggregated statistical values of total reactions count & their weight related to Reactant.
 
 ## Requirements
 
@@ -110,13 +111,11 @@ Laravel Love has a few requirements you should be aware of before installing:
 
 ## Installation
 
-First, pull in the package through Composer.
+Pull in the package through Composer.
 
 ```sh
 $ composer require cybercog/laravel-love
 ```
-
-#### Perform Database Migration
 
 Run database migrations.
 
@@ -229,11 +228,11 @@ $typeWeight = $reactionType->getWeight(); // 1
 $likeType = ReactionType::fromName('Like'); 
 $dislikeType = ReactionType::fromName('Dislike'); 
 
-$likeType->isEqualTo($likeType); // true
-$likeType->isEqualTo($dislikeType); // false
+$isEqual = $likeType->isEqualTo($likeType); // true
+$isEqual = $likeType->isEqualTo($dislikeType); // false
 
-$likeType->isNotEqualTo($likeType); // false
-$likeType->isNotEqualTo($dislikeType); // true
+$isNotEqual = $likeType->isNotEqualTo($likeType); // false
+$isNotEqual = $likeType->isNotEqualTo($dislikeType); // true
 ```
 
 ### Reacterables
@@ -560,7 +559,7 @@ $isOfType = Love::isReactionOfTypeName($reaction, 'Like');
 $isNotOfType = Love::isReactionNotOfTypeName($reaction, 'Like');
 ```
 
-How to do it without facade:
+Same functionality without facade:
 
 ```php
 $reactionType = ReactionType::fromName('Like');
@@ -578,7 +577,7 @@ $isReacted = Love::isReacterableReactedTo($user, $article);
 $isNotReacted = Love::isReacterableNotReactedTo($user, $article);
 ```
 
-How to do it without facade:
+Same functionality without facade:
 
 ```php
 $reactant = $article->getLoveReactant();
@@ -600,7 +599,7 @@ $isReacted = Love::isReacterableReactedToWithTypeName($user, $article, 'Like');
 $isReacted = Love::isReacterableNotReactedToWithTypeName($user, $article, 'Like');
 ```
 
-How to do it without facade:
+Same functionality without facade:
 
 ```php
 $reactant = $article->getLoveReactant();
@@ -623,7 +622,7 @@ $isReacted = Love::isReactableReactedBy($article, $user);
 $isReacted = Love::isReactableNotReactedBy($article, $user);
 ```
 
-How to do it without facade:
+Same functionality without facade:
 
 ```php
 $reacter = $user->getLoveReacter();
@@ -645,7 +644,7 @@ $isReacted = Love::isReactableReactedByWithTypeName($article, $user, 'Like');
 $isReacted = Love::isReactableNotReactedByWithTypeName($article, $user, 'Like');
 ```
 
-How to do it without facade:
+Same functionality without facade:
 
 ```php
 $reacter = $user->getLoveReacter();
@@ -666,7 +665,7 @@ $isNotReacted = $reactable
 $likesCount = Love::getReactableReactionsCountForTypeName($article, 'Like');
 ```
 
-How to do it without facade:
+Same functionality without facade:
 
 ```php
 $reactionType = ReactionType::fromName('Like');
@@ -683,7 +682,7 @@ $likesCount = $reactable
 $likesWeight = Love::getReactableReactionsWeightForTypeName($article, 'Like');
 ```
 
-How to do it without facade:
+Same functionality without facade:
 
 ```php
 $reactionType = ReactionType::fromName('Like');
@@ -700,7 +699,7 @@ $likesWeight = $reactable
 $reactionsTotalCount = Love::getReactableReactionsTotalCount($article);
 ```
 
-How to do it without facade:
+Same functionality without facade:
 
 ```php
 $reactionsTotalCount = $reactable
@@ -715,7 +714,7 @@ $reactionsTotalCount = $reactable
 $reactionsTotalWeight = Love::getReactableReactionsTotalWeight($article);
 ```
 
-How to do it without facade:
+Same functionality without facade:
 
 ```php
 $reactionsTotalWeight = $reactable
