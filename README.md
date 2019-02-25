@@ -23,7 +23,7 @@ There are many different implementations in modern applications:
 - Slack Reactions
 - Medium Claps
 
-This package developed in mind that it should cover all the possible use cases and will be viable in enterprise applications.
+This package developed in mind that it should cover all the possible use cases and be viable in enterprise applications.
 
 It is a successor of the very simple abandoned package:
 [Laravel Likeable](https://github.com/cybercog/laravel-likeable).
@@ -93,12 +93,12 @@ It is a successor of the very simple abandoned package:
 
 - `Reaction` — the response that reveals Reacter's feelings or attitude.
 - `ReactionType` — type of the emotional response (Like, Dislike, Love, Hate, etc).
-- `Reacterable` — polymorphic connection with Reacter (User, Person, Organization, etc).
+- `Reacterable` — User, Person, Organization or any other model which can act as Reacter.
 - `Reacter` — one who reacts.
-- `Reactable` — polymorphic connection with Reactant (Article, Comment, etc).
+- `Reactable` — Article, Comment, User or any other model which can act as Reactant.
 - `Reactant` — subject which could receive Reactions.
-- `ReactionCounter` — computed statistical values of ReactionTypes related to Reactant.
-- `ReactionTotal` — computed statistical values of total Reactions count & their weight related to Reactant.
+- `ReactionCounter` — aggregated statistical values of ReactionTypes related to Reactant.
+- `ReactionTotal` — aggregated statistical values of total Reactions count & their weight related to Reactant.
 
 ## Requirements
 
@@ -550,7 +550,7 @@ Laravel Love ships with `Love` facade and allows to execute actions as `Reactera
 instead of acting as `Reacter` and affect on `Reactable` models instead of `Reactant`. 
 
 > Note: Love facade is experimental feature which will be refactored in next releases.
-> Try to avoid it's usage if possible
+> Try to avoid it's usage if possible.
 
 #### Determine if reaction of type
 

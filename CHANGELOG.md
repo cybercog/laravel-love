@@ -221,7 +221,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 
 - Initial release
 
-[6.0.0]: https://github.com/cybercog/laravel-love/compare/5.2.0...6.0.0
+[6.0.0]: https://github.com/cybercog/laravel-love/compare/5.2.0...v6.0.0
 [5.2.0]: https://github.com/cybercog/laravel-love/compare/5.1.1...5.2.0
 [5.1.1]: https://github.com/cybercog/laravel-love/compare/5.1.0...5.1.1
 [5.1.0]: https://github.com/cybercog/laravel-love/compare/5.0.0...5.1.0
