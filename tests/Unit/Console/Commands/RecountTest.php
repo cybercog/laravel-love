@@ -27,6 +27,7 @@ use Cog\Tests\Laravel\Love\Stubs\Models\Entity;
 use Cog\Tests\Laravel\Love\Stubs\Models\EntityWithMorphMap;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 
 final class RecountTest extends TestCase
 {
@@ -40,7 +41,7 @@ final class RecountTest extends TestCase
     {
         parent::setUp();
 
-        if (starts_with($this->app->version(), '5.7')) {
+        if (!Str::startsWith($this->app->version(), '5.6')) {
             $this->withoutMockingConsoleOutput();
         }
 

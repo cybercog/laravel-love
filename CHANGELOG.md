@@ -2,7 +2,11 @@
 
 All notable changes to `laravel-love` will be documented in this file.
 
-## [6.1.0] - WIP
+## [6.1.0] - 2019-02-26
+
+### Added
+
+- Laravel 5.8 support
 
 ### Changed
 
