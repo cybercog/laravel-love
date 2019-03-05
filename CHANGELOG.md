@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-love` will be documented in this file.
 
+## [6.1.1] - 2019-03-05
+
+### Removed
+
+- Removed duplicating indexes for foreign keys
+
 ## [6.1.0] - 2019-02-26
 
 ### Added
@@ -232,8 +238,9 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 
 - Initial release
 
-[6.1.0]: https://github.com/cybercog/laravel-love/compare/v6.0.0...v6.1.0
-[6.0.0]: https://github.com/cybercog/laravel-love/compare/5.2.0...v6.0.0
+[6.1.1]: https://github.com/cybercog/laravel-love/compare/6.1.0...6.1.1
+[6.1.0]: https://github.com/cybercog/laravel-love/compare/6.0.0...6.1.0
+[6.0.0]: https://github.com/cybercog/laravel-love/compare/5.2.0...6.0.0
 [5.2.0]: https://github.com/cybercog/laravel-love/compare/5.1.1...5.2.0
 [5.1.1]: https://github.com/cybercog/laravel-love/compare/5.1.0...5.1.1
 [5.1.0]: https://github.com/cybercog/laravel-love/compare/5.0.0...5.1.0

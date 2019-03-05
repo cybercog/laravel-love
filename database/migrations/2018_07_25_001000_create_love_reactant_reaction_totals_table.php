@@ -31,8 +31,6 @@ final class CreateLoveReactantReactionTotalsTable extends Migration
             $table->bigInteger('weight')->default(0);
             $table->timestamps();
 
-            $table->index('reactant_id');
-
             $table
                 ->foreign('reactant_id')
                 ->references('id')
