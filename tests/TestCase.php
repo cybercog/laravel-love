@@ -13,11 +13,13 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love;
 
+use Cog\Laravel\Love\Providers\LoveServiceProvider;
 use Cog\Tests\Laravel\Love\Stubs\Models\EntityWithMorphMap;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\File;
 use Mockery;
+use Orchestra\Database\ConsoleServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 /**
@@ -32,7 +34,7 @@ abstract class TestCase extends Orchestra
      *
      * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -50,7 +52,7 @@ abstract class TestCase extends Orchestra
      *
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         Mockery::close();
 
@@ -63,11 +65,11 @@ abstract class TestCase extends Orchestra
      * @param \Illuminate\Foundation\Application $app
      * @return array
      */
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [
-            \Cog\Laravel\Love\Providers\LoveServiceProvider::class,
-            \Orchestra\Database\ConsoleServiceProvider::class,
+            LoveServiceProvider::class,
+            ConsoleServiceProvider::class,
         ];
     }
 
@@ -76,7 +78,7 @@ abstract class TestCase extends Orchestra
      *
      * @return void
      */
-    protected function publishPackageMigrations()
+    protected function publishPackageMigrations(): void
     {
         $this->artisan('vendor:publish', [
             '--force' => '',
@@ -89,7 +91,7 @@ abstract class TestCase extends Orchestra
      *
      * @return void
      */
-    protected function destroyPackageMigrations()
+    protected function destroyPackageMigrations(): void
     {
         File::cleanDirectory(__DIR__ . '/../vendor/orchestra/testbench-core/laravel/database/migrations');
     }
@@ -99,7 +101,7 @@ abstract class TestCase extends Orchestra
      *
      * @return void
      */
-    protected function migrateUnitTestTables()
+    protected function migrateUnitTestTables(): void
     {
         $this->loadMigrationsFrom([
             '--realpath' => realpath(__DIR__ . '/database/migrations'),
@@ -111,7 +113,7 @@ abstract class TestCase extends Orchestra
      *
      * @return void
      */
-    protected function migratePackageTables()
+    protected function migratePackageTables(): void
     {
         $this->loadMigrationsFrom([
             '--realpath' => database_path('migrations'),
@@ -123,7 +125,7 @@ abstract class TestCase extends Orchestra
      *
      * @return void
      */
-    protected function registerPackageFactories()
+    protected function registerPackageFactories(): void
     {
         $pathToFactories = realpath(__DIR__ . '/database/factories');
         $this->withFactories($pathToFactories);
@@ -134,7 +136,7 @@ abstract class TestCase extends Orchestra
      *
      * @return void
      */
-    protected function registerTestMorphMaps()
+    protected function registerTestMorphMaps(): void
     {
         Relation::morphMap([
             'entity-with-morph-map' => EntityWithMorphMap::class,
@@ -146,7 +148,7 @@ abstract class TestCase extends Orchestra
      *
      * @return void
      */
-    protected function registerUserModel()
+    protected function registerUserModel(): void
     {
         $this->app['config']->set('auth.providers.users.model', User::class);
     }

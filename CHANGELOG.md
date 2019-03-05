@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-love` will be documented in this file.
 
+## [5.2.1] - 2018-03-05
+
+### Added
+
+- ([#48](https://github.com/cybercog/laravel-love/pull/48)) Laravel 5.8 support
+
 ## [5.2.0] - 2018-09-09
 
 ### Added
@@ -184,6 +190,7 @@ All notable changes to `laravel-love` will be documented in this file.
 
 - Initial release
 
+[5.2.1]: https://github.com/cybercog/laravel-love/compare/5.2.0...5.2.1
 [5.2.0]: https://github.com/cybercog/laravel-love/compare/5.1.1...5.2.0
 [5.1.1]: https://github.com/cybercog/laravel-love/compare/5.1.0...5.1.1
 [5.1.0]: https://github.com/cybercog/laravel-love/compare/5.0.0...5.1.0
