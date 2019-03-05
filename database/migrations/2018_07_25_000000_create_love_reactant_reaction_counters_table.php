@@ -32,8 +32,6 @@ final class CreateLoveReactantReactionCountersTable extends Migration
             $table->bigInteger('weight')->default(0);
             $table->timestamps();
 
-            $table->index('reactant_id');
-            $table->index('reaction_type_id');
             $table->index([
                 'reactant_id',
                 'reaction_type_id',
