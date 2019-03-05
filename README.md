@@ -271,7 +271,7 @@ $isNotRegistered = $user->isNotRegisteredAsLoveReacter(); // false
 Only `Reacter` model can react to content. Get `Reacter` model from your `Reacterable` model. 
 
 ```php
-$reacter = $user->getReacter();
+$reacter = $user->getLoveReacter();
 ```
 
 > If `Reacterable` model is not registered as `Reacter` you will receive `NullReacter` model instead
@@ -362,7 +362,7 @@ $isNotRegistered = $user->isNotRegisteredAsLoveReactant(); // false
 Only `Reacter` model can react to content. Get `Reacter` model from your `Reactable` model. 
 
 ```php
-$reactant = $user->getReactant();
+$reactant = $user->getLoveReactant();
 ```
 
 > If `Reactable` model is not registered as `Reactant` you will receive `NullReactant` model instead
@@ -474,7 +474,7 @@ $totalWeight = $reactionTotal->getWeight();
 #### Find all reactables reacted by user
 
 ```php
-$reacter = $user->getReacter();
+$reacter = $user->getLoveReacter();
 
 Article::query()
     ->whereReactedBy($reacter)
@@ -484,7 +484,7 @@ Article::query()
 #### Find all reactables reacted by user with exact type of reaction
 
 ```php
-$reacter = $user->getReacter();
+$reacter = $user->getLoveReacter();
 $reactionType = ReactionType::fromName('Like');
 
 $articles = Article::query()
