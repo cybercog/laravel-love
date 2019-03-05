@@ -2,22 +2,11 @@
 
 All notable changes to `laravel-love` will be documented in this file.
 
-## [6.1.1] - 2019-03-05
+## [6.0.1] - 2019-03-05
 
 ### Removed
 
-- Removed duplicating indexes for foreign keys
-
-## [6.1.0] - 2019-02-26
-
-### Added
-
-- Laravel 5.8 support
-
-### Changed
-
-- `ReactionCounter` updates on background using queue
-- `ReactionTotal` updates on background using queue
+- ([#47](https://github.com/cybercog/laravel-love/pull/47)) Removed duplicating indexes for foreign keys
 
 ## [6.0.0] - 2019-02-25
 
@@ -28,6 +17,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 
 ### Added
 
+- Laravel 5.8 support
 - `ReactionType` model
 - `Reacter` model
 - `Reactant` model
@@ -46,6 +36,8 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 - `LikeCounter` model replaced with `ReactionCounter`
 - `love_likes` database table was replaced with `love_reactions`
 - `love_like_counters` database table was replaced with `love_reactant_reaction_counters`
+- `ReactionCounter` updates on background using queue
+- `ReactionTotal` updates on background using queue
 
 ### Removed
 
@@ -238,8 +230,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 
 - Initial release
 
-[6.1.1]: https://github.com/cybercog/laravel-love/compare/6.1.0...6.1.1
-[6.1.0]: https://github.com/cybercog/laravel-love/compare/6.0.0...6.1.0
+[6.0.1]: https://github.com/cybercog/laravel-love/compare/6.0.0...6.0.1
 [6.0.0]: https://github.com/cybercog/laravel-love/compare/5.2.0...6.0.0
 [5.2.0]: https://github.com/cybercog/laravel-love/compare/5.1.1...5.2.0
 [5.1.1]: https://github.com/cybercog/laravel-love/compare/5.1.0...5.1.1
