@@ -56,4 +56,20 @@ final class InstallTest extends TestCase
         $this->assertTrue($likeExists);
         $this->assertTrue($dislikeExists);
     }
+
+    /** @test */
+    public function it_not_creates_like_and_dislike_types_when_already_exists(): void
+    {
+        factory(ReactionType::class)->create([
+            'name' => 'Like',
+        ]);
+        factory(ReactionType::class)->create([
+            'name' => 'Dislike',
+        ]);
+        $typesCount = ReactionType::query()->count();
+        $status = $this->artisan('love:install');
+
+        $this->assertSame(0, $status);
+        $this->assertSame($typesCount, ReactionType::query()->count());
+    }
 }

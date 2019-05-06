@@ -13,15 +13,9 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Console\Commands;
 
-use Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid;
-use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
-use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
-use Cog\Laravel\Love\Reactant\Models\Reactant;
-use Cog\Laravel\Love\Reactant\ReactionCounter\Services\ReactionCounterService;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Database\Eloquent\Relations\Relation;
 
 final class Install extends Command
 {
@@ -65,6 +59,10 @@ final class Install extends Command
         ];
 
         foreach ($types as $type) {
+            if (ReactionType::query()->where('name', $type['name'])->exists()) {
+                continue;
+            }
+
             ReactionType::query()->create($type);
         }
     }
