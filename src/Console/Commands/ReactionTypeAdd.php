@@ -84,7 +84,7 @@ final class ReactionTypeAdd extends Command
         ]);
 
         $this->line(sprintf(
-            "Reaction type with name `%s` and weight `%d` was added.",
+            'Reaction type with name `%s` and weight `%d` was added.',
             $name,
             $weight
         ));
