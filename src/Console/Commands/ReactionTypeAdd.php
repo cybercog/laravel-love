@@ -17,21 +17,21 @@ use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Events\Dispatcher;
 
-final class Install extends Command
+final class ReactionTypeAdd extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'love:install';
+    protected $signature = 'love:reaction-type-add {--default}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Install Laravel Love';
+    protected $description = 'Add Reaction Type to Laravel Love';
 
     /**
      * Execute the console command.
@@ -42,7 +42,11 @@ final class Install extends Command
     public function handle(
         Dispatcher $events
     ): void {
-        $this->createDefaultReactionTypes();
+        if ($this->option('default')) {
+            $this->createDefaultReactionTypes();
+
+            return;
+        }
     }
 
     private function createDefaultReactionTypes(): void

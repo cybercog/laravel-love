@@ -129,6 +129,13 @@ If you want to make changes in migrations, publish them to your application firs
 $ php artisan vendor:publish --tag=love-migrations
 ```
 
+After installing Love, add reaction types using the `love:reaction-type-add` Artisan command.
+You can add default `Like` & `Dislike` types using `--default` option.
+
+```sh
+$ php artisan love:reaction-type-add --default
+```
+
 ## Integration
 
 To start using package you need to have:
