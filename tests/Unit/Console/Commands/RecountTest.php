@@ -58,12 +58,12 @@ final class RecountTest extends TestCase
     /** @test */
     public function it_can_recount_reactions_of_one_reaction_type_for_any_reactable_type_when_counters_not_exists(): void
     {
-        list(
+        [
             $reactant1,
             $reactant2,
             $reactant3,
             $reactant4
-        ) = $this->seedTestData();
+        ] = $this->seedTestData();
         ReactionCounter::query()->truncate();
 
         $status = $this->artisan('love:recount', [
@@ -102,12 +102,12 @@ final class RecountTest extends TestCase
     /** @test */
     public function it_can_recount_reactions_of_one_reaction_type_for_any_reactable_type_when_counters_exists(): void
     {
-        list(
+        [
             $reactant1,
             $reactant2,
             $reactant3,
             $reactant4
-        ) = $this->seedTestData();
+        ] = $this->seedTestData();
 
         $status = $this->artisan('love:recount', [
             'type' => 'Like',
@@ -145,12 +145,12 @@ final class RecountTest extends TestCase
     /** @test */
     public function it_can_recount_reactions_of_one_reaction_type_for_one_reactable_type_when_counters_not_exists(): void
     {
-        list(
+        [
             $reactant1,
             $reactant2,
             $reactant3,
             $reactant4
-        ) = $this->seedTestData();
+        ] = $this->seedTestData();
         ReactionCounter::query()->truncate();
 
         $status = $this->artisan('love:recount', [
@@ -189,12 +189,12 @@ final class RecountTest extends TestCase
     /** @test */
     public function it_can_recount_reactions_of_one_reaction_type_for_one_reactable_type_when_counters_exists(): void
     {
-        list(
+        [
             $reactant1,
             $reactant2,
             $reactant3,
             $reactant4
-        ) = $this->seedTestData();
+        ] = $this->seedTestData();
 
         $status = $this->artisan('love:recount', [
             'reactableType' => Entity::class,
@@ -232,12 +232,12 @@ final class RecountTest extends TestCase
     /** @test */
     public function it_can_recount_reactions_of_one_reaction_type_for_one_reactable_morph_type_when_counters_not_exists(): void
     {
-        list(
+        [
             $reactant1,
             $reactant2,
             $reactant3,
             $reactant4
-        ) = $this->seedTestData();
+        ] = $this->seedTestData();
         ReactionCounter::query()->truncate();
 
         $status = $this->artisan('love:recount', [
@@ -276,12 +276,12 @@ final class RecountTest extends TestCase
     /** @test */
     public function it_can_recount_reactions_of_one_reaction_type_for_one_reactable_morph_type_when_counters_exists(): void
     {
-        list(
+        [
             $reactant1,
             $reactant2,
             $reactant3,
             $reactant4
-        ) = $this->seedTestData();
+        ] = $this->seedTestData();
 
         $status = $this->artisan('love:recount', [
             'reactableType' => 'entity-with-morph-map',
@@ -319,12 +319,12 @@ final class RecountTest extends TestCase
     /** @test */
     public function it_can_recount_reactions_of_one_reaction_type_for_one_reactable_fqcn_morph_type_when_counters_not_exists(): void
     {
-        list(
+        [
             $reactant1,
             $reactant2,
             $reactant3,
             $reactant4
-        ) = $this->seedTestData();
+        ] = $this->seedTestData();
         ReactionCounter::query()->truncate();
 
         $status = $this->artisan('love:recount', [
@@ -363,12 +363,12 @@ final class RecountTest extends TestCase
     /** @test */
     public function it_can_recount_reactions_of_one_reaction_type_for_one_reactable_fqcn_morph_type_when_counters_exists(): void
     {
-        list(
+        [
             $reactant1,
             $reactant2,
             $reactant3,
             $reactant4
-        ) = $this->seedTestData();
+        ] = $this->seedTestData();
 
         $status = $this->artisan('love:recount', [
             'reactableType' => EntityWithMorphMap::class,
@@ -406,12 +406,12 @@ final class RecountTest extends TestCase
     /** @test */
     public function it_can_recount_reactions_of_any_reaction_type_for_any_reactable_type_when_counters_not_exists(): void
     {
-        list(
+        [
             $reactant1,
             $reactant2,
             $reactant3,
             $reactant4
-        ) = $this->seedTestData();
+        ] = $this->seedTestData();
         ReactionCounter::query()->truncate();
 
         $status = $this->artisan('love:recount');
@@ -448,12 +448,12 @@ final class RecountTest extends TestCase
     /** @test */
     public function it_can_recount_reactions_of_any_reaction_type_for_any_reactable_type_when_counters_exists(): void
     {
-        list(
+        [
             $reactant1,
             $reactant2,
             $reactant3,
             $reactant4
-        ) = $this->seedTestData();
+        ] = $this->seedTestData();
 
         $status = $this->artisan('love:recount');
 
@@ -489,12 +489,12 @@ final class RecountTest extends TestCase
     /** @test */
     public function it_can_recount_reactions_of_any_reaction_type_for_one_reactable_type_when_counters_not_exists(): void
     {
-        list(
+        [
             $reactant1,
             $reactant2,
             $reactant3,
             $reactant4
-        ) = $this->seedTestData();
+        ] = $this->seedTestData();
         ReactionCounter::query()->truncate();
 
         $status = $this->artisan('love:recount', [
@@ -533,12 +533,12 @@ final class RecountTest extends TestCase
     /** @test */
     public function it_can_recount_reactions_of_any_reaction_type_for_one_reactable_type_when_counters_exists(): void
     {
-        list(
+        [
             $reactant1,
             $reactant2,
             $reactant3,
             $reactant4
-        ) = $this->seedTestData();
+        ] = $this->seedTestData();
 
         $status = $this->artisan('love:recount', [
             'reactableType' => Entity::class,
@@ -576,12 +576,12 @@ final class RecountTest extends TestCase
     /** @test */
     public function it_can_recount_reactions_of_any_reaction_type_for_one_reactable_morph_type_when_counters_not_exists(): void
     {
-        list(
+        [
             $reactant1,
             $reactant2,
             $reactant3,
             $reactant4
-        ) = $this->seedTestData();
+        ] = $this->seedTestData();
         ReactionCounter::query()->truncate();
 
         $status = $this->artisan('love:recount', [
@@ -620,12 +620,12 @@ final class RecountTest extends TestCase
     /** @test */
     public function it_can_recount_reactions_of_any_reaction_type_for_one_reactable_morph_type_when_counters_exists(): void
     {
-        list(
+        [
             $reactant1,
             $reactant2,
             $reactant3,
             $reactant4
-        ) = $this->seedTestData();
+        ] = $this->seedTestData();
 
         $status = $this->artisan('love:recount', [
             'reactableType' => 'entity-with-morph-map',
@@ -663,12 +663,12 @@ final class RecountTest extends TestCase
     /** @test */
     public function it_can_recount_reactions_of_any_reaction_type_for_one_reactable_fqcn_morph_type_when_counters_not_exists(): void
     {
-        list(
+        [
             $reactant1,
             $reactant2,
             $reactant3,
             $reactant4
-        ) = $this->seedTestData();
+        ] = $this->seedTestData();
         ReactionCounter::query()->truncate();
 
         $status = $this->artisan('love:recount', [
@@ -707,12 +707,12 @@ final class RecountTest extends TestCase
     /** @test */
     public function it_can_recount_reactions_of_any_reaction_type_for_one_reactable_fqcn_morph_type_when_counters_exists(): void
     {
-        list(
+        [
             $reactant1,
             $reactant2,
             $reactant3,
             $reactant4
-        ) = $this->seedTestData();
+        ] = $this->seedTestData();
 
         $status = $this->artisan('love:recount', [
             'reactableType' => EntityWithMorphMap::class,
