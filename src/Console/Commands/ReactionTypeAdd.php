@@ -90,6 +90,10 @@ final class ReactionTypeAdd extends Command
 
         foreach ($types as $type) {
             if ($this->isReactionTypeNameExists($type['name'])) {
+                $this->line(sprintf(
+                    'Reaction type with name `%s` already exists.',
+                    $type['name']
+                ));
                 continue;
             }
 
@@ -120,7 +124,8 @@ final class ReactionTypeAdd extends Command
 
     private function resolveWeight(): int
     {
-        return intval($this->argument('weight') ?? $this->ask('What is the weight of this reaction type?'));
+        return intval($this->argument('weight')
+            ?? $this->ask('What is the weight of this reaction type?'));
     }
 
     private function sanitizeName(string $name): string
@@ -133,7 +138,9 @@ final class ReactionTypeAdd extends Command
 
     private function isReactionTypeNameExists(string $name): bool
     {
-        return ReactionType::query()->where('name', $name)->exists();
+        return ReactionType::query()
+            ->where('name', $name)
+            ->exists();
     }
 
     private function isNameInvalid(string $name): bool

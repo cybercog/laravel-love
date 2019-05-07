@@ -53,7 +53,6 @@ final class ReactionTypeAddTest extends TestCase
     /** @test */
     public function it_not_creates_default_like_and_dislike_types_when_already_exists(): void
     {
-        $this->disableMocking();
         factory(ReactionType::class)->create([
             'name' => 'Like',
         ]);
@@ -61,23 +60,25 @@ final class ReactionTypeAddTest extends TestCase
             'name' => 'Dislike',
         ]);
         $typesCount = ReactionType::query()->count();
-        $status = $this->artisan('love:reaction-type-add', ['--default' => true]);
-
-        $this->assertSame(0, $status);
+        $this
+            ->artisan('love:reaction-type-add', ['--default' => true])
+            ->expectsOutput('Reaction type with name `Like` already exists.')
+            ->expectsOutput('Reaction type with name `Dislike` already exists.')
+            ->assertExitCode(0);
         $this->assertSame($typesCount, ReactionType::query()->count());
     }
 
     /** @test */
     public function it_creates_only_missing_default_types_when_one_already_exists(): void
     {
-        $this->disableMocking();
         factory(ReactionType::class)->create([
             'name' => 'Like',
         ]);
         $typesCount = ReactionType::query()->count();
-        $status = $this->artisan('love:reaction-type-add', ['--default' => true]);
-
-        $this->assertSame(0, $status);
+        $this
+            ->artisan('love:reaction-type-add', ['--default' => true])
+            ->expectsOutput('Reaction type with name `Like` already exists.')
+            ->assertExitCode(0);
         $this->assertSame($typesCount + 1, ReactionType::query()->count());
     }
 
