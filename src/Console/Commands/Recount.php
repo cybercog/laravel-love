@@ -20,7 +20,6 @@ use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Services\ReactionCounterService;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Console\Command;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 final class Recount extends Command
@@ -42,14 +41,12 @@ final class Recount extends Command
     /**
      * Execute the console command.
      *
-     * @param \Illuminate\Contracts\Events\Dispatcher $events
      * @return void
      *
      * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
      */
-    public function handle(
-        Dispatcher $events
-    ): void {
+    public function handle(): void
+    {
         if ($reactableType = $this->argument('reactableType')) {
             $reactableType = $this->normalizeReactableModelType($reactableType);
         }

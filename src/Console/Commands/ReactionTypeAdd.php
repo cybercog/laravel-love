@@ -15,7 +15,6 @@ namespace Cog\Laravel\Love\Console\Commands;
 
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Console\Command;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Str;
 
 final class ReactionTypeAdd extends Command
@@ -43,9 +42,8 @@ final class ReactionTypeAdd extends Command
      * @param \Illuminate\Contracts\Events\Dispatcher $events
      * @return int
      */
-    public function handle(
-        Dispatcher $events
-    ): int {
+    public function handle(): int
+    {
         if ($this->option('default')) {
             $this->createDefaultReactionTypes();
 
@@ -53,6 +51,7 @@ final class ReactionTypeAdd extends Command
         }
 
         $name = $this->resolveName();
+        $name = Str::studly($name);
         if ($this->isReactionTypeNameExists($name)) {
             $this->error(sprintf(
                 'Reaction type with name `%s` already exists.',
@@ -111,7 +110,7 @@ final class ReactionTypeAdd extends Command
             $name = $this->resolveName();
         }
 
-        return Str::studly($name);
+        return $name;
     }
 
     private function resolveWeight(): int
