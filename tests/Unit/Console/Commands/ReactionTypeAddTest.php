@@ -97,19 +97,64 @@ final class ReactionTypeAddTest extends TestCase
     }
 
     /** @test */
+    public function it_convert_type_name_to_studly_case(): void
+    {
+        $this->disableMocking();
+        $typesCount = ReactionType::query()->count();
+        $status = $this->artisan('love:reaction-type-add', [
+            'name' => 'test-name',
+        ]);
+
+        $this->assertSame(0, $status);
+        $this->assertSame($typesCount + 1, ReactionType::query()->count());
+        $reactionType = ReactionType::query()->latest()->first();
+        $this->assertSame('TestName', $reactionType->getName());
+    }
+
+    /** @test */
+    public function it_cannot_create_type_when_name_exists(): void
+    {
+        factory(ReactionType::class)->create([
+            'name' => 'TestName',
+        ]);
+        $typesCount = ReactionType::query()->count();
+        $this
+            ->artisan('love:reaction-type-add', ['name' => 'TestName'])
+            ->expectsOutput('Reaction type with name `TestName` already exists.')
+            ->assertExitCode(1);
+
+        $this->assertSame($typesCount, ReactionType::query()->count());
+    }
+
+    /** @test */
+    public function it_cannot_create_type_when_name_exists_in_other_text_case(): void
+    {
+        factory(ReactionType::class)->create([
+            'name' => 'TestName',
+        ]);
+        $typesCount = ReactionType::query()->count();
+        $this
+            ->artisan('love:reaction-type-add', ['name' => 'test-name'])
+            ->expectsOutput('Reaction type with name `TestName` already exists.')
+            ->assertExitCode(1);
+
+        $this->assertSame($typesCount, ReactionType::query()->count());
+    }
+
+    /** @test */
     public function it_can_create_type_with_weight_argument(): void
     {
         $this->disableMocking();
         $typesCount = ReactionType::query()->count();
         $status = $this->artisan('love:reaction-type-add', [
             'name' => 'TestName',
-            'weight' => 4,
+            'weight' => -4,
         ]);
 
         $this->assertSame(0, $status);
         $this->assertSame($typesCount + 1, ReactionType::query()->count());
         $reactionType = ReactionType::query()->latest()->first();
-        $this->assertSame(4, $reactionType->getWeight());
+        $this->assertSame(-4, $reactionType->getWeight());
     }
 
     /** @test */

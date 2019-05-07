@@ -16,6 +16,7 @@ namespace Cog\Laravel\Love\Console\Commands;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Support\Str;
 
 final class ReactionTypeAdd extends Command
 {
@@ -40,18 +41,30 @@ final class ReactionTypeAdd extends Command
      * Execute the console command.
      *
      * @param \Illuminate\Contracts\Events\Dispatcher $events
-     * @return void
+     * @return int
      */
     public function handle(
         Dispatcher $events
-    ): void {
+    ): int {
         if ($this->option('default')) {
             $this->createDefaultReactionTypes();
 
-            return;
+            return 0;
         }
 
-        $this->createReactionType($this->resolveName(), $this->resolveWeight());
+        $name = $this->resolveName();
+        if ($this->isReactionTypeNameExists($name)) {
+            $this->error(sprintf(
+                'Reaction type with name `%s` already exists.',
+                $name
+            ));
+
+            return 1;
+        }
+
+        $this->createReactionType($name, $this->resolveWeight());
+
+        return 0;
     }
 
     private function createDefaultReactionTypes(): void
@@ -68,7 +81,7 @@ final class ReactionTypeAdd extends Command
         ];
 
         foreach ($types as $type) {
-            if (ReactionType::query()->where('name', $type['name'])->exists()) {
+            if ($this->isReactionTypeNameExists($type['name'])) {
                 continue;
             }
 
@@ -98,11 +111,16 @@ final class ReactionTypeAdd extends Command
             $name = $this->resolveName();
         }
 
-        return $name;
+        return Str::studly($name);
     }
 
     private function resolveWeight(): int
     {
         return intval($this->argument('weight') ?? $this->ask('What is the weight of this reaction type?'));
+    }
+
+    private function isReactionTypeNameExists(string $name): bool
+    {
+        return ReactionType::query()->where('name', $name)->exists();
     }
 }
