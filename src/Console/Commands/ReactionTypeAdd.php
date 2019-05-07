@@ -107,7 +107,8 @@ final class ReactionTypeAdd extends Command
         $name = $this->argument('name') ?? $this->ask('How to name reaction type?');
 
         if (is_null($name)) {
-            $name = $this->resolveName();
+//            $name = $this->resolveName();
+            $name = '';
         }
 
         return $name;
