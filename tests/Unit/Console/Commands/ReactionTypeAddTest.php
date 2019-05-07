@@ -27,7 +27,7 @@ final class ReactionTypeAddTest extends TestCase
     {
         $this->disableMocking();
         $typesCount = ReactionType::query()->count();
-        $status = $this->artisan('love:reaction-type-add --default');
+        $status = $this->artisan('love:reaction-type-add', ['--default' => true]);
 
         $this->assertSame(0, $status);
         $this->assertSame($typesCount + 2, ReactionType::query()->count());
@@ -39,7 +39,7 @@ final class ReactionTypeAddTest extends TestCase
         $this->disableMocking();
         $likeNotExistInitially = ReactionType::query()->where('name', 'Like')->doesntExist();
         $dislikeNotExistInitially = ReactionType::query()->where('name', 'Dislike')->doesntExist();
-        $status = $this->artisan('love:reaction-type-add --default');
+        $status = $this->artisan('love:reaction-type-add', ['--default' => true]);
         $likeExists = ReactionType::query()->where('name', 'Like')->exists();
         $dislikeExists = ReactionType::query()->where('name', 'Dislike')->exists();
 
@@ -61,7 +61,7 @@ final class ReactionTypeAddTest extends TestCase
             'name' => 'Dislike',
         ]);
         $typesCount = ReactionType::query()->count();
-        $status = $this->artisan('love:reaction-type-add --default');
+        $status = $this->artisan('love:reaction-type-add', ['--default' => true]);
 
         $this->assertSame(0, $status);
         $this->assertSame($typesCount, ReactionType::query()->count());
@@ -75,7 +75,7 @@ final class ReactionTypeAddTest extends TestCase
             'name' => 'Like',
         ]);
         $typesCount = ReactionType::query()->count();
-        $status = $this->artisan('love:reaction-type-add --default');
+        $status = $this->artisan('love:reaction-type-add', ['--default' => true]);
 
         $this->assertSame(0, $status);
         $this->assertSame($typesCount + 1, ReactionType::query()->count());
@@ -176,7 +176,8 @@ final class ReactionTypeAddTest extends TestCase
     /** @test */
     public function it_has_valid_output_after_default_types_add(): void
     {
-        $this->artisan('love:reaction-type-add --default')
+        $this
+            ->artisan('love:reaction-type-add', ['--default' => true])
             ->expectsOutput('Reaction type with name `Like` and weight `1` was added.')
             ->expectsOutput('Reaction type with name `Dislike` and weight `-1` was added.')
             ->assertExitCode(0);
@@ -186,7 +187,8 @@ final class ReactionTypeAddTest extends TestCase
     public function it_asks_for_name_if_name_argument_not_exists(): void
     {
         $typesCount = ReactionType::query()->count();
-        $this->artisan('love:reaction-type-add', ['weight' => '4'])
+        $this
+            ->artisan('love:reaction-type-add', ['weight' => '4'])
             ->expectsQuestion('How to name reaction type?', 'TestName')
             ->assertExitCode(0);
 
@@ -199,7 +201,8 @@ final class ReactionTypeAddTest extends TestCase
     public function it_repeat_ask_for_name_if_name_question_not_answered(): void
     {
         $typesCount = ReactionType::query()->count();
-        $this->artisan('love:reaction-type-add', ['weight' => '4'])
+        $this
+            ->artisan('love:reaction-type-add', ['weight' => '4'])
             ->expectsQuestion('How to name reaction type?', null)
             ->expectsQuestion('How to name reaction type?', 'TestName')
             ->assertExitCode(0);
@@ -213,7 +216,8 @@ final class ReactionTypeAddTest extends TestCase
     public function it_asks_for_weight_if_weight_argument_not_exists(): void
     {
         $typesCount = ReactionType::query()->count();
-        $this->artisan('love:reaction-type-add', ['name' => 'TestName'])
+        $this
+            ->artisan('love:reaction-type-add', ['name' => 'TestName'])
             ->expectsQuestion('What is the weight of this reaction type?', '4')
             ->assertExitCode(0);
 
@@ -226,7 +230,8 @@ final class ReactionTypeAddTest extends TestCase
     public function it_creates_type_with_zero_weight_if_not_answered(): void
     {
         $typesCount = ReactionType::query()->count();
-        $this->artisan('love:reaction-type-add', ['name' => 'TestName'])
+        $this
+            ->artisan('love:reaction-type-add', ['name' => 'TestName'])
             ->expectsQuestion('What is the weight of this reaction type?', null)
             ->assertExitCode(0);
 
@@ -238,7 +243,8 @@ final class ReactionTypeAddTest extends TestCase
     /** @test */
     public function it_has_valid_output_after_type_add(): void
     {
-        $this->artisan('love:reaction-type-add', ['name' => 'TestName'])
+        $this
+            ->artisan('love:reaction-type-add', ['name' => 'TestName'])
             ->expectsQuestion('What is the weight of this reaction type?', 4)
             ->expectsOutput('Reaction type with name `TestName` and weight `4` was added.')
             ->assertExitCode(0);
