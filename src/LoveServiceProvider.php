@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love;
 
+use Cog\Laravel\Love\Console\Commands\ReactionTypeAdd;
 use Cog\Laravel\Love\Console\Commands\Recount;
 use Cog\Laravel\Love\Console\Commands\UpgradeV5ToV6;
 use Cog\Laravel\Love\Reactant\Listeners\DecrementAggregates;
@@ -68,6 +69,7 @@ final class LoveServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
+                ReactionTypeAdd::class,
                 Recount::class,
                 UpgradeV5ToV6::class,
             ]);
