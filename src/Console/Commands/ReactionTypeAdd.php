@@ -51,6 +51,7 @@ final class ReactionTypeAdd extends Command
 
         $name = $this->resolveName();
         $name = Str::studly($name);
+
         if ($this->isReactionTypeNameExists($name)) {
             $this->error(sprintf(
                 'Reaction type with name `%s` already exists.',
@@ -103,14 +104,9 @@ final class ReactionTypeAdd extends Command
 
     private function resolveName(): string
     {
-        $name = $this->argument('name') ?? $this->ask('How to name reaction type?');
-
-        if (is_null($name)) {
-//            $name = $this->resolveName();
-            $name = '';
-        }
-
-        return $name;
+        return $this->argument('name')
+            ?? $this->ask('How to name reaction type?')
+            ?? $this->resolveName();
     }
 
     private function resolveWeight(): int
