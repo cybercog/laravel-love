@@ -25,6 +25,7 @@ final class ReactionTypeAddTest extends TestCase
     /** @test */
     public function it_creates_only_two_default_types(): void
     {
+        $this->markTestSkipped();
         $this->disableMocking();
         $typesCount = ReactionType::query()->count();
         $status = $this->artisan('love:reaction-type-add', ['--default' => true]);
@@ -36,6 +37,7 @@ final class ReactionTypeAddTest extends TestCase
     /** @test */
     public function it_can_create_default_like_and_dislike_types(): void
     {
+        $this->markTestSkipped();
         $this->disableMocking();
         $likeNotExistInitially = ReactionType::query()->where('name', 'Like')->doesntExist();
         $dislikeNotExistInitially = ReactionType::query()->where('name', 'Dislike')->doesntExist();

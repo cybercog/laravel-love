@@ -39,7 +39,6 @@ final class ReactionTypeAdd extends Command
     /**
      * Execute the console command.
      *
-     * @param \Illuminate\Contracts\Events\Dispatcher $events
      * @return int
      */
     public function handle(): int
