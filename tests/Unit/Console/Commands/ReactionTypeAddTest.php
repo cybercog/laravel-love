@@ -215,6 +215,19 @@ final class ReactionTypeAddTest extends TestCase
     }
 
     /** @test */
+    public function it_throws_error_if_name_question_answered_with_whitespace(): void
+    {
+        $typesCount = ReactionType::query()->count();
+        $this
+            ->artisan('love:reaction-type-add', ['weight' => '4'])
+            ->expectsQuestion('How to name reaction type?', '  ')
+            ->expectsOutput('Reaction type with name `` is invalid.')
+            ->assertExitCode(1);
+
+        $this->assertSame($typesCount, ReactionType::query()->count());
+    }
+
+    /** @test */
     public function it_asks_for_weight_if_weight_argument_not_exists(): void
     {
         $typesCount = ReactionType::query()->count();

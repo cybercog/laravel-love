@@ -50,7 +50,16 @@ final class ReactionTypeAdd extends Command
         }
 
         $name = $this->resolveName();
-        $name = Str::studly($name);
+        $name = $this->sanitizeName($name);
+
+        if ($this->isNameInvalid($name)) {
+            $this->error(sprintf(
+                'Reaction type with name `%s` is invalid.',
+                $name
+            ));
+
+            return 1;
+        }
 
         if ($this->isReactionTypeNameExists($name)) {
             $this->error(sprintf(
@@ -114,8 +123,21 @@ final class ReactionTypeAdd extends Command
         return intval($this->argument('weight') ?? $this->ask('What is the weight of this reaction type?'));
     }
 
+    private function sanitizeName(string $name): string
+    {
+        $name = trim($name);
+        $name = Str::studly($name);
+
+        return $name;
+    }
+
     private function isReactionTypeNameExists(string $name): bool
     {
         return ReactionType::query()->where('name', $name)->exists();
+    }
+
+    private function isNameInvalid(string $name): bool
+    {
+        return preg_match('#^[A-Z][a-zA-Z0-9_]*$#', $name) === 0;
     }
 }
