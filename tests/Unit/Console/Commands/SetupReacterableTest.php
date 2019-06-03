@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Console\Commands;
 
+use Cog\Tests\Laravel\Love\Stubs\Models\Person;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -23,12 +24,11 @@ final class SetupReacterableTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function it_creates_only_two_default_types(): void
+    public function it_can_create_migration_for_reacterable_model_when_column_not_exists(): void
     {
-        $this->markTestIncomplete('TODO');
         $this->disableMocking();
         $status = $this->artisan('love:setup-reacterable', [
-            'model' => User::class,
+            'model' => Person::class,
         ]);
 
         $this->assertSame(0, $status);
