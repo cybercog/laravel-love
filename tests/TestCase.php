@@ -71,9 +71,7 @@ abstract class TestCase extends OrchestraTestCase
      */
     private function migrateUnitTestTables(): void
     {
-        $this->loadMigrationsFrom([
-            '--realpath' => realpath(__DIR__ . '/database/migrations'),
-        ]);
+        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
     }
 
     /**
@@ -83,8 +81,7 @@ abstract class TestCase extends OrchestraTestCase
      */
     private function registerPackageFactories(): void
     {
-        $pathToFactories = realpath(__DIR__ . '/database/factories');
-        $this->withFactories($pathToFactories);
+        $this->withFactories(__DIR__ . '/database/factories');
     }
 
     /**

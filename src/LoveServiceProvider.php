@@ -15,6 +15,7 @@ namespace Cog\Laravel\Love;
 
 use Cog\Laravel\Love\Console\Commands\ReactionTypeAdd;
 use Cog\Laravel\Love\Console\Commands\Recount;
+use Cog\Laravel\Love\Console\Commands\SetupReacterable;
 use Cog\Laravel\Love\Console\Commands\UpgradeV5ToV6;
 use Cog\Laravel\Love\Reactant\Listeners\DecrementAggregates;
 use Cog\Laravel\Love\Reactant\Listeners\IncrementAggregates;
@@ -71,6 +72,7 @@ final class LoveServiceProvider extends ServiceProvider
             $this->commands([
                 ReactionTypeAdd::class,
                 Recount::class,
+                SetupReacterable::class,
                 UpgradeV5ToV6::class,
             ]);
         }
