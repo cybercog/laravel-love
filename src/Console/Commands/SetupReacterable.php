@@ -16,7 +16,9 @@ namespace Cog\Laravel\Love\Console\Commands;
 use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Migrations\MigrationCreator;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Composer;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
@@ -28,7 +30,9 @@ final class SetupReacterable extends Command
      *
      * @var string
      */
-    protected $signature = 'love:setup-reacterable {model?} {--nullable}';
+    protected $signature = 'love:setup-reacterable
+        {model? : The name of the reacterable model}
+        {--nullable : Indicate if foreign column should be created as nullable}';
 
     /**
      * The console command description.
@@ -36,6 +40,35 @@ final class SetupReacterable extends Command
      * @var string
      */
     protected $description = 'Set up reacterable model';
+
+    /**
+     * The migration creator instance.
+     *
+     * @var \Illuminate\Database\Migrations\MigrationCreator
+     */
+    protected $creator;
+
+    /**
+     * The Composer instance.
+     *
+     * @var \Illuminate\Support\Composer
+     */
+    protected $composer;
+
+    /**
+     * Create a new migration install command instance.
+     *
+     * @param \Illuminate\Database\Migrations\MigrationCreator $creator
+     * @param \Illuminate\Support\Composer $composer
+     * @return void
+     */
+    public function __construct(MigrationCreator $creator, Composer $composer)
+    {
+        parent::__construct();
+
+        $this->creator = $creator;
+        $this->composer = $composer;
+    }
 
     /**
      * Execute the console command.
@@ -78,6 +111,8 @@ final class SetupReacterable extends Command
         }
 
         $this->createMigrationForModel($model);
+
+        $this->composer->dumpAutoloads();
 
         return 0;
     }
