@@ -72,6 +72,8 @@ abstract class TestCase extends OrchestraTestCase
     private function migrateUnitTestTables(): void
     {
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+
+        $this->artisan('migrate', ['--database' => 'sqlite'])->run();
     }
 
     /**

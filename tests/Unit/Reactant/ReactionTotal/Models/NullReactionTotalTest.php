@@ -18,12 +18,9 @@ use Cog\Laravel\Love\Reactant\Models\NullReactant;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 final class NullReactionTotalTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function it_can_get_count(): void
     {

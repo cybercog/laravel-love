@@ -15,13 +15,10 @@ namespace Cog\Tests\Laravel\Love\Unit\Console\Commands;
 
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 
 final class ReactionTypeAddTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function it_creates_only_two_default_types(): void
     {

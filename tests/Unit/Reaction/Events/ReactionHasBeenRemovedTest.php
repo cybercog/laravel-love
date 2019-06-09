@@ -18,12 +18,9 @@ use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenRemoved;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 final class ReactionHasBeenRemovedTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function it_fire_reaction_has_been_removed_event(): void
     {

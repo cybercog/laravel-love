@@ -19,13 +19,10 @@ use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Tests\Laravel\Love\Stubs\Models\Bot;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 
 final class ReacterableTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function it_can_belong_to_love_reacter(): void
     {

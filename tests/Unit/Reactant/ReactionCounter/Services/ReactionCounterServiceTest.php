@@ -19,13 +19,10 @@ use Cog\Laravel\Love\Reactant\ReactionCounter\Services\ReactionCounterService;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 
 final class ReactionCounterServiceTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function it_can_add_reaction(): void
     {

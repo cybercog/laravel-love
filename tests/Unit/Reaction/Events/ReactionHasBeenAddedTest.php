@@ -18,12 +18,9 @@ use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenAdded;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 final class ReactionHasBeenAddedTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function it_fires_reaction_has_been_added_event(): void
     {
