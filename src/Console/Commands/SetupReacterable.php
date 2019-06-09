@@ -14,12 +14,14 @@ declare(strict_types=1);
 namespace Cog\Laravel\Love\Console\Commands;
 
 use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
+use Cog\Laravel\Love\Reacter\Models\Reacter;
+use Cog\Laravel\Love\Support\Database\MigrationCreator;
+use Cog\Laravel\Love\Support\Database\AddForeignColumnStub;
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Migrations\MigrationCreator;
-use Illuminate\Support\Carbon;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Composer;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
@@ -32,7 +34,7 @@ final class SetupReacterable extends Command
      */
     protected $signature = 'love:setup-reacterable
         {model? : The name of the reacterable model}
-        {--nullable : Indicate if foreign column should be created as nullable}';
+        {--nullable : Indicate if foreign column allows null values}';
 
     /**
      * The console command description.
@@ -41,48 +43,31 @@ final class SetupReacterable extends Command
      */
     protected $description = 'Set up reacterable model';
 
-    /**
-     * The migration creator instance.
-     *
-     * @var \Illuminate\Database\Migrations\MigrationCreator
-     */
-    protected $creator;
+    private $files;
 
-    /**
-     * The Composer instance.
-     *
-     * @var \Illuminate\Support\Composer
-     */
-    protected $composer;
+    private $creator;
 
-    /**
-     * Create a new migration install command instance.
-     *
-     * @param \Illuminate\Database\Migrations\MigrationCreator $creator
-     * @param \Illuminate\Support\Composer $composer
-     * @return void
-     */
-    public function __construct(MigrationCreator $creator, Composer $composer)
+    private $composer;
+
+    public function __construct(Filesystem $files, MigrationCreator $creator, Composer $composer)
     {
         parent::__construct();
 
+        $this->files = $files;
         $this->creator = $creator;
         $this->composer = $composer;
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
     public function handle(): int
     {
         $model = $this->resolveModel();
         $model = $this->sanitizeName($model);
+        $foreignColumn = 'love_reacter_id';
+        $isForeignColumnNullable = boolval($this->option('nullable'));
 
         if (!class_exists($model)) {
             $this->error(sprintf(
-                'Class `%s` not exists.',
+                'Model `%s` not exists.',
                 $model
             ));
 
@@ -94,23 +79,53 @@ final class SetupReacterable extends Command
 
         if ($this->isModelInvalid($model)) {
             $this->error(sprintf(
-                'Reaction type with name `%s` is invalid.',
-                $model
+                'Model `%s` does not implements Reacterable interface.',
+                get_class($model)
             ));
 
             return 1;
         }
 
-        if (Schema::hasColumn($model->getTable(), 'love_reacter_id')) {
+        $table = $model->getTable();
+        $referencedModel = new Reacter();
+        $referencedTable = $referencedModel->getTable();
+        $referencedColumn = $referencedModel->getKeyName();
+
+        if (!Schema::hasTable($referencedTable)) {
             $this->error(sprintf(
-                'Column `love_reacter_id` already exists in `%s` database table.',
-                $model->getTable()
+                'Referenced table `%s` does not exists in database.',
+                $referencedTable
             ));
 
             return 1;
         }
 
-        $this->createMigrationForModel($model);
+        if (Schema::hasColumn($table, $foreignColumn)) {
+            $this->error(sprintf(
+                'Foreign column `%s` already exists in `%s` database table.',
+                $foreignColumn,
+                $table
+            ));
+
+            return 1;
+        }
+
+        try {
+            $stub = new AddForeignColumnStub(
+                $this->files,
+                $table,
+                $referencedTable,
+                $foreignColumn,
+                $referencedColumn,
+                $isForeignColumnNullable
+            );
+
+            $this->creator->create($this->getMigrationsPath(), $stub);
+        } catch (FileNotFoundException $exception) {
+            $this->error($exception->getMessage());
+
+            return 1;
+        }
 
         $this->composer->dumpAutoloads();
 
@@ -137,22 +152,8 @@ final class SetupReacterable extends Command
         return !$model instanceof ReacterableContract;
     }
 
-    private function createMigrationForModel(Model $model): void
+    private function getMigrationsPath(): string
     {
-        $migrationStubPath = __DIR__ . '/../../../database/migrationStubs/AddForeignColumn.php';
-        $migrationStub = File::get($migrationStubPath);
-        $table = $model->getTable();
-        $column = 'love_reacter_id';
-        $foreignTable = 'love_reacters';
-        $filename = sprintf('add_%s_to_%s_table', $column, $table);
-        $className = Str::studly($filename);
-        $timestamp = Carbon::now()->format('Y_m_d_His');
-
-        $migrationStub = str_replace('AddForeignColumn', $className, $migrationStub);
-        $migrationStub = str_replace('{table}', $table, $migrationStub);
-        $migrationStub = str_replace('{column}', $column, $migrationStub);
-        $migrationStub = str_replace('{foreignTable}', $foreignTable, $migrationStub);
-
-        File::put(database_path("migrations/{$timestamp}_{$filename}.php"), $migrationStub);
+        return $this->laravel->databasePath('migrations');
     }
 }

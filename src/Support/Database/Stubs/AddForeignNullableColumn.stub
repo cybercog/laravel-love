@@ -15,24 +15,24 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-final class AddForeignColumn extends Migration
+final class DummyClass extends Migration
 {
     public function up(): void
     {
-        Schema::table('{table}', function (Blueprint $table) {
-            $table->unsignedBigInteger('{column}');
+        Schema::table('DummyTable', function (Blueprint $table) {
+            $table->unsignedBigInteger('DummyForeignColumn')->nullable();
 
             $table
-                ->foreign('{column}')
-                ->references('id')
-                ->on('{foreignTable}');
+                ->foreign('DummyForeignColumn')
+                ->references('DummyReferencedColumn')
+                ->on('DummyReferencedTable');
         });
     }
 
     public function down(): void
     {
-        Schema::table('{table}', function (Blueprint $table) {
-            $table->dropColumn('{column}');
+        Schema::table('DummyTable', function (Blueprint $table) {
+            $table->dropColumn('DummyForeignColumn');
         });
     }
 }
