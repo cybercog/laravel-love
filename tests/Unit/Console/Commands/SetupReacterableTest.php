@@ -13,31 +13,70 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Console\Commands;
 
+use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\Stubs\Models\Person;
+use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
 
 final class SetupReacterableTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->disableMocking();
+    }
+
     public function tearDown(): void
     {
         parent::tearDown();
 
-        $path = realpath(base_path('../laravel/database/migrations'));
-        $file = new Filesystem();
-        $file->cleanDirectory($path);
+        $this->deletePublishedMigrations();
     }
 
     /** @test */
-    public function it_can_create_migration_for_reacterable_model_when_column_not_exists(): void
+    public function it_can_create_migration_for_reacterable_model(): void
     {
-        $this->disableMocking();
         $status = $this->artisan('love:setup-reacterable', [
             'model' => Person::class,
         ]);
 
         $this->assertSame(0, $status);
+        // TODO: Assure that migration file was created
+    }
+
+    /** @test */
+    public function it_cannot_create_migration_for_reacterable_model_when_model_not_exists(): void
+    {
+        $status = $this->artisan('love:setup-reacterable', [
+            'model' => 'NotExists',
+        ]);
+
+        $this->assertSame(1, $status);
+        // TODO: Assure that migration file was not created
+    }
+
+    /** @test */
+    public function it_cannot_create_migration_for_reacterable_model_when_model_not_implements_reacterable_contract(): void
+    {
+        $status = $this->artisan('love:setup-reacterable', [
+            'model' => Article::class,
+        ]);
+
+        $this->assertSame(1, $status);
+        // TODO: Assure that migration file was not created
+    }
+
+    /** @test */
+    public function it_cannot_create_migration_for_reacterable_model_when_column_already_exists(): void
+    {
+        $status = $this->artisan('love:setup-reacterable', [
+            'model' => User::class,
+        ]);
+
+        $this->assertSame(1, $status);
+        // TODO: Assure that migration file was not created
     }
 
     private function disableMocking(): void

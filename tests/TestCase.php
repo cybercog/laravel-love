@@ -17,6 +17,7 @@ use Cog\Laravel\Love\LoveServiceProvider;
 use Cog\Tests\Laravel\Love\Stubs\Models\EntityWithMorphMap;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Filesystem\Filesystem;
 use Mockery;
 use Orchestra\Database\ConsoleServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
@@ -62,6 +63,12 @@ abstract class TestCase extends OrchestraTestCase
             LoveServiceProvider::class,
             ConsoleServiceProvider::class,
         ];
+    }
+
+    protected function deletePublishedMigrations(): void
+    {
+        $file = new Filesystem();
+        $file->cleanDirectory(database_path('migrations'));
     }
 
     /**
