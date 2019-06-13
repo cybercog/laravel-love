@@ -16,13 +16,10 @@ namespace Cog\Tests\Laravel\Love\Unit\Reactant\ReactionTotal\Models;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal;
 use Cog\Tests\Laravel\Love\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use TypeError;
 
 final class ReactionTotalTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function it_can_fill_count(): void
     {

@@ -22,14 +22,11 @@ use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use TypeError;
 
 final class ReactionTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function it_can_fill_reaction_type_id(): void
     {

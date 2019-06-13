@@ -21,6 +21,7 @@ use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 final class UpgradeV5ToV6 extends Command
 {
@@ -320,10 +321,9 @@ final class UpgradeV5ToV6 extends Command
         return $class;
     }
 
-    private function reactionTypeNameFromLikeTypeName(
-        string $name
-    ): string {
-        return studly_case(strtolower($name));
+    private function reactionTypeNameFromLikeTypeName(string $name): string
+    {
+        return Str::studly(strtolower($name));
     }
 
     private function deleteMigrationFiles(array $files): void

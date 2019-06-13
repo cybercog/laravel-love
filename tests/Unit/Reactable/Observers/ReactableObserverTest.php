@@ -19,12 +19,9 @@ use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\Stubs\Models\ArticleWithoutAutoReactantCreate;
 use Cog\Tests\Laravel\Love\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 final class ReactableObserverTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function it_creates_reactant_on_created(): void
     {

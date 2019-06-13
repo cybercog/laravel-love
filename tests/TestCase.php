@@ -17,6 +17,7 @@ use Cog\Laravel\Love\LoveServiceProvider;
 use Cog\Tests\Laravel\Love\Stubs\Models\EntityWithMorphMap;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Filesystem\Filesystem;
 use Mockery;
 use Orchestra\Database\ConsoleServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
@@ -64,6 +65,12 @@ abstract class TestCase extends OrchestraTestCase
         ];
     }
 
+    protected function deletePublishedMigrations(): void
+    {
+        $file = new Filesystem();
+        $file->cleanDirectory(database_path('migrations'));
+    }
+
     /**
      * Perform unit test database migrations.
      *
@@ -71,9 +78,9 @@ abstract class TestCase extends OrchestraTestCase
      */
     private function migrateUnitTestTables(): void
     {
-        $this->loadMigrationsFrom([
-            '--realpath' => realpath(__DIR__ . '/database/migrations'),
-        ]);
+        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+
+        $this->artisan('migrate', ['--database' => 'sqlite'])->run();
     }
 
     /**
@@ -83,8 +90,7 @@ abstract class TestCase extends OrchestraTestCase
      */
     private function registerPackageFactories(): void
     {
-        $pathToFactories = realpath(__DIR__ . '/database/factories');
-        $this->withFactories($pathToFactories);
+        $this->withFactories(__DIR__ . '/database/factories');
     }
 
     /**

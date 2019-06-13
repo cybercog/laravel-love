@@ -22,13 +22,10 @@ use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use TypeError;
 
 final class NullReactantTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function it_throws_exception_on_get_id_when_id_is_null(): void
     {
