@@ -41,7 +41,7 @@ final class SetupReacterableTest extends TestCase
     public function it_can_create_migration_for_reacterable_model(): void
     {
         $status = $this->artisan('love:setup-reacterable', [
-            'model' => Person::class,
+            '--model' => Person::class,
         ]);
 
         $this->assertSame(0, $status);
@@ -54,7 +54,7 @@ final class SetupReacterableTest extends TestCase
     public function it_can_create_migration_for_reacterable_model_with_nullable_column(): void
     {
         $status = $this->artisan('love:setup-reacterable', [
-            'model' => Person::class,
+            '--model' => Person::class,
             '--nullable' => true,
         ]);
 
@@ -68,7 +68,7 @@ final class SetupReacterableTest extends TestCase
     public function it_cannot_create_migration_for_reacterable_model_when_model_not_exists(): void
     {
         $status = $this->artisan('love:setup-reacterable', [
-            'model' => 'NotExists',
+            '--model' => 'NotExists',
         ]);
 
         $this->assertSame(1, $status);
@@ -79,7 +79,7 @@ final class SetupReacterableTest extends TestCase
     public function it_cannot_create_migration_for_reacterable_model_when_model_not_implements_reacterable_contract(): void
     {
         $status = $this->artisan('love:setup-reacterable', [
-            'model' => Article::class,
+            '--model' => Article::class,
         ]);
 
         $this->assertSame(1, $status);
@@ -91,7 +91,7 @@ final class SetupReacterableTest extends TestCase
     {
         Schema::drop('love_reacters');
         $status = $this->artisan('love:setup-reacterable', [
-            'model' => Person::class,
+            '--model' => Person::class,
         ]);
 
         $this->assertSame(1, $status);
@@ -102,7 +102,7 @@ final class SetupReacterableTest extends TestCase
     public function it_cannot_create_migration_for_reacterable_model_when_column_already_exists(): void
     {
         $status = $this->artisan('love:setup-reacterable', [
-            'model' => User::class,
+            '--model' => User::class,
         ]);
 
         $this->assertSame(1, $status);

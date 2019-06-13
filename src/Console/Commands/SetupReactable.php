@@ -33,7 +33,7 @@ final class SetupReactable extends Command
      * @var string
      */
     protected $signature = 'love:setup-reactable
-        {model? : The name of the reactable model}
+        {--model= : The name of the reactable model}
         {--nullable : Indicate if foreign column allows null values}';
 
     /**
@@ -127,6 +127,8 @@ final class SetupReactable extends Command
             return 1;
         }
 
+        $this->info('Migration created successfully!');
+
         $this->composer->dumpAutoloads();
 
         return 0;
@@ -134,7 +136,7 @@ final class SetupReactable extends Command
 
     private function resolveModel(): string
     {
-        return $this->argument('model')
+        return $this->option('model')
             ?? $this->ask('What model should be reactable?')
             ?? $this->resolveModel();
     }
