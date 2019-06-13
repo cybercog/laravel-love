@@ -6,7 +6,7 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ### Added
 
-- ([#56](https://github.com/cybercog/laravel-love/pull/56)) `love:setup-reacterable` & `love:setup_reactable` Artisan commands were added
+- ([#56](https://github.com/cybercog/laravel-love/pull/56)) `love:setup-reacterable` & `love:setup-reactable` Artisan commands were added
 
 ## [6.1.0] - 2019-05-07
 
