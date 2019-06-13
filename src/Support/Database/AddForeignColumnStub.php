@@ -37,8 +37,7 @@ final class AddForeignColumnStub
         string $foreignColumn,
         string $referencedColumn,
         bool $isForeignColumnNullable
-    )
-    {
+    ) {
         $this->files = $files;
         $this->table = $table;
         $this->referencedTable = $referencedTable;
