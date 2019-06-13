@@ -2,11 +2,17 @@
 
 All notable changes to `laravel-love` will be documented in this file.
 
+## [6.2.0] - 2019-06-14
+
+### Added
+
+- ([#56](https://github.com/cybercog/laravel-love/pull/56)) `love:setup-reacterable` & `love:setup_reactable` Artisan commands were added
+
 ## [6.1.0] - 2019-05-07
 
 ### Added
 
-- ([#51](https://github.com/cybercog/laravel-love/pull/51)) `love:reaction-type-add` console command was added
+- ([#51](https://github.com/cybercog/laravel-love/pull/51)) `love:reaction-type-add` Artisan command was added
 
 ## [6.0.1] - 2019-03-05
 
@@ -236,6 +242,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 
 - Initial release
 
+[6.2.0]: https://github.com/cybercog/laravel-love/compare/6.1.0...6.2.0
 [6.1.0]: https://github.com/cybercog/laravel-love/compare/6.0.1...6.1.0
 [6.0.1]: https://github.com/cybercog/laravel-love/compare/6.0.0...6.0.1
 [6.0.0]: https://github.com/cybercog/laravel-love/compare/5.2.0...6.0.0
