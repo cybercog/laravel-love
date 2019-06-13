@@ -41,7 +41,7 @@ final class SetupReactableTest extends TestCase
     public function it_can_create_migration_for_reactable_model(): void
     {
         $status = $this->artisan('love:setup-reactable', [
-            'model' => Person::class,
+            '--model' => Person::class,
         ]);
 
         $this->assertSame(0, $status);
@@ -54,7 +54,7 @@ final class SetupReactableTest extends TestCase
     public function it_can_create_migration_for_reactable_model_with_nullable_column(): void
     {
         $status = $this->artisan('love:setup-reactable', [
-            'model' => Person::class,
+            '--model' => Person::class,
             '--nullable' => true,
         ]);
 
@@ -68,7 +68,7 @@ final class SetupReactableTest extends TestCase
     public function it_cannot_create_migration_for_reactable_model_when_model_not_exists(): void
     {
         $status = $this->artisan('love:setup-reactable', [
-            'model' => 'NotExists',
+            '--model' => 'NotExists',
         ]);
 
         $this->assertSame(1, $status);
@@ -79,7 +79,7 @@ final class SetupReactableTest extends TestCase
     public function it_cannot_create_migration_for_reactable_model_when_model_not_implements_reactable_contract(): void
     {
         $status = $this->artisan('love:setup-reactable', [
-            'model' => Bot::class,
+            '--model' => Bot::class,
         ]);
 
         $this->assertSame(1, $status);
@@ -91,7 +91,7 @@ final class SetupReactableTest extends TestCase
     {
         Schema::drop('love_reactants');
         $status = $this->artisan('love:setup-reactable', [
-            'model' => Person::class,
+            '--model' => Person::class,
         ]);
 
         $this->assertSame(1, $status);
@@ -102,7 +102,7 @@ final class SetupReactableTest extends TestCase
     public function it_cannot_create_migration_for_reactable_model_when_column_already_exists(): void
     {
         $status = $this->artisan('love:setup-reactable', [
-            'model' => Article::class,
+            '--model' => Article::class,
         ]);
 
         $this->assertSame(1, $status);

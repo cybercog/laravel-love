@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-love` will be documented in this file.
 
+## [6.2.1] - 2019-06-14
+
+### Added
+
+- ([#58](https://github.com/cybercog/laravel-love/pull/58)) Fix `--model` option of `love:setup-reacterable` & `love:setup-reactable` Artisan commands
+
 ## [6.2.0] - 2019-06-14
 
 ### Added
@@ -242,6 +248,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 
 - Initial release
 
+[6.2.1]: https://github.com/cybercog/laravel-love/compare/6.2.0...6.2.1
 [6.2.0]: https://github.com/cybercog/laravel-love/compare/6.1.0...6.2.0
 [6.1.0]: https://github.com/cybercog/laravel-love/compare/6.0.1...6.1.0
 [6.0.1]: https://github.com/cybercog/laravel-love/compare/6.0.0...6.0.1
