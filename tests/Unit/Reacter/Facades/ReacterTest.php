@@ -30,15 +30,12 @@ final class ReacterTest extends TestCase
         $reacter = factory(Reacter::class)->create([
             'type' => (new User())->getMorphClass(),
         ]);
-        $reacterable = factory(User::class)->create([
-            'love_reacter_id' => $reacter->getId(),
-        ]);
-        $reacterFacade = (new ReacterFacade($reacterable));
+        $reacterFacade = (new ReacterFacade($reacter));
 
         $reacterFacade->reactTo($article, $reactionType->getName());
 
-        $this->assertCount(1, $reacterable->getLoveReacter()->reactions);
-        $assertReaction = $reacterable->getLoveReacter()->reactions->first();
+        $this->assertCount(1, $reacter->reactions);
+        $assertReaction = $reacter->reactions->first();
         $this->assertTrue($assertReaction->reactant->is($article->getLoveReactant()));
     }
 }
