@@ -18,6 +18,9 @@ use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
 use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 
+/**
+ * @deprecated 7.0
+ */
 final class Love
 {
     public static function isReactionOfTypeName(
