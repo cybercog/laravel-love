@@ -17,7 +17,6 @@ use Cog\Laravel\Love\Reacter\Facades\Reacter as ReacterFacade;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
-use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
 
 final class ReacterTest extends TestCase
@@ -27,9 +26,7 @@ final class ReacterTest extends TestCase
     {
         $reactionType = factory(ReactionType::class)->create();
         $article = factory(Article::class)->create();
-        $reacter = factory(Reacter::class)->create([
-            'type' => (new User())->getMorphClass(),
-        ]);
+        $reacter = factory(Reacter::class)->create();
         $reacterFacade = (new ReacterFacade($reacter));
 
         $reacterFacade->reactTo($article, $reactionType->getName());
