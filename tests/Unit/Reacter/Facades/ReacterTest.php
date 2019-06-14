@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Reacter\Facades;
 
+use Cog\Laravel\Love\Reacter\Facades\Reacter as ReacterFacade;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
@@ -29,12 +30,12 @@ final class ReacterTest extends TestCase
         $reacter = factory(Reacter::class)->create([
             'type' => (new User())->getMorphClass(),
         ]);
-
         $reacterable = factory(User::class)->create([
             'love_reacter_id' => $reacter->getId(),
         ]);
+        $reacterFacade = (new ReacterFacade($reacterable));
 
-        $reacterable->akaLoveReacter()->reactTo($article, $reactionType->getName());
+        $reacterFacade->reactTo($article, $reactionType->getName());
 
         $this->assertCount(1, $reacterable->getLoveReacter()->reactions);
         $assertReaction = $reacterable->getLoveReacter()->reactions->first();
