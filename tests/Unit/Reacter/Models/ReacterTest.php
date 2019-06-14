@@ -206,6 +206,19 @@ final class ReacterTest extends TestCase
     }
 
     /** @test */
+    public function it_cannot_duplicate_reactions(): void
+    {
+        $this->expectException(ReactionAlreadyExists::class);
+
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = factory(Reacter::class)->create();
+        $reactant = factory(Reactant::class)->create();
+
+        $reacter->reactTo($reactant, $reactionType);
+        $reacter->reactTo($reactant, $reactionType);
+    }
+
+    /** @test */
     public function it_can_unreact_to_reactant(): void
     {
         $reactionType = factory(ReactionType::class)->create();
@@ -245,19 +258,6 @@ final class ReacterTest extends TestCase
         $reactant = Reactant::query()->make();
 
         $reacter->unreactTo($reactant, $reactionType);
-    }
-
-    /** @test */
-    public function it_cannot_duplicate_reactions(): void
-    {
-        $this->expectException(ReactionAlreadyExists::class);
-
-        $reactionType = factory(ReactionType::class)->create();
-        $reacter = factory(Reacter::class)->create();
-        $reactant = factory(Reactant::class)->create();
-
-        $reacter->reactTo($reactant, $reactionType);
-        $reacter->reactTo($reactant, $reactionType);
     }
 
     /** @test */
