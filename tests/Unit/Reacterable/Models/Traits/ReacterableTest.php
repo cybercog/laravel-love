@@ -155,7 +155,6 @@ final class ReacterableTest extends TestCase
         $reacterFacade = $reacterable->akaLoveReacter();
 
         $this->assertInstanceOf(ReacterFacade::class, $reacterFacade);
-        $this->assertTrue($reacterFacade->isNotNull());
     }
 
     /** @test */
@@ -165,6 +164,6 @@ final class ReacterableTest extends TestCase
 
         $reacterFacade = $reacterable->akaLoveReacter();
 
-        $this->assertTrue($reacterFacade->isNull());
+        $this->assertInstanceOf(ReacterFacade::class, $reacterFacade);
     }
 }

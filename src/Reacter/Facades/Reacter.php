@@ -16,7 +16,6 @@ namespace Cog\Laravel\Love\Reacter\Facades;
 use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
 use Cog\Contracts\Love\Reacter\Facades\Reacter as ReacterFacadeContract;
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
-use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 
 final class Reacter implements ReacterFacadeContract
@@ -82,31 +81,5 @@ final class Reacter implements ReacterFacadeContract
             $reactable->getLoveReactant(),
             ReactionType::fromName($reactionTypeName)
         );
-    }
-
-    public function isEqualTo(
-        ReacterableContract $reacterable
-    ): bool {
-        return $this->reacter->isEqualTo(
-            $reacterable->getLoveReacter()
-        );
-    }
-
-    public function isNotEqualTo(
-        ReacterableContract $reacterable
-    ): bool {
-        return $this->reacter->isNotEqualTo(
-            $reacterable->getLoveReacter()
-        );
-    }
-
-    public function isNull(): bool
-    {
-        return $this->reacter->isNull();
-    }
-
-    public function isNotNull(): bool
-    {
-        return $this->reacter->isNotNull();
     }
 }

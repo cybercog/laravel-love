@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Cog\Contracts\Love\Reacter\Facades;
 
 use Cog\Contracts\Love\Reactable\Models\Reactable;
-use Cog\Contracts\Love\Reacterable\Models\Reacterable;
 
 interface Reacter
 {
@@ -45,16 +44,4 @@ interface Reacter
         Reactable $reactable,
         string $reactionTypeName
     ): bool;
-
-    public function isEqualTo(
-        Reacterable $reacterable
-    ): bool;
-
-    public function isNotEqualTo(
-        Reacterable $reacterable
-    ): bool;
-
-    public function isNull(): bool;
-
-    public function isNotNull(): bool;
 }

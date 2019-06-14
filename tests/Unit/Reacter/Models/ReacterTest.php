@@ -447,7 +447,6 @@ final class ReacterTest extends TestCase
 
         $this->assertTrue($isNotReacted);
     }
-    //
 
     /** @test */
     public function it_can_check_is_equal_to_self(): void
