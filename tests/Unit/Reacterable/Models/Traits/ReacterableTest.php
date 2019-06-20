@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Cog\Tests\Laravel\Love\Unit\Reacterable\Models\Traits;
 
 use Cog\Contracts\Love\Reacterable\Exceptions\AlreadyRegisteredAsLoveReacter;
+use Cog\Laravel\Love\Reacter\Facades\Reacter as ReacterFacade;
 use Cog\Laravel\Love\Reacter\Models\NullReacter;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Tests\Laravel\Love\Stubs\Models\Bot;
@@ -139,5 +140,30 @@ final class ReacterableTest extends TestCase
         $user = factory(User::class)->create();
 
         $user->registerAsLoveReacter();
+    }
+
+    /** @test */
+    public function it_can_convert_to_reacter_facade(): void
+    {
+        $reacter = factory(Reacter::class)->create([
+            'type' => (new User())->getMorphClass(),
+        ]);
+        $reacterable = factory(User::class)->create([
+            'love_reacter_id' => $reacter->getId(),
+        ]);
+
+        $reacterFacade = $reacterable->akaLoveReacter();
+
+        $this->assertInstanceOf(ReacterFacade::class, $reacterFacade);
+    }
+
+    /** @test */
+    public function it_can_convert_to_reacter_facade_when_reacter_is_null(): void
+    {
+        $reacterable = new User();
+
+        $reacterFacade = $reacterable->akaLoveReacter();
+
+        $this->assertInstanceOf(ReacterFacade::class, $reacterFacade);
     }
 }
