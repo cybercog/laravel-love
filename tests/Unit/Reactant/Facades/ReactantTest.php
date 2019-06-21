@@ -19,7 +19,10 @@ use Cog\Laravel\Love\Reactant\ReactionCounter\Models\NullReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal;
+use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
+use Cog\Tests\Laravel\Love\Stubs\Models\User;
+use Cog\Tests\Laravel\Love\Stubs\Models\UserWithoutAutoReacterCreate;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Support\Facades\Event;
 
@@ -123,5 +126,189 @@ final class ReactantTest extends TestCase
 
         $this->assertInstanceOf(NullReactionTotal::class, $assertTotal);
         $this->assertSame($reactant, $assertTotal->getReactant());
+    }
+
+    /** @test */
+    public function it_can_check_is_reacted_by_reacter(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacterable = factory(User::class)->create();
+        $reacter = $reacterable->getLoveReacter();
+        $reactant = factory(Reactant::class)->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
+            'reactant_id' => $reactant->getId(),
+        ]);
+        $reactantFacade = new ReactantFacade($reactant);
+
+        $isReacted = $reactantFacade->isReactedBy($reacterable);
+
+        $this->assertTrue($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_reacted_by_reacter_when_reacter_is_null_object(): void
+    {
+        $reacterable = factory(UserWithoutAutoReacterCreate::class)->create();
+        $reactant = factory(Reactant::class)->create();
+        $reactantFacade = new ReactantFacade($reactant);
+
+        $isReacted = $reactantFacade->isReactedBy($reacterable);
+
+        $this->assertFalse($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_reacted_by_reacter_when_reacter_is_not_persisted(): void
+    {
+        $reacterable = new User();
+        $reactant = factory(Reactant::class)->create();
+        $reactantFacade = new ReactantFacade($reactant);
+
+        $isReacted = $reactantFacade->isReactedBy($reacterable);
+
+        $this->assertFalse($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_not_reacted_by_reacter(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacterable = factory(User::class)->create();
+        $reacter = $reacterable->getLoveReacter();
+        $reactant = factory(Reactant::class)->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
+        ]);
+        $reactantFacade = new ReactantFacade($reactant);
+
+        $isNotReacted = $reactantFacade->isNotReactedBy($reacterable);
+
+        $this->assertTrue($isNotReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_not_reacted_by_reacter_when_reacter_is_null_object(): void
+    {
+        $reacterable = factory(UserWithoutAutoReacterCreate::class)->create();
+        $reactant = factory(Reactant::class)->create();
+        $reactantFacade = new ReactantFacade($reactant);
+
+        $isNotReacted = $reactantFacade->isNotReactedBy($reacterable);
+
+        $this->assertTrue($isNotReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_not_reacted_by_reacter_when_reacter_is_not_persisted(): void
+    {
+        $reacterable = new User();
+        $reactant = factory(Reactant::class)->create();
+        $reactantFacade = new ReactantFacade($reactant);
+
+        $isNotReacted = $reactantFacade->isNotReactedBy($reacterable);
+
+        $this->assertTrue($isNotReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_reacted_by_reacter_with_type(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacterable = factory(User::class)->create();
+        $reacter = $reacterable->getLoveReacter();
+        $reactant = factory(Reactant::class)->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
+            'reactant_id' => $reactant->getId(),
+        ]);
+        $reactantFacade = new ReactantFacade($reactant);
+
+        $isReacted = $reactantFacade->isReactedByWithType($reacterable, $reactionType->getName());
+
+        $this->assertTrue($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_reacted_by_reacter_with_type_when_reacter_is_null_object(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacterable = factory(UserWithoutAutoReacterCreate::class)->create();
+        $reactant = factory(Reactant::class)->create();
+        $reactantFacade = new ReactantFacade($reactant);
+
+        $isReacted = $reactantFacade->isReactedByWithType($reacterable, $reactionType->getName());
+
+        $this->assertFalse($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_reacted_by_reacter_with_type_when_reacter_is_not_persisted(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacterable = new User();
+        $reactant = factory(Reactant::class)->create();
+        $reactantFacade = new ReactantFacade($reactant);
+
+        $isReacted = $reactantFacade->isReactedByWithType($reacterable, $reactionType->getName());
+
+        $this->assertFalse($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_not_reacted_by_reacter_with_type(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $otherReactionType = factory(ReactionType::class)->create();
+        $reacterable = factory(User::class)->create();
+        $reacter = $reacterable->getLoveReacter();
+        $reactant = factory(Reactant::class)->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $otherReactionType->getId(),
+            'reacter_id' => $reacter->getId(),
+            'reactant_id' => $reactant->getId(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
+        ]);
+        $reactantFacade = new ReactantFacade($reactant);
+
+        $isNotReacted = $reactantFacade->isNotReactedByWithType($reacterable, $reactionType->getName());
+
+        $this->assertTrue($isNotReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_not_reacted_by_reacter_with_type_when_reacter_is_null_object(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacterable = factory(UserWithoutAutoReacterCreate::class)->create();
+        $reactant = factory(Reactant::class)->create();
+        $reactantFacade = new ReactantFacade($reactant);
+
+        $isNotReacted = $reactantFacade->isNotReactedByWithType($reacterable, $reactionType->getName());
+
+        $this->assertTrue($isNotReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_not_reacted_by_reacter_with_type_when_reacter_is_not_persisted(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacterable = new User();
+        $reactant = factory(Reactant::class)->create();
+        $reactantFacade = new ReactantFacade($reactant);
+
+        $isNotReacted = $reactantFacade->isNotReactedByWithType($reacterable, $reactionType->getName());
+
+        $this->assertTrue($isNotReacted);
     }
 }
