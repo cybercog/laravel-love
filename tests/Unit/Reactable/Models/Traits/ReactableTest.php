@@ -74,7 +74,7 @@ final class ReactableTest extends TestCase
             'love_reactant_id' => $reactant->getId(),
         ]);
 
-        $reactantFacade = $reactable->akaLoveReactant();
+        $reactantFacade = $reactable->viaLoveReactant();
 
         $this->assertInstanceOf(ReactantFacade::class, $reactantFacade);
     }
@@ -84,7 +84,7 @@ final class ReactableTest extends TestCase
     {
         $reactable = new Article();
 
-        $reactantFacade = $reactable->akaLoveReactant();
+        $reactantFacade = $reactable->viaLoveReactant();
 
         $this->assertInstanceOf(ReactantFacade::class, $reactantFacade);
     }
