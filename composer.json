@@ -43,7 +43,7 @@
         "issues": "https://github.com/cybercog/laravel-love/issues",
         "wiki": "https://github.com/cybercog/laravel-love/wiki",
         "source": "https://github.com/cybercog/laravel-love",
-        "docs": "https://github.com/cybercog/laravel-love/wiki"
+        "docs": "https://laravel-love.readme.io"
     },
     "require": {
         "php": "^7.1.3",
@@ -78,10 +78,7 @@
         "laravel": {
             "providers": [
                 "Cog\\Laravel\\Love\\LoveServiceProvider"
-            ],
-            "aliases": {
-                "Love": "Cog\\Laravel\\Love\\Facades\\Love"
-            }
+            ]
         }
     },
     "minimum-stability": "dev",
