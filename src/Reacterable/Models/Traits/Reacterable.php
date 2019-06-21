@@ -42,7 +42,7 @@ trait Reacterable
         return $this->getAttribute('loveReacter') ?? new NullReacter($this);
     }
 
-    public function akaLoveReacter(): ReacterFacadeContract
+    public function viaLoveReacter(): ReacterFacadeContract
     {
         return new ReacterFacade($this->getLoveReacter());
     }

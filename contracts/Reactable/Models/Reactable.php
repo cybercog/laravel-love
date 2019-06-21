@@ -20,7 +20,7 @@ interface Reactable
 {
     public function getLoveReactant(): Reactant;
 
-    public function akaLoveReactant(): ReactantFacade;
+    public function viaLoveReactant(): ReactantFacade;
 
     public function isRegisteredAsLoveReactant(): bool;
 

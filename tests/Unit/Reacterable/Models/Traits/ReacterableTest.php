@@ -72,7 +72,7 @@ final class ReacterableTest extends TestCase
             'love_reacter_id' => $reacter->getId(),
         ]);
 
-        $reacterFacade = $reacterable->akaLoveReacter();
+        $reacterFacade = $reacterable->viaLoveReacter();
 
         $this->assertInstanceOf(ReacterFacade::class, $reacterFacade);
     }
@@ -82,7 +82,7 @@ final class ReacterableTest extends TestCase
     {
         $reacterable = new User();
 
-        $reacterFacade = $reacterable->akaLoveReacter();
+        $reacterFacade = $reacterable->viaLoveReacter();
 
         $this->assertInstanceOf(ReacterFacade::class, $reacterFacade);
     }
