@@ -29,6 +29,21 @@ use Cog\Tests\Laravel\Love\TestCase;
 final class ReacterTest extends TestCase
 {
     /** @test */
+    public function it_can_get_reactions(): void
+    {
+        $reacter = factory(Reacter::class)->create();
+        $reactions = factory(Reaction::class, 2)->create([
+            'reacter_id' => $reacter->getId(),
+        ]);
+        $reacterFacade = new ReacterFacade($reacter);
+
+        $assertReactions = $reacterFacade->getReactions();
+
+        $this->assertTrue($assertReactions->get(0)->is($reactions->get(0)));
+        $this->assertTrue($assertReactions->get(1)->is($reactions->get(1)));
+    }
+
+    /** @test */
     public function it_can_react_to_reactable(): void
     {
         $reacter = factory(Reacter::class)->create();

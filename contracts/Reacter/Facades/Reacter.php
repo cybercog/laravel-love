@@ -17,6 +17,8 @@ use Cog\Contracts\Love\Reactable\Models\Reactable;
 
 interface Reacter
 {
+    public function getReactions(): iterable;
+
     public function reactTo(
         Reactable $reactable,
         string $reactionTypeName
