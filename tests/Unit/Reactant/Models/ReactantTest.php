@@ -276,12 +276,13 @@ final class ReactantTest extends TestCase
     {
         Event::fake(); // Prevent total auto creation
         $reactant = factory(Reactant::class)->create();
-
         $total = factory(ReactionTotal::class)->create([
             'reactant_id' => $reactant->getId(),
         ]);
 
-        $this->assertTrue($reactant->getReactionTotal()->is($total));
+        $assertTotal = $reactant->getReactionTotal();
+
+        $this->assertTrue($total->is($assertTotal));
     }
 
     /** @test */
@@ -290,7 +291,9 @@ final class ReactantTest extends TestCase
         Event::fake(); // Prevent total auto creation
         $reactant = factory(Reactant::class)->create();
 
-        $this->assertInstanceOf(NullReactionTotal::class, $reactant->getReactionTotal());
+        $assertTotal = $reactant->getReactionTotal();
+
+        $this->assertInstanceOf(NullReactionTotal::class, $assertTotal);
     }
 
     /** @test */
@@ -299,8 +302,10 @@ final class ReactantTest extends TestCase
         Event::fake(); // Prevent total auto creation
         $reactant = factory(Reactant::class)->create();
 
-        $this->assertInstanceOf(NullReactionTotal::class, $reactant->getReactionTotal());
-        $this->assertSame($reactant, $reactant->getReactionTotal()->getReactant());
+        $assertTotal = $reactant->getReactionTotal();
+
+        $this->assertInstanceOf(NullReactionTotal::class, $assertTotal);
+        $this->assertSame($reactant, $assertTotal->getReactant());
     }
 
     /** @test */
