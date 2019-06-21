@@ -1,8 +1,22 @@
 # Upgrade Guide
 
+- [From v6 to v7](#from-v6-to-v7)
 - [From v5 to v6](#from-v5-to-v6)
 - [From v4 to v5](#from-v4-to-v5)
 - [From v3 to v4](#from-v3-to-v4)
+
+## From v6 to v7
+
+You can skip upgrading for this version if you haven't used `Love` facade and using packaged traits in `Reacterable` & `Reactant` models. 
+
+Release v7 has new facade approach described in ([#54](https://github.com/cybercog/laravel-love/issues/54)).
+Global `Cog\Laravel\Love\Facades\Love` facade was removed in favor to new facades:
+- `Cog\Laravel\Love\Reacter\Facades\Reacter`
+- `Cog\Laravel\Love\Reactant\Facades\Reactant`
+
+If you are implemented `Cog\Contracts\Love\Reactable\Models\Reactable` & `Cog\Contracts\Love\Reacterable\Models\Reacterable` contracts by yourself without using packaged traits you need to implement 2 new methods: 
+- `Reactable` model should have `viaLoveReactant` method
+- `Reacterable` model should have `viaLoveReacter` method
 
 ## From v5 to v6
 
