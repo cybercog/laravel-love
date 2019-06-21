@@ -63,7 +63,7 @@ final class ReacterableTest extends TestCase
     }
 
     /** @test */
-    public function it_can_convert_to_reacter_facade(): void
+    public function it_can_get_reacter_facade(): void
     {
         $reacter = factory(Reacter::class)->create([
             'type' => (new User())->getMorphClass(),
@@ -78,7 +78,7 @@ final class ReacterableTest extends TestCase
     }
 
     /** @test */
-    public function it_can_convert_to_reacter_facade_when_reacter_is_null(): void
+    public function it_can_get_reacter_facade_when_reacter_is_null(): void
     {
         $reacterable = new User();
 

@@ -65,7 +65,7 @@ final class ReactableTest extends TestCase
     }
 
     /** @test */
-    public function it_can_convert_to_reactant_facade(): void
+    public function it_can_get_reactant_facade(): void
     {
         $reactant = factory(Reactant::class)->create([
             'type' => (new Article())->getMorphClass(),
@@ -80,7 +80,7 @@ final class ReactableTest extends TestCase
     }
 
     /** @test */
-    public function it_can_convert_to_reactant_facade_when_reactant_is_null(): void
+    public function it_can_get_reactant_facade_when_reactant_is_null(): void
     {
         $reactable = new Article();
 
