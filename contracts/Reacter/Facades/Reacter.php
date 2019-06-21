@@ -30,20 +30,12 @@ interface Reacter
     ): void;
 
     public function isReactedTo(
-        Reactable $reactable
+        Reactable $reactable,
+        ?string $reactionTypeName = null
     ): bool;
 
     public function isNotReactedTo(
-        Reactable $reactable
-    ): bool;
-
-    public function isReactedToWithType(
         Reactable $reactable,
-        string $reactionTypeName
-    ): bool;
-
-    public function isNotReactedToWithType(
-        Reactable $reactable,
-        string $reactionTypeName
+        ?string $reactionTypeName = null
     ): bool;
 }
