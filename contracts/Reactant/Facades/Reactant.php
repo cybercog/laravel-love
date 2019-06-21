@@ -23,11 +23,19 @@ interface Reactant
 
     public function getReactionCounters(): iterable;
 
-    public function getReactionCounterOfType(string $reactionTypeName): ReactionCounter;
+    public function getReactionCounterOfType(
+        string $reactionTypeName
+    ): ReactionCounter;
 
     public function getReactionTotal(): ReactionTotal;
 
-    public function isReactedBy(Reacterable $reacterable, ?string $reactionTypeName = null): bool;
+    public function isReactedBy(
+        Reacterable $reacterable,
+        ?string $reactionTypeName = null
+    ): bool;
 
-    public function isNotReactedBy(Reacterable $reacterable, ?string $reactionTypeName = null): bool;
+    public function isNotReactedBy(
+        Reacterable $reacterable,
+        ?string $reactionTypeName = null
+    ): bool;
 }
