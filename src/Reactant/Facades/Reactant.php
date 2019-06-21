@@ -29,6 +29,16 @@ final class Reactant implements ReacterFacadeContract
         $this->reactant = $reactant;
     }
 
+    public function getReactions(): iterable
+    {
+        return $this->reactant->getReactions();
+    }
+
+    public function getReactionCounters(): iterable
+    {
+        return $this->reactant->getReactionCounters();
+    }
+
     public function getReactionCounterOfType(
         string $reactionTypeName
     ): ReactionCounterContract {

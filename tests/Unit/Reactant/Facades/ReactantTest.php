@@ -29,11 +29,41 @@ use Illuminate\Support\Facades\Event;
 final class ReactantTest extends TestCase
 {
     /** @test */
+    public function it_can_get_reactions(): void
+    {
+        $reactant = factory(Reactant::class)->create();
+        $reactions = factory(Reaction::class, 2)->create([
+            'reactant_id' => $reactant->getId(),
+        ]);
+        $reactantFacade = new ReactantFacade($reactant);
+
+        $assertReactions = $reactantFacade->getReactions();
+
+        $this->assertTrue($assertReactions->get(0)->is($reactions->get(0)));
+        $this->assertTrue($assertReactions->get(1)->is($reactions->get(1)));
+    }
+
+    /** @test */
+    public function it_can_get_reaction_counters(): void
+    {
+        $reactant = factory(Reactant::class)->create();
+        $counters = factory(ReactionCounter::class, 2)->create([
+            'reactant_id' => $reactant->getId(),
+        ]);
+        $reactantFacade = new ReactantFacade($reactant);
+
+        $assertCounters = $reactantFacade->getReactionCounters();
+
+        $this->assertTrue($assertCounters->get(0)->is($counters->get(0)));
+        $this->assertTrue($assertCounters->get(1)->is($counters->get(1)));
+    }
+
+    /** @test */
     public function it_can_get_reaction_counter_of_type(): void
     {
         $reactant = factory(Reactant::class)->create();
         $reactionType = factory(ReactionType::class)->create();
-        factory(ReactionCounter::class, 2)->create([
+        factory(ReactionCounter::class)->create([
             'reactant_id' => $reactant->getId(),
         ]);
         $counter = factory(ReactionCounter::class)->create([

@@ -17,7 +17,7 @@ use Faker\Generator as Faker;
 /* @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(ReactionType::class, function (Faker $faker) {
     return [
-        'name' => $faker->word,
+        'name' => implode('', $faker->words),
         'weight' => $faker->numberBetween(-128, 127),
     ];
 });
