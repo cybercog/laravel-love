@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Cog\Tests\Laravel\Love\Unit\Reactable\Models\Traits;
 
 use Cog\Contracts\Love\Reactable\Exceptions\AlreadyRegisteredAsLoveReactant;
+use Cog\Laravel\Love\Reactant\Facades\Reactant as ReactantFacade;
 use Cog\Laravel\Love\Reactant\Models\NullReactant;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
@@ -61,6 +62,31 @@ final class ReactableTest extends TestCase
         $reactant = $reactable->getLoveReactant();
 
         $this->assertInstanceOf(NullReactant::class, $reactant);
+    }
+
+    /** @test */
+    public function it_can_convert_to_reactant_facade(): void
+    {
+        $reactant = factory(Reactant::class)->create([
+            'type' => (new Article())->getMorphClass(),
+        ]);
+        $reactable = factory(Article::class)->create([
+            'love_reactant_id' => $reactant->getId(),
+        ]);
+
+        $reactantFacade = $reactable->akaLoveReactant();
+
+        $this->assertInstanceOf(ReactantFacade::class, $reactantFacade);
+    }
+
+    /** @test */
+    public function it_can_convert_to_reactant_facade_when_reactant_is_null(): void
+    {
+        $reactable = new Article();
+
+        $reactantFacade = $reactable->akaLoveReactant();
+
+        $this->assertInstanceOf(ReactantFacade::class, $reactantFacade);
     }
 
     /** @test */

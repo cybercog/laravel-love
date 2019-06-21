@@ -13,11 +13,14 @@ declare(strict_types=1);
 
 namespace Cog\Contracts\Love\Reactable\Models;
 
+use Cog\Contracts\Love\Reactant\Facades\Reactant as ReactantFacade;
 use Cog\Contracts\Love\Reactant\Models\Reactant;
 
 interface Reactable
 {
     public function getLoveReactant(): Reactant;
+
+    public function akaLoveReactant(): ReactantFacade;
 
     public function isRegisteredAsLoveReactant(): bool;
 

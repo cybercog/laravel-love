@@ -188,15 +188,13 @@ final class ReactantTest extends TestCase
     /** @test */
     public function it_can_get_reactions(): void
     {
-        $reactionType = factory(ReactionType::class)->create();
         $reactant = factory(Reactant::class)->create();
-
         $reactions = factory(Reaction::class, 2)->create([
-            'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactant->getId(),
         ]);
 
         $assertReactions = $reactant->getReactions();
+
         $this->assertTrue($assertReactions->get(0)->is($reactions->get(0)));
         $this->assertTrue($assertReactions->get(1)->is($reactions->get(1)));
     }
@@ -205,12 +203,12 @@ final class ReactantTest extends TestCase
     public function it_can_get_reaction_counters(): void
     {
         $reactant = factory(Reactant::class)->create();
-
         $counters = factory(ReactionCounter::class, 2)->create([
             'reactant_id' => $reactant->getId(),
         ]);
 
         $assertCounters = $reactant->getReactionCounters();
+
         $this->assertTrue($assertCounters->get(0)->is($counters->get(0)));
         $this->assertTrue($assertCounters->get(1)->is($counters->get(1)));
     }
@@ -220,7 +218,7 @@ final class ReactantTest extends TestCase
     {
         $reactant = factory(Reactant::class)->create();
         $reactionType = factory(ReactionType::class)->create();
-        factory(ReactionCounter::class, 2)->create([
+        factory(ReactionCounter::class)->create([
             'reactant_id' => $reactant->getId(),
         ]);
         $counter = factory(ReactionCounter::class)->create([
@@ -276,12 +274,13 @@ final class ReactantTest extends TestCase
     {
         Event::fake(); // Prevent total auto creation
         $reactant = factory(Reactant::class)->create();
-
         $total = factory(ReactionTotal::class)->create([
             'reactant_id' => $reactant->getId(),
         ]);
 
-        $this->assertTrue($reactant->getReactionTotal()->is($total));
+        $assertTotal = $reactant->getReactionTotal();
+
+        $this->assertTrue($total->is($assertTotal));
     }
 
     /** @test */
@@ -290,7 +289,9 @@ final class ReactantTest extends TestCase
         Event::fake(); // Prevent total auto creation
         $reactant = factory(Reactant::class)->create();
 
-        $this->assertInstanceOf(NullReactionTotal::class, $reactant->getReactionTotal());
+        $assertTotal = $reactant->getReactionTotal();
+
+        $this->assertInstanceOf(NullReactionTotal::class, $assertTotal);
     }
 
     /** @test */
@@ -299,8 +300,178 @@ final class ReactantTest extends TestCase
         Event::fake(); // Prevent total auto creation
         $reactant = factory(Reactant::class)->create();
 
-        $this->assertInstanceOf(NullReactionTotal::class, $reactant->getReactionTotal());
-        $this->assertSame($reactant, $reactant->getReactionTotal()->getReactant());
+        $assertTotal = $reactant->getReactionTotal();
+
+        $this->assertInstanceOf(NullReactionTotal::class, $assertTotal);
+        $this->assertSame($reactant, $assertTotal->getReactant());
+    }
+
+    /** @test */
+    public function it_can_check_is_reacted_by_reacter(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = factory(Reacter::class)->create();
+        $reactant = factory(Reactant::class)->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
+            'reactant_id' => $reactant->getId(),
+        ]);
+
+        $isReacted = $reactant->isReactedBy($reacter);
+
+        $this->assertTrue($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_reacted_by_reacter_when_reacter_is_null_object(): void
+    {
+        $reacter = new NullReacter(new Bot());
+        $reactant = factory(Reactant::class)->create();
+
+        $isReacted = $reactant->isReactedBy($reacter);
+
+        $this->assertFalse($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_reacted_by_reacter_when_reacter_is_not_persisted(): void
+    {
+        $reacter = new Reacter();
+        $reactant = factory(Reactant::class)->create();
+
+        $isReacted = $reactant->isReactedBy($reacter);
+
+        $this->assertFalse($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_not_reacted_by_reacter(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = factory(Reacter::class)->create();
+        $reactant = factory(Reactant::class)->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
+        ]);
+
+        $isNotReacted = $reactant->isNotReactedBy($reacter);
+
+        $this->assertTrue($isNotReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_not_reacted_by_reacter_when_reacter_is_null_object(): void
+    {
+        $reacter = new NullReacter(new Bot());
+        $reactant = factory(Reactant::class)->create();
+
+        $isNotReacted = $reactant->isNotReactedBy($reacter);
+
+        $this->assertTrue($isNotReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_not_reacted_by_reacter_when_reacter_is_not_persisted(): void
+    {
+        $reacter = new Reacter();
+        $reactant = factory(Reactant::class)->create();
+
+        $isNotReacted = $reactant->isNotReactedBy($reacter);
+
+        $this->assertTrue($isNotReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_reacted_by_reacter_with_type(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = factory(Reacter::class)->create();
+        $reactant = factory(Reactant::class)->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
+            'reactant_id' => $reactant->getId(),
+        ]);
+
+        $isReacted = $reactant->isReactedByWithType($reacter, $reactionType);
+
+        $this->assertTrue($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_reacted_by_reacter_with_type_when_reacter_is_null_object(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = new NullReacter(new Bot());
+        $reactant = factory(Reactant::class)->create();
+
+        $isReacted = $reactant->isReactedByWithType($reacter, $reactionType);
+
+        $this->assertFalse($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_reacted_by_reacter_with_type_when_reacter_is_not_persisted(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = new Reacter();
+        $reactant = factory(Reactant::class)->create();
+
+        $isReacted = $reactant->isReactedByWithType($reacter, $reactionType);
+
+        $this->assertFalse($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_not_reacted_by_reacter_with_type(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $otherReactionType = factory(ReactionType::class)->create();
+        $reacter = factory(Reacter::class)->create();
+        $reactant = factory(Reactant::class)->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $otherReactionType->getId(),
+            'reacter_id' => $reacter->getId(),
+            'reactant_id' => $reactant->getId(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
+        ]);
+
+        $isNotReacted = $reactant->isNotReactedByWithType($reacter, $reactionType);
+
+        $this->assertTrue($isNotReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_not_reacted_by_reacter_with_type_when_reacter_is_null_object(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = new NullReacter(new Bot());
+        $reactant = factory(Reactant::class)->create();
+
+        $isNotReacted = $reactant->isNotReactedByWithType($reacter, $reactionType);
+
+        $this->assertTrue($isNotReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_not_reacted_by_reacter_with_type_when_reacter_is_not_persisted(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = new Reacter();
+        $reactant = factory(Reactant::class)->create();
+
+        $isNotReacted = $reactant->isNotReactedByWithType($reacter, $reactionType);
+
+        $this->assertTrue($isNotReacted);
     }
 
     /** @test */
@@ -371,174 +542,6 @@ final class ReactantTest extends TestCase
         $nullReactant = new NullReactant(new Article());
 
         $this->assertTrue($reactant->isNotEqualTo($nullReactant));
-    }
-
-    /** @test */
-    public function it_can_check_is_reacted_by_reacter(): void
-    {
-        $reactionType = factory(ReactionType::class)->create();
-        $reacter = factory(Reacter::class)->create();
-        $reactant = factory(Reactant::class)->create();
-        factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getId(),
-            'reacter_id' => $reacter->getId(),
-            'reactant_id' => $reactant->getId(),
-        ]);
-
-        $isReacted = $reactant->isReactedBy($reacter);
-
-        $this->assertTrue($isReacted);
-    }
-
-    /** @test */
-    public function it_can_check_is_reacted_by_reacter_when_reacter_is_null_object(): void
-    {
-        $reacter = new NullReacter(new Bot());
-        $reactant = factory(Reactant::class)->create();
-
-        $isReacted = $reactant->isReactedBy($reacter);
-
-        $this->assertFalse($isReacted);
-    }
-
-    /** @test */
-    public function it_can_check_is_reacted_by_reacter_when_reacter_is_not_persisted(): void
-    {
-        $reacter = Reacter::query()->make();
-        $reactant = factory(Reactant::class)->create();
-
-        $isReacted = $reactant->isReactedBy($reacter);
-
-        $this->assertFalse($isReacted);
-    }
-
-    /** @test */
-    public function it_can_check_is_not_reacted_by_reacter(): void
-    {
-        $reactionType = factory(ReactionType::class)->create();
-        $reacter = factory(Reacter::class)->create();
-        $reactant = factory(Reactant::class)->create();
-        factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getId(),
-            'reacter_id' => $reacter->getId(),
-        ]);
-        factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getId(),
-            'reactant_id' => $reactant->getId(),
-        ]);
-
-        $isNotReacted = $reactant->isNotReactedBy($reacter);
-
-        $this->assertTrue($isNotReacted);
-    }
-
-    /** @test */
-    public function it_can_check_is_not_reacted_by_reacter_when_reacter_is_null_object(): void
-    {
-        $reacter = new NullReacter(new Bot());
-        $reactant = factory(Reactant::class)->create();
-
-        $isNotReacted = $reactant->isNotReactedBy($reacter);
-
-        $this->assertTrue($isNotReacted);
-    }
-
-    /** @test */
-    public function it_can_check_is_not_reacted_by_reacter_when_reacter_is_not_persisted(): void
-    {
-        $reacter = Reacter::query()->make();
-        $reactant = factory(Reactant::class)->create();
-
-        $isNotReacted = $reactant->isNotReactedBy($reacter);
-
-        $this->assertTrue($isNotReacted);
-    }
-
-    /** @test */
-    public function it_can_check_is_reacted_by_reacter_with_type(): void
-    {
-        $reactionType = factory(ReactionType::class)->create();
-        $reacter = factory(Reacter::class)->create();
-        $reactant = factory(Reactant::class)->create();
-        factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getId(),
-            'reacter_id' => $reacter->getId(),
-            'reactant_id' => $reactant->getId(),
-        ]);
-
-        $isReacted = $reactant->isReactedByWithType($reacter, $reactionType);
-
-        $this->assertTrue($isReacted);
-    }
-
-    /** @test */
-    public function it_can_check_is_reacted_by_reacter_with_type_when_reacter_is_null_object(): void
-    {
-        $reactionType = factory(ReactionType::class)->create();
-        $reacter = new NullReacter(new Bot());
-        $reactant = factory(Reactant::class)->create();
-
-        $isReacted = $reactant->isReactedByWithType($reacter, $reactionType);
-
-        $this->assertFalse($isReacted);
-    }
-
-    /** @test */
-    public function it_can_check_is_reacted_by_reacter_with_type_when_reacter_is_not_persisted(): void
-    {
-        $reactionType = factory(ReactionType::class)->create();
-        $reacter = Reacter::query()->make();
-        $reactant = factory(Reactant::class)->create();
-
-        $isReacted = $reactant->isReactedByWithType($reacter, $reactionType);
-
-        $this->assertFalse($isReacted);
-    }
-
-    /** @test */
-    public function it_can_check_is_not_reacted_by_reacter_with_type(): void
-    {
-        $reactionType = factory(ReactionType::class)->create();
-        $otherReactionType = factory(ReactionType::class)->create();
-        $reacter = factory(Reacter::class)->create();
-        $reactant = factory(Reactant::class)->create();
-        factory(Reaction::class)->create([
-            'reaction_type_id' => $otherReactionType->getId(),
-            'reacter_id' => $reacter->getId(),
-            'reactant_id' => $reactant->getId(),
-        ]);
-        factory(Reaction::class)->create([
-            'reaction_type_id' => $reactionType->getId(),
-            'reactant_id' => $reactant->getId(),
-        ]);
-
-        $isNotReacted = $reactant->isNotReactedByWithType($reacter, $reactionType);
-
-        $this->assertTrue($isNotReacted);
-    }
-
-    /** @test */
-    public function it_can_check_is_not_reacted_by_reacter_with_type_when_reacter_is_null_object(): void
-    {
-        $reactionType = factory(ReactionType::class)->create();
-        $reacter = new NullReacter(new Bot());
-        $reactant = factory(Reactant::class)->create();
-
-        $isNotReacted = $reactant->isNotReactedByWithType($reacter, $reactionType);
-
-        $this->assertTrue($isNotReacted);
-    }
-
-    /** @test */
-    public function it_can_check_is_not_reacted_by_reacter_with_type_when_reacter_is_not_persisted(): void
-    {
-        $reactionType = factory(ReactionType::class)->create();
-        $reacter = Reacter::query()->make();
-        $reactant = factory(Reactant::class)->create();
-
-        $isNotReacted = $reactant->isNotReactedByWithType($reacter, $reactionType);
-
-        $this->assertTrue($isNotReacted);
     }
 
     /** @test */
