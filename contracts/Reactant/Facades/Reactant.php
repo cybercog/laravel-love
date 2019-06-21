@@ -19,6 +19,10 @@ use Cog\Contracts\Love\Reacterable\Models\Reacterable;
 
 interface Reactant
 {
+    public function getReactions(): iterable;
+
+    public function getReactionCounters(): iterable;
+
     public function getReactionCounterOfType(string $reactionTypeName): ReactionCounter;
 
     public function getReactionTotal(): ReactionTotal;

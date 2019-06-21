@@ -27,6 +27,11 @@ final class Reacter implements ReacterFacadeContract
         $this->reacter = $reacter;
     }
 
+    public function getReactions(): iterable
+    {
+        return $this->reacter->getReactions();
+    }
+
     public function reactTo(
         ReactableContract $reactable,
         string $reactionTypeName
