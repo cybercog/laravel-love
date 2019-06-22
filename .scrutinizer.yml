@@ -1,0 +1,8 @@
+checks:
+  php: true
+
+coding_style:
+  php:
+    spaces:
+      before_parentheses:
+        closure_definition: true
