@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-use Illuminate\Database\Migrations\Migration;
+use Cog\Laravel\Love\Support\Database\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
@@ -24,7 +24,7 @@ final class CreateLoveReactionTypesTable extends Migration
      */
     public function up(): void
     {
-        Schema::connection(COG_LOVE_DB_CONNECTION)->create('love_reaction_types', function (Blueprint $table) {
+        Schema::create('love_reaction_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->tinyInteger('weight');
@@ -41,6 +41,6 @@ final class CreateLoveReactionTypesTable extends Migration
      */
     public function down(): void
     {
-        Schema::connection(COG_LOVE_DB_CONNECTION)->dropIfExists('love_reaction_types');
+        Schema::dropIfExists('love_reaction_types');
     }
 }

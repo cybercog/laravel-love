@@ -16,7 +16,7 @@ namespace Cog\Laravel\Love\ReactionType\Models;
 use Cog\Contracts\Love\ReactionType\Exceptions\ReactionTypeInvalid;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
-use Illuminate\Database\Eloquent\Model;
+use Cog\Laravel\Love\Support\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class ReactionType extends Model implements
@@ -47,11 +47,6 @@ final class ReactionType extends Model implements
         self::deleted(function (ReactionTypeContract $reactionType) {
             unset(self::$nameCache[$reactionType->getName()]);
         });
-    }
-
-    public function getConnectionName(): ?string
-    {
-        return COG_LOVE_DB_CONNECTION ?? $this->connection;
     }
 
     public function reactions(): HasMany
