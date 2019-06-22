@@ -23,7 +23,7 @@ interface Reacter
 
     public function unreactTo(Reactable $reactable, string $reactionTypeName): void;
 
-    public function isReactedTo(Reactable $reactable, ?string $reactionTypeName = null): bool;
+    public function hasReactedTo(Reactable $reactable, ?string $reactionTypeName = null): bool;
 
-    public function isNotReactedTo(Reactable $reactable, ?string $reactionTypeName = null): bool;
+    public function hasNotReactedTo(Reactable $reactable, ?string $reactionTypeName = null): bool;
 }
