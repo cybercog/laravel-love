@@ -49,6 +49,11 @@ final class ReactionType extends Model implements
         });
     }
 
+    public function getConnectionName(): ?string
+    {
+        return COG_LOVE_DB_CONNECTION ?? $this->connection;
+    }
+
     public function reactions(): HasMany
     {
         return $this->hasMany(Reaction::class, 'reaction_type_id');

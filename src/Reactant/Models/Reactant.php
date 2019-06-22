@@ -46,6 +46,11 @@ final class Reactant extends Model implements
         'id' => 'string',
     ];
 
+    public function getConnectionName(): ?string
+    {
+        return COG_LOVE_DB_CONNECTION ?? $this->connection;
+    }
+
     public function reactable(): MorphTo
     {
         return $this->morphTo('reactable', 'type', 'id', 'love_reactant_id');

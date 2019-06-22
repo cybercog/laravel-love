@@ -24,7 +24,7 @@ return [
         |
         */
 
-        'connection' => 'main',
+        'connection' => null,
     ],
 
 ];

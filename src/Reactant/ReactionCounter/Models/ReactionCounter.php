@@ -37,6 +37,11 @@ final class ReactionCounter extends Model implements
         'weight' => 'integer',
     ];
 
+    public function getConnectionName(): ?string
+    {
+        return COG_LOVE_DB_CONNECTION ?? $this->connection;
+    }
+
     public function reactant(): BelongsTo
     {
         return $this->belongsTo(Reactant::class, 'reactant_id');
