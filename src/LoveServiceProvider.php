@@ -52,7 +52,7 @@ final class LoveServiceProvider extends ServiceProvider
         $this->registerPublishes();
         $this->registerMigrations();
         $this->registerListeners();
-        $this->registerConstants();
+        $this->defineConstants();
     }
 
     /**
@@ -124,6 +124,11 @@ final class LoveServiceProvider extends ServiceProvider
         Event::listen(ReactionHasBeenRemoved::class, DecrementAggregates::class);
     }
 
+    /**
+     * Merge Love configuration with the application configuration.
+     *
+     * @return void
+     */
     private function configure(): void
     {
         if (!$this->app->configurationIsCached()) {
@@ -136,16 +141,24 @@ final class LoveServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    private function registerConstants(): void
+    private function defineConstants(): void
     {
         if (!defined('COG_LOVE_DB_CONNECTION')) {
-            try {
-                $connection = $this->app->make('config')->get('love.database.connection');
-            } catch (BindingResolutionException $e) {
-                $connection = null;
-            }
+            define('COG_LOVE_DB_CONNECTION', $this->getDefaultDatabaseConnection());
+        }
+    }
 
-            define('COG_LOVE_DB_CONNECTION', $connection);
+    /**
+     * Get default database connection for Love models.
+     *
+     * @return string|null
+     */
+    private function getDefaultDatabaseConnection(): ?string
+    {
+        try {
+            return $this->app->make('config')->get('love.database.connection');
+        } catch (BindingResolutionException $exception) {
+            return null;
         }
     }
 }
