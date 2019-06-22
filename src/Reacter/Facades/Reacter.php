@@ -52,7 +52,7 @@ final class Reacter implements ReacterFacadeContract
         );
     }
 
-    public function isReactedTo(
+    public function hasReactedTo(
         ReactableContract $reactable,
         ?string $reactionTypeName = null
     ): bool {
@@ -68,7 +68,7 @@ final class Reacter implements ReacterFacadeContract
         );
     }
 
-    public function isNotReactedTo(
+    public function hasNotReactedTo(
         ReactableContract $reactable,
         ?string $reactionTypeName = null
     ): bool {
