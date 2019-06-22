@@ -45,6 +45,7 @@ final class LoveServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->configure();
         $this->registerConsoleCommands();
         $this->registerObservers();
         $this->registerPublishes();
@@ -89,6 +90,10 @@ final class LoveServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
+                __DIR__ . '/../config/love.php' => config_path('love.php'),
+            ], 'love-config');
+
+            $this->publishes([
                 __DIR__ . '/../database/migrations' => database_path('migrations'),
             ], 'love-migrations');
         }
@@ -115,5 +120,12 @@ final class LoveServiceProvider extends ServiceProvider
     {
         Event::listen(ReactionHasBeenAdded::class, IncrementAggregates::class);
         Event::listen(ReactionHasBeenRemoved::class, DecrementAggregates::class);
+    }
+
+    private function configure(): void
+    {
+        if (!$this->app->configurationIsCached()) {
+            $this->mergeConfigFrom(__DIR__ . '/../config/love.php', 'love');
+        }
     }
 }
