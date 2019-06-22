@@ -6,7 +6,7 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ### Changed
 
-- ([#70](https://github.com/cybercog/laravel-love/pull/70)) `hasReactedTo` & `hasNotReactedTo` methods names of `Reacter` facade were changed
+- ([#70](https://github.com/cybercog/laravel-love/pull/70)) `isReactedTo` & `isNotReactedTo` methods names of `Reacter` facade were changed to `hasReactedTo` & `hasNotReactedTo`
 
 ## [7.0.0] - 2019-06-22
 
