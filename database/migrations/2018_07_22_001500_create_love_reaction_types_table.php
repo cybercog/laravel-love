@@ -24,7 +24,7 @@ final class CreateLoveReactionTypesTable extends Migration
      */
     public function up(): void
     {
-        Schema::create('love_reaction_types', function (Blueprint $table) {
+        Schema::connection(COG_LOVE_DB_CONNECTION)->create('love_reaction_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->tinyInteger('weight');
@@ -41,6 +41,6 @@ final class CreateLoveReactionTypesTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('love_reaction_types');
+        Schema::connection(COG_LOVE_DB_CONNECTION)->dropIfExists('love_reaction_types');
     }
 }

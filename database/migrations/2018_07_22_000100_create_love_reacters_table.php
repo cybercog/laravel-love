@@ -24,7 +24,7 @@ final class CreateLoveReactersTable extends Migration
      */
     public function up(): void
     {
-        Schema::create('love_reacters', function (Blueprint $table) {
+        Schema::connection(COG_LOVE_DB_CONNECTION)->create('love_reacters', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('type');
             $table->timestamps();
@@ -40,6 +40,6 @@ final class CreateLoveReactersTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('love_reacters');
+        Schema::connection(COG_LOVE_DB_CONNECTION)->dropIfExists('love_reacters');
     }
 }

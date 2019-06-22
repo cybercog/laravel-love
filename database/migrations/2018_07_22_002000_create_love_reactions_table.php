@@ -24,7 +24,7 @@ final class CreateLoveReactionsTable extends Migration
      */
     public function up(): void
     {
-        Schema::create('love_reactions', function (Blueprint $table) {
+        Schema::connection(COG_LOVE_DB_CONNECTION)->create('love_reactions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('reactant_id');
             $table->unsignedBigInteger('reacter_id');
@@ -74,6 +74,6 @@ final class CreateLoveReactionsTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('love_reactions');
+        Schema::connection(COG_LOVE_DB_CONNECTION)->dropIfExists('love_reactions');
     }
 }
