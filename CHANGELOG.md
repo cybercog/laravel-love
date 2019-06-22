@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-love` will be documented in this file.
 
+## [7.0.1] - 2019-06-22
+
+### Changed
+
+- ([#70](https://github.com/cybercog/laravel-love/pull/70)) `hasReactedTo` & `hasNotReactedTo` methods names of `Reacter` facade were changed
+
 ## [7.0.0] - 2019-06-22
 
 ### Added
@@ -260,6 +266,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 
 - Initial release
 
+[7.0.1]: https://github.com/cybercog/laravel-love/compare/7.0.0...7.0.1
 [7.0.0]: https://github.com/cybercog/laravel-love/compare/6.2.1...7.0.0
 [6.2.1]: https://github.com/cybercog/laravel-love/compare/6.2.0...6.2.1
 [6.2.0]: https://github.com/cybercog/laravel-love/compare/6.1.0...6.2.0
