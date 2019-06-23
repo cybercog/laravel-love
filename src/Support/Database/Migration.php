@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Support\Database;
 
-use Illuminate\Database\Migrations\Migration as BaseMigration;
+use Illuminate\Database\Migrations\Migration as IlluminateMigration;
 use Illuminate\Support\Facades\Config;
 
-abstract class Migration extends BaseMigration
+abstract class Migration extends IlluminateMigration
 {
     /**
      * Get the migration connection name.
