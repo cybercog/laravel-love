@@ -36,7 +36,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Determine if default package migrations should be registered.
-    | Set `false` value when using customized migrations.
+    | Set value to `false` when using customized migrations.
     |
     */
 

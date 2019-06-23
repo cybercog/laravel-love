@@ -55,6 +55,16 @@ final class LoveServiceProvider extends ServiceProvider
     }
 
     /**
+     * Determine if we should register default migrations.
+     *
+     * @return bool
+     */
+    private function shouldLoadDefaultMigrations(): bool
+    {
+        return Config::get('love.load_default_migrations', true);
+    }
+
+    /**
      * Register Love's models observers.
      *
      * @return void
@@ -133,15 +143,5 @@ final class LoveServiceProvider extends ServiceProvider
         if (!$this->app->configurationIsCached()) {
             $this->mergeConfigFrom(__DIR__ . '/../config/love.php', 'love');
         }
-    }
-
-    /**
-     * Determine if we should register default migrations.
-     *
-     * @return bool
-     */
-    protected function shouldLoadDefaultMigrations(): bool
-    {
-        return Config::get('love.load_default_migrations', true);
     }
 }
