@@ -16,7 +16,7 @@ namespace Cog\Laravel\Love\ReactionType\Models;
 use Cog\Contracts\Love\ReactionType\Exceptions\ReactionTypeInvalid;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
-use Illuminate\Database\Eloquent\Model;
+use Cog\Laravel\Love\Support\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class ReactionType extends Model implements

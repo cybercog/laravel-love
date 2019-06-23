@@ -22,7 +22,7 @@ use Cog\Contracts\Love\Reaction\Exceptions\ReactionAlreadyExists;
 use Cog\Contracts\Love\Reaction\Exceptions\ReactionNotExists;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
-use Illuminate\Database\Eloquent\Model;
+use Cog\Laravel\Love\Support\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 

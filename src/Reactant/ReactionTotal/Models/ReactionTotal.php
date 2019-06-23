@@ -16,7 +16,7 @@ namespace Cog\Laravel\Love\Reactant\ReactionTotal\Models;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalContract;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
-use Illuminate\Database\Eloquent\Model;
+use Cog\Laravel\Love\Support\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 final class ReactionTotal extends Model implements

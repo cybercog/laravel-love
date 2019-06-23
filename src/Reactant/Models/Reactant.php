@@ -28,7 +28,7 @@ use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
-use Illuminate\Database\Eloquent\Model;
+use Cog\Laravel\Love\Support\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;

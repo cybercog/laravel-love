@@ -20,7 +20,7 @@ use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
-use Illuminate\Database\Eloquent\Model;
+use Cog\Laravel\Love\Support\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 final class Reaction extends Model implements
