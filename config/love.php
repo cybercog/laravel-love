@@ -30,4 +30,16 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Love Database Migrations
+    |--------------------------------------------------------------------------
+    |
+    | Determine if default package migrations should be registered.
+    | Set `false` value when using customized migrations.
+    |
+    */
+
+    'load_default_migrations' => true,
+
 ];
