@@ -24,8 +24,6 @@ return [
     |
     */
 
-    'driver' => env('LOVE_STORAGE_DRIVER', 'database'),
-
     'storage' => [
         'database' => [
             'connection' => env('DB_CONNECTION', 'mysql'),
