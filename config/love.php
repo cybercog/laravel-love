@@ -13,18 +13,23 @@ declare(strict_types=1);
 
 return [
 
-    'database' => [
-        /*
-        |--------------------------------------------------------------------------
-        | Default Database Connection Name
-        |--------------------------------------------------------------------------
-        |
-        | Here you may specify which of the database connections you wish
-        | to use as your default connection for all package database work.
-        |
-        */
+    /*
+    |--------------------------------------------------------------------------
+    | Love Storage Driver
+    |--------------------------------------------------------------------------
+    |
+    | This configuration options determines the storage driver that will
+    | be used to store Love's data. In addition, you may set any
+    | custom options as needed by the particular driver you choose.
+    |
+    */
 
-        'connection' => null,
+    'driver' => env('LOVE_STORAGE_DRIVER', 'database'),
+
+    'storage' => [
+        'database' => [
+            'connection' => env('DB_CONNECTION', 'mysql'),
+        ],
     ],
 
 ];

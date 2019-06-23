@@ -14,18 +14,17 @@ declare(strict_types=1);
 namespace Cog\Laravel\Love\Support\Database;
 
 use Illuminate\Database\Migrations\Migration as BaseMigration;
+use Illuminate\Support\Facades\Config;
 
 abstract class Migration extends BaseMigration
 {
     /**
      * Get the migration connection name.
      *
-     * @return string
+     * @return null|string
      */
     public function getConnection(): ?string
     {
-        return defined('COG_LOVE_DB_CONNECTION')
-            ? COG_LOVE_DB_CONNECTION
-            : $this->connection;
+        return Config::get('love.storage.database.connection');
     }
 }

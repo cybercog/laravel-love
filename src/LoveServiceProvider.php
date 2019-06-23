@@ -24,7 +24,6 @@ use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenAdded;
 use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenRemoved;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\Reaction\Observers\ReactionObserver;
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
@@ -52,7 +51,6 @@ final class LoveServiceProvider extends ServiceProvider
         $this->registerPublishes();
         $this->registerMigrations();
         $this->registerListeners();
-        $this->defineConstants();
     }
 
     /**
@@ -133,32 +131,6 @@ final class LoveServiceProvider extends ServiceProvider
     {
         if (!$this->app->configurationIsCached()) {
             $this->mergeConfigFrom(__DIR__ . '/../config/love.php', 'love');
-        }
-    }
-
-    /**
-     * Register the Love constants.
-     *
-     * @return void
-     */
-    private function defineConstants(): void
-    {
-        if (!defined('COG_LOVE_DB_CONNECTION')) {
-            define('COG_LOVE_DB_CONNECTION', $this->getDefaultDatabaseConnection());
-        }
-    }
-
-    /**
-     * Get default database connection for Love models.
-     *
-     * @return string|null
-     */
-    private function getDefaultDatabaseConnection(): ?string
-    {
-        try {
-            return $this->app->make('config')->get('love.database.connection');
-        } catch (BindingResolutionException $exception) {
-            return null;
         }
     }
 }

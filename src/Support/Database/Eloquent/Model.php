@@ -14,18 +14,17 @@ declare(strict_types=1);
 namespace Cog\Laravel\Love\Support\Database\Eloquent;
 
 use Illuminate\Database\Eloquent\Model as EloquentModel;
+use Illuminate\Support\Facades\Config;
 
 abstract class Model extends EloquentModel
 {
     /**
      * Get the current connection name for the model.
      *
-     * @return string
+     * @return null|string
      */
     public function getConnectionName(): ?string
     {
-        return defined('COG_LOVE_DB_CONNECTION')
-            ? COG_LOVE_DB_CONNECTION
-            : $this->connection;
+        return Config::get('love.storage.database.connection');
     }
 }
