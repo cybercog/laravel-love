@@ -29,10 +29,24 @@ This package developed in mind that it should cover all the possible use cases a
 
 Documentation can be found in [Laravel Love Guide](https://laravel-love.readme.io/docs).
 
+## Installation
+
+Pull in the package through Composer.
+
+```sh
+$ composer require cybercog/laravel-love
+```
+
+Run database migrations.
+
+```sh
+$ php artisan migrate
+```
+
 ## License
 
 - `Laravel Love` package is open-sourced software licensed under the [MIT license](LICENSE) by [Anton Komarev](https://komarev.com).
-- `Devil` image licensed under [Creative Commons 3.0](https://creativecommons.org/licenses/by/3.0/us/) by YuguDesign.
+- `Devil` logo image licensed under [Creative Commons 3.0](https://creativecommons.org/licenses/by/3.0/us/) by YuguDesign.
 
 ## About CyberCog
 
