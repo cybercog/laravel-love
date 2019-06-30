@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-love` will be documented in this file.
 
+## [7.2.0] - 2019-07-01
+
+### Added
+
+- ([#72](https://github.com/cybercog/laravel-love/pull/72)) Default migrations loading configuration
+
 ## [7.1.0] - 2019-06-23
 
 ### Added
@@ -272,6 +278,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 
 - Initial release
 
+[7.2.0]: https://github.com/cybercog/laravel-love/compare/7.1.0...7.2.0
 [7.1.0]: https://github.com/cybercog/laravel-love/compare/7.0.1...7.1.0
 [7.0.1]: https://github.com/cybercog/laravel-love/compare/7.0.0...7.0.1
 [7.0.0]: https://github.com/cybercog/laravel-love/compare/6.2.1...7.0.0
