@@ -24,6 +24,7 @@ use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenAdded;
 use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenRemoved;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\Reaction\Observers\ReactionObserver;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
@@ -51,6 +52,16 @@ final class LoveServiceProvider extends ServiceProvider
         $this->registerPublishes();
         $this->registerMigrations();
         $this->registerListeners();
+    }
+
+    /**
+     * Determine if we should register default migrations.
+     *
+     * @return bool
+     */
+    private function shouldLoadDefaultMigrations(): bool
+    {
+        return Config::get('love.load_default_migrations', true);
     }
 
     /**
@@ -106,7 +117,7 @@ final class LoveServiceProvider extends ServiceProvider
      */
     private function registerMigrations(): void
     {
-        if ($this->app->runningInConsole()) {
+        if ($this->app->runningInConsole() && $this->shouldLoadDefaultMigrations()) {
             $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         }
     }
