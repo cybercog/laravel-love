@@ -23,6 +23,7 @@ use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\Stubs\Models\Bot;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
+use Illuminate\Support\Collection;
 use TypeError;
 
 final class NullReacterTest extends TestCase
@@ -57,6 +58,16 @@ final class NullReacterTest extends TestCase
 
         $this->assertCount(0, $reactions);
         $this->assertIsIterable($reactions);
+    }
+
+    /** @test */
+    public function it_can_get_reactions_collection(): void
+    {
+        $reacter = new NullReacter(new User());
+
+        $reactions = $reacter->getReactions();
+
+        $this->assertInstanceOf(Collection::class, $reactions);
     }
 
     /** @test */
