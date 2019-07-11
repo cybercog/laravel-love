@@ -21,6 +21,7 @@ There are many different implementations in modern applications:
 - Facebook Reactions
 - YouTube Likes
 - Slack Reactions
+- Reddit Votes
 - Medium Claps
 
 This package developed in mind that it should cover all the possible use cases and be viable in enterprise applications.
