@@ -18,6 +18,7 @@ use Cog\Contracts\Love\Reacter\Exceptions\ReacterInvalid;
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
 use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType;
+use Illuminate\Support\Collection;
 use TypeError;
 
 final class NullReacter implements
@@ -43,7 +44,7 @@ final class NullReacter implements
 
     public function getReactions(): iterable
     {
-        return [];
+        return new Collection();
     }
 
     public function reactTo(

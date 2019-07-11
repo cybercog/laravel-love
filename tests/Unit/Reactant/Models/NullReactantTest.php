@@ -22,6 +22,7 @@ use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\TestCase;
+use Illuminate\Support\Collection;
 use TypeError;
 
 final class NullReactantTest extends TestCase
@@ -59,6 +60,16 @@ final class NullReactantTest extends TestCase
     }
 
     /** @test */
+    public function it_can_get_reactions_collection(): void
+    {
+        $reactant = new NullReactant(new Article());
+
+        $reactions = $reactant->getReactions();
+
+        $this->assertInstanceOf(Collection::class, $reactions);
+    }
+
+    /** @test */
     public function it_can_get_reaction_counters(): void
     {
         $reactant = new NullReactant(new Article());
@@ -67,6 +78,16 @@ final class NullReactantTest extends TestCase
 
         $this->assertCount(0, $counters);
         $this->assertIsIterable($counters);
+    }
+
+    /** @test */
+    public function it_can_get_reaction_counters_collection(): void
+    {
+        $reactant = new NullReactant(new Article());
+
+        $counters = $reactant->getReactionCounters();
+
+        $this->assertInstanceOf(Collection::class, $counters);
     }
 
     /** @test */
