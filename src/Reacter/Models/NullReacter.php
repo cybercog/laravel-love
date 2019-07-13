@@ -61,28 +61,16 @@ final class NullReacter implements
         throw ReacterInvalid::notExists();
     }
 
-    public function isReactedTo(
-        Reactant $reactant
+    public function hasReactedTo(
+        Reactant $reactant,
+        ?ReactionType $reactionType = null
     ): bool {
         return false;
     }
 
-    public function isNotReactedTo(
-        Reactant $reactant
-    ): bool {
-        return true;
-    }
-
-    public function isReactedToWithType(
+    public function hasNotReactedTo(
         Reactant $reactant,
-        ReactionType $reactionType
-    ): bool {
-        return false;
-    }
-
-    public function isNotReactedToWithType(
-        Reactant $reactant,
-        ReactionType $reactionType
+        ?ReactionType $reactionType = null
     ): bool {
         return true;
     }

@@ -39,13 +39,9 @@ interface Reactant
 
     public function getReactionTotal(): ReactionTotal;
 
-    public function isReactedBy(Reacter $reacter): bool;
+    public function isReactedBy(Reacter $reacter, ?ReactionType $reactionType = null): bool;
 
-    public function isNotReactedBy(Reacter $reacter): bool;
-
-    public function isReactedByWithType(Reacter $reacter, ReactionType $type): bool;
-
-    public function isNotReactedByWithType(Reacter $reacter, ReactionType $type): bool;
+    public function isNotReactedBy(Reacter $reacter, ?ReactionType $reactionType = null): bool;
 
     public function isEqualTo(self $that): bool;
 

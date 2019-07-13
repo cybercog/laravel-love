@@ -292,7 +292,7 @@ final class ReacterTest extends TestCase
             'reactant_id' => $reactant->getId(),
         ]);
 
-        $isReacted = $reacter->isReactedTo($reactant);
+        $isReacted = $reacter->hasReactedTo($reactant);
 
         $this->assertTrue($isReacted);
     }
@@ -303,7 +303,7 @@ final class ReacterTest extends TestCase
         $reacter = factory(Reacter::class)->create();
         $reactant = new NullReactant(new Article());
 
-        $isReacted = $reacter->isReactedTo($reactant);
+        $isReacted = $reacter->hasReactedTo($reactant);
 
         $this->assertFalse($isReacted);
     }
@@ -314,7 +314,7 @@ final class ReacterTest extends TestCase
         $reacter = factory(Reacter::class)->create();
         $reactant = Reactant::query()->make();
 
-        $isReacted = $reacter->isReactedTo($reactant);
+        $isReacted = $reacter->hasReactedTo($reactant);
 
         $this->assertFalse($isReacted);
     }
@@ -334,7 +334,7 @@ final class ReacterTest extends TestCase
             'reactant_id' => $reactant->getId(),
         ]);
 
-        $isNotReacted = $reacter->isNotReactedTo($reactant);
+        $isNotReacted = $reacter->hasNotReactedTo($reactant);
 
         $this->assertTrue($isNotReacted);
     }
@@ -345,7 +345,7 @@ final class ReacterTest extends TestCase
         $reacter = factory(Reacter::class)->create();
         $reactant = new NullReactant(new Article());
 
-        $isNotReacted = $reacter->isNotReactedTo($reactant);
+        $isNotReacted = $reacter->hasNotReactedTo($reactant);
 
         $this->assertTrue($isNotReacted);
     }
@@ -356,7 +356,7 @@ final class ReacterTest extends TestCase
         $reacter = factory(Reacter::class)->create();
         $reactant = Reactant::query()->make();
 
-        $isNotReacted = $reacter->isNotReactedTo($reactant);
+        $isNotReacted = $reacter->hasNotReactedTo($reactant);
 
         $this->assertTrue($isNotReacted);
     }
@@ -373,7 +373,7 @@ final class ReacterTest extends TestCase
             'reactant_id' => $reactant->getId(),
         ]);
 
-        $isReacted = $reacter->isReactedToWithType($reactant, $reactionType);
+        $isReacted = $reacter->hasReactedTo($reactant, $reactionType);
 
         $this->assertTrue($isReacted);
     }
@@ -385,7 +385,7 @@ final class ReacterTest extends TestCase
         $reacter = factory(Reacter::class)->create();
         $reactant = new NullReactant(new Article());
 
-        $isReacted = $reacter->isReactedToWithType($reactant, $reactionType);
+        $isReacted = $reacter->hasReactedTo($reactant, $reactionType);
 
         $this->assertFalse($isReacted);
     }
@@ -397,7 +397,7 @@ final class ReacterTest extends TestCase
         $reacter = factory(Reacter::class)->create();
         $reactant = Reactant::query()->make();
 
-        $isReacted = $reacter->isReactedToWithType($reactant, $reactionType);
+        $isReacted = $reacter->hasReactedTo($reactant, $reactionType);
 
         $this->assertFalse($isReacted);
     }
@@ -419,7 +419,7 @@ final class ReacterTest extends TestCase
             'reactant_id' => $reactant->getId(),
         ]);
 
-        $isNotReacted = $reacter->isNotReactedToWithType($reactant, $reactionType);
+        $isNotReacted = $reacter->hasNotReactedTo($reactant, $reactionType);
 
         $this->assertTrue($isNotReacted);
     }
@@ -431,7 +431,7 @@ final class ReacterTest extends TestCase
         $reacter = factory(Reacter::class)->create();
         $reactant = new NullReactant(new Article());
 
-        $isNotReacted = $reacter->isNotReactedToWithType($reactant, $reactionType);
+        $isNotReacted = $reacter->hasNotReactedTo($reactant, $reactionType);
 
         $this->assertTrue($isNotReacted);
     }
@@ -443,7 +443,7 @@ final class ReacterTest extends TestCase
         $reacter = factory(Reacter::class)->create();
         $reactant = Reactant::query()->make();
 
-        $isNotReacted = $reacter->isNotReactedToWithType($reactant, $reactionType);
+        $isNotReacted = $reacter->hasNotReactedTo($reactant, $reactionType);
 
         $this->assertTrue($isNotReacted);
     }

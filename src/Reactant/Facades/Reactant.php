@@ -62,7 +62,7 @@ final class Reactant implements ReacterFacadeContract
             );
         }
 
-        return $this->reactant->isReactedByWithType(
+        return $this->reactant->isReactedBy(
             $reacterable->getLoveReacter(),
             ReactionType::fromName($reactionTypeName)
         );
@@ -78,7 +78,7 @@ final class Reactant implements ReacterFacadeContract
             );
         }
 
-        return $this->reactant->isNotReactedByWithType(
+        return $this->reactant->isNotReactedBy(
             $reacterable->getLoveReacter(),
             ReactionType::fromName($reactionTypeName)
         );

@@ -68,27 +68,15 @@ final class NullReactant implements
     }
 
     public function isReactedBy(
-        ReacterContract $reacter
+        ReacterContract $reacter,
+        ?ReactionTypeContract $reactionType = null
     ): bool {
         return false;
     }
 
     public function isNotReactedBy(
-        ReacterContract $reacter
-    ): bool {
-        return true;
-    }
-
-    public function isReactedByWithType(
         ReacterContract $reacter,
-        ReactionTypeContract $reactionType
-    ): bool {
-        return false;
-    }
-
-    public function isNotReactedByWithType(
-        ReacterContract $reacter,
-        ReactionTypeContract $reactionType
+        ?ReactionTypeContract $reactionType = null
     ): bool {
         return true;
     }

@@ -399,7 +399,7 @@ final class ReactantTest extends TestCase
             'reactant_id' => $reactant->getId(),
         ]);
 
-        $isReacted = $reactant->isReactedByWithType($reacter, $reactionType);
+        $isReacted = $reactant->isReactedBy($reacter, $reactionType);
 
         $this->assertTrue($isReacted);
     }
@@ -411,7 +411,7 @@ final class ReactantTest extends TestCase
         $reacter = new NullReacter(new Bot());
         $reactant = factory(Reactant::class)->create();
 
-        $isReacted = $reactant->isReactedByWithType($reacter, $reactionType);
+        $isReacted = $reactant->isReactedBy($reacter, $reactionType);
 
         $this->assertFalse($isReacted);
     }
@@ -423,7 +423,7 @@ final class ReactantTest extends TestCase
         $reacter = new Reacter();
         $reactant = factory(Reactant::class)->create();
 
-        $isReacted = $reactant->isReactedByWithType($reacter, $reactionType);
+        $isReacted = $reactant->isReactedBy($reacter, $reactionType);
 
         $this->assertFalse($isReacted);
     }
@@ -445,7 +445,7 @@ final class ReactantTest extends TestCase
             'reactant_id' => $reactant->getId(),
         ]);
 
-        $isNotReacted = $reactant->isNotReactedByWithType($reacter, $reactionType);
+        $isNotReacted = $reactant->isNotReactedBy($reacter, $reactionType);
 
         $this->assertTrue($isNotReacted);
     }
@@ -457,7 +457,7 @@ final class ReactantTest extends TestCase
         $reacter = new NullReacter(new Bot());
         $reactant = factory(Reactant::class)->create();
 
-        $isNotReacted = $reactant->isNotReactedByWithType($reacter, $reactionType);
+        $isNotReacted = $reactant->isNotReactedBy($reacter, $reactionType);
 
         $this->assertTrue($isNotReacted);
     }
@@ -469,7 +469,7 @@ final class ReactantTest extends TestCase
         $reacter = new Reacter();
         $reactant = factory(Reactant::class)->create();
 
-        $isNotReacted = $reactant->isNotReactedByWithType($reacter, $reactionType);
+        $isNotReacted = $reactant->isNotReactedBy($reacter, $reactionType);
 
         $this->assertTrue($isNotReacted);
     }

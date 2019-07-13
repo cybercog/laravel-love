@@ -57,12 +57,12 @@ final class Reacter implements ReacterFacadeContract
         ?string $reactionTypeName = null
     ): bool {
         if (is_null($reactionTypeName)) {
-            return $this->reacter->isReactedTo(
+            return $this->reacter->hasReactedTo(
                 $reactable->getLoveReactant()
             );
         }
 
-        return $this->reacter->isReactedToWithType(
+        return $this->reacter->hasReactedTo(
             $reactable->getLoveReactant(),
             ReactionType::fromName($reactionTypeName)
         );
@@ -73,12 +73,12 @@ final class Reacter implements ReacterFacadeContract
         ?string $reactionTypeName = null
     ): bool {
         if (is_null($reactionTypeName)) {
-            return $this->reacter->isNotReactedTo(
+            return $this->reacter->hasNotReactedTo(
                 $reactable->getLoveReactant()
             );
         }
 
-        return $this->reacter->isNotReactedToWithType(
+        return $this->reacter->hasNotReactedTo(
             $reactable->getLoveReactant(),
             ReactionType::fromName($reactionTypeName)
         );

@@ -116,10 +116,27 @@ final class Reactant extends Model implements
     }
 
     public function isReactedBy(
-        ReacterContract $reacter
+        ReacterContract $reacter,
+        ?ReactionTypeContract $reactionType = null
     ): bool {
         if ($reacter->isNull()) {
             return false;
+        }
+
+        if (!is_null($reactionType)) {
+            if ($this->relationLoaded('reactions')) {
+                return $this
+                    ->getAttribute('reactions')
+                    ->contains(function (ReactionContract $reaction) use ($reacter, $reactionType) {
+                        return $reaction->isByReacter($reacter)
+                            && $reaction->isOfType($reactionType);
+                    });
+            }
+
+            return $this->reactions()->where([
+                'reaction_type_id' => $reactionType->getId(),
+                'reacter_id' => $reacter->getId(),
+            ])->exists();
         }
 
         // TODO: Test if relation was loaded partially
@@ -137,40 +154,10 @@ final class Reactant extends Model implements
     }
 
     public function isNotReactedBy(
-        ReacterContract $reacter
-    ): bool {
-        return !$this->isReactedBy($reacter);
-    }
-
-    public function isReactedByWithType(
         ReacterContract $reacter,
-        ReactionTypeContract $reactionType
+        ?ReactionTypeContract $reactionType = null
     ): bool {
-        if ($reacter->isNull()) {
-            return false;
-        }
-
-        // TODO: Test if relation was loaded partially
-        if ($this->relationLoaded('reactions')) {
-            return $this
-                ->getAttribute('reactions')
-                ->contains(function (ReactionContract $reaction) use ($reacter, $reactionType) {
-                    return $reaction->isByReacter($reacter)
-                        && $reaction->isOfType($reactionType);
-                });
-        }
-
-        return $this->reactions()->where([
-            'reaction_type_id' => $reactionType->getId(),
-            'reacter_id' => $reacter->getId(),
-        ])->exists();
-    }
-
-    public function isNotReactedByWithType(
-        ReacterContract $reacter,
-        ReactionTypeContract $reactionType
-    ): bool {
-        return !$this->isReactedByWithType($reacter, $reactionType);
+        return !$this->isReactedBy($reacter, $reactionType);
     }
 
     public function isEqualTo(

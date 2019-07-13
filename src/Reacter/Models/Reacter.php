@@ -78,7 +78,7 @@ final class Reacter extends Model implements
             throw ReactantInvalid::notExists();
         }
 
-        if ($this->isReactedToWithType($reactant, $reactionType)) {
+        if ($this->hasReactedTo($reactant, $reactionType)) {
             throw new ReactionAlreadyExists(
                 sprintf('Reaction of type `%s` already exists.', $reactionType->getName())
             );
@@ -112,38 +112,22 @@ final class Reacter extends Model implements
         $reaction->delete();
     }
 
-    public function isReactedTo(
-        ReactantContract $reactant
+    public function hasReactedTo(
+        ReactantContract $reactant,
+        ?ReactionTypeContract $reactionType = null
     ): bool {
         if ($reactant->isNull()) {
             return false;
         }
 
-        return $reactant->isReactedBy($this);
+        return $reactant->isReactedBy($this, $reactionType);
     }
 
-    public function isNotReactedTo(
-        ReactantContract $reactant
-    ): bool {
-        return !$this->isReactedTo($reactant);
-    }
-
-    public function isReactedToWithType(
+    public function hasNotReactedTo(
         ReactantContract $reactant,
-        ReactionTypeContract $reactionType
+        ?ReactionTypeContract $reactionType = null
     ): bool {
-        if ($reactant->isNull()) {
-            return false;
-        }
-
-        return $reactant->isReactedByWithType($this, $reactionType);
-    }
-
-    public function isNotReactedToWithType(
-        ReactantContract $reactant,
-        ReactionTypeContract $reactionType
-    ): bool {
-        return !$this->isReactedToWithType($reactant, $reactionType);
+        return $reactant->isNotReactedBy($this, $reactionType);
     }
 
     public function isEqualTo(
