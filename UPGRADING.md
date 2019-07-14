@@ -1,9 +1,19 @@
 # Upgrade Guide
 
+- [From v7 to v8](#from-v7-to-v8)
 - [From v6 to v7](#from-v6-to-v7)
 - [From v5 to v6](#from-v5-to-v6)
 - [From v4 to v5](#from-v4-to-v5)
 - [From v3 to v4](#from-v3-to-v4)
+
+## From v7 to v8
+
+- Find all `isReactedTo` method usages and replace it with `hasReactedTo`
+- Find all `isReactedToWithType` method usages and replace it with `hasReactedTo`
+- Find all `isNotReactedTo` method usages and replace it with `hasNotReactedTo`
+- Find all `isNotReactedToWithType` method usages and replace it with `hasNotReactedTo`
+- Find all `isReactedByWithType` method usages and replace it with `isReactedBy`
+- Find all `isNotReactedByWithType` method usages and replace it with `isNotReactedBy`
 
 ## From v6 to v7
 
