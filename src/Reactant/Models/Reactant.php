@@ -125,20 +125,13 @@ final class Reactant extends Model implements
 
         // TODO: Test if relation was loaded partially
         if ($this->relationLoaded('reactions')) {
-            if (!is_null($reactionType)) {
-                return $this
-                    ->getAttribute('reactions')
-                    ->contains(function (ReactionContract $reaction) use ($reacter, $reactionType) {
-                        return $reaction->isByReacter($reacter)
-                            && $reaction->isOfType($reactionType);
-                    });
-            } else {
-                return $this
-                    ->getAttribute('reactions')
-                    ->contains(function (ReactionContract $reaction) use ($reacter) {
-                        return $reaction->isByReacter($reacter);
-                    });
-            }
+            return $this
+                ->getAttribute('reactions')
+                ->contains(function (ReactionContract $reaction) use ($reacter, $reactionType) {
+                    return is_null($reactionType)
+                        ? $reaction->isByReacter($reacter)
+                        : $reaction->isByReacter($reacter) && $reaction->isOfType($reactionType);
+                });
         }
 
         $query = $this->reactions()->where('reacter_id', $reacter->getId());
