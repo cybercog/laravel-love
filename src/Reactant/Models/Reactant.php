@@ -123,34 +123,31 @@ final class Reactant extends Model implements
             return false;
         }
 
-        if (!is_null($reactionType)) {
-            if ($this->relationLoaded('reactions')) {
+        // TODO: Test if relation was loaded partially
+        if ($this->relationLoaded('reactions')) {
+            if (!is_null($reactionType)) {
                 return $this
                     ->getAttribute('reactions')
                     ->contains(function (ReactionContract $reaction) use ($reacter, $reactionType) {
                         return $reaction->isByReacter($reacter)
                             && $reaction->isOfType($reactionType);
                     });
+            } else {
+                return $this
+                    ->getAttribute('reactions')
+                    ->contains(function (ReactionContract $reaction) use ($reacter) {
+                        return $reaction->isByReacter($reacter);
+                    });
             }
-
-            return $this->reactions()->where([
-                'reaction_type_id' => $reactionType->getId(),
-                'reacter_id' => $reacter->getId(),
-            ])->exists();
         }
 
-        // TODO: Test if relation was loaded partially
-        if ($this->relationLoaded('reactions')) {
-            return $this
-                ->getAttribute('reactions')
-                ->contains(function (ReactionContract $reaction) use ($reacter) {
-                    return $reaction->isByReacter($reacter);
-                });
+        $query = $this->reactions()->where('reacter_id', $reacter->getId());
+
+        if (!is_null($reactionType)) {
+            $query->where('reaction_type_id', $reactionType->getId());
         }
 
-        return $this->reactions()->where([
-            'reacter_id' => $reacter->getId(),
-        ])->exists();
+        return $query->exists();
     }
 
     public function isNotReactedBy(
