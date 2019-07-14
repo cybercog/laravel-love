@@ -197,7 +197,7 @@ final class NullReacterTest extends TestCase
         $reacter = new NullReacter($reacterable);
         $reactant = factory(Reactant::class)->make();
 
-        $isReacted = $reacter->isReactedTo($reactant);
+        $isReacted = $reacter->hasReactedTo($reactant);
 
         $this->assertFalse($isReacted);
     }
@@ -209,7 +209,7 @@ final class NullReacterTest extends TestCase
         $reacter = new NullReacter($reacterable);
         $reactant = factory(Reactant::class)->make();
 
-        $isReacted = $reacter->isNotReactedTo($reactant);
+        $isReacted = $reacter->hasNotReactedTo($reactant);
 
         $this->assertTrue($isReacted);
     }
@@ -222,7 +222,7 @@ final class NullReacterTest extends TestCase
         $reactant = factory(Reactant::class)->make();
         $reactionType = new ReactionType();
 
-        $isReacted = $reacter->isReactedToWithType($reactant, $reactionType);
+        $isReacted = $reacter->hasReactedTo($reactant, $reactionType);
 
         $this->assertFalse($isReacted);
     }
@@ -235,7 +235,7 @@ final class NullReacterTest extends TestCase
         $reactant = factory(Reactant::class)->make();
         $reactionType = new ReactionType();
 
-        $isReacted = $reacter->isNotReactedToWithType($reactant, $reactionType);
+        $isReacted = $reacter->hasNotReactedTo($reactant, $reactionType);
 
         $this->assertTrue($isReacted);
     }
