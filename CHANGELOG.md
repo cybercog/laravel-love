@@ -2,6 +2,15 @@
 
 All notable changes to `laravel-love` will be documented in this file.
 
+## [Unreleased]
+
+### Changed
+
+- ([#79](https://github.com/cybercog/laravel-love/pull/79)) Reacter model `isReactedTo` & `isReactedToWithType` methods replaced with single `hasReactedTo` method
+- ([#79](https://github.com/cybercog/laravel-love/pull/79)) Reacter model `isNotReactedTo` & `isNotReactedToWithType` methods replaced with single `hasNotReactedTo` method
+- ([#79](https://github.com/cybercog/laravel-love/pull/79)) Reactant model `isReactedBy`&& `isReactedByWithType` methods replaced with single `isReactedBy` method
+- ([#79](https://github.com/cybercog/laravel-love/pull/79)) Reactant model `isNotReactedBy`&& `isNotReactedByWithType` methods replaced with single `isNotReactedBy` method
+
 ## [7.2.1] - 2019-07-11
 
 ### Fixed
@@ -284,6 +293,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 
 - Initial release
 
+[Unreleased]: https://github.com/cybercog/laravel-love/compare/7.2.1...master
 [7.2.1]: https://github.com/cybercog/laravel-love/compare/7.2.0...7.2.1
 [7.2.0]: https://github.com/cybercog/laravel-love/compare/7.1.0...7.2.0
 [7.1.0]: https://github.com/cybercog/laravel-love/compare/7.0.1...7.1.0
