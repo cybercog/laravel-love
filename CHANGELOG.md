@@ -10,6 +10,7 @@ All notable changes to `laravel-love` will be documented in this file.
 - ([#79](https://github.com/cybercog/laravel-love/pull/79)) Reacter model `isNotReactedTo` & `isNotReactedToWithType` methods replaced with single `hasNotReactedTo` method
 - ([#79](https://github.com/cybercog/laravel-love/pull/79)) Reactant model `isReactedBy`&& `isReactedByWithType` methods replaced with single `isReactedBy` method
 - ([#79](https://github.com/cybercog/laravel-love/pull/79)) Reactant model `isNotReactedBy`&& `isNotReactedByWithType` methods replaced with single `isNotReactedBy` method
+- ([#83](https://github.com/cybercog/laravel-love/pull/83)) Artisan command `love:reaction-type-add` awaits options instead of arguments
 
 ## [7.2.1] - 2019-07-11
 
