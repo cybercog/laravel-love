@@ -25,9 +25,9 @@ final class ReactionTypeAdd extends Command
      * @var string
      */
     protected $signature = 'love:reaction-type-add
-                            {--default}
-                            {name?}
-                            {weight?}';
+                            {--default : Create default Like & Dislike reactions}
+                            {--name= : The name of the reaction}
+                            {--weight= : The weight of the reaction}';
 
     /**
      * The console command description.
@@ -117,14 +117,14 @@ final class ReactionTypeAdd extends Command
 
     private function resolveName(): string
     {
-        return $this->argument('name')
+        return $this->option('name')
             ?? $this->ask('How to name reaction type?')
             ?? $this->resolveName();
     }
 
     private function resolveWeight(): int
     {
-        return intval($this->argument('weight')
+        return intval($this->option('weight')
             ?? $this->ask('What is the weight of this reaction type?'));
     }
 
