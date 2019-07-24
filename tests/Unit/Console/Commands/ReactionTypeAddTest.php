@@ -32,7 +32,7 @@ final class ReactionTypeAddTest extends TestCase
     /** @test */
     public function it_can_create_default_like_and_dislike_types(): void
     {
-        $this->disableMocking();
+        $this->withoutMockingConsoleOutput();
         $likeNotExistInitially = ReactionType::query()->where('name', 'Like')->doesntExist();
         $dislikeNotExistInitially = ReactionType::query()->where('name', 'Dislike')->doesntExist();
         $status = $this->artisan('love:reaction-type-add', ['--default' => true]);
@@ -81,7 +81,7 @@ final class ReactionTypeAddTest extends TestCase
     /** @test */
     public function it_can_create_type_with_name_argument(): void
     {
-        $this->disableMocking();
+        $this->withoutMockingConsoleOutput();
         $typesCount = ReactionType::query()->count();
         $status = $this->artisan('love:reaction-type-add', [
             '--name' => 'TestName',
@@ -97,7 +97,7 @@ final class ReactionTypeAddTest extends TestCase
     /** @test */
     public function it_convert_type_name_to_studly_case(): void
     {
-        $this->disableMocking();
+        $this->withoutMockingConsoleOutput();
         $typesCount = ReactionType::query()->count();
         $status = $this->artisan('love:reaction-type-add', [
             '--name' => 'test-name',
@@ -143,7 +143,7 @@ final class ReactionTypeAddTest extends TestCase
     /** @test */
     public function it_can_create_type_with_weight_argument(): void
     {
-        $this->disableMocking();
+        $this->withoutMockingConsoleOutput();
         $typesCount = ReactionType::query()->count();
         $status = $this->artisan('love:reaction-type-add', [
             '--name' => 'TestName',
@@ -159,7 +159,7 @@ final class ReactionTypeAddTest extends TestCase
     /** @test */
     public function it_not_creates_default_types_without_default_option(): void
     {
-        $this->disableMocking();
+        $this->withoutMockingConsoleOutput();
         $typesCount = ReactionType::query()->count();
         $status = $this->artisan('love:reaction-type-add', [
             '--name' => 'TestName',
