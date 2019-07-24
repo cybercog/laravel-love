@@ -19,6 +19,14 @@ use Cog\Laravel\Love\Reaction\Models\Reaction;
 
 final class ReactionObserver
 {
+    public function creating(
+        Reaction $reaction
+    ): void {
+        if ($reaction->isDirty('power') && is_null($reaction->getAttributeValue('power'))) {
+            $reaction->setAttribute('power', 1);
+        }
+    }
+
     public function created(
         Reaction $reaction
     ): void {

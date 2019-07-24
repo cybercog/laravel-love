@@ -23,5 +23,6 @@ $factory->define(Reaction::class, function (Faker $faker) {
         'reaction_type_id' => factory(ReactionType::class),
         'reactant_id' => factory(Reactant::class),
         'reacter_id' => factory(Reacter::class),
+        'power' => 1,
     ];
 });

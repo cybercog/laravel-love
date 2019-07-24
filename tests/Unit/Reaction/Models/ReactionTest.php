@@ -58,6 +58,16 @@ final class ReactionTest extends TestCase
     }
 
     /** @test */
+    public function it_casts_power_to_integer(): void
+    {
+        $reaction = factory(Reaction::class)->make([
+            'power' => '4',
+        ]);
+
+        $this->assertSame(4, $reaction->getAttribute('power'));
+    }
+
+    /** @test */
     public function it_can_belong_to_type(): void
     {
         $type = factory(ReactionType::class)->create();
@@ -213,6 +223,30 @@ final class ReactionTest extends TestCase
         ]);
 
         $this->assertSame(2, $reaction->getPower());
+    }
+
+    /** @test */
+    public function it_can_get_default_power_when_power_is_null(): void
+    {
+        $reaction = new Reaction();
+
+        $this->assertSame(1, $reaction->getPower());
+    }
+
+    /** @test */
+    public function it_can_get_weight_affected_by_power(): void
+    {
+        $reactionType = factory(ReactionType::class)->create([
+            'weight' => 4,
+        ]);
+
+        /** @var \Cog\Laravel\Love\Reaction\Models\Reaction $reaction */
+        $reaction = factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'power' => 2,
+        ]);
+
+        $this->assertSame(8, $reaction->getWeight());
     }
 
     /** @test */

@@ -28,6 +28,10 @@ final class Reaction extends Model implements
 {
     protected $table = 'love_reactions';
 
+    protected $attributes = [
+        'power' => 1,
+    ];
+
     protected $fillable = [
         'reactant_id',
         'reaction_type_id',
@@ -35,6 +39,7 @@ final class Reaction extends Model implements
 
     protected $casts = [
         'id' => 'string',
+        'power' => 'integer',
     ];
 
     public function reactant(): BelongsTo
@@ -74,7 +79,7 @@ final class Reaction extends Model implements
 
     public function getWeight(): int
     {
-        return $this->getType()->getWeight();
+        return $this->getType()->getWeight() * $this->getPower();
     }
 
     public function getPower(): int

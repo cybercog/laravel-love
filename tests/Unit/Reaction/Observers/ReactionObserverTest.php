@@ -22,6 +22,16 @@ use Cog\Tests\Laravel\Love\TestCase;
 final class ReactionObserverTest extends TestCase
 {
     /** @test */
+    public function it_creates_reaction_with_default_power_when_power_value_is_null(): void
+    {
+        $reaction = factory(Reaction::class)->create([
+            'power' => null,
+        ]);
+
+        $this->assertSame(1, $reaction->getAttribute('power'));
+    }
+
+    /** @test */
     public function it_creates_counter_on_reaction_created_when_counter_not_exists(): void
     {
         $reactionType = factory(ReactionType::class)->create([
