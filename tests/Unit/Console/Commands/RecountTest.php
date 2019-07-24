@@ -26,7 +26,6 @@ use Cog\Tests\Laravel\Love\Stubs\Models\Bot;
 use Cog\Tests\Laravel\Love\Stubs\Models\Entity;
 use Cog\Tests\Laravel\Love\Stubs\Models\EntityWithMorphMap;
 use Cog\Tests\Laravel\Love\TestCase;
-use Illuminate\Support\Str;
 
 final class RecountTest extends TestCase
 {
@@ -38,9 +37,7 @@ final class RecountTest extends TestCase
     {
         parent::setUp();
 
-        if (!Str::startsWith($this->app->version(), '5.6')) {
-            $this->withoutMockingConsoleOutput();
-        }
+        $this->withoutMockingConsoleOutput();
 
         $this->likeType = factory(ReactionType::class)->create([
             'name' => 'Like',

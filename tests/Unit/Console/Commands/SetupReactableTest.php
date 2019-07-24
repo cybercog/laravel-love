@@ -27,7 +27,7 @@ final class SetupReactableTest extends TestCase
     {
         parent::setUp();
 
-        $this->disableMocking();
+        $this->withoutMockingConsoleOutput();
     }
 
     public function tearDown(): void
@@ -108,13 +108,6 @@ final class SetupReactableTest extends TestCase
         $this->assertSame(1, $status);
         $this->assertFalse(class_exists('AddLoveReactantIdToArticlesTable'));
         $this->assertFalse($this->isMigrationFileExists('add_love_reactant_id_to_articles_table'));
-    }
-
-    private function disableMocking(): void
-    {
-        if (!Str::startsWith($this->app->version(), '5.6')) {
-            $this->withoutMockingConsoleOutput();
-        }
     }
 
     private function isMigrationFileExists(string $filename): bool
