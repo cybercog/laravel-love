@@ -77,6 +77,11 @@ final class Reaction extends Model implements
         return $this->getType()->getWeight();
     }
 
+    public function getPower(): int
+    {
+        return $this->getAttributeValue('power');
+    }
+
     public function isOfType(
         ReactionTypeContract $reactionType
     ): bool {

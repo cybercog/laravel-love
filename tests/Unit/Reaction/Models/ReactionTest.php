@@ -205,6 +205,17 @@ final class ReactionTest extends TestCase
     }
 
     /** @test */
+    public function it_can_get_power(): void
+    {
+        /** @var \Cog\Laravel\Love\Reaction\Models\Reaction $reaction */
+        $reaction = factory(Reaction::class)->create([
+            'power' => 2,
+        ]);
+
+        $this->assertSame(2, $reaction->getPower());
+    }
+
+    /** @test */
     public function it_can_check_if_reaction_is_of_type(): void
     {
         $reactionType1 = factory(ReactionType::class)->create();

@@ -29,6 +29,8 @@ interface Reaction
 
     public function getWeight(): int;
 
+    public function getPower(): int;
+
     public function isOfType(ReactionType $type): bool;
 
     public function isNotOfType(ReactionType $type): bool;
