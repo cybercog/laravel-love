@@ -249,6 +249,65 @@ final class ReacterTest extends TestCase
     }
 
     /** @test */
+    public function it_can_react_to_reactant_with_power_when_already_reacted_but_power_differs(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = factory(Reacter::class)->create();
+        $reactable = factory(Article::class)->create();
+        $reactant = $reactable->loveReactant;
+        factory(Reaction::class)->create([
+            'reactant_id' => $reactant->getId(),
+            'reacter_id' => $reacter->getId(),
+            'reaction_type_id' => $reactionType->getId(),
+            'power' => 2,
+        ]);
+
+        $reacter->reactTo($reactant, $reactionType, 4);
+
+        $this->assertCount(1, $reacter->reactions);
+        $assertReaction = $reacter->reactions->first();
+        $this->assertSame(4, $assertReaction->getAttribute('power'));
+    }
+
+    /** @test */
+    public function it_throws_exception_on_react_to_reactant_with_power_when_already_reacted_and_power_is_same(): void
+    {
+        $this->expectException(ReactionAlreadyExists::class);
+
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = factory(Reacter::class)->create();
+        $reactable = factory(Article::class)->create();
+        $reactant = $reactable->loveReactant;
+        factory(Reaction::class)->create([
+            'reactant_id' => $reactant->getId(),
+            'reacter_id' => $reacter->getId(),
+            'reaction_type_id' => $reactionType->getId(),
+            'power' => 2,
+        ]);
+
+        $reacter->reactTo($reactant, $reactionType, 2);
+    }
+
+    /** @test */
+    public function it_throws_exception_on_react_to_reactant_with_power_when_already_reacted_and_power_is_null(): void
+    {
+        $this->expectException(ReactionAlreadyExists::class);
+
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = factory(Reacter::class)->create();
+        $reactable = factory(Article::class)->create();
+        $reactant = $reactable->loveReactant;
+        factory(Reaction::class)->create([
+            'reactant_id' => $reactant->getId(),
+            'reacter_id' => $reacter->getId(),
+            'reaction_type_id' => $reactionType->getId(),
+            'power' => 2,
+        ]);
+
+        $reacter->reactTo($reactant, $reactionType, null);
+    }
+
+    /** @test */
     public function it_can_unreact_to_reactant(): void
     {
         $reactionType = factory(ReactionType::class)->create();
