@@ -72,7 +72,8 @@ final class Reacter extends Model implements
 
     public function reactTo(
         ReactantContract $reactant,
-        ReactionTypeContract $reactionType
+        ReactionTypeContract $reactionType,
+        ?int $power = null
     ): void {
         if ($reactant->isNull()) {
             throw ReactantInvalid::notExists();
@@ -87,6 +88,7 @@ final class Reacter extends Model implements
         $this->reactions()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactant->getId(),
+            'power' => $power,
         ]);
     }
 

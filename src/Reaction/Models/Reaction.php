@@ -35,6 +35,7 @@ final class Reaction extends Model implements
     protected $fillable = [
         'reactant_id',
         'reaction_type_id',
+        'power',
     ];
 
     protected $casts = [

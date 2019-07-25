@@ -28,6 +28,16 @@ use TypeError;
 final class ReactionTest extends TestCase
 {
     /** @test */
+    public function it_can_fill_reactant_id(): void
+    {
+        $reaction = new Reaction([
+            'reactant_id' => 4,
+        ]);
+
+        $this->assertSame(4, $reaction->getAttribute('reactant_id'));
+    }
+
+    /** @test */
     public function it_can_fill_reaction_type_id(): void
     {
         $reaction = new Reaction([
@@ -38,13 +48,13 @@ final class ReactionTest extends TestCase
     }
 
     /** @test */
-    public function it_can_fill_reactant_id(): void
+    public function it_can_fill_power(): void
     {
         $reaction = new Reaction([
-            'reactant_id' => 4,
+            'power' => 4,
         ]);
 
-        $this->assertSame(4, $reaction->getAttribute('reactant_id'));
+        $this->assertSame(4, $reaction->getAttribute('power'));
     }
 
     /** @test */

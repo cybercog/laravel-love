@@ -96,6 +96,19 @@ final class NullReacterTest extends TestCase
     }
 
     /** @test */
+    public function it_throws_reactant_invalid_on_react_to_with_power(): void
+    {
+        $this->expectException(ReacterInvalid::class);
+
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = new NullReacter(new Bot());
+        $reactable = factory(Article::class)->create();
+        $reactant = $reactable->loveReactant;
+
+        $reacter->reactTo($reactant, $reactionType, 4);
+    }
+
+    /** @test */
     public function it_throws_reactant_invalid_on_unreact_to(): void
     {
         $this->expectException(ReacterInvalid::class);
