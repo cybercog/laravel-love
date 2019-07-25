@@ -23,7 +23,7 @@ final class ReactionObserver
         Reaction $reaction
     ): void {
         if ($reaction->isDirty('power') && is_null($reaction->getAttributeValue('power'))) {
-            $reaction->setAttribute('power', 1);
+            $reaction->setAttribute('power', Reaction::DEFAULT_POWER);
         }
     }
 

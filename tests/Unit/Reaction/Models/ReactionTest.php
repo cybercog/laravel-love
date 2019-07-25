@@ -240,7 +240,7 @@ final class ReactionTest extends TestCase
     {
         $reaction = new Reaction();
 
-        $this->assertSame(1, $reaction->getPower());
+        $this->assertSame(Reaction::DEFAULT_POWER, $reaction->getPower());
     }
 
     /** @test */

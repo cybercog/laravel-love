@@ -26,10 +26,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 final class Reaction extends Model implements
     ReactionContract
 {
+    const DEFAULT_POWER = 1;
+
     protected $table = 'love_reactions';
 
     protected $attributes = [
-        'power' => 1,
+        'power' => self::DEFAULT_POWER,
     ];
 
     protected $fillable = [
