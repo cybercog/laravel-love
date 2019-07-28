@@ -41,11 +41,11 @@ final class RecountTest extends TestCase
 
         $this->likeType = factory(ReactionType::class)->create([
             'name' => 'Like',
-            'weight' => 2,
+            'mass' => 2,
         ]);
         $this->dislikeType = factory(ReactionType::class)->create([
             'name' => 'Dislike',
-            'weight' => -2,
+            'mass' => -2,
         ]);
     }
 

@@ -18,6 +18,6 @@ use Faker\Generator as Faker;
 $factory->define(ReactionType::class, function (Faker $faker) {
     return [
         'name' => implode('', $faker->words),
-        'weight' => $faker->numberBetween(-128, 127),
+        'mass' => $faker->numberBetween(-128, 127),
     ];
 });

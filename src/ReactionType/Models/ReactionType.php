@@ -25,17 +25,17 @@ final class ReactionType extends Model implements
     protected $table = 'love_reaction_types';
 
     protected $attributes = [
-        'weight' => 0,
+        'mass' => 0,
     ];
 
     protected $fillable = [
         'name',
-        'weight',
+        'mass',
     ];
 
     protected $casts = [
         'id' => 'string',
-        'weight' => 'integer',
+        'mass' => 'integer',
     ];
 
     private static $nameCache = [];
@@ -87,9 +87,9 @@ final class ReactionType extends Model implements
         return $this->getAttributeValue('name');
     }
 
-    public function getWeight(): int
+    public function getMass(): int
     {
-        return $this->getAttributeValue('weight');
+        return $this->getAttributeValue('mass');
     }
 
     public function isEqualTo(

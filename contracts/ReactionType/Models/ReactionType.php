@@ -21,7 +21,7 @@ interface ReactionType
 
     public function getName(): string;
 
-    public function getWeight(): int;
+    public function getMass(): int;
 
     public function isEqualTo(self $that): bool;
 

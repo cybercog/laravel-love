@@ -25,7 +25,7 @@ final class ReactionObserverTest extends TestCase
     public function it_creates_counter_on_reaction_created_when_counter_not_exists(): void
     {
         $reactionType = factory(ReactionType::class)->create([
-            'weight' => 4,
+            'mass' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
         $initialCounters = $reactant->reactionCounters;
@@ -122,7 +122,7 @@ final class ReactionObserverTest extends TestCase
     public function it_increment_reactions_weight_on_reaction_created(): void
     {
         $reactionType = factory(ReactionType::class)->create([
-            'weight' => 4,
+            'mass' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
         $counter = factory(ReactionCounter::class)->create([
@@ -142,7 +142,7 @@ final class ReactionObserverTest extends TestCase
     public function it_decrement_reactions_weight_on_reaction_deleted(): void
     {
         $reactionType = factory(ReactionType::class)->create([
-            'weight' => 4,
+            'mass' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
         $counter = factory(ReactionCounter::class)->create([
@@ -163,7 +163,7 @@ final class ReactionObserverTest extends TestCase
     public function it_increment_reactions_weight_on_reaction_with_negative_weight_created(): void
     {
         $reactionType = factory(ReactionType::class)->create([
-            'weight' => -4,
+            'mass' => -4,
         ]);
         $reactant = factory(Reactant::class)->create();
         $counter = factory(ReactionCounter::class)->create([
@@ -183,7 +183,7 @@ final class ReactionObserverTest extends TestCase
     public function it_decrement_reactions_weight_on_reaction_with_negative_weight_deleted(): void
     {
         $reactionType = factory(ReactionType::class)->create([
-            'weight' => -4,
+            'mass' => -4,
         ]);
         $reactant = factory(Reactant::class)->create();
         $counter = factory(ReactionCounter::class)->create([
@@ -235,7 +235,7 @@ final class ReactionObserverTest extends TestCase
     public function it_increment_reactions_total_weight_on_reaction_created(): void
     {
         $reactionType = factory(ReactionType::class)->create([
-            'weight' => 4,
+            'mass' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
 
@@ -252,7 +252,7 @@ final class ReactionObserverTest extends TestCase
     public function it_decrement_reactions_total_weight_on_reaction_deleted(): void
     {
         $reactionType = factory(ReactionType::class)->create([
-            'weight' => 4,
+            'mass' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
         $reactions = factory(Reaction::class, 3)->create([
@@ -270,7 +270,7 @@ final class ReactionObserverTest extends TestCase
     public function it_increment_reactions_total_weight_on_reaction_with_negative_weight_created(): void
     {
         $reactionType = factory(ReactionType::class)->create([
-            'weight' => -4,
+            'mass' => -4,
         ]);
         $reactant = factory(Reactant::class)->create();
 
@@ -287,7 +287,7 @@ final class ReactionObserverTest extends TestCase
     public function it_decrement_reactions_total_weight_on_reaction_with_negative_weight_deleted(): void
     {
         $reactionType = factory(ReactionType::class)->create([
-            'weight' => -4,
+            'mass' => -4,
         ]);
         $reactant = factory(Reactant::class)->create();
         $reactions = factory(Reaction::class, 3)->create([
