@@ -11,6 +11,7 @@ All notable changes to `laravel-love` will be documented in this file.
 - ([#79](https://github.com/cybercog/laravel-love/pull/79)) Reactant model `isReactedBy`&& `isReactedByWithType` methods replaced with single `isReactedBy` method
 - ([#79](https://github.com/cybercog/laravel-love/pull/79)) Reactant model `isNotReactedBy`&& `isNotReactedByWithType` methods replaced with single `isNotReactedBy` method
 - ([#83](https://github.com/cybercog/laravel-love/pull/83)) Artisan command `love:reaction-type-add` awaits options instead of arguments
+- ([#87](https://github.com/cybercog/laravel-love/pull/87)) Resolving default attributes values moved from accessors to Eloquent
 
 ### Removed
 
