@@ -81,21 +81,14 @@ trait Reactable
 
     public function scopeWhereReactedBy(
         Builder $query,
-        ReacterContract $reacter
-    ): Builder {
-        return $query->whereHas('loveReactant.reactions', function (Builder $reactionsQuery) use ($reacter) {
-            $reactionsQuery->where('reacter_id', $reacter->getId());
-        });
-    }
-
-    public function scopeWhereReactedByWithType(
-        Builder $query,
         ReacterContract $reacter,
-        ReactionTypeContract $reactionType
+        ?ReactionTypeContract $reactionType = null
     ): Builder {
         return $query->whereHas('loveReactant.reactions', function (Builder $reactionsQuery) use ($reacter, $reactionType) {
             $reactionsQuery->where('reacter_id', $reacter->getId());
-            $reactionsQuery->where('reaction_type_id', $reactionType->getId());
+            if (!is_null($reactionType)) {
+                $reactionsQuery->where('reaction_type_id', $reactionType->getId());
+            }
         });
     }
 
