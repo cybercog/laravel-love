@@ -293,10 +293,10 @@ final class ReactableTest extends TestCase
     {
         factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactionType1 = factory(ReactionType::class)->create([
-            'weight' => 2,
+            'mass' => 2,
         ]);
         $reactionType2 = factory(ReactionType::class)->create([
-            'weight' => 1,
+            'mass' => 1,
         ]);
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
@@ -395,7 +395,7 @@ final class ReactableTest extends TestCase
     {
         factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactionType1 = factory(ReactionType::class)->create([
-            'weight' => 2,
+            'mass' => 2,
         ]);
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
@@ -537,7 +537,7 @@ final class ReactableTest extends TestCase
     {
         factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactionType = factory(ReactionType::class)->create([
-            'weight' => 2,
+            'mass' => 2,
         ]);
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
@@ -573,7 +573,7 @@ final class ReactableTest extends TestCase
     {
         factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactionType = factory(ReactionType::class)->create([
-            'weight' => 2,
+            'mass' => 2,
         ]);
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
@@ -608,7 +608,7 @@ final class ReactableTest extends TestCase
     {
         factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactionType = factory(ReactionType::class)->create([
-            'weight' => 2,
+            'mass' => 2,
         ]);
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
@@ -649,10 +649,10 @@ final class ReactableTest extends TestCase
     {
         factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactionType1 = factory(ReactionType::class)->create([
-            'weight' => 2,
+            'mass' => 2,
         ]);
         $reactionType2 = factory(ReactionType::class)->create([
-            'weight' => 1,
+            'mass' => 1,
         ]);
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
@@ -722,10 +722,10 @@ final class ReactableTest extends TestCase
     {
         factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactionType1 = factory(ReactionType::class)->create([
-            'weight' => 2,
+            'mass' => 2,
         ]);
         $reactionType2 = factory(ReactionType::class)->create([
-            'weight' => 1,
+            'mass' => 1,
         ]);
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
@@ -774,10 +774,10 @@ final class ReactableTest extends TestCase
     {
         factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactionType1 = factory(ReactionType::class)->create([
-            'weight' => 2,
+            'mass' => 2,
         ]);
         $reactionType2 = factory(ReactionType::class)->create([
-            'weight' => 1,
+            'mass' => 1,
         ]);
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
@@ -826,10 +826,10 @@ final class ReactableTest extends TestCase
     {
         factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactionType1 = factory(ReactionType::class)->create([
-            'weight' => 2,
+            'mass' => 2,
         ]);
         $reactionType2 = factory(ReactionType::class)->create([
-            'weight' => 1,
+            'mass' => 1,
         ]);
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();

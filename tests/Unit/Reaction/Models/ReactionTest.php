@@ -193,7 +193,7 @@ final class ReactionTest extends TestCase
     public function it_can_get_weight(): void
     {
         $reactionType = factory(ReactionType::class)->create([
-            'weight' => 4,
+            'mass' => 4,
         ]);
 
         /** @var \Cog\Laravel\Love\Reaction\Models\Reaction $reaction */

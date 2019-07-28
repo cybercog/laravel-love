@@ -27,7 +27,7 @@ final class ReactionTotalServiceTest extends TestCase
     public function it_can_add_reaction(): void
     {
         $reactionType = factory(ReactionType::class)->create([
-            'weight' => 4,
+            'mass' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
         $service = new ReactionTotalService($reactant);
@@ -53,7 +53,7 @@ final class ReactionTotalServiceTest extends TestCase
     public function it_can_remove_reaction(): void
     {
         $reactionType = factory(ReactionType::class)->create([
-            'weight' => 4,
+            'mass' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
         $total = factory(ReactionTotal::class)->create([
@@ -104,7 +104,7 @@ final class ReactionTotalServiceTest extends TestCase
     public function it_can_add_reaction_with_negative_weight(): void
     {
         $reactionType = factory(ReactionType::class)->create([
-            'weight' => -4,
+            'mass' => -4,
         ]);
         $reactant = factory(Reactant::class)->create();
         $service = new ReactionTotalService($reactant);
@@ -131,7 +131,7 @@ final class ReactionTotalServiceTest extends TestCase
     {
         Event::fake(); // Prevent total auto creation
         $reactionType = factory(ReactionType::class)->create([
-            'weight' => 4,
+            'mass' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
         $service = new ReactionTotalService($reactant);

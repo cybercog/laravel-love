@@ -74,7 +74,7 @@ final class Reaction extends Model implements
 
     public function getWeight(): int
     {
-        return $this->getType()->getWeight();
+        return $this->getType()->getMass();
     }
 
     public function isOfType(
