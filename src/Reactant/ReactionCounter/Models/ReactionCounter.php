@@ -24,10 +24,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 final class ReactionCounter extends Model implements
     ReactionCounterContract
 {
+    const DEFAULT_COUNT = 0;
+
     protected $table = 'love_reactant_reaction_counters';
 
     protected $attributes = [
-        'count' => 0,
+        'count' => self::DEFAULT_COUNT,
         'weight' => 0,
     ];
 
