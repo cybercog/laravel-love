@@ -24,6 +24,11 @@ final class ReactionTotal extends Model implements
 {
     protected $table = 'love_reactant_reaction_totals';
 
+    protected $attributes = [
+        'count' => 0,
+        'weight' => 0,
+    ];
+
     protected $fillable = [
         'count',
         'weight',
@@ -46,12 +51,12 @@ final class ReactionTotal extends Model implements
 
     public function getCount(): int
     {
-        return $this->getAttributeValue('count') ?? 0;
+        return $this->getAttributeValue('count');
     }
 
     public function getWeight(): int
     {
-        return $this->getAttributeValue('weight') ?? 0;
+        return $this->getAttributeValue('weight');
     }
 
     public function incrementCount(

@@ -24,6 +24,10 @@ final class ReactionType extends Model implements
 {
     protected $table = 'love_reaction_types';
 
+    protected $attributes = [
+        'weight' => 0,
+    ];
+
     protected $fillable = [
         'name',
         'weight',
@@ -85,7 +89,7 @@ final class ReactionType extends Model implements
 
     public function getWeight(): int
     {
-        return $this->getAttributeValue('weight') ?? 0;
+        return $this->getAttributeValue('weight');
     }
 
     public function isEqualTo(
