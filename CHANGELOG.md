@@ -12,6 +12,10 @@ All notable changes to `laravel-love` will be documented in this file.
 - ([#79](https://github.com/cybercog/laravel-love/pull/79)) Reactant model `isNotReactedBy`&& `isNotReactedByWithType` methods replaced with single `isNotReactedBy` method
 - ([#83](https://github.com/cybercog/laravel-love/pull/83)) Artisan command `love:reaction-type-add` awaits options instead of arguments
 
+### Removed
+
+- ([#86](https://github.com/cybercog/laravel-love/pull/86)) Laravel 5.6 support obsolete
+
 ## [7.2.1] - 2019-07-11
 
 ### Fixed
