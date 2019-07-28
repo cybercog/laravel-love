@@ -15,6 +15,7 @@
 - Find all `isReactedByWithType` method usages and replace it with `isReactedBy`
 - Find all `isNotReactedByWithType` method usages and replace it with `isNotReactedBy`
 - The `ReactionType` method `getWeight` was renamed to `getMass`. If you're using your own implementation of `ReactionType`, please update the method name.
+- Find all `whereReactedByWithType` method usages and replace it with `whereReactedBy`
 
 ### Database migration
 

@@ -13,7 +13,7 @@ All notable changes to `laravel-love` will be documented in this file.
 - ([#83](https://github.com/cybercog/laravel-love/pull/83)) Artisan command `love:reaction-type-add` awaits options instead of arguments
 - ([#87](https://github.com/cybercog/laravel-love/pull/87)) Resolving default attributes values moved from accessors to Eloquent
 - ([#88](https://github.com/cybercog/laravel-love/pull/88)) ReactionType attribute `weight` renamed to `mass`
-- ([#88](https://github.com/cybercog/laravel-love/pull/88)) ReactionType method `getWeight` renamed to `getMass`
+- ([#89](https://github.com/cybercog/laravel-love/pull/89)) Reactable method `scopeWhereReactedByWithType` merged with `scopeWhereReactedBy`
 
 ### Removed
 
