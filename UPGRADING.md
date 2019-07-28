@@ -14,6 +14,17 @@
 - Find all `isNotReactedToWithType` method usages and replace it with `hasNotReactedTo`
 - Find all `isReactedByWithType` method usages and replace it with `isReactedBy`
 - Find all `isNotReactedByWithType` method usages and replace it with `isNotReactedBy`
+- The `ReactionType` method `getWeight` was renamed to `getMass`. If you're using your own implementation of `ReactionType`, please update the method name.
+
+### Database migration
+
+Run only after all preparations are done.
+
+**VERY IMPORTANT: Create backup of your production database!**
+
+```sh
+php artisan love:upgrade-v7-to-v8
+```
 
 ## From v6 to v7
 
@@ -56,7 +67,7 @@ Most of the upgrade requirements couldn't be done automatically because of compl
 - Find all `orderByLikesCount` method and replace it with `joinReactionCounterOfType` and common `orderBy`
 - Find all `orderByDislikesCount` method and replace it with `joinReactionCounterOfType` and common `orderBy`
 
-### Automatic migration process
+### Database migration
 
 Run only after all preparations are done.
 
