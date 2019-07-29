@@ -23,5 +23,9 @@ final class ReactionCounterObserver
         if (is_null($counter->getAttributeValue('count'))) {
             $counter->setAttribute('count', ReactionCounter::DEFAULT_COUNT);
         }
+
+        if (is_null($counter->getAttributeValue('weight'))) {
+            $counter->setAttribute('weight', ReactionCounter::DEFAULT_WEIGHT);
+        }
     }
 }

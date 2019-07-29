@@ -27,4 +27,14 @@ final class ReactionCounterObserverTest extends TestCase
 
         $this->assertSame(ReactionCounter::DEFAULT_COUNT, $counter->getCount());
     }
+
+    /** @test */
+    public function it_sets_default_weight_value_when_weight_value_is_null(): void
+    {
+        $counter = factory(ReactionCounter::class)->create([
+            'weight' => null,
+        ]);
+
+        $this->assertSame(ReactionCounter::DEFAULT_WEIGHT, $counter->getWeight());
+    }
 }

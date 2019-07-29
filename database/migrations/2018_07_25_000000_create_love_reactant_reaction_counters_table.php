@@ -29,7 +29,7 @@ final class CreateLoveReactantReactionCountersTable extends Migration
             $table->unsignedBigInteger('reactant_id');
             $table->unsignedBigInteger('reaction_type_id');
             $table->unsignedBigInteger('count');
-            $table->bigInteger('weight')->default(0);
+            $table->bigInteger('weight');
             $table->timestamps();
 
             $table->index([
