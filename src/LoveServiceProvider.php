@@ -22,6 +22,8 @@ use Cog\Laravel\Love\Reactant\Listeners\DecrementAggregates;
 use Cog\Laravel\Love\Reactant\Listeners\IncrementAggregates;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Observers\ReactionCounterObserver;
+use Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal;
+use Cog\Laravel\Love\Reactant\ReactionTotal\Observers\ReactionTotalObserver;
 use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenAdded;
 use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenRemoved;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
@@ -75,6 +77,7 @@ final class LoveServiceProvider extends ServiceProvider
     {
         Reaction::observe(ReactionObserver::class);
         ReactionCounter::observe(ReactionCounterObserver::class);
+        ReactionTotal::observe(ReactionTotalObserver::class);
     }
 
     /**
