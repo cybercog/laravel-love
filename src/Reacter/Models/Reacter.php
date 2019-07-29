@@ -88,8 +88,14 @@ final class Reacter extends Model implements
             return;
         }
 
+        if (is_null($rate)) {
+            throw new ReactionAlreadyExists(
+                sprintf('Reaction of type `%s` already exists.', $reactionType->getName())
+            );
+        }
+
         // TODO: Get or compare rate value using reaction contract
-        if (is_null($rate) || $reaction->getAttributeValue('rate') === $rate) {
+        if ($reaction->getAttributeValue('rate') === $rate) {
             throw new ReactionAlreadyExists(
                 sprintf('Reaction of type `%s` with `%s` rate already exists.', $reactionType->getName(), $rate)
             );
