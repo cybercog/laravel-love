@@ -22,6 +22,16 @@ use Cog\Tests\Laravel\Love\TestCase;
 final class ReactionObserverTest extends TestCase
 {
     /** @test */
+    public function it_sets_default_rate_value_when_rate_value_is_null(): void
+    {
+        $counter = factory(Reaction::class)->create([
+            'rate' => null,
+        ]);
+
+        $this->assertSame(Reaction::DEFAULT_RATE, $counter->getAttribute('rate'));
+    }
+
+    /** @test */
     public function it_creates_counter_on_reaction_created_when_counter_not_exists(): void
     {
         $reactionType = factory(ReactionType::class)->create([

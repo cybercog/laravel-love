@@ -19,6 +19,14 @@ use Cog\Laravel\Love\Reaction\Models\Reaction;
 
 final class ReactionObserver
 {
+    public function creating(
+        Reaction $reaction
+    ): void {
+        if (is_null($reaction->getAttributeValue('rate'))) {
+            $reaction->setAttribute('rate', Reaction::DEFAULT_RATE);
+        }
+    }
+
     public function created(
         Reaction $reaction
     ): void {

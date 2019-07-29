@@ -26,15 +26,23 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 final class Reaction extends Model implements
     ReactionContract
 {
+    const DEFAULT_RATE = 1.0;
+
     protected $table = 'love_reactions';
+
+    protected $attributes = [
+        'rate' => self::DEFAULT_RATE,
+    ];
 
     protected $fillable = [
         'reactant_id',
         'reaction_type_id',
+        'rate',
     ];
 
     protected $casts = [
         'id' => 'string',
+        'rate' => 'float',
     ];
 
     public function reactant(): BelongsTo

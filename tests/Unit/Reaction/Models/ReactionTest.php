@@ -48,6 +48,24 @@ final class ReactionTest extends TestCase
     }
 
     /** @test */
+    public function it_can_fill_rate(): void
+    {
+        $reaction = new Reaction([
+            'rate' => 4.0,
+        ]);
+
+        $this->assertSame(4.0, $reaction->getAttribute('rate'));
+    }
+
+    /** @test */
+    public function it_has_default_rate_value(): void
+    {
+        $reaction = new Reaction();
+
+        $this->assertSame(Reaction::DEFAULT_RATE, $reaction->getAttribute('rate'));
+    }
+
+    /** @test */
     public function it_casts_id_to_string(): void
     {
         $reaction = factory(Reaction::class)->make([
@@ -55,6 +73,16 @@ final class ReactionTest extends TestCase
         ]);
 
         $this->assertSame('4', $reaction->getAttribute('id'));
+    }
+
+    /** @test */
+    public function it_casts_rate_to_float(): void
+    {
+        $reaction = new Reaction([
+            'rate' => '4',
+        ]);
+
+        $this->assertSame(4.0, $reaction->getAttribute('rate'));
     }
 
     /** @test */
