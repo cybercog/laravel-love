@@ -182,8 +182,6 @@ final class Reactant extends Model implements
 
         $this->reactionCounters()->create([
             'reaction_type_id' => $reactionType->getId(),
-            'count' => 0,
-            'weight' => 0,
         ]);
 
         // Need to reload relation with fresh data
@@ -196,10 +194,7 @@ final class Reactant extends Model implements
             throw ReactionTotalDuplicate::forReactant($this);
         }
 
-        $this->reactionTotal()->create([
-            'count' => 0,
-            'weight' => 0,
-        ]);
+        $this->reactionTotal()->create();
 
         // Need to reload relation with fresh data
         $this->load('reactionTotal');
