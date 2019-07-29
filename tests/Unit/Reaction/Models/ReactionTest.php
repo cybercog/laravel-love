@@ -233,6 +233,22 @@ final class ReactionTest extends TestCase
     }
 
     /** @test */
+    public function it_can_get_weight_affected_by_rate(): void
+    {
+        $reactionType = factory(ReactionType::class)->create([
+            'mass' => 4,
+        ]);
+
+        /** @var \Cog\Laravel\Love\Reaction\Models\Reaction $reaction */
+        $reaction = factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'rate' => 1.02,
+        ]);
+
+        $this->assertSame(4.08, $reaction->getWeight());
+    }
+
+    /** @test */
     public function it_can_check_if_reaction_is_of_type(): void
     {
         $reactionType1 = factory(ReactionType::class)->create();

@@ -28,7 +28,7 @@ interface Reacter
      */
     public function getReactions(): iterable;
 
-    public function reactTo(Reactant $reactant, ReactionType $reactionType): void;
+    public function reactTo(Reactant $reactant, ReactionType $reactionType, ?float $rate = null): void;
 
     public function unreactTo(Reactant $reactant, ReactionType $reactionType): void;
 

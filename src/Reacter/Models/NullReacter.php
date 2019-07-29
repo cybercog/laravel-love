@@ -49,7 +49,8 @@ final class NullReacter implements
 
     public function reactTo(
         Reactant $reactant,
-        ReactionType $reactionType
+        ReactionType $reactionType,
+        ?float $rate = null
     ): void {
         throw ReacterInvalid::notExists();
     }
