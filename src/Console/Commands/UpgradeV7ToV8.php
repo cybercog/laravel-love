@@ -43,10 +43,10 @@ final class UpgradeV7ToV8 extends Command
     public function handle(): void
     {
         $this->dbChangeReactionType();
-        // TODO: Remove `reaction_counters.count` default value
-        // TODO: Remove `reaction_counters.weight` default value
-        // TODO: Remove `reaction_totals.count` default value
-        // TODO: Remove `reaction_totals.weight` default value
+        // TODO: Remove `reactant_reaction_counters.count` default value
+        // TODO: Remove `reactant_reaction_counters.weight` default value
+        // TODO: Remove `reactant_reaction_totals.count` default value
+        // TODO: Remove `reactant_reaction_totals.weight` default value
     }
 
     private function dbChangeReactionType(): void
