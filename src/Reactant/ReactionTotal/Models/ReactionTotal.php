@@ -29,8 +29,8 @@ final class ReactionTotal extends Model implements
     protected $table = 'love_reactant_reaction_totals';
 
     protected $attributes = [
-        'count' => 0,
-        'weight' => 0,
+        'count' => self::DEFAULT_COUNT,
+        'weight' => self::DEFAULT_WEIGHT,
     ];
 
     protected $fillable = [
