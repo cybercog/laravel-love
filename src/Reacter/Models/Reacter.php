@@ -83,11 +83,7 @@ final class Reacter extends Model implements
         $reaction = $this->findReaction($reactant, $reactionType);
 
         if (is_null($reaction)) {
-            $this->reactions()->create([
-                'reaction_type_id' => $reactionType->getId(),
-                'reactant_id' => $reactant->getId(),
-                'rate' => $rate,
-            ]);
+            $this->createReaction($reactant, $reactionType, $rate);
 
             return;
         }
@@ -95,7 +91,7 @@ final class Reacter extends Model implements
         // TODO: Get or compare rate value using reaction contract
         if (is_null($rate) || $reaction->getAttributeValue('rate') === $rate) {
             throw new ReactionAlreadyExists(
-                sprintf('Reaction of type `%s` already exists.', $reactionType->getName())
+                sprintf('Reaction of type `%s` with `%s` rate already exists.', $reactionType->getName(), $rate)
             );
         }
 
@@ -162,6 +158,18 @@ final class Reacter extends Model implements
     public function isNotNull(): bool
     {
         return $this->exists;
+    }
+
+    private function createReaction(
+        ReactantContract $reactant,
+        ReactionTypeContract $reactionType,
+        ?float $rate
+    ): void {
+        $this->reactions()->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
+            'rate' => $rate,
+        ]);
     }
 
     /**
