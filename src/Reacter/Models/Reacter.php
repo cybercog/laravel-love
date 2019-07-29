@@ -80,15 +80,26 @@ final class Reacter extends Model implements
             throw ReactantInvalid::notExists();
         }
 
-        if ($this->hasReactedTo($reactant, $reactionType)) {
+        $reaction = $this->findReaction($reactant, $reactionType);
+
+        if (is_null($reaction)) {
+            $this->reactions()->create([
+                'reaction_type_id' => $reactionType->getId(),
+                'reactant_id' => $reactant->getId(),
+                'rate' => $rate,
+            ]);
+
+            return;
+        }
+
+        // TODO: Get or compare rate value using reaction contract
+        if (is_null($rate) || $reaction->getAttributeValue('rate') === $rate) {
             throw new ReactionAlreadyExists(
                 sprintf('Reaction of type `%s` already exists.', $reactionType->getName())
             );
         }
 
-        $this->reactions()->create([
-            'reaction_type_id' => $reactionType->getId(),
-            'reactant_id' => $reactant->getId(),
+        $reaction->update([
             'rate' => $rate,
         ]);
     }

@@ -182,6 +182,21 @@ final class ReacterTest extends TestCase
     }
 
     /** @test */
+    public function it_can_change_reaction_rate_with_react_to_when_reaction_already_exists(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = factory(Reacter::class)->create();
+        $reactant = factory(Reactant::class)->create();
+
+        $reacter->reactTo($reactant, $reactionType);
+        $reacter->reactTo($reactant, $reactionType, 2);
+
+        $this->assertCount(1, $reacter->reactions);
+        $assertReaction = $reacter->reactions->first();
+        $this->assertSame(2.0, $assertReaction->rate);
+    }
+
+    /** @test */
     public function it_throws_reactant_invalid_on_react_to_when_reactant_is_null_object(): void
     {
         $this->expectException(ReactantInvalid::class);
@@ -206,7 +221,7 @@ final class ReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_cannot_duplicate_reactions(): void
+    public function it_throws_reaction_already_exists_when_react_to_creating_duplicate(): void
     {
         $this->expectException(ReactionAlreadyExists::class);
 
