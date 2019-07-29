@@ -4,6 +4,11 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- ([#90](https://github.com/cybercog/laravel-love/pull/90)) Added `ReactionCounter::DEFAULT_COUNT` & `ReactionCounter::DEFAULT_WEIGHT` constants
+- ([#90](https://github.com/cybercog/laravel-love/pull/90)) Added `ReactionTotal::DEFAULT_COUNT` & `ReactionTotal::DEFAULT_WEIGHT` constants
+
 ### Changed
 
 - ([#79](https://github.com/cybercog/laravel-love/pull/79)) Reacter model `isReactedTo` & `isReactedToWithType` methods replaced with single `hasReactedTo` method
@@ -15,6 +20,8 @@ All notable changes to `laravel-love` will be documented in this file.
 - ([#88](https://github.com/cybercog/laravel-love/pull/88)) ReactionType attribute `weight` renamed to `mass`
 - ([#88](https://github.com/cybercog/laravel-love/pull/88)) ReactionType method `getWeight` renamed to `getMass`
 - ([#89](https://github.com/cybercog/laravel-love/pull/89)) Reactable method `scopeWhereReactedByWithType` merged with `scopeWhereReactedBy`
+- ([#90](https://github.com/cybercog/laravel-love/pull/90)) ReactionCounter attributes `count` & `weight` default values moved to application level
+- ([#90](https://github.com/cybercog/laravel-love/pull/90)) ReactionTotal attributes `count` & `weight` default values moved to application level
 
 ### Removed
 

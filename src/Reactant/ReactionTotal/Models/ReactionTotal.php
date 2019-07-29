@@ -22,11 +22,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 final class ReactionTotal extends Model implements
     ReactionTotalContract
 {
+    const DEFAULT_COUNT = 0;
+
+    const DEFAULT_WEIGHT = 0;
+
     protected $table = 'love_reactant_reaction_totals';
 
     protected $attributes = [
-        'count' => 0,
-        'weight' => 0,
+        'count' => self::DEFAULT_COUNT,
+        'weight' => self::DEFAULT_WEIGHT,
     ];
 
     protected $fillable = [
