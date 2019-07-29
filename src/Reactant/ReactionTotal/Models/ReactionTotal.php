@@ -24,7 +24,7 @@ final class ReactionTotal extends Model implements
 {
     const DEFAULT_COUNT = 0;
 
-    const DEFAULT_WEIGHT = 0;
+    const DEFAULT_WEIGHT = 0.0;
 
     protected $table = 'love_reactant_reaction_totals';
 
@@ -40,7 +40,7 @@ final class ReactionTotal extends Model implements
 
     protected $casts = [
         'count' => 'integer',
-        'weight' => 'integer',
+        'weight' => 'float',
     ];
 
     public function reactant(): BelongsTo
@@ -58,7 +58,7 @@ final class ReactionTotal extends Model implements
         return $this->getAttributeValue('count');
     }
 
-    public function getWeight(): int
+    public function getWeight(): float
     {
         return $this->getAttributeValue('weight');
     }
@@ -76,13 +76,13 @@ final class ReactionTotal extends Model implements
     }
 
     public function incrementWeight(
-        int $amount
+        float $amount
     ): void {
         $this->increment('weight', $amount);
     }
 
     public function decrementWeight(
-        int $amount
+        float $amount
     ): void {
         $this->decrement('weight', $amount);
     }

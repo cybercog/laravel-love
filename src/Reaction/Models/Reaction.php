@@ -80,9 +80,9 @@ final class Reaction extends Model implements
         return $this->getAttribute('type');
     }
 
-    public function getWeight(): int
+    public function getWeight(): float
     {
-        return $this->getType()->getMass();
+        return $this->getType()->getMass() * $this->getAttributeValue('rate');
     }
 
     public function isOfType(

@@ -559,7 +559,7 @@ final class ReactantTest extends TestCase
         $this->assertTrue($counter->isReactionOfType($reactionType));
         $this->assertTrue($counter->getReactant()->is($reactant));
         $this->assertSame(0, $counter->getCount());
-        $this->assertSame(0, $counter->getWeight());
+        $this->assertSame(0.0, $counter->getWeight());
     }
 
     /** @test */
@@ -585,7 +585,7 @@ final class ReactantTest extends TestCase
         $total = $reactant->getReactionTotal();
         $this->assertTrue($total->getReactant()->is($reactant));
         $this->assertSame(0, $total->getCount());
-        $this->assertSame(0, $total->getWeight());
+        $this->assertSame(0.0, $total->getWeight());
     }
 
     /** @test */

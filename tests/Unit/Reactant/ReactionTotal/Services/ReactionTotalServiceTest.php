@@ -46,7 +46,7 @@ final class ReactionTotalServiceTest extends TestCase
 
         $total = $reactant->reactionTotal;
         $this->assertSame(2, $total->count);
-        $this->assertSame(8, $total->weight);
+        $this->assertSame(8.0, $total->weight);
     }
 
     /** @test */
@@ -76,7 +76,7 @@ final class ReactionTotalServiceTest extends TestCase
         $service->removeReaction($reaction2);
 
         $this->assertSame(2, $total->fresh()->count);
-        $this->assertSame(8, $total->fresh()->weight);
+        $this->assertSame(8.0, $total->fresh()->weight);
     }
 
     /** @test */
@@ -123,7 +123,7 @@ final class ReactionTotalServiceTest extends TestCase
 
         $total = $reactant->reactionTotal;
         $this->assertSame(2, $total->count);
-        $this->assertSame(-8, $total->weight);
+        $this->assertSame(-8.0, $total->weight);
     }
 
     /** @test */
@@ -145,7 +145,7 @@ final class ReactionTotalServiceTest extends TestCase
         $total = $reactant->getReactionTotal();
         $this->assertInstanceOf(ReactionTotal::class, $total);
         $this->assertSame(1, $total->count);
-        $this->assertSame(4, $total->weight);
+        $this->assertSame(4.0, $total->weight);
     }
 
     /** @test */
@@ -165,6 +165,6 @@ final class ReactionTotalServiceTest extends TestCase
         $total = $reactant->getReactionTotal();
         $this->assertInstanceOf(ReactionTotal::class, $total);
         $this->assertSame(0, $total->count);
-        $this->assertSame(0, $total->weight);
+        $this->assertSame(0.0, $total->weight);
     }
 }

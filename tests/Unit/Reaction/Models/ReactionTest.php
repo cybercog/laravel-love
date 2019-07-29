@@ -229,7 +229,7 @@ final class ReactionTest extends TestCase
             'reaction_type_id' => $reactionType->getId(),
         ]);
 
-        $this->assertSame(4, $reaction->getWeight());
+        $this->assertSame(4.0, $reaction->getWeight());
     }
 
     /** @test */

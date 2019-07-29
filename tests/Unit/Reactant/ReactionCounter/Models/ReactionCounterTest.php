@@ -38,7 +38,7 @@ final class ReactionCounterTest extends TestCase
             'weight' => 4,
         ]);
 
-        $this->assertSame(4, $counter->getAttribute('weight'));
+        $this->assertSame(4.0, $counter->getAttribute('weight'));
     }
 
     /** @test */
@@ -68,7 +68,7 @@ final class ReactionCounterTest extends TestCase
             'weight' => '4',
         ]);
 
-        $this->assertSame(4, $counter->getAttribute('weight'));
+        $this->assertSame(4.0, $counter->getAttribute('weight'));
     }
 
     /** @test */
@@ -196,7 +196,7 @@ final class ReactionCounterTest extends TestCase
             'weight' => '4',
         ]);
 
-        $this->assertSame(4, $counter->getWeight());
+        $this->assertSame(4.0, $counter->getWeight());
     }
 
     /** @test */
@@ -204,7 +204,7 @@ final class ReactionCounterTest extends TestCase
     {
         $counter = new ReactionCounter();
 
-        $this->assertSame(0, $counter->getWeight());
+        $this->assertSame(0.0, $counter->getWeight());
     }
 
     /** @test */
@@ -266,7 +266,7 @@ final class ReactionCounterTest extends TestCase
 
         $counter->incrementWeight(2);
 
-        $this->assertSame(2, $counter->getWeight());
+        $this->assertSame(2.0, $counter->getWeight());
     }
 
     /** @test */
@@ -279,7 +279,7 @@ final class ReactionCounterTest extends TestCase
         $counter->incrementWeight(2);
         $counter->incrementWeight(3);
 
-        $this->assertSame(5, $counter->getWeight());
+        $this->assertSame(5.0, $counter->getWeight());
     }
 
     /** @test */
@@ -291,7 +291,7 @@ final class ReactionCounterTest extends TestCase
 
         $counter->decrementWeight(2);
 
-        $this->assertSame(8, $counter->getWeight());
+        $this->assertSame(8.0, $counter->getWeight());
     }
 
     /** @test */
@@ -304,6 +304,6 @@ final class ReactionCounterTest extends TestCase
         $counter->decrementWeight(2);
         $counter->decrementWeight(3);
 
-        $this->assertSame(5, $counter->getWeight());
+        $this->assertSame(5.0, $counter->getWeight());
     }
 }

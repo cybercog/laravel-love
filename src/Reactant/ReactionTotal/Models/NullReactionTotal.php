@@ -38,9 +38,9 @@ final class NullReactionTotal implements
         return 0;
     }
 
-    public function getWeight(): int
+    public function getWeight(): float
     {
-        return 0;
+        return 0.0;
     }
 
     public function incrementCount(
@@ -56,13 +56,13 @@ final class NullReactionTotal implements
     }
 
     public function incrementWeight(
-        int $amount
+        float $amount
     ): void {
         throw ReactionTotalInvalid::notExists();
     }
 
     public function decrementWeight(
-        int $amount
+        float $amount
     ): void {
         throw ReactionTotalInvalid::notExists();
     }

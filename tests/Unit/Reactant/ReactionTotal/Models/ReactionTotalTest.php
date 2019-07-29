@@ -37,7 +37,7 @@ final class ReactionTotalTest extends TestCase
             'weight' => 4,
         ]);
 
-        $this->assertSame(4, $total->getAttribute('weight'));
+        $this->assertSame(4.0, $total->getAttribute('weight'));
     }
 
     /** @test */
@@ -57,7 +57,7 @@ final class ReactionTotalTest extends TestCase
             'weight' => '4',
         ]);
 
-        $this->assertSame(4, $total->getAttribute('weight'));
+        $this->assertSame(4.0, $total->getAttribute('weight'));
     }
 
     /** @test */
@@ -119,7 +119,7 @@ final class ReactionTotalTest extends TestCase
             'weight' => '4',
         ]);
 
-        $this->assertSame(4, $total->getWeight());
+        $this->assertSame(4.0, $total->getWeight());
     }
 
     /** @test */
@@ -127,7 +127,7 @@ final class ReactionTotalTest extends TestCase
     {
         $total = new ReactionTotal();
 
-        $this->assertSame(0, $total->getWeight());
+        $this->assertSame(0.0, $total->getWeight());
     }
 
     /** @test */
@@ -189,7 +189,7 @@ final class ReactionTotalTest extends TestCase
 
         $total->incrementWeight(2);
 
-        $this->assertSame(2, $total->getWeight());
+        $this->assertSame(2.0, $total->getWeight());
     }
 
     /** @test */
@@ -202,7 +202,7 @@ final class ReactionTotalTest extends TestCase
         $total->incrementWeight(2);
         $total->incrementWeight(3);
 
-        $this->assertSame(5, $total->getWeight());
+        $this->assertSame(5.0, $total->getWeight());
     }
 
     /** @test */
@@ -214,7 +214,7 @@ final class ReactionTotalTest extends TestCase
 
         $total->decrementWeight(2);
 
-        $this->assertSame(8, $total->getWeight());
+        $this->assertSame(8.0, $total->getWeight());
     }
 
     /** @test */
@@ -227,6 +227,6 @@ final class ReactionTotalTest extends TestCase
         $total->decrementWeight(2);
         $total->decrementWeight(3);
 
-        $this->assertSame(5, $total->getWeight());
+        $this->assertSame(5.0, $total->getWeight());
     }
 }
