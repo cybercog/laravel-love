@@ -8,6 +8,7 @@ All notable changes to `laravel-love` will be documented in this file.
 
 - ([#90](https://github.com/cybercog/laravel-love/pull/90)) Added `ReactionCounter::DEFAULT_COUNT` & `ReactionCounter::DEFAULT_WEIGHT` constants
 - ([#90](https://github.com/cybercog/laravel-love/pull/90)) Added `ReactionTotal::DEFAULT_COUNT` & `ReactionTotal::DEFAULT_WEIGHT` constants
+- ([#91](https://github.com/cybercog/laravel-love/pull/91)) Added `Reaction::DEFAULT_RATE` constant
 
 ### Changed
 
@@ -22,6 +23,15 @@ All notable changes to `laravel-love` will be documented in this file.
 - ([#89](https://github.com/cybercog/laravel-love/pull/89)) Reactable method `scopeWhereReactedByWithType` merged with `scopeWhereReactedBy`
 - ([#90](https://github.com/cybercog/laravel-love/pull/90)) ReactionCounter attributes `count` & `weight` default values moved to application level
 - ([#90](https://github.com/cybercog/laravel-love/pull/90)) ReactionTotal attributes `count` & `weight` default values moved to application level
+- ([#91](https://github.com/cybercog/laravel-love/pull/91)) Changed `getWeight` method return type from `int` to `float` in `Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter` contract
+- ([#91](https://github.com/cybercog/laravel-love/pull/91)) Changed `$amount` parameter  type from `int` to `float` of `incrementWeight` method in `Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter` contract
+- ([#91](https://github.com/cybercog/laravel-love/pull/91)) Changed `$amount` parameter  type from `int` to `float` of `decrementWeight` method in `Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter` contract
+- ([#91](https://github.com/cybercog/laravel-love/pull/91)) Changed `getWeight` method return type from `int` to `float` in `Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal` contract
+- ([#91](https://github.com/cybercog/laravel-love/pull/91)) Changed `$amount` parameter  type from `int` to `float` of `incrementWeight` method in `Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal` contract
+- ([#91](https://github.com/cybercog/laravel-love/pull/91)) Changed `$amount` parameter  type from `int` to `float` of `decrementWeight` method in `Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal` contract
+- ([#91](https://github.com/cybercog/laravel-love/pull/91)) Added `?float $rate` parameter to `reactTo` method in `Cog\Contracts\Love\Reacter\Models\Reacter` contract
+- ([#91](https://github.com/cybercog/laravel-love/pull/91)) Added `getRate` method to `Cog\Contracts\Love\Reaction\Models\Reaction` contract
+- ([#91](https://github.com/cybercog/laravel-love/pull/91)) Changed `getWeight` method return type from `int` to `float` in `Cog\Contracts\Love\Reaction\Models\Reaction` contract
 
 ### Removed
 
