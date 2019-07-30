@@ -48,16 +48,18 @@ final class ReactionTotalTest extends TestCase
         ]);
 
         $this->assertSame(4, $total->getAttribute('count'));
+        $this->assertSame(4, $total->getCount());
     }
 
     /** @test */
-    public function it_casts_weight_to_integer(): void
+    public function it_casts_weight_to_float(): void
     {
         $total = new ReactionTotal([
             'weight' => '4',
         ]);
 
         $this->assertSame(4.0, $total->getAttribute('weight'));
+        $this->assertSame(4.0, $total->getWeight());
     }
 
     /** @test */

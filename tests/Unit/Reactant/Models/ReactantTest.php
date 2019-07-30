@@ -52,6 +52,7 @@ final class ReactantTest extends TestCase
         ]);
 
         $this->assertSame('4', $reactant->getAttribute('id'));
+        $this->assertSame('4', $reactant->getId());
     }
 
     /** @test */

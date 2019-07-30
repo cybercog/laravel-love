@@ -59,16 +59,18 @@ final class ReactionCounterTest extends TestCase
         ]);
 
         $this->assertSame(4, $counter->getAttribute('count'));
+        $this->assertSame(4, $counter->getCount());
     }
 
     /** @test */
-    public function it_casts_weight_to_integer(): void
+    public function it_casts_weight_to_float(): void
     {
         $counter = new ReactionCounter([
             'weight' => '4',
         ]);
 
         $this->assertSame(4.0, $counter->getAttribute('weight'));
+        $this->assertSame(4.0, $counter->getWeight());
     }
 
     /** @test */

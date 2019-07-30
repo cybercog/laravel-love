@@ -73,6 +73,7 @@ final class ReactionTest extends TestCase
         ]);
 
         $this->assertSame('4', $reaction->getAttribute('id'));
+        $this->assertSame('4', $reaction->getId());
     }
 
     /** @test */
@@ -83,6 +84,7 @@ final class ReactionTest extends TestCase
         ]);
 
         $this->assertSame(4.0, $reaction->getAttribute('rate'));
+        $this->assertSame(4.0, $reaction->getRate());
     }
 
     /** @test */

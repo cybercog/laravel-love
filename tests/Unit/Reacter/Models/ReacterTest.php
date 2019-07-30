@@ -48,6 +48,7 @@ final class ReacterTest extends TestCase
         ]);
 
         $this->assertSame('4', $reacter->getAttribute('id'));
+        $this->assertSame('4', $reacter->getId());
     }
 
     /** @test */

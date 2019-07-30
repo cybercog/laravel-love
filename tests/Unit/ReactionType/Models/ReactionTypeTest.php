@@ -50,6 +50,7 @@ final class ReactionTypeTest extends TestCase
         ]);
 
         $this->assertSame('4', $type->getAttribute('id'));
+        $this->assertSame('4', $type->getId());
     }
 
     /** @test */
@@ -60,6 +61,7 @@ final class ReactionTypeTest extends TestCase
         ]);
 
         $this->assertSame(4, $type->getAttribute('mass'));
+        $this->assertSame(4, $type->getMass());
     }
 
     /** @test */
