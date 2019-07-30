@@ -11,20 +11,23 @@ All notable changes to `laravel-love` will be documented in this file.
 - ([#90]) Added `ReactionTotal::DEFAULT_COUNT` constant
 - ([#90]) Added `ReactionTotal::DEFAULT_WEIGHT` constant
 - ([#91]) Added `Reaction::DEFAULT_RATE` constant
+- ([#91]) Added `rate` attribute to `Reacter` model
+- ([#91]) Added `rate DECIMIAL(4, 2)` column to `love_reactions` db table
+- ([#91]) Added ability to call `Reacter::reactTo` on already reacted reactant with same reaction type if rate differs
 
 ### Changed
 
-- ([#79]) Reacter model `isReactedTo` & `isReactedToWithType` methods replaced with single `hasReactedTo` method
-- ([#79]) Reacter model `isNotReactedTo` & `isNotReactedToWithType` methods replaced with single `hasNotReactedTo` method
-- ([#79]) Reactant model `isReactedBy`&& `isReactedByWithType` methods replaced with single `isReactedBy` method
-- ([#79]) Reactant model `isNotReactedBy`&& `isNotReactedByWithType` methods replaced with single `isNotReactedBy` method
+- ([#79]) `Reacter` model `isReactedTo` & `isReactedToWithType` methods replaced with single `hasReactedTo` method
+- ([#79]) `Reacter` model `isNotReactedTo` & `isNotReactedToWithType` methods replaced with single `hasNotReactedTo` method
+- ([#79]) `Reactant` model `isReactedBy`&& `isReactedByWithType` methods replaced with single `isReactedBy` method
+- ([#79]) `Reactant` model `isNotReactedBy`&& `isNotReactedByWithType` methods replaced with single `isNotReactedBy` method
 - ([#83]) Artisan command `love:reaction-type-add` awaits options instead of arguments
 - ([#87]) Resolving default attributes values moved from accessors to Eloquent
-- ([#88]) ReactionType attribute `weight` renamed to `mass`
-- ([#88]) ReactionType method `getWeight` renamed to `getMass`
-- ([#89]) Reactable method `scopeWhereReactedByWithType` merged with `scopeWhereReactedBy`
-- ([#90]) ReactionCounter attributes `count` & `weight` default values moved to application level
-- ([#90]) ReactionTotal attributes `count` & `weight` default values moved to application level
+- ([#88]) `ReactionType` model attribute `weight` renamed to `mass`
+- ([#88]) `ReactionType` model method `getWeight` renamed to `getMass`
+- ([#89]) `Reactable` model method `scopeWhereReactedByWithType` merged with `scopeWhereReactedBy`
+- ([#90]) `ReactionCounter` model attributes `count` & `weight` default values moved to application level
+- ([#90]) `ReactionTotal` model attributes `count` & `weight` default values moved to application level
 - ([#91]) Changed `getWeight` method return type from `int` to `float` in `Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter` contract
 - ([#91]) Changed `$amount` parameter  type from `int` to `float` of `incrementWeight` method in `Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter` contract
 - ([#91]) Changed `$amount` parameter  type from `int` to `float` of `decrementWeight` method in `Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter` contract
@@ -34,6 +37,8 @@ All notable changes to `laravel-love` will be documented in this file.
 - ([#91]) Added `?float $rate` parameter to `reactTo` method in `Cog\Contracts\Love\Reacter\Models\Reacter` contract
 - ([#91]) Added `getRate` method to `Cog\Contracts\Love\Reaction\Models\Reaction` contract
 - ([#91]) Changed `getWeight` method return type from `int` to `float` in `Cog\Contracts\Love\Reaction\Models\Reaction` contract
+- ([#91]) Changed `weight` column type to `DECIMIAL(22, 2)` in `love_reactant_reaction_counters` db table
+- ([#91]) Changed `weight` column type to `DECIMIAL(22, 2)` in `love_reactant_reaction_totals` db table
 
 ### Removed
 
