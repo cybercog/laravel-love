@@ -6,8 +6,8 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ### Added
 
-- ([#90](https://github.com/cybercog/laravel-love/pull/90)) Added `ReactionCounter::DEFAULT_COUNT` & `ReactionCounter::DEFAULT_WEIGHT` constants
-- ([#90](https://github.com/cybercog/laravel-love/pull/90)) Added `ReactionTotal::DEFAULT_COUNT` & `ReactionTotal::DEFAULT_WEIGHT` constants
+- ([#90]) Added `ReactionCounter::DEFAULT_COUNT` & `ReactionCounter::DEFAULT_WEIGHT` constants
+- ([#90]) Added `ReactionTotal::DEFAULT_COUNT` & `ReactionTotal::DEFAULT_WEIGHT` constants
 - ([#91]) Added `Reaction::DEFAULT_RATE` constant
 
 ### Changed
