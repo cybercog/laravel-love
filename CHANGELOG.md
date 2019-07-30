@@ -8,7 +8,7 @@ All notable changes to `laravel-love` will be documented in this file.
 
 - ([#90](https://github.com/cybercog/laravel-love/pull/90)) Added `ReactionCounter::DEFAULT_COUNT` & `ReactionCounter::DEFAULT_WEIGHT` constants
 - ([#90](https://github.com/cybercog/laravel-love/pull/90)) Added `ReactionTotal::DEFAULT_COUNT` & `ReactionTotal::DEFAULT_WEIGHT` constants
-- ([#91](https://github.com/cybercog/laravel-love/pull/91)) Added `Reaction::DEFAULT_RATE` constant
+- ([#91]) Added `Reaction::DEFAULT_RATE` constant
 
 ### Changed
 
@@ -349,3 +349,5 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 [1.1.2]: https://github.com/cybercog/laravel-love/compare/1.1.1...1.1.2
 [1.1.1]: https://github.com/cybercog/laravel-love/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/cybercog/laravel-love/compare/1.0.0...1.1.0
+
+[#91]: https://github.com/cybercog/laravel-love/pull/91
