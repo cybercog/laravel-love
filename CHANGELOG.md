@@ -35,6 +35,7 @@ All notable changes to `laravel-love` will be documented in this file.
 - ([#91]) Changed `getWeight` method return type from `int` to `float` in `Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal` contract
 - ([#91]) Changed `$amount` parameter  type from `int` to `float` of `incrementWeight` method in `Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal` contract
 - ([#91]) Changed `$amount` parameter  type from `int` to `float` of `decrementWeight` method in `Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal` contract
+- ([#91]) Added `?float $rate` parameter to `reactTo` method in `Cog\Contracts\Love\Reacter\Facades\Reacter` contract
 - ([#91]) Added `?float $rate` parameter to `reactTo` method in `Cog\Contracts\Love\Reacter\Models\Reacter` contract
 - ([#91]) Added `getRate` method to `Cog\Contracts\Love\Reaction\Models\Reaction` contract
 - ([#91]) Changed `getWeight` method return type from `int` to `float` in `Cog\Contracts\Love\Reaction\Models\Reaction` contract
