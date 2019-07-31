@@ -53,8 +53,8 @@ All notable changes to `laravel-love` will be documented in this file.
 - ([#91]) Added `?float $rate` parameter to `reactTo` method in `Reacter` model contract
 - ([#91]) Added `getRate` method to `Reaction` model contract
 - ([#91]) Changed `getWeight` method return type from `int` to `float` in `Reaction` model contract
-- ([#91]) Changed `weight` column type to `DECIMIAL(22, 2)` in `love_reactant_reaction_counters` db table
-- ([#91]) Changed `weight` column type to `DECIMIAL(22, 2)` in `love_reactant_reaction_totals` db table
+- ([#91]) Changed `weight` column type to `DECIMIAL(13, 2)` in `love_reactant_reaction_counters` db table
+- ([#91]) Changed `weight` column type to `DECIMIAL(13, 2)` in `love_reactant_reaction_totals` db table
 
 ### Removed
 
