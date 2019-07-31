@@ -237,7 +237,7 @@ final class ReactionTypeAddTest extends TestCase
     }
 
     /** @test */
-    public function it_creates_type_with_zero_mass_if_not_answered(): void
+    public function it_creates_type_with_default_mass_if_not_answered(): void
     {
         $typesCount = ReactionType::query()->count();
         $this
@@ -247,7 +247,7 @@ final class ReactionTypeAddTest extends TestCase
 
         $this->assertSame($typesCount + 1, ReactionType::query()->count());
         $reactionType = ReactionType::query()->latest()->first();
-        $this->assertSame(0, $reactionType->getMass());
+        $this->assertSame(ReactionType::DEFAULT_MASS, $reactionType->getMass());
     }
 
     /** @test */
