@@ -91,9 +91,9 @@ final class Reaction extends Model implements
     }
 
     public function setRateAttribute(
-        float $amount
+        ?float $amount
     ): void {
-        if ($amount <= 0 || $amount >= 100) {
+        if (!is_null($amount) && ($amount <= 0 || $amount >= 100)) {
             throw new \OutOfRangeException();
         }
 
