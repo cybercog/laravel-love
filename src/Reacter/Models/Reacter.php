@@ -126,20 +126,22 @@ final class Reacter extends Model implements
 
     public function hasReactedTo(
         ReactantContract $reactant,
-        ?ReactionTypeContract $reactionType = null
+        ?ReactionTypeContract $reactionType = null,
+        float $rate = null
     ): bool {
         if ($reactant->isNull()) {
             return false;
         }
 
-        return $reactant->isReactedBy($this, $reactionType);
+        return $reactant->isReactedBy($this, $reactionType, $rate);
     }
 
     public function hasNotReactedTo(
         ReactantContract $reactant,
-        ?ReactionTypeContract $reactionType = null
+        ?ReactionTypeContract $reactionType = null,
+        float $rate = null
     ): bool {
-        return $reactant->isNotReactedBy($this, $reactionType);
+        return $reactant->isNotReactedBy($this, $reactionType, $rate);
     }
 
     public function isEqualTo(

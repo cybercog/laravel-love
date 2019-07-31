@@ -238,7 +238,7 @@ final class ReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_is_reacted_to_reactable(): void
+    public function it_can_check_has_reacted_to_reactable(): void
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
@@ -257,7 +257,7 @@ final class ReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_is_reacted_to_reactable_when_reactable_is_not_registered_as_reactant(): void
+    public function it_can_check_has_reacted_to_reactable_when_reactable_is_not_registered_as_reactant(): void
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
@@ -269,7 +269,7 @@ final class ReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_is_reacted_to_reactable_when_reactable_is_not_persisted(): void
+    public function it_can_check_has_reacted_to_reactable_when_reactable_is_not_persisted(): void
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
@@ -281,7 +281,7 @@ final class ReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_is_not_reacted_to_reactable(): void
+    public function it_can_check_has_not_reacted_to_reactable(): void
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
@@ -303,7 +303,7 @@ final class ReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_is_not_reacted_to_reactable_when_reactable_is_not_registered_as_reactant(): void
+    public function it_can_check_has_not_reacted_to_reactable_when_reactable_is_not_registered_as_reactant(): void
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
@@ -315,7 +315,7 @@ final class ReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_is_not_reacted_to_reactable_when_reactable_is_not_persisted(): void
+    public function it_can_check_has_not_reacted_to_reactable_when_reactable_is_not_persisted(): void
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
@@ -327,7 +327,7 @@ final class ReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_is_reacted_to_reactable_with_type(): void
+    public function it_can_check_has_reacted_to_reactable_with_type(): void
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
@@ -346,7 +346,7 @@ final class ReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_is_reacted_to_reactable_with_type_when_reactable_is_not_registered_as_reactant(): void
+    public function it_can_check_has_reacted_to_reactable_with_type_when_reactable_is_not_registered_as_reactant(): void
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
@@ -359,7 +359,7 @@ final class ReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_is_reacted_to_reactable_with_type_when_reactable_is_not_persisted(): void
+    public function it_can_check_has_reacted_to_reactable_with_type_when_reactable_is_not_persisted(): void
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
@@ -372,7 +372,7 @@ final class ReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_throws_reaction_type_invalid_on_is_reacted_to_with_type_when_reaction_type_not_exist(): void
+    public function it_throws_reaction_type_invalid_on_has_reacted_to_with_type_when_reaction_type_not_exist(): void
     {
         $this->expectException(ReactionTypeInvalid::class);
 
@@ -384,7 +384,7 @@ final class ReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_is_not_reacted_to_reactable_with_type(): void
+    public function it_can_check_has_not_reacted_to_reactable_with_type(): void
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
@@ -408,7 +408,7 @@ final class ReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_is_not_reacted_to_reactable_with_type_when_reactable_is_not_registered_as_reactant(): void
+    public function it_can_check_has_not_reacted_to_reactable_with_type_when_reactable_is_not_registered_as_reactant(): void
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
@@ -421,7 +421,7 @@ final class ReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_is_not_reacted_to_reactable_with_type_when_reactable_is_not_persisted(): void
+    public function it_can_check_has_not_reacted_to_reactable_with_type_when_reactable_is_not_persisted(): void
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
@@ -434,7 +434,7 @@ final class ReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_throws_reaction_type_invalid_on_is_not_reacted_to_with_type_when_reaction_type_not_exist(): void
+    public function it_throws_reaction_type_invalid_on_has_not_reacted_to_with_type_when_reaction_type_not_exist(): void
     {
         $this->expectException(ReactionTypeInvalid::class);
 
@@ -443,5 +443,215 @@ final class ReacterTest extends TestCase
         $reactable = factory(Article::class)->create();
 
         $reacterFacade->hasNotReactedTo($reactable, 'NotExist');
+    }
+
+    /** @test */
+    public function it_can_check_has_reacted_to_reactable_with_rate(): void
+    {
+        $reacter = factory(Reacter::class)->create();
+        $reacterFacade = new ReacterFacade($reacter);
+        $reactable = factory(Article::class)->create();
+        $reactant = $reactable->getLoveReactant();
+        factory(Reaction::class)->create([
+            'reacter_id' => $reacter->getId(),
+            'reactant_id' => $reactant->getId(),
+            'rate' => 2.0,
+        ]);
+
+        $isReacted = $reacterFacade->hasReactedTo($reactable, null, 2.0);
+
+        $this->assertTrue($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_has_reacted_to_reactable_with_rate_when_reactable_is_not_registered_as_reactant(): void
+    {
+        $reacter = factory(Reacter::class)->create();
+        $reacterFacade = new ReacterFacade($reacter);
+        $reactable = factory(ArticleWithoutAutoReactantCreate::class)->create();
+
+        $isReacted = $reacterFacade->hasReactedTo($reactable, null, 2.0);
+
+        $this->assertFalse($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_has_reacted_to_reactable_with_rate_when_reactable_is_not_persisted(): void
+    {
+        $reacter = factory(Reacter::class)->create();
+        $reacterFacade = new ReacterFacade($reacter);
+        $reactable = new Article();
+
+        $isReacted = $reacterFacade->hasReactedTo($reactable, null, 2.0);
+
+        $this->assertFalse($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_has_not_reacted_to_reactable_with_rate(): void
+    {
+        $reacter = factory(Reacter::class)->create();
+        $reacterFacade = new ReacterFacade($reacter);
+        $reactable = factory(Article::class)->create();
+        $reactant = $reactable->getLoveReactant();
+        factory(Reaction::class)->create([
+            'reacter_id' => $reacter->getId(),
+            'reactant_id' => $reactant->getId(),
+            'rate' => 2.2,
+        ]);
+        factory(Reaction::class)->create([
+            'reactant_id' => $reactant->getId(),
+            'rate' => 2.0,
+        ]);
+
+        $isNotReacted = $reacterFacade->hasNotReactedTo($reactable, null, 2.0);
+
+        $this->assertTrue($isNotReacted);
+    }
+
+    /** @test */
+    public function it_can_check_has_not_reacted_to_reactable_with_rate_when_reactable_is_not_registered_as_reactant(): void
+    {
+        $reacter = factory(Reacter::class)->create();
+        $reacterFacade = new ReacterFacade($reacter);
+        $reactable = factory(ArticleWithoutAutoReactantCreate::class)->create();
+
+        $isNotReacted = $reacterFacade->hasNotReactedTo($reactable, null, 2.0);
+
+        $this->assertTrue($isNotReacted);
+    }
+
+    /** @test */
+    public function it_can_check_has_not_reacted_to_reactable_with_rate_when_reactable_is_not_persisted(): void
+    {
+        $reacter = factory(Reacter::class)->create();
+        $reacterFacade = new ReacterFacade($reacter);
+        $reactable = new Article();
+
+        $isNotReacted = $reacterFacade->hasNotReactedTo($reactable, null, 2.0);
+
+        $this->assertTrue($isNotReacted);
+    }
+
+    /** @test */
+    public function it_can_check_has_reacted_to_reactable_with_type_and_rate(): void
+    {
+        $reacter = factory(Reacter::class)->create();
+        $reacterFacade = new ReacterFacade($reacter);
+        $reactable = factory(Article::class)->create();
+        $reactant = $reactable->getLoveReactant();
+        $reactionType = factory(ReactionType::class)->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reacter_id' => $reacter->getId(),
+            'reactant_id' => $reactant->getId(),
+            'rate' => 2.0,
+        ]);
+
+        $isReacted = $reacterFacade->hasReactedTo($reactable, $reactionType->getName(), 2.0);
+
+        $this->assertTrue($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_has_reacted_to_reactable_with_type_and_rate_when_reactable_is_not_registered_as_reactant(): void
+    {
+        $reacter = factory(Reacter::class)->create();
+        $reacterFacade = new ReacterFacade($reacter);
+        $reactable = factory(ArticleWithoutAutoReactantCreate::class)->create();
+        $reactionType = factory(ReactionType::class)->create();
+
+        $isReacted = $reacterFacade->hasReactedTo($reactable, $reactionType->getName(), 2.0);
+
+        $this->assertFalse($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_has_reacted_to_reactable_with_type_and_rate_when_reactable_is_not_persisted(): void
+    {
+        $reacter = factory(Reacter::class)->create();
+        $reacterFacade = new ReacterFacade($reacter);
+        $reactable = new Article();
+        $reactionType = factory(ReactionType::class)->create();
+
+        $isReacted = $reacterFacade->hasReactedTo($reactable, $reactionType->getName(), 2.0);
+
+        $this->assertFalse($isReacted);
+    }
+
+    /** @test */
+    public function it_throws_reaction_type_invalid_on_has_reacted_to_with_type_and_rate_when_reaction_type_not_exist(): void
+    {
+        $this->expectException(ReactionTypeInvalid::class);
+
+        $reacter = factory(Reacter::class)->create();
+        $reacterFacade = new ReacterFacade($reacter);
+        $reactable = factory(Article::class)->create();
+
+        $reacterFacade->hasReactedTo($reactable, 'NotExist', 2.0);
+    }
+
+    /** @test */
+    public function it_can_check_has_not_reacted_to_reactable_with_type_and_rate(): void
+    {
+        $reacter = factory(Reacter::class)->create();
+        $reacterFacade = new ReacterFacade($reacter);
+        $reactable = factory(Article::class)->create();
+        $reactant = $reactable->getLoveReactant();
+        $reactionType = factory(ReactionType::class)->create();
+        $otherReactionType = factory(ReactionType::class)->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $otherReactionType->getId(),
+            'reacter_id' => $reacter->getId(),
+            'reactant_id' => $reactant->getId(),
+            'rate' => 2.2,
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
+            'rate' => 2.0,
+        ]);
+
+        $isNotReacted = $reacterFacade->hasNotReactedTo($reactable, $reactionType->getName(), 2.0);
+
+        $this->assertTrue($isNotReacted);
+    }
+
+    /** @test */
+    public function it_can_check_has_not_reacted_to_reactable_with_type_and_rate_when_reactable_is_not_registered_as_reactant(): void
+    {
+        $reacter = factory(Reacter::class)->create();
+        $reacterFacade = new ReacterFacade($reacter);
+        $reactable = factory(ArticleWithoutAutoReactantCreate::class)->create();
+        $reactionType = factory(ReactionType::class)->create();
+
+        $isNotReacted = $reacterFacade->hasNotReactedTo($reactable, $reactionType->getName(), 2.0);
+
+        $this->assertTrue($isNotReacted);
+    }
+
+    /** @test */
+    public function it_can_check_has_not_reacted_to_reactable_with_type_and_rate_when_reactable_is_not_persisted(): void
+    {
+        $reacter = factory(Reacter::class)->create();
+        $reacterFacade = new ReacterFacade($reacter);
+        $reactable = new Article();
+        $reactionType = factory(ReactionType::class)->create();
+
+        $isNotReacted = $reacterFacade->hasNotReactedTo($reactable, $reactionType->getName(), 2.0);
+
+        $this->assertTrue($isNotReacted);
+    }
+
+    /** @test */
+    public function it_throws_reaction_type_invalid_on_has_not_reacted_to_with_type_and_rate_when_reaction_type_not_exist(): void
+    {
+        $this->expectException(ReactionTypeInvalid::class);
+
+        $reacter = factory(Reacter::class)->create();
+        $reacterFacade = new ReacterFacade($reacter);
+        $reactable = factory(Article::class)->create();
+
+        $reacterFacade->hasNotReactedTo($reactable, 'NotExist', 2.0);
     }
 }
