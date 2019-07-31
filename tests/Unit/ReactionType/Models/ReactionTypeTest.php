@@ -43,6 +43,15 @@ final class ReactionTypeTest extends TestCase
     }
 
     /** @test */
+    public function it_has_default_rate_value(): void
+    {
+        $type = new ReactionType();
+
+        $this->assertSame(ReactionType::DEFAULT_MASS, $type->getAttribute('mass'));
+        $this->assertSame(ReactionType::DEFAULT_MASS, $type->getMass());
+    }
+
+    /** @test */
     public function it_casts_id_to_string(): void
     {
         $type = factory(ReactionType::class)->make([

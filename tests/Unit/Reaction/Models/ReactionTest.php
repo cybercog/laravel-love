@@ -63,6 +63,7 @@ final class ReactionTest extends TestCase
         $reaction = new Reaction();
 
         $this->assertSame(Reaction::DEFAULT_RATE, $reaction->getAttribute('rate'));
+        $this->assertSame(Reaction::DEFAULT_RATE, $reaction->getRate());
     }
 
     /** @test */
@@ -230,14 +231,6 @@ final class ReactionTest extends TestCase
         $assertRate = $reaction->getRate();
 
         $this->assertSame(2.0, $assertRate);
-    }
-
-    /** @test */
-    public function it_returns_default_rate_on_get_rate_when_rate_not_set(): void
-    {
-        $reaction = new Reaction();
-
-        $this->assertSame(Reaction::DEFAULT_RATE, $reaction->getRate());
     }
 
     /** @test */
