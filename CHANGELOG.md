@@ -11,6 +11,7 @@ All notable changes to `laravel-love` will be documented in this file.
 - ([#90]) Added `ReactionTotal::DEFAULT_COUNT` constant
 - ([#90]) Added `ReactionTotal::DEFAULT_WEIGHT` constant
 - ([#91]) Added `Reaction::DEFAULT_RATE` constant
+- ([#91]) Added `ReactionType::DEFAULT_MASS` constant
 - ([#91]) Added `rate` attribute to `Reacter` model
 - ([#91]) Added `rate DECIMIAL(4, 2)` column to `love_reactions` db table
 - ([#91]) Added ability to call `Reacter::reactTo` on already reacted reactant with same reaction type if rate differs
