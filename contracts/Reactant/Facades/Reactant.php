@@ -27,7 +27,7 @@ interface Reactant
 
     public function getReactionTotal(): ReactionTotal;
 
-    public function isReactedBy(Reacterable $reacterable, ?string $reactionTypeName = null): bool;
+    public function isReactedBy(Reacterable $reacterable, ?string $reactionTypeName = null, ?float $rate = null): bool;
 
-    public function isNotReactedBy(Reacterable $reacterable, ?string $reactionTypeName = null): bool;
+    public function isNotReactedBy(Reacterable $reacterable, ?string $reactionTypeName = null, ?float $rate = null): bool;
 }

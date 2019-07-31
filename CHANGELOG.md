@@ -18,10 +18,16 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ### Changed
 
-- ([#79]) `Reacter` model `isReactedTo` & `isReactedToWithType` methods replaced with single `hasReactedTo` method
-- ([#79]) `Reacter` model `isNotReactedTo` & `isNotReactedToWithType` methods replaced with single `hasNotReactedTo` method
-- ([#79]) `Reactant` model `isReactedBy`&& `isReactedByWithType` methods replaced with single `isReactedBy` method
-- ([#79]) `Reactant` model `isNotReactedBy`&& `isNotReactedByWithType` methods replaced with single `isNotReactedBy` method
+- ([#79]) Method `isReactedTo` renamed to `hasReactedTo` in `Reacter` model contract
+- ([#79]) Added `$reactionType` parameter to `hasReactedTo` in `Reacter` model contract
+- ([#91]) Added `$rate` parameter to `hasReactedTo` method in  `Reacter` model contract
+- ([#79]) Method `isNotReactedTo` renamed to `hasNotReactedTo` in `Reacter` model contract
+- ([#79]) Added `$reactionType` parameter to `hasNotReactedTo` in `Reacter` model contract
+- ([#91]) Added `$rate` parameter to `hasNotReactedTo` method in  `Reacter` model contract
+- ([#79]) Added `$reactionType` parameter to `isReactedBy` in `Reactant` model contract
+- ([#91]) Added `$rate` parameter to `isReactedBy` method in  `Reactant` model contract
+- ([#79]) Added `$reactionType` parameter to `isNotReactedBy` in `Reactant` model contract
+- ([#91]) Added `$rate` parameter to `isNotReactedBy` method in  `Reactant` model contract
 - ([#83]) Artisan command `love:reaction-type-add` awaits options instead of arguments
 - ([#87]) Resolving default attributes values moved from accessors to Eloquent
 - ([#88]) `ReactionType` model attribute `weight` renamed to `mass`
@@ -44,7 +50,11 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ### Removed
 
-- ([#86](https://github.com/cybercog/laravel-love/pull/86)) Laravel 5.6 support obsolete
+- ([#86]) Laravel 5.6 support obsolete
+- ([#79]) `Reacter` model contract `isReactedToWithType` method removed
+- ([#79]) `Reacter` model contract `isNotReactedToWithType` method removed
+- ([#79]) `Reactant` model contract `isReactedByWithType` method removed
+- ([#79]) `Reactant` model contract `isNotReactedByWithType` method removed
 
 ## [7.2.1] - 2019-07-11
 
@@ -361,6 +371,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 
 [#79]: https://github.com/cybercog/laravel-love/pull/79
 [#83]: https://github.com/cybercog/laravel-love/pull/83
+[#86]: https://github.com/cybercog/laravel-love/pull/86
 [#87]: https://github.com/cybercog/laravel-love/pull/87
 [#88]: https://github.com/cybercog/laravel-love/pull/88
 [#89]: https://github.com/cybercog/laravel-love/pull/89
