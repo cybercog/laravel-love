@@ -90,11 +90,16 @@ final class UpgradeV7ToV8 extends Command
 
     private function getDbSchema(): Builder
     {
-        return Schema::connection(Config::get('love.storage.database.connection'));
+        return Schema::connection($this->getDatabaseConnection());
     }
 
     private function getDbQuery(): ConnectionInterface
     {
-        return DB::connection(Config::get('love.storage.database.connection'));
+        return DB::connection($this->getDatabaseConnection());
+    }
+
+    private function getDatabaseConnection(): ?string
+    {
+        return Config::get('love.storage.database.connection');
     }
 }
