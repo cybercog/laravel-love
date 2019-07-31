@@ -4,6 +4,10 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ## [Unreleased]
 
+Code has a lot of breaking changes because of new Weighted Reaction System.
+
+Follow [upgrade instructions](UPGRADING.md#from-v7-to-v8) to migrate code & database to new structure.
+
 ### Added
 
 - Added `love:upgrade-v7-to-v8` Artisan command
