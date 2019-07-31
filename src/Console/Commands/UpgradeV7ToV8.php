@@ -76,7 +76,7 @@ final class UpgradeV7ToV8 extends Command
     {
         $this->getDbSchema()->table('love_reactant_reaction_counters', function (Blueprint $table) {
             $table->unsignedBigInteger('count')->default(null)->change();
-            $table->decimal('weight', 22, 2)->default(null)->change();
+            $table->decimal('weight', 13, 2)->default(null)->change();
         });
     }
 
@@ -84,7 +84,7 @@ final class UpgradeV7ToV8 extends Command
     {
         $this->getDbSchema()->table('love_reactant_reaction_totals', function (Blueprint $table) {
             $table->unsignedBigInteger('count')->default(null)->change();
-            $table->decimal('weight', 22, 2)->default(null)->change();
+            $table->decimal('weight', 13, 2)->default(null)->change();
         });
     }
 
