@@ -119,7 +119,7 @@ final class ReactionTypeAdd extends Command
     {
         return $this->option('name')
             ?? $this->ask('How to name reaction type?')
-            ?? $this->resolveName();
+            ?? '';
     }
 
     private function resolveMass(): int
