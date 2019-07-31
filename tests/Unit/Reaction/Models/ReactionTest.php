@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Reaction\Models;
 
-use Cog\Contracts\Love\Reaction\Exceptions\RateValueInvalid;
+use Cog\Contracts\Love\Reaction\Exceptions\RateOutOfRange;
 use Cog\Laravel\Love\Reactant\Models\NullReactant;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reacter\Models\NullReacter;
@@ -59,9 +59,9 @@ final class ReactionTest extends TestCase
     }
 
     /** @test */
-    public function it_throws_exception_on_fill_rate_with_lower_than_minimum_value(): void
+    public function it_throws_rate_out_of_range_on_fill_rate_with_underflow_value(): void
     {
-        $this->expectException(RateValueInvalid::class);
+        $this->expectException(RateOutOfRange::class);
 
         new Reaction([
             'rate' => Reaction::RATE_MIN - 0.01,
@@ -69,9 +69,9 @@ final class ReactionTest extends TestCase
     }
 
     /** @test */
-    public function it_throws_exception_on_fill_rate_with_bigger_than_maximum_value(): void
+    public function it_throws_rate_out_of_range_on_fill_rate_with_overflow_value(): void
     {
-        $this->expectException(RateValueInvalid::class);
+        $this->expectException(RateOutOfRange::class);
 
         new Reaction([
             'rate' => Reaction::RATE_MAX + 0.01,

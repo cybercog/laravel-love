@@ -17,7 +17,7 @@ use Cog\Contracts\Love\Exceptions\LoveThrowable;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use OutOfRangeException;
 
-final class RateValueInvalid extends OutOfRangeException implements
+final class RateOutOfRange extends OutOfRangeException implements
     LoveThrowable
 {
     public static function withValue(float $rate): self

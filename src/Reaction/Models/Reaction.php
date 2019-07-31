@@ -15,7 +15,7 @@ namespace Cog\Laravel\Love\Reaction\Models;
 
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
-use Cog\Contracts\Love\Reaction\Exceptions\RateValueInvalid;
+use Cog\Contracts\Love\Reaction\Exceptions\RateOutOfRange;
 use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
@@ -99,7 +99,7 @@ final class Reaction extends Model implements
         ?float $rate
     ): void {
         if (!is_null($rate) && ($rate < self::RATE_MIN || $rate > self::RATE_MAX)) {
-            throw RateValueInvalid::withValue($rate);
+            throw RateOutOfRange::withValue($rate);
         }
 
         $this->attributes['rate'] = $rate;
