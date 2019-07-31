@@ -23,7 +23,7 @@ final class RateValueInvalid extends OutOfRangeException implements
     public static function withValue(float $rate): self
     {
         return new self(sprintf(
-            "Invalid Reaction rate: `%s`. Must be between `%s` and `%s`",
+            'Invalid Reaction rate: `%s`. Must be between `%s` and `%s`',
             $rate,
             Reaction::RATE_MIN,
             Reaction::RATE_MAX
