@@ -64,7 +64,7 @@ final class ReactionTest extends TestCase
         $this->expectException(RateValueInvalid::class);
 
         new Reaction([
-            'rate' => Reaction::MIN_RATE - 0.01,
+            'rate' => Reaction::RATE_MIN - 0.01,
         ]);
     }
 
@@ -74,7 +74,7 @@ final class ReactionTest extends TestCase
         $this->expectException(RateValueInvalid::class);
 
         new Reaction([
-            'rate' => Reaction::MAX_RATE + 0.01,
+            'rate' => Reaction::RATE_MAX + 0.01,
         ]);
     }
 
@@ -83,8 +83,8 @@ final class ReactionTest extends TestCase
     {
         $reaction = new Reaction();
 
-        $this->assertSame(Reaction::DEFAULT_RATE, $reaction->getAttribute('rate'));
-        $this->assertSame(Reaction::DEFAULT_RATE, $reaction->getRate());
+        $this->assertSame(Reaction::RATE_DEFAULT, $reaction->getAttribute('rate'));
+        $this->assertSame(Reaction::RATE_DEFAULT, $reaction->getRate());
     }
 
     /** @test */

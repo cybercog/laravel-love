@@ -21,11 +21,11 @@ final class ReactionCounterObserver
         ReactionCounter $counter
     ): void {
         if (is_null($counter->getAttributeValue('count'))) {
-            $counter->setAttribute('count', ReactionCounter::DEFAULT_COUNT);
+            $counter->setAttribute('count', ReactionCounter::COUNT_DEFAULT);
         }
 
         if (is_null($counter->getAttributeValue('weight'))) {
-            $counter->setAttribute('weight', ReactionCounter::DEFAULT_WEIGHT);
+            $counter->setAttribute('weight', ReactionCounter::WEIGHT_DEFAULT);
         }
     }
 }

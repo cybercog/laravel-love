@@ -25,7 +25,7 @@ final class ReactionCounterObserverTest extends TestCase
             'count' => null,
         ]);
 
-        $this->assertSame(ReactionCounter::DEFAULT_COUNT, $counter->getCount());
+        $this->assertSame(ReactionCounter::COUNT_DEFAULT, $counter->getCount());
     }
 
     /** @test */
@@ -35,6 +35,6 @@ final class ReactionCounterObserverTest extends TestCase
             'weight' => null,
         ]);
 
-        $this->assertSame(ReactionCounter::DEFAULT_WEIGHT, $counter->getWeight());
+        $this->assertSame(ReactionCounter::WEIGHT_DEFAULT, $counter->getWeight());
     }
 }

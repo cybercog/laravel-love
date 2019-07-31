@@ -47,8 +47,8 @@ final class ReactionTypeTest extends TestCase
     {
         $type = new ReactionType();
 
-        $this->assertSame(ReactionType::DEFAULT_MASS, $type->getAttribute('mass'));
-        $this->assertSame(ReactionType::DEFAULT_MASS, $type->getMass());
+        $this->assertSame(ReactionType::MASS_DEFAULT, $type->getAttribute('mass'));
+        $this->assertSame(ReactionType::MASS_DEFAULT, $type->getMass());
     }
 
     /** @test */

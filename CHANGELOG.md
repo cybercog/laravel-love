@@ -7,12 +7,14 @@ All notable changes to `laravel-love` will be documented in this file.
 ### Added
 
 - Added `love:upgrade-v7-to-v8` Artisan command
-- ([#90]) Added `ReactionCounter::DEFAULT_COUNT` constant
-- ([#90]) Added `ReactionCounter::DEFAULT_WEIGHT` constant
-- ([#90]) Added `ReactionTotal::DEFAULT_COUNT` constant
-- ([#90]) Added `ReactionTotal::DEFAULT_WEIGHT` constant
-- ([#91]) Added `Reaction::DEFAULT_RATE` constant
-- ([#91]) Added `ReactionType::DEFAULT_MASS` constant
+- ([#90]) Added `ReactionCounter::COUNT_DEFAULT` public constant
+- ([#90]) Added `ReactionCounter::WEIGHT_DEFAULT` public constant
+- ([#90]) Added `ReactionTotal::COUNT_DEFAULT` public constant
+- ([#90]) Added `ReactionTotal::WEIGHT_DEFAULT` public constant
+- ([#91]) Added `Reaction::RATE_DEFAULT` public constant
+- ([#91]) Added `Reaction::RATE_MIN` public constant
+- ([#91]) Added `Reaction::RATE_MAX` public constant
+- ([#91]) Added `ReactionType::MASS_DEFAULT` public constant
 - ([#91]) Added `rate` attribute to `Reacter` model
 - ([#91]) Added `rate DECIMIAL(4, 2)` column to `love_reactions` db table
 - ([#91]) Added ability to `Reacter::reactTo` with already reacted reactant, same reaction type, but only `rate` differs

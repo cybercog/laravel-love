@@ -25,7 +25,7 @@ final class ReactionTotalObserverTest extends TestCase
             'count' => null,
         ]);
 
-        $this->assertSame(ReactionTotal::DEFAULT_COUNT, $total->getCount());
+        $this->assertSame(ReactionTotal::COUNT_DEFAULT, $total->getCount());
     }
 
     /** @test */
@@ -35,6 +35,6 @@ final class ReactionTotalObserverTest extends TestCase
             'weight' => null,
         ]);
 
-        $this->assertSame(ReactionTotal::DEFAULT_WEIGHT, $total->getWeight());
+        $this->assertSame(ReactionTotal::WEIGHT_DEFAULT, $total->getWeight());
     }
 }

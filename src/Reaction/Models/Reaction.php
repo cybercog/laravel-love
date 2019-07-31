@@ -27,16 +27,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 final class Reaction extends Model implements
     ReactionContract
 {
-    const DEFAULT_RATE = 1.0;
+    public const RATE_DEFAULT = 1.0;
 
-    const MIN_RATE = 0.01;
+    public const RATE_MIN = 0.01;
 
-    const MAX_RATE = 99.99;
+    public const RATE_MAX = 99.99;
 
     protected $table = 'love_reactions';
 
     protected $attributes = [
-        'rate' => self::DEFAULT_RATE,
+        'rate' => self::RATE_DEFAULT,
     ];
 
     protected $fillable = [
@@ -98,7 +98,7 @@ final class Reaction extends Model implements
     public function setRateAttribute(
         ?float $rate
     ): void {
-        if (!is_null($rate) && ($rate < self::MIN_RATE || $rate > self::MAX_RATE)) {
+        if (!is_null($rate) && ($rate < self::RATE_MIN || $rate > self::RATE_MAX)) {
             throw RateValueInvalid::withValue($rate);
         }
 

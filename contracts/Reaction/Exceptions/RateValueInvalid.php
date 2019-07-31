@@ -25,8 +25,8 @@ final class RateValueInvalid extends OutOfRangeException implements
         return new self(sprintf(
             "Invalid Reaction rate: `%s`. Must be between `%s` and `%s`",
             $rate,
-            Reaction::MIN_RATE,
-            Reaction::MAX_RATE
+            Reaction::RATE_MIN,
+            Reaction::RATE_MAX
         ));
     }
 }

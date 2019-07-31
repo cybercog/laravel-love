@@ -23,7 +23,7 @@ final class ReactionObserver
         Reaction $reaction
     ): void {
         if (is_null($reaction->getAttributeValue('rate'))) {
-            $reaction->setAttribute('rate', Reaction::DEFAULT_RATE);
+            $reaction->setAttribute('rate', Reaction::RATE_DEFAULT);
         }
     }
 

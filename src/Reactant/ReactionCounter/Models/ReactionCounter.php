@@ -24,15 +24,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 final class ReactionCounter extends Model implements
     ReactionCounterContract
 {
-    const DEFAULT_COUNT = 0;
+    public const COUNT_DEFAULT = 0;
 
-    const DEFAULT_WEIGHT = 0.0;
+    public const WEIGHT_DEFAULT = 0.0;
 
     protected $table = 'love_reactant_reaction_counters';
 
     protected $attributes = [
-        'count' => self::DEFAULT_COUNT,
-        'weight' => self::DEFAULT_WEIGHT,
+        'count' => self::COUNT_DEFAULT,
+        'weight' => self::WEIGHT_DEFAULT,
     ];
 
     protected $fillable = [

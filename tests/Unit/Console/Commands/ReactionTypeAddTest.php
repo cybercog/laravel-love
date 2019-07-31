@@ -247,7 +247,7 @@ final class ReactionTypeAddTest extends TestCase
 
         $this->assertSame($typesCount + 1, ReactionType::query()->count());
         $reactionType = ReactionType::query()->latest()->first();
-        $this->assertSame(ReactionType::DEFAULT_MASS, $reactionType->getMass());
+        $this->assertSame(ReactionType::MASS_DEFAULT, $reactionType->getMass());
     }
 
     /** @test */

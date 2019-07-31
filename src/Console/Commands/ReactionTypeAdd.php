@@ -126,7 +126,7 @@ final class ReactionTypeAdd extends Command
     {
         $mass = $this->option('mass')
             ?? $this->ask('What is the mass of this reaction type?')
-            ?? ReactionType::DEFAULT_MASS;
+            ?? ReactionType::MASS_DEFAULT;
 
         return intval($mass);
     }

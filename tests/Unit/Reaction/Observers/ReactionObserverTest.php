@@ -28,7 +28,7 @@ final class ReactionObserverTest extends TestCase
             'rate' => null,
         ]);
 
-        $this->assertSame(Reaction::DEFAULT_RATE, $counter->getAttribute('rate'));
+        $this->assertSame(Reaction::RATE_DEFAULT, $counter->getAttribute('rate'));
     }
 
     /** @test */
