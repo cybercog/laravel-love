@@ -44,22 +44,20 @@ final class UpgradeV7ToV8 extends Command
      */
     public function handle(): void
     {
-        $this->dbChangeReactionType();
-        $this->dbChangeReaction();
-        // TODO: Remove `reactant_reaction_counters.count` default value
-        // TODO: Remove `reactant_reaction_counters.weight` default value
-        // TODO: Remove `reactant_reaction_totals.count` default value
-        // TODO: Remove `reactant_reaction_totals.weight` default value
+        $this->dbChangeReactionTypes();
+        $this->dbChangeReactions();
+        $this->dbChangeReactantReactionCounters();
+        $this->dbChangeReactantReactionTotals();
     }
 
-    private function dbChangeReactionType(): void
+    private function dbChangeReactionTypes(): void
     {
         $this->getDbSchema()->table('love_reaction_types', function (Blueprint $table) {
             $table->renameColumn('weight', 'mass');
         });
     }
 
-    private function dbChangeReaction(): void
+    private function dbChangeReactions(): void
     {
         $this->getDbSchema()->table('love_reactions', function (Blueprint $table) {
             $table->decimal('rate', 4, 2)->after('reaction_type_id');
@@ -72,6 +70,22 @@ final class UpgradeV7ToV8 extends Command
             ->update([
                 'rate' => 1.0,
             ]);
+    }
+
+    private function dbChangeReactantReactionCounters(): void
+    {
+        $this->getDbSchema()->table('love_reactant_reaction_counters', function (Blueprint $table) {
+            $table->unsignedBigInteger('count')->default(null)->change();
+            $table->decimal('weight', 22, 2)->default(null)->change();
+        });
+    }
+
+    private function dbChangeReactantReactionTotals(): void
+    {
+        $this->getDbSchema()->table('love_reactant_reaction_totals', function (Blueprint $table) {
+            $table->unsignedBigInteger('count')->default(null)->change();
+            $table->decimal('weight', 22, 2)->default(null)->change();
+        });
     }
 
     private function getDbSchema(): Builder
