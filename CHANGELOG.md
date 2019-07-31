@@ -6,6 +6,7 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ### Added
 
+- Added `love:upgrade-v7-to-v8` Artisan command
 - ([#90]) Added `ReactionCounter::DEFAULT_COUNT` constant
 - ([#90]) Added `ReactionCounter::DEFAULT_WEIGHT` constant
 - ([#90]) Added `ReactionTotal::DEFAULT_COUNT` constant
@@ -14,47 +15,52 @@ All notable changes to `laravel-love` will be documented in this file.
 - ([#91]) Added `ReactionType::DEFAULT_MASS` constant
 - ([#91]) Added `rate` attribute to `Reacter` model
 - ([#91]) Added `rate DECIMIAL(4, 2)` column to `love_reactions` db table
-- ([#91]) Added ability to call `Reacter::reactTo` on already reacted reactant with same reaction type if rate differs
+- ([#91]) Added ability to `Reacter::reactTo` with already reacted reactant, same reaction type, but only `rate` differs
 
 ### Changed
 
-- ([#79]) Method `isReactedTo` renamed to `hasReactedTo` in `Reacter` model contract
+- ([#79]) Renamed `isReactedTo` method to `hasReactedTo` in `Reacter` model contract
 - ([#79]) Added `$reactionType` parameter to `hasReactedTo` in `Reacter` model contract
-- ([#91]) Added `$rate` parameter to `hasReactedTo` method in  `Reacter` model contract
-- ([#79]) Method `isNotReactedTo` renamed to `hasNotReactedTo` in `Reacter` model contract
+- ([#91]) Added `$rate` parameter to `hasReactedTo` method in `Reacter` model contract
+- ([#91]) Added `$rate` parameter to `hasReactedTo` method in `Reacter` facade contract
+- ([#79]) Renamed `isNotReactedTo` method to `hasNotReactedTo` in `Reacter` model contract
 - ([#79]) Added `$reactionType` parameter to `hasNotReactedTo` in `Reacter` model contract
-- ([#91]) Added `$rate` parameter to `hasNotReactedTo` method in  `Reacter` model contract
+- ([#91]) Added `$rate` parameter to `hasNotReactedTo` method in `Reacter` model contract
+- ([#91]) Added `$rate` parameter to `hasNotReactedTo` method in `Reacter` facade contract
 - ([#79]) Added `$reactionType` parameter to `isReactedBy` in `Reactant` model contract
-- ([#91]) Added `$rate` parameter to `isReactedBy` method in  `Reactant` model contract
+- ([#91]) Added `$rate` parameter to `isReactedBy` method in `Reactant` model contract
+- ([#91]) Added `$rate` parameter to `isReactedBy` method in `Reactant` facade contract
 - ([#79]) Added `$reactionType` parameter to `isNotReactedBy` in `Reactant` model contract
-- ([#91]) Added `$rate` parameter to `isNotReactedBy` method in  `Reactant` model contract
+- ([#91]) Added `$rate` parameter to `isNotReactedBy` method in `Reactant` model contract
+- ([#91]) Added `$rate` parameter to `isNotReactedBy` method in `Reactant` facade contract
 - ([#83]) Artisan command `love:reaction-type-add` awaits options instead of arguments
-- ([#87]) Resolving default attributes values moved from accessors to Eloquent
-- ([#88]) `ReactionType` model attribute `weight` renamed to `mass`
-- ([#88]) `ReactionType` model method `getWeight` renamed to `getMass`
-- ([#89]) `Reactable` model method `scopeWhereReactedByWithType` merged with `scopeWhereReactedBy`
-- ([#90]) `ReactionCounter` model attributes `count` & `weight` default values moved to application level
-- ([#90]) `ReactionTotal` model attributes `count` & `weight` default values moved to application level
-- ([#91]) Changed `getWeight` method return type from `int` to `float` in `Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter` contract
-- ([#91]) Changed `$amount` parameter  type from `int` to `float` of `incrementWeight` method in `Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter` contract
-- ([#91]) Changed `$amount` parameter  type from `int` to `float` of `decrementWeight` method in `Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter` contract
-- ([#91]) Changed `getWeight` method return type from `int` to `float` in `Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal` contract
-- ([#91]) Changed `$amount` parameter  type from `int` to `float` of `incrementWeight` method in `Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal` contract
-- ([#91]) Changed `$amount` parameter  type from `int` to `float` of `decrementWeight` method in `Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal` contract
-- ([#91]) Added `?float $rate` parameter to `reactTo` method in `Cog\Contracts\Love\Reacter\Facades\Reacter` contract
-- ([#91]) Added `?float $rate` parameter to `reactTo` method in `Cog\Contracts\Love\Reacter\Models\Reacter` contract
-- ([#91]) Added `getRate` method to `Cog\Contracts\Love\Reaction\Models\Reaction` contract
-- ([#91]) Changed `getWeight` method return type from `int` to `float` in `Cog\Contracts\Love\Reaction\Models\Reaction` contract
+- ([#87]) Resolving models default attributes values moved from accessors to Eloquent methods
+- ([#88]) Renamed `weight` attribute to `mass` in `ReactionType` model
+- ([#88]) Renamed `getWeight` method to `getMass` in `ReactionType` model contract
+- ([#89]) Added `$reactionType` parameter to `scopeWhereReactedBy` method in `Reactable` model trait
+- ([#90]) Moved `count` & `weight` attributes default values of `ReactionCounter` to application level
+- ([#90]) Moved `count` & `weight` attributes default values of `ReactionTotal` to application level
+- ([#91]) Changed `getWeight` method return type from `int` to `float` in reactant's `ReactionCounter` model contract
+- ([#91]) Changed `$amount` parameter  type from `int` to `float` of `incrementWeight` method in reactant's `ReactionCounter` model contract
+- ([#91]) Changed `$amount` parameter  type from `int` to `float` of `decrementWeight` method in reactant's `ReactionCounter` model contract
+- ([#91]) Changed `getWeight` method return type from `int` to `float` in reactant's `ReactionTotal` model contract
+- ([#91]) Changed `$amount` parameter  type from `int` to `float` of `incrementWeight` method in reactant's `ReactionTotal` model contract
+- ([#91]) Changed `$amount` parameter  type from `int` to `float` of `decrementWeight` method in reactant's `ReactionTotal` model contract
+- ([#91]) Added `?float $rate` parameter to `reactTo` method in `Reacter` facade contract
+- ([#91]) Added `?float $rate` parameter to `reactTo` method in `Reacter` model contract
+- ([#91]) Added `getRate` method to `Reaction` model contract
+- ([#91]) Changed `getWeight` method return type from `int` to `float` in `Reaction` model contract
 - ([#91]) Changed `weight` column type to `DECIMIAL(22, 2)` in `love_reactant_reaction_counters` db table
 - ([#91]) Changed `weight` column type to `DECIMIAL(22, 2)` in `love_reactant_reaction_totals` db table
 
 ### Removed
 
 - ([#86]) Laravel 5.6 support obsolete
-- ([#79]) `Reacter` model contract `isReactedToWithType` method removed
-- ([#79]) `Reacter` model contract `isNotReactedToWithType` method removed
-- ([#79]) `Reactant` model contract `isReactedByWithType` method removed
-- ([#79]) `Reactant` model contract `isNotReactedByWithType` method removed
+- ([#79]) Removed `isReactedToWithType` method from `Reacter` model contract
+- ([#79]) Removed `isNotReactedToWithType` method from `Reacter` model contract
+- ([#79]) Removed `isReactedByWithType` method from `Reactant` model contract
+- ([#79]) Removed `isNotReactedByWithType` method `Reactant` model contract
+- ([#89]) Removed `scopeWhereReactedByWithType` method from `Reactable` model trait
 
 ## [7.2.1] - 2019-07-11
 
