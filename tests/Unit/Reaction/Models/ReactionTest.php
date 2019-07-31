@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Reaction\Models;
 
+use Cog\Contracts\Love\Reaction\Exceptions\RateOutOfRange;
 use Cog\Laravel\Love\Reactant\Models\NullReactant;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reacter\Models\NullReacter;
@@ -28,16 +29,6 @@ use TypeError;
 final class ReactionTest extends TestCase
 {
     /** @test */
-    public function it_can_fill_reaction_type_id(): void
-    {
-        $reaction = new Reaction([
-            'reaction_type_id' => 4,
-        ]);
-
-        $this->assertSame(4, $reaction->getAttribute('reaction_type_id'));
-    }
-
-    /** @test */
     public function it_can_fill_reactant_id(): void
     {
         $reaction = new Reaction([
@@ -48,6 +39,55 @@ final class ReactionTest extends TestCase
     }
 
     /** @test */
+    public function it_can_fill_reaction_type_id(): void
+    {
+        $reaction = new Reaction([
+            'reaction_type_id' => 4,
+        ]);
+
+        $this->assertSame(4, $reaction->getAttribute('reaction_type_id'));
+    }
+
+    /** @test */
+    public function it_can_fill_rate(): void
+    {
+        $reaction = new Reaction([
+            'rate' => 4.0,
+        ]);
+
+        $this->assertSame(4.0, $reaction->getAttribute('rate'));
+    }
+
+    /** @test */
+    public function it_throws_rate_out_of_range_on_fill_rate_with_underflow_value(): void
+    {
+        $this->expectException(RateOutOfRange::class);
+
+        new Reaction([
+            'rate' => Reaction::RATE_MIN - 0.01,
+        ]);
+    }
+
+    /** @test */
+    public function it_throws_rate_out_of_range_on_fill_rate_with_overflow_value(): void
+    {
+        $this->expectException(RateOutOfRange::class);
+
+        new Reaction([
+            'rate' => Reaction::RATE_MAX + 0.01,
+        ]);
+    }
+
+    /** @test */
+    public function it_has_default_rate_value(): void
+    {
+        $reaction = new Reaction();
+
+        $this->assertSame(Reaction::RATE_DEFAULT, $reaction->getAttribute('rate'));
+        $this->assertSame(Reaction::RATE_DEFAULT, $reaction->getRate());
+    }
+
+    /** @test */
     public function it_casts_id_to_string(): void
     {
         $reaction = factory(Reaction::class)->make([
@@ -55,6 +95,18 @@ final class ReactionTest extends TestCase
         ]);
 
         $this->assertSame('4', $reaction->getAttribute('id'));
+        $this->assertSame('4', $reaction->getId());
+    }
+
+    /** @test */
+    public function it_casts_rate_to_float(): void
+    {
+        $reaction = new Reaction([
+            'rate' => '4',
+        ]);
+
+        $this->assertSame(4.0, $reaction->getAttribute('rate'));
+        $this->assertSame(4.0, $reaction->getRate());
     }
 
     /** @test */
@@ -116,30 +168,6 @@ final class ReactionTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_type(): void
-    {
-        $type = factory(ReactionType::class)->create();
-
-        /** @var \Cog\Laravel\Love\Reaction\Models\Reaction $reaction */
-        $reaction = factory(Reaction::class)->create([
-            'reaction_type_id' => $type->getId(),
-        ]);
-
-        $assertType = $reaction->getType();
-        $this->assertTrue($assertType->is($type));
-    }
-
-    /** @test */
-    public function it_throws_exception_on_get_type_when_type_is_null(): void
-    {
-        $this->expectException(TypeError::class);
-
-        $reaction = new Reaction();
-
-        $reaction->getType();
-    }
-
-    /** @test */
     public function it_can_get_reactant(): void
     {
         $reactionType = factory(ReactionType::class)->create();
@@ -190,6 +218,43 @@ final class ReactionTest extends TestCase
     }
 
     /** @test */
+    public function it_can_get_type(): void
+    {
+        $type = factory(ReactionType::class)->create();
+
+        /** @var \Cog\Laravel\Love\Reaction\Models\Reaction $reaction */
+        $reaction = factory(Reaction::class)->create([
+            'reaction_type_id' => $type->getId(),
+        ]);
+
+        $assertType = $reaction->getType();
+        $this->assertTrue($assertType->is($type));
+    }
+
+    /** @test */
+    public function it_throws_exception_on_get_type_when_type_is_null(): void
+    {
+        $this->expectException(TypeError::class);
+
+        $reaction = new Reaction();
+
+        $reaction->getType();
+    }
+
+    /** @test */
+    public function it_can_get_rate(): void
+    {
+        /** @var \Cog\Laravel\Love\Reaction\Models\Reaction $reaction */
+        $reaction = factory(Reaction::class)->create([
+            'rate' => 2.0,
+        ]);
+
+        $assertRate = $reaction->getRate();
+
+        $this->assertSame(2.0, $assertRate);
+    }
+
+    /** @test */
     public function it_can_get_weight(): void
     {
         $reactionType = factory(ReactionType::class)->create([
@@ -201,7 +266,23 @@ final class ReactionTest extends TestCase
             'reaction_type_id' => $reactionType->getId(),
         ]);
 
-        $this->assertSame(4, $reaction->getWeight());
+        $this->assertSame(4.0, $reaction->getWeight());
+    }
+
+    /** @test */
+    public function it_can_get_weight_affected_by_rate(): void
+    {
+        $reactionType = factory(ReactionType::class)->create([
+            'mass' => 4,
+        ]);
+
+        /** @var \Cog\Laravel\Love\Reaction\Models\Reaction $reaction */
+        $reaction = factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'rate' => 1.02,
+        ]);
+
+        $this->assertSame(4.08, $reaction->getWeight());
     }
 
     /** @test */

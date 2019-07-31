@@ -49,7 +49,8 @@ final class NullReacter implements
 
     public function reactTo(
         Reactant $reactant,
-        ReactionType $reactionType
+        ReactionType $reactionType,
+        ?float $rate = null
     ): void {
         throw ReacterInvalid::notExists();
     }
@@ -63,14 +64,16 @@ final class NullReacter implements
 
     public function hasReactedTo(
         Reactant $reactant,
-        ?ReactionType $reactionType = null
+        ?ReactionType $reactionType = null,
+        float $rate = null
     ): bool {
         return false;
     }
 
     public function hasNotReactedTo(
         Reactant $reactant,
-        ?ReactionType $reactionType = null
+        ?ReactionType $reactionType = null,
+        float $rate = null
     ): bool {
         return true;
     }

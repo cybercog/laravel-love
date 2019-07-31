@@ -117,7 +117,8 @@ final class Reactant extends Model implements
 
     public function isReactedBy(
         ReacterContract $reacter,
-        ?ReactionTypeContract $reactionType = null
+        ?ReactionTypeContract $reactionType = null,
+        ?float $rate = null
     ): bool {
         if ($reacter->isNull()) {
             return false;
@@ -127,10 +128,20 @@ final class Reactant extends Model implements
         if ($this->relationLoaded('reactions')) {
             return $this
                 ->getAttribute('reactions')
-                ->contains(function (ReactionContract $reaction) use ($reacter, $reactionType) {
-                    return is_null($reactionType)
-                        ? $reaction->isByReacter($reacter)
-                        : $reaction->isByReacter($reacter) && $reaction->isOfType($reactionType);
+                ->contains(function (ReactionContract $reaction) use ($reacter, $reactionType, $rate) {
+                    if ($reaction->isNotByReacter($reacter)) {
+                        return false;
+                    }
+
+                    if (!is_null($reactionType) && $reaction->isNotOfType($reactionType)) {
+                        return false;
+                    }
+
+                    if (!is_null($rate) && $reaction->getRate() !== $rate) {
+                        return false;
+                    }
+
+                    return true;
                 });
         }
 
@@ -140,14 +151,19 @@ final class Reactant extends Model implements
             $query->where('reaction_type_id', $reactionType->getId());
         }
 
+        if (!is_null($rate)) {
+            $query->where('rate', $rate);
+        }
+
         return $query->exists();
     }
 
     public function isNotReactedBy(
         ReacterContract $reacter,
-        ?ReactionTypeContract $reactionType = null
+        ?ReactionTypeContract $reactionType = null,
+        ?float $rate = null
     ): bool {
-        return !$this->isReactedBy($reacter, $reactionType);
+        return !$this->isReactedBy($reacter, $reactionType, $rate);
     }
 
     public function isEqualTo(
@@ -182,8 +198,6 @@ final class Reactant extends Model implements
 
         $this->reactionCounters()->create([
             'reaction_type_id' => $reactionType->getId(),
-            'count' => 0,
-            'weight' => 0,
         ]);
 
         // Need to reload relation with fresh data
@@ -196,10 +210,7 @@ final class Reactant extends Model implements
             throw ReactionTotalDuplicate::forReactant($this);
         }
 
-        $this->reactionTotal()->create([
-            'count' => 0,
-            'weight' => 0,
-        ]);
+        $this->reactionTotal()->create();
 
         // Need to reload relation with fresh data
         $this->load('reactionTotal');

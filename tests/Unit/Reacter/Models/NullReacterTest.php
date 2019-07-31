@@ -191,7 +191,7 @@ final class NullReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_is_reacted_to(): void
+    public function it_can_check_has_reacted_to(): void
     {
         $reacterable = new User();
         $reacter = new NullReacter($reacterable);
@@ -203,7 +203,7 @@ final class NullReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_is_not_reacted_to(): void
+    public function it_can_check_has_not_reacted_to(): void
     {
         $reacterable = new User();
         $reacter = new NullReacter($reacterable);
@@ -215,7 +215,7 @@ final class NullReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_is_reacted_to_with_type(): void
+    public function it_can_check_has_reacted_to_with_type(): void
     {
         $reacterable = new User();
         $reacter = new NullReacter($reacterable);
@@ -228,7 +228,7 @@ final class NullReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_check_is_not_reacted_to_with_type(): void
+    public function it_can_check_has_not_reacted_to_with_type(): void
     {
         $reacterable = new User();
         $reacter = new NullReacter($reacterable);
@@ -236,6 +236,56 @@ final class NullReacterTest extends TestCase
         $reactionType = new ReactionType();
 
         $isReacted = $reacter->hasNotReactedTo($reactant, $reactionType);
+
+        $this->assertTrue($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_has_reacted_to_with_rate(): void
+    {
+        $reacterable = new User();
+        $reacter = new NullReacter($reacterable);
+        $reactant = factory(Reactant::class)->make();
+
+        $isReacted = $reacter->hasReactedTo($reactant, null, 2.0);
+
+        $this->assertFalse($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_has_not_reacted_to_with_rate(): void
+    {
+        $reacterable = new User();
+        $reacter = new NullReacter($reacterable);
+        $reactant = factory(Reactant::class)->make();
+
+        $isReacted = $reacter->hasNotReactedTo($reactant, null, 2.0);
+
+        $this->assertTrue($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_has_reacted_to_with_type_and_rate(): void
+    {
+        $reacterable = new User();
+        $reacter = new NullReacter($reacterable);
+        $reactant = factory(Reactant::class)->make();
+        $reactionType = new ReactionType();
+
+        $isReacted = $reacter->hasReactedTo($reactant, $reactionType, 2.0);
+
+        $this->assertFalse($isReacted);
+    }
+
+    /** @test */
+    public function it_can_check_has_not_reacted_to_with_type_and_rate(): void
+    {
+        $reacterable = new User();
+        $reacter = new NullReacter($reacterable);
+        $reactant = factory(Reactant::class)->make();
+        $reactionType = new ReactionType();
+
+        $isReacted = $reacter->hasNotReactedTo($reactant, $reactionType, 2.0);
 
         $this->assertTrue($isReacted);
     }

@@ -22,6 +22,16 @@ use Cog\Tests\Laravel\Love\TestCase;
 final class ReactionObserverTest extends TestCase
 {
     /** @test */
+    public function it_sets_default_rate_value_when_rate_value_is_null(): void
+    {
+        $counter = factory(Reaction::class)->create([
+            'rate' => null,
+        ]);
+
+        $this->assertSame(Reaction::RATE_DEFAULT, $counter->getAttribute('rate'));
+    }
+
+    /** @test */
     public function it_creates_counter_on_reaction_created_when_counter_not_exists(): void
     {
         $reactionType = factory(ReactionType::class)->create([
@@ -39,7 +49,7 @@ final class ReactionObserverTest extends TestCase
         $this->assertCount(0, $initialCounters);
         $this->assertCount(1, $assertCounters);
         $this->assertSame(1, $assertCounters->get(0)->count);
-        $this->assertSame(4, $assertCounters->get(0)->weight);
+        $this->assertSame(4.0, $assertCounters->get(0)->weight);
     }
 
     /** @test */
@@ -96,7 +106,7 @@ final class ReactionObserverTest extends TestCase
         $assertCounters = $reactant->fresh()->reactionCounters;
         $this->assertCount(1, $assertCounters);
         $this->assertSame(0, $assertCounters->get(0)->count);
-        $this->assertSame(0, $assertCounters->get(0)->weight);
+        $this->assertSame(0.0, $assertCounters->get(0)->weight);
     }
 
     /** @test */
@@ -135,7 +145,7 @@ final class ReactionObserverTest extends TestCase
             'reaction_type_id' => $reactionType->getId(),
         ]);
 
-        $this->assertSame(8, $counter->fresh()->weight);
+        $this->assertSame(8.0, $counter->fresh()->weight);
     }
 
     /** @test */
@@ -156,7 +166,7 @@ final class ReactionObserverTest extends TestCase
 
         $reactions->get(0)->delete();
 
-        $this->assertSame(8, $counter->fresh()->weight);
+        $this->assertSame(8.0, $counter->fresh()->weight);
     }
 
     /** @test */
@@ -176,7 +186,7 @@ final class ReactionObserverTest extends TestCase
             'reaction_type_id' => $reactionType->getId(),
         ]);
 
-        $this->assertSame(-8, $counter->fresh()->weight);
+        $this->assertSame(-8.0, $counter->fresh()->weight);
     }
 
     /** @test */
@@ -197,7 +207,7 @@ final class ReactionObserverTest extends TestCase
 
         $reactions->get(0)->delete();
 
-        $this->assertSame(-8, $counter->fresh()->weight);
+        $this->assertSame(-8.0, $counter->fresh()->weight);
     }
 
     /** @test */
@@ -245,7 +255,7 @@ final class ReactionObserverTest extends TestCase
         ]);
 
         $total = $reactant->reactionTotal;
-        $this->assertSame(8, $total->weight);
+        $this->assertSame(8.0, $total->weight);
     }
 
     /** @test */
@@ -263,7 +273,7 @@ final class ReactionObserverTest extends TestCase
         $reactions->get(0)->delete();
 
         $total = $reactant->reactionTotal;
-        $this->assertSame(8, $total->weight);
+        $this->assertSame(8.0, $total->weight);
     }
 
     /** @test */
@@ -280,7 +290,7 @@ final class ReactionObserverTest extends TestCase
         ]);
 
         $total = $reactant->reactionTotal;
-        $this->assertSame(-8, $total->weight);
+        $this->assertSame(-8.0, $total->weight);
     }
 
     /** @test */
@@ -298,6 +308,6 @@ final class ReactionObserverTest extends TestCase
         $reactions->get(0)->delete();
 
         $total = $reactant->reactionTotal;
-        $this->assertSame(-8, $total->weight);
+        $this->assertSame(-8.0, $total->weight);
     }
 }

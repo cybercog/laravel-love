@@ -69,14 +69,16 @@ final class NullReactant implements
 
     public function isReactedBy(
         ReacterContract $reacter,
-        ?ReactionTypeContract $reactionType = null
+        ?ReactionTypeContract $reactionType = null,
+        ?float $rate = null
     ): bool {
         return false;
     }
 
     public function isNotReactedBy(
         ReacterContract $reacter,
-        ?ReactionTypeContract $reactionType = null
+        ?ReactionTypeContract $reactionType = null,
+        ?float $rate = null
     ): bool {
         return true;
     }

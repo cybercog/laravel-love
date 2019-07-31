@@ -40,7 +40,7 @@ final class NullReactionTotalTest extends TestCase
 
         $totalWeight = $total->getWeight();
 
-        $this->assertSame(0, $totalWeight);
+        $this->assertSame(0.0, $totalWeight);
     }
 
     /** @test */

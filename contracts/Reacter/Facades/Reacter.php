@@ -19,11 +19,11 @@ interface Reacter
 {
     public function getReactions(): iterable;
 
-    public function reactTo(Reactable $reactable, string $reactionTypeName): void;
+    public function reactTo(Reactable $reactable, string $reactionTypeName, ?float $rate = null): void;
 
     public function unreactTo(Reactable $reactable, string $reactionTypeName): void;
 
-    public function hasReactedTo(Reactable $reactable, ?string $reactionTypeName = null): bool;
+    public function hasReactedTo(Reactable $reactable, ?string $reactionTypeName = null, ?float $rate = null): bool;
 
-    public function hasNotReactedTo(Reactable $reactable, ?string $reactionTypeName = null): bool;
+    public function hasNotReactedTo(Reactable $reactable, ?string $reactionTypeName = null, ?float $rate = null): bool;
 }

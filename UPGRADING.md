@@ -8,6 +8,7 @@
 
 ## From v7 to v8
 
+- All `weight` values are `float` now. Round them to get `integer` values as it was before.
 - Find all `isReactedTo` method usages and replace it with `hasReactedTo`
 - Find all `isReactedToWithType` method usages and replace it with `hasReactedTo`
 - Find all `isNotReactedTo` method usages and replace it with `hasNotReactedTo`

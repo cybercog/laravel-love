@@ -28,13 +28,13 @@ interface Reacter
      */
     public function getReactions(): iterable;
 
-    public function reactTo(Reactant $reactant, ReactionType $reactionType): void;
+    public function reactTo(Reactant $reactant, ReactionType $reactionType, ?float $rate = null): void;
 
     public function unreactTo(Reactant $reactant, ReactionType $reactionType): void;
 
-    public function hasReactedTo(Reactant $reactant, ?ReactionType $reactionType = null): bool;
+    public function hasReactedTo(Reactant $reactant, ?ReactionType $reactionType = null, float $rate = null): bool;
 
-    public function hasNotReactedTo(Reactant $reactant, ?ReactionType $reactionType = null): bool;
+    public function hasNotReactedTo(Reactant $reactant, ?ReactionType $reactionType = null, float $rate = null): bool;
 
     public function isEqualTo(self $that): bool;
 

@@ -22,10 +22,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 final class ReactionType extends Model implements
     ReactionTypeContract
 {
+    public const MASS_DEFAULT = 0;
+
     protected $table = 'love_reaction_types';
 
     protected $attributes = [
-        'mass' => 0,
+        'mass' => self::MASS_DEFAULT,
     ];
 
     protected $fillable = [

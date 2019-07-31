@@ -4,28 +4,70 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ## [Unreleased]
 
+Code has a lot of breaking changes because of new Weighted Reaction System.
+
+Follow [upgrade instructions](UPGRADING.md#from-v7-to-v8) to migrate code & database to new structure.
+
 ### Added
 
-- ([#90](https://github.com/cybercog/laravel-love/pull/90)) Added `ReactionCounter::DEFAULT_COUNT` & `ReactionCounter::DEFAULT_WEIGHT` constants
-- ([#90](https://github.com/cybercog/laravel-love/pull/90)) Added `ReactionTotal::DEFAULT_COUNT` & `ReactionTotal::DEFAULT_WEIGHT` constants
+- Added `love:upgrade-v7-to-v8` Artisan command
+- ([#90]) Added `ReactionCounter::COUNT_DEFAULT` public constant
+- ([#90]) Added `ReactionCounter::WEIGHT_DEFAULT` public constant
+- ([#90]) Added `ReactionTotal::COUNT_DEFAULT` public constant
+- ([#90]) Added `ReactionTotal::WEIGHT_DEFAULT` public constant
+- ([#91]) Added `Reaction::RATE_DEFAULT` public constant
+- ([#91]) Added `Reaction::RATE_MIN` public constant
+- ([#91]) Added `Reaction::RATE_MAX` public constant
+- ([#91]) Added `ReactionType::MASS_DEFAULT` public constant
+- ([#91]) Added `rate` attribute to `Reacter` model
+- ([#91]) Added `rate DECIMIAL(4, 2)` column to `love_reactions` db table
+- ([#91]) Added ability to call `Reacter::reactTo` with already reacted reactant, same reaction type, but only `rate` differs
+- ([#91]) Added `Cog\Contracts\Love\Reaction\Exceptions\RateOutOfRange` exception
 
 ### Changed
 
-- ([#79](https://github.com/cybercog/laravel-love/pull/79)) Reacter model `isReactedTo` & `isReactedToWithType` methods replaced with single `hasReactedTo` method
-- ([#79](https://github.com/cybercog/laravel-love/pull/79)) Reacter model `isNotReactedTo` & `isNotReactedToWithType` methods replaced with single `hasNotReactedTo` method
-- ([#79](https://github.com/cybercog/laravel-love/pull/79)) Reactant model `isReactedBy`&& `isReactedByWithType` methods replaced with single `isReactedBy` method
-- ([#79](https://github.com/cybercog/laravel-love/pull/79)) Reactant model `isNotReactedBy`&& `isNotReactedByWithType` methods replaced with single `isNotReactedBy` method
-- ([#83](https://github.com/cybercog/laravel-love/pull/83)) Artisan command `love:reaction-type-add` awaits options instead of arguments
-- ([#87](https://github.com/cybercog/laravel-love/pull/87)) Resolving default attributes values moved from accessors to Eloquent
-- ([#88](https://github.com/cybercog/laravel-love/pull/88)) ReactionType attribute `weight` renamed to `mass`
-- ([#88](https://github.com/cybercog/laravel-love/pull/88)) ReactionType method `getWeight` renamed to `getMass`
-- ([#89](https://github.com/cybercog/laravel-love/pull/89)) Reactable method `scopeWhereReactedByWithType` merged with `scopeWhereReactedBy`
-- ([#90](https://github.com/cybercog/laravel-love/pull/90)) ReactionCounter attributes `count` & `weight` default values moved to application level
-- ([#90](https://github.com/cybercog/laravel-love/pull/90)) ReactionTotal attributes `count` & `weight` default values moved to application level
+- ([#79]) Renamed `isReactedTo` method to `hasReactedTo` in `Reacter` model contract
+- ([#79]) Added `$reactionType` parameter to `hasReactedTo` in `Reacter` model contract
+- ([#91]) Added `$rate` parameter to `hasReactedTo` method in `Reacter` model contract
+- ([#91]) Added `$rate` parameter to `hasReactedTo` method in `Reacter` facade contract
+- ([#79]) Renamed `isNotReactedTo` method to `hasNotReactedTo` in `Reacter` model contract
+- ([#79]) Added `$reactionType` parameter to `hasNotReactedTo` in `Reacter` model contract
+- ([#91]) Added `$rate` parameter to `hasNotReactedTo` method in `Reacter` model contract
+- ([#91]) Added `$rate` parameter to `hasNotReactedTo` method in `Reacter` facade contract
+- ([#79]) Added `$reactionType` parameter to `isReactedBy` in `Reactant` model contract
+- ([#91]) Added `$rate` parameter to `isReactedBy` method in `Reactant` model contract
+- ([#91]) Added `$rate` parameter to `isReactedBy` method in `Reactant` facade contract
+- ([#79]) Added `$reactionType` parameter to `isNotReactedBy` in `Reactant` model contract
+- ([#91]) Added `$rate` parameter to `isNotReactedBy` method in `Reactant` model contract
+- ([#91]) Added `$rate` parameter to `isNotReactedBy` method in `Reactant` facade contract
+- ([#83]) Artisan command `love:reaction-type-add` awaits options instead of arguments
+- ([#87]) Resolving models default attributes values moved from accessors to Eloquent methods
+- ([#88]) Renamed `weight` attribute to `mass` in `ReactionType` model
+- ([#88]) Renamed `getWeight` method to `getMass` in `ReactionType` model contract
+- ([#89]) Added `$reactionType` parameter to `scopeWhereReactedBy` method in `Reactable` model trait
+- ([#90]) Moved `count` & `weight` attributes default values of `ReactionCounter` to application level
+- ([#90]) Moved `count` & `weight` attributes default values of `ReactionTotal` to application level
+- ([#91]) Changed `getWeight` method return type from `int` to `float` in reactant's `ReactionCounter` model contract
+- ([#91]) Changed `$amount` parameter  type from `int` to `float` of `incrementWeight` method in reactant's `ReactionCounter` model contract
+- ([#91]) Changed `$amount` parameter  type from `int` to `float` of `decrementWeight` method in reactant's `ReactionCounter` model contract
+- ([#91]) Changed `getWeight` method return type from `int` to `float` in reactant's `ReactionTotal` model contract
+- ([#91]) Changed `$amount` parameter  type from `int` to `float` of `incrementWeight` method in reactant's `ReactionTotal` model contract
+- ([#91]) Changed `$amount` parameter  type from `int` to `float` of `decrementWeight` method in reactant's `ReactionTotal` model contract
+- ([#91]) Added `?float $rate` parameter to `reactTo` method in `Reacter` facade contract
+- ([#91]) Added `?float $rate` parameter to `reactTo` method in `Reacter` model contract
+- ([#91]) Added `getRate` method to `Reaction` model contract
+- ([#91]) Changed `getWeight` method return type from `int` to `float` in `Reaction` model contract
+- ([#91]) Changed `weight` column type to `DECIMIAL(13, 2)` in `love_reactant_reaction_counters` db table
+- ([#91]) Changed `weight` column type to `DECIMIAL(13, 2)` in `love_reactant_reaction_totals` db table
 
 ### Removed
 
-- ([#86](https://github.com/cybercog/laravel-love/pull/86)) Laravel 5.6 support obsolete
+- ([#86]) Laravel 5.6 support obsolete
+- ([#79]) Removed `isReactedToWithType` method from `Reacter` model contract
+- ([#79]) Removed `isNotReactedToWithType` method from `Reacter` model contract
+- ([#79]) Removed `isReactedByWithType` method from `Reactant` model contract
+- ([#79]) Removed `isNotReactedByWithType` method `Reactant` model contract
+- ([#89]) Removed `scopeWhereReactedByWithType` method from `Reactable` model trait
 
 ## [7.2.1] - 2019-07-11
 
@@ -339,3 +381,12 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 [1.1.2]: https://github.com/cybercog/laravel-love/compare/1.1.1...1.1.2
 [1.1.1]: https://github.com/cybercog/laravel-love/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/cybercog/laravel-love/compare/1.0.0...1.1.0
+
+[#79]: https://github.com/cybercog/laravel-love/pull/79
+[#83]: https://github.com/cybercog/laravel-love/pull/83
+[#86]: https://github.com/cybercog/laravel-love/pull/86
+[#87]: https://github.com/cybercog/laravel-love/pull/87
+[#88]: https://github.com/cybercog/laravel-love/pull/88
+[#89]: https://github.com/cybercog/laravel-love/pull/89
+[#90]: https://github.com/cybercog/laravel-love/pull/90
+[#91]: https://github.com/cybercog/laravel-love/pull/91

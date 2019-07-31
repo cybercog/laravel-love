@@ -119,13 +119,16 @@ final class ReactionTypeAdd extends Command
     {
         return $this->option('name')
             ?? $this->ask('How to name reaction type?')
-            ?? $this->resolveName();
+            ?? '';
     }
 
     private function resolveMass(): int
     {
-        return intval($this->option('mass')
-            ?? $this->ask('What is the mass of this reaction type?'));
+        $mass = $this->option('mass')
+            ?? $this->ask('What is the mass of this reaction type?')
+            ?? ReactionType::MASS_DEFAULT;
+
+        return intval($mass);
     }
 
     private function sanitizeName(string $name): string

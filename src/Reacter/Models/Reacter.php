@@ -20,6 +20,7 @@ use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
 use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
 use Cog\Contracts\Love\Reaction\Exceptions\ReactionAlreadyExists;
 use Cog\Contracts\Love\Reaction\Exceptions\ReactionNotExists;
+use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\Support\Database\Eloquent\Model;
@@ -72,21 +73,35 @@ final class Reacter extends Model implements
 
     public function reactTo(
         ReactantContract $reactant,
-        ReactionTypeContract $reactionType
+        ReactionTypeContract $reactionType,
+        ?float $rate = null
     ): void {
         if ($reactant->isNull()) {
             throw ReactantInvalid::notExists();
         }
 
-        if ($this->hasReactedTo($reactant, $reactionType)) {
+        $reaction = $this->findReaction($reactant, $reactionType);
+
+        if (is_null($reaction)) {
+            $this->createReaction($reactant, $reactionType, $rate);
+
+            return;
+        }
+
+        if (is_null($rate)) {
             throw new ReactionAlreadyExists(
                 sprintf('Reaction of type `%s` already exists.', $reactionType->getName())
             );
         }
 
-        $this->reactions()->create([
-            'reaction_type_id' => $reactionType->getId(),
-            'reactant_id' => $reactant->getId(),
+        if ($reaction->getRate() === $rate) {
+            throw new ReactionAlreadyExists(
+                sprintf('Reaction of type `%s` with `%s` rate already exists.', $reactionType->getName(), $rate)
+            );
+        }
+
+        $reaction->update([
+            'rate' => $rate,
         ]);
     }
 
@@ -98,10 +113,7 @@ final class Reacter extends Model implements
             throw ReactantInvalid::notExists();
         }
 
-        $reaction = $this->reactions()->where([
-            'reaction_type_id' => $reactionType->getId(),
-            'reactant_id' => $reactant->getId(),
-        ])->first();
+        $reaction = $this->findReaction($reactant, $reactionType);
 
         if (is_null($reaction)) {
             throw new ReactionNotExists(
@@ -114,20 +126,22 @@ final class Reacter extends Model implements
 
     public function hasReactedTo(
         ReactantContract $reactant,
-        ?ReactionTypeContract $reactionType = null
+        ?ReactionTypeContract $reactionType = null,
+        float $rate = null
     ): bool {
         if ($reactant->isNull()) {
             return false;
         }
 
-        return $reactant->isReactedBy($this, $reactionType);
+        return $reactant->isReactedBy($this, $reactionType, $rate);
     }
 
     public function hasNotReactedTo(
         ReactantContract $reactant,
-        ?ReactionTypeContract $reactionType = null
+        ?ReactionTypeContract $reactionType = null,
+        float $rate = null
     ): bool {
-        return $reactant->isNotReactedBy($this, $reactionType);
+        return $reactant->isNotReactedBy($this, $reactionType, $rate);
     }
 
     public function isEqualTo(
@@ -151,5 +165,33 @@ final class Reacter extends Model implements
     public function isNotNull(): bool
     {
         return $this->exists;
+    }
+
+    private function createReaction(
+        ReactantContract $reactant,
+        ReactionTypeContract $reactionType,
+        ?float $rate
+    ): void {
+        $this->reactions()->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
+            'rate' => $rate,
+        ]);
+    }
+
+    /**
+     * @param \Cog\Contracts\Love\Reactant\Models\Reactant $reactant
+     * @param \Cog\Contracts\Love\ReactionType\Models\ReactionType $reactionType
+     * @return null|\Cog\Contracts\Love\Reaction\Models\Reaction|\Illuminate\Database\Eloquent\Model
+     */
+    private function findReaction(
+        ReactantContract $reactant,
+        ReactionTypeContract $reactionType
+    ): ?ReactionContract {
+        return $this
+            ->reactions()
+            ->where('reactant_id', $reactant->getId())
+            ->where('reaction_type_id', $reactionType->getId())
+            ->first();
     }
 }

@@ -15,6 +15,7 @@ namespace Cog\Laravel\Love\Reaction\Models;
 
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
+use Cog\Contracts\Love\Reaction\Exceptions\RateOutOfRange;
 use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
@@ -26,15 +27,27 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 final class Reaction extends Model implements
     ReactionContract
 {
+    public const RATE_DEFAULT = 1.0;
+
+    public const RATE_MIN = 0.01;
+
+    public const RATE_MAX = 99.99;
+
     protected $table = 'love_reactions';
+
+    protected $attributes = [
+        'rate' => self::RATE_DEFAULT,
+    ];
 
     protected $fillable = [
         'reactant_id',
         'reaction_type_id',
+        'rate',
     ];
 
     protected $casts = [
         'id' => 'string',
+        'rate' => 'float',
     ];
 
     public function reactant(): BelongsTo
@@ -72,9 +85,24 @@ final class Reaction extends Model implements
         return $this->getAttribute('type');
     }
 
-    public function getWeight(): int
+    public function getRate(): float
     {
-        return $this->getType()->getMass();
+        return $this->getAttributeValue('rate');
+    }
+
+    public function getWeight(): float
+    {
+        return $this->getType()->getMass() * $this->getRate();
+    }
+
+    public function setRateAttribute(
+        ?float $rate
+    ): void {
+        if (!is_null($rate) && ($rate < self::RATE_MIN || $rate > self::RATE_MAX)) {
+            throw RateOutOfRange::withValue($rate);
+        }
+
+        $this->attributes['rate'] = $rate;
     }
 
     public function isOfType(

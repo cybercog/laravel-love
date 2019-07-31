@@ -28,7 +28,7 @@ final class CreateLoveReactantReactionTotalsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('reactant_id');
             $table->unsignedBigInteger('count');
-            $table->bigInteger('weight');
+            $table->decimal('weight', 13, 2);
             $table->timestamps();
 
             $table

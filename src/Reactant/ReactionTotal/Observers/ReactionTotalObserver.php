@@ -21,11 +21,11 @@ final class ReactionTotalObserver
         ReactionTotal $total
     ): void {
         if (is_null($total->getAttributeValue('count'))) {
-            $total->setAttribute('count', ReactionTotal::DEFAULT_COUNT);
+            $total->setAttribute('count', ReactionTotal::COUNT_DEFAULT);
         }
 
         if (is_null($total->getAttributeValue('weight'))) {
-            $total->setAttribute('weight', ReactionTotal::DEFAULT_WEIGHT);
+            $total->setAttribute('weight', ReactionTotal::WEIGHT_DEFAULT);
         }
     }
 }

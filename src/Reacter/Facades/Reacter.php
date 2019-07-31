@@ -34,11 +34,13 @@ final class Reacter implements ReacterFacadeContract
 
     public function reactTo(
         ReactableContract $reactable,
-        string $reactionTypeName
+        string $reactionTypeName,
+        ?float $rate = null
     ): void {
         $this->reacter->reactTo(
             $reactable->getLoveReactant(),
-            ReactionType::fromName($reactionTypeName)
+            ReactionType::fromName($reactionTypeName),
+            $rate
         );
     }
 
@@ -54,25 +56,29 @@ final class Reacter implements ReacterFacadeContract
 
     public function hasReactedTo(
         ReactableContract $reactable,
-        ?string $reactionTypeName = null
+        ?string $reactionTypeName = null,
+        ?float $rate = null
     ): bool {
         $reactionType = is_null($reactionTypeName) ? null : ReactionType::fromName($reactionTypeName);
 
         return $this->reacter->hasReactedTo(
             $reactable->getLoveReactant(),
-            $reactionType
+            $reactionType,
+            $rate
         );
     }
 
     public function hasNotReactedTo(
         ReactableContract $reactable,
-        ?string $reactionTypeName = null
+        ?string $reactionTypeName = null,
+        ?float $rate = null
     ): bool {
         $reactionType = is_null($reactionTypeName) ? null : ReactionType::fromName($reactionTypeName);
 
         return $this->reacter->hasNotReactedTo(
             $reactable->getLoveReactant(),
-            $reactionType
+            $reactionType,
+            $rate
         );
     }
 }

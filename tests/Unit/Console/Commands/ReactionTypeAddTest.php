@@ -197,18 +197,16 @@ final class ReactionTypeAddTest extends TestCase
     }
 
     /** @test */
-    public function it_repeat_ask_for_name_if_name_question_not_answered(): void
+    public function it_throws_error_if_name_question_answered_with_null(): void
     {
         $typesCount = ReactionType::query()->count();
         $this
             ->artisan('love:reaction-type-add', ['--mass' => '4'])
             ->expectsQuestion('How to name reaction type?', null)
-            ->expectsQuestion('How to name reaction type?', 'TestName')
-            ->assertExitCode(0);
+            ->expectsOutput('Reaction type with name `` is invalid.')
+            ->assertExitCode(1);
 
-        $this->assertSame($typesCount + 1, ReactionType::query()->count());
-        $reactionType = ReactionType::query()->latest()->first();
-        $this->assertSame('TestName', $reactionType->getName());
+        $this->assertSame($typesCount, ReactionType::query()->count());
     }
 
     /** @test */
@@ -239,7 +237,7 @@ final class ReactionTypeAddTest extends TestCase
     }
 
     /** @test */
-    public function it_creates_type_with_zero_mass_if_not_answered(): void
+    public function it_creates_type_with_default_mass_if_not_answered(): void
     {
         $typesCount = ReactionType::query()->count();
         $this
@@ -249,7 +247,7 @@ final class ReactionTypeAddTest extends TestCase
 
         $this->assertSame($typesCount + 1, ReactionType::query()->count());
         $reactionType = ReactionType::query()->latest()->first();
-        $this->assertSame(0, $reactionType->getMass());
+        $this->assertSame(ReactionType::MASS_DEFAULT, $reactionType->getMass());
     }
 
     /** @test */

@@ -18,6 +18,7 @@ use Cog\Laravel\Love\Console\Commands\Recount;
 use Cog\Laravel\Love\Console\Commands\SetupReactable;
 use Cog\Laravel\Love\Console\Commands\SetupReacterable;
 use Cog\Laravel\Love\Console\Commands\UpgradeV5ToV6;
+use Cog\Laravel\Love\Console\Commands\UpgradeV7ToV8;
 use Cog\Laravel\Love\Reactant\Listeners\DecrementAggregates;
 use Cog\Laravel\Love\Reactant\Listeners\IncrementAggregates;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
@@ -94,6 +95,7 @@ final class LoveServiceProvider extends ServiceProvider
                 SetupReactable::class,
                 SetupReacterable::class,
                 UpgradeV5ToV6::class,
+                UpgradeV7ToV8::class,
             ]);
         }
     }
