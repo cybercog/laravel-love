@@ -153,7 +153,7 @@ final class ReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_react_to_reactant(): void
+    public function it_can_react_to_reactant_without_rate(): void
     {
         $reactionType = factory(ReactionType::class)->create();
         $reacter = factory(Reacter::class)->create();
@@ -165,6 +165,7 @@ final class ReacterTest extends TestCase
         $this->assertCount(1, $reacter->reactions);
         $assertReaction = $reacter->reactions->first();
         $this->assertTrue($assertReaction->reactant->is($reactant));
+        $this->assertSame(1.0, $assertReaction->rate);
     }
 
     /** @test */
@@ -183,6 +184,20 @@ final class ReacterTest extends TestCase
     }
 
     /** @test */
+    public function it_can_react_to_reactable_with_rate(): void
+    {
+        $reactionType = factory(ReactionType::class)->create();
+        $reacter = factory(Reacter::class)->create();
+        $reactant = factory(Reactant::class)->create();
+
+        $reacter->reactTo($reactant, $reactionType, 2.0);
+
+        $this->assertCount(1, $reacter->reactions);
+        $assertReaction = $reacter->reactions->first();
+        $this->assertSame(2.0, $assertReaction->rate);
+    }
+
+    /** @test */
     public function it_can_change_reaction_rate_with_react_to_when_reaction_already_exists(): void
     {
         $reactionType = factory(ReactionType::class)->create();
@@ -190,7 +205,7 @@ final class ReacterTest extends TestCase
         $reactant = factory(Reactant::class)->create();
 
         $reacter->reactTo($reactant, $reactionType);
-        $reacter->reactTo($reactant, $reactionType, 2);
+        $reacter->reactTo($reactant, $reactionType, 2.0);
 
         $this->assertCount(1, $reacter->reactions);
         $assertReaction = $reacter->reactions->first();

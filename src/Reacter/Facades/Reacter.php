@@ -34,11 +34,13 @@ final class Reacter implements ReacterFacadeContract
 
     public function reactTo(
         ReactableContract $reactable,
-        string $reactionTypeName
+        string $reactionTypeName,
+        ?float $rate = null
     ): void {
         $this->reacter->reactTo(
             $reactable->getLoveReactant(),
-            ReactionType::fromName($reactionTypeName)
+            ReactionType::fromName($reactionTypeName),
+            $rate
         );
     }
 

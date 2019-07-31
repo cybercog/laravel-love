@@ -44,7 +44,7 @@ final class ReacterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_react_to_reactable(): void
+    public function it_can_react_to_reactable_without_rate(): void
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
@@ -56,6 +56,7 @@ final class ReacterTest extends TestCase
         $this->assertCount(1, $reacter->reactions);
         $assertReaction = $reacter->reactions->first();
         $this->assertTrue($assertReaction->reactant->reactable->is($reactable));
+        $this->assertSame(1.0, $assertReaction->rate);
     }
 
     /** @test */
@@ -71,6 +72,37 @@ final class ReacterTest extends TestCase
         $this->assertCount(1, $reacter->reactions);
         $assertReaction = $reacter->reactions->first();
         $this->assertTrue($assertReaction->reactant->reactable->is($reactable));
+    }
+
+    /** @test */
+    public function it_can_react_to_reactable_with_rate(): void
+    {
+        $reacter = factory(Reacter::class)->create();
+        $reacterFacade = new ReacterFacade($reacter);
+        $reactable = factory(User::class)->create();
+        $reactionType = factory(ReactionType::class)->create();
+
+        $reacterFacade->reactTo($reactable, $reactionType->getName(), 2.0);
+
+        $this->assertCount(1, $reacter->reactions);
+        $assertReaction = $reacter->reactions->first();
+        $this->assertSame(2.0, $assertReaction->rate);
+    }
+
+    /** @test */
+    public function it_can_change_reaction_rate_with_react_to_when_reaction_already_exists(): void
+    {
+        $reacter = factory(Reacter::class)->create();
+        $reacterFacade = new ReacterFacade($reacter);
+        $reactable = factory(User::class)->create();
+        $reactionType = factory(ReactionType::class)->create();
+
+        $reacterFacade->reactTo($reactable, $reactionType->getName());
+        $reacterFacade->reactTo($reactable, $reactionType->getName(), 2.0);
+
+        $this->assertCount(1, $reacter->reactions);
+        $assertReaction = $reacter->reactions->first();
+        $this->assertSame(2.0, $assertReaction->rate);
     }
 
     /** @test */
