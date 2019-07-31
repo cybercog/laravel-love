@@ -17,7 +17,8 @@ All notable changes to `laravel-love` will be documented in this file.
 - ([#91]) Added `ReactionType::MASS_DEFAULT` public constant
 - ([#91]) Added `rate` attribute to `Reacter` model
 - ([#91]) Added `rate DECIMIAL(4, 2)` column to `love_reactions` db table
-- ([#91]) Added ability to `Reacter::reactTo` with already reacted reactant, same reaction type, but only `rate` differs
+- ([#91]) Added ability to call `Reacter::reactTo` with already reacted reactant, same reaction type, but only `rate` differs
+- ([#91]) Added `Cog\Contracts\Love\Reaction\Exceptions\RateOutOfRange` exception
 
 ### Changed
 
