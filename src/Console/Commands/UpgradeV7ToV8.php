@@ -43,6 +43,7 @@ final class UpgradeV7ToV8 extends Command
     public function handle(): void
     {
         $this->dbChangeReactionType();
+        $this->dbChangeReaction();
         // TODO: Remove `reactant_reaction_counters.count` default value
         // TODO: Remove `reactant_reaction_counters.weight` default value
         // TODO: Remove `reactant_reaction_totals.count` default value
@@ -53,6 +54,13 @@ final class UpgradeV7ToV8 extends Command
     {
         $this->getDbSchema()->table('love_reaction_types', function (Blueprint $table) {
             $table->renameColumn('weight', 'mass');
+        });
+    }
+
+    private function dbChangeReaction(): void
+    {
+        $this->getDbSchema()->table('love_reactions', function (Blueprint $table) {
+            $table->decimal('rate', 4, 2)->after('reaction_type_id');
         });
     }
 
