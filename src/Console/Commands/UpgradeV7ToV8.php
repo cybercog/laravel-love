@@ -51,7 +51,7 @@ final class UpgradeV7ToV8 extends Command
 
     private function dbChangeReactionType(): void
     {
-        $this->getDbSchema()->table('reaction_types', function (Blueprint $table) {
+        $this->getDbSchema()->table('love_reaction_types', function (Blueprint $table) {
             $table->renameColumn('weight', 'mass');
         });
     }
