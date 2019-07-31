@@ -58,6 +58,26 @@ final class ReactionTest extends TestCase
     }
 
     /** @test */
+    public function it_throws_exception_on_fill_rate_with_lower_than_minimum_value(): void
+    {
+        $this->expectException(\OutOfRangeException::class);
+
+        new Reaction([
+            'rate' => 0,
+        ]);
+    }
+
+    /** @test */
+    public function it_throws_exception_on_fill_rate_with_bigger_than_maximum_value(): void
+    {
+        $this->expectException(\OutOfRangeException::class);
+
+        new Reaction([
+            'rate' => 100,
+        ]);
+    }
+
+    /** @test */
     public function it_has_default_rate_value(): void
     {
         $reaction = new Reaction();

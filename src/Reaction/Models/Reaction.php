@@ -90,6 +90,16 @@ final class Reaction extends Model implements
         return $this->getType()->getMass() * $this->getRate();
     }
 
+    public function setRateAttribute(
+        float $amount
+    ): void {
+        if ($amount <= 0 || $amount >= 100) {
+            throw new \OutOfRangeException();
+        }
+
+        $this->attributes['rate'] = $amount;
+    }
+
     public function isOfType(
         ReactionTypeContract $reactionType
     ): bool {
