@@ -15,6 +15,7 @@ namespace Cog\Laravel\Love\Reaction\Models;
 
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
+use Cog\Contracts\Love\Reaction\Exceptions\RateValueInvalid;
 use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
@@ -27,6 +28,10 @@ final class Reaction extends Model implements
     ReactionContract
 {
     const DEFAULT_RATE = 1.0;
+
+    const MIN_RATE = 0.01;
+
+    const MAX_RATE = 99.99;
 
     protected $table = 'love_reactions';
 
@@ -91,13 +96,13 @@ final class Reaction extends Model implements
     }
 
     public function setRateAttribute(
-        ?float $amount
+        ?float $rate
     ): void {
-        if (!is_null($amount) && ($amount <= 0 || $amount >= 100)) {
-            throw new \OutOfRangeException();
+        if (!is_null($rate) && ($rate < self::MIN_RATE || $rate > self::MAX_RATE)) {
+            throw RateValueInvalid::withValue($rate);
         }
 
-        $this->attributes['rate'] = $amount;
+        $this->attributes['rate'] = $rate;
     }
 
     public function isOfType(
