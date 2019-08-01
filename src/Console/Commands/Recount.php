@@ -66,6 +66,7 @@ final class Recount extends Command
         }
 
         $reactants = $reactantsQuery->get();
+        $this->getOutput()->progressStart($reactants->count());
         foreach ($reactants as $reactant) {
             /** @var \Illuminate\Database\Eloquent\Builder $query */
             $query = $reactant->reactions();
@@ -91,7 +92,9 @@ final class Recount extends Command
             $reactions = $query->get();
             $this->recountCounters($reactant, $reactions);
             $this->recountTotal($reactant);
+            $this->getOutput()->progressAdvance();
         }
+        $this->getOutput()->progressFinish();
     }
 
     /**
@@ -158,6 +161,11 @@ final class Recount extends Command
         ReactantContract $reactant
     ): void {
         $counters = $reactant->getReactionCounters();
+
+        if (count($counters) === 0) {
+            return;
+        }
+
         $totalCount = ReactionTotal::COUNT_DEFAULT;
         $totalWeight = ReactionTotal::WEIGHT_DEFAULT;
 
