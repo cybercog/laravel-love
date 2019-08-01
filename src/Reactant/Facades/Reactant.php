@@ -53,7 +53,7 @@ final class Reactant implements ReacterFacadeContract
     }
 
     public function isReactedBy(
-        ?ReacterableContract $reacterable,
+        ?ReacterableContract $reacterable = null,
         ?string $reactionTypeName = null,
         ?float $rate = null
     ): bool {
@@ -71,7 +71,7 @@ final class Reactant implements ReacterFacadeContract
     }
 
     public function isNotReactedBy(
-        ?ReacterableContract $reacterable,
+        ?ReacterableContract $reacterable = null,
         ?string $reactionTypeName = null,
         ?float $rate = null
     ): bool {
