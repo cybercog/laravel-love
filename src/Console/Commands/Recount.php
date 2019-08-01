@@ -78,7 +78,7 @@ final class Recount extends Command
 
             /** @var \Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter $counter */
             foreach ($counters as $counter) {
-                if ($reactionType && !$counter->isReactionOfType($reactionType)) {
+                if ($reactionType && $counter->isNotReactionOfType($reactionType)) {
                     continue;
                 }
 
