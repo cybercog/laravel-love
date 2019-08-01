@@ -23,6 +23,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v7-to-v8) to migrate code & data
 - ([#91]) Added `rate DECIMIAL(4, 2)` column to `love_reactions` db table
 - ([#91]) Added ability to call `Reacter::reactTo` with already reacted reactant, same reaction type, but only `rate` differs
 - ([#91]) Added `Cog\Contracts\Love\Reaction\Exceptions\RateOutOfRange` exception
+- ([#96]) Added progress bar to `love:recount` Artisan command
 
 ### Changed
 
@@ -59,6 +60,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v7-to-v8) to migrate code & data
 - ([#91]) Changed `getWeight` method return type from `int` to `float` in `Reaction` model contract
 - ([#91]) Changed `weight` column type to `DECIMIAL(13, 2)` in `love_reactant_reaction_counters` db table
 - ([#91]) Changed `weight` column type to `DECIMIAL(13, 2)` in `love_reactant_reaction_totals` db table
+- ([#96]) Changed signature of `love:recount` Artisan command to `love:recount {--model=} {--type=}`
 
 ### Removed
 
@@ -390,3 +392,4 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 [#89]: https://github.com/cybercog/laravel-love/pull/89
 [#90]: https://github.com/cybercog/laravel-love/pull/90
 [#91]: https://github.com/cybercog/laravel-love/pull/91
+[#96]: https://github.com/cybercog/laravel-love/pull/96
