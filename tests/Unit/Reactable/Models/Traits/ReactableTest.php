@@ -925,10 +925,10 @@ final class ReactableTest extends TestCase
             ->joinReactionTotal()
             ->get();
 
-        $reactionType1CountKey = strtolower($reactionType1->getName())."_count";
-        $reactionType1WeightKey = strtolower($reactionType1->getName())."_weight";
-        $reactionType2CountKey = strtolower($reactionType2->getName())."_count";
-        $reactionType2WeightKey = strtolower($reactionType2->getName())."_weight";
+        $reactionType1CountKey = strtolower($reactionType1->getName()).'_count';
+        $reactionType1WeightKey = strtolower($reactionType1->getName()).'_weight';
+        $reactionType2CountKey = strtolower($reactionType2->getName()).'_count';
+        $reactionType2WeightKey = strtolower($reactionType2->getName()).'_weight';
         $this->assertSame([
             [
                 'name' => $reactable1->name,
@@ -954,7 +954,7 @@ final class ReactableTest extends TestCase
                 "$reactionType2WeightKey" => '-7',
                 'reactions_total_weight' => '-1',
             ],
-        ], $reactablesWithTypeCount->map(function (Article $reactable) use($reactionType1WeightKey, $reactionType1CountKey, $reactionType2CountKey, $reactionType2WeightKey){
+        ], $reactablesWithTypeCount->map(function (Article $reactable) use ($reactionType1WeightKey, $reactionType1CountKey, $reactionType2CountKey, $reactionType2WeightKey){
             return [
                 'name' => $reactable->name,
                 "$reactionType1CountKey" => $reactable->{$reactionType1CountKey},
