@@ -884,11 +884,11 @@ final class ReactableTest extends TestCase
         factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactionType1 = factory(ReactionType::class)->create([
             'name' => 'Like',
-            'weight' => 2,
+            'mass' => 2,
         ]);
         $reactionType2 = factory(ReactionType::class)->create([
             'name' => 'Dislike',
-            'weight' => -1,
+            'mass' => -1,
         ]);
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
