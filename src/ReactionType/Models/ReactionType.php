@@ -22,16 +22,22 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 final class ReactionType extends Model implements
     ReactionTypeContract
 {
+    public const MASS_DEFAULT = 0;
+
     protected $table = 'love_reaction_types';
+
+    protected $attributes = [
+        'mass' => self::MASS_DEFAULT,
+    ];
 
     protected $fillable = [
         'name',
-        'weight',
+        'mass',
     ];
 
     protected $casts = [
         'id' => 'string',
-        'weight' => 'integer',
+        'mass' => 'integer',
     ];
 
     private static $nameCache = [];
@@ -83,9 +89,9 @@ final class ReactionType extends Model implements
         return $this->getAttributeValue('name');
     }
 
-    public function getWeight(): int
+    public function getMass(): int
     {
-        return $this->getAttributeValue('weight') ?? 0;
+        return $this->getAttributeValue('mass');
     }
 
     public function isEqualTo(

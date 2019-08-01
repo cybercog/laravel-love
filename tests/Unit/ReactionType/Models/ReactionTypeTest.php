@@ -33,13 +33,22 @@ final class ReactionTypeTest extends TestCase
     }
 
     /** @test */
-    public function it_can_fill_weight(): void
+    public function it_can_fill_mass(): void
     {
         $type = new ReactionType([
-            'weight' => 4,
+            'mass' => 4,
         ]);
 
-        $this->assertSame(4, $type->getAttribute('weight'));
+        $this->assertSame(4, $type->getAttribute('mass'));
+    }
+
+    /** @test */
+    public function it_has_default_rate_value(): void
+    {
+        $type = new ReactionType();
+
+        $this->assertSame(ReactionType::MASS_DEFAULT, $type->getAttribute('mass'));
+        $this->assertSame(ReactionType::MASS_DEFAULT, $type->getMass());
     }
 
     /** @test */
@@ -50,16 +59,18 @@ final class ReactionTypeTest extends TestCase
         ]);
 
         $this->assertSame('4', $type->getAttribute('id'));
+        $this->assertSame('4', $type->getId());
     }
 
     /** @test */
-    public function it_casts_weight_to_integer(): void
+    public function it_casts_mass_to_integer(): void
     {
         $type = new ReactionType([
-            'weight' => '4',
+            'mass' => '4',
         ]);
 
-        $this->assertSame(4, $type->getAttribute('weight'));
+        $this->assertSame(4, $type->getAttribute('mass'));
+        $this->assertSame(4, $type->getMass());
     }
 
     /** @test */
@@ -142,21 +153,21 @@ final class ReactionTypeTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_weight(): void
+    public function it_can_get_mass(): void
     {
         $type = new ReactionType([
-            'weight' => '4',
+            'mass' => '4',
         ]);
 
-        $this->assertSame(4, $type->getWeight());
+        $this->assertSame(4, $type->getMass());
     }
 
     /** @test */
-    public function it_can_get_weight_when_weight_is_null(): void
+    public function it_can_get_mass_when_mass_is_null(): void
     {
         $type = new ReactionType();
 
-        $this->assertSame(0, $type->getWeight());
+        $this->assertSame(0, $type->getMass());
     }
 
     /** @test */
@@ -220,10 +231,10 @@ final class ReactionTypeTest extends TestCase
     {
         $type = factory(ReactionType::class)->create([
             'name' => 'TestRegistryUpdate',
-            'weight' => 4,
+            'mass' => 4,
         ]);
         $type->update([
-            'weight' => 8,
+            'mass' => 8,
         ]);
         $db = $this->app->make(ConnectionInterface::class);
         $db->enableQueryLog();
@@ -231,8 +242,8 @@ final class ReactionTypeTest extends TestCase
         $typeFromRegistry = ReactionType::fromName('TestRegistryUpdate');
 
         $this->assertCount(0, $db->getQueryLog());
-        $this->assertSame(8, $type->getWeight());
-        $this->assertSame(8, $typeFromRegistry->getWeight());
+        $this->assertSame(8, $type->getMass());
+        $this->assertSame(8, $typeFromRegistry->getMass());
     }
 
     /** @test */

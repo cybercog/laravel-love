@@ -21,6 +21,7 @@ There are many different implementations in modern applications:
 - Facebook Reactions
 - YouTube Likes
 - Slack Reactions
+- Reddit Votes
 - Medium Claps
 
 This package developed in mind that it should cover all the possible use cases and be viable in enterprise applications.
@@ -50,8 +51,8 @@ $ php artisan migrate
 
 ## About CyberCog
 
-[CyberCog](http://www.cybercog.ru) is a Social Unity of enthusiasts. Research best solutions in product & software development is our passion.
+[CyberCog](https://cybercog.ru) is a Social Unity of enthusiasts. Research best solutions in product & software development is our passion.
 
 - [Follow us on Twitter](https://twitter.com/cybercog)
 
-<a href="http://cybercog.ru"><img src="https://cloud.githubusercontent.com/assets/1849174/18418932/e9edb390-7860-11e6-8a43-aa3fad524664.png" alt="CyberCog"></a>
+<a href="https://cybercog.ru"><img src="https://cloud.githubusercontent.com/assets/1849174/18418932/e9edb390-7860-11e6-8a43-aa3fad524664.png" alt="CyberCog"></a>

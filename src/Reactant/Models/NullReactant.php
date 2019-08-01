@@ -22,6 +22,7 @@ use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\NullReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
+use Illuminate\Support\Collection;
 use TypeError;
 
 final class NullReactant implements
@@ -47,12 +48,12 @@ final class NullReactant implements
 
     public function getReactions(): iterable
     {
-        return [];
+        return new Collection();
     }
 
     public function getReactionCounters(): iterable
     {
-        return [];
+        return new Collection();
     }
 
     public function getReactionCounterOfType(
@@ -67,27 +68,17 @@ final class NullReactant implements
     }
 
     public function isReactedBy(
-        ReacterContract $reacter
+        ReacterContract $reacter,
+        ?ReactionTypeContract $reactionType = null,
+        ?float $rate = null
     ): bool {
         return false;
     }
 
     public function isNotReactedBy(
-        ReacterContract $reacter
-    ): bool {
-        return true;
-    }
-
-    public function isReactedByWithType(
         ReacterContract $reacter,
-        ReactionTypeContract $reactionType
-    ): bool {
-        return false;
-    }
-
-    public function isNotReactedByWithType(
-        ReacterContract $reacter,
-        ReactionTypeContract $reactionType
+        ?ReactionTypeContract $reactionType = null,
+        ?float $rate = null
     ): bool {
         return true;
     }

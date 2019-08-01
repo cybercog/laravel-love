@@ -26,7 +26,6 @@ use Cog\Tests\Laravel\Love\Stubs\Models\Bot;
 use Cog\Tests\Laravel\Love\Stubs\Models\Entity;
 use Cog\Tests\Laravel\Love\Stubs\Models\EntityWithMorphMap;
 use Cog\Tests\Laravel\Love\TestCase;
-use Illuminate\Support\Str;
 
 final class RecountTest extends TestCase
 {
@@ -38,17 +37,15 @@ final class RecountTest extends TestCase
     {
         parent::setUp();
 
-        if (!Str::startsWith($this->app->version(), '5.6')) {
-            $this->withoutMockingConsoleOutput();
-        }
+        $this->withoutMockingConsoleOutput();
 
         $this->likeType = factory(ReactionType::class)->create([
             'name' => 'Like',
-            'weight' => 2,
+            'mass' => 2,
         ]);
         $this->dislikeType = factory(ReactionType::class)->create([
             'name' => 'Dislike',
-            'weight' => -2,
+            'mass' => -2,
         ]);
     }
 
@@ -74,26 +71,26 @@ final class RecountTest extends TestCase
         $this->assertReactantLikesCount($reactant2, 2);
         $this->assertReactantLikesCount($reactant3, 2);
         $this->assertReactantLikesCount($reactant4, 1);
-        $this->assertReactantLikesWeight($reactant1, 6);
-        $this->assertReactantLikesWeight($reactant2, 4);
-        $this->assertReactantLikesWeight($reactant3, 4);
-        $this->assertReactantLikesWeight($reactant4, 2);
+        $this->assertReactantLikesWeight($reactant1, 6.0);
+        $this->assertReactantLikesWeight($reactant2, 4.0);
+        $this->assertReactantLikesWeight($reactant3, 4.0);
+        $this->assertReactantLikesWeight($reactant4, 2.0);
         $this->assertReactantDislikesCount($reactant1, 0);
         $this->assertReactantDislikesCount($reactant2, 0);
         $this->assertReactantDislikesCount($reactant3, 0);
         $this->assertReactantDislikesCount($reactant1, 0);
-        $this->assertReactantDislikesWeight($reactant1, 0);
-        $this->assertReactantDislikesWeight($reactant2, 0);
-        $this->assertReactantDislikesWeight($reactant3, 0);
-        $this->assertReactantDislikesWeight($reactant4, 0);
+        $this->assertReactantDislikesWeight($reactant1, 0.0);
+        $this->assertReactantDislikesWeight($reactant2, 0.0);
+        $this->assertReactantDislikesWeight($reactant3, 0.0);
+        $this->assertReactantDislikesWeight($reactant4, 0.0);
         $this->assertReactantTotalCount($reactant1, 3);
         $this->assertReactantTotalCount($reactant2, 2);
         $this->assertReactantTotalCount($reactant3, 2);
         $this->assertReactantTotalCount($reactant4, 1);
-        $this->assertReactantTotalWeight($reactant1, 6);
-        $this->assertReactantTotalWeight($reactant2, 4);
-        $this->assertReactantTotalWeight($reactant3, 4);
-        $this->assertReactantTotalWeight($reactant4, 2);
+        $this->assertReactantTotalWeight($reactant1, 6.0);
+        $this->assertReactantTotalWeight($reactant2, 4.0);
+        $this->assertReactantTotalWeight($reactant3, 4.0);
+        $this->assertReactantTotalWeight($reactant4, 2.0);
     }
 
     /** @test */
@@ -834,8 +831,8 @@ final class RecountTest extends TestCase
             'type' => 'Like',
         ]);
 
-        $this->assertSame(0, $reactant1->reactionCounters->first()->weight);
-        $this->assertSame(0, $reactant2->reactionCounters->first()->weight);
+        $this->assertSame(0.0, $reactant1->reactionCounters->first()->weight);
+        $this->assertSame(0.0, $reactant2->reactionCounters->first()->weight);
     }
 
     /** @test */
@@ -905,8 +902,8 @@ final class RecountTest extends TestCase
             'type' => 'Like',
         ]);
 
-        $this->assertSame(0, $reactant1->reactionTotal->weight);
-        $this->assertSame(0, $reactant2->reactionTotal->weight);
+        $this->assertSame(0.0, $reactant1->reactionTotal->weight);
+        $this->assertSame(0.0, $reactant2->reactionTotal->weight);
     }
 
     private function reactionsCount(
@@ -921,7 +918,7 @@ final class RecountTest extends TestCase
     private function reactionsWeight(
         ReactantContract $reactant,
         ReactionTypeContract $reactionType
-    ): int {
+    ): float {
         return $reactant
             ->getReactionCounterOfType($reactionType)
             ->getWeight();
@@ -949,7 +946,7 @@ final class RecountTest extends TestCase
 
     private function assertReactantLikesWeight(
         ReactantContract $reactant,
-        int $count
+        float $count
     ): void {
         $this->assertSame(
             $count,
@@ -959,7 +956,7 @@ final class RecountTest extends TestCase
 
     private function assertReactantDislikesWeight(
         ReactantContract $reactant,
-        int $count
+        float $count
     ): void {
         $this->assertSame(
             $count,
@@ -979,7 +976,7 @@ final class RecountTest extends TestCase
 
     private function assertReactantTotalWeight(
         ReactantContract $reactant,
-        int $count
+        float $count
     ): void {
         $this->assertSame(
             $count,

@@ -116,7 +116,9 @@ final class Reactant extends Model implements
     }
 
     public function isReactedBy(
-        ReacterContract $reacter
+        ReacterContract $reacter,
+        ?ReactionTypeContract $reactionType = null,
+        ?float $rate = null
     ): bool {
         if ($reacter->isNull()) {
             return false;
@@ -126,51 +128,42 @@ final class Reactant extends Model implements
         if ($this->relationLoaded('reactions')) {
             return $this
                 ->getAttribute('reactions')
-                ->contains(function (ReactionContract $reaction) use ($reacter) {
-                    return $reaction->isByReacter($reacter);
+                ->contains(function (ReactionContract $reaction) use ($reacter, $reactionType, $rate) {
+                    if ($reaction->isNotByReacter($reacter)) {
+                        return false;
+                    }
+
+                    if (!is_null($reactionType) && $reaction->isNotOfType($reactionType)) {
+                        return false;
+                    }
+
+                    if (!is_null($rate) && $reaction->getRate() !== $rate) {
+                        return false;
+                    }
+
+                    return true;
                 });
         }
 
-        return $this->reactions()->where([
-            'reacter_id' => $reacter->getId(),
-        ])->exists();
+        $query = $this->reactions()->where('reacter_id', $reacter->getId());
+
+        if (!is_null($reactionType)) {
+            $query->where('reaction_type_id', $reactionType->getId());
+        }
+
+        if (!is_null($rate)) {
+            $query->where('rate', $rate);
+        }
+
+        return $query->exists();
     }
 
     public function isNotReactedBy(
-        ReacterContract $reacter
-    ): bool {
-        return !$this->isReactedBy($reacter);
-    }
-
-    public function isReactedByWithType(
         ReacterContract $reacter,
-        ReactionTypeContract $reactionType
+        ?ReactionTypeContract $reactionType = null,
+        ?float $rate = null
     ): bool {
-        if ($reacter->isNull()) {
-            return false;
-        }
-
-        // TODO: Test if relation was loaded partially
-        if ($this->relationLoaded('reactions')) {
-            return $this
-                ->getAttribute('reactions')
-                ->contains(function (ReactionContract $reaction) use ($reacter, $reactionType) {
-                    return $reaction->isByReacter($reacter)
-                        && $reaction->isOfType($reactionType);
-                });
-        }
-
-        return $this->reactions()->where([
-            'reaction_type_id' => $reactionType->getId(),
-            'reacter_id' => $reacter->getId(),
-        ])->exists();
-    }
-
-    public function isNotReactedByWithType(
-        ReacterContract $reacter,
-        ReactionTypeContract $reactionType
-    ): bool {
-        return !$this->isReactedByWithType($reacter, $reactionType);
+        return !$this->isReactedBy($reacter, $reactionType, $rate);
     }
 
     public function isEqualTo(
@@ -205,8 +198,6 @@ final class Reactant extends Model implements
 
         $this->reactionCounters()->create([
             'reaction_type_id' => $reactionType->getId(),
-            'count' => 0,
-            'weight' => 0,
         ]);
 
         // Need to reload relation with fresh data
@@ -219,10 +210,7 @@ final class Reactant extends Model implements
             throw ReactionTotalDuplicate::forReactant($this);
         }
 
-        $this->reactionTotal()->create([
-            'count' => 0,
-            'weight' => 0,
-        ]);
+        $this->reactionTotal()->create();
 
         // Need to reload relation with fresh data
         $this->load('reactionTotal');

@@ -24,7 +24,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 final class ReactionCounter extends Model implements
     ReactionCounterContract
 {
+    public const COUNT_DEFAULT = 0;
+
+    public const WEIGHT_DEFAULT = 0.0;
+
     protected $table = 'love_reactant_reaction_counters';
+
+    protected $attributes = [
+        'count' => self::COUNT_DEFAULT,
+        'weight' => self::WEIGHT_DEFAULT,
+    ];
 
     protected $fillable = [
         'reaction_type_id',
@@ -34,7 +43,7 @@ final class ReactionCounter extends Model implements
 
     protected $casts = [
         'count' => 'integer',
-        'weight' => 'integer',
+        'weight' => 'float',
     ];
 
     public function reactant(): BelongsTo
@@ -71,12 +80,12 @@ final class ReactionCounter extends Model implements
 
     public function getCount(): int
     {
-        return $this->getAttributeValue('count') ?? 0;
+        return $this->getAttributeValue('count');
     }
 
-    public function getWeight(): int
+    public function getWeight(): float
     {
-        return $this->getAttributeValue('weight') ?? 0;
+        return $this->getAttributeValue('weight');
     }
 
     public function incrementCount(
@@ -92,13 +101,13 @@ final class ReactionCounter extends Model implements
     }
 
     public function incrementWeight(
-        int $amount
+        float $amount
     ): void {
         $this->increment('weight', $amount);
     }
 
     public function decrementWeight(
-        int $amount
+        float $amount
     ): void {
         $this->decrement('weight', $amount);
     }

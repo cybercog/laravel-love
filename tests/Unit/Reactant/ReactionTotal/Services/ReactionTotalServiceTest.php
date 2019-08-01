@@ -27,7 +27,7 @@ final class ReactionTotalServiceTest extends TestCase
     public function it_can_add_reaction(): void
     {
         $reactionType = factory(ReactionType::class)->create([
-            'weight' => 4,
+            'mass' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
         $service = new ReactionTotalService($reactant);
@@ -46,14 +46,14 @@ final class ReactionTotalServiceTest extends TestCase
 
         $total = $reactant->reactionTotal;
         $this->assertSame(2, $total->count);
-        $this->assertSame(8, $total->weight);
+        $this->assertSame(8.0, $total->weight);
     }
 
     /** @test */
     public function it_can_remove_reaction(): void
     {
         $reactionType = factory(ReactionType::class)->create([
-            'weight' => 4,
+            'mass' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
         $total = factory(ReactionTotal::class)->create([
@@ -76,7 +76,7 @@ final class ReactionTotalServiceTest extends TestCase
         $service->removeReaction($reaction2);
 
         $this->assertSame(2, $total->fresh()->count);
-        $this->assertSame(8, $total->fresh()->weight);
+        $this->assertSame(8.0, $total->fresh()->weight);
     }
 
     /** @test */
@@ -104,7 +104,7 @@ final class ReactionTotalServiceTest extends TestCase
     public function it_can_add_reaction_with_negative_weight(): void
     {
         $reactionType = factory(ReactionType::class)->create([
-            'weight' => -4,
+            'mass' => -4,
         ]);
         $reactant = factory(Reactant::class)->create();
         $service = new ReactionTotalService($reactant);
@@ -123,7 +123,7 @@ final class ReactionTotalServiceTest extends TestCase
 
         $total = $reactant->reactionTotal;
         $this->assertSame(2, $total->count);
-        $this->assertSame(-8, $total->weight);
+        $this->assertSame(-8.0, $total->weight);
     }
 
     /** @test */
@@ -131,7 +131,7 @@ final class ReactionTotalServiceTest extends TestCase
     {
         Event::fake(); // Prevent total auto creation
         $reactionType = factory(ReactionType::class)->create([
-            'weight' => 4,
+            'mass' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
         $service = new ReactionTotalService($reactant);
@@ -145,7 +145,7 @@ final class ReactionTotalServiceTest extends TestCase
         $total = $reactant->getReactionTotal();
         $this->assertInstanceOf(ReactionTotal::class, $total);
         $this->assertSame(1, $total->count);
-        $this->assertSame(4, $total->weight);
+        $this->assertSame(4.0, $total->weight);
     }
 
     /** @test */
@@ -165,6 +165,6 @@ final class ReactionTotalServiceTest extends TestCase
         $total = $reactant->getReactionTotal();
         $this->assertInstanceOf(ReactionTotal::class, $total);
         $this->assertSame(0, $total->count);
-        $this->assertSame(0, $total->weight);
+        $this->assertSame(0.0, $total->weight);
     }
 }

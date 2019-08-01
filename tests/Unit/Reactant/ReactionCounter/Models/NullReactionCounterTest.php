@@ -41,7 +41,7 @@ final class NullReactionCounterTest extends TestCase
 
         $counterWeight = $counter->getWeight();
 
-        $this->assertSame(0, $counterWeight);
+        $this->assertSame(0.0, $counterWeight);
     }
 
     /** @test */

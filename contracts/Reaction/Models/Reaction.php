@@ -21,13 +21,15 @@ interface Reaction
 {
     public function getId(): string;
 
-    public function getType(): ReactionType;
-
     public function getReactant(): Reactant;
 
     public function getReacter(): Reacter;
 
-    public function getWeight(): int;
+    public function getType(): ReactionType;
+
+    public function getRate(): float;
+
+    public function getWeight(): float;
 
     public function isOfType(ReactionType $type): bool;
 

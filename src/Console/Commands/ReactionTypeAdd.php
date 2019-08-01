@@ -25,9 +25,9 @@ final class ReactionTypeAdd extends Command
      * @var string
      */
     protected $signature = 'love:reaction-type-add
-                            {--default}
-                            {name?}
-                            {weight?}';
+                            {--default : Create default Like & Dislike reactions}
+                            {--name= : The name of the reaction}
+                            {--mass= : The mass of the reaction}';
 
     /**
      * The console command description.
@@ -70,7 +70,7 @@ final class ReactionTypeAdd extends Command
             return 1;
         }
 
-        $this->createReactionType($name, $this->resolveWeight());
+        $this->createReactionType($name, $this->resolveMass());
 
         return 0;
     }
@@ -80,11 +80,11 @@ final class ReactionTypeAdd extends Command
         $types = [
             [
                 'name' => 'Like',
-                'weight' => 1,
+                'mass' => 1,
             ],
             [
                 'name' => 'Dislike',
-                'weight' => -1,
+                'mass' => -1,
             ],
         ];
 
@@ -97,35 +97,38 @@ final class ReactionTypeAdd extends Command
                 continue;
             }
 
-            $this->createReactionType($type['name'], $type['weight']);
+            $this->createReactionType($type['name'], $type['mass']);
         }
     }
 
-    private function createReactionType(string $name, int $weight): void
+    private function createReactionType(string $name, int $mass): void
     {
         ReactionType::query()->create([
             'name' => $name,
-            'weight' => $weight,
+            'mass' => $mass,
         ]);
 
         $this->line(sprintf(
-            'Reaction type with name `%s` and weight `%d` was added.',
+            'Reaction type with name `%s` and mass `%d` was added.',
             $name,
-            $weight
+            $mass
         ));
     }
 
     private function resolveName(): string
     {
-        return $this->argument('name')
+        return $this->option('name')
             ?? $this->ask('How to name reaction type?')
-            ?? $this->resolveName();
+            ?? '';
     }
 
-    private function resolveWeight(): int
+    private function resolveMass(): int
     {
-        return intval($this->argument('weight')
-            ?? $this->ask('What is the weight of this reaction type?'));
+        $mass = $this->option('mass')
+            ?? $this->ask('What is the mass of this reaction type?')
+            ?? ReactionType::MASS_DEFAULT;
+
+        return intval($mass);
     }
 
     private function sanitizeName(string $name): string

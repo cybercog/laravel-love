@@ -28,7 +28,7 @@ final class ReactionCounterServiceTest extends TestCase
     {
         Event::fake(); // To not fire `ReactionObserver` methods
         $reactionType = factory(ReactionType::class)->create([
-            'weight' => 4,
+            'mass' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
         $service = new ReactionCounterService($reactant);
@@ -46,7 +46,7 @@ final class ReactionCounterServiceTest extends TestCase
 
         $counter = $reactant->reactionCounters->first();
         $this->assertSame(2, $counter->count);
-        $this->assertSame(8, $counter->weight);
+        $this->assertSame(8.0, $counter->weight);
     }
 
     /** @test */
@@ -54,7 +54,7 @@ final class ReactionCounterServiceTest extends TestCase
     {
         Event::fake(); // To not fire `ReactionObserver` methods
         $reactionType = factory(ReactionType::class)->create([
-            'weight' => 4,
+            'mass' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
         $counter = factory(ReactionCounter::class)->create([
@@ -78,7 +78,7 @@ final class ReactionCounterServiceTest extends TestCase
 
         $counter->refresh();
         $this->assertSame(2, $counter->count);
-        $this->assertSame(8, $counter->weight);
+        $this->assertSame(8.0, $counter->weight);
     }
 
     /** @test */
@@ -108,7 +108,7 @@ final class ReactionCounterServiceTest extends TestCase
     {
         Event::fake(); // To not fire `ReactionObserver` methods
         $reactionType = factory(ReactionType::class)->create([
-            'weight' => -4,
+            'mass' => -4,
         ]);
         $reactant = factory(Reactant::class)->create();
         $counter = factory(ReactionCounter::class)->create([
@@ -130,7 +130,7 @@ final class ReactionCounterServiceTest extends TestCase
 
         $counter->refresh();
         $this->assertSame(2, $counter->count);
-        $this->assertSame(-8, $counter->weight);
+        $this->assertSame(-8.0, $counter->weight);
     }
 
     /** @test */
@@ -138,7 +138,7 @@ final class ReactionCounterServiceTest extends TestCase
     {
         Event::fake(); // To not fire `ReactionObserver` methods
         $reactionType = factory(ReactionType::class)->create([
-            'weight' => 4,
+            'mass' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
         $initialCounters = $reactant->reactionCounters;
@@ -153,7 +153,7 @@ final class ReactionCounterServiceTest extends TestCase
         $this->assertCount(0, $initialCounters);
         $this->assertCount(1, $reactant->reactionCounters);
         $this->assertSame(1, $reactant->reactionCounters->get(0)->count);
-        $this->assertSame(4, $reactant->reactionCounters->get(0)->weight);
+        $this->assertSame(4.0, $reactant->reactionCounters->get(0)->weight);
     }
 
     /** @test */
@@ -162,7 +162,7 @@ final class ReactionCounterServiceTest extends TestCase
         Event::fake(); // To not fire `ReactionObserver` methods
 
         $reactionType = factory(ReactionType::class)->create([
-            'weight' => 4,
+            'mass' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
         $initialCounters = $reactant->reactionCounters;
@@ -177,6 +177,6 @@ final class ReactionCounterServiceTest extends TestCase
         $this->assertCount(0, $initialCounters);
         $this->assertCount(1, $reactant->reactionCounters);
         $this->assertSame(0, $reactant->reactionCounters->get(0)->count);
-        $this->assertSame(0, $reactant->reactionCounters->get(0)->weight);
+        $this->assertSame(0.0, $reactant->reactionCounters->get(0)->weight);
     }
 }

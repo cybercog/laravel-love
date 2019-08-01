@@ -80,7 +80,7 @@ final class Recount extends Command
 
                 $counter->update([
                     'count' => 0,
-                    'weight' => 0,
+                    'weight' => 0.0,
                 ]);
             }
 
@@ -155,7 +155,7 @@ final class Recount extends Command
     ): void {
         $counters = $reactant->getReactionCounters();
         $totalCount = 0;
-        $totalWeight = 0;
+        $totalWeight = 0.0;
         foreach ($counters as $counter) {
             $totalCount += $counter->getCount();
             $totalWeight += $counter->getWeight();

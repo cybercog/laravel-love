@@ -34,11 +34,13 @@ final class Reacter implements ReacterFacadeContract
 
     public function reactTo(
         ReactableContract $reactable,
-        string $reactionTypeName
+        string $reactionTypeName,
+        ?float $rate = null
     ): void {
         $this->reacter->reactTo(
             $reactable->getLoveReactant(),
-            ReactionType::fromName($reactionTypeName)
+            ReactionType::fromName($reactionTypeName),
+            $rate
         );
     }
 
@@ -54,33 +56,29 @@ final class Reacter implements ReacterFacadeContract
 
     public function hasReactedTo(
         ReactableContract $reactable,
-        ?string $reactionTypeName = null
+        ?string $reactionTypeName = null,
+        ?float $rate = null
     ): bool {
-        if (is_null($reactionTypeName)) {
-            return $this->reacter->isReactedTo(
-                $reactable->getLoveReactant()
-            );
-        }
+        $reactionType = is_null($reactionTypeName) ? null : ReactionType::fromName($reactionTypeName);
 
-        return $this->reacter->isReactedToWithType(
+        return $this->reacter->hasReactedTo(
             $reactable->getLoveReactant(),
-            ReactionType::fromName($reactionTypeName)
+            $reactionType,
+            $rate
         );
     }
 
     public function hasNotReactedTo(
         ReactableContract $reactable,
-        ?string $reactionTypeName = null
+        ?string $reactionTypeName = null,
+        ?float $rate = null
     ): bool {
-        if (is_null($reactionTypeName)) {
-            return $this->reacter->isNotReactedTo(
-                $reactable->getLoveReactant()
-            );
-        }
+        $reactionType = is_null($reactionTypeName) ? null : ReactionType::fromName($reactionTypeName);
 
-        return $this->reacter->isNotReactedToWithType(
+        return $this->reacter->hasNotReactedTo(
             $reactable->getLoveReactant(),
-            ReactionType::fromName($reactionTypeName)
+            $reactionType,
+            $rate
         );
     }
 }

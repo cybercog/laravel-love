@@ -1,9 +1,32 @@
 # Upgrade Guide
 
+- [From v7 to v8](#from-v7-to-v8)
 - [From v6 to v7](#from-v6-to-v7)
 - [From v5 to v6](#from-v5-to-v6)
 - [From v4 to v5](#from-v4-to-v5)
 - [From v3 to v4](#from-v3-to-v4)
+
+## From v7 to v8
+
+- All `weight` values are `float` now. Round them to get `integer` values as it was before.
+- Find all `isReactedTo` method usages and replace it with `hasReactedTo`
+- Find all `isReactedToWithType` method usages and replace it with `hasReactedTo`
+- Find all `isNotReactedTo` method usages and replace it with `hasNotReactedTo`
+- Find all `isNotReactedToWithType` method usages and replace it with `hasNotReactedTo`
+- Find all `isReactedByWithType` method usages and replace it with `isReactedBy`
+- Find all `isNotReactedByWithType` method usages and replace it with `isNotReactedBy`
+- The `ReactionType` method `getWeight` was renamed to `getMass`. If you're using your own implementation of `ReactionType`, please update the method name.
+- Find all `whereReactedByWithType` method usages and replace it with `whereReactedBy`
+
+### Database migration
+
+Run only after all preparations are done.
+
+**VERY IMPORTANT: Create backup of your production database!**
+
+```sh
+php artisan love:upgrade-v7-to-v8
+```
 
 ## From v6 to v7
 
@@ -46,7 +69,7 @@ Most of the upgrade requirements couldn't be done automatically because of compl
 - Find all `orderByLikesCount` method and replace it with `joinReactionCounterOfType` and common `orderBy`
 - Find all `orderByDislikesCount` method and replace it with `joinReactionCounterOfType` and common `orderBy`
 
-### Automatic migration process
+### Database migration
 
 Run only after all preparations are done.
 
