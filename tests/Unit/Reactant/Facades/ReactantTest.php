@@ -178,6 +178,17 @@ final class ReactantTest extends TestCase
     }
 
     /** @test */
+    public function it_can_check_is_reacted_by_reacterable_when_reacter_is_null(): void
+    {
+        $reactant = factory(Reactant::class)->create();
+        $reactantFacade = new ReactantFacade($reactant);
+
+        $isReacted = $reactantFacade->isReactedBy(null);
+
+        $this->assertFalse($isReacted);
+    }
+
+    /** @test */
     public function it_can_check_is_reacted_by_reacterable_when_reacter_is_null_object(): void
     {
         $reacterable = factory(UserWithoutAutoReacterCreate::class)->create();
@@ -219,6 +230,17 @@ final class ReactantTest extends TestCase
         $reactantFacade = new ReactantFacade($reactant);
 
         $isNotReacted = $reactantFacade->isNotReactedBy($reacterable);
+
+        $this->assertTrue($isNotReacted);
+    }
+
+    /** @test */
+    public function it_can_check_is_not_reacted_by_reacterable_when_reacter_is_null(): void
+    {
+        $reactant = factory(Reactant::class)->create();
+        $reactantFacade = new ReactantFacade($reactant);
+
+        $isNotReacted = $reactantFacade->isNotReactedBy(null);
 
         $this->assertTrue($isNotReacted);
     }
