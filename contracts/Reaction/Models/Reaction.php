@@ -42,4 +42,6 @@ interface Reaction
     public function isByReacter(Reacter $reacter): bool;
 
     public function isNotByReacter(Reacter $reacter): bool;
+
+    public function changeRate(float $rate): void;
 }

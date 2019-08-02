@@ -140,4 +140,20 @@ final class Reaction extends Model implements
     ): bool {
         return !$this->isByReacter($reacter);
     }
+
+    // TODO: Add tests
+    public function changeRate(float $rate): void
+    {
+        if ($this->getRate() === $rate) {
+            // TODO: Add tests
+            // TODO: Add static method ::withRate($rate)
+            throw new RateNotChanged(sprintf(
+                'Can not change Reaction rate to same value: `%s`.', $rate
+            ));
+        }
+
+        $this->update([
+            'rate' => $rate,
+        ]);
+    }
 }
