@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Cog\Tests\Laravel\Love\Unit\Reacter\Facades;
 
 use Cog\Contracts\Love\Reactant\Exceptions\ReactantInvalid;
+use Cog\Contracts\Love\Reaction\Exceptions\RateInvalid;
 use Cog\Contracts\Love\Reaction\Exceptions\ReactionAlreadyExists;
 use Cog\Contracts\Love\Reaction\Exceptions\ReactionNotExists;
 use Cog\Contracts\Love\ReactionType\Exceptions\ReactionTypeInvalid;
@@ -103,6 +104,20 @@ final class ReacterTest extends TestCase
         $this->assertCount(1, $reacter->reactions);
         $assertReaction = $reacter->reactions->first();
         $this->assertSame(2.0, $assertReaction->rate);
+    }
+
+    /** @test */
+    public function it_throws_rate_invalid_on_react_to_when_reaction_already_exists_with_same_rate(): void
+    {
+        $this->expectException(RateInvalid::class);
+
+        $reacter = factory(Reacter::class)->create();
+        $reacterFacade = new ReacterFacade($reacter);
+        $reactable = factory(User::class)->create();
+        $reactionType = factory(ReactionType::class)->create();
+
+        $reacterFacade->reactTo($reactable, $reactionType->getName(), 2.0);
+        $reacterFacade->reactTo($reactable, $reactionType->getName(), 2.0);
     }
 
     /** @test */

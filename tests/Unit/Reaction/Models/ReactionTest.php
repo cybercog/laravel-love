@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Cog\Tests\Laravel\Love\Unit\Reaction\Models;
 
 use Cog\Contracts\Love\Reaction\Exceptions\RateOutOfRange;
+use Cog\Contracts\Love\Reaction\Exceptions\RateInvalid;
 use Cog\Laravel\Love\Reactant\Models\NullReactant;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reacter\Models\NullReacter;
@@ -443,5 +444,53 @@ final class ReactionTest extends TestCase
         $true = $reaction->isNotByReacter($nullReacter);
 
         $this->assertTrue($true);
+    }
+
+    /** @test */
+    public function it_can_change_rate(): void
+    {
+        $reaction = factory(Reaction::class)->create([
+            'rate' => 1.0,
+        ]);
+
+        $reaction->changeRate(2.0);
+
+        $this->assertSame(2.0, $reaction->rate);
+    }
+
+    /** @test */
+    public function it_throws_rate_out_of_range_on_change_rate_with_overflow_value(): void
+    {
+        $this->expectException(RateOutOfRange::class);
+
+        $reaction = factory(Reaction::class)->create([
+            'rate' => 1.0,
+        ]);
+
+        $reaction->changeRate(Reaction::RATE_MAX + 0.01);
+    }
+
+    /** @test */
+    public function it_throws_rate_out_of_range_on_change_rate_with_underflow_value(): void
+    {
+        $this->expectException(RateOutOfRange::class);
+
+        $reaction = factory(Reaction::class)->create([
+            'rate' => 1.0,
+        ]);
+
+        $reaction->changeRate(Reaction::RATE_MIN - 0.01);
+    }
+
+    /** @test */
+    public function it_throws_rate_invalid_on_change_rate_with_same_value(): void
+    {
+        $this->expectException(RateInvalid::class);
+
+        $reaction = factory(Reaction::class)->create([
+            'rate' => 1.0,
+        ]);
+
+        $reaction->changeRate(1.0);
     }
 }

@@ -94,15 +94,7 @@ final class Reacter extends Model implements
             );
         }
 
-        if ($reaction->getRate() === $rate) {
-            throw new ReactionAlreadyExists(
-                sprintf('Reaction of type `%s` with `%s` rate already exists.', $reactionType->getName(), $rate)
-            );
-        }
-
-        $reaction->update([
-            'rate' => $rate,
-        ]);
+        $reaction->changeRate($rate);
     }
 
     public function unreactTo(
