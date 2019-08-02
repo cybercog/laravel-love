@@ -61,7 +61,7 @@ final class RecountTest extends TestCase
         ReactionCounter::query()->truncate();
 
         $status = $this->artisan('love:recount', [
-            'type' => 'Like',
+            '--type' => 'Like',
         ]);
 
         $this->assertSame(0, $status);
@@ -104,7 +104,7 @@ final class RecountTest extends TestCase
         ] = $this->seedTestData();
 
         $status = $this->artisan('love:recount', [
-            'type' => 'Like',
+            '--type' => 'Like',
         ]);
 
         $this->assertSame(0, $status);
@@ -148,8 +148,8 @@ final class RecountTest extends TestCase
         ReactionCounter::query()->truncate();
 
         $status = $this->artisan('love:recount', [
-            'reactableType' => Entity::class,
-            'type' => 'Like',
+            '--model' => Entity::class,
+            '--type' => 'Like',
         ]);
 
         $this->assertSame(0, $status);
@@ -191,8 +191,8 @@ final class RecountTest extends TestCase
         ] = $this->seedTestData();
 
         $status = $this->artisan('love:recount', [
-            'reactableType' => Entity::class,
-            'type' => 'Like',
+            '--model' => Entity::class,
+            '--type' => 'Like',
         ]);
 
         $this->assertSame(0, $status);
@@ -235,8 +235,8 @@ final class RecountTest extends TestCase
         ReactionCounter::query()->truncate();
 
         $status = $this->artisan('love:recount', [
-            'reactableType' => 'entity-with-morph-map',
-            'type' => 'Like',
+            '--model' => 'entity-with-morph-map',
+            '--type' => 'Like',
         ]);
 
         $this->assertSame(0, $status);
@@ -278,8 +278,8 @@ final class RecountTest extends TestCase
         ] = $this->seedTestData();
 
         $status = $this->artisan('love:recount', [
-            'reactableType' => 'entity-with-morph-map',
-            'type' => 'Like',
+            '--model' => 'entity-with-morph-map',
+            '--type' => 'Like',
         ]);
 
         $this->assertSame(0, $status);
@@ -322,8 +322,8 @@ final class RecountTest extends TestCase
         ReactionCounter::query()->truncate();
 
         $status = $this->artisan('love:recount', [
-            'reactableType' => EntityWithMorphMap::class,
-            'type' => 'Like',
+            '--model' => EntityWithMorphMap::class,
+            '--type' => 'Like',
         ]);
 
         $this->assertSame(0, $status);
@@ -365,8 +365,8 @@ final class RecountTest extends TestCase
         ] = $this->seedTestData();
 
         $status = $this->artisan('love:recount', [
-            'reactableType' => EntityWithMorphMap::class,
-            'type' => 'Like',
+            '--model' => EntityWithMorphMap::class,
+            '--type' => 'Like',
         ]);
 
         $this->assertSame(0, $status);
@@ -492,7 +492,7 @@ final class RecountTest extends TestCase
         ReactionCounter::query()->truncate();
 
         $status = $this->artisan('love:recount', [
-            'reactableType' => Entity::class,
+            '--model' => Entity::class,
         ]);
 
         $this->assertSame(0, $status);
@@ -535,7 +535,7 @@ final class RecountTest extends TestCase
         ] = $this->seedTestData();
 
         $status = $this->artisan('love:recount', [
-            'reactableType' => Entity::class,
+            '--model' => Entity::class,
         ]);
 
         $this->assertSame(0, $status);
@@ -579,7 +579,7 @@ final class RecountTest extends TestCase
         ReactionCounter::query()->truncate();
 
         $status = $this->artisan('love:recount', [
-            'reactableType' => 'entity-with-morph-map',
+            '--model' => 'entity-with-morph-map',
         ]);
 
         $counters = ReactionCounter::query()->count();
@@ -622,7 +622,7 @@ final class RecountTest extends TestCase
         ] = $this->seedTestData();
 
         $status = $this->artisan('love:recount', [
-            'reactableType' => 'entity-with-morph-map',
+            '--model' => 'entity-with-morph-map',
         ]);
 
         $counters = ReactionCounter::query()->count();
@@ -666,7 +666,7 @@ final class RecountTest extends TestCase
         ReactionCounter::query()->truncate();
 
         $status = $this->artisan('love:recount', [
-            'reactableType' => EntityWithMorphMap::class,
+            '--model' => EntityWithMorphMap::class,
         ]);
 
         $counters = ReactionCounter::query()->count();
@@ -709,7 +709,7 @@ final class RecountTest extends TestCase
         ] = $this->seedTestData();
 
         $status = $this->artisan('love:recount', [
-            'reactableType' => EntityWithMorphMap::class,
+            '--model' => EntityWithMorphMap::class,
         ]);
 
         $counters = ReactionCounter::query()->count();
@@ -747,7 +747,7 @@ final class RecountTest extends TestCase
         $this->expectException(ReactableInvalid::class);
 
         $status = $this->artisan('love:recount', [
-            'reactableType' => 'not-exist-model',
+            '--model' => 'not-exist-model',
         ]);
 
         $this->assertSame(1, $status);
@@ -759,7 +759,7 @@ final class RecountTest extends TestCase
         $this->expectException(ReactableInvalid::class);
 
         $status = $this->artisan('love:recount', [
-            'reactableType' => Bot::class,
+            '--model' => Bot::class,
         ]);
 
         $this->assertSame(1, $status);
@@ -783,7 +783,7 @@ final class RecountTest extends TestCase
         Reaction::query()->truncate();
 
         $this->artisan('love:recount', [
-            'type' => 'Like',
+            '--type' => 'Like',
         ]);
         $this->assertTrue($reactant1->reactionCounters->first()->is($reactantCounter1));
         $this->assertTrue($reactant2->reactionCounters->first()->is($reactantCounter2));
@@ -805,7 +805,7 @@ final class RecountTest extends TestCase
         Reaction::query()->truncate();
 
         $this->artisan('love:recount', [
-            'type' => 'Like',
+            '--type' => 'Like',
         ]);
 
         $this->assertSame(0, $reactant1->reactionCounters->first()->count);
@@ -828,7 +828,7 @@ final class RecountTest extends TestCase
         Reaction::query()->truncate();
 
         $this->artisan('love:recount', [
-            'type' => 'Like',
+            '--type' => 'Like',
         ]);
 
         $this->assertSame(0.0, $reactant1->reactionCounters->first()->weight);
@@ -853,7 +853,7 @@ final class RecountTest extends TestCase
         Reaction::query()->truncate();
 
         $this->artisan('love:recount', [
-            'type' => 'Like',
+            '--type' => 'Like',
         ]);
 
         $this->assertTrue($reactant1->reactionTotal->is($reactantTotal1));
@@ -876,7 +876,7 @@ final class RecountTest extends TestCase
         Reaction::query()->truncate();
 
         $this->artisan('love:recount', [
-            'type' => 'Like',
+            '--type' => 'Like',
         ]);
 
         $this->assertSame(0, $reactant1->reactionTotal->count);
@@ -899,7 +899,7 @@ final class RecountTest extends TestCase
         Reaction::query()->truncate();
 
         $this->artisan('love:recount', [
-            'type' => 'Like',
+            '--type' => 'Like',
         ]);
 
         $this->assertSame(0.0, $reactant1->reactionTotal->weight);
