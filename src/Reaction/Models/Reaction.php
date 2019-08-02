@@ -142,8 +142,9 @@ final class Reaction extends Model implements
     }
 
     // TODO: Add tests
-    public function changeRate(float $rate): void
-    {
+    public function changeRate(
+        float $rate
+    ): void {
         if ($this->getRate() === $rate) {
             // TODO: Add tests
             // TODO: Add static method ::withRate($rate)
