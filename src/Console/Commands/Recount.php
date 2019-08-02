@@ -17,7 +17,9 @@ use Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid;
 use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
+use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Services\ReactionCounterService;
+use Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -29,7 +31,9 @@ final class Recount extends Command
      *
      * @var string
      */
-    protected $signature = 'love:recount {reactableType?} {type?}';
+    protected $signature = 'love:recount
+        {--model= : The name of the reactable model}
+        {--type= : The name of the reaction type}';
 
     /**
      * The console command description.
@@ -47,11 +51,11 @@ final class Recount extends Command
      */
     public function handle(): void
     {
-        if ($reactableType = $this->argument('reactableType')) {
+        if ($reactableType = $this->option('model')) {
             $reactableType = $this->normalizeReactableModelType($reactableType);
         }
 
-        if ($reactionType = $this->argument('type')) {
+        if ($reactionType = $this->option('type')) {
             $reactionType = ReactionType::fromName($reactionType);
         }
 
@@ -62,6 +66,7 @@ final class Recount extends Command
         }
 
         $reactants = $reactantsQuery->get();
+        $this->getOutput()->progressStart($reactants->count());
         foreach ($reactants as $reactant) {
             /** @var \Illuminate\Database\Eloquent\Builder $query */
             $query = $reactant->reactions();
@@ -74,20 +79,22 @@ final class Recount extends Command
 
             /** @var \Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter $counter */
             foreach ($counters as $counter) {
-                if ($reactionType && !$counter->isReactionOfType($reactionType)) {
+                if ($reactionType && $counter->isNotReactionOfType($reactionType)) {
                     continue;
                 }
 
                 $counter->update([
-                    'count' => 0,
-                    'weight' => 0.0,
+                    'count' => ReactionCounter::COUNT_DEFAULT,
+                    'weight' => ReactionCounter::WEIGHT_DEFAULT,
                 ]);
             }
 
             $reactions = $query->get();
             $this->recountCounters($reactant, $reactions);
             $this->recountTotal($reactant);
+            $this->getOutput()->progressAdvance();
         }
+        $this->getOutput()->progressFinish();
     }
 
     /**
@@ -154,8 +161,14 @@ final class Recount extends Command
         ReactantContract $reactant
     ): void {
         $counters = $reactant->getReactionCounters();
-        $totalCount = 0;
-        $totalWeight = 0.0;
+
+        if (count($counters) === 0) {
+            return;
+        }
+
+        $totalCount = ReactionTotal::COUNT_DEFAULT;
+        $totalWeight = ReactionTotal::WEIGHT_DEFAULT;
+
         foreach ($counters as $counter) {
             $totalCount += $counter->getCount();
             $totalWeight += $counter->getWeight();
