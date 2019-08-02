@@ -49,11 +49,11 @@ Follow [upgrade instructions](UPGRADING.md#from-v7-to-v8) to migrate code & data
 - ([#90]) Moved `count` & `weight` attributes default values of `ReactionCounter` to application level
 - ([#90]) Moved `count` & `weight` attributes default values of `ReactionTotal` to application level
 - ([#91]) Changed `getWeight` method return type from `int` to `float` in reactant's `ReactionCounter` model contract
-- ([#91]) Changed `$amount` parameter  type from `int` to `float` of `incrementWeight` method in reactant's `ReactionCounter` model contract
-- ([#91]) Changed `$amount` parameter  type from `int` to `float` of `decrementWeight` method in reactant's `ReactionCounter` model contract
+- ([#91]) Changed `$amount` parameter type from `int` to `float` of `incrementWeight` method in reactant's `ReactionCounter` model contract
+- ([#91]) Changed `$amount` parameter type from `int` to `float` of `decrementWeight` method in reactant's `ReactionCounter` model contract
 - ([#91]) Changed `getWeight` method return type from `int` to `float` in reactant's `ReactionTotal` model contract
-- ([#91]) Changed `$amount` parameter  type from `int` to `float` of `incrementWeight` method in reactant's `ReactionTotal` model contract
-- ([#91]) Changed `$amount` parameter  type from `int` to `float` of `decrementWeight` method in reactant's `ReactionTotal` model contract
+- ([#91]) Changed `$amount` parameter type from `int` to `float` of `incrementWeight` method in reactant's `ReactionTotal` model contract
+- ([#91]) Changed `$amount` parameter type from `int` to `float` of `decrementWeight` method in reactant's `ReactionTotal` model contract
 - ([#91]) Added `?float $rate` parameter to `reactTo` method in `Reacter` facade contract
 - ([#91]) Added `?float $rate` parameter to `reactTo` method in `Reacter` model contract
 - ([#91]) Added `getRate` method to `Reaction` model contract
@@ -61,6 +61,8 @@ Follow [upgrade instructions](UPGRADING.md#from-v7-to-v8) to migrate code & data
 - ([#91]) Changed `weight` column type to `DECIMIAL(13, 2)` in `love_reactant_reaction_counters` db table
 - ([#91]) Changed `weight` column type to `DECIMIAL(13, 2)` in `love_reactant_reaction_totals` db table
 - ([#96]) Changed signature of `love:recount` Artisan command to `love:recount {--model=} {--type=}`
+- ([#99]) Make `Reacterable` parameter nullable in `isReactedBy` method of `Reactant` facade contract
+- ([#99]) Make `Reacterable` parameter nullable in `isNotReactedBy` method of `Reactant` facade contract
 
 ### Removed
 
@@ -393,3 +395,4 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 [#90]: https://github.com/cybercog/laravel-love/pull/90
 [#91]: https://github.com/cybercog/laravel-love/pull/91
 [#96]: https://github.com/cybercog/laravel-love/pull/96
+[#99]: https://github.com/cybercog/laravel-love/pull/99
