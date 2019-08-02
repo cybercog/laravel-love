@@ -61,8 +61,8 @@ Follow [upgrade instructions](UPGRADING.md#from-v7-to-v8) to migrate code & data
 - ([#91]) Changed `weight` column type to `DECIMIAL(13, 2)` in `love_reactant_reaction_counters` db table
 - ([#91]) Changed `weight` column type to `DECIMIAL(13, 2)` in `love_reactant_reaction_totals` db table
 - ([#96]) Changed signature of `love:recount` Artisan command to `love:recount {--model=} {--type=}`
-- ([#99]) Allow `Reacterable` parameter with `null` value in `isReactedBy` method of `Reactant` facade contract
-- ([#99]) Allow `Reacterable` parameter with `null` value in `isNotReactedBy` method of `Reactant` facade contract
+- ([#99]) Make `Reacterable` parameter nullable in `isReactedBy` method of `Reactant` facade contract
+- ([#99]) Make `Reacterable` parameter nullable in `isNotReactedBy` method of `Reactant` facade contract
 
 ### Removed
 
