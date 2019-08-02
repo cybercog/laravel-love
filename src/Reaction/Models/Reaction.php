@@ -16,7 +16,7 @@ namespace Cog\Laravel\Love\Reaction\Models;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
 use Cog\Contracts\Love\Reaction\Exceptions\RateOutOfRange;
-use Cog\Contracts\Love\Reaction\Exceptions\CannotChangeRate;
+use Cog\Contracts\Love\Reaction\Exceptions\RateInvalid;
 use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
@@ -146,7 +146,7 @@ final class Reaction extends Model implements
         float $rate
     ): void {
         if ($this->getRate() === $rate) {
-            throw CannotChangeRate::withSameValue($rate);
+            throw RateInvalid::withSameValue($rate);
         }
 
         $this->setAttribute('rate', $rate);

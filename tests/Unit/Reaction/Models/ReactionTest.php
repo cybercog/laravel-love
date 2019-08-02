@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Cog\Tests\Laravel\Love\Unit\Reaction\Models;
 
 use Cog\Contracts\Love\Reaction\Exceptions\RateOutOfRange;
-use Cog\Contracts\Love\Reaction\Exceptions\CannotChangeRate;
+use Cog\Contracts\Love\Reaction\Exceptions\RateInvalid;
 use Cog\Laravel\Love\Reactant\Models\NullReactant;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reacter\Models\NullReacter;
@@ -483,9 +483,9 @@ final class ReactionTest extends TestCase
     }
 
     /** @test */
-    public function it_throws_cannot_change_rate_on_change_rate_with_same_value(): void
+    public function it_throws_rate_invalid_on_change_rate_with_same_value(): void
     {
-        $this->expectException(CannotChangeRate::class);
+        $this->expectException(RateInvalid::class);
 
         $reaction = factory(Reaction::class)->create([
             'rate' => 1.0,

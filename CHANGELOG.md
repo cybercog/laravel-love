@@ -23,7 +23,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v7-to-v8) to migrate code & data
 - ([#91]) Added `rate DECIMIAL(4, 2)` column to `love_reactions` db table
 - ([#91]) Added ability to call `Reacter::reactTo` with already reacted reactant, same reaction type, but only `rate` differs
 - ([#91]) Added `Cog\Contracts\Love\Reaction\Exceptions\RateOutOfRange` exception
-- ([#100]) Added `Cog\Contracts\Love\Reaction\Exceptions\CannotChangeRate` exception
+- ([#100]) Added `Cog\Contracts\Love\Reaction\Exceptions\RateInvalid` exception
 - ([#96]) Added progress bar to `love:recount` Artisan command
 
 ### Changed

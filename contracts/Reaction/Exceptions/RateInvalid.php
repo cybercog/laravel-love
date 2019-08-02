@@ -16,13 +16,13 @@ namespace Cog\Contracts\Love\Reaction\Exceptions;
 use Cog\Contracts\Love\Exceptions\LoveThrowable;
 use UnexpectedValueException;
 
-final class CannotChangeRate extends UnexpectedValueException implements
+final class RateInvalid extends UnexpectedValueException implements
     LoveThrowable
 {
     public static function withSameValue(float $rate): self
     {
         return new self(sprintf(
-            'Invalid Reaction rate: `%s`. Cannot change to same value.',
+            'Invalid Reaction rate: `%s`. Can not change to same value.',
             $rate
         ));
     }
