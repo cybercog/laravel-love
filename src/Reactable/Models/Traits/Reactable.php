@@ -95,18 +95,18 @@ trait Reactable
     public function scopeJoinReactionCounterOfType(
         Builder $query,
         ReactionTypeContract $reactionType,
-        bool $customAlias = false
+        ?string $alias = null
     ): Builder {
-        $alias = ($customAlias) ? strtolower($reactionType->getName()) : 'reactions';
+        $alias = is_null($alias) ? strtolower($reactionType->getName()) : $alias;
 
         $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
         $select[] = DB::raw("COALESCE({$alias}.count, 0) as {$alias}_count");
         $select[] = DB::raw("COALESCE({$alias}.weight, 0) as {$alias}_weight");
 
         return $query
-            ->leftJoin((new ReactionCounter())->getTable() . " as {$alias}", function (JoinClause $join) use ($reactionType, $alias) {
-                $join->on("$alias.reactant_id", '=', "{$this->getTable()}.love_reactant_id");
-                $join->where("$alias.reaction_type_id", $reactionType->getId());
+            ->leftJoin((new ReactionCounter())->getTable() . ' as '. $alias, function (JoinClause $join) use ($reactionType, $alias) {
+                $join->on("{$alias}.reactant_id", '=', "{$this->getTable()}.love_reactant_id");
+                $join->where("{$alias}.reaction_type_id", $reactionType->getId());
             })
             ->select($select);
     }
