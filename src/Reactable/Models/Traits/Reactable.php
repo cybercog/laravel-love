@@ -94,16 +94,19 @@ trait Reactable
 
     public function scopeJoinReactionCounterOfType(
         Builder $query,
-        ReactionTypeContract $reactionType
+        ReactionTypeContract $reactionType,
+        ?string $alias = null
     ): Builder {
+        $alias = is_null($alias) ? strtolower($reactionType->getName()) : $alias;
+
         $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
-        $select[] = DB::raw('COALESCE(lrrc.count, 0) as reactions_count');
-        $select[] = DB::raw('COALESCE(lrrc.weight, 0) as reactions_weight');
+        $select[] = DB::raw("COALESCE({$alias}.count, 0) as {$alias}_count");
+        $select[] = DB::raw("COALESCE({$alias}.weight, 0) as {$alias}_weight");
 
         return $query
-            ->leftJoin((new ReactionCounter())->getTable() . ' as lrrc', function (JoinClause $join) use ($reactionType) {
-                $join->on('lrrc.reactant_id', '=', "{$this->getTable()}.love_reactant_id");
-                $join->where('lrrc.reaction_type_id', $reactionType->getId());
+            ->leftJoin((new ReactionCounter())->getTable() . ' as '. $alias, function (JoinClause $join) use ($reactionType, $alias) {
+                $join->on("{$alias}.reactant_id", '=', "{$this->getTable()}.love_reactant_id");
+                $join->where("{$alias}.reaction_type_id", $reactionType->getId());
             })
             ->select($select);
     }
