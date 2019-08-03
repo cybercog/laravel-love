@@ -21,6 +21,7 @@ use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
+use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Support\Facades\Event;
 
@@ -177,34 +178,34 @@ final class ReactableTest extends TestCase
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
-        $reacter1 = factory(Reacter::class)->create();
-        $reacter2 = factory(Reacter::class)->create();
+        $reacterable1 = factory(User::class)->create();
+        $reacterable2 = factory(User::class)->create();
         factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactable1->getLoveReactant()->getId(),
-            'reacter_id' => $reacter1->getId(),
+            'reacter_id' => $reacterable1->getLoveReacter()->getId(),
         ]);
         factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactable2->getLoveReactant()->getId(),
-            'reacter_id' => $reacter2->getId(),
+            'reacter_id' => $reacterable2->getLoveReacter()->getId(),
         ]);
         factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactable3->getLoveReactant()->getId(),
-            'reacter_id' => $reacter1->getId(),
+            'reacter_id' => $reacterable1->getLoveReacter()->getId(),
         ]);
         factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactable3->getLoveReactant()->getId(),
-            'reacter_id' => $reacter2->getId(),
+            'reacter_id' => $reacterable2->getLoveReacter()->getId(),
         ]);
 
         $reactedByReacter1 = Article::query()
-            ->whereReactedBy($reacter1)
+            ->whereReactedBy($reacterable1)
             ->get();
         $reactedByReacter2 = Article::query()
-            ->whereReactedBy($reacter2)
+            ->whereReactedBy($reacterable2)
             ->get();
 
         $this->assertSame([
@@ -226,50 +227,50 @@ final class ReactableTest extends TestCase
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
-        $reacter1 = factory(Reacter::class)->create();
-        $reacter2 = factory(Reacter::class)->create();
+        $reacterable1 = factory(User::class)->create();
+        $reacterable2 = factory(User::class)->create();
         factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType1->getId(),
             'reactant_id' => $reactable1->getLoveReactant()->getId(),
-            'reacter_id' => $reacter1->getId(),
+            'reacter_id' => $reacterable1->getLoveReacter()->getId(),
         ]);
         factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType2->getId(),
             'reactant_id' => $reactable1->getLoveReactant()->getId(),
-            'reacter_id' => $reacter2->getId(),
+            'reacter_id' => $reacterable2->getLoveReacter()->getId(),
         ]);
         factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType2->getId(),
             'reactant_id' => $reactable2->getLoveReactant()->getId(),
-            'reacter_id' => $reacter1->getId(),
+            'reacter_id' => $reacterable1->getLoveReacter()->getId(),
         ]);
         factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType1->getId(),
             'reactant_id' => $reactable2->getLoveReactant()->getId(),
-            'reacter_id' => $reacter2->getId(),
+            'reacter_id' => $reacterable2->getLoveReacter()->getId(),
         ]);
         factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType1->getId(),
             'reactant_id' => $reactable3->getLoveReactant()->getId(),
-            'reacter_id' => $reacter1->getId(),
+            'reacter_id' => $reacterable1->getLoveReacter()->getId(),
         ]);
         factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType1->getId(),
             'reactant_id' => $reactable3->getLoveReactant()->getId(),
-            'reacter_id' => $reacter2->getId(),
+            'reacter_id' => $reacterable2->getLoveReacter()->getId(),
         ]);
 
         $reactedByReacter1WithReactionType1 = Article::query()
-            ->whereReactedBy($reacter1, $reactionType1)
+            ->whereReactedBy($reacterable1, $reactionType1)
             ->get();
         $reactedByReacter1WithReactionType2 = Article::query()
-            ->whereReactedBy($reacter1, $reactionType2)
+            ->whereReactedBy($reacterable1, $reactionType2)
             ->get();
         $reactedByReacter2WithReactionType1 = Article::query()
-            ->whereReactedBy($reacter2, $reactionType1)
+            ->whereReactedBy($reacterable2, $reactionType1)
             ->get();
         $reactedByReacter2WithReactionType2 = Article::query()
-            ->whereReactedBy($reacter2, $reactionType2)
+            ->whereReactedBy($reacterable2, $reactionType2)
             ->get();
 
         $this->assertSame([

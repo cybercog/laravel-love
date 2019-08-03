@@ -16,7 +16,7 @@ namespace Cog\Laravel\Love\Reactable\Models\Traits;
 use Cog\Contracts\Love\Reactable\Exceptions\AlreadyRegisteredAsLoveReactant;
 use Cog\Contracts\Love\Reactant\Facades\Reactant as ReactantFacadeContract;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
-use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
+use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\Reactable\Observers\ReactableObserver;
 use Cog\Laravel\Love\Reactant\Facades\Reactant as ReactantFacade;
@@ -81,11 +81,11 @@ trait Reactable
 
     public function scopeWhereReactedBy(
         Builder $query,
-        ReacterContract $reacter,
+        ReacterableContract $reacterable,
         ?ReactionTypeContract $reactionType = null
     ): Builder {
-        return $query->whereHas('loveReactant.reactions', function (Builder $reactionsQuery) use ($reacter, $reactionType) {
-            $reactionsQuery->where('reacter_id', $reacter->getId());
+        return $query->whereHas('loveReactant.reactions', function (Builder $reactionsQuery) use ($reacterable, $reactionType) {
+            $reactionsQuery->where('reacter_id', $reacterable->getLoveReacter()->getId());
             if (!is_null($reactionType)) {
                 $reactionsQuery->where('reaction_type_id', $reactionType->getId());
             }
