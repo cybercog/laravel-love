@@ -469,6 +469,40 @@ final class ReactableTest extends TestCase
     }
 
     /** @test */
+    public function it_can_order_by_reactions_total_count_with_custom_alias(): void
+    {
+        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        $reactionType = factory(ReactionType::class)->create();
+        $reactable1 = factory(Article::class)->create();
+        $reactable2 = factory(Article::class)->create();
+        $reactable3 = factory(Article::class)->create();
+        factory(Reaction::class, 2)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable1->getLoveReactant()->getId(),
+        ]);
+        factory(Reaction::class, 4)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable2->getLoveReactant()->getId(),
+        ]);
+        factory(Reaction::class, 1)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable3->getLoveReactant()->getId(),
+        ]);
+
+        $reactablesOrderedAsc = Article::query()
+            ->joinReactionTotal('custom_alias')
+            ->orderBy('custom_alias_count', 'asc')
+            ->get();
+        $reactablesOrderedDesc = Article::query()
+            ->joinReactionTotal('custom_alias')
+            ->orderBy('custom_alias_count', 'desc')
+            ->get();
+
+        $this->assertSame(['1', '2', '4'], $reactablesOrderedAsc->pluck('custom_alias_count')->toArray());
+        $this->assertSame(['4', '2', '1'], $reactablesOrderedDesc->pluck('custom_alias_count')->toArray());
+    }
+
+    /** @test */
     public function it_select_default_reactable_columns_on_order_by_reactions_total_count(): void
     {
         factory(Reactant::class)->create(); // Needed to has not same ids with Reactant

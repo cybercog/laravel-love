@@ -114,14 +114,16 @@ trait Reactable
     }
 
     public function scopeJoinReactionTotal(
-        Builder $query
+        Builder $query,
+        ?string $alias = null
     ): Builder {
+        $alias = is_null($alias) ? 'reactions_total' : $alias;
         $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
-        $select[] = DB::raw('COALESCE(lrrt.count, 0) as reactions_total_count');
-        $select[] = DB::raw('COALESCE(lrrt.weight, 0) as reactions_total_weight');
+        $select[] = DB::raw("COALESCE({$alias}.count, 0) as {$alias}_count");
+        $select[] = DB::raw("COALESCE({$alias}.weight, 0) as {$alias}_weight");
 
         return $query
-            ->leftJoin((new ReactionTotal())->getTable() . ' as lrrt', 'lrrt.reactant_id', '=', "{$this->getTable()}.love_reactant_id")
+            ->leftJoin((new ReactionTotal())->getTable() . ' as ' . $alias, "{$alias}.reactant_id", '=', "{$this->getTable()}.love_reactant_id")
             ->select($select);
     }
 }

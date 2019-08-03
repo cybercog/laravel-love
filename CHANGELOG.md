@@ -68,6 +68,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v7-to-v8) to migrate code & data
 - ([#102]) Changed second parameter type from `Reactant` to `Reacterable` in `scopeWhereReactedBy` method of `Reactable` model trait
 - ([#102]) Changed third parameter type from `ReactionType` to `string` in `scopeWhereReactedBy` method of `Reactable` model trait
 - ([#97]) Added third `?string $alias` parameter to `scopeJoinReactionCounterOfType` method of `Reactable` model trait
+- ([#102]) Added second `?string $alias` parameter to `scopeJoinReactionTotal` method of `Reactable` model trait
 
 ### Removed
 
