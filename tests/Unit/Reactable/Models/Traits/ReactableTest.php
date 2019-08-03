@@ -330,11 +330,11 @@ final class ReactableTest extends TestCase
         $reactionType1WeightKey = strtolower($reactionType1->getName()).'_weight';
 
         $reactablesOrderedAsc = Article::query()
-            ->joinReactionCounterOfType($reactionType1)
+            ->joinReactionCounterOfType($reactionType1->getName())
             ->orderBy($reactionType1CountKey, 'asc')
             ->get();
         $reactablesOrderedDesc = Article::query()
-            ->joinReactionCounterOfType($reactionType1)
+            ->joinReactionCounterOfType($reactionType1->getName())
             ->orderBy($reactionType1CountKey, 'desc')
             ->get();
 
@@ -384,7 +384,7 @@ final class ReactableTest extends TestCase
         $reactionType1CountKey = strtolower($reactionType1->getName()).'_count';
 
         $reactablesOrderedAsc = Article::query()
-            ->joinReactionCounterOfType($reactionType1)
+            ->joinReactionCounterOfType($reactionType1->getName())
             ->orderBy($reactionType1CountKey, 'asc')
             ->get();
 
@@ -423,7 +423,7 @@ final class ReactableTest extends TestCase
 
         $reactablesOrderedAsc = Article::query()
             ->select('name')
-            ->joinReactionCounterOfType($reactionType1)
+            ->joinReactionCounterOfType($reactionType1->getName())
             ->orderBy($reactionType1CountKey, 'asc')
             ->get();
 
@@ -693,7 +693,7 @@ final class ReactableTest extends TestCase
         $reactionType1CountKey = strtolower($reactionType1->getName()).'_count';
 
         $reactablesOrderedAsc = Article::query()
-            ->joinReactionCounterOfType($reactionType1)
+            ->joinReactionCounterOfType($reactionType1->getName())
             ->joinReactionTotal()
             ->orderBy('reactions_total_weight', 'asc')
             ->get();
@@ -808,7 +808,7 @@ final class ReactableTest extends TestCase
         $reactionType1CountKey = strtolower($reactionType1->getName()).'_count';
 
         $reactablesOrderedAsc = Article::query()
-            ->joinReactionCounterOfType($reactionType1)
+            ->joinReactionCounterOfType($reactionType1->getName())
             ->orderBy($reactionType1CountKey, 'asc')
             ->get();
 
@@ -858,7 +858,7 @@ final class ReactableTest extends TestCase
         $reactionType1CountKey = strtolower($reactionType1->getName()).'_count';
 
         $reactablesOrderedAsc = Article::query()
-            ->joinReactionCounterOfType($reactionType1)
+            ->joinReactionCounterOfType($reactionType1->getName())
             ->joinReactionTotal()
             ->orderBy('reactions_total_weight', 'asc')
             ->get();
@@ -934,8 +934,8 @@ final class ReactableTest extends TestCase
         ]);
 
         $reactablesWithTypeCount = Article::query()
-            ->joinReactionCounterOfType($reactionType1)
-            ->joinReactionCounterOfType($reactionType2)
+            ->joinReactionCounterOfType($reactionType1->getName())
+            ->joinReactionCounterOfType($reactionType2->getName())
             ->joinReactionTotal()
             ->get();
 

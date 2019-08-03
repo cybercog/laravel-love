@@ -95,9 +95,10 @@ trait Reactable
 
     public function scopeJoinReactionCounterOfType(
         Builder $query,
-        ReactionTypeContract $reactionType,
+        string $reactionTypeName,
         ?string $alias = null
     ): Builder {
+        $reactionType = ReactionType::fromName($reactionTypeName);
         $alias = is_null($alias) ? strtolower($reactionType->getName()) : $alias;
 
         $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
