@@ -260,16 +260,16 @@ final class ReactableTest extends TestCase
         ]);
 
         $reactedByReacter1WithReactionType1 = Article::query()
-            ->whereReactedBy($reacterable1, $reactionType1)
+            ->whereReactedBy($reacterable1, $reactionType1->getName())
             ->get();
         $reactedByReacter1WithReactionType2 = Article::query()
-            ->whereReactedBy($reacterable1, $reactionType2)
+            ->whereReactedBy($reacterable1, $reactionType2->getName())
             ->get();
         $reactedByReacter2WithReactionType1 = Article::query()
-            ->whereReactedBy($reacterable2, $reactionType1)
+            ->whereReactedBy($reacterable2, $reactionType1->getName())
             ->get();
         $reactedByReacter2WithReactionType2 = Article::query()
-            ->whereReactedBy($reacterable2, $reactionType2)
+            ->whereReactedBy($reacterable2, $reactionType2->getName())
             ->get();
 
         $this->assertSame([

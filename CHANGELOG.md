@@ -65,7 +65,8 @@ Follow [upgrade instructions](UPGRADING.md#from-v7-to-v8) to migrate code & data
 - ([#96]) Changed signature of `love:recount` Artisan command to `love:recount {--model=} {--type=}`
 - ([#99]) Make `Reacterable` parameter nullable in `isReactedBy` method of `Reactant` facade contract
 - ([#99]) Make `Reacterable` parameter nullable in `isNotReactedBy` method of `Reactant` facade contract
-- ([#102]) Changed second parameter type from `Reactant` to `Reacterable` in `Reactable::scopeWhereReactedBy` method
+- ([#102]) Changed second parameter type from `Reactant` to `Reacterable` in `scopeWhereReactedBy` method of `Reactable` model trait
+- ([#102]) Changed third parameter type from `ReactionType` to `string` in `scopeWhereReactedBy` method of `Reactable` model trait
 
 ### Removed
 

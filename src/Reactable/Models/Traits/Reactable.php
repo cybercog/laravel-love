@@ -24,6 +24,7 @@ use Cog\Laravel\Love\Reactant\Models\NullReactant;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal;
+use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Query\JoinClause;
@@ -82,12 +83,12 @@ trait Reactable
     public function scopeWhereReactedBy(
         Builder $query,
         ReacterableContract $reacterable,
-        ?ReactionTypeContract $reactionType = null
+        ?string $reactionTypeName = null
     ): Builder {
-        return $query->whereHas('loveReactant.reactions', function (Builder $reactionsQuery) use ($reacterable, $reactionType) {
+        return $query->whereHas('loveReactant.reactions', function (Builder $reactionsQuery) use ($reacterable, $reactionTypeName) {
             $reactionsQuery->where('reacter_id', $reacterable->getLoveReacter()->getId());
-            if (!is_null($reactionType)) {
-                $reactionsQuery->where('reaction_type_id', $reactionType->getId());
+            if (!is_null($reactionTypeName)) {
+                $reactionsQuery->where('reaction_type_id', ReactionType::fromName($reactionTypeName)->getId());
             }
         });
     }
