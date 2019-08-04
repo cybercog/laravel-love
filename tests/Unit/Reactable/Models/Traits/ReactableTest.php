@@ -326,8 +326,8 @@ final class ReactableTest extends TestCase
             'reactant_id' => $reactable3->getLoveReactant()->getId(),
         ]);
 
-        $reactionType1CountKey = 'reactions_' . strtolower($reactionType1->getName()).'_count';
-        $reactionType1WeightKey = 'reactions_' . strtolower($reactionType1->getName()).'_weight';
+        $reactionType1CountKey = strtolower($reactionType1->getName()) . '_reactions_count';
+        $reactionType1WeightKey = strtolower($reactionType1->getName()) . '_reactions_weight';
 
         $reactablesOrderedAsc = Article::query()
             ->joinReactionCounterOfType($reactionType1->getName())
@@ -381,7 +381,7 @@ final class ReactableTest extends TestCase
             'reactant_id' => $reactable3->getLoveReactant()->getId(),
         ]);
 
-        $reactionType1CountKey = 'reactions_' . strtolower($reactionType1->getName()).'_count';
+        $reactionType1CountKey = strtolower($reactionType1->getName()) . '_reactions_count';
 
         $reactablesOrderedAsc = Article::query()
             ->joinReactionCounterOfType($reactionType1->getName())
@@ -418,8 +418,8 @@ final class ReactableTest extends TestCase
             'reactant_id' => $reactable3->getLoveReactant()->getId(),
         ]);
 
-        $reactionType1CountKey = 'reactions_' . strtolower($reactionType1->getName()).'_count';
-        $reactionType1WeightKey = 'reactions_' . strtolower($reactionType1->getName()).'_weight';
+        $reactionType1CountKey = strtolower($reactionType1->getName()) . '_reactions_count';
+        $reactionType1WeightKey = strtolower($reactionType1->getName()) . '_reactions_weight';
 
         $reactablesOrderedAsc = Article::query()
             ->select('name')
@@ -435,7 +435,7 @@ final class ReactableTest extends TestCase
     }
 
     /** @test */
-    public function it_can_order_by_reactions_total_count(): void
+    public function it_can_order_by_total_reactions_count(): void
     {
         factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactionType = factory(ReactionType::class)->create();
@@ -457,19 +457,19 @@ final class ReactableTest extends TestCase
 
         $reactablesOrderedAsc = Article::query()
             ->joinReactionTotal()
-            ->orderBy('reactions_total_count', 'asc')
+            ->orderBy('total_reactions_count', 'asc')
             ->get();
         $reactablesOrderedDesc = Article::query()
             ->joinReactionTotal()
-            ->orderBy('reactions_total_count', 'desc')
+            ->orderBy('total_reactions_count', 'desc')
             ->get();
 
-        $this->assertSame(['1', '2', '4'], $reactablesOrderedAsc->pluck('reactions_total_count')->toArray());
-        $this->assertSame(['4', '2', '1'], $reactablesOrderedDesc->pluck('reactions_total_count')->toArray());
+        $this->assertSame(['1', '2', '4'], $reactablesOrderedAsc->pluck('total_reactions_count')->toArray());
+        $this->assertSame(['4', '2', '1'], $reactablesOrderedDesc->pluck('total_reactions_count')->toArray());
     }
 
     /** @test */
-    public function it_can_order_by_reactions_total_count_with_custom_alias(): void
+    public function it_can_order_by_total_reactions_count_with_custom_alias(): void
     {
         factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactionType = factory(ReactionType::class)->create();
@@ -503,7 +503,7 @@ final class ReactableTest extends TestCase
     }
 
     /** @test */
-    public function it_select_default_reactable_columns_on_order_by_reactions_total_count(): void
+    public function it_select_default_reactable_columns_on_order_by_total_reactions_count(): void
     {
         factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactionType = factory(ReactionType::class)->create();
@@ -525,7 +525,7 @@ final class ReactableTest extends TestCase
 
         $reactablesOrderedAsc = Article::query()
             ->joinReactionTotal()
-            ->orderBy('reactions_total_count', 'asc')
+            ->orderBy('total_reactions_count', 'asc')
             ->get();
 
         $this->assertSame([
@@ -536,7 +536,7 @@ final class ReactableTest extends TestCase
     }
 
     /** @test */
-    public function it_can_select_custom_reactable_columns_on_order_by_reactions_total_count(): void
+    public function it_can_select_custom_reactable_columns_on_order_by_total_reactions_count(): void
     {
         factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactionType = factory(ReactionType::class)->create();
@@ -559,17 +559,17 @@ final class ReactableTest extends TestCase
         $reactablesOrderedAsc = Article::query()
             ->select('name')
             ->joinReactionTotal()
-            ->orderBy('reactions_total_count', 'asc')
+            ->orderBy('total_reactions_count', 'asc')
             ->get();
 
         $this->assertSame([
-            ['name' => $reactable3->name, 'reactions_total_count' => '1'],
-            ['name' => $reactable1->name, 'reactions_total_count' => '2'],
-            ['name' => $reactable2->name, 'reactions_total_count' => '4'],
+            ['name' => $reactable3->name, 'total_reactions_count' => '1'],
+            ['name' => $reactable1->name, 'total_reactions_count' => '2'],
+            ['name' => $reactable2->name, 'total_reactions_count' => '4'],
         ], $reactablesOrderedAsc->map(function (Article $reactable) {
             return [
                 'name' => $reactable->name,
-                'reactions_total_count' => $reactable->reactions_total_count,
+                'total_reactions_count' => $reactable->total_reactions_count,
             ];
         })->toArray());
     }
@@ -599,15 +599,15 @@ final class ReactableTest extends TestCase
 
         $reactablesOrderedAsc = Article::query()
             ->joinReactionTotal()
-            ->orderBy('reactions_total_weight', 'asc')
+            ->orderBy('total_reactions_weight', 'asc')
             ->get();
         $reactablesOrderedDesc = Article::query()
             ->joinReactionTotal()
-            ->orderBy('reactions_total_weight', 'desc')
+            ->orderBy('total_reactions_weight', 'desc')
             ->get();
 
-        $this->assertSame(['2', '4', '8'], $reactablesOrderedAsc->pluck('reactions_total_weight')->toArray());
-        $this->assertSame(['8', '4', '2'], $reactablesOrderedDesc->pluck('reactions_total_weight')->toArray());
+        $this->assertSame(['2', '4', '8'], $reactablesOrderedAsc->pluck('total_reactions_weight')->toArray());
+        $this->assertSame(['8', '4', '2'], $reactablesOrderedDesc->pluck('total_reactions_weight')->toArray());
     }
 
     /** @test */
@@ -635,7 +635,7 @@ final class ReactableTest extends TestCase
 
         $reactablesOrderedAsc = Article::query()
             ->joinReactionTotal()
-            ->orderBy('reactions_total_weight', 'asc')
+            ->orderBy('total_reactions_weight', 'asc')
             ->get();
 
         $this->assertSame([
@@ -671,17 +671,17 @@ final class ReactableTest extends TestCase
         $reactablesOrderedAsc = Article::query()
             ->select('name')
             ->joinReactionTotal()
-            ->orderBy('reactions_total_weight', 'asc')
+            ->orderBy('total_reactions_weight', 'asc')
             ->get();
 
         $this->assertSame([
-            ['name' => $reactable3->name, 'reactions_total_weight' => '2'],
-            ['name' => $reactable1->name, 'reactions_total_weight' => '4'],
-            ['name' => $reactable2->name, 'reactions_total_weight' => '8'],
+            ['name' => $reactable3->name, 'total_reactions_weight' => '2'],
+            ['name' => $reactable1->name, 'total_reactions_weight' => '4'],
+            ['name' => $reactable2->name, 'total_reactions_weight' => '8'],
         ], $reactablesOrderedAsc->map(function (Article $reactable) {
             return [
                 'name' => $reactable->name,
-                'reactions_total_weight' => $reactable->reactions_total_weight,
+                'total_reactions_weight' => $reactable->total_reactions_weight,
             ];
         })->toArray());
     }
@@ -724,39 +724,39 @@ final class ReactableTest extends TestCase
             'reactant_id' => $reactable3->getLoveReactant()->getId(),
         ]);
 
-        $reactionType1CountKey = 'reactions_' . strtolower($reactionType1->getName()) . '_count';
+        $reactionType1CountKey = strtolower($reactionType1->getName()) . '_reactions_count';
 
         $reactablesOrderedAsc = Article::query()
             ->joinReactionCounterOfType($reactionType1->getName())
             ->joinReactionTotal()
-            ->orderBy('reactions_total_weight', 'asc')
+            ->orderBy('total_reactions_weight', 'asc')
             ->get();
 
         $this->assertSame([
             [
                 'name' => $reactable3->name,
                 "$reactionType1CountKey" => '1',
-                'reactions_total_count' => '2',
-                'reactions_total_weight' => '3',
+                'total_reactions_count' => '2',
+                'total_reactions_weight' => '3',
             ],
             [
                 'name' => $reactable1->name,
                 "$reactionType1CountKey" => '2',
-                'reactions_total_count' => '3',
-                'reactions_total_weight' => '5',
+                'total_reactions_count' => '3',
+                'total_reactions_weight' => '5',
             ],
             [
                 'name' => $reactable2->name,
                 "$reactionType1CountKey" => '4',
-                'reactions_total_count' => '5',
-                'reactions_total_weight' => '9',
+                'total_reactions_count' => '5',
+                'total_reactions_weight' => '9',
             ],
         ], $reactablesOrderedAsc->map(function (Article $reactable) use ($reactionType1CountKey) {
             return [
                 'name' => $reactable->name,
                 "$reactionType1CountKey" => $reactable->{$reactionType1CountKey},
-                'reactions_total_count' => $reactable->reactions_total_count,
-                'reactions_total_weight' => $reactable->reactions_total_weight,
+                'total_reactions_count' => $reactable->total_reactions_count,
+                'total_reactions_weight' => $reactable->total_reactions_weight,
             ];
         })->toArray());
     }
@@ -785,30 +785,30 @@ final class ReactableTest extends TestCase
 
         $reactablesOrderedAsc = Article::query()
             ->joinReactionTotal()
-            ->orderBy('reactions_total_weight', 'asc')
+            ->orderBy('total_reactions_weight', 'asc')
             ->get();
 
         $this->assertSame([
             [
                 'name' => $reactable2->name,
-                'reactions_total_count' => '0',
-                'reactions_total_weight' => '0',
+                'total_reactions_count' => '0',
+                'total_reactions_weight' => '0',
             ],
             [
                 'name' => $reactable3->name,
-                'reactions_total_count' => '1',
-                'reactions_total_weight' => '1',
+                'total_reactions_count' => '1',
+                'total_reactions_weight' => '1',
             ],
             [
                 'name' => $reactable1->name,
-                'reactions_total_count' => '2',
-                'reactions_total_weight' => '4',
+                'total_reactions_count' => '2',
+                'total_reactions_weight' => '4',
             ],
         ], $reactablesOrderedAsc->map(function (Article $reactable) {
             return [
                 'name' => $reactable->name,
-                'reactions_total_count' => $reactable->reactions_total_count,
-                'reactions_total_weight' => $reactable->reactions_total_weight,
+                'total_reactions_count' => $reactable->total_reactions_count,
+                'total_reactions_weight' => $reactable->total_reactions_weight,
             ];
         })->toArray());
     }
@@ -839,7 +839,7 @@ final class ReactableTest extends TestCase
             'reactant_id' => $reactable2->getLoveReactant()->getId(),
         ]);
 
-        $reactionType1CountKey = 'reactions_' . strtolower($reactionType1->getName()) . '_count';
+        $reactionType1CountKey = strtolower($reactionType1->getName()) . '_reactions_count';
 
         $reactablesOrderedAsc = Article::query()
             ->joinReactionCounterOfType($reactionType1->getName())
@@ -889,39 +889,39 @@ final class ReactableTest extends TestCase
             'reactant_id' => $reactable3->getLoveReactant()->getId(),
         ]);
 
-        $reactionType1CountKey = 'reactions_' . strtolower($reactionType1->getName()) . '_count';
+        $reactionType1CountKey = strtolower($reactionType1->getName()) . '_reactions_count';
 
         $reactablesOrderedAsc = Article::query()
             ->joinReactionCounterOfType($reactionType1->getName())
             ->joinReactionTotal()
-            ->orderBy('reactions_total_weight', 'asc')
+            ->orderBy('total_reactions_weight', 'asc')
             ->get();
 
         $this->assertSame([
             [
                 'name' => $reactable2->name,
                 "$reactionType1CountKey" => '0',
-                'reactions_total_count' => '0',
-                'reactions_total_weight' => '0',
+                'total_reactions_count' => '0',
+                'total_reactions_weight' => '0',
             ],
             [
                 'name' => $reactable3->name,
                 "$reactionType1CountKey" => '0',
-                'reactions_total_count' => '1',
-                'reactions_total_weight' => '1',
+                'total_reactions_count' => '1',
+                'total_reactions_weight' => '1',
             ],
             [
                 'name' => $reactable1->name,
                 "$reactionType1CountKey" => '2',
-                'reactions_total_count' => '2',
-                'reactions_total_weight' => '4',
+                'total_reactions_count' => '2',
+                'total_reactions_weight' => '4',
             ],
         ], $reactablesOrderedAsc->map(function (Article $reactable) use ($reactionType1CountKey) {
             return [
                 'name' => $reactable->name,
                 "$reactionType1CountKey" => $reactable->{$reactionType1CountKey},
-                'reactions_total_count' => $reactable->reactions_total_count,
-                'reactions_total_weight' => $reactable->reactions_total_weight,
+                'total_reactions_count' => $reactable->total_reactions_count,
+                'total_reactions_weight' => $reactable->total_reactions_weight,
             ];
         })->toArray());
     }
@@ -973,10 +973,10 @@ final class ReactableTest extends TestCase
             ->joinReactionTotal()
             ->get();
 
-        $reactionType1CountKey = 'reactions_' . strtolower($reactionType1->getName()).'_count';
-        $reactionType1WeightKey = 'reactions_' . strtolower($reactionType1->getName()).'_weight';
-        $reactionType2CountKey = 'reactions_' . strtolower($reactionType2->getName()).'_count';
-        $reactionType2WeightKey = 'reactions_' . strtolower($reactionType2->getName()).'_weight';
+        $reactionType1CountKey = strtolower($reactionType1->getName()) . '_reactions_count';
+        $reactionType1WeightKey = strtolower($reactionType1->getName()) . '_reactions_weight';
+        $reactionType2CountKey = strtolower($reactionType2->getName()) . '_reactions_count';
+        $reactionType2WeightKey = strtolower($reactionType2->getName()) . '_reactions_weight';
         $this->assertSame([
             [
                 'name' => $reactable1->name,
@@ -984,7 +984,7 @@ final class ReactableTest extends TestCase
                 "$reactionType1WeightKey" => '10',
                 "$reactionType2CountKey" => '1',
                 "$reactionType2WeightKey" => '-1',
-                'reactions_total_weight' => '9',
+                'total_reactions_weight' => '9',
             ],
             [
                 'name' => $reactable2->name,
@@ -992,7 +992,7 @@ final class ReactableTest extends TestCase
                 "$reactionType1WeightKey" => '8',
                 "$reactionType2CountKey" => '2',
                 "$reactionType2WeightKey" => '-2',
-                'reactions_total_weight' => '6',
+                'total_reactions_weight' => '6',
             ],
             [
                 'name' => $reactable3->name,
@@ -1000,7 +1000,7 @@ final class ReactableTest extends TestCase
                 "$reactionType1WeightKey" => '6',
                 "$reactionType2CountKey" => '7',
                 "$reactionType2WeightKey" => '-7',
-                'reactions_total_weight' => '-1',
+                'total_reactions_weight' => '-1',
             ],
         ], $reactablesWithTypeCount->map(function (Article $reactable) use ($reactionType1WeightKey, $reactionType1CountKey, $reactionType2CountKey, $reactionType2WeightKey) {
             return [
@@ -1009,7 +1009,7 @@ final class ReactableTest extends TestCase
                 "$reactionType1WeightKey" => $reactable->{$reactionType1WeightKey},
                 "$reactionType2CountKey" => $reactable->{$reactionType2CountKey},
                 "$reactionType2WeightKey" => $reactable->{$reactionType2WeightKey},
-                'reactions_total_weight' => $reactable->reactions_total_weight,
+                'total_reactions_weight' => $reactable->total_reactions_weight,
             ];
         })->toArray());
     }
