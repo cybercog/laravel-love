@@ -98,7 +98,7 @@ trait Reactable
         ?string $alias = null
     ): Builder {
         $reactionType = ReactionType::fromName($reactionTypeName);
-        $alias = is_null($alias) ? strtolower($reactionType->getName()) . '_reactions': $alias;
+        $alias = is_null($alias) ? strtolower($reactionType->getName()) . '_reactions' : $alias;
 
         $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
         $select[] = DB::raw("COALESCE({$alias}.count, 0) as {$alias}_count");
