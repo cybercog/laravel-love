@@ -67,13 +67,11 @@ Follow [upgrade instructions](UPGRADING.md#from-v7-to-v8) to migrate code & data
 - ([#99]) Make `Reacterable` parameter nullable in `isReactedBy` method of `Reactant` facade contract
 - ([#99]) Make `Reacterable` parameter nullable in `isNotReactedBy` method of `Reactant` facade contract
 - ([#102]) Changed second parameter type from `Reactant` to `Reacterable` in `scopeWhereReactedBy` method of `Reactable` model trait
-- ([#102]) Changed third parameter type from `ReactionType` to `string` in `scopeWhereReactedBy` method of `Reactable` model trait
+- ([#102]) Changed third parameter type from `?ReactionType` to `?string` in `scopeWhereReactedBy` method of `Reactable` model trait
 - ([#97]) Added third `?string $alias` parameter to `scopeJoinReactionCounterOfType` method of `Reactable` model trait
 - ([#102]) Added second `?string $alias` parameter to `scopeJoinReactionTotal` method of `Reactable` model trait
-- ([#102]) Changed virtual column prefix from `reactions_total_count` to `total_reactions_count` in `scopeJoinReactionTotal` method of `Reactable` model trait
-- ([#102]) Changed virtual column prefix from `reactions_total_weight` to `total_reactions_weight` in `scopeJoinReactionTotal` method of `Reactable` model trait
-- ([#102]) Changed virtual column prefix from `reactions_count` to `{$type}_reactions_count` in `scopeJoinReactionCounterOfType` method of `Reactable` model trait
-- ([#102]) Changed virtual column prefix from `reactions_weight` to `{$type}_reactions_weight` in `scopeJoinReactionCounterOfType` method of `Reactable` model trait
+- ([#102]) Changed virtual column name from `reactions_count` to `reactions_{$type}_count` in `scopeJoinReactionCounterOfType` method of `Reactable` model trait
+- ([#102]) Changed virtual column name from `reactions_weight` to `reactions_{$type}_weight` in `scopeJoinReactionCounterOfType` method of `Reactable` model trait
 
 ### Removed
 
