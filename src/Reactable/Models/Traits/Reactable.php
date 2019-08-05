@@ -92,6 +92,19 @@ trait Reactable
         });
     }
 
+    public function scopeWhereNotReactedBy(
+        Builder $query,
+        ReacterableContract $reacterable,
+        ?string $reactionTypeName = null
+    ): Builder {
+        return $query->whereDoesntHave('loveReactant.reactions', function (Builder $reactionsQuery) use ($reacterable, $reactionTypeName) {
+            $reactionsQuery->where('reacter_id', $reacterable->getLoveReacter()->getId());
+            if (!is_null($reactionTypeName)) {
+                $reactionsQuery->where('reaction_type_id', ReactionType::fromName($reactionTypeName)->getId());
+            }
+        });
+    }
+
     public function scopeJoinReactionCounterOfType(
         Builder $query,
         string $reactionTypeName,

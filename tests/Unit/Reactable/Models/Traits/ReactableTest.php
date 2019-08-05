@@ -170,7 +170,7 @@ final class ReactableTest extends TestCase
     }
 
     /** @test */
-    public function it_can_scope_by_reacter(): void
+    public function it_can_scope_by_reacterable(): void
     {
         factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactionType = factory(ReactionType::class)->create();
@@ -200,25 +200,25 @@ final class ReactableTest extends TestCase
             'reacter_id' => $reacterable2->getLoveReacter()->getId(),
         ]);
 
-        $reactedByReacter1 = Article::query()
+        $reactedByReacterable1 = Article::query()
             ->whereReactedBy($reacterable1)
             ->get();
-        $reactedByReacter2 = Article::query()
+        $reactedByReacterable2 = Article::query()
             ->whereReactedBy($reacterable2)
             ->get();
 
         $this->assertSame([
             $reactable1->getKey(),
             $reactable3->getKey(),
-        ], $reactedByReacter1->pluck('id')->toArray());
+        ], $reactedByReacterable1->pluck('id')->toArray());
         $this->assertSame([
             $reactable2->getKey(),
             $reactable3->getKey(),
-        ], $reactedByReacter2->pluck('id')->toArray());
+        ], $reactedByReacterable2->pluck('id')->toArray());
     }
 
     /** @test */
-    public function it_can_scope_by_reacter_and_reaction_type(): void
+    public function it_can_scope_by_reacterable_and_reaction_type(): void
     {
         factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactionType1 = factory(ReactionType::class)->create();
@@ -259,33 +259,150 @@ final class ReactableTest extends TestCase
             'reacter_id' => $reacterable2->getLoveReacter()->getId(),
         ]);
 
-        $reactedByReacter1WithReactionType1 = Article::query()
+        $reactedByReacterable1WithReactionType1 = Article::query()
             ->whereReactedBy($reacterable1, $reactionType1->getName())
             ->get();
-        $reactedByReacter1WithReactionType2 = Article::query()
+        $reactedByReacterable1WithReactionType2 = Article::query()
             ->whereReactedBy($reacterable1, $reactionType2->getName())
             ->get();
-        $reactedByReacter2WithReactionType1 = Article::query()
+        $reactedByReacterable2WithReactionType1 = Article::query()
             ->whereReactedBy($reacterable2, $reactionType1->getName())
             ->get();
-        $reactedByReacter2WithReactionType2 = Article::query()
+        $reactedByReacterable2WithReactionType2 = Article::query()
             ->whereReactedBy($reacterable2, $reactionType2->getName())
             ->get();
 
         $this->assertSame([
             $reactable1->getKey(),
             $reactable3->getKey(),
-        ], $reactedByReacter1WithReactionType1->pluck('id')->toArray());
+        ], $reactedByReacterable1WithReactionType1->pluck('id')->toArray());
         $this->assertSame([
             $reactable2->getKey(),
-        ], $reactedByReacter1WithReactionType2->pluck('id')->toArray());
+        ], $reactedByReacterable1WithReactionType2->pluck('id')->toArray());
         $this->assertSame([
             $reactable2->getKey(),
             $reactable3->getKey(),
-        ], $reactedByReacter2WithReactionType1->pluck('id')->toArray());
+        ], $reactedByReacterable2WithReactionType1->pluck('id')->toArray());
         $this->assertSame([
             $reactable1->getKey(),
-        ], $reactedByReacter2WithReactionType2->pluck('id')->toArray());
+        ], $reactedByReacterable2WithReactionType2->pluck('id')->toArray());
+    }
+
+    /** @test */
+    public function it_can_scope_not_reacted_by_reacterable(): void
+    {
+        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        $reactionType = factory(ReactionType::class)->create();
+        $reactable1 = factory(Article::class)->create();
+        $reactable2 = factory(Article::class)->create();
+        $reactable3 = factory(Article::class)->create();
+        $reacterable1 = factory(User::class)->create();
+        $reacterable2 = factory(User::class)->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable1->getLoveReactant()->getId(),
+            'reacter_id' => $reacterable1->getLoveReacter()->getId(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable2->getLoveReactant()->getId(),
+            'reacter_id' => $reacterable2->getLoveReacter()->getId(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable3->getLoveReactant()->getId(),
+            'reacter_id' => $reacterable1->getLoveReacter()->getId(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable3->getLoveReactant()->getId(),
+            'reacter_id' => $reacterable2->getLoveReacter()->getId(),
+        ]);
+
+        $reactedByReacterable1 = Article::query()
+            ->whereNotReactedBy($reacterable1)
+            ->get();
+        $reactedByReacterable2 = Article::query()
+            ->whereNotReactedBy($reacterable2)
+            ->get();
+
+        $this->assertSame([
+            $reactable2->getKey(),
+        ], $reactedByReacterable1->pluck('id')->toArray());
+        $this->assertSame([
+            $reactable1->getKey(),
+        ], $reactedByReacterable2->pluck('id')->toArray());
+    }
+
+    /** @test */
+    public function it_can_scope_not_reacted_by_reacterable_and_reaction_type(): void
+    {
+        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        $reactionType1 = factory(ReactionType::class)->create();
+        $reactionType2 = factory(ReactionType::class)->create();
+        $reactable1 = factory(Article::class)->create();
+        $reactable2 = factory(Article::class)->create();
+        $reactable3 = factory(Article::class)->create();
+        $reacterable1 = factory(User::class)->create();
+        $reacterable2 = factory(User::class)->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable1->getLoveReactant()->getId(),
+            'reacter_id' => $reacterable1->getLoveReacter()->getId(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType2->getId(),
+            'reactant_id' => $reactable1->getLoveReactant()->getId(),
+            'reacter_id' => $reacterable2->getLoveReacter()->getId(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType2->getId(),
+            'reactant_id' => $reactable2->getLoveReactant()->getId(),
+            'reacter_id' => $reacterable1->getLoveReacter()->getId(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable2->getLoveReactant()->getId(),
+            'reacter_id' => $reacterable2->getLoveReacter()->getId(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable3->getLoveReactant()->getId(),
+            'reacter_id' => $reacterable1->getLoveReacter()->getId(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable3->getLoveReactant()->getId(),
+            'reacter_id' => $reacterable2->getLoveReacter()->getId(),
+        ]);
+
+        $reactedByReacterable1WithReactionType1 = Article::query()
+            ->whereNotReactedBy($reacterable1, $reactionType1->getName())
+            ->get();
+        $reactedByReacterable1WithReactionType2 = Article::query()
+            ->whereNotReactedBy($reacterable1, $reactionType2->getName())
+            ->get();
+        $reactedByReacterable2WithReactionType1 = Article::query()
+            ->whereNotReactedBy($reacterable2, $reactionType1->getName())
+            ->get();
+        $reactedByReacterable2WithReactionType2 = Article::query()
+            ->whereNotReactedBy($reacterable2, $reactionType2->getName())
+            ->get();
+
+        $this->assertSame([
+            $reactable2->getKey(),
+        ], $reactedByReacterable1WithReactionType1->pluck('id')->toArray());
+        $this->assertSame([
+            $reactable1->getKey(),
+            $reactable3->getKey(),
+        ], $reactedByReacterable1WithReactionType2->pluck('id')->toArray());
+        $this->assertSame([
+            $reactable1->getKey(),
+        ], $reactedByReacterable2WithReactionType1->pluck('id')->toArray());
+        $this->assertSame([
+            $reactable2->getKey(),
+            $reactable3->getKey(),
+        ], $reactedByReacterable2WithReactionType2->pluck('id')->toArray());
     }
 
     /** @test */

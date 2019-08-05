@@ -26,6 +26,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v7-to-v8) to migrate code & data
 - ([#100]) Added `Cog\Contracts\Love\Reaction\Exceptions\RateInvalid` exception
 - ([#96]) Added progress bar to `love:recount` Artisan command
 - ([#97]) Added ability to call `Reactable::joinReactionCounterOfType` more than once
+- ([#102]) Added `scopeWhereNotReactedBy` scope to `Reactable` model trait
 
 ### Changed
 
