@@ -35,7 +35,7 @@ final class UpgradeV7ToV8 extends Command
      *
      * @var string
      */
-    protected $description = 'Upgrade love package from v7 to v8';
+    protected $description = 'Upgrade Love package from v7 to v8';
 
     /**
      * Execute the console command.

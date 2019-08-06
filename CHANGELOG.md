@@ -25,6 +25,8 @@ Follow [upgrade instructions](UPGRADING.md#from-v7-to-v8) to migrate code & data
 - ([#91]) Added `Cog\Contracts\Love\Reaction\Exceptions\RateOutOfRange` exception
 - ([#100]) Added `Cog\Contracts\Love\Reaction\Exceptions\RateInvalid` exception
 - ([#96]) Added progress bar to `love:recount` Artisan command
+- ([#97]) Added ability to call `Reactable::joinReactionCounterOfType` more than once
+- ([#102]) Added `scopeWhereNotReactedBy` scope to `Reactable` model trait
 
 ### Changed
 
@@ -64,6 +66,14 @@ Follow [upgrade instructions](UPGRADING.md#from-v7-to-v8) to migrate code & data
 - ([#96]) Changed signature of `love:recount` Artisan command to `love:recount {--model=} {--type=}`
 - ([#99]) Make `Reacterable` parameter nullable in `isReactedBy` method of `Reactant` facade contract
 - ([#99]) Make `Reacterable` parameter nullable in `isNotReactedBy` method of `Reactant` facade contract
+- ([#102]) Changed second parameter type from `Reactant` to `Reacterable` in `scopeWhereReactedBy` method of `Reactable` model trait
+- ([#102]) Changed third parameter type from `?ReactionType` to `?string` in `scopeWhereReactedBy` method of `Reactable` model trait
+- ([#97]) Added third `?string $alias` parameter to `scopeJoinReactionCounterOfType` method of `Reactable` model trait
+- ([#102]) Added second `?string $alias` parameter to `scopeJoinReactionTotal` method of `Reactable` model trait
+- ([#102]) Renamed virtual column `reactions_count` to `reaction_{$type}_count` in `scopeJoinReactionCounterOfType` method of `Reactable` model trait
+- ([#102]) Renamed virtual column `reactions_weight` to `reaction_{$type}_weight` in `scopeJoinReactionCounterOfType` method of `Reactable` model trait
+- ([#102]) Renamed virtual column `reactions_total_count` to `reaction_total_count` in `scopeJoinReactionTotal` method of `Reactable` model trait
+- ([#102]) Renamed virtual column `reactions_total_weight` to `reaction_total_weight` in `scopeJoinReactionTotal` method of `Reactable` model trait
 
 ### Removed
 
@@ -396,5 +406,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 [#90]: https://github.com/cybercog/laravel-love/pull/90
 [#91]: https://github.com/cybercog/laravel-love/pull/91
 [#96]: https://github.com/cybercog/laravel-love/pull/96
+[#97]: https://github.com/cybercog/laravel-love/pull/97
 [#99]: https://github.com/cybercog/laravel-love/pull/99
 [#100]: https://github.com/cybercog/laravel-love/pull/100
+[#102]: https://github.com/cybercog/laravel-love/pull/102

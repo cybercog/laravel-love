@@ -8,15 +8,19 @@
 
 ## From v7 to v8
 
-- All `weight` values are `float` now. Round them to get `integer` values as it was before.
+- All `weight` values are `float` now. Round them to get `integer` values as it was before
 - Find all `isReactedTo` method usages and replace it with `hasReactedTo`
 - Find all `isReactedToWithType` method usages and replace it with `hasReactedTo`
 - Find all `isNotReactedTo` method usages and replace it with `hasNotReactedTo`
 - Find all `isNotReactedToWithType` method usages and replace it with `hasNotReactedTo`
 - Find all `isReactedByWithType` method usages and replace it with `isReactedBy`
 - Find all `isNotReactedByWithType` method usages and replace it with `isNotReactedBy`
-- The `ReactionType` method `getWeight` was renamed to `getMass`. If you're using your own implementation of `ReactionType`, please update the method name.
+- The `ReactionType` method `getWeight` was renamed to `getMass`. If you're using your own implementation of `ReactionType`, please update the method name
 - Find all `whereReactedByWithType` method usages and replace it with `whereReactedBy`
+- Find all `whereReactedBy` method usages and replace first `Reacter` argument with `Reacterable` and second `ReactionType` argument with its string name
+- Find all `joinReactionCounterOfType` method usages and replace first `ReactionType` argument with its string name
+- Find all `joinReactionCounterOfType` method usages and update virtual attributes prefix. It was changed from `reactions_` to `reaction_{$type}_`
+- Find all `joinReactionTotal` method usages and update virtual attributes prefix. It was changed from `reactions_total` to `reaction_total_`
 
 ### Database migration
 

@@ -16,18 +16,19 @@ namespace Cog\Laravel\Love\Reactable\Models\Traits;
 use Cog\Contracts\Love\Reactable\Exceptions\AlreadyRegisteredAsLoveReactant;
 use Cog\Contracts\Love\Reactant\Facades\Reactant as ReactantFacadeContract;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
-use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
-use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
+use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
 use Cog\Laravel\Love\Reactable\Observers\ReactableObserver;
 use Cog\Laravel\Love\Reactant\Facades\Reactant as ReactantFacade;
 use Cog\Laravel\Love\Reactant\Models\NullReactant;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal;
+use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 /**
  * @mixin \Cog\Contracts\Love\Reactable\Models\Reactable
@@ -81,23 +82,37 @@ trait Reactable
 
     public function scopeWhereReactedBy(
         Builder $query,
-        ReacterContract $reacter,
-        ?ReactionTypeContract $reactionType = null
+        ReacterableContract $reacterable,
+        ?string $reactionTypeName = null
     ): Builder {
-        return $query->whereHas('loveReactant.reactions', function (Builder $reactionsQuery) use ($reacter, $reactionType) {
-            $reactionsQuery->where('reacter_id', $reacter->getId());
-            if (!is_null($reactionType)) {
-                $reactionsQuery->where('reaction_type_id', $reactionType->getId());
+        return $query->whereHas('loveReactant.reactions', function (Builder $reactionsQuery) use ($reacterable, $reactionTypeName) {
+            $reactionsQuery->where('reacter_id', $reacterable->getLoveReacter()->getId());
+            if (!is_null($reactionTypeName)) {
+                $reactionsQuery->where('reaction_type_id', ReactionType::fromName($reactionTypeName)->getId());
+            }
+        });
+    }
+
+    public function scopeWhereNotReactedBy(
+        Builder $query,
+        ReacterableContract $reacterable,
+        ?string $reactionTypeName = null
+    ): Builder {
+        return $query->whereDoesntHave('loveReactant.reactions', function (Builder $reactionsQuery) use ($reacterable, $reactionTypeName) {
+            $reactionsQuery->where('reacter_id', $reacterable->getLoveReacter()->getId());
+            if (!is_null($reactionTypeName)) {
+                $reactionsQuery->where('reaction_type_id', ReactionType::fromName($reactionTypeName)->getId());
             }
         });
     }
 
     public function scopeJoinReactionCounterOfType(
         Builder $query,
-        ReactionTypeContract $reactionType,
+        string $reactionTypeName,
         ?string $alias = null
     ): Builder {
-        $alias = is_null($alias) ? strtolower($reactionType->getName()) : $alias;
+        $reactionType = ReactionType::fromName($reactionTypeName);
+        $alias = is_null($alias) ? 'reaction_' . Str::snake($reactionType->getName()) : $alias;
 
         $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
         $select[] = DB::raw("COALESCE({$alias}.count, 0) as {$alias}_count");
@@ -112,14 +127,16 @@ trait Reactable
     }
 
     public function scopeJoinReactionTotal(
-        Builder $query
+        Builder $query,
+        ?string $alias = null
     ): Builder {
+        $alias = is_null($alias) ? 'reaction_total' : $alias;
         $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
-        $select[] = DB::raw('COALESCE(lrrt.count, 0) as reactions_total_count');
-        $select[] = DB::raw('COALESCE(lrrt.weight, 0) as reactions_total_weight');
+        $select[] = DB::raw("COALESCE({$alias}.count, 0) as {$alias}_count");
+        $select[] = DB::raw("COALESCE({$alias}.weight, 0) as {$alias}_weight");
 
         return $query
-            ->leftJoin((new ReactionTotal())->getTable() . ' as lrrt', 'lrrt.reactant_id', '=', "{$this->getTable()}.love_reactant_id")
+            ->leftJoin((new ReactionTotal())->getTable() . ' as ' . $alias, "{$alias}.reactant_id", '=', "{$this->getTable()}.love_reactant_id")
             ->select($select);
     }
 }

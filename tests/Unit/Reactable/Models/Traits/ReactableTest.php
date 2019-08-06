@@ -17,12 +17,13 @@ use Cog\Contracts\Love\Reactable\Exceptions\AlreadyRegisteredAsLoveReactant;
 use Cog\Laravel\Love\Reactant\Facades\Reactant as ReactantFacade;
 use Cog\Laravel\Love\Reactant\Models\NullReactant;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
-use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
+use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Str;
 
 final class ReactableTest extends TestCase
 {
@@ -170,55 +171,55 @@ final class ReactableTest extends TestCase
     }
 
     /** @test */
-    public function it_can_scope_by_reacter(): void
+    public function it_can_scope_by_reacterable(): void
     {
         factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactionType = factory(ReactionType::class)->create();
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
-        $reacter1 = factory(Reacter::class)->create();
-        $reacter2 = factory(Reacter::class)->create();
+        $reacterable1 = factory(User::class)->create();
+        $reacterable2 = factory(User::class)->create();
         factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactable1->getLoveReactant()->getId(),
-            'reacter_id' => $reacter1->getId(),
+            'reacter_id' => $reacterable1->getLoveReacter()->getId(),
         ]);
         factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactable2->getLoveReactant()->getId(),
-            'reacter_id' => $reacter2->getId(),
+            'reacter_id' => $reacterable2->getLoveReacter()->getId(),
         ]);
         factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactable3->getLoveReactant()->getId(),
-            'reacter_id' => $reacter1->getId(),
+            'reacter_id' => $reacterable1->getLoveReacter()->getId(),
         ]);
         factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactable3->getLoveReactant()->getId(),
-            'reacter_id' => $reacter2->getId(),
+            'reacter_id' => $reacterable2->getLoveReacter()->getId(),
         ]);
 
-        $reactedByReacter1 = Article::query()
-            ->whereReactedBy($reacter1)
+        $reactedByReacterable1 = Article::query()
+            ->whereReactedBy($reacterable1)
             ->get();
-        $reactedByReacter2 = Article::query()
-            ->whereReactedBy($reacter2)
+        $reactedByReacterable2 = Article::query()
+            ->whereReactedBy($reacterable2)
             ->get();
 
         $this->assertSame([
             $reactable1->getKey(),
             $reactable3->getKey(),
-        ], $reactedByReacter1->pluck('id')->toArray());
+        ], $reactedByReacterable1->pluck('id')->toArray());
         $this->assertSame([
             $reactable2->getKey(),
             $reactable3->getKey(),
-        ], $reactedByReacter2->pluck('id')->toArray());
+        ], $reactedByReacterable2->pluck('id')->toArray());
     }
 
     /** @test */
-    public function it_can_scope_by_reacter_and_reaction_type(): void
+    public function it_can_scope_by_reacterable_and_reaction_type(): void
     {
         factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactionType1 = factory(ReactionType::class)->create();
@@ -226,66 +227,183 @@ final class ReactableTest extends TestCase
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
         $reactable3 = factory(Article::class)->create();
-        $reacter1 = factory(Reacter::class)->create();
-        $reacter2 = factory(Reacter::class)->create();
+        $reacterable1 = factory(User::class)->create();
+        $reacterable2 = factory(User::class)->create();
         factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType1->getId(),
             'reactant_id' => $reactable1->getLoveReactant()->getId(),
-            'reacter_id' => $reacter1->getId(),
+            'reacter_id' => $reacterable1->getLoveReacter()->getId(),
         ]);
         factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType2->getId(),
             'reactant_id' => $reactable1->getLoveReactant()->getId(),
-            'reacter_id' => $reacter2->getId(),
+            'reacter_id' => $reacterable2->getLoveReacter()->getId(),
         ]);
         factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType2->getId(),
             'reactant_id' => $reactable2->getLoveReactant()->getId(),
-            'reacter_id' => $reacter1->getId(),
+            'reacter_id' => $reacterable1->getLoveReacter()->getId(),
         ]);
         factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType1->getId(),
             'reactant_id' => $reactable2->getLoveReactant()->getId(),
-            'reacter_id' => $reacter2->getId(),
+            'reacter_id' => $reacterable2->getLoveReacter()->getId(),
         ]);
         factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType1->getId(),
             'reactant_id' => $reactable3->getLoveReactant()->getId(),
-            'reacter_id' => $reacter1->getId(),
+            'reacter_id' => $reacterable1->getLoveReacter()->getId(),
         ]);
         factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType1->getId(),
             'reactant_id' => $reactable3->getLoveReactant()->getId(),
-            'reacter_id' => $reacter2->getId(),
+            'reacter_id' => $reacterable2->getLoveReacter()->getId(),
         ]);
 
-        $reactedByReacter1WithReactionType1 = Article::query()
-            ->whereReactedBy($reacter1, $reactionType1)
+        $reactedByReacterable1WithReactionType1 = Article::query()
+            ->whereReactedBy($reacterable1, $reactionType1->getName())
             ->get();
-        $reactedByReacter1WithReactionType2 = Article::query()
-            ->whereReactedBy($reacter1, $reactionType2)
+        $reactedByReacterable1WithReactionType2 = Article::query()
+            ->whereReactedBy($reacterable1, $reactionType2->getName())
             ->get();
-        $reactedByReacter2WithReactionType1 = Article::query()
-            ->whereReactedBy($reacter2, $reactionType1)
+        $reactedByReacterable2WithReactionType1 = Article::query()
+            ->whereReactedBy($reacterable2, $reactionType1->getName())
             ->get();
-        $reactedByReacter2WithReactionType2 = Article::query()
-            ->whereReactedBy($reacter2, $reactionType2)
+        $reactedByReacterable2WithReactionType2 = Article::query()
+            ->whereReactedBy($reacterable2, $reactionType2->getName())
             ->get();
 
         $this->assertSame([
             $reactable1->getKey(),
             $reactable3->getKey(),
-        ], $reactedByReacter1WithReactionType1->pluck('id')->toArray());
+        ], $reactedByReacterable1WithReactionType1->pluck('id')->toArray());
         $this->assertSame([
             $reactable2->getKey(),
-        ], $reactedByReacter1WithReactionType2->pluck('id')->toArray());
+        ], $reactedByReacterable1WithReactionType2->pluck('id')->toArray());
         $this->assertSame([
             $reactable2->getKey(),
             $reactable3->getKey(),
-        ], $reactedByReacter2WithReactionType1->pluck('id')->toArray());
+        ], $reactedByReacterable2WithReactionType1->pluck('id')->toArray());
         $this->assertSame([
             $reactable1->getKey(),
-        ], $reactedByReacter2WithReactionType2->pluck('id')->toArray());
+        ], $reactedByReacterable2WithReactionType2->pluck('id')->toArray());
+    }
+
+    /** @test */
+    public function it_can_scope_not_reacted_by_reacterable(): void
+    {
+        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        $reactionType = factory(ReactionType::class)->create();
+        $reactable1 = factory(Article::class)->create();
+        $reactable2 = factory(Article::class)->create();
+        $reactable3 = factory(Article::class)->create();
+        $reacterable1 = factory(User::class)->create();
+        $reacterable2 = factory(User::class)->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable1->getLoveReactant()->getId(),
+            'reacter_id' => $reacterable1->getLoveReacter()->getId(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable2->getLoveReactant()->getId(),
+            'reacter_id' => $reacterable2->getLoveReacter()->getId(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable3->getLoveReactant()->getId(),
+            'reacter_id' => $reacterable1->getLoveReacter()->getId(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable3->getLoveReactant()->getId(),
+            'reacter_id' => $reacterable2->getLoveReacter()->getId(),
+        ]);
+
+        $reactedByReacterable1 = Article::query()
+            ->whereNotReactedBy($reacterable1)
+            ->get();
+        $reactedByReacterable2 = Article::query()
+            ->whereNotReactedBy($reacterable2)
+            ->get();
+
+        $this->assertSame([
+            $reactable2->getKey(),
+        ], $reactedByReacterable1->pluck('id')->toArray());
+        $this->assertSame([
+            $reactable1->getKey(),
+        ], $reactedByReacterable2->pluck('id')->toArray());
+    }
+
+    /** @test */
+    public function it_can_scope_not_reacted_by_reacterable_and_reaction_type(): void
+    {
+        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        $reactionType1 = factory(ReactionType::class)->create();
+        $reactionType2 = factory(ReactionType::class)->create();
+        $reactable1 = factory(Article::class)->create();
+        $reactable2 = factory(Article::class)->create();
+        $reactable3 = factory(Article::class)->create();
+        $reacterable1 = factory(User::class)->create();
+        $reacterable2 = factory(User::class)->create();
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable1->getLoveReactant()->getId(),
+            'reacter_id' => $reacterable1->getLoveReacter()->getId(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType2->getId(),
+            'reactant_id' => $reactable1->getLoveReactant()->getId(),
+            'reacter_id' => $reacterable2->getLoveReacter()->getId(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType2->getId(),
+            'reactant_id' => $reactable2->getLoveReactant()->getId(),
+            'reacter_id' => $reacterable1->getLoveReacter()->getId(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable2->getLoveReactant()->getId(),
+            'reacter_id' => $reacterable2->getLoveReacter()->getId(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable3->getLoveReactant()->getId(),
+            'reacter_id' => $reacterable1->getLoveReacter()->getId(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable3->getLoveReactant()->getId(),
+            'reacter_id' => $reacterable2->getLoveReacter()->getId(),
+        ]);
+
+        $reactedByReacterable1WithReactionType1 = Article::query()
+            ->whereNotReactedBy($reacterable1, $reactionType1->getName())
+            ->get();
+        $reactedByReacterable1WithReactionType2 = Article::query()
+            ->whereNotReactedBy($reacterable1, $reactionType2->getName())
+            ->get();
+        $reactedByReacterable2WithReactionType1 = Article::query()
+            ->whereNotReactedBy($reacterable2, $reactionType1->getName())
+            ->get();
+        $reactedByReacterable2WithReactionType2 = Article::query()
+            ->whereNotReactedBy($reacterable2, $reactionType2->getName())
+            ->get();
+
+        $this->assertSame([
+            $reactable2->getKey(),
+        ], $reactedByReacterable1WithReactionType1->pluck('id')->toArray());
+        $this->assertSame([
+            $reactable1->getKey(),
+            $reactable3->getKey(),
+        ], $reactedByReacterable1WithReactionType2->pluck('id')->toArray());
+        $this->assertSame([
+            $reactable1->getKey(),
+        ], $reactedByReacterable2WithReactionType1->pluck('id')->toArray());
+        $this->assertSame([
+            $reactable2->getKey(),
+            $reactable3->getKey(),
+        ], $reactedByReacterable2WithReactionType2->pluck('id')->toArray());
     }
 
     /** @test */
@@ -326,15 +444,88 @@ final class ReactableTest extends TestCase
             'reactant_id' => $reactable3->getLoveReactant()->getId(),
         ]);
 
-        $reactionType1CountKey = strtolower($reactionType1->getName()).'_count';
-        $reactionType1WeightKey = strtolower($reactionType1->getName()).'_weight';
+        $reactionType1CountKey = 'reaction_' . Str::snake($reactionType1->getName()) . '_count';
+        $reactionType1WeightKey = 'reaction_' . Str::snake($reactionType1->getName()) . '_weight';
 
         $reactablesOrderedAsc = Article::query()
-            ->joinReactionCounterOfType($reactionType1)
+            ->joinReactionCounterOfType($reactionType1->getName())
             ->orderBy($reactionType1CountKey, 'asc')
             ->get();
         $reactablesOrderedDesc = Article::query()
-            ->joinReactionCounterOfType($reactionType1)
+            ->joinReactionCounterOfType($reactionType1->getName())
+            ->orderBy($reactionType1CountKey, 'desc')
+            ->get();
+
+        $assertAsc = [
+            ['name' => $reactable3->name, "$reactionType1CountKey" => '1', "$reactionType1WeightKey" => '2'],
+            ['name' => $reactable1->name, "$reactionType1CountKey" => '2', "$reactionType1WeightKey" => '4'],
+            ['name' => $reactable2->name, "$reactionType1CountKey" => '3', "$reactionType1WeightKey" => '6'],
+        ];
+        $assertDesc = array_reverse($assertAsc);
+        $this->assertSame($assertAsc, $reactablesOrderedAsc->map(function (Article $reactable) use ($reactionType1CountKey, $reactionType1WeightKey) {
+            return [
+                'name' => $reactable->name,
+                "$reactionType1CountKey" => $reactable->{$reactionType1CountKey},
+                "$reactionType1WeightKey" => $reactable->{$reactionType1WeightKey},
+            ];
+        })->toArray());
+        $this->assertSame($assertDesc, $reactablesOrderedDesc->map(function (Article $reactable) use ($reactionType1CountKey, $reactionType1WeightKey) {
+            return [
+                'name' => $reactable->name,
+                "$reactionType1CountKey" => $reactable->{$reactionType1CountKey},
+                "$reactionType1WeightKey" => $reactable->{$reactionType1WeightKey},
+            ];
+        })->toArray());
+    }
+
+    /** @test */
+    public function it_can_get_reactables_join_reaction_counter_with_type_when_type_contains_multiple_words(): void
+    {
+        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        $reactionType1 = factory(ReactionType::class)->create([
+            'name' => 'SuperLike',
+            'mass' => 2,
+        ]);
+        $reactionType2 = factory(ReactionType::class)->create([
+            'mass' => 1,
+        ]);
+        $reactable1 = factory(Article::class)->create();
+        $reactable2 = factory(Article::class)->create();
+        $reactable3 = factory(Article::class)->create();
+        factory(Reaction::class, 2)->create([
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable1->getLoveReactant()->getId(),
+        ]);
+        factory(Reaction::class, 3)->create([
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable2->getLoveReactant()->getId(),
+        ]);
+        factory(Reaction::class, 1)->create([
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable3->getLoveReactant()->getId(),
+        ]);
+        factory(Reaction::class, 4)->create([
+            'reaction_type_id' => $reactionType2->getId(),
+            'reactant_id' => $reactable1->getLoveReactant()->getId(),
+        ]);
+        factory(Reaction::class, 5)->create([
+            'reaction_type_id' => $reactionType2->getId(),
+            'reactant_id' => $reactable2->getLoveReactant()->getId(),
+        ]);
+        factory(Reaction::class, 6)->create([
+            'reaction_type_id' => $reactionType2->getId(),
+            'reactant_id' => $reactable3->getLoveReactant()->getId(),
+        ]);
+
+        $reactionType1CountKey = 'reaction_super_like_count';
+        $reactionType1WeightKey = 'reaction_super_like_weight';
+
+        $reactablesOrderedAsc = Article::query()
+            ->joinReactionCounterOfType($reactionType1->getName())
+            ->orderBy($reactionType1CountKey, 'asc')
+            ->get();
+        $reactablesOrderedDesc = Article::query()
+            ->joinReactionCounterOfType($reactionType1->getName())
             ->orderBy($reactionType1CountKey, 'desc')
             ->get();
 
@@ -381,10 +572,10 @@ final class ReactableTest extends TestCase
             'reactant_id' => $reactable3->getLoveReactant()->getId(),
         ]);
 
-        $reactionType1CountKey = strtolower($reactionType1->getName()).'_count';
+        $reactionType1CountKey = 'reaction_' . Str::snake($reactionType1->getName()) . '_count';
 
         $reactablesOrderedAsc = Article::query()
-            ->joinReactionCounterOfType($reactionType1)
+            ->joinReactionCounterOfType($reactionType1->getName())
             ->orderBy($reactionType1CountKey, 'asc')
             ->get();
 
@@ -418,12 +609,12 @@ final class ReactableTest extends TestCase
             'reactant_id' => $reactable3->getLoveReactant()->getId(),
         ]);
 
-        $reactionType1CountKey = strtolower($reactionType1->getName()).'_count';
-        $reactionType1WeightKey = strtolower($reactionType1->getName()).'_weight';
+        $reactionType1CountKey = 'reaction_' . Str::snake($reactionType1->getName()) . '_count';
+        $reactionType1WeightKey = 'reaction_' . Str::snake($reactionType1->getName()) . '_weight';
 
         $reactablesOrderedAsc = Article::query()
             ->select('name')
-            ->joinReactionCounterOfType($reactionType1)
+            ->joinReactionCounterOfType($reactionType1->getName())
             ->orderBy($reactionType1CountKey, 'asc')
             ->get();
 
@@ -435,7 +626,7 @@ final class ReactableTest extends TestCase
     }
 
     /** @test */
-    public function it_can_order_by_reactions_total_count(): void
+    public function it_can_order_by_total_reactions_count(): void
     {
         factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactionType = factory(ReactionType::class)->create();
@@ -457,19 +648,53 @@ final class ReactableTest extends TestCase
 
         $reactablesOrderedAsc = Article::query()
             ->joinReactionTotal()
-            ->orderBy('reactions_total_count', 'asc')
+            ->orderBy('reaction_total_count', 'asc')
             ->get();
         $reactablesOrderedDesc = Article::query()
             ->joinReactionTotal()
-            ->orderBy('reactions_total_count', 'desc')
+            ->orderBy('reaction_total_count', 'desc')
             ->get();
 
-        $this->assertSame(['1', '2', '4'], $reactablesOrderedAsc->pluck('reactions_total_count')->toArray());
-        $this->assertSame(['4', '2', '1'], $reactablesOrderedDesc->pluck('reactions_total_count')->toArray());
+        $this->assertSame(['1', '2', '4'], $reactablesOrderedAsc->pluck('reaction_total_count')->toArray());
+        $this->assertSame(['4', '2', '1'], $reactablesOrderedDesc->pluck('reaction_total_count')->toArray());
     }
 
     /** @test */
-    public function it_select_default_reactable_columns_on_order_by_reactions_total_count(): void
+    public function it_can_order_by_total_reactions_count_with_custom_alias(): void
+    {
+        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        $reactionType = factory(ReactionType::class)->create();
+        $reactable1 = factory(Article::class)->create();
+        $reactable2 = factory(Article::class)->create();
+        $reactable3 = factory(Article::class)->create();
+        factory(Reaction::class, 2)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable1->getLoveReactant()->getId(),
+        ]);
+        factory(Reaction::class, 4)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable2->getLoveReactant()->getId(),
+        ]);
+        factory(Reaction::class, 1)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactable3->getLoveReactant()->getId(),
+        ]);
+
+        $reactablesOrderedAsc = Article::query()
+            ->joinReactionTotal('custom_alias')
+            ->orderBy('custom_alias_count', 'asc')
+            ->get();
+        $reactablesOrderedDesc = Article::query()
+            ->joinReactionTotal('custom_alias')
+            ->orderBy('custom_alias_count', 'desc')
+            ->get();
+
+        $this->assertSame(['1', '2', '4'], $reactablesOrderedAsc->pluck('custom_alias_count')->toArray());
+        $this->assertSame(['4', '2', '1'], $reactablesOrderedDesc->pluck('custom_alias_count')->toArray());
+    }
+
+    /** @test */
+    public function it_select_default_reactable_columns_on_order_by_total_reactions_count(): void
     {
         factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactionType = factory(ReactionType::class)->create();
@@ -491,7 +716,7 @@ final class ReactableTest extends TestCase
 
         $reactablesOrderedAsc = Article::query()
             ->joinReactionTotal()
-            ->orderBy('reactions_total_count', 'asc')
+            ->orderBy('reaction_total_count', 'asc')
             ->get();
 
         $this->assertSame([
@@ -502,7 +727,7 @@ final class ReactableTest extends TestCase
     }
 
     /** @test */
-    public function it_can_select_custom_reactable_columns_on_order_by_reactions_total_count(): void
+    public function it_can_select_custom_reactable_columns_on_order_by_total_reactions_count(): void
     {
         factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactionType = factory(ReactionType::class)->create();
@@ -525,17 +750,17 @@ final class ReactableTest extends TestCase
         $reactablesOrderedAsc = Article::query()
             ->select('name')
             ->joinReactionTotal()
-            ->orderBy('reactions_total_count', 'asc')
+            ->orderBy('reaction_total_count', 'asc')
             ->get();
 
         $this->assertSame([
-            ['name' => $reactable3->name, 'reactions_total_count' => '1'],
-            ['name' => $reactable1->name, 'reactions_total_count' => '2'],
-            ['name' => $reactable2->name, 'reactions_total_count' => '4'],
+            ['name' => $reactable3->name, 'reaction_total_count' => '1'],
+            ['name' => $reactable1->name, 'reaction_total_count' => '2'],
+            ['name' => $reactable2->name, 'reaction_total_count' => '4'],
         ], $reactablesOrderedAsc->map(function (Article $reactable) {
             return [
                 'name' => $reactable->name,
-                'reactions_total_count' => $reactable->reactions_total_count,
+                'reaction_total_count' => $reactable->reaction_total_count,
             ];
         })->toArray());
     }
@@ -565,15 +790,15 @@ final class ReactableTest extends TestCase
 
         $reactablesOrderedAsc = Article::query()
             ->joinReactionTotal()
-            ->orderBy('reactions_total_weight', 'asc')
+            ->orderBy('reaction_total_weight', 'asc')
             ->get();
         $reactablesOrderedDesc = Article::query()
             ->joinReactionTotal()
-            ->orderBy('reactions_total_weight', 'desc')
+            ->orderBy('reaction_total_weight', 'desc')
             ->get();
 
-        $this->assertSame(['2', '4', '8'], $reactablesOrderedAsc->pluck('reactions_total_weight')->toArray());
-        $this->assertSame(['8', '4', '2'], $reactablesOrderedDesc->pluck('reactions_total_weight')->toArray());
+        $this->assertSame(['2', '4', '8'], $reactablesOrderedAsc->pluck('reaction_total_weight')->toArray());
+        $this->assertSame(['8', '4', '2'], $reactablesOrderedDesc->pluck('reaction_total_weight')->toArray());
     }
 
     /** @test */
@@ -601,7 +826,7 @@ final class ReactableTest extends TestCase
 
         $reactablesOrderedAsc = Article::query()
             ->joinReactionTotal()
-            ->orderBy('reactions_total_weight', 'asc')
+            ->orderBy('reaction_total_weight', 'asc')
             ->get();
 
         $this->assertSame([
@@ -637,17 +862,17 @@ final class ReactableTest extends TestCase
         $reactablesOrderedAsc = Article::query()
             ->select('name')
             ->joinReactionTotal()
-            ->orderBy('reactions_total_weight', 'asc')
+            ->orderBy('reaction_total_weight', 'asc')
             ->get();
 
         $this->assertSame([
-            ['name' => $reactable3->name, 'reactions_total_weight' => '2'],
-            ['name' => $reactable1->name, 'reactions_total_weight' => '4'],
-            ['name' => $reactable2->name, 'reactions_total_weight' => '8'],
+            ['name' => $reactable3->name, 'reaction_total_weight' => '2'],
+            ['name' => $reactable1->name, 'reaction_total_weight' => '4'],
+            ['name' => $reactable2->name, 'reaction_total_weight' => '8'],
         ], $reactablesOrderedAsc->map(function (Article $reactable) {
             return [
                 'name' => $reactable->name,
-                'reactions_total_weight' => $reactable->reactions_total_weight,
+                'reaction_total_weight' => $reactable->reaction_total_weight,
             ];
         })->toArray());
     }
@@ -690,39 +915,39 @@ final class ReactableTest extends TestCase
             'reactant_id' => $reactable3->getLoveReactant()->getId(),
         ]);
 
-        $reactionType1CountKey = strtolower($reactionType1->getName()).'_count';
+        $reactionType1CountKey = 'reaction_' . Str::snake($reactionType1->getName()) . '_count';
 
         $reactablesOrderedAsc = Article::query()
-            ->joinReactionCounterOfType($reactionType1)
+            ->joinReactionCounterOfType($reactionType1->getName())
             ->joinReactionTotal()
-            ->orderBy('reactions_total_weight', 'asc')
+            ->orderBy('reaction_total_weight', 'asc')
             ->get();
 
         $this->assertSame([
             [
                 'name' => $reactable3->name,
                 "$reactionType1CountKey" => '1',
-                'reactions_total_count' => '2',
-                'reactions_total_weight' => '3',
+                'reaction_total_count' => '2',
+                'reaction_total_weight' => '3',
             ],
             [
                 'name' => $reactable1->name,
                 "$reactionType1CountKey" => '2',
-                'reactions_total_count' => '3',
-                'reactions_total_weight' => '5',
+                'reaction_total_count' => '3',
+                'reaction_total_weight' => '5',
             ],
             [
                 'name' => $reactable2->name,
                 "$reactionType1CountKey" => '4',
-                'reactions_total_count' => '5',
-                'reactions_total_weight' => '9',
+                'reaction_total_count' => '5',
+                'reaction_total_weight' => '9',
             ],
         ], $reactablesOrderedAsc->map(function (Article $reactable) use ($reactionType1CountKey) {
             return [
                 'name' => $reactable->name,
                 "$reactionType1CountKey" => $reactable->{$reactionType1CountKey},
-                'reactions_total_count' => $reactable->reactions_total_count,
-                'reactions_total_weight' => $reactable->reactions_total_weight,
+                'reaction_total_count' => $reactable->reaction_total_count,
+                'reaction_total_weight' => $reactable->reaction_total_weight,
             ];
         })->toArray());
     }
@@ -751,30 +976,30 @@ final class ReactableTest extends TestCase
 
         $reactablesOrderedAsc = Article::query()
             ->joinReactionTotal()
-            ->orderBy('reactions_total_weight', 'asc')
+            ->orderBy('reaction_total_weight', 'asc')
             ->get();
 
         $this->assertSame([
             [
                 'name' => $reactable2->name,
-                'reactions_total_count' => '0',
-                'reactions_total_weight' => '0',
+                'reaction_total_count' => '0',
+                'reaction_total_weight' => '0',
             ],
             [
                 'name' => $reactable3->name,
-                'reactions_total_count' => '1',
-                'reactions_total_weight' => '1',
+                'reaction_total_count' => '1',
+                'reaction_total_weight' => '1',
             ],
             [
                 'name' => $reactable1->name,
-                'reactions_total_count' => '2',
-                'reactions_total_weight' => '4',
+                'reaction_total_count' => '2',
+                'reaction_total_weight' => '4',
             ],
         ], $reactablesOrderedAsc->map(function (Article $reactable) {
             return [
                 'name' => $reactable->name,
-                'reactions_total_count' => $reactable->reactions_total_count,
-                'reactions_total_weight' => $reactable->reactions_total_weight,
+                'reaction_total_count' => $reactable->reaction_total_count,
+                'reaction_total_weight' => $reactable->reaction_total_weight,
             ];
         })->toArray());
     }
@@ -805,10 +1030,10 @@ final class ReactableTest extends TestCase
             'reactant_id' => $reactable2->getLoveReactant()->getId(),
         ]);
 
-        $reactionType1CountKey = strtolower($reactionType1->getName()).'_count';
+        $reactionType1CountKey = 'reaction_' . Str::snake($reactionType1->getName()) . '_count';
 
         $reactablesOrderedAsc = Article::query()
-            ->joinReactionCounterOfType($reactionType1)
+            ->joinReactionCounterOfType($reactionType1->getName())
             ->orderBy($reactionType1CountKey, 'asc')
             ->get();
 
@@ -855,45 +1080,45 @@ final class ReactableTest extends TestCase
             'reactant_id' => $reactable3->getLoveReactant()->getId(),
         ]);
 
-        $reactionType1CountKey = strtolower($reactionType1->getName()).'_count';
+        $reactionType1CountKey = 'reaction_' . Str::snake($reactionType1->getName()) . '_count';
 
         $reactablesOrderedAsc = Article::query()
-            ->joinReactionCounterOfType($reactionType1)
+            ->joinReactionCounterOfType($reactionType1->getName())
             ->joinReactionTotal()
-            ->orderBy('reactions_total_weight', 'asc')
+            ->orderBy('reaction_total_weight', 'asc')
             ->get();
 
         $this->assertSame([
             [
                 'name' => $reactable2->name,
                 "$reactionType1CountKey" => '0',
-                'reactions_total_count' => '0',
-                'reactions_total_weight' => '0',
+                'reaction_total_count' => '0',
+                'reaction_total_weight' => '0',
             ],
             [
                 'name' => $reactable3->name,
                 "$reactionType1CountKey" => '0',
-                'reactions_total_count' => '1',
-                'reactions_total_weight' => '1',
+                'reaction_total_count' => '1',
+                'reaction_total_weight' => '1',
             ],
             [
                 'name' => $reactable1->name,
                 "$reactionType1CountKey" => '2',
-                'reactions_total_count' => '2',
-                'reactions_total_weight' => '4',
+                'reaction_total_count' => '2',
+                'reaction_total_weight' => '4',
             ],
         ], $reactablesOrderedAsc->map(function (Article $reactable) use ($reactionType1CountKey) {
             return [
                 'name' => $reactable->name,
                 "$reactionType1CountKey" => $reactable->{$reactionType1CountKey},
-                'reactions_total_count' => $reactable->reactions_total_count,
-                'reactions_total_weight' => $reactable->reactions_total_weight,
+                'reaction_total_count' => $reactable->reaction_total_count,
+                'reaction_total_weight' => $reactable->reaction_total_weight,
             ];
         })->toArray());
     }
 
     /** @test */
-    public function it_can_chain_multiple_join_reaction_counter_with_type_based_on_reaction_type_name(): void
+    public function it_can_chain_multiple_join_reaction_counter_of_type(): void
     {
         factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
         $reactionType1 = factory(ReactionType::class)->create([
@@ -934,15 +1159,15 @@ final class ReactableTest extends TestCase
         ]);
 
         $reactablesWithTypeCount = Article::query()
-            ->joinReactionCounterOfType($reactionType1)
-            ->joinReactionCounterOfType($reactionType2)
+            ->joinReactionCounterOfType($reactionType1->getName())
+            ->joinReactionCounterOfType($reactionType2->getName())
             ->joinReactionTotal()
             ->get();
 
-        $reactionType1CountKey = strtolower($reactionType1->getName()).'_count';
-        $reactionType1WeightKey = strtolower($reactionType1->getName()).'_weight';
-        $reactionType2CountKey = strtolower($reactionType2->getName()).'_count';
-        $reactionType2WeightKey = strtolower($reactionType2->getName()).'_weight';
+        $reactionType1CountKey = 'reaction_' . Str::snake($reactionType1->getName()) . '_count';
+        $reactionType1WeightKey = 'reaction_' . Str::snake($reactionType1->getName()) . '_weight';
+        $reactionType2CountKey = 'reaction_' . Str::snake($reactionType2->getName()) . '_count';
+        $reactionType2WeightKey = 'reaction_' . Str::snake($reactionType2->getName()) . '_weight';
         $this->assertSame([
             [
                 'name' => $reactable1->name,
@@ -950,7 +1175,7 @@ final class ReactableTest extends TestCase
                 "$reactionType1WeightKey" => '10',
                 "$reactionType2CountKey" => '1',
                 "$reactionType2WeightKey" => '-1',
-                'reactions_total_weight' => '9',
+                'reaction_total_weight' => '9',
             ],
             [
                 'name' => $reactable2->name,
@@ -958,7 +1183,7 @@ final class ReactableTest extends TestCase
                 "$reactionType1WeightKey" => '8',
                 "$reactionType2CountKey" => '2',
                 "$reactionType2WeightKey" => '-2',
-                'reactions_total_weight' => '6',
+                'reaction_total_weight' => '6',
             ],
             [
                 'name' => $reactable3->name,
@@ -966,7 +1191,7 @@ final class ReactableTest extends TestCase
                 "$reactionType1WeightKey" => '6',
                 "$reactionType2CountKey" => '7',
                 "$reactionType2WeightKey" => '-7',
-                'reactions_total_weight' => '-1',
+                'reaction_total_weight' => '-1',
             ],
         ], $reactablesWithTypeCount->map(function (Article $reactable) use ($reactionType1WeightKey, $reactionType1CountKey, $reactionType2CountKey, $reactionType2WeightKey) {
             return [
@@ -975,7 +1200,90 @@ final class ReactableTest extends TestCase
                 "$reactionType1WeightKey" => $reactable->{$reactionType1WeightKey},
                 "$reactionType2CountKey" => $reactable->{$reactionType2CountKey},
                 "$reactionType2WeightKey" => $reactable->{$reactionType2WeightKey},
-                'reactions_total_weight' => $reactable->reactions_total_weight,
+                'reaction_total_weight' => $reactable->reaction_total_weight,
+            ];
+        })->toArray());
+    }
+
+    /** @test */
+    public function it_can_chain_multiple_join_reaction_counter_of_type_with_custom_aliases(): void
+    {
+        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        $reactionType1 = factory(ReactionType::class)->create([
+            'name' => 'Like',
+            'mass' => 2,
+        ]);
+        $reactionType2 = factory(ReactionType::class)->create([
+            'name' => 'Dislike',
+            'mass' => -1,
+        ]);
+        $reactable1 = factory(Article::class)->create();
+        $reactable2 = factory(Article::class)->create();
+        $reactable3 = factory(Article::class)->create();
+
+        factory(Reaction::class, 5)->create([
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable1->getLoveReactant()->getId(),
+        ]);
+        factory(Reaction::class)->create([
+            'reaction_type_id' => $reactionType2->getId(),
+            'reactant_id' => $reactable1->getLoveReactant()->getId(),
+        ]);
+        factory(Reaction::class, 4)->create([
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable2->getLoveReactant()->getId(),
+        ]);
+        factory(Reaction::class, 2)->create([
+            'reaction_type_id' => $reactionType2->getId(),
+            'reactant_id' => $reactable2->getLoveReactant()->getId(),
+        ]);
+        factory(Reaction::class, 3)->create([
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable3->getLoveReactant()->getId(),
+        ]);
+        factory(Reaction::class, 7)->create([
+            'reaction_type_id' => $reactionType2->getId(),
+            'reactant_id' => $reactable3->getLoveReactant()->getId(),
+        ]);
+
+        $reactablesWithTypeCount = Article::query()
+            ->joinReactionCounterOfType($reactionType1->getName(), 'likes')
+            ->joinReactionCounterOfType($reactionType2->getName(), 'custom_alias')
+            ->get();
+
+        $reactionType1CountKey = 'likes_count';
+        $reactionType1WeightKey = 'likes_weight';
+        $reactionType2CountKey = 'custom_alias_count';
+        $reactionType2WeightKey = 'custom_alias_weight';
+        $this->assertSame([
+            [
+                'name' => $reactable1->name,
+                "$reactionType1CountKey" => '5',
+                "$reactionType1WeightKey" => '10',
+                "$reactionType2CountKey" => '1',
+                "$reactionType2WeightKey" => '-1',
+            ],
+            [
+                'name' => $reactable2->name,
+                "$reactionType1CountKey" => '4',
+                "$reactionType1WeightKey" => '8',
+                "$reactionType2CountKey" => '2',
+                "$reactionType2WeightKey" => '-2',
+            ],
+            [
+                'name' => $reactable3->name,
+                "$reactionType1CountKey" => '3',
+                "$reactionType1WeightKey" => '6',
+                "$reactionType2CountKey" => '7',
+                "$reactionType2WeightKey" => '-7',
+            ],
+        ], $reactablesWithTypeCount->map(function (Article $reactable) use ($reactionType1WeightKey, $reactionType1CountKey, $reactionType2CountKey, $reactionType2WeightKey) {
+            return [
+                'name' => $reactable->name,
+                "$reactionType1CountKey" => $reactable->{$reactionType1CountKey},
+                "$reactionType1WeightKey" => $reactable->{$reactionType1WeightKey},
+                "$reactionType2CountKey" => $reactable->{$reactionType2CountKey},
+                "$reactionType2WeightKey" => $reactable->{$reactionType2WeightKey},
             ];
         })->toArray());
     }

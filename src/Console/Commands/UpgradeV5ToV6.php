@@ -37,7 +37,7 @@ final class UpgradeV5ToV6 extends Command
      *
      * @var string
      */
-    protected $description = 'Upgrade love package from v5 to v6';
+    protected $description = 'Upgrade Love package from v5 to v6';
 
     /**
      * Execute the console command.
