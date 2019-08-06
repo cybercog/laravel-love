@@ -70,8 +70,10 @@ Follow [upgrade instructions](UPGRADING.md#from-v7-to-v8) to migrate code & data
 - ([#102]) Changed third parameter type from `?ReactionType` to `?string` in `scopeWhereReactedBy` method of `Reactable` model trait
 - ([#97]) Added third `?string $alias` parameter to `scopeJoinReactionCounterOfType` method of `Reactable` model trait
 - ([#102]) Added second `?string $alias` parameter to `scopeJoinReactionTotal` method of `Reactable` model trait
-- ([#102]) Changed virtual column name from `reactions_count` to `reactions_{$type}_count` in `scopeJoinReactionCounterOfType` method of `Reactable` model trait
-- ([#102]) Changed virtual column name from `reactions_weight` to `reactions_{$type}_weight` in `scopeJoinReactionCounterOfType` method of `Reactable` model trait
+- ([#102]) Renamed virtual column `reactions_count` to `reaction_{$type}_count` in `scopeJoinReactionCounterOfType` method of `Reactable` model trait
+- ([#102]) Renamed virtual column `reactions_weight` to `reaction_{$type}_weight` in `scopeJoinReactionCounterOfType` method of `Reactable` model trait
+- ([#102]) Renamed virtual column `reactions_total_count` to `reaction_total_count` in `scopeJoinReactionTotal` method of `Reactable` model trait
+- ([#102]) Renamed virtual column `reactions_total_weight` to `reaction_total_weight` in `scopeJoinReactionTotal` method of `Reactable` model trait
 
 ### Removed
 
