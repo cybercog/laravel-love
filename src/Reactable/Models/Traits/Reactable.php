@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 /**
  * @mixin \Cog\Contracts\Love\Reactable\Models\Reactable
@@ -111,7 +112,7 @@ trait Reactable
         ?string $alias = null
     ): Builder {
         $reactionType = ReactionType::fromName($reactionTypeName);
-        $alias = is_null($alias) ? 'reaction_' . strtolower($reactionType->getName()) : $alias;
+        $alias = is_null($alias) ? 'reaction_' . Str::snake($reactionType->getName()) : $alias;
 
         $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
         $select[] = DB::raw("COALESCE({$alias}.count, 0) as {$alias}_count");
