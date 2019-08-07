@@ -88,61 +88,61 @@ Follow [upgrade instructions](UPGRADING.md#from-v7-to-v8) to migrate code & data
 
 ### Fixed
 
-- ([#77](https://github.com/cybercog/laravel-love/pull/77)) Fixed Null Objects iterable return type inconsistency
+- ([#77]) Fixed Null Objects iterable return type inconsistency
 
 ## [7.2.0] - 2019-07-01
 
 ### Added
 
-- ([#72](https://github.com/cybercog/laravel-love/pull/72)) Default migrations loading configuration
+- ([#72]) Default migrations loading configuration
 
 ## [7.1.0] - 2019-06-23
 
 ### Added
 
-- ([#68](https://github.com/cybercog/laravel-love/pull/68)) Database connection configuration
+- ([#68]) Database connection configuration
 
 ## [7.0.1] - 2019-06-22
 
 ### Changed
 
-- ([#70](https://github.com/cybercog/laravel-love/pull/70)) `isReactedTo` & `isNotReactedTo` methods names of `Reacter` facade were changed to `hasReactedTo` & `hasNotReactedTo`
+- ([#70]) `isReactedTo` & `isNotReactedTo` methods names of `Reacter` facade were changed to `hasReactedTo` & `hasNotReactedTo`
 
 ## [7.0.0] - 2019-06-22
 
 ### Added
 
-- ([#54](https://github.com/cybercog/laravel-love/pull/54)) `Reacter` & `Reactant` facades
+- ([#54]) `Reacter` & `Reactant` facades
 - `viaLoveReacter` method to `Reacterable` trait & contract
 - `viaLoveReactant` method to `Reactable` trait & contract
 
 ### Removed
 
-- ([#67](https://github.com/cybercog/laravel-love/pull/67)) `Cog\Laravel\Love\Facades\Love` global facade
+- ([#67]) `Cog\Laravel\Love\Facades\Love` global facade
 
 ## [6.2.1] - 2019-06-14
 
 ### Fixed
 
-- ([#58](https://github.com/cybercog/laravel-love/pull/58)) Fix `--model` option of `love:setup-reacterable` & `love:setup-reactable` Artisan commands
+- ([#58]) Fix `--model` option of `love:setup-reacterable` & `love:setup-reactable` Artisan commands
 
 ## [6.2.0] - 2019-06-14
 
 ### Added
 
-- ([#56](https://github.com/cybercog/laravel-love/pull/56)) `love:setup-reacterable` & `love:setup-reactable` Artisan commands were added
+- ([#56]) `love:setup-reacterable` & `love:setup-reactable` Artisan commands were added
 
 ## [6.1.0] - 2019-05-07
 
 ### Added
 
-- ([#51](https://github.com/cybercog/laravel-love/pull/51)) `love:reaction-type-add` Artisan command was added
+- ([#51]) `love:reaction-type-add` Artisan command was added
 
 ## [6.0.1] - 2019-03-05
 
 ### Removed
 
-- ([#47](https://github.com/cybercog/laravel-love/pull/47)) Removed duplicating indexes for foreign keys
+- ([#47]) Removed duplicating indexes for foreign keys
 
 ## [6.0.0] - 2019-02-25
 
@@ -188,19 +188,19 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 
 ### Added
 
-- ([#21](https://github.com/cybercog/laravel-love/pull/21)) Laravel 5.7 support
+- ([#21]) Laravel 5.7 support
 
 ## [5.1.1] - 2018-02-16
 
 ### Fixed
 
-- ([#11](https://github.com/cybercog/laravel-love/pull/11)) Added missing migrations auto-loading
+- ([#11]) Added missing migrations auto-loading
 
 ## [5.1.0] - 2018-02-08
 
 ### Added
 
-- ([#9](https://github.com/cybercog/laravel-love/pull/9)) Laravel 5.6 support
+- ([#9]) Laravel 5.6 support
 
 ## [5.0.0] - 2018-01-16
 
@@ -397,16 +397,29 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 [1.1.1]: https://github.com/cybercog/laravel-love/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/cybercog/laravel-love/compare/1.0.0...1.1.0
 
-[#79]: https://github.com/cybercog/laravel-love/pull/79
-[#83]: https://github.com/cybercog/laravel-love/pull/83
-[#86]: https://github.com/cybercog/laravel-love/pull/86
-[#87]: https://github.com/cybercog/laravel-love/pull/87
-[#88]: https://github.com/cybercog/laravel-love/pull/88
-[#89]: https://github.com/cybercog/laravel-love/pull/89
-[#90]: https://github.com/cybercog/laravel-love/pull/90
-[#91]: https://github.com/cybercog/laravel-love/pull/91
-[#96]: https://github.com/cybercog/laravel-love/pull/96
-[#97]: https://github.com/cybercog/laravel-love/pull/97
-[#99]: https://github.com/cybercog/laravel-love/pull/99
-[#100]: https://github.com/cybercog/laravel-love/pull/100
 [#102]: https://github.com/cybercog/laravel-love/pull/102
+[#100]: https://github.com/cybercog/laravel-love/pull/100
+[#99]: https://github.com/cybercog/laravel-love/pull/99
+[#97]: https://github.com/cybercog/laravel-love/pull/97
+[#96]: https://github.com/cybercog/laravel-love/pull/96
+[#91]: https://github.com/cybercog/laravel-love/pull/91
+[#90]: https://github.com/cybercog/laravel-love/pull/90
+[#89]: https://github.com/cybercog/laravel-love/pull/89
+[#88]: https://github.com/cybercog/laravel-love/pull/88
+[#87]: https://github.com/cybercog/laravel-love/pull/87
+[#86]: https://github.com/cybercog/laravel-love/pull/86
+[#83]: https://github.com/cybercog/laravel-love/pull/83
+[#79]: https://github.com/cybercog/laravel-love/pull/79
+[#77]: https://github.com/cybercog/laravel-love/pull/77
+[#72]: https://github.com/cybercog/laravel-love/pull/72
+[#70]: https://github.com/cybercog/laravel-love/pull/70
+[#68]: https://github.com/cybercog/laravel-love/pull/68
+[#67]: https://github.com/cybercog/laravel-love/pull/67
+[#58]: https://github.com/cybercog/laravel-love/pull/58
+[#56]: https://github.com/cybercog/laravel-love/pull/56
+[#54]: https://github.com/cybercog/laravel-love/pull/54
+[#51]: https://github.com/cybercog/laravel-love/pull/51
+[#47]: https://github.com/cybercog/laravel-love/pull/47
+[#21]: https://github.com/cybercog/laravel-love/pull/21
+[#11]: https://github.com/cybercog/laravel-love/pull/11
+[#9]: https://github.com/cybercog/laravel-love/pull/9
