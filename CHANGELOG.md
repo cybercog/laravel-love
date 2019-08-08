@@ -4,6 +4,8 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ## [Unreleased]
 
+## [8.0.0] - 2019-08-08
+
 Code has a lot of breaking changes because of new Weighted Reaction System.
 
 Follow [upgrade instructions](UPGRADING.md#from-v7-to-v8) to migrate code & database to new structure.
@@ -366,7 +368,8 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 
 - Initial release
 
-[Unreleased]: https://github.com/cybercog/laravel-love/compare/7.2.1...master
+[Unreleased]: https://github.com/cybercog/laravel-love/compare/8.0.0...master
+[8.0.0]: https://github.com/cybercog/laravel-love/compare/7.2.1...8.0.0
 [7.2.1]: https://github.com/cybercog/laravel-love/compare/7.2.0...7.2.1
 [7.2.0]: https://github.com/cybercog/laravel-love/compare/7.1.0...7.2.0
 [7.1.0]: https://github.com/cybercog/laravel-love/compare/7.0.1...7.1.0
