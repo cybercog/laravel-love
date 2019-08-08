@@ -26,6 +26,8 @@
 
 Run only after all preparations are done.
 
+Automated migration process requires `doctrine/dbal` composer package to be installed.
+
 **VERY IMPORTANT: Create backup of your production database!**
 
 ```sh
@@ -64,8 +66,8 @@ Most of the upgrade requirements couldn't be done automatically because of compl
 
 ### Reactable model methods
 
-- Find all `whereLikedBy` method and replace it with `whereReactedWithTypeBy`
-- Find all `whereDislikedBy` method and replace it with `whereReactedWithTypeBy`
+- Find all `whereLikedBy` method and replace it with `whereReactedByWithType`
+- Find all `whereDislikedBy` method and replace it with `whereReactedByWithType`
 - Find all `like` method and replace it with `reactTo`
 - Find all `dislike` method and replace it with `reactTo`
 - Find all `unlike` method and replace it with `unreactTo`
