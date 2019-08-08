@@ -26,6 +26,8 @@
 
 Run only after all preparations are done.
 
+Automated migration process requires `doctrine/dbal` composer package to be installed.
+
 **VERY IMPORTANT: Create backup of your production database!**
 
 ```sh
