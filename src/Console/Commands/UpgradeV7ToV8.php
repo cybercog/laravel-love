@@ -44,25 +44,32 @@ final class UpgradeV7ToV8 extends Command
      */
     public function handle(): void
     {
+        $this->warn('Started Laravel Love v7 to v8 upgrade process.');
         $this->dbChangeReactionTypes();
         $this->dbChangeReactions();
         $this->dbChangeReactantReactionCounters();
         $this->dbChangeReactantReactionTotals();
+        $this->info('Completed Laravel Love v7 to v8 upgrade process.');
     }
 
     private function dbChangeReactionTypes(): void
     {
+        $this->warn('DB: Renaming reaction types weight column.');
         $this->getDbSchema()->table('love_reaction_types', function (Blueprint $table) {
             $table->renameColumn('weight', 'mass');
         });
+        $this->info('DB: Renamed reaction types weight column.');
     }
 
     private function dbChangeReactions(): void
     {
+        $this->warn('DB: Adding rate column to reactions.');
         $this->getDbSchema()->table('love_reactions', function (Blueprint $table) {
             $table->decimal('rate', 4, 2)->after('reaction_type_id');
         });
+        $this->info('DB: Added rate column to reactions.');
 
+        $this->warn('DB: Updating reaction rate column values for existing records.');
         $this
             ->getDbQuery()
             ->table('love_reactions')
@@ -70,22 +77,27 @@ final class UpgradeV7ToV8 extends Command
             ->update([
                 'rate' => 1.0,
             ]);
+        $this->info('DB: Updated reaction rate column values for existing records.');
     }
 
     private function dbChangeReactantReactionCounters(): void
     {
+        $this->warn('DB: Changing default reaction counters values.');
         $this->getDbSchema()->table('love_reactant_reaction_counters', function (Blueprint $table) {
             $table->unsignedBigInteger('count')->default(null)->change();
             $table->decimal('weight', 13, 2)->default(null)->change();
         });
+        $this->info('DB: Changed default reaction counters values.');
     }
 
     private function dbChangeReactantReactionTotals(): void
     {
+        $this->warn('DB: Changing default reaction totals values.');
         $this->getDbSchema()->table('love_reactant_reaction_totals', function (Blueprint $table) {
             $table->unsignedBigInteger('count')->default(null)->change();
             $table->decimal('weight', 13, 2)->default(null)->change();
         });
+        $this->info('DB: Changed default reaction counters values.');
     }
 
     private function getDbSchema(): Builder
