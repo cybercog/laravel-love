@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Console\Commands;
 
+use Doctrine\DBAL\Driver as DoctrineDbalDriver;
 use Illuminate\Console\Command;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Database\Schema\Blueprint;
@@ -44,12 +45,24 @@ final class UpgradeV7ToV8 extends Command
      */
     public function handle(): void
     {
+        $this->assertRequirements();
         $this->warn('Started Laravel Love v7 to v8 upgrade process.');
         $this->dbChangeReactionTypes();
         $this->dbChangeReactions();
         $this->dbChangeReactantReactionCounters();
         $this->dbChangeReactantReactionTotals();
         $this->info('Completed Laravel Love v7 to v8 upgrade process.');
+    }
+
+    private function assertRequirements(): void
+    {
+        if (interface_exists(DoctrineDbalDriver::class)) {
+            return;
+        }
+
+        $this->error('Doctrine DBAL is missing!');
+        $this->info('<comment>Install it with Composer:</comment> composer require doctrine/dbal');
+        exit;
     }
 
     private function dbChangeReactionTypes(): void
