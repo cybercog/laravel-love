@@ -24,17 +24,16 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Composer;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
+use Symfony\Component\Console\Input\InputOption;
 
 final class SetupReactable extends Command
 {
     /**
-     * The name and signature of the console command.
+     * The console command name.
      *
      * @var string
      */
-    protected $signature = 'love:setup-reactable
-        {--model= : The name of the reactable model}
-        {--nullable : Indicate if foreign column allows null values}';
+    protected $name = 'love:setup-reactable';
 
     /**
      * The console command description.
@@ -132,6 +131,14 @@ final class SetupReactable extends Command
         $this->composer->dumpAutoloads();
 
         return 0;
+    }
+
+    protected function getOptions(): array
+    {
+        return [
+            ['model', null, InputOption::VALUE_OPTIONAL, 'The name of the reactable model'],
+            ['nullable', null, InputOption::VALUE_NONE, 'Indicate if foreign column allows null values'],
+        ];
     }
 
     private function resolveModel(): string

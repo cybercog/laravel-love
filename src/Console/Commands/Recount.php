@@ -23,17 +23,16 @@ use Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Symfony\Component\Console\Input\InputOption;
 
 final class Recount extends Command
 {
     /**
-     * The name and signature of the console command.
+     * The console command name.
      *
      * @var string
      */
-    protected $signature = 'love:recount
-        {--model= : The name of the reactable model}
-        {--type= : The name of the reaction type}';
+    protected $name = 'love:recount';
 
     /**
      * The console command description.
@@ -95,6 +94,14 @@ final class Recount extends Command
             $this->getOutput()->progressAdvance();
         }
         $this->getOutput()->progressFinish();
+    }
+
+    protected function getOptions(): array
+    {
+        return [
+            ['model', null, InputOption::VALUE_OPTIONAL, 'The name of the reactable model'],
+            ['type', null, InputOption::VALUE_OPTIONAL, 'The name of the reaction type'],
+        ];
     }
 
     /**
