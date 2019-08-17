@@ -157,6 +157,4 @@ final class ReactionTypeAdd extends Command
     {
         return preg_match('#^[A-Z][a-zA-Z0-9_]*$#', $name) === 0;
     }
-
-
 }
