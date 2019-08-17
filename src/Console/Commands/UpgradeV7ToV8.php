@@ -25,11 +25,11 @@ use Illuminate\Support\Facades\Schema;
 final class UpgradeV7ToV8 extends Command
 {
     /**
-     * The name and signature of the console command.
+     * The console command name.
      *
      * @var string
      */
-    protected $signature = 'love:upgrade-v7-to-v8';
+    protected $name = 'love:upgrade-v7-to-v8';
 
     /**
      * The console command description.

@@ -26,11 +26,11 @@ use Illuminate\Support\Str;
 final class UpgradeV5ToV6 extends Command
 {
     /**
-     * The name and signature of the console command.
+     * The console command name.
      *
      * @var string
      */
-    protected $signature = 'love:upgrade-v5-to-v6';
+    protected $name = 'love:upgrade-v5-to-v6';
 
     /**
      * The console command description.

@@ -16,18 +16,16 @@ namespace Cog\Laravel\Love\Console\Commands;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
+use Symfony\Component\Console\Input\InputOption;
 
 final class ReactionTypeAdd extends Command
 {
     /**
-     * The name and signature of the console command.
+     * The console command name.
      *
      * @var string
      */
-    protected $signature = 'love:reaction-type-add
-                            {--default : Create default Like & Dislike reactions}
-                            {--name= : The name of the reaction}
-                            {--mass= : The mass of the reaction}';
+    protected $name = 'love:reaction-type-add';
 
     /**
      * The console command description.
@@ -73,6 +71,15 @@ final class ReactionTypeAdd extends Command
         $this->createReactionType($name, $this->resolveMass());
 
         return 0;
+    }
+
+    protected function getOptions(): array
+    {
+        return [
+            ['default', null, InputOption::VALUE_NONE, 'Create default Like & Dislike reactions'],
+            ['name', null, InputOption::VALUE_OPTIONAL, 'The name of the reaction'],
+            ['mass', null, InputOption::VALUE_OPTIONAL, 'The mass of the reaction'],
+        ];
     }
 
     private function createDefaultReactionTypes(): void
