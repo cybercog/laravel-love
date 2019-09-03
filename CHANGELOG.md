@@ -4,6 +4,13 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+
+- ([#110]) Removed dependency of `RateOutOfRange` exception in contracts namespace on concrete `Reaction` model implementation
+- ([#110]) Renamed `withValue` method to `withValueBetween` in `RateOutOfRange` exception
+- ([#110]) Added `$minimumRate` parameter to `withValueBetween` method in `RateOutOfRange` exception
+- ([#110]) Added `$maximumRate` parameter to `withValueBetween` method in `RateOutOfRange` exception
+
 ## [8.0.0] - 2019-08-08
 
 Code has a lot of breaking changes because of new Weighted Reaction System.
@@ -400,6 +407,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 [1.1.1]: https://github.com/cybercog/laravel-love/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/cybercog/laravel-love/compare/1.0.0...1.1.0
 
+[#110]: https://github.com/cybercog/laravel-love/pull/110
 [#102]: https://github.com/cybercog/laravel-love/pull/102
 [#100]: https://github.com/cybercog/laravel-love/pull/100
 [#99]: https://github.com/cybercog/laravel-love/pull/99
