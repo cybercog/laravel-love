@@ -4,6 +4,10 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- ([#113]) Laravel 6 support
+
 ### Changed
 
 - ([#110]) Removed dependency of `RateOutOfRange` exception in contracts namespace on concrete `Reaction` model implementation
@@ -409,6 +413,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 [1.1.1]: https://github.com/cybercog/laravel-love/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/cybercog/laravel-love/compare/1.0.0...1.1.0
 
+[#113]: https://github.com/cybercog/laravel-love/pull/113
 [#111]: https://github.com/cybercog/laravel-love/pull/111
 [#110]: https://github.com/cybercog/laravel-love/pull/110
 [#102]: https://github.com/cybercog/laravel-love/pull/102
