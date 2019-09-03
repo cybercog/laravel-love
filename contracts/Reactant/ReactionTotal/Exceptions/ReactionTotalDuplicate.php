@@ -23,7 +23,7 @@ final class ReactionTotalDuplicate extends RuntimeException implements
     public static function forReactant(
         Reactant $reactant
     ): self {
-        return new static(sprintf(
+        return new self(sprintf(
             'ReactionTotal for Reactant `%s` already exists.',
             $reactant->getId()
         ));

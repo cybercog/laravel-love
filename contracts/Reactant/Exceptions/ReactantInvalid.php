@@ -21,6 +21,6 @@ final class ReactantInvalid extends RuntimeException implements
 {
     public static function notExists(): self
     {
-        return new static('Reactant not exists.');
+        return new self('Reactant not exists.');
     }
 }

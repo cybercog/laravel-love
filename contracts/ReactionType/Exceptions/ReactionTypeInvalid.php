@@ -21,6 +21,9 @@ final class ReactionTypeInvalid extends RuntimeException implements
 {
     public static function nameNotExists(string $name): self
     {
-        return new static("ReactionType with name `{$name}` not exists.");
+        return new self(sprintf(
+            'ReactionType with name `%s` not exists.',
+            $name
+        ));
     }
 }

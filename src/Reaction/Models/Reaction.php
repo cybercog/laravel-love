@@ -100,7 +100,7 @@ final class Reaction extends Model implements
         ?float $rate
     ): void {
         if (!is_null($rate) && ($rate < self::RATE_MIN || $rate > self::RATE_MAX)) {
-            throw RateOutOfRange::withValue($rate);
+            throw RateOutOfRange::withValueBetween($rate, self::RATE_MIN, self::RATE_MAX);
         }
 
         $this->attributes['rate'] = $rate;

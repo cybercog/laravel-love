@@ -22,11 +22,17 @@ final class ReactableInvalid extends RuntimeException implements
 {
     public static function classNotExists(string $type): self
     {
-        return new static("[{$type}] class or morph map not found.");
+        return new self(sprintf(
+            '[%s] class or morph map not found.',
+            $type
+        ));
     }
 
     public static function notImplementInterface(string $type): self
     {
-        return new static(sprintf('[%s] must implement `%s` contract.', $type, ReactableContract::class));
+        return new self(sprintf(
+            '[%s] must implement `%s` contract.',
+            $type, ReactableContract::class
+        ));
     }
 }

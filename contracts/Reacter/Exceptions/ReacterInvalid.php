@@ -21,6 +21,6 @@ final class ReacterInvalid extends RuntimeException implements
 {
     public static function notExists(): self
     {
-        return new static('Reacter not exists.');
+        return new self('Reacter not exists.');
     }
 }
