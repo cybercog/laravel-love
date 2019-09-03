@@ -102,8 +102,7 @@ final class SetupReactable extends Command
         if (Schema::hasColumn($table, $foreignColumn)) {
             $this->error(sprintf(
                 'Foreign column `%s` already exists in `%s` database table.',
-                $foreignColumn,
-                $table
+                $foreignColumn, $table
             ));
 
             return 1;

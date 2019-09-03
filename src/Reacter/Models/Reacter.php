@@ -89,9 +89,10 @@ final class Reacter extends Model implements
         }
 
         if (is_null($rate)) {
-            throw new ReactionAlreadyExists(
-                sprintf('Reaction of type `%s` already exists.', $reactionType->getName())
-            );
+            throw new ReactionAlreadyExists(sprintf(
+                'Reaction of type `%s` already exists.',
+                $reactionType->getName()
+            ));
         }
 
         $reaction->changeRate($rate);
@@ -108,9 +109,10 @@ final class Reacter extends Model implements
         $reaction = $this->findReaction($reactant, $reactionType);
 
         if (is_null($reaction)) {
-            throw new ReactionNotExists(
-                sprintf('Reaction of type `%s` not exists.', $reactionType->getName())
-            );
+            throw new ReactionNotExists(sprintf(
+                'Reaction of type `%s` not exists.',
+                $reactionType->getName()
+            ));
         }
 
         $reaction->delete();
