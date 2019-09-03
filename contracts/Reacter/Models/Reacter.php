@@ -32,9 +32,9 @@ interface Reacter
 
     public function unreactTo(Reactant $reactant, ReactionType $reactionType): void;
 
-    public function hasReactedTo(Reactant $reactant, ?ReactionType $reactionType = null, float $rate = null): bool;
+    public function hasReactedTo(Reactant $reactant, ?ReactionType $reactionType = null, ?float $rate = null): bool;
 
-    public function hasNotReactedTo(Reactant $reactant, ?ReactionType $reactionType = null, float $rate = null): bool;
+    public function hasNotReactedTo(Reactant $reactant, ?ReactionType $reactionType = null, ?float $rate = null): bool;
 
     public function isEqualTo(self $that): bool;
 

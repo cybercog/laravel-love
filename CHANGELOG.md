@@ -10,6 +10,8 @@ All notable changes to `laravel-love` will be documented in this file.
 - ([#110]) Renamed `withValue` method to `withValueBetween` in `RateOutOfRange` exception
 - ([#110]) Added `$minimumRate` parameter to `withValueBetween` method in `RateOutOfRange` exception
 - ([#110]) Added `$maximumRate` parameter to `withValueBetween` method in `RateOutOfRange` exception
+- ([#111]) Changed `$rate` parameter type from `float` to `?float` of `hasReactedTo` method in `Reacter` model contract
+- ([#111]) Changed `$rate` parameter type from `float` to `?float` of `hasNotReactedTo` method in `Reacter` model contract
 
 ## [8.0.0] - 2019-08-08
 
@@ -407,6 +409,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 [1.1.1]: https://github.com/cybercog/laravel-love/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/cybercog/laravel-love/compare/1.0.0...1.1.0
 
+[#111]: https://github.com/cybercog/laravel-love/pull/111
 [#110]: https://github.com/cybercog/laravel-love/pull/110
 [#102]: https://github.com/cybercog/laravel-love/pull/102
 [#100]: https://github.com/cybercog/laravel-love/pull/100

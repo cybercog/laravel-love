@@ -121,7 +121,7 @@ final class Reacter extends Model implements
     public function hasReactedTo(
         ReactantContract $reactant,
         ?ReactionTypeContract $reactionType = null,
-        float $rate = null
+        ?float $rate = null
     ): bool {
         if ($reactant->isNull()) {
             return false;
@@ -133,7 +133,7 @@ final class Reacter extends Model implements
     public function hasNotReactedTo(
         ReactantContract $reactant,
         ?ReactionTypeContract $reactionType = null,
-        float $rate = null
+        ?float $rate = null
     ): bool {
         return $reactant->isNotReactedBy($this, $reactionType, $rate);
     }
@@ -164,7 +164,7 @@ final class Reacter extends Model implements
     private function createReaction(
         ReactantContract $reactant,
         ReactionTypeContract $reactionType,
-        ?float $rate
+        ?float $rate = null
     ): void {
         $this->reactions()->create([
             'reaction_type_id' => $reactionType->getId(),

@@ -65,7 +65,7 @@ final class NullReacter implements
     public function hasReactedTo(
         Reactant $reactant,
         ?ReactionType $reactionType = null,
-        float $rate = null
+        ?float $rate = null
     ): bool {
         return false;
     }
@@ -73,7 +73,7 @@ final class NullReacter implements
     public function hasNotReactedTo(
         Reactant $reactant,
         ?ReactionType $reactionType = null,
-        float $rate = null
+        ?float $rate = null
     ): bool {
         return true;
     }
