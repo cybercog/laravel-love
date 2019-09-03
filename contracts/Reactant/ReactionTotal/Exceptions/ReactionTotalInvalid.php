@@ -21,6 +21,6 @@ final class ReactionTotalInvalid extends RuntimeException implements
 {
     public static function notExists(): self
     {
-        return new static('ReactionTotal not exists.');
+        return new self('ReactionTotal not exists.');
     }
 }

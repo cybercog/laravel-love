@@ -25,10 +25,9 @@ final class ReactionCounterDuplicate extends RuntimeException implements
         ReactionType $reactionType,
         Reactant $reactant
     ): self {
-        return new static(sprintf(
+        return new self(sprintf(
             'ReactionCounter for Reactant `%s` with ReactionType `%s` already exists.',
-            $reactant->getId(),
-            $reactionType->getId()
+            $reactant->getId(), $reactionType->getId()
         ));
     }
 }

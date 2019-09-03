@@ -21,6 +21,6 @@ final class ReactionCounterInvalid extends RuntimeException implements
 {
     public static function notExists(): self
     {
-        return new static('ReactionCounter not exists.');
+        return new self('ReactionCounter not exists.');
     }
 }
