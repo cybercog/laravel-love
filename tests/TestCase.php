@@ -137,7 +137,6 @@ abstract class TestCase extends Orchestra
         Relation::morphMap([
             'entity-with-morph-map' => EntityWithMorphMap::class,
         ]);
-        
     }
 
     /**
