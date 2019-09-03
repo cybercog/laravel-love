@@ -4,6 +4,8 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ## [Unreleased]
 
+## [8.1.0] - 2019-09-03
+
 ### Added
 
 - ([#113]) Laravel 6 support
@@ -16,6 +18,12 @@ All notable changes to `laravel-love` will be documented in this file.
 - ([#110]) Added `$maximumRate` parameter to `withValueBetween` method in `RateOutOfRange` exception
 - ([#111]) Changed `$rate` parameter type from `float` to `?float` of `hasReactedTo` method in `Reacter` model contract
 - ([#111]) Changed `$rate` parameter type from `float` to `?float` of `hasNotReactedTo` method in `Reacter` model contract
+
+## [5.3.0] - 2019-09-03
+
+### Added
+
+- ([#114]) Laravel 6 support
 
 ## [8.0.0] - 2019-08-08
 
@@ -381,7 +389,8 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 
 - Initial release
 
-[Unreleased]: https://github.com/cybercog/laravel-love/compare/8.0.0...master
+[Unreleased]: https://github.com/cybercog/laravel-love/compare/8.1.0...master
+[8.1.0]: https://github.com/cybercog/laravel-love/compare/8.0.0...8.1.0
 [8.0.0]: https://github.com/cybercog/laravel-love/compare/7.2.1...8.0.0
 [7.2.1]: https://github.com/cybercog/laravel-love/compare/7.2.0...7.2.1
 [7.2.0]: https://github.com/cybercog/laravel-love/compare/7.1.0...7.2.0
@@ -393,6 +402,8 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 [6.1.0]: https://github.com/cybercog/laravel-love/compare/6.0.1...6.1.0
 [6.0.1]: https://github.com/cybercog/laravel-love/compare/6.0.0...6.0.1
 [6.0.0]: https://github.com/cybercog/laravel-love/compare/5.2.0...6.0.0
+[5.3.0]: https://github.com/cybercog/laravel-love/compare/5.2.1...5.3.0
+[5.2.1]: https://github.com/cybercog/laravel-love/compare/5.2.0...5.2.1
 [5.2.0]: https://github.com/cybercog/laravel-love/compare/5.1.1...5.2.0
 [5.1.1]: https://github.com/cybercog/laravel-love/compare/5.1.0...5.1.1
 [5.1.0]: https://github.com/cybercog/laravel-love/compare/5.0.0...5.1.0
@@ -413,6 +424,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 [1.1.1]: https://github.com/cybercog/laravel-love/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/cybercog/laravel-love/compare/1.0.0...1.1.0
 
+[#114]: https://github.com/cybercog/laravel-love/pull/114
 [#113]: https://github.com/cybercog/laravel-love/pull/113
 [#111]: https://github.com/cybercog/laravel-love/pull/111
 [#110]: https://github.com/cybercog/laravel-love/pull/110
