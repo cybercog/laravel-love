@@ -61,8 +61,8 @@ Our address is: Anton Komarev, Mitinskaya 52-405, 125430 Moscow, Russia.
 
 ## About CyberCog
 
-[CyberCog](https://cybercog.ru) is a Social Unity of enthusiasts. Research best solutions in product & software development is our passion.
+[CyberCog](https://cybercog.su) is a Social Unity of enthusiasts. Research best solutions in product & software development is our passion.
 
 - [Follow us on Twitter](https://twitter.com/cybercog)
 
-<a href="https://cybercog.ru"><img src="https://cloud.githubusercontent.com/assets/1849174/18418932/e9edb390-7860-11e6-8a43-aa3fad524664.png" alt="CyberCog"></a>
+<a href="https://cybercog.su"><img src="https://cloud.githubusercontent.com/assets/1849174/18418932/e9edb390-7860-11e6-8a43-aa3fad524664.png" alt="CyberCog"></a>
