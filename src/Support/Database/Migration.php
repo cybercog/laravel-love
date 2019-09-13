@@ -15,9 +15,22 @@ namespace Cog\Laravel\Love\Support\Database;
 
 use Illuminate\Database\Migrations\Migration as IlluminateMigration;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Schema;
 
 abstract class Migration extends IlluminateMigration
 {
+    /**
+     * The database schema.
+     *
+     * @var \Illuminate\Support\Facades\Schema
+     */
+    protected $schema;
+
+    public function __construct()
+    {
+        $this->schema = Schema::connection($this->getConnection());
+    }
+
     /**
      * Get the migration connection name.
      *

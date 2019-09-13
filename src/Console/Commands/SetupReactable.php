@@ -87,10 +87,11 @@ final class SetupReactable extends Command
 
         $table = $model->getTable();
         $referencedModel = new Reactant();
+        $referencedSchema = Schema::connection($referencedModel->getConnectionName());
         $referencedTable = $referencedModel->getTable();
         $referencedColumn = $referencedModel->getKeyName();
 
-        if (!Schema::hasTable($referencedTable)) {
+        if (!$referencedSchema->hasTable($referencedTable)) {
             $this->error(sprintf(
                 'Referenced table `%s` does not exists in database.',
                 $referencedTable

@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 use Cog\Laravel\Love\Support\Database\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 final class CreateLoveReactantsTable extends Migration
 {
@@ -24,7 +23,7 @@ final class CreateLoveReactantsTable extends Migration
      */
     public function up(): void
     {
-        Schema::create('love_reactants', function (Blueprint $table) {
+        $this->schema->create('love_reactants', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('type');
             $table->timestamps();
@@ -40,6 +39,6 @@ final class CreateLoveReactantsTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('love_reactants');
+        $this->schema->dropIfExists('love_reactants');
     }
 }
