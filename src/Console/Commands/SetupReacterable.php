@@ -22,6 +22,7 @@ use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Composer;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
@@ -87,10 +88,11 @@ final class SetupReacterable extends Command
 
         $table = $model->getTable();
         $referencedModel = new Reacter();
+        $referencedSchema = Schema::connection($referencedModel->getConnectionName());
         $referencedTable = $referencedModel->getTable();
         $referencedColumn = $referencedModel->getKeyName();
 
-        if (!Schema::hasTable($referencedTable)) {
+        if (!$referencedSchema->hasTable($referencedTable)) {
             $this->error(sprintf(
                 'Referenced table `%s` does not exists in database.',
                 $referencedTable
