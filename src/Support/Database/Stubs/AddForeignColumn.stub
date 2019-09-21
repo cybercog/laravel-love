@@ -32,6 +32,7 @@ final class DummyClass extends Migration
     public function down(): void
     {
         Schema::table('DummyTable', function (Blueprint $table) {
+            $table->dropForeign(['DummyForeignColumn']);
             $table->dropColumn('DummyForeignColumn');
         });
     }
