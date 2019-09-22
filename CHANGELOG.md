@@ -4,6 +4,12 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ## [Unreleased]
 
+## [8.1.2] - 2019-09-22
+
+### Fixed
+
+- ([#121]) Drop foreign key before database column delete
+
 ## [8.1.1] - 2019-09-13
 
 ### Fixed
@@ -395,8 +401,9 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 
 - Initial release
 
-[Unreleased]: https://github.com/cybercog/laravel-love/compare/8.1.1...master
-[8.1.0]: https://github.com/cybercog/laravel-love/compare/8.1.0...8.1.1
+[Unreleased]: https://github.com/cybercog/laravel-love/compare/8.1.2...master
+[8.1.2]: https://github.com/cybercog/laravel-love/compare/8.1.1...8.1.2
+[8.1.1]: https://github.com/cybercog/laravel-love/compare/8.1.0...8.1.1
 [8.1.0]: https://github.com/cybercog/laravel-love/compare/8.0.0...8.1.0
 [8.0.0]: https://github.com/cybercog/laravel-love/compare/7.2.1...8.0.0
 [7.2.1]: https://github.com/cybercog/laravel-love/compare/7.2.0...7.2.1
@@ -431,6 +438,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 [1.1.1]: https://github.com/cybercog/laravel-love/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/cybercog/laravel-love/compare/1.0.0...1.1.0
 
+[#121]: https://github.com/cybercog/laravel-love/pull/121
 [#118]: https://github.com/cybercog/laravel-love/pull/118
 [#114]: https://github.com/cybercog/laravel-love/pull/114
 [#113]: https://github.com/cybercog/laravel-love/pull/113
