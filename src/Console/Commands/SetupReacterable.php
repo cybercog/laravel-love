@@ -15,8 +15,8 @@ namespace Cog\Laravel\Love\Console\Commands;
 
 use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
-use Cog\Laravel\Love\Support\Database\MigrationCreator;
 use Cog\Laravel\Love\Support\Database\AddForeignColumnStub;
+use Cog\Laravel\Love\Support\Database\MigrationCreator;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Database\Eloquent\Model;
