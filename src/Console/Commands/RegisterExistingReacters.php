@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Artisan command to Registers any existing unregistered reactables (Models)
+ * Artisan command to Register any existing unregistered reacters (Models)
  *
  * NOTE: This process could likely be done in a much more streamlined manner
  * which would be easier on the database, however, I think it is important to
