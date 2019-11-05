@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Reaction\Models;
 
-use Cog\Contracts\Love\Reaction\Exceptions\RateOutOfRange;
 use Cog\Contracts\Love\Reaction\Exceptions\RateInvalid;
+use Cog\Contracts\Love\Reaction\Exceptions\RateOutOfRange;
 use Cog\Laravel\Love\Reactant\Models\NullReactant;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reacter\Models\NullReacter;
