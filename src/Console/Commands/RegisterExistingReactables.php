@@ -39,9 +39,9 @@ final class RegisterExistingReactables extends Command
 
     private $modelPrimaryKeyName;
 
-    private $modelsRegistered;
+    private $modelsRegistered = 0;
 
-    private $modelsAlreadyRegistered;
+    private $modelsAlreadyRegistered = 0;
 
     /**
      * Execute the console command.
@@ -73,10 +73,6 @@ final class RegisterExistingReactables extends Command
 
         // Determine the last/largest value for love_reactant_id for this model
         $maxReactantId = $this->modelName::max('love_reactant_id');
-
-        // Set up some counters
-        $this->modelsAlreadyRegistered = 0;
-        $this->modelsRegistered = 0;
 
         // If specific model IDs are passed into the command, use those
         if ($this->modelIds) {
