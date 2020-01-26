@@ -43,7 +43,7 @@ final class RegisterExistingReacters extends Command
     {
         return [
             ['model', null, InputOption::VALUE_REQUIRED, 'The name of the Reacterable model'],
-            ['ids', null, InputOption::VALUE_IS_ARRAY, 'Comma-separated list of model IDs, or omit this argument for all IDs (e.g. `1,2,16,34`)'],
+            ['ids', null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'Comma-separated list of model IDs, or omit this argument for all IDs (e.g. `1,2,16,34`)'],
         ];
     }
 
@@ -102,7 +102,7 @@ final class RegisterExistingReacters extends Command
             if ($model->isRegisteredAsLoveReacter()) {
                 $this->modelsAlreadyRegistered++;
             } else {
-                $model->registerAsLoveReacter();
+//                $model->registerAsLoveReacter();
                 $this->modelsRegistered++;
             }
 
