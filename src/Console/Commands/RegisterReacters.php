@@ -33,7 +33,7 @@ final class RegisterReacters extends Command
      *
      * @var string
      */
-    protected $description = 'Registers any existing unregistered reacters (Models)';
+    protected $description = 'Register reacterable models as reacters';
 
     private $modelsRegistered = 0;
 
