@@ -71,9 +71,6 @@ final class RegisterExistingReacters extends Command
         $this->modelPrimaryKeyName = (new $this->modelName)->getKeyName();
         $this->line('   Primary Key Name: <fg=Cyan>' . $this->modelPrimaryKeyName . '</>');
 
-        // Determine the last/largest value for love_reactant_id for this model
-        $maxReacterId = $this->modelName::max('love_reacter_id');
-
         // If specific model IDs are passed into the command, use those
         if ($this->modelIds) {
             $models = $this->modelName::whereIn($this->modelPrimaryKeyName, explode(',', $this->modelIds))->get();
@@ -83,7 +80,7 @@ final class RegisterExistingReacters extends Command
         }
 
         // Set up the progress bar
-        $progressBar = $this->output->createProgressBar($models->count());;
+        $progressBar = $this->output->createProgressBar($models->count());
         $progressBar->setFormat("            Records: %current%/%max% %bar% %percent:3s%%\n\n");
         $progressBar->setBarCharacter($done = "\033[32m●\033[0m");
         $progressBar->setEmptyBarCharacter($empty = "\033[31m●\033[0m");
