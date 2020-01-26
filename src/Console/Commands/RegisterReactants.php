@@ -33,7 +33,7 @@ final class RegisterReactants extends Command
      *
      * @var string
      */
-    protected $description = 'Register reactable models as reactants';
+    protected $description = 'Register Reactable models as Reactants';
 
     private $modelsRegistered = 0;
 
