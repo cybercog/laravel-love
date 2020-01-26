@@ -11,7 +11,7 @@
  *
  */
 
-namespace App\Console\Commands;
+namespace Cog\Laravel\Love\Console\Commands;
 
 use File;
 use Illuminate\Support\Str;
