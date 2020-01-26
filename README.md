@@ -34,13 +34,13 @@ Documentation can be found in [Laravel Love Guide](https://laravel-love.readme.i
 
 Pull in the package through Composer.
 
-```sh
+```shell script
 $ composer require cybercog/laravel-love
 ```
 
 Run database migrations.
 
-```sh
+```shell script
 $ php artisan migrate
 ```
 

@@ -30,7 +30,7 @@ Automated migration process requires `doctrine/dbal` composer package to be inst
 
 **VERY IMPORTANT: Create backup of your production database!**
 
-```sh
+```shell script
 php artisan love:upgrade-v7-to-v8
 ```
 
@@ -81,7 +81,7 @@ Run only after all preparations are done.
 
 **VERY IMPORTANT: Create backup of your production database!**
 
-```sh
+```shell script
 php artisan love:upgrade-v5-to-v6
 ```
 
