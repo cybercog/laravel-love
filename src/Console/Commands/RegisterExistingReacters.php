@@ -1,20 +1,18 @@
 <?php
 
-/**
- * Artisan command to Register any existing unregistered reacters (Models)
+/*
+ * This file is part of Laravel Love.
  *
- * NOTE: This process could likely be done in a much more streamlined manner
- * which would be easier on the database, however, I think it is important to
- * use the native Laravel/Love API methods to ensure future compatibility.
+ * (c) Anton Komarev <anton@komarev.com>
  *
- * -sburkett
- *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Console\Commands;
 
-use File;
-use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 
 class RegisterExistingReacters extends Command
