@@ -57,15 +57,15 @@ final class RegisterReacters extends Command
 
                 return 1;
             }
-            $reacterableType = $this->normalizeReacterableModelType($reacterableType);
+            $reacterableModel = $this->reacterableModelFromType($reacterableType);
 
             $modelIds = $this->option('ids');
             $modelIds = $this->normalizeIds($modelIds);
 
-            $models = $this->collectModels($reacterableType, $modelIds);
+            $models = $this->collectModels($reacterableModel, $modelIds);
 
             $this->info(sprintf('Models registering as Reacters %s', PHP_EOL));
-            $this->line('Model Type: <fg=Cyan>' . $reacterableType . '</>');
+            $this->line(sprintf('Model Type: <fg=Cyan>%s</>', get_class($reacterableModel)));
 
             $this->registerModelsAsReacters($models);
 
@@ -77,22 +77,6 @@ final class RegisterReacters extends Command
         }
 
         return 0;
-    }
-
-    /**
-     * Normalize reacterable model type.
-     *
-     * @param string $modelType
-     * @return string
-     *
-     * @throws \Cog\Contracts\Love\Reacterable\Exceptions\ReacterableInvalid
-     */
-    private function normalizeReacterableModelType(
-        string $modelType
-    ): string {
-        return $this
-            ->reacterableModelFromType($modelType)
-            ->getMorphClass();
     }
 
     /**
@@ -148,12 +132,16 @@ final class RegisterReacters extends Command
         return $modelIds;
     }
 
-    private function collectModels(string $reacterableType, array $modelIds): iterable
-    {
-        /** @var \Illuminate\Database\Eloquent\Model $model */
-        $model = new $reacterableType();
-
-        $query = $model
+    /**
+     * @param \Cog\Contracts\Love\Reacterable\Models\Reacterable|\Illuminate\Database\Eloquent\Model $reacterableModel
+     * @param array $modelIds
+     * @return iterable
+     */
+    private function collectModels(
+        ReacterableContract $reacterableModel,
+        array $modelIds
+    ): iterable {
+        $query = $reacterableModel
             ->query()
             ->whereNull('love_reacter_id');
 

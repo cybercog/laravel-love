@@ -57,15 +57,15 @@ final class RegisterReactants extends Command
 
                 return 1;
             }
-            $reactableType = $this->normalizeReactableModelType($reactableType);
+            $reactableModel = $this->reactableModelFromType($reactableType);
 
             $modelIds = $this->option('ids');
             $modelIds = $this->normalizeIds($modelIds);
 
-            $models = $this->collectModels($reactableType, $modelIds);
+            $models = $this->collectModels($reactableModel, $modelIds);
 
             $this->info(sprintf('Models registering as Reactants %s', PHP_EOL));
-            $this->line('Model Type: <fg=Cyan>' . $reactableType . '</>');
+            $this->line(sprintf('Model Type: <fg=Cyan>%s</>', get_class($reactableModel)));
 
             $this->registerModelsAsReactants($models);
 
@@ -77,22 +77,6 @@ final class RegisterReactants extends Command
         }
 
         return 0;
-    }
-
-    /**
-     * Normalize reactable model type.
-     *
-     * @param string $modelType
-     * @return string
-     *
-     * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
-     */
-    private function normalizeReactableModelType(
-        string $modelType
-    ): string {
-        return $this
-            ->reactableModelFromType($modelType)
-            ->getMorphClass();
     }
 
     /**
@@ -148,12 +132,17 @@ final class RegisterReactants extends Command
         return $modelIds;
     }
 
-    private function collectModels(string $reactableType, array $modelIds): iterable
+    /**
+     * @param \Cog\Contracts\Love\Reactable\Models\Reactable|\Illuminate\Database\Eloquent\Model $reactableModel
+     * @param array $modelIds
+     * @return iterable
+     */
+    private function collectModels(
+        ReactableContract $reactableModel,
+        array $modelIds
+    ): iterable
     {
-        /** @var \Illuminate\Database\Eloquent\Model $model */
-        $model = new $reactableType();
-
-        $query = $model
+        $query = $reactableModel
             ->query()
             ->whereNull('love_reactant_id');
 
