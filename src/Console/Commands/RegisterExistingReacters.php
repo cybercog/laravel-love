@@ -15,7 +15,7 @@ namespace Cog\Laravel\Love\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class RegisterExistingReacters extends Command
+final class RegisterExistingReacters extends Command
 {
     /**
      * The name and signature of the console command.
