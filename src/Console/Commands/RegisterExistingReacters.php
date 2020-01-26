@@ -14,17 +14,16 @@ declare(strict_types=1);
 namespace Cog\Laravel\Love\Console\Commands;
 
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Input\InputOption;
 
 final class RegisterExistingReacters extends Command
 {
     /**
-     * The name and signature of the console command.
+     * The console command name.
      *
      * @var string
      */
-    protected $signature = 'love:register-reacters
-														{ modelName : Namespace of target model (e.g. "App\\\\User")}
-														{ --ids= : Comma-separated list of model IDs, or omit this argument for all IDs (e.g. "1,2,16,34")}';
+    protected $name = 'love:register-reacters';
 
     /**
      * The console command description.
@@ -37,6 +36,14 @@ final class RegisterExistingReacters extends Command
 
     private $modelsAlreadyRegistered = 0;
 
+    protected function getOptions(): array
+    {
+        return [
+            ['model', null, InputOption::VALUE_REQUIRED, 'The name of the Reacterable model'],
+            ['ids', null, InputOption::VALUE_IS_ARRAY, 'Comma-separated list of model IDs, or omit this argument for all IDs (e.g. `1,2,16,34`)'],
+        ];
+    }
+
     /**
      * Execute the console command.
      *
@@ -44,7 +51,7 @@ final class RegisterExistingReacters extends Command
      */
     public function handle(): int
     {
-        $modelName = $this->argument('modelName');
+        $modelName = $this->option('model');
         $modelIds = $this->option('ids');
 
         $this->line("\n" . '<fg=yellow;options=underscore>Registering Reacters ...</>' . "\n");
