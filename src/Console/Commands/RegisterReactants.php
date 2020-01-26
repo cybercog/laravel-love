@@ -141,8 +141,7 @@ final class RegisterReactants extends Command
     private function collectModels(
         ReactableContract $reactableModel,
         array $modelIds
-    ): iterable
-    {
+    ): iterable {
         $query = $reactableModel
             ->query()
             ->whereNull('love_reactant_id');
