@@ -35,10 +35,6 @@ final class RegisterReacters extends Command
      */
     protected $description = 'Register Reacterable models as Reacters';
 
-    private $modelsRegistered = 0;
-
-    private $modelsAlreadyRegistered = 0;
-
     protected function getOptions(): array
     {
         return [
@@ -64,44 +60,16 @@ final class RegisterReacters extends Command
             $reacterableType = $this->normalizeReacterableModelType($reacterableType);
 
             $modelIds = $this->option('ids');
+            $modelIds = $this->normalizeIds($modelIds);
 
-            $this->line("\n" . '<fg=yellow;options=underscore>Registering Reacters ...</>' . "\n");
-            $this->line('       Target model: <fg=Cyan>' . $reacterableType . '</>');
+            $models = $this->collectModels($reacterableType, $modelIds);
 
-            // Determine the primary key of the target model
-            $modelPrimaryKeyName = (new $reacterableType())->getKeyName();
-            $this->line('   Primary Key Name: <fg=Cyan>' . $modelPrimaryKeyName . '</>');
+            $this->info(sprintf('Models registering as Reacters %s', PHP_EOL));
+            $this->line('Model Type: <fg=Cyan>' . $reacterableType . '</>');
 
-            // If specific model IDs are passed into the command, use those
-            if ($modelIds) {
-                $models = $reacterableType::whereIn($modelPrimaryKeyName, explode(',', $modelIds))->get();
-            } else {
-                // Otherwise, get all of them
-                $models = $reacterableType::all();
-            }
+            $this->registerModelsAsReacters($models);
 
-            // Set up the progress bar
-            $progressBar = $this->output->createProgressBar($models->count());
-            $progressBar->setFormat("            Records: %current%/%max% %bar% %percent:3s%%\n\n");
-            $progressBar->setBarCharacter($done = "\033[32m●\033[0m");
-            $progressBar->setEmptyBarCharacter($empty = "\033[31m●\033[0m");
-            $progressBar->setBarCharacter($done = "\033[32m●\033[0m");
-
-            // Process the models, registering the ones that need it
-            foreach ($models as $model) {
-                if ($model->isRegisteredAsLoveReacter()) {
-                    $this->modelsAlreadyRegistered++;
-                } else {
-                    //                $model->registerAsLoveReacter();
-                    $this->modelsRegistered++;
-                }
-
-                $progressBar->advance();
-            }
-
-            $progressBar->finish();
-
-            $this->renderTable($reacterableType);
+            $this->info('Models has been registered as Reacters');
         } catch (ReacterableInvalid $exception) {
             $this->error($exception->getMessage());
 
@@ -109,17 +77,6 @@ final class RegisterReacters extends Command
         }
 
         return 0;
-    }
-
-    private function renderTable(string $reacterableType): void
-    {
-        $headers = ['Namespace', 'Models skipped', 'Models Registered'];
-
-        $data = [[
-            $reacterableType, $this->modelsAlreadyRegistered, $this->modelsRegistered,
-        ]];
-
-        $this->table($headers, $data);
     }
 
     /**
@@ -180,5 +137,44 @@ final class RegisterReacters extends Command
         }
 
         return $morphMap[$modelType];
+    }
+
+    private function normalizeIds(array $modelIds): array
+    {
+        if (isset($modelIds[0]) && strpos($modelIds[0], ',')) {
+            $modelIds = explode(',', $modelIds[0]);
+        }
+
+        return $modelIds;
+    }
+
+    private function collectModels(string $reacterableType, array $modelIds): iterable
+    {
+        /** @var \Illuminate\Database\Eloquent\Model $model */
+        $model = new $reacterableType();
+
+        $query = $model
+            ->query()
+            ->whereNull('love_reacter_id');
+
+        if (!empty($modelIds)) {
+            $query->whereKey($modelIds);
+        }
+
+        return $query->get();
+    }
+
+    private function registerModelsAsReacters(iterable $models): void
+    {
+        $collectedCount = $models->count();
+        $progressBar = $this->output->createProgressBar($collectedCount);
+
+        foreach ($models as $model) {
+            $model->registerAsLoveReacter();
+            $progressBar->advance();
+        }
+
+        $progressBar->finish();
+        $this->line(PHP_EOL);
     }
 }

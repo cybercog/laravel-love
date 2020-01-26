@@ -35,15 +35,11 @@ final class RegisterReactants extends Command
      */
     protected $description = 'Register Reactable models as Reactants';
 
-    private $modelsRegistered = 0;
-
-    private $modelsAlreadyRegistered = 0;
-
     protected function getOptions(): array
     {
         return [
             ['model', null, InputOption::VALUE_REQUIRED, 'The name of the Reactable model'],
-            ['ids', null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'Comma-separated list of model IDs, or omit this argument for all IDs (e.g. `1,2,16,34`)'],
+            ['ids', null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, '(optional) Comma-separated list of model IDs (e.g. `--ids=1,2,16,34`)'],
         ];
     }
 
@@ -64,45 +60,16 @@ final class RegisterReactants extends Command
             $reactableType = $this->normalizeReactableModelType($reactableType);
 
             $modelIds = $this->option('ids');
+            $modelIds = $this->normalizeIds($modelIds);
 
-            $this->line("\n" . '<fg=yellow;options=underscore>Registering Reactants ...</>' . "\n");
-            $this->line('       Target model: <fg=Cyan>' . $reactableType . '</>');
-            $this->line('Model class exists?: <fg=green>Yes</>');
+            $models = $this->collectModels($reactableType, $modelIds);
 
-            // Determine the primary key of the target model
-            $modelPrimaryKeyName = (new $reactableType())->getKeyName();
-            $this->line('   Primary Key Name: <fg=Cyan>' . $modelPrimaryKeyName . '</>');
+            $this->info(sprintf('Models registering as Reactants %s', PHP_EOL));
+            $this->line('Model Type: <fg=Cyan>' . $reactableType . '</>');
 
-            // If specific model IDs are passed into the command, use those
-            if ($modelIds) {
-                $models = $reactableType::whereIn($modelPrimaryKeyName, explode(',', $modelIds))->get();
-            } else {
-                // Otherwise, get all of them
-                $models = $reactableType::all();
-            }
+            $this->registerModelsAsReactants($models);
 
-            // Set up the progress bar
-            $progressBar = $this->output->createProgressBar($models->count());
-            $progressBar->setFormat("            Records: %current%/%max% %bar% %percent:3s%%\n\n");
-            $progressBar->setBarCharacter($done = "\033[32m●\033[0m");
-            $progressBar->setEmptyBarCharacter($empty = "\033[31m●\033[0m");
-            $progressBar->setBarCharacter($done = "\033[32m●\033[0m");
-
-            // Process the models, registering the ones that need it
-            foreach ($models as $model) {
-                if ($model->isRegisteredAsLoveReactant()) {
-                    $this->modelsAlreadyRegistered++;
-                } else {
-                    //                $model->registerAsLoveReactant();
-                    $this->modelsRegistered++;
-                }
-
-                $progressBar->advance();
-            }
-
-            $progressBar->finish();
-
-            $this->renderTable($reactableType);
+            $this->info('Models has been registered as Reactants');
         } catch (ReactableInvalid $exception) {
             $this->error($exception->getMessage());
 
@@ -110,17 +77,6 @@ final class RegisterReactants extends Command
         }
 
         return 0;
-    }
-
-    private function renderTable(string $reactableType): void
-    {
-        $headers = ['Namespace', 'Models skipped', 'Models Registered'];
-
-        $data = [[
-            $reactableType, $this->modelsAlreadyRegistered, $this->modelsRegistered,
-        ]];
-
-        $this->table($headers, $data);
     }
 
     /**
@@ -181,5 +137,44 @@ final class RegisterReactants extends Command
         }
 
         return $morphMap[$modelType];
+    }
+
+    private function normalizeIds(array $modelIds): array
+    {
+        if (isset($modelIds[0]) && strpos($modelIds[0], ',')) {
+            $modelIds = explode(',', $modelIds[0]);
+        }
+
+        return $modelIds;
+    }
+
+    private function collectModels(string $reactableType, array $modelIds): iterable
+    {
+        /** @var \Illuminate\Database\Eloquent\Model $model */
+        $model = new $reactableType();
+
+        $query = $model
+            ->query()
+            ->whereNull('love_reactant_id');
+
+        if (!empty($modelIds)) {
+            $query->whereKey($modelIds);
+        }
+
+        return $query->get();
+    }
+
+    private function registerModelsAsReactants(iterable $models): void
+    {
+        $collectedCount = $models->count();
+        $progressBar = $this->output->createProgressBar($collectedCount);
+
+        foreach ($models as $model) {
+            $model->registerAsLoveReactant();
+            $progressBar->advance();
+        }
+
+        $progressBar->finish();
+        $this->line(PHP_EOL);
     }
 }
