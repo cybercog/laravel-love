@@ -54,64 +54,60 @@ final class RegisterReactants extends Command
      */
     public function handle(): int
     {
-        $reactableType = $this->option('model');
-        if ($reactableType === null) {
-            $this->error('Option `--model` is required!');
-            
-            return 1;
-        }
-        $reactableType = $this->normalizeReactableModelType($reactableType);
-        
-        $modelIds = $this->option('ids');
+        try {
+            $reactableType = $this->option('model');
+            if ($reactableType === null) {
+                $this->error('Option `--model` is required!');
 
-        $this->line("\n" . '<fg=yellow;options=underscore>Registering Reactants ...</>' . "\n");
-        $this->line('       Target model: <fg=Cyan>' . $reactableType . '</>');
+                return 1;
+            }
+            $reactableType = $this->normalizeReactableModelType($reactableType);
 
-        // Verify that the Model class actually exists
-        if (!class_exists($reactableType)) {
-            $this->line('Model class exists?: <fg=red;options=bold>No</>');
-            $errorMessage = 'Model not found! Check your spelling, and be sure to escape any namespace backslashes.';
-            $this->line("\n" . '              <fg=red;options=bold>Error:</> <fg=red>' . $errorMessage . '</>' . "\n");
+            $modelIds = $this->option('ids');
 
-            return 1;
-        }
+            $this->line("\n" . '<fg=yellow;options=underscore>Registering Reactants ...</>' . "\n");
+            $this->line('       Target model: <fg=Cyan>' . $reactableType . '</>');
+            $this->line('Model class exists?: <fg=green>Yes</>');
 
-        $this->line('Model class exists?: <fg=green>Yes</>');
+            // Determine the primary key of the target model
+            $modelPrimaryKeyName = (new $reactableType())->getKeyName();
+            $this->line('   Primary Key Name: <fg=Cyan>' . $modelPrimaryKeyName . '</>');
 
-        // Determine the primary key of the target model
-        $modelPrimaryKeyName = (new $reactableType())->getKeyName();
-        $this->line('   Primary Key Name: <fg=Cyan>' . $modelPrimaryKeyName . '</>');
-
-        // If specific model IDs are passed into the command, use those
-        if ($modelIds) {
-            $models = $reactableType::whereIn($modelPrimaryKeyName, explode(',', $modelIds))->get();
-        } else {
-            // Otherwise, get all of them
-            $models = $reactableType::all();
-        }
-
-        // Set up the progress bar
-        $progressBar = $this->output->createProgressBar($models->count());
-        $progressBar->setFormat("            Records: %current%/%max% %bar% %percent:3s%%\n\n");
-        $progressBar->setBarCharacter($done = "\033[32m●\033[0m");
-        $progressBar->setEmptyBarCharacter($empty = "\033[31m●\033[0m");
-        $progressBar->setBarCharacter($done = "\033[32m●\033[0m");
-
-        // Process the models, registering the ones that need it
-        foreach ($models as $model) {
-            if ($model->isRegisteredAsLoveReactant()) {
-                $this->modelsAlreadyRegistered++;
+            // If specific model IDs are passed into the command, use those
+            if ($modelIds) {
+                $models = $reactableType::whereIn($modelPrimaryKeyName, explode(',', $modelIds))->get();
             } else {
-//                $model->registerAsLoveReactant();
-                $this->modelsRegistered++;
+                // Otherwise, get all of them
+                $models = $reactableType::all();
             }
 
-            $progressBar->advance();
+            // Set up the progress bar
+            $progressBar = $this->output->createProgressBar($models->count());
+            $progressBar->setFormat("            Records: %current%/%max% %bar% %percent:3s%%\n\n");
+            $progressBar->setBarCharacter($done = "\033[32m●\033[0m");
+            $progressBar->setEmptyBarCharacter($empty = "\033[31m●\033[0m");
+            $progressBar->setBarCharacter($done = "\033[32m●\033[0m");
+
+            // Process the models, registering the ones that need it
+            foreach ($models as $model) {
+                if ($model->isRegisteredAsLoveReactant()) {
+                    $this->modelsAlreadyRegistered++;
+                } else {
+                    //                $model->registerAsLoveReactant();
+                    $this->modelsRegistered++;
+                }
+
+                $progressBar->advance();
+            }
+
+            $progressBar->finish();
+
+            $this->renderTable($reactableType);
+        } catch (ReactableInvalid $exception) {
+            $this->error($exception->getMessage());
+
+            return 1;
         }
-
-        $progressBar->finish();
-
-        $this->renderTable($reactableType);
 
         return 0;
     }

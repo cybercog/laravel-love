@@ -54,64 +54,59 @@ final class RegisterReacters extends Command
      */
     public function handle(): int
     {
-        $reacterableType = $this->option('model');
-        if ($reacterableType === null) {
-            $this->error('Option `--model` is required!');
+        try {
+            $reacterableType = $this->option('model');
+            if ($reacterableType === null) {
+                $this->error('Option `--model` is required!');
 
-            return 1;
-        }
-        $reacterableType = $this->normalizeReacterableModelType($reacterableType);
+                return 1;
+            }
+            $reacterableType = $this->normalizeReacterableModelType($reacterableType);
 
-        $modelIds = $this->option('ids');
+            $modelIds = $this->option('ids');
 
-        $this->line("\n" . '<fg=yellow;options=underscore>Registering Reacters ...</>' . "\n");
-        $this->line('       Target model: <fg=Cyan>' . $reacterableType . '</>');
+            $this->line("\n" . '<fg=yellow;options=underscore>Registering Reacters ...</>' . "\n");
+            $this->line('       Target model: <fg=Cyan>' . $reacterableType . '</>');
 
-        // Verify that the Model class actually exists
-        if (!class_exists($reacterableType)) {
-            $this->line('Model class exists?: <fg=red;options=bold>No</>');
-            $errorMessage = 'Model not found! Check your spelling, and be sure to escape any namespace backslashes.';
-            $this->line("\n" . '              <fg=red;options=bold>Error:</> <fg=red>' . $errorMessage . '</>' . "\n");
+            // Determine the primary key of the target model
+            $modelPrimaryKeyName = (new $reacterableType())->getKeyName();
+            $this->line('   Primary Key Name: <fg=Cyan>' . $modelPrimaryKeyName . '</>');
 
-            return 1;
-        }
-
-        $this->line('Model class exists?: <fg=green>Yes</>');
-
-        // Determine the primary key of the target model
-        $modelPrimaryKeyName = (new $reacterableType())->getKeyName();
-        $this->line('   Primary Key Name: <fg=Cyan>' . $modelPrimaryKeyName . '</>');
-
-        // If specific model IDs are passed into the command, use those
-        if ($modelIds) {
-            $models = $reacterableType::whereIn($modelPrimaryKeyName, explode(',', $modelIds))->get();
-        } else {
-            // Otherwise, get all of them
-            $models = $reacterableType::all();
-        }
-
-        // Set up the progress bar
-        $progressBar = $this->output->createProgressBar($models->count());
-        $progressBar->setFormat("            Records: %current%/%max% %bar% %percent:3s%%\n\n");
-        $progressBar->setBarCharacter($done = "\033[32m●\033[0m");
-        $progressBar->setEmptyBarCharacter($empty = "\033[31m●\033[0m");
-        $progressBar->setBarCharacter($done = "\033[32m●\033[0m");
-
-        // Process the models, registering the ones that need it
-        foreach ($models as $model) {
-            if ($model->isRegisteredAsLoveReacter()) {
-                $this->modelsAlreadyRegistered++;
+            // If specific model IDs are passed into the command, use those
+            if ($modelIds) {
+                $models = $reacterableType::whereIn($modelPrimaryKeyName, explode(',', $modelIds))->get();
             } else {
-//                $model->registerAsLoveReacter();
-                $this->modelsRegistered++;
+                // Otherwise, get all of them
+                $models = $reacterableType::all();
             }
 
-            $progressBar->advance();
+            // Set up the progress bar
+            $progressBar = $this->output->createProgressBar($models->count());
+            $progressBar->setFormat("            Records: %current%/%max% %bar% %percent:3s%%\n\n");
+            $progressBar->setBarCharacter($done = "\033[32m●\033[0m");
+            $progressBar->setEmptyBarCharacter($empty = "\033[31m●\033[0m");
+            $progressBar->setBarCharacter($done = "\033[32m●\033[0m");
+
+            // Process the models, registering the ones that need it
+            foreach ($models as $model) {
+                if ($model->isRegisteredAsLoveReacter()) {
+                    $this->modelsAlreadyRegistered++;
+                } else {
+                    //                $model->registerAsLoveReacter();
+                    $this->modelsRegistered++;
+                }
+
+                $progressBar->advance();
+            }
+
+            $progressBar->finish();
+
+            $this->renderTable($reacterableType);
+        } catch (ReacterableInvalid $exception) {
+            $this->error($exception->getMessage());
+
+            return 1;
         }
-
-        $progressBar->finish();
-
-        $this->renderTable($reacterableType);
 
         return 0;
     }
