@@ -4,6 +4,10 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- ([#127]) Artisan commands for registering existing models as reactants/reacters
+
 ## [8.1.2] - 2019-09-22
 
 ### Fixed
