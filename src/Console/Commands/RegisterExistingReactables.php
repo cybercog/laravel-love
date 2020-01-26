@@ -13,7 +13,10 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Console\Commands;
 
+use Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid;
+use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Symfony\Component\Console\Input\InputOption;
 
 final class RegisterExistingReactables extends Command
@@ -51,14 +54,21 @@ final class RegisterExistingReactables extends Command
      */
     public function handle(): int
     {
-        $modelName = $this->option('model');
+        $reactableType = $this->option('model');
+        if ($reactableType === null) {
+            $this->error('Option `--model` is required!');
+            
+            return 1;
+        }
+        $reactableType = $this->normalizeReactableModelType($reactableType);
+        
         $modelIds = $this->option('ids');
 
         $this->line("\n" . '<fg=yellow;options=underscore>Registering Reactants ...</>' . "\n");
-        $this->line('       Target model: <fg=Cyan>' . $modelName . '</>');
+        $this->line('       Target model: <fg=Cyan>' . $reactableType . '</>');
 
         // Verify that the Model class actually exists
-        if (!class_exists($modelName)) {
+        if (!class_exists($reactableType)) {
             $this->line('Model class exists?: <fg=red;options=bold>No</>');
             $errorMessage = 'Model not found! Check your spelling, and be sure to escape any namespace backslashes.';
             $this->line("\n" . '              <fg=red;options=bold>Error:</> <fg=red>' . $errorMessage . '</>' . "\n");
@@ -69,15 +79,15 @@ final class RegisterExistingReactables extends Command
         $this->line('Model class exists?: <fg=green>Yes</>');
 
         // Determine the primary key of the target model
-        $modelPrimaryKeyName = (new $modelName)->getKeyName();
+        $modelPrimaryKeyName = (new $reactableType())->getKeyName();
         $this->line('   Primary Key Name: <fg=Cyan>' . $modelPrimaryKeyName . '</>');
 
         // If specific model IDs are passed into the command, use those
         if ($modelIds) {
-            $models = $modelName::whereIn($modelPrimaryKeyName, explode(',', $modelIds))->get();
+            $models = $reactableType::whereIn($modelPrimaryKeyName, explode(',', $modelIds))->get();
         } else {
             // Otherwise, get all of them
-            $models = $modelName::all();
+            $models = $reactableType::all();
         }
 
         // Set up the progress bar
@@ -101,19 +111,79 @@ final class RegisterExistingReactables extends Command
 
         $progressBar->finish();
 
-        $this->renderTable($modelName);
+        $this->renderTable($reactableType);
 
         return 0;
     }
 
-    private function renderTable(string $modelName): void
+    private function renderTable(string $reactableType): void
     {
         $headers = ['Namespace', 'Models skipped', 'Models Registered'];
 
         $data = [[
-            $modelName, $this->modelsAlreadyRegistered, $this->modelsRegistered,
+            $reactableType, $this->modelsAlreadyRegistered, $this->modelsRegistered,
         ]];
 
         $this->table($headers, $data);
+    }
+
+    /**
+     * Normalize reactable model type.
+     *
+     * @param string $modelType
+     * @return string
+     *
+     * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
+     */
+    private function normalizeReactableModelType(
+        string $modelType
+    ): string {
+        return $this
+            ->reactableModelFromType($modelType)
+            ->getMorphClass();
+    }
+
+    /**
+     * Instantiate model from type or morph map value.
+     *
+     * @param string $modelType
+     * @return \Cog\Contracts\Love\Reactable\Models\Reactable|\Illuminate\Database\Eloquent\Model
+     *
+     * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
+     */
+    private function reactableModelFromType(
+        string $modelType
+    ): ReactableContract {
+        if (!class_exists($modelType)) {
+            $modelType = $this->findModelTypeInMorphMap($modelType);
+        }
+
+        $model = new $modelType();
+
+        if (!$model instanceof ReactableContract) {
+            throw ReactableInvalid::notImplementInterface($modelType);
+        }
+
+        return $model;
+    }
+
+    /**
+     * Find model type in morph mappings registry.
+     *
+     * @param string $modelType
+     * @return string
+     *
+     * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
+     */
+    private function findModelTypeInMorphMap(
+        string $modelType
+    ): string {
+        $morphMap = Relation::morphMap();
+
+        if (!isset($morphMap[$modelType])) {
+            throw ReactableInvalid::classNotExists($modelType);
+        }
+
+        return $morphMap[$modelType];
     }
 }

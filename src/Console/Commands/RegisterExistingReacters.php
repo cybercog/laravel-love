@@ -13,7 +13,10 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Console\Commands;
 
+use Cog\Contracts\Love\Reacterable\Exceptions\ReacterableInvalid;
+use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Symfony\Component\Console\Input\InputOption;
 
 final class RegisterExistingReacters extends Command
@@ -51,14 +54,21 @@ final class RegisterExistingReacters extends Command
      */
     public function handle(): int
     {
-        $modelName = $this->option('model');
+        $reacterableType = $this->option('model');
+        if ($reacterableType === null) {
+            $this->error('Option `--model` is required!');
+
+            return 1;
+        }
+        $reacterableType = $this->normalizeReacterableModelType($reacterableType);
+
         $modelIds = $this->option('ids');
 
         $this->line("\n" . '<fg=yellow;options=underscore>Registering Reacters ...</>' . "\n");
-        $this->line('       Target model: <fg=Cyan>' . $modelName . '</>');
+        $this->line('       Target model: <fg=Cyan>' . $reacterableType . '</>');
 
         // Verify that the Model class actually exists
-        if (!class_exists($modelName)) {
+        if (!class_exists($reacterableType)) {
             $this->line('Model class exists?: <fg=red;options=bold>No</>');
             $errorMessage = 'Model not found! Check your spelling, and be sure to escape any namespace backslashes.';
             $this->line("\n" . '              <fg=red;options=bold>Error:</> <fg=red>' . $errorMessage . '</>' . "\n");
@@ -69,15 +79,15 @@ final class RegisterExistingReacters extends Command
         $this->line('Model class exists?: <fg=green>Yes</>');
 
         // Determine the primary key of the target model
-        $modelPrimaryKeyName = (new $modelName)->getKeyName();
+        $modelPrimaryKeyName = (new $reacterableType())->getKeyName();
         $this->line('   Primary Key Name: <fg=Cyan>' . $modelPrimaryKeyName . '</>');
 
         // If specific model IDs are passed into the command, use those
         if ($modelIds) {
-            $models = $modelName::whereIn($modelPrimaryKeyName, explode(',', $modelIds))->get();
+            $models = $reacterableType::whereIn($modelPrimaryKeyName, explode(',', $modelIds))->get();
         } else {
             // Otherwise, get all of them
-            $models = $modelName::all();
+            $models = $reacterableType::all();
         }
 
         // Set up the progress bar
@@ -101,19 +111,79 @@ final class RegisterExistingReacters extends Command
 
         $progressBar->finish();
 
-        $this->renderTable($modelName);
+        $this->renderTable($reacterableType);
 
         return 0;
     }
 
-    private function renderTable(string $modelName): void
+    private function renderTable(string $reacterableType): void
     {
         $headers = ['Namespace', 'Models skipped', 'Models Registered'];
 
         $data = [[
-            $modelName, $this->modelsAlreadyRegistered, $this->modelsRegistered,
+            $reacterableType, $this->modelsAlreadyRegistered, $this->modelsRegistered,
         ]];
 
         $this->table($headers, $data);
+    }
+
+    /**
+     * Normalize reacterable model type.
+     *
+     * @param string $modelType
+     * @return string
+     *
+     * @throws \Cog\Contracts\Love\Reacterable\Exceptions\ReacterableInvalid
+     */
+    private function normalizeReacterableModelType(
+        string $modelType
+    ): string {
+        return $this
+            ->reacterableModelFromType($modelType)
+            ->getMorphClass();
+    }
+
+    /**
+     * Instantiate model from type or morph map value.
+     *
+     * @param string $modelType
+     * @return \Cog\Contracts\Love\Reacterable\Models\Reacterable|\Illuminate\Database\Eloquent\Model
+     *
+     * @throws \Cog\Contracts\Love\Reacterable\Exceptions\ReacterableInvalid
+     */
+    private function reacterableModelFromType(
+        string $modelType
+    ): ReacterableContract {
+        if (!class_exists($modelType)) {
+            $modelType = $this->findModelTypeInMorphMap($modelType);
+        }
+
+        $model = new $modelType();
+
+        if (!$model instanceof ReacterableContract) {
+            throw ReacterableInvalid::notImplementInterface($modelType);
+        }
+
+        return $model;
+    }
+
+    /**
+     * Find model type in morph mappings registry.
+     *
+     * @param string $modelType
+     * @return string
+     *
+     * @throws \Cog\Contracts\Love\Reacterable\Exceptions\ReacterableInvalid
+     */
+    private function findModelTypeInMorphMap(
+        string $modelType
+    ): string {
+        $morphMap = Relation::morphMap();
+
+        if (!isset($morphMap[$modelType])) {
+            throw ReacterableInvalid::classNotExists($modelType);
+        }
+
+        return $morphMap[$modelType];
     }
 }
