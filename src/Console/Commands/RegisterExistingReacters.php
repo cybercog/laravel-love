@@ -49,7 +49,7 @@ class RegisterExistingReacters extends Command
 	 *
 	 * @return mixed
 	 */
-	public function handle()
+	public function handle(): int
  	{
 		$this->modelName = $this->argument( 'modelName' );
 		$this->modelIds = $this->option( 'ids' );
@@ -61,12 +61,13 @@ class RegisterExistingReacters extends Command
 		if(!class_exists($this->modelName))
 		{
 			$this->line('Model class exists?: <fg=red;options=bold>No</>');
-			$this->errorMessage('Model not found! Check your spelling, and be sure to escape any namespace backslashes.');
+			$errorMessage = 'Model not found! Check your spelling, and be sure to escape any namespace backslashes.';
+            $this->line("\n" . '              <fg=red;options=bold>Error:</> <fg=red>' . $errorMessage . '</>' . "\n");
+
+            return 1;
  		}
-		else
-		{
-			$this->line('Model class exists?: <fg=green>Yes</>');
-		}
+
+        $this->line('Model class exists?: <fg=green>Yes</>');
 
 		// Determine the primary key of the target model
 		$this->modelPrimaryKeyName = (new $this->modelName)->getKeyName();
@@ -118,10 +119,10 @@ class RegisterExistingReacters extends Command
 		// Show the results, and bail
 		$this->renderTable();
 
-		return;
+		return 0;
 	}
 
-	public function renderTable()
+	public function renderTable(): void
 	{
 		$headers = ['Namespace', 'Models skipped', 'Models Registered'];
 
@@ -131,11 +132,4 @@ class RegisterExistingReacters extends Command
 
 		$this->table($headers, $data);
 	}
-
-	public function errorMessage( $msg )
-	{
-		$this->line("\n" . '              <fg=red;options=bold>Error:</> <fg=red>' . $msg . '</>' . "\n");
-		exit;
-	}
-
 }
