@@ -13,27 +13,27 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Console\Commands;
 
-use Cog\Contracts\Love\Reacterable\Exceptions\ReacterableInvalid;
-use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
+use Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid;
+use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Symfony\Component\Console\Input\InputOption;
 
-final class RegisterExistingReacters extends Command
+final class RegisterReactants extends Command
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'love:register-reacters';
+    protected $name = 'love:register-reactants';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Registers any existing unregistered reacters (Models)';
+    protected $description = 'Registers any existing unregistered reactables (Models)';
 
     private $modelsRegistered = 0;
 
@@ -42,7 +42,7 @@ final class RegisterExistingReacters extends Command
     protected function getOptions(): array
     {
         return [
-            ['model', null, InputOption::VALUE_REQUIRED, 'The name of the Reacterable model'],
+            ['model', null, InputOption::VALUE_REQUIRED, 'The name of the Reactable model'],
             ['ids', null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'Comma-separated list of model IDs, or omit this argument for all IDs (e.g. `1,2,16,34`)'],
         ];
     }
@@ -54,21 +54,21 @@ final class RegisterExistingReacters extends Command
      */
     public function handle(): int
     {
-        $reacterableType = $this->option('model');
-        if ($reacterableType === null) {
+        $reactableType = $this->option('model');
+        if ($reactableType === null) {
             $this->error('Option `--model` is required!');
-
+            
             return 1;
         }
-        $reacterableType = $this->normalizeReacterableModelType($reacterableType);
-
+        $reactableType = $this->normalizeReactableModelType($reactableType);
+        
         $modelIds = $this->option('ids');
 
-        $this->line("\n" . '<fg=yellow;options=underscore>Registering Reacters ...</>' . "\n");
-        $this->line('       Target model: <fg=Cyan>' . $reacterableType . '</>');
+        $this->line("\n" . '<fg=yellow;options=underscore>Registering Reactants ...</>' . "\n");
+        $this->line('       Target model: <fg=Cyan>' . $reactableType . '</>');
 
         // Verify that the Model class actually exists
-        if (!class_exists($reacterableType)) {
+        if (!class_exists($reactableType)) {
             $this->line('Model class exists?: <fg=red;options=bold>No</>');
             $errorMessage = 'Model not found! Check your spelling, and be sure to escape any namespace backslashes.';
             $this->line("\n" . '              <fg=red;options=bold>Error:</> <fg=red>' . $errorMessage . '</>' . "\n");
@@ -79,15 +79,15 @@ final class RegisterExistingReacters extends Command
         $this->line('Model class exists?: <fg=green>Yes</>');
 
         // Determine the primary key of the target model
-        $modelPrimaryKeyName = (new $reacterableType())->getKeyName();
+        $modelPrimaryKeyName = (new $reactableType())->getKeyName();
         $this->line('   Primary Key Name: <fg=Cyan>' . $modelPrimaryKeyName . '</>');
 
         // If specific model IDs are passed into the command, use those
         if ($modelIds) {
-            $models = $reacterableType::whereIn($modelPrimaryKeyName, explode(',', $modelIds))->get();
+            $models = $reactableType::whereIn($modelPrimaryKeyName, explode(',', $modelIds))->get();
         } else {
             // Otherwise, get all of them
-            $models = $reacterableType::all();
+            $models = $reactableType::all();
         }
 
         // Set up the progress bar
@@ -99,10 +99,10 @@ final class RegisterExistingReacters extends Command
 
         // Process the models, registering the ones that need it
         foreach ($models as $model) {
-            if ($model->isRegisteredAsLoveReacter()) {
+            if ($model->isRegisteredAsLoveReactant()) {
                 $this->modelsAlreadyRegistered++;
             } else {
-//                $model->registerAsLoveReacter();
+//                $model->registerAsLoveReactant();
                 $this->modelsRegistered++;
             }
 
@@ -111,35 +111,35 @@ final class RegisterExistingReacters extends Command
 
         $progressBar->finish();
 
-        $this->renderTable($reacterableType);
+        $this->renderTable($reactableType);
 
         return 0;
     }
 
-    private function renderTable(string $reacterableType): void
+    private function renderTable(string $reactableType): void
     {
         $headers = ['Namespace', 'Models skipped', 'Models Registered'];
 
         $data = [[
-            $reacterableType, $this->modelsAlreadyRegistered, $this->modelsRegistered,
+            $reactableType, $this->modelsAlreadyRegistered, $this->modelsRegistered,
         ]];
 
         $this->table($headers, $data);
     }
 
     /**
-     * Normalize reacterable model type.
+     * Normalize reactable model type.
      *
      * @param string $modelType
      * @return string
      *
-     * @throws \Cog\Contracts\Love\Reacterable\Exceptions\ReacterableInvalid
+     * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
      */
-    private function normalizeReacterableModelType(
+    private function normalizeReactableModelType(
         string $modelType
     ): string {
         return $this
-            ->reacterableModelFromType($modelType)
+            ->reactableModelFromType($modelType)
             ->getMorphClass();
     }
 
@@ -147,21 +147,21 @@ final class RegisterExistingReacters extends Command
      * Instantiate model from type or morph map value.
      *
      * @param string $modelType
-     * @return \Cog\Contracts\Love\Reacterable\Models\Reacterable|\Illuminate\Database\Eloquent\Model
+     * @return \Cog\Contracts\Love\Reactable\Models\Reactable|\Illuminate\Database\Eloquent\Model
      *
-     * @throws \Cog\Contracts\Love\Reacterable\Exceptions\ReacterableInvalid
+     * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
      */
-    private function reacterableModelFromType(
+    private function reactableModelFromType(
         string $modelType
-    ): ReacterableContract {
+    ): ReactableContract {
         if (!class_exists($modelType)) {
             $modelType = $this->findModelTypeInMorphMap($modelType);
         }
 
         $model = new $modelType();
 
-        if (!$model instanceof ReacterableContract) {
-            throw ReacterableInvalid::notImplementInterface($modelType);
+        if (!$model instanceof ReactableContract) {
+            throw ReactableInvalid::notImplementInterface($modelType);
         }
 
         return $model;
@@ -173,7 +173,7 @@ final class RegisterExistingReacters extends Command
      * @param string $modelType
      * @return string
      *
-     * @throws \Cog\Contracts\Love\Reacterable\Exceptions\ReacterableInvalid
+     * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
      */
     private function findModelTypeInMorphMap(
         string $modelType
@@ -181,7 +181,7 @@ final class RegisterExistingReacters extends Command
         $morphMap = Relation::morphMap();
 
         if (!isset($morphMap[$modelType])) {
-            throw ReacterableInvalid::classNotExists($modelType);
+            throw ReactableInvalid::classNotExists($modelType);
         }
 
         return $morphMap[$modelType];

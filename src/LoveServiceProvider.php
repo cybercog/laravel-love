@@ -15,8 +15,8 @@ namespace Cog\Laravel\Love;
 
 use Cog\Laravel\Love\Console\Commands\ReactionTypeAdd;
 use Cog\Laravel\Love\Console\Commands\Recount;
-use Cog\Laravel\Love\Console\Commands\RegisterExistingReactables;
-use Cog\Laravel\Love\Console\Commands\RegisterExistingReacters;
+use Cog\Laravel\Love\Console\Commands\RegisterReactants;
+use Cog\Laravel\Love\Console\Commands\RegisterReacters;
 use Cog\Laravel\Love\Console\Commands\SetupReactable;
 use Cog\Laravel\Love\Console\Commands\SetupReacterable;
 use Cog\Laravel\Love\Console\Commands\UpgradeV5ToV6;
@@ -96,8 +96,8 @@ final class LoveServiceProvider extends ServiceProvider
                 Recount::class,
                 SetupReactable::class,
                 SetupReacterable::class,
-                RegisterExistingReactables::class,
-                RegisterExistingReacters::class,
+                RegisterReactants::class,
+                RegisterReacters::class,
                 UpgradeV5ToV6::class,
                 UpgradeV7ToV8::class,
             ]);
