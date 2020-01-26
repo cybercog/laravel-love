@@ -33,15 +33,15 @@ final class RegisterExistingReacters extends Command
      */
     protected $description = 'Registers any existing unregistered reacters (Models)';
 
-    protected $modelIds;
+    private $modelIds;
 
-    protected $modelName;
+    private $modelName;
 
-    protected $modelPrimaryKeyName;
+    private $modelPrimaryKeyName;
 
-    protected $modelsRegistered;
+    private $modelsRegistered;
 
-    protected $modelsAlreadyRegistered;
+    private $modelsAlreadyRegistered;
 
     /**
      * Execute the console command.
@@ -113,7 +113,7 @@ final class RegisterExistingReacters extends Command
         return 0;
     }
 
-    public function renderTable(): void
+    private function renderTable(): void
     {
         $headers = ['Namespace', 'Models skipped', 'Models Registered'];
 
