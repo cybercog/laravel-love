@@ -45,16 +45,6 @@ class RegisterExistingReacters extends Command
 		protected $modelsAlreadyRegistered;
 
 	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		parent::__construct();
-	}
-
-	/**
 	 * Execute the console command.
 	 *
 	 * @return mixed
@@ -81,7 +71,7 @@ class RegisterExistingReacters extends Command
 		// Determine the primary key of the target model
 		$this->modelPrimaryKeyName = (new $this->modelName)->getKeyName();
 		$this->line('   Primary Key Name: <fg=Cyan>' . $this->modelPrimaryKeyName . '</>');
-		
+
 		// Determine the last/largest value for love_reactant_id for this model
 		$maxReacterId = $this->modelName::max('love_reacter_id');
 
