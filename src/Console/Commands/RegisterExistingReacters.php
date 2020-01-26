@@ -33,12 +33,6 @@ final class RegisterExistingReacters extends Command
      */
     protected $description = 'Registers any existing unregistered reacters (Models)';
 
-    private $modelIds;
-
-    private $modelName;
-
-    private $modelPrimaryKeyName;
-
     private $modelsRegistered = 0;
 
     private $modelsAlreadyRegistered = 0;
@@ -50,14 +44,14 @@ final class RegisterExistingReacters extends Command
      */
     public function handle(): int
     {
-        $this->modelName = $this->argument('modelName');
-        $this->modelIds = $this->option('ids');
+        $modelName = $this->argument('modelName');
+        $modelIds = $this->option('ids');
 
         $this->line("\n" . '<fg=yellow;options=underscore>Registering Reacters ...</>' . "\n");
-        $this->line('       Target model: <fg=Cyan>' . $this->modelName . '</>');
+        $this->line('       Target model: <fg=Cyan>' . $modelName . '</>');
 
         // Verify that the Model class actually exists
-        if (!class_exists($this->modelName)) {
+        if (!class_exists($modelName)) {
             $this->line('Model class exists?: <fg=red;options=bold>No</>');
             $errorMessage = 'Model not found! Check your spelling, and be sure to escape any namespace backslashes.';
             $this->line("\n" . '              <fg=red;options=bold>Error:</> <fg=red>' . $errorMessage . '</>' . "\n");
@@ -68,15 +62,15 @@ final class RegisterExistingReacters extends Command
         $this->line('Model class exists?: <fg=green>Yes</>');
 
         // Determine the primary key of the target model
-        $this->modelPrimaryKeyName = (new $this->modelName)->getKeyName();
-        $this->line('   Primary Key Name: <fg=Cyan>' . $this->modelPrimaryKeyName . '</>');
+        $modelPrimaryKeyName = (new $modelName)->getKeyName();
+        $this->line('   Primary Key Name: <fg=Cyan>' . $modelPrimaryKeyName . '</>');
 
         // If specific model IDs are passed into the command, use those
-        if ($this->modelIds) {
-            $models = $this->modelName::whereIn($this->modelPrimaryKeyName, explode(',', $this->modelIds))->get();
+        if ($modelIds) {
+            $models = $modelName::whereIn($modelPrimaryKeyName, explode(',', $modelIds))->get();
         } else {
             // Otherwise, get all of them
-            $models = $this->modelName::all();
+            $models = $modelName::all();
         }
 
         // Set up the progress bar
@@ -100,18 +94,17 @@ final class RegisterExistingReacters extends Command
 
         $progressBar->finish();
 
-        // Show the results, and bail
-        $this->renderTable();
+        $this->renderTable($modelName);
 
         return 0;
     }
 
-    private function renderTable(): void
+    private function renderTable(string $modelName): void
     {
         $headers = ['Namespace', 'Models skipped', 'Models Registered'];
 
         $data = [[
-            $this->modelName, $this->modelsAlreadyRegistered, $this->modelsRegistered,
+            $modelName, $this->modelsAlreadyRegistered, $this->modelsRegistered,
         ]];
 
         $this->table($headers, $data);
