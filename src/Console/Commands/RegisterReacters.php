@@ -50,13 +50,14 @@ final class RegisterReacters extends Command
      */
     public function handle(): int
     {
-        try {
-            $reacterableType = $this->option('model');
-            if ($reacterableType === null) {
-                $this->error('Option `--model` is required!');
+        $reacterableType = $this->option('model');
+        if ($reacterableType === null) {
+            $this->error('Option `--model` is required!');
 
-                return 1;
-            }
+            return 1;
+        }
+
+        try {
             $reacterableModel = $this->reacterableModelFromType($reacterableType);
 
             $modelIds = $this->option('ids');

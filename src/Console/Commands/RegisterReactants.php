@@ -50,13 +50,14 @@ final class RegisterReactants extends Command
      */
     public function handle(): int
     {
-        try {
-            $reactableType = $this->option('model');
-            if ($reactableType === null) {
-                $this->error('Option `--model` is required!');
+        $reactableType = $this->option('model');
+        if ($reactableType === null) {
+            $this->error('Option `--model` is required!');
 
-                return 1;
-            }
+            return 1;
+        }
+
+        try {
             $reactableModel = $this->reactableModelFromType($reactableType);
 
             $modelIds = $this->option('ids');
