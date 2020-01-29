@@ -126,8 +126,14 @@ final class RegisterReacters extends Command
 
     private function normalizeIds(array $modelIds): array
     {
-        if (isset($modelIds[0]) && strpos($modelIds[0], ',')) {
-            $modelIds = explode(',', $modelIds[0]);
+        if (!isset($modelIds[0])) {
+            return $modelIds;
+        }
+
+        $firstItem = $modelIds[0];
+
+        if (is_string($firstItem) && strpos($firstItem, ',')) {
+            $modelIds = explode(',', $firstItem);
         }
 
         return $modelIds;
