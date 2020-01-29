@@ -20,20 +20,13 @@ use Cog\Tests\Laravel\Love\TestCase;
 
 final class RegisterReactantsTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-//        $this->withoutMockingConsoleOutput();
-    }
-
     /** @test */
-    public function it_can_create_reactants_for_all_models(): void
+    public function it_can_create_reactants_for_all_models_of_type(): void
     {
         Article::unsetEventDispatcher();
         User::unsetEventDispatcher();
-        $articleReactables = factory(Article::class, 2)->create();
-        $userReactables = factory(User::class, 2)->create();
+        $articleReactables = factory(Article::class, 3)->create();
+        $userReactables = factory(User::class, 3)->create();
         $command = $this->artisan(RegisterReactants::class, [
             '--model' => Article::class,
         ]);
@@ -45,7 +38,60 @@ final class RegisterReactantsTest extends TestCase
             $this->assertTrue($reactable->fresh()->isRegisteredAsLoveReactant());
         }
         foreach ($userReactables as $reactable) {
-            $this->assertTrue($reactable->fresh()->isNotRegisteredAsLoveReactant());
+            $this->assertFalse($reactable->fresh()->isRegisteredAsLoveReactant());
         }
+    }
+
+    /** @test */
+    public function it_can_create_reactants_for_specific_model_ids(): void
+    {
+        Article::unsetEventDispatcher();
+        User::unsetEventDispatcher();
+        $articleReactables = factory(Article::class, 3)->create();
+        $firstArticleReactable = $articleReactables->get(0);
+        $lastArticleReactable = $articleReactables->get(2);
+        $userReactables = factory(User::class, 3)->create();
+        $command = $this->artisan(RegisterReactants::class, [
+            '--model' => Article::class,
+            '--ids' => [
+                $firstArticleReactable->id,
+                $lastArticleReactable->id,
+            ],
+        ]);
+
+        $status = $command->run();
+
+        $this->assertSame(0, $status);
+        $this->assertTrue($articleReactables->get(0)->fresh()->isRegisteredAsLoveReactant());
+        $this->assertFalse($articleReactables->get(1)->fresh()->isRegisteredAsLoveReactant());
+        $this->assertTrue($articleReactables->get(2)->fresh()->isRegisteredAsLoveReactant());
+        $this->assertFalse($userReactables->get(0)->fresh()->isRegisteredAsLoveReactant());
+        $this->assertFalse($userReactables->get(1)->fresh()->isRegisteredAsLoveReactant());
+        $this->assertFalse($userReactables->get(2)->fresh()->isRegisteredAsLoveReactant());
+    }
+
+    /** @test */
+    public function it_can_create_reactants_for_specific_model_ids_delimited_with_comma(): void
+    {
+        Article::unsetEventDispatcher();
+        User::unsetEventDispatcher();
+        $articleReactables = factory(Article::class, 3)->create();
+        $firstArticleReactable = $articleReactables->get(0);
+        $lastArticleReactable = $articleReactables->get(2);
+        $userReactables = factory(User::class, 3)->create();
+        $command = $this->artisan(RegisterReactants::class, [
+            '--model' => Article::class,
+            '--ids' => ["{$firstArticleReactable->id},{$lastArticleReactable->id}"],
+        ]);
+
+        $status = $command->run();
+
+        $this->assertSame(0, $status);
+        $this->assertTrue($articleReactables->get(0)->fresh()->isRegisteredAsLoveReactant());
+        $this->assertFalse($articleReactables->get(1)->fresh()->isRegisteredAsLoveReactant());
+        $this->assertTrue($articleReactables->get(2)->fresh()->isRegisteredAsLoveReactant());
+        $this->assertFalse($userReactables->get(0)->fresh()->isRegisteredAsLoveReactant());
+        $this->assertFalse($userReactables->get(1)->fresh()->isRegisteredAsLoveReactant());
+        $this->assertFalse($userReactables->get(2)->fresh()->isRegisteredAsLoveReactant());
     }
 }
