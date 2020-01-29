@@ -16,7 +16,6 @@ namespace Cog\Tests\Laravel\Love\Unit\Console\Commands;
 use Cog\Laravel\Love\Console\Commands\RegisterReactants;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
-use Cog\Tests\Laravel\Love\Stubs\Models\EntityWithMorphMap;
 use Cog\Tests\Laravel\Love\Stubs\Models\MorphMappedReactable;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
