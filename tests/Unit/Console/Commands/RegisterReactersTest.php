@@ -16,6 +16,7 @@ namespace Cog\Tests\Laravel\Love\Unit\Console\Commands;
 use Cog\Laravel\Love\Console\Commands\RegisterReacters;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Tests\Laravel\Love\Stubs\Models\Bot;
+use Cog\Tests\Laravel\Love\Stubs\Models\MorphMappedReacterable;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
 
@@ -38,6 +39,30 @@ final class RegisterReactersTest extends TestCase
         $this->assertSame(0, $status);
         $this->assertSame($reactersCount + 3, Reacter::query()->count());
         foreach ($botReactables as $reactable) {
+            $this->assertTrue($reactable->fresh()->isRegisteredAsLoveReacter());
+        }
+        foreach ($userReactables as $reactable) {
+            $this->assertFalse($reactable->fresh()->isRegisteredAsLoveReacter());
+        }
+    }
+
+    /** @test */
+    public function it_can_create_reacters_for_all_models_of_type_with_morph_map(): void
+    {
+        MorphMappedReacterable::unsetEventDispatcher();
+        User::unsetEventDispatcher();
+        $morphMappedReactables = factory(MorphMappedReacterable::class, 3)->create();
+        $userReactables = factory(User::class, 3)->create();
+        $reactersCount = Reacter::query()->count();
+        $command = $this->artisan(RegisterReacters::class, [
+            '--model' => 'morph-mapped-reacterable',
+        ]);
+
+        $status = $command->run();
+
+        $this->assertSame(0, $status);
+        $this->assertSame($reactersCount + 3, Reacter::query()->count());
+        foreach ($morphMappedReactables as $reactable) {
             $this->assertTrue($reactable->fresh()->isRegisteredAsLoveReacter());
         }
         foreach ($userReactables as $reactable) {
@@ -103,7 +128,7 @@ final class RegisterReactersTest extends TestCase
     }
 
     /** @test */
-    public function it_not_create_duplicate_reacters_for_all_models(): void
+    public function it_not_create_duplicate_reacters(): void
     {
         factory(Bot::class, 3)->create();
         factory(User::class, 3)->create();

@@ -15,6 +15,8 @@ namespace Cog\Tests\Laravel\Love;
 
 use Cog\Laravel\Love\LoveServiceProvider;
 use Cog\Tests\Laravel\Love\Stubs\Models\EntityWithMorphMap;
+use Cog\Tests\Laravel\Love\Stubs\Models\MorphMappedReactable;
+use Cog\Tests\Laravel\Love\Stubs\Models\MorphMappedReacterable;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Filesystem\Filesystem;
@@ -102,6 +104,8 @@ abstract class TestCase extends OrchestraTestCase
     {
         Relation::morphMap([
             'entity-with-morph-map' => EntityWithMorphMap::class,
+            'morph-mapped-reactable' => MorphMappedReactable::class,
+            'morph-mapped-reacterable' => MorphMappedReacterable::class,
         ]);
     }
 

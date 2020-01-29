@@ -16,6 +16,8 @@ namespace Cog\Tests\Laravel\Love\Unit\Console\Commands;
 use Cog\Laravel\Love\Console\Commands\RegisterReactants;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
+use Cog\Tests\Laravel\Love\Stubs\Models\EntityWithMorphMap;
+use Cog\Tests\Laravel\Love\Stubs\Models\MorphMappedReactable;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
 
@@ -38,6 +40,30 @@ final class RegisterReactantsTest extends TestCase
         $this->assertSame(0, $status);
         $this->assertSame($reactantsCount + 3, Reactant::query()->count());
         foreach ($articleReactables as $reactable) {
+            $this->assertTrue($reactable->fresh()->isRegisteredAsLoveReactant());
+        }
+        foreach ($userReactables as $reactable) {
+            $this->assertFalse($reactable->fresh()->isRegisteredAsLoveReactant());
+        }
+    }
+
+    /** @test */
+    public function it_can_create_reactants_for_all_models_of_type_with_morph_map(): void
+    {
+        MorphMappedReactable::unsetEventDispatcher();
+        User::unsetEventDispatcher();
+        $morphMappedReactables = factory(MorphMappedReactable::class, 3)->create();
+        $userReactables = factory(User::class, 3)->create();
+        $reactantsCount = Reactant::query()->count();
+        $command = $this->artisan(RegisterReactants::class, [
+            '--model' => 'morph-mapped-reactable',
+        ]);
+
+        $status = $command->run();
+
+        $this->assertSame(0, $status);
+        $this->assertSame($reactantsCount + 3, Reactant::query()->count());
+        foreach ($morphMappedReactables as $reactable) {
             $this->assertTrue($reactable->fresh()->isRegisteredAsLoveReactant());
         }
         foreach ($userReactables as $reactable) {
@@ -103,7 +129,7 @@ final class RegisterReactantsTest extends TestCase
     }
 
     /** @test */
-    public function it_not_create_duplicate_reactants_for_all_models(): void
+    public function it_not_create_duplicate_reactants(): void
     {
         factory(Article::class, 3)->create();
         factory(User::class, 3)->create();
