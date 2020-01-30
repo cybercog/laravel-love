@@ -24,7 +24,7 @@ use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\Stubs\Models\Bot;
 use Cog\Tests\Laravel\Love\Stubs\Models\Entity;
-use Cog\Tests\Laravel\Love\Stubs\Models\EntityWithMorphMap;
+use Cog\Tests\Laravel\Love\Stubs\Models\MorphMappedReactable;
 use Cog\Tests\Laravel\Love\TestCase;
 
 final class RecountTest extends TestCase
@@ -235,7 +235,7 @@ final class RecountTest extends TestCase
         ReactionCounter::query()->truncate();
 
         $status = $this->artisan('love:recount', [
-            '--model' => 'entity-with-morph-map',
+            '--model' => 'morph-mapped-reactable',
             '--type' => 'Like',
         ]);
 
@@ -278,7 +278,7 @@ final class RecountTest extends TestCase
         ] = $this->seedTestData();
 
         $status = $this->artisan('love:recount', [
-            '--model' => 'entity-with-morph-map',
+            '--model' => 'morph-mapped-reactable',
             '--type' => 'Like',
         ]);
 
@@ -322,7 +322,7 @@ final class RecountTest extends TestCase
         ReactionCounter::query()->truncate();
 
         $status = $this->artisan('love:recount', [
-            '--model' => EntityWithMorphMap::class,
+            '--model' => MorphMappedReactable::class,
             '--type' => 'Like',
         ]);
 
@@ -365,7 +365,7 @@ final class RecountTest extends TestCase
         ] = $this->seedTestData();
 
         $status = $this->artisan('love:recount', [
-            '--model' => EntityWithMorphMap::class,
+            '--model' => MorphMappedReactable::class,
             '--type' => 'Like',
         ]);
 
@@ -579,7 +579,7 @@ final class RecountTest extends TestCase
         ReactionCounter::query()->truncate();
 
         $status = $this->artisan('love:recount', [
-            '--model' => 'entity-with-morph-map',
+            '--model' => 'morph-mapped-reactable',
         ]);
 
         $counters = ReactionCounter::query()->count();
@@ -622,7 +622,7 @@ final class RecountTest extends TestCase
         ] = $this->seedTestData();
 
         $status = $this->artisan('love:recount', [
-            '--model' => 'entity-with-morph-map',
+            '--model' => 'morph-mapped-reactable',
         ]);
 
         $counters = ReactionCounter::query()->count();
@@ -666,7 +666,7 @@ final class RecountTest extends TestCase
         ReactionCounter::query()->truncate();
 
         $status = $this->artisan('love:recount', [
-            '--model' => EntityWithMorphMap::class,
+            '--model' => MorphMappedReactable::class,
         ]);
 
         $counters = ReactionCounter::query()->count();
@@ -709,7 +709,7 @@ final class RecountTest extends TestCase
         ] = $this->seedTestData();
 
         $status = $this->artisan('love:recount', [
-            '--model' => EntityWithMorphMap::class,
+            '--model' => MorphMappedReactable::class,
         ]);
 
         $counters = ReactionCounter::query()->count();
@@ -988,11 +988,11 @@ final class RecountTest extends TestCase
     {
         $reactant1 = factory(Entity::class)->create()
             ->getLoveReactant();
-        $reactant2 = factory(EntityWithMorphMap::class)->create()
+        $reactant2 = factory(MorphMappedReactable::class)->create()
             ->getLoveReactant();
         $reactant3 = factory(Article::class)->create()
             ->getLoveReactant();
-        $reactant4 = factory(EntityWithMorphMap::class)->create()
+        $reactant4 = factory(MorphMappedReactable::class)->create()
             ->getLoveReactant();
 
         $reacter1 = factory(Reacter::class)->create();
@@ -1019,9 +1019,9 @@ final class RecountTest extends TestCase
 
         return [
             $reactant1, // 3 likes | 0 dislikes | Entity
-            $reactant2, // 2 likes | 1 dislikes | EntityWithMorphMap
+            $reactant2, // 2 likes | 1 dislikes | MorphMappedReactable
             $reactant3, // 2 likes | 2 dislikes | Article
-            $reactant4, // 1 likes | 2 dislikes | EntityWithMorphMap
+            $reactant4, // 1 likes | 2 dislikes | MorphMappedReactable
         ];
     }
 }
