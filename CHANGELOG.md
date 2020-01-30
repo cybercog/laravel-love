@@ -4,6 +4,8 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ## [Unreleased]
 
+## [8.2.0] - 2020-01-30
+
 ### Added
 
 - ([#127]) Artisan commands for registering existing models as reactants/reacters
@@ -405,7 +407,8 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 
 - Initial release
 
-[Unreleased]: https://github.com/cybercog/laravel-love/compare/8.1.2...master
+[Unreleased]: https://github.com/cybercog/laravel-love/compare/8.2.0...master
+[8.2.0]: https://github.com/cybercog/laravel-love/compare/8.1.2...8.2.0
 [8.1.2]: https://github.com/cybercog/laravel-love/compare/8.1.1...8.1.2
 [8.1.1]: https://github.com/cybercog/laravel-love/compare/8.1.0...8.1.1
 [8.1.0]: https://github.com/cybercog/laravel-love/compare/8.0.0...8.1.0
@@ -442,6 +445,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 [1.1.1]: https://github.com/cybercog/laravel-love/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/cybercog/laravel-love/compare/1.0.0...1.1.0
 
+[#127]: https://github.com/cybercog/laravel-love/pull/127
 [#121]: https://github.com/cybercog/laravel-love/pull/121
 [#118]: https://github.com/cybercog/laravel-love/pull/118
 [#114]: https://github.com/cybercog/laravel-love/pull/114
