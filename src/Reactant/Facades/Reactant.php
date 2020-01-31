@@ -57,11 +57,11 @@ final class Reactant implements ReacterFacadeContract
         ?string $reactionTypeName = null,
         ?float $rate = null
     ): bool {
-        if (is_null($reacterable)) {
+        if ($reacterable === null) {
             return false;
         }
 
-        $reactionType = is_null($reactionTypeName) ? null : ReactionType::fromName($reactionTypeName);
+        $reactionType = $reactionTypeName === null ? null : ReactionType::fromName($reactionTypeName);
 
         return $this->reactant->isReactedBy(
             $reacterable->getLoveReacter(),
@@ -75,11 +75,11 @@ final class Reactant implements ReacterFacadeContract
         ?string $reactionTypeName = null,
         ?float $rate = null
     ): bool {
-        if (is_null($reacterable)) {
+        if ($reacterable === null) {
             return true;
         }
 
-        $reactionType = is_null($reactionTypeName) ? null : ReactionType::fromName($reactionTypeName);
+        $reactionType = $reactionTypeName === null ? null : ReactionType::fromName($reactionTypeName);
 
         return $this->reactant->isNotReactedBy(
             $reacterable->getLoveReacter(),

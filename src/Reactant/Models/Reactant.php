@@ -75,7 +75,7 @@ final class Reactant extends Model implements
     {
         $reactable = $this->getAttribute('reactable');
 
-        if (is_null($reactable)) {
+        if ($reactable === null) {
             throw new NotAssignedToReactable();
         }
 
@@ -102,7 +102,7 @@ final class Reactant extends Model implements
             ->where('reaction_type_id', $reactionType->getId())
             ->first();
 
-        if (is_null($counter)) {
+        if ($counter === null) {
             return new NullReactionCounter($this, $reactionType);
         }
 
@@ -133,11 +133,11 @@ final class Reactant extends Model implements
                         return false;
                     }
 
-                    if (!is_null($reactionType) && $reaction->isNotOfType($reactionType)) {
+                    if ($reactionType !== null && $reaction->isNotOfType($reactionType)) {
                         return false;
                     }
 
-                    if (!is_null($rate) && $reaction->getRate() !== $rate) {
+                    if ($rate !== null && $reaction->getRate() !== $rate) {
                         return false;
                     }
 
@@ -147,11 +147,11 @@ final class Reactant extends Model implements
 
         $query = $this->reactions()->where('reacter_id', $reacter->getId());
 
-        if (!is_null($reactionType)) {
+        if ($reactionType !== null) {
             $query->where('reaction_type_id', $reactionType->getId());
         }
 
-        if (!is_null($rate)) {
+        if ($rate !== null) {
             $query->where('rate', $rate);
         }
 

@@ -168,7 +168,7 @@ final class UpgradeV5ToV6 extends Command
         $reactableClasses = [];
         foreach ($classes as $class) {
             $actualClass = Relation::getMorphedModel($class);
-            if (!is_null($actualClass)) {
+            if ($actualClass !== null) {
                 $class = $actualClass;
             }
 
@@ -222,7 +222,7 @@ final class UpgradeV5ToV6 extends Command
         foreach ($likes as $like) {
             $class = $like->likeable_type;
             $actualClass = Relation::getMorphedModel($class);
-            if (!is_null($actualClass)) {
+            if ($actualClass !== null) {
                 $class = $actualClass;
             }
 
