@@ -20,11 +20,11 @@ final class ReactionTotalObserver
     public function creating(
         ReactionTotal $total
     ): void {
-        if (is_null($total->getAttributeValue('count'))) {
+        if ($total->getAttributeValue('count') === null) {
             $total->setAttribute('count', ReactionTotal::COUNT_DEFAULT);
         }
 
-        if (is_null($total->getAttributeValue('weight'))) {
+        if ($total->getAttributeValue('weight') === null) {
             $total->setAttribute('weight', ReactionTotal::WEIGHT_DEFAULT);
         }
     }

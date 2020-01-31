@@ -20,11 +20,11 @@ final class ReactionCounterObserver
     public function creating(
         ReactionCounter $counter
     ): void {
-        if (is_null($counter->getAttributeValue('count'))) {
+        if ($counter->getAttributeValue('count') === null) {
             $counter->setAttribute('count', ReactionCounter::COUNT_DEFAULT);
         }
 
-        if (is_null($counter->getAttributeValue('weight'))) {
+        if ($counter->getAttributeValue('weight') === null) {
             $counter->setAttribute('weight', ReactionCounter::WEIGHT_DEFAULT);
         }
     }

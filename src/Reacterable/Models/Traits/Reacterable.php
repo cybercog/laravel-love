@@ -54,7 +54,7 @@ trait Reacterable
 
     public function isNotRegisteredAsLoveReacter(): bool
     {
-        return is_null($this->getAttributeValue('love_reacter_id'));
+        return $this->getAttributeValue('love_reacter_id') === null;
     }
 
     public function registerAsLoveReacter(): void

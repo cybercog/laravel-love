@@ -59,7 +59,7 @@ final class Reacter extends Model implements
     {
         $reacterable = $this->getAttribute('reacterable');
 
-        if (is_null($reacterable)) {
+        if ($reacterable === null) {
             throw new NotAssignedToReacterable();
         }
 
@@ -82,13 +82,13 @@ final class Reacter extends Model implements
 
         $reaction = $this->findReaction($reactant, $reactionType);
 
-        if (is_null($reaction)) {
+        if ($reaction === null) {
             $this->createReaction($reactant, $reactionType, $rate);
 
             return;
         }
 
-        if (is_null($rate)) {
+        if ($rate === null) {
             throw new ReactionAlreadyExists(sprintf(
                 'Reaction of type `%s` already exists.',
                 $reactionType->getName()
@@ -108,7 +108,7 @@ final class Reacter extends Model implements
 
         $reaction = $this->findReaction($reactant, $reactionType);
 
-        if (is_null($reaction)) {
+        if ($reaction === null) {
             throw new ReactionNotExists(sprintf(
                 'Reaction of type `%s` not exists.',
                 $reactionType->getName()

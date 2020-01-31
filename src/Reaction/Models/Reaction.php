@@ -99,7 +99,7 @@ final class Reaction extends Model implements
     public function setRateAttribute(
         ?float $rate
     ): void {
-        if (!is_null($rate) && ($rate < self::RATE_MIN || $rate > self::RATE_MAX)) {
+        if ($rate !== null && ($rate < self::RATE_MIN || $rate > self::RATE_MAX)) {
             throw RateOutOfRange::withValueBetween($rate, self::RATE_MIN, self::RATE_MAX);
         }
 

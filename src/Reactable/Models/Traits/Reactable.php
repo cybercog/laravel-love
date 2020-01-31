@@ -62,7 +62,7 @@ trait Reactable
 
     public function isNotRegisteredAsLoveReactant(): bool
     {
-        return is_null($this->getAttributeValue('love_reactant_id'));
+        return $this->getAttributeValue('love_reactant_id') === null;
     }
 
     public function registerAsLoveReactant(): void
@@ -87,7 +87,7 @@ trait Reactable
     ): Builder {
         return $query->whereHas('loveReactant.reactions', function (Builder $reactionsQuery) use ($reacterable, $reactionTypeName) {
             $reactionsQuery->where('reacter_id', $reacterable->getLoveReacter()->getId());
-            if (!is_null($reactionTypeName)) {
+            if ($reactionTypeName !== null) {
                 $reactionsQuery->where('reaction_type_id', ReactionType::fromName($reactionTypeName)->getId());
             }
         });
@@ -100,7 +100,7 @@ trait Reactable
     ): Builder {
         return $query->whereDoesntHave('loveReactant.reactions', function (Builder $reactionsQuery) use ($reacterable, $reactionTypeName) {
             $reactionsQuery->where('reacter_id', $reacterable->getLoveReacter()->getId());
-            if (!is_null($reactionTypeName)) {
+            if ($reactionTypeName !== null) {
                 $reactionsQuery->where('reaction_type_id', ReactionType::fromName($reactionTypeName)->getId());
             }
         });
@@ -112,7 +112,7 @@ trait Reactable
         ?string $alias = null
     ): Builder {
         $reactionType = ReactionType::fromName($reactionTypeName);
-        $alias = is_null($alias) ? 'reaction_' . Str::snake($reactionType->getName()) : $alias;
+        $alias = $alias === null ? 'reaction_' . Str::snake($reactionType->getName()) : $alias;
 
         $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
         $select[] = DB::raw("COALESCE({$alias}.count, 0) as {$alias}_count");
@@ -130,7 +130,7 @@ trait Reactable
         Builder $query,
         ?string $alias = null
     ): Builder {
-        $alias = is_null($alias) ? 'reaction_total' : $alias;
+        $alias = $alias === null ? 'reaction_total' : $alias;
         $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
         $select[] = DB::raw("COALESCE({$alias}.count, 0) as {$alias}_count");
         $select[] = DB::raw("COALESCE({$alias}.weight, 0) as {$alias}_weight");
