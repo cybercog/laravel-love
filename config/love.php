@@ -41,5 +41,6 @@ return [
     */
 
     'load_default_migrations' => true,
+    'should_queue' => true,
 
 ];

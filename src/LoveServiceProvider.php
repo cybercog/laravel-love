@@ -22,7 +22,9 @@ use Cog\Laravel\Love\Console\Commands\SetupReacterable;
 use Cog\Laravel\Love\Console\Commands\UpgradeV5ToV6;
 use Cog\Laravel\Love\Console\Commands\UpgradeV7ToV8;
 use Cog\Laravel\Love\Reactant\Listeners\DecrementAggregates;
+use Cog\Laravel\Love\Reactant\Listeners\DecrementAggregatesQueuebale;
 use Cog\Laravel\Love\Reactant\Listeners\IncrementAggregates;
+use Cog\Laravel\Love\Reactant\Listeners\IncrementAggregatesQueuebale;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Observers\ReactionCounterObserver;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal;
@@ -113,11 +115,11 @@ final class LoveServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../config/love.php' => config_path('love.php'),
+                __DIR__.'/../config/love.php' => config_path('love.php'),
             ], 'love-config');
 
             $this->publishes([
-                __DIR__ . '/../database/migrations' => database_path('migrations'),
+                __DIR__.'/../database/migrations' => database_path('migrations'),
             ], 'love-migrations');
         }
     }
@@ -130,7 +132,7 @@ final class LoveServiceProvider extends ServiceProvider
     private function registerMigrations(): void
     {
         if ($this->app->runningInConsole() && $this->shouldLoadDefaultMigrations()) {
-            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+            $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         }
     }
 
@@ -141,8 +143,13 @@ final class LoveServiceProvider extends ServiceProvider
      */
     private function registerListeners(): void
     {
-        Event::listen(ReactionHasBeenAdded::class, IncrementAggregates::class);
-        Event::listen(ReactionHasBeenRemoved::class, DecrementAggregates::class);
+        if (Config::get('love.should_queue', true)) {
+            Event::listen(ReactionHasBeenAdded::class, IncrementAggregatesQueuebale::class);
+            Event::listen(ReactionHasBeenRemoved::class, DecrementAggregatesQueuebale::class);
+        } else {
+            Event::listen(ReactionHasBeenAdded::class, IncrementAggregates::class);
+            Event::listen(ReactionHasBeenRemoved::class, DecrementAggregates::class);
+        }
     }
 
     /**
@@ -152,8 +159,8 @@ final class LoveServiceProvider extends ServiceProvider
      */
     private function configure(): void
     {
-        if (!$this->app->configurationIsCached()) {
-            $this->mergeConfigFrom(__DIR__ . '/../config/love.php', 'love');
+        if ( ! $this->app->configurationIsCached()) {
+            $this->mergeConfigFrom(__DIR__.'/../config/love.php', 'love');
         }
     }
 }
