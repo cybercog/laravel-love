@@ -1,5 +1,5 @@
 {
-    "name": "volkv/laravel-love",
+    "name": "cybercog/laravel-love",
     "description": "Make Laravel Eloquent models reactable with any type of emotions in a minutes!",
     "type": "library",
     "license": "MIT",
