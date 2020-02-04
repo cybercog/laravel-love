@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reactant\Listeners;
 
+use Cog\Laravel\Love\Reactant\Listeners\Traits\OptionalQueueConnection;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Services\ReactionCounterService;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Services\ReactionTotalService;
 use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenAdded;
@@ -20,6 +21,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 final class IncrementAggregates implements ShouldQueue
 {
+    use OptionalQueueConnection;
     /**
      * Handle the event.
      *

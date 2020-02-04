@@ -42,4 +42,15 @@ return [
 
     'load_default_migrations' => true,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Queue Connection Driver
+    |--------------------------------------------------------------------------
+    |
+    | You may overwrite global QUEUE_CONNECTION driver here
+    |
+    */
+
+    'queue_connection' => null,
+
 ];
