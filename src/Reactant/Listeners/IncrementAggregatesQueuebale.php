@@ -15,6 +15,6 @@ namespace Cog\Laravel\Love\Reactant\Listeners;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-final class IncrementAggregatesQueuebale extends DecrementAggregates implements ShouldQueue
+final class IncrementAggregatesQueuebale extends IncrementAggregates implements ShouldQueue
 {
 }
