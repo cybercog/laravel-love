@@ -41,10 +41,6 @@ final class RebuildAggregatesJob implements
      */
     private $reactionType;
 
-    /**
-     * @param \Cog\Contracts\Love\Reactant\Models\Reactant $reactant
-     * @param \Cog\Contracts\Love\ReactionType\Models\ReactionType|null $reactionType
-     */
     public function __construct(
         ReactantContract $reactant,
         ?ReactionTypeContract $reactionType = null
@@ -55,11 +51,11 @@ final class RebuildAggregatesJob implements
 
     public function handle(
     ): void {
-        $this->recountCounters($this->reactant);
-        $this->recountTotal($this->reactant);
+        $this->recountReactionCounters($this->reactant);
+        $this->recountReactionTotal($this->reactant);
     }
 
-    private function recountCounters(
+    private function recountReactionCounters(
         ReactantContract $reactant
     ): void {
         $this->resetCountersValues();
@@ -72,7 +68,7 @@ final class RebuildAggregatesJob implements
         }
     }
 
-    private function recountTotal(
+    private function recountReactionTotal(
         ReactantContract $reactant
     ): void {
         $counters = $reactant->getReactionCounters();
@@ -98,10 +94,6 @@ final class RebuildAggregatesJob implements
         ]);
     }
 
-    /**
-     * @param \Cog\Contracts\Love\Reactant\Models\Reactant $reactant
-     * @return \Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal
-     */
     private function findOrCreateReactionTotal(
         ReactantContract $reactant
     ): ReactionTotalContract {
@@ -115,9 +107,6 @@ final class RebuildAggregatesJob implements
         return $reactionTotal;
     }
 
-    /**
-     * @return void
-     */
     private function resetCountersValues(
     ): void {
         $counters = $this->reactant->getReactionCounters();
