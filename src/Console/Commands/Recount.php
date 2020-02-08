@@ -49,6 +49,7 @@ final class Recount extends Command
         return [
             ['model', null, InputOption::VALUE_OPTIONAL, 'The name of the reactable model'],
             ['type', null, InputOption::VALUE_OPTIONAL, 'The name of the reaction type'],
+            ['queue-connection', null, InputOption::VALUE_OPTIONAL, 'The name of the queue connection'],
         ];
     }
 
@@ -76,12 +77,15 @@ final class Recount extends Command
             $reactionType = ReactionType::fromName($reactionType);
         }
 
+        $queueConnectionName = $this->option('queue-connection');
+
         $reactants = $this->collectReactants($reactableType);
 
         $this->getOutput()->progressStart($reactants->count());
         foreach ($reactants as $reactant) {
             $this->dispatcher->dispatch(
-                new RebuildAggregatesJob($reactant, $reactionType)
+                (new RebuildAggregatesJob($reactant, $reactionType))
+                    ->onConnection($queueConnectionName)
             );
 
             $this->getOutput()->progressAdvance();
