@@ -59,6 +59,19 @@ final class RebuildAggregatesJob implements
         $this->recountTotal($this->reactant);
     }
 
+    private function recountCounters(
+        ReactantContract $reactant
+    ): void {
+        $this->resetCountersValues();
+
+        $service = new ReactionCounterService($reactant);
+
+        $reactions = $this->collectReactions();
+        foreach ($reactions as $reaction) {
+            $service->addReaction($reaction);
+        }
+    }
+
     private function recountTotal(
         ReactantContract $reactant
     ): void {
@@ -83,19 +96,6 @@ final class RebuildAggregatesJob implements
             'count' => $totalCount,
             'weight' => $totalWeight,
         ]);
-    }
-
-    private function recountCounters(
-        ReactantContract $reactant
-    ): void {
-        $this->resetCountersValues();
-
-        $service = new ReactionCounterService($reactant);
-
-        $reactions = $this->collectReactions();
-        foreach ($reactions as $reaction) {
-            $service->addReaction($reaction);
-        }
     }
 
     /**
@@ -136,20 +136,6 @@ final class RebuildAggregatesJob implements
     }
 
     /**
-     * Determine if counter should not be rebuilt.
-     *
-     * @param ReactionCounterContract $counter
-     * @return bool
-     */
-    private function shouldNotAffectCounter(
-        ReactionCounterContract $counter
-    ): bool
-    {
-        return $this->reactionType !== null
-            && $counter->isNotReactionOfType($this->reactionType);
-    }
-
-    /**
      * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      */
     private function collectReactions(
@@ -162,5 +148,18 @@ final class RebuildAggregatesJob implements
         }
 
         return $query->get();
+    }
+
+    /**
+     * Determine if counter should not be rebuilt.
+     *
+     * @param ReactionCounterContract $counter
+     * @return bool
+     */
+    private function shouldNotAffectCounter(
+        ReactionCounterContract $counter
+    ): bool {
+        return $this->reactionType !== null
+            && $counter->isNotReactionOfType($this->reactionType);
     }
 }
