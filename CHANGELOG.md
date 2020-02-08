@@ -6,6 +6,7 @@ All notable changes to `laravel-love` will be documented in this file.
 
 - ([#146]) Extracted logic from `Cog\Laravel\Love\Reactant\Listeners\IncrementAggregates` listener to `Cog\Laravel\Love\Reactant\Jobs\IncrementAggregatesJob`
 - ([#146]) Extracted logic from `Cog\Laravel\Love\Reactant\Listeners\DecrementAggregates` listener to `Cog\Laravel\Love\Reactant\Jobs\DecrementAggregatesJob`
+- ([#147]) Extracted event listeners registering from `Cog\Laravel\Love\LoveServiceProvider` to `Cog\Laravel\Love\LoveEventServiceProvider`
 
 ## [8.2.0] - 2020-01-30
 
@@ -448,6 +449,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 [1.1.1]: https://github.com/cybercog/laravel-love/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/cybercog/laravel-love/compare/1.0.0...1.1.0
 
+[#147]: https://github.com/cybercog/laravel-love/pull/147
 [#146]: https://github.com/cybercog/laravel-love/pull/146
 [#127]: https://github.com/cybercog/laravel-love/pull/127
 [#121]: https://github.com/cybercog/laravel-love/pull/121

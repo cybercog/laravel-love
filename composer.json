@@ -77,7 +77,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Cog\\Laravel\\Love\\LoveServiceProvider"
+                "Cog\\Laravel\\Love\\LoveServiceProvider",
+                "Cog\\Laravel\\Love\\LoveEventServiceProvider"
             ]
         }
     },

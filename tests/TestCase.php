@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love;
 
+use Cog\Laravel\Love\LoveEventServiceProvider;
 use Cog\Laravel\Love\LoveServiceProvider;
 use Cog\Tests\Laravel\Love\Stubs\Models\MorphMappedReactable;
 use Cog\Tests\Laravel\Love\Stubs\Models\MorphMappedReacterable;
@@ -62,6 +63,7 @@ abstract class TestCase extends OrchestraTestCase
     {
         return [
             LoveServiceProvider::class,
+            LoveEventServiceProvider::class,
             ConsoleServiceProvider::class,
         ];
     }
