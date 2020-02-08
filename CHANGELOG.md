@@ -10,6 +10,7 @@ All notable changes to `laravel-love` will be documented in this file.
 - ([#146]) Extracted logic from `Cog\Laravel\Love\Reactant\Listeners\DecrementAggregates` listener to `Cog\Laravel\Love\Reactant\Jobs\DecrementReactionAggregatesJob`
 - ([#147]) Extracted event listeners registering from `Cog\Laravel\Love\LoveServiceProvider` to `Cog\Laravel\Love\LoveEventServiceProvider`
 - ([#148]) Extracted rebuild of reactant reactions counters from `Cog\Laravel\Love\Console\Commands\Recount` command to `Cog\Laravel\Love\Reactant\Jobs\RebuildReactionAggregatesJob`
+- ([#148]) Added `--queue-connection=` option to `love:recount` Artisan command
 
 ## [8.2.0] - 2020-01-30
 
