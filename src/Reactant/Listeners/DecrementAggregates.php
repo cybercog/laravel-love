@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reactant\Listeners;
 
-use Cog\Laravel\Love\Reactant\Jobs\DecrementAggregatesJob;
+use Cog\Laravel\Love\Reactant\Jobs\DecrementReactionAggregatesJob;
 use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenRemoved;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -42,7 +42,7 @@ final class DecrementAggregates implements ShouldQueue
         $reactant = $reaction->getReactant();
 
         $this->dispatcher->dispatch(
-            new DecrementAggregatesJob($reactant, $reaction)
+            new DecrementReactionAggregatesJob($reactant, $reaction)
         );
     }
 }
