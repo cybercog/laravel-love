@@ -54,8 +54,7 @@ final class Recount extends Command
 
     public function __construct(
         Dispatcher $dispatcher
-    )
-    {
+    ) {
         parent::__construct();
         $this->dispatcher = $dispatcher;
     }
