@@ -4,6 +4,9 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ## [Unreleased]
 
+- Extracted logic from `Cog\Laravel\Love\Reactant\Listeners\IncrementAggregates` listener to `Cog\Laravel\Love\Reactant\Jobs\IncrementAggregatesJob`
+- Extracted logic from `Cog\Laravel\Love\Reactant\Listeners\DecrementAggregates` listener to `Cog\Laravel\Love\Reactant\Jobs\DecrementAggregatesJob`
+
 ## [8.2.0] - 2020-01-30
 
 ### Added
