@@ -51,16 +51,15 @@ final class RebuildAggregatesJob implements
 
     public function handle(
     ): void {
-        $this->recountReactionCounters($this->reactant);
-        $this->recountReactionTotal($this->reactant);
+        $this->recountReactionCounters();
+        $this->recountReactionTotal();
     }
 
     private function recountReactionCounters(
-        ReactantContract $reactant
     ): void {
         $this->resetCountersValues();
 
-        $service = new ReactionCounterService($reactant);
+        $service = new ReactionCounterService($this->reactant);
 
         $reactions = $this->collectReactions();
         foreach ($reactions as $reaction) {
@@ -69,9 +68,8 @@ final class RebuildAggregatesJob implements
     }
 
     private function recountReactionTotal(
-        ReactantContract $reactant
     ): void {
-        $counters = $reactant->getReactionCounters();
+        $counters = $this->reactant->getReactionCounters();
 
         if (count($counters) === 0) {
             return;
@@ -85,7 +83,7 @@ final class RebuildAggregatesJob implements
             $totalWeight += $counter->getWeight();
         }
 
-        $reactionTotal = $this->findOrCreateReactionTotal($reactant);
+        $reactionTotal = $this->findOrCreateReactionTotal();
 
         /** @var \Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal $reactionTotal */
         $reactionTotal->update([
@@ -95,13 +93,12 @@ final class RebuildAggregatesJob implements
     }
 
     private function findOrCreateReactionTotal(
-        ReactantContract $reactant
     ): ReactionTotalContract {
-        $reactionTotal = $reactant->getReactionTotal();
+        $reactionTotal = $this->reactant->getReactionTotal();
 
         if ($reactionTotal instanceof NullReactionTotal) {
-            $reactant->createReactionTotal();
-            $reactionTotal = $reactant->getReactionTotal();
+            $this->reactant->createReactionTotal();
+            $reactionTotal = $this->reactant->getReactionTotal();
         }
 
         return $reactionTotal;
