@@ -25,7 +25,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-final class RebuildAggregatesJob implements
+final class RebuildReactionAggregatesJob implements
     ShouldQueue
 {
     use Dispatchable;

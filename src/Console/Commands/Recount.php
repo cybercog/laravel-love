@@ -15,7 +15,7 @@ namespace Cog\Laravel\Love\Console\Commands;
 
 use Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid;
 use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
-use Cog\Laravel\Love\Reactant\Jobs\RebuildAggregatesJob;
+use Cog\Laravel\Love\Reactant\Jobs\RebuildReactionAggregatesJob;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Console\Command;
@@ -84,7 +84,7 @@ final class Recount extends Command
         $this->getOutput()->progressStart($reactants->count());
         foreach ($reactants as $reactant) {
             $this->dispatcher->dispatch(
-                (new RebuildAggregatesJob($reactant, $reactionType))
+                (new RebuildReactionAggregatesJob($reactant, $reactionType))
                     ->onConnection($queueConnectionName)
             );
 
