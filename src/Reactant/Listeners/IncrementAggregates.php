@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reactant\Listeners;
 
-use Cog\Laravel\Love\Reactant\Jobs\IncrementAggregatesJob;
+use Cog\Laravel\Love\Reactant\Jobs\IncrementReactionAggregatesJob;
 use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenAdded;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -42,7 +42,7 @@ final class IncrementAggregates implements ShouldQueue
         $reactant = $reaction->getReactant();
 
         $this->dispatcher->dispatch(
-            new IncrementAggregatesJob($reactant, $reaction)
+            new IncrementReactionAggregatesJob($reactant, $reaction)
         );
     }
 }

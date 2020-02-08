@@ -6,8 +6,8 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ### Added
 
-- ([#146]) Extracted logic from `Cog\Laravel\Love\Reactant\Listeners\IncrementAggregates` listener to `Cog\Laravel\Love\Reactant\Jobs\IncrementAggregatesJob`
-- ([#146]) Extracted logic from `Cog\Laravel\Love\Reactant\Listeners\DecrementAggregates` listener to `Cog\Laravel\Love\Reactant\Jobs\DecrementAggregatesJob`
+- ([#146]) Extracted logic from `Cog\Laravel\Love\Reactant\Listeners\IncrementAggregates` listener to `Cog\Laravel\Love\Reactant\Jobs\IncrementReactionAggregatesJob`
+- ([#146]) Extracted logic from `Cog\Laravel\Love\Reactant\Listeners\DecrementAggregates` listener to `Cog\Laravel\Love\Reactant\Jobs\DecrementReactionAggregatesJob`
 - ([#147]) Extracted event listeners registering from `Cog\Laravel\Love\LoveServiceProvider` to `Cog\Laravel\Love\LoveEventServiceProvider`
 - ([#148]) Extracted rebuild of reactant reactions counters from `Cog\Laravel\Love\Console\Commands\Recount` command to `Cog\Laravel\Love\Reactant\Jobs\RebuildReactionAggregatesJob`
 
