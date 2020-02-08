@@ -44,8 +44,7 @@ final class IncrementAggregatesJob implements
     public function __construct(
         ReactantContract $reactant,
         ReactionContract $reaction
-    )
-    {
+    ) {
         $this->reactant = $reactant;
         $this->reaction = $reaction;
     }
