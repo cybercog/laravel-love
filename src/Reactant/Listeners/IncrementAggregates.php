@@ -13,13 +13,23 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reactant\Listeners;
 
-use Cog\Laravel\Love\Reactant\ReactionCounter\Services\ReactionCounterService;
-use Cog\Laravel\Love\Reactant\ReactionTotal\Services\ReactionTotalService;
+use Cog\Laravel\Love\Reactant\Jobs\IncrementAggregatesJob;
 use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenAdded;
+use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 final class IncrementAggregates implements ShouldQueue
 {
+    /**
+     * @var \Illuminate\Contracts\Bus\Dispatcher
+     */
+    private $dispatcher;
+
+    public function __construct(Dispatcher $dispatcher)
+    {
+        $this->dispatcher = $dispatcher;
+    }
+
     /**
      * Handle the event.
      *
@@ -31,10 +41,8 @@ final class IncrementAggregates implements ShouldQueue
         $reaction = $event->getReaction();
         $reactant = $reaction->getReactant();
 
-        (new ReactionCounterService($reactant))
-            ->addReaction($reaction);
-
-        (new ReactionTotalService($reactant))
-            ->addReaction($reaction);
+        $this->dispatcher->dispatch(
+            new IncrementAggregatesJob($reactant, $reaction)
+        );
     }
 }
