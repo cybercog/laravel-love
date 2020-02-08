@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Cog\Laravel\Love\Reactant\Jobs;
 
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
+use Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter as ReactionCounterContract;
 use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalContract;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
@@ -54,29 +55,7 @@ final class RebuildAggregatesJob implements
 
     public function handle(
     ): void {
-        /** @var \Illuminate\Database\Eloquent\Builder $query */
-        $query = $this->reactant->reactions();
-
-        if ($this->reactionType !== null) {
-            $query->where('reaction_type_id', $this->reactionType->getId());
-        }
-
-        $counters = $this->reactant->getReactionCounters();
-
-        /** @var \Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter $counter */
-        foreach ($counters as $counter) {
-            if ($this->reactionType && $counter->isNotReactionOfType($this->reactionType)) {
-                continue;
-            }
-
-            $counter->update([
-                'count' => ReactionCounter::COUNT_DEFAULT,
-                'weight' => ReactionCounter::WEIGHT_DEFAULT,
-            ]);
-        }
-
-        $reactions = $query->get();
-        $this->recountCounters($this->reactant, $reactions);
+        $this->recountCounters($this->reactant);
         $this->recountTotal($this->reactant);
     }
 
@@ -97,9 +76,9 @@ final class RebuildAggregatesJob implements
             $totalWeight += $counter->getWeight();
         }
 
-        /** @var \Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal $reactionTotal */
         $reactionTotal = $this->findOrCreateReactionTotal($reactant);
 
+        /** @var \Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal $reactionTotal */
         $reactionTotal->update([
             'count' => $totalCount,
             'weight' => $totalWeight,
@@ -107,11 +86,13 @@ final class RebuildAggregatesJob implements
     }
 
     private function recountCounters(
-        ReactantContract $reactant,
-        iterable $reactions
+        ReactantContract $reactant
     ): void {
+        $this->resetCountersValues();
+
         $service = new ReactionCounterService($reactant);
 
+        $reactions = $this->collectReactions();
         foreach ($reactions as $reaction) {
             $service->addReaction($reaction);
         }
@@ -132,5 +113,54 @@ final class RebuildAggregatesJob implements
         }
 
         return $reactionTotal;
+    }
+
+    /**
+     * @return void
+     */
+    private function resetCountersValues(
+    ): void {
+        $counters = $this->reactant->getReactionCounters();
+
+        foreach ($counters as $counter) {
+            if ($this->shouldNotAffectCounter($counter)) {
+                continue;
+            }
+
+            /** @var \Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter $counter */
+            $counter->update([
+                'count' => ReactionCounter::COUNT_DEFAULT,
+                'weight' => ReactionCounter::WEIGHT_DEFAULT,
+            ]);
+        }
+    }
+
+    /**
+     * Determine if counter should not be rebuilt.
+     *
+     * @param ReactionCounterContract $counter
+     * @return bool
+     */
+    private function shouldNotAffectCounter(
+        ReactionCounterContract $counter
+    ): bool
+    {
+        return $this->reactionType !== null
+            && $counter->isNotReactionOfType($this->reactionType);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    private function collectReactions(
+    ): iterable {
+        /** @var \Illuminate\Database\Eloquent\Builder $query */
+        $query = $this->reactant->reactions();
+
+        if ($this->reactionType !== null) {
+            $query->where('reaction_type_id', $this->reactionType->getId());
+        }
+
+        return $query->get();
     }
 }

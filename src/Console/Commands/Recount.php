@@ -44,8 +44,8 @@ final class Recount extends Command
      */
     private $dispatcher;
 
-    protected function getOptions(): array
-    {
+    protected function getOptions(
+    ): array {
         return [
             ['model', null, InputOption::VALUE_OPTIONAL, 'The name of the reactable model'],
             ['type', null, InputOption::VALUE_OPTIONAL, 'The name of the reaction type'],
