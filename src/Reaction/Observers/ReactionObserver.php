@@ -22,8 +22,9 @@ final class ReactionObserver
 {
     private $eventDispatcher;
 
-    public function __construct(DispatcherContract $eventDispatcher)
-    {
+    public function __construct(
+        DispatcherContract $eventDispatcher
+    ) {
         $this->eventDispatcher = $eventDispatcher;
     }
 
