@@ -12,6 +12,10 @@ All notable changes to `laravel-love` will be documented in this file.
 - ([#148]) Extracted rebuild of reactant reactions counters from `Cog\Laravel\Love\Console\Commands\Recount` command to `Cog\Laravel\Love\Reactant\Jobs\RebuildReactionAggregatesJob`
 - ([#148]) Added `--queue-connection=` option to `love:recount` Artisan command
 
+### Fixed
+
+- ([#148]) Fixed `love:recount` Artisan command execution when `reaction_totals` database table is empty
+
 ## [8.2.0] - 2020-01-30
 
 ### Added
