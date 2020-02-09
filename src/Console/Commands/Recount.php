@@ -44,6 +44,11 @@ final class Recount extends Command
      */
     private $dispatcher;
 
+    /**
+     * Get the console command options.
+     *
+     * @return array
+     */
     protected function getOptions(
     ): array {
         return [
@@ -78,9 +83,13 @@ final class Recount extends Command
         }
 
         $queueConnectionName = $this->option('queue-connection');
+        if ($queueConnectionName === null || $queueConnectionName === '') {
+            $queueConnectionName = 'sync';
+        }
 
         $reactants = $this->collectReactants($reactableType);
 
+        $this->warnProcessingStartedOn($queueConnectionName);
         $this->getOutput()->progressStart($reactants->count());
         foreach ($reactants as $reactant) {
             $this->dispatcher->dispatch(
@@ -154,6 +163,8 @@ final class Recount extends Command
     }
 
     /**
+     * Collect all reactants we want to affect.
+     *
      * @param string|null $reactableType
      * @return \Cog\Contracts\Love\Reactant\Models\Reactant[]|\Illuminate\Database\Eloquent\Collection
      */
@@ -167,5 +178,26 @@ final class Recount extends Command
         }
 
         return $reactantsQuery->get();
+    }
+
+    /**
+     * Write warning output that processing has been started.
+     *
+     * @param string|null $queueConnectionName
+     * @return void
+     */
+    private function warnProcessingStartedOn(
+        ?string $queueConnectionName
+    ): void {
+        if ($queueConnectionName === 'sync') {
+            $message = 'Rebuilding reaction aggregates synchronously.';
+        } else {
+            $message = sprintf(
+                'Adding rebuild reaction aggregates to the `%s` queue connection.',
+                $queueConnectionName
+            );
+        }
+
+        $this->warn($message);
     }
 }
