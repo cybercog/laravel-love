@@ -18,11 +18,11 @@ use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Services\ReactionCounterService;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Services\ReactionTotalService;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Contracts\Queue\ShouldQueue as ShouldQueueContract;
 use Illuminate\Foundation\Bus\Dispatchable;
 
 final class IncrementReactionAggregatesJob implements
-    ShouldQueue
+    ShouldQueueContract
 {
     use Dispatchable;
     use Queueable;

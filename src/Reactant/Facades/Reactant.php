@@ -20,7 +20,8 @@ use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTo
 use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 
-final class Reactant implements ReacterFacadeContract
+final class Reactant implements
+    ReacterFacadeContract
 {
     private $reactant;
 
