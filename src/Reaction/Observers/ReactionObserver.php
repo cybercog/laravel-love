@@ -16,9 +16,18 @@ namespace Cog\Laravel\Love\Reaction\Observers;
 use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenAdded;
 use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenRemoved;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
+use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 
 final class ReactionObserver
 {
+    private $eventDispatcher;
+
+    public function __construct(
+        DispatcherContract $eventDispatcher
+    ) {
+        $this->eventDispatcher = $eventDispatcher;
+    }
+
     public function creating(
         Reaction $reaction
     ): void {
@@ -30,12 +39,16 @@ final class ReactionObserver
     public function created(
         Reaction $reaction
     ): void {
-        event(new ReactionHasBeenAdded($reaction));
+        $this->eventDispatcher->dispatch(
+            new ReactionHasBeenAdded($reaction)
+        );
     }
 
     public function deleted(
         Reaction $reaction
     ): void {
-        event(new ReactionHasBeenRemoved($reaction));
+        $this->eventDispatcher->dispatch(
+            new ReactionHasBeenRemoved($reaction)
+        );
     }
 }
