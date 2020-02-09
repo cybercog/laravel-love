@@ -14,7 +14,7 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ### Fixed
 
-- ([#148]) Fixed `love:recount` Artisan command execution when `reaction_totals` database table is empty
+- ([#148]) Fixed `love:recount` Artisan command execution when `love_reactant_reaction_totals` database table is empty
 
 ## [8.2.0] - 2020-01-30
 
