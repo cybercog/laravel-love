@@ -15,17 +15,18 @@ namespace Cog\Laravel\Love\Reactant\Listeners;
 
 use Cog\Laravel\Love\Reactant\Jobs\DecrementReactionAggregatesJob;
 use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenRemoved;
-use Illuminate\Contracts\Bus\Dispatcher;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Contracts\Bus\Dispatcher as DispatcherContract;
+use Illuminate\Contracts\Queue\ShouldQueue as ShouldQueueContract;
 
-final class DecrementAggregates implements ShouldQueue
+final class DecrementAggregates implements
+    ShouldQueueContract
 {
     /**
      * @var \Illuminate\Contracts\Bus\Dispatcher
      */
     private $dispatcher;
 
-    public function __construct(Dispatcher $dispatcher)
+    public function __construct(DispatcherContract $dispatcher)
     {
         $this->dispatcher = $dispatcher;
     }

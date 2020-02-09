@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reacter\Models;
 
-use Cog\Contracts\Love\Reactant\Models\Reactant;
+use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
 use Cog\Contracts\Love\Reacter\Exceptions\ReacterInvalid;
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
 use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
-use Cog\Contracts\Love\ReactionType\Models\ReactionType;
+use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 use Illuminate\Support\Collection;
 use TypeError;
 
@@ -48,31 +48,31 @@ final class NullReacter implements
     }
 
     public function reactTo(
-        Reactant $reactant,
-        ReactionType $reactionType,
+        ReactantContract $reactant,
+        ReactionTypeContract $reactionType,
         ?float $rate = null
     ): void {
         throw ReacterInvalid::notExists();
     }
 
     public function unreactTo(
-        Reactant $reactant,
-        ReactionType $reactionType
+        ReactantContract $reactant,
+        ReactionTypeContract $reactionType
     ): void {
         throw ReacterInvalid::notExists();
     }
 
     public function hasReactedTo(
-        Reactant $reactant,
-        ?ReactionType $reactionType = null,
+        ReactantContract $reactant,
+        ?ReactionTypeContract $reactionType = null,
         ?float $rate = null
     ): bool {
         return false;
     }
 
     public function hasNotReactedTo(
-        Reactant $reactant,
-        ?ReactionType $reactionType = null,
+        ReactantContract $reactant,
+        ?ReactionTypeContract $reactionType = null,
         ?float $rate = null
     ): bool {
         return true;

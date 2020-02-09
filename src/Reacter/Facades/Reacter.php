@@ -18,7 +18,8 @@ use Cog\Contracts\Love\Reacter\Facades\Reacter as ReacterFacadeContract;
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 
-final class Reacter implements ReacterFacadeContract
+final class Reacter implements
+    ReacterFacadeContract
 {
     private $reacter;
 

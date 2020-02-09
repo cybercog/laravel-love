@@ -19,7 +19,7 @@ use Cog\Laravel\Love\Reactant\Jobs\RebuildReactionAggregatesJob;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Console\Command;
-use Illuminate\Contracts\Bus\Dispatcher;
+use Illuminate\Contracts\Bus\Dispatcher as DispatcherContract;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -59,7 +59,7 @@ final class Recount extends Command
     }
 
     public function __construct(
-        Dispatcher $dispatcher
+        DispatcherContract $dispatcher
     ) {
         parent::__construct();
         $this->dispatcher = $dispatcher;

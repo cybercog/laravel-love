@@ -22,11 +22,11 @@ use Cog\Laravel\Love\Reactant\ReactionCounter\Services\ReactionCounterService;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Contracts\Queue\ShouldQueue as ShouldQueueContract;
 use Illuminate\Foundation\Bus\Dispatchable;
 
 final class RebuildReactionAggregatesJob implements
-    ShouldQueue
+    ShouldQueueContract
 {
     use Dispatchable;
     use Queueable;
