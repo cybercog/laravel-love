@@ -15,6 +15,7 @@ All notable changes to `laravel-love` will be documented in this file.
 ### Fixed
 
 - ([#148]) Fixed `love:recount` Artisan command execution when `love_reactant_reaction_totals` database table is empty
+- ([#151]) Fixed `love:recount` Artisan command return type
 
 ## [8.2.0] - 2020-01-30
 
@@ -457,6 +458,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 [1.1.1]: https://github.com/cybercog/laravel-love/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/cybercog/laravel-love/compare/1.0.0...1.1.0
 
+[#151]: https://github.com/cybercog/laravel-love/pull/151
 [#148]: https://github.com/cybercog/laravel-love/pull/148
 [#147]: https://github.com/cybercog/laravel-love/pull/147
 [#146]: https://github.com/cybercog/laravel-love/pull/146
