@@ -68,12 +68,12 @@ final class Recount extends Command
     /**
      * Execute the console command.
      *
-     * @return void
+     * @return int
      *
      * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
      */
     public function handle(
-    ): void {
+    ): int {
         if ($reactableType = $this->option('model')) {
             $reactableType = $this->normalizeReactableModelType($reactableType);
         }
@@ -100,6 +100,8 @@ final class Recount extends Command
             $this->getOutput()->progressAdvance();
         }
         $this->getOutput()->progressFinish();
+
+        return 0;
     }
 
     /**
