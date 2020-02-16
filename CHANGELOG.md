@@ -4,6 +4,8 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ## [Unreleased]
 
+## [8.3.0] - 2020-02-16
+
 ### Added
 
 - ([#146]) Extracted logic from `Cog\Laravel\Love\Reactant\Listeners\IncrementAggregates` listener to `Cog\Laravel\Love\Reactant\Jobs\IncrementReactionAggregatesJob`
@@ -420,7 +422,8 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 
 - Initial release
 
-[Unreleased]: https://github.com/cybercog/laravel-love/compare/8.2.0...master
+[Unreleased]: https://github.com/cybercog/laravel-love/compare/8.3.0...master
+[8.3.0]: https://github.com/cybercog/laravel-love/compare/8.2.0...8.3.0
 [8.2.0]: https://github.com/cybercog/laravel-love/compare/8.1.2...8.2.0
 [8.1.2]: https://github.com/cybercog/laravel-love/compare/8.1.1...8.1.2
 [8.1.1]: https://github.com/cybercog/laravel-love/compare/8.1.0...8.1.1
