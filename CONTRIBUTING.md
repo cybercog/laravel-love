@@ -19,11 +19,7 @@ Due to time constraints, we are not always able to respond as quickly as we woul
 
 ## Coding Guidelines
 
-This project comes with a configuration file for php-cs-fixer (.php_cs) that you can use to (re)format your sourcecode for compliance with this project's coding guidelines:
-
-```shell script
-$ vendor/bin/php-cs-fixer fix
-```
+This project follows [PSR-12 coding style guide](https://www.php-fig.org/psr/psr-12/).
 
 ## PHPUnit tests
 
