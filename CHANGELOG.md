@@ -4,6 +4,12 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ## [Unreleased]
 
+## [8.3.1] - 2020-03-06
+
+### Added
+
+- ([#158]) Add Laravel 7.x support
+
 ## [8.3.0] - 2020-02-16
 
 ### Added
@@ -422,7 +428,8 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 
 - Initial release
 
-[Unreleased]: https://github.com/cybercog/laravel-love/compare/8.3.0...master
+[Unreleased]: https://github.com/cybercog/laravel-love/compare/8.3.1...master
+[8.3.1]: https://github.com/cybercog/laravel-love/compare/8.3.0...8.3.1
 [8.3.0]: https://github.com/cybercog/laravel-love/compare/8.2.0...8.3.0
 [8.2.0]: https://github.com/cybercog/laravel-love/compare/8.1.2...8.2.0
 [8.1.2]: https://github.com/cybercog/laravel-love/compare/8.1.1...8.1.2
@@ -461,6 +468,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 [1.1.1]: https://github.com/cybercog/laravel-love/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/cybercog/laravel-love/compare/1.0.0...1.1.0
 
+[#158]: https://github.com/cybercog/laravel-love/pull/158
 [#151]: https://github.com/cybercog/laravel-love/pull/151
 [#148]: https://github.com/cybercog/laravel-love/pull/148
 [#147]: https://github.com/cybercog/laravel-love/pull/147
