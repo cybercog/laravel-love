@@ -20,6 +20,7 @@ use Cog\Laravel\Love\Console\Commands\RegisterReacters;
 use Cog\Laravel\Love\Console\Commands\SetupReactable;
 use Cog\Laravel\Love\Console\Commands\SetupReacterable;
 use Cog\Laravel\Love\Console\Commands\UpgradeV5ToV6;
+use Cog\Laravel\Love\Console\Commands\UpgradeV5ToV8;
 use Cog\Laravel\Love\Console\Commands\UpgradeV7ToV8;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Observers\ReactionCounterObserver;
@@ -94,6 +95,7 @@ final class LoveServiceProvider extends ServiceProvider
                 RegisterReacters::class,
                 UpgradeV5ToV6::class,
                 UpgradeV7ToV8::class,
+                UpgradeV5ToV8::class
             ]);
         }
     }
