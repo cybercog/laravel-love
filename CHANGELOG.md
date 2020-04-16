@@ -4,6 +4,10 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+
+- ([#161]) Removed redundant queues from Reactant listeners
+
 ## [8.3.1] - 2020-03-06
 
 ### Added
@@ -468,6 +472,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 [1.1.1]: https://github.com/cybercog/laravel-love/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/cybercog/laravel-love/compare/1.0.0...1.1.0
 
+[#161]: https://github.com/cybercog/laravel-love/pull/161
 [#158]: https://github.com/cybercog/laravel-love/pull/158
 [#151]: https://github.com/cybercog/laravel-love/pull/151
 [#148]: https://github.com/cybercog/laravel-love/pull/148

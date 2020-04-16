@@ -16,10 +16,8 @@ namespace Cog\Laravel\Love\Reactant\Listeners;
 use Cog\Laravel\Love\Reactant\Jobs\IncrementReactionAggregatesJob;
 use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenAdded;
 use Illuminate\Contracts\Bus\Dispatcher as DispatcherContract;
-use Illuminate\Contracts\Queue\ShouldQueue as ShouldQueueContract;
 
-final class IncrementAggregates implements
-    ShouldQueueContract
+final class IncrementAggregates
 {
     /**
      * @var \Illuminate\Contracts\Bus\Dispatcher
