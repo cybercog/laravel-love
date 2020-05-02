@@ -11,6 +11,7 @@
 
 declare(strict_types=1);
 
+use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Support\Database\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
@@ -23,7 +24,7 @@ final class CreateLoveReactantReactionCountersTable extends Migration
      */
     public function up(): void
     {
-        $this->schema->create('love_reactant_reaction_counters', function (Blueprint $table) {
+        $this->schema->create((new ReactionCounter())->getTable(), function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('reactant_id');
             $table->unsignedBigInteger('reaction_type_id');
@@ -56,6 +57,6 @@ final class CreateLoveReactantReactionCountersTable extends Migration
      */
     public function down(): void
     {
-        $this->schema->dropIfExists('love_reactant_reaction_counters');
+        $this->schema->dropIfExists((new ReactionCounter())->getTable());
     }
 }
