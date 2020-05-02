@@ -24,7 +24,6 @@ final class CreateLoveReactantsTable extends Migration
      */
     public function up(): void
     {
-
         $this->schema->create((new Reactant)->getTable(), function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('type');
