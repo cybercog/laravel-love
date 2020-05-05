@@ -15,7 +15,7 @@
 Laravel Love is emotional part of the application. It let people express how they feel about the content.
 Make any model reactable in a minutes!
 
-There are many different implementations in modern applications:
+There are many implementations in modern applications:
 
 - Github Reactions
 - Facebook Reactions
@@ -28,7 +28,7 @@ This package developed in mind that it should cover all the possible use cases a
 
 ## Official Documentation
 
-Documentation can be found in [Laravel Love Guide](https://laravel-love.readme.io/docs).
+Documentation can be found in [Laravel Love Guide].
 
 ## Installation
 
@@ -50,13 +50,18 @@ Please see [UPGRADING](UPGRADING.md) for detailed upgrade instructions.
 
 ## License
 
-- `Laravel Love` package is open-sourced software licensed under the [MIT license](LICENSE) by [Anton Komarev](https://komarev.com).
-- `Devil` logo image licensed under [Creative Commons 3.0](https://creativecommons.org/licenses/by/3.0/us/) by YuguDesign.
+- `Laravel Love` package is open-sourced software licensed under the [MIT license](LICENSE) by [Anton Komarev].
+- `Devil` logo image licensed under [Creative Commons 3.0] by YuguDesign.
 
 ## About CyberCog
 
-[CyberCog](https://cybercog.su) is a Social Unity of enthusiasts. Research best solutions in product & software development is our passion.
+[CyberCog] is a Social Unity of enthusiasts. Research best solutions in product & software development is our passion.
 
 - [Follow us on Twitter](https://twitter.com/cybercog)
 
 <a href="https://cybercog.su"><img src="https://cloud.githubusercontent.com/assets/1849174/18418932/e9edb390-7860-11e6-8a43-aa3fad524664.png" alt="CyberCog"></a>
+
+[Anton Komarev]: https://komarev.com
+[CyberCog]: https://cybercog.su
+[Laravel Love Guide]: https://laravel-love.readme.io/docs
+[Creative Commons 3.0](https://creativecommons.org/licenses/by/3.0/us/)
