@@ -51,7 +51,7 @@ Please see [UPGRADING](UPGRADING.md) for detailed upgrade instructions.
 ## License
 
 - `Laravel Love` package is open-sourced software licensed under the [MIT license](LICENSE) by [Anton Komarev].
-- `Devil` logo image licensed under [Creative Commons 3.0] by YuguDesign.
+- `Devil` logo image licensed under [Creative Commons 3.0](https://creativecommons.org/licenses/by/3.0/us/) by YuguDesign.
 
 ## About CyberCog
 
@@ -64,4 +64,3 @@ Please see [UPGRADING](UPGRADING.md) for detailed upgrade instructions.
 [Anton Komarev]: https://komarev.com
 [CyberCog]: https://cybercog.su
 [Laravel Love Guide]: https://laravel-love.readme.io/docs
-[Creative Commons 3.0](https://creativecommons.org/licenses/by/3.0/us/)
