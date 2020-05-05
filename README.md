@@ -48,12 +48,6 @@ $ php artisan migrate
 
 Please see [UPGRADING](UPGRADING.md) for detailed upgrade instructions.
 
-## Postcardware
-
-You're free to use this package, but if it makes it to your production environment we highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using.
-
-Our address is: Anton Komarev, Mitinskaya st., 52-405, 125430 Moscow, Russia.
-
 ## License
 
 - `Laravel Love` package is open-sourced software licensed under the [MIT license](LICENSE) by [Anton Komarev](https://komarev.com).
