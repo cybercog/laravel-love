@@ -27,6 +27,14 @@ return [
     'storage' => [
         'database' => [
             'connection' => env('DB_CONNECTION', 'mysql'),
+            'tables' => [
+                'love_reacters' => null,
+                'love_reactants' => null,
+                'love_reaction_types' => null,
+                'love_reactions' => null,
+                'love_reactant_reaction_counters' => null,
+                'love_reactant_reaction_totals' => null,
+            ],
         ],
     ],
 

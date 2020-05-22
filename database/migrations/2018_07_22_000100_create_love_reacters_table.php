@@ -11,6 +11,7 @@
 
 declare(strict_types=1);
 
+use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\Support\Database\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
@@ -23,7 +24,7 @@ final class CreateLoveReactersTable extends Migration
      */
     public function up(): void
     {
-        $this->schema->create('love_reacters', function (Blueprint $table) {
+        $this->schema->create((new Reacter())->getTable(), function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('type');
             $table->timestamps();
@@ -39,6 +40,6 @@ final class CreateLoveReactersTable extends Migration
      */
     public function down(): void
     {
-        $this->schema->dropIfExists('love_reacters');
+        $this->schema->dropIfExists((new Reacter())->getTable());
     }
 }

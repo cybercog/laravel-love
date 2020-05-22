@@ -27,4 +27,10 @@ abstract class Model extends IlluminateModel
     {
         return Config::get('love.storage.database.connection');
     }
+
+    public function getTable(): string
+    {
+        return Config::get("love.storage.database.tables.{$this->table}")
+            ?? $this->table;
+    }
 }
