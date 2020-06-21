@@ -1,5 +1,5 @@
 parameters:
-	level: 0
-	paths:
-		- src
-		- tests
+    level: 0
+    paths:
+        - src
+        - tests
