@@ -21,6 +21,9 @@ use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 final class Reacter implements
     ReacterFacadeContract
 {
+    /**
+     * @var ReacterContract
+     */
     private $reacter;
 
     public function __construct(ReacterContract $reacter)
@@ -28,6 +31,9 @@ final class Reacter implements
         $this->reacter = $reacter;
     }
 
+    /**
+     * @return iterable|\Cog\Contracts\Love\Reaction\Models\Reaction[]
+     */
     public function getReactions(): iterable
     {
         return $this->reacter->getReactions();

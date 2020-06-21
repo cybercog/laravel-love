@@ -35,6 +35,9 @@ final class RegisterReacters extends Command
      */
     protected $description = 'Register Reacterable models as Reacters';
 
+    /**
+     * @return array[]
+     */
     protected function getOptions(): array
     {
         return [

@@ -28,16 +28,25 @@ final class ReactionTotal extends Model implements
 
     protected $table = 'love_reactant_reaction_totals';
 
+    /**
+     * @var array<int|float>
+     */
     protected $attributes = [
         'count' => self::COUNT_DEFAULT,
         'weight' => self::WEIGHT_DEFAULT,
     ];
 
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'count',
         'weight',
     ];
 
+    /**
+     * @var string[]
+     */
     protected $casts = [
         'count' => 'integer',
         'weight' => 'float',

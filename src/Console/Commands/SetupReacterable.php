@@ -42,10 +42,19 @@ final class SetupReacterable extends Command
      */
     protected $description = 'Set up reacterable model';
 
+    /**
+     * @var Filesystem
+     */
     private $files;
 
+    /**
+     * @var MigrationCreator
+     */
     private $creator;
 
+    /**
+     * @var Composer
+     */
     private $composer;
 
     public function __construct(Filesystem $files, MigrationCreator $creator, Composer $composer)
@@ -133,6 +142,9 @@ final class SetupReacterable extends Command
         return 0;
     }
 
+    /**
+     * @return array[]
+     */
     protected function getOptions(): array
     {
         return [

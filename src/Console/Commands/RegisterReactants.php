@@ -35,6 +35,9 @@ final class RegisterReactants extends Command
      */
     protected $description = 'Register Reactable models as Reactants';
 
+    /**
+     * @return array[]
+     */
     protected function getOptions(): array
     {
         return [

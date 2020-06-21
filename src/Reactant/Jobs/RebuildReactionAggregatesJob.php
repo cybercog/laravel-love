@@ -122,7 +122,7 @@ final class RebuildReactionAggregatesJob implements
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     * @return \Cog\Laravel\Love\Reaction\Models\Reaction[]|\Illuminate\Database\Eloquent\Collection
      */
     private function collectReactions(
     ): iterable {

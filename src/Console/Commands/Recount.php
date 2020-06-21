@@ -47,7 +47,7 @@ final class Recount extends Command
     /**
      * Get the console command options.
      *
-     * @return array
+     * @return array[]
      */
     protected function getOptions(
     ): array {

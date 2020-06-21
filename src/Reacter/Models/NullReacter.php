@@ -24,6 +24,9 @@ use TypeError;
 final class NullReacter implements
     ReacterContract
 {
+    /**
+     * @var ReacterableContract
+     */
     private $reacterable;
 
     public function __construct(

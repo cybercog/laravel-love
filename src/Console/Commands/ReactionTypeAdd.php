@@ -73,6 +73,9 @@ final class ReactionTypeAdd extends Command
         return 0;
     }
 
+    /**
+     * @return array[]
+     */
     protected function getOptions(): array
     {
         return [

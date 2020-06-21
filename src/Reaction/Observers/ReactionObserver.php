@@ -20,6 +20,9 @@ use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 
 final class ReactionObserver
 {
+    /**
+     * @var DispatcherContract
+     */
     private $eventDispatcher;
 
     public function __construct(

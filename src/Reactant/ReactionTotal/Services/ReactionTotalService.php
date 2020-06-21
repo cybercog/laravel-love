@@ -20,6 +20,9 @@ use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
 
 final class ReactionTotalService
 {
+    /**
+     * @var ReactionTotalContract
+     */
     private $reactionTotal;
 
     public function __construct(
