@@ -21,6 +21,9 @@ use Cog\Laravel\Love\Reactant\ReactionCounter\Models\NullReactionCounter;
 
 final class ReactionCounterService
 {
+    /**
+     * @var ReactantContract
+     */
     private $reactant;
 
     public function __construct(

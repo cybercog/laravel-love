@@ -28,6 +28,9 @@ use TypeError;
 final class NullReactant implements
     ReactantContract
 {
+    /**
+     * @var ReactableContract
+     */
     private $reactable;
 
     public function __construct(

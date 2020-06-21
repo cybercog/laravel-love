@@ -36,16 +36,25 @@ final class Reaction extends Model implements
 
     protected $table = 'love_reactions';
 
+    /**
+     * @var float[]
+     */
     protected $attributes = [
         'rate' => self::RATE_DEFAULT,
     ];
 
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'reactant_id',
         'reaction_type_id',
         'rate',
     ];
 
+    /**
+     * @var string[]
+     */
     protected $casts = [
         'id' => 'string',
         'rate' => 'float',

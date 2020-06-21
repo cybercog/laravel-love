@@ -17,6 +17,9 @@ use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
 
 final class ReactionHasBeenRemoved
 {
+    /**
+     * @var ReactionContract
+     */
     private $reaction;
 
     public function __construct(

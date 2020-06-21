@@ -23,6 +23,9 @@ use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 final class Reactant implements
     ReacterFacadeContract
 {
+    /**
+     * @var ReactantContract
+     */
     private $reactant;
 
     public function __construct(ReactantContract $reactant)
@@ -30,11 +33,17 @@ final class Reactant implements
         $this->reactant = $reactant;
     }
 
+    /**
+     * @return iterable|\Cog\Contracts\Love\Reaction\Models\Reaction[]
+     */
     public function getReactions(): iterable
     {
         return $this->reactant->getReactions();
     }
 
+    /**
+     * @return iterable|\Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter[]
+     */
     public function getReactionCounters(): iterable
     {
         return $this->reactant->getReactionCounters();

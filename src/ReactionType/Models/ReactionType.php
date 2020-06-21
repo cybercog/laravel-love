@@ -26,31 +26,43 @@ final class ReactionType extends Model implements
 
     protected $table = 'love_reaction_types';
 
+    /**
+     * @var int[]
+     */
     protected $attributes = [
         'mass' => self::MASS_DEFAULT,
     ];
 
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'name',
         'mass',
     ];
 
+    /**
+     * @var string[]
+     */
     protected $casts = [
         'id' => 'string',
         'mass' => 'integer',
     ];
 
+    /**
+     * @var array<self>
+     */
     private static $nameCache = [];
 
     protected static function boot(): void
     {
         parent::boot();
 
-        self::saved(function (ReactionTypeContract $reactionType) {
+        self::saved(function (self $reactionType) {
             self::$nameCache[$reactionType->getName()] = $reactionType;
         });
 
-        self::deleted(function (ReactionTypeContract $reactionType) {
+        self::deleted(function (self $reactionType) {
             unset(self::$nameCache[$reactionType->getName()]);
         });
     }
@@ -67,7 +79,7 @@ final class ReactionType extends Model implements
             return self::$nameCache[$name];
         }
 
-        /** @var \Cog\Laravel\Love\ReactionType\Models\ReactionType $type */
+        /** @var \Cog\Laravel\Love\ReactionType\Models\ReactionType|null $type */
         $type = self::query()->where('name', $name)->first();
 
         if ($type === null) {

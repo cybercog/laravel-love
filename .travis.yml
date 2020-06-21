@@ -17,4 +17,5 @@ before_script:
   - if [[ $setup = 'lowest' ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-lowest --prefer-stable; fi
 
 script:
+  - ./vendor/bin/phpstan analyse -c .phpstan.neon
   - ./vendor/bin/phpunit -c phpunit.xml.dist --verbose

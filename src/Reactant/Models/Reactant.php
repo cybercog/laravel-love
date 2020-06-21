@@ -38,10 +38,16 @@ final class Reactant extends Model implements
 {
     protected $table = 'love_reactants';
 
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'type',
     ];
 
+    /**
+     * @var string[]
+     */
     protected $casts = [
         'id' => 'string',
     ];

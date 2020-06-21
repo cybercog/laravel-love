@@ -32,10 +32,16 @@ final class Reacter extends Model implements
 {
     protected $table = 'love_reacters';
 
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'type',
     ];
 
+    /**
+     * @var string[]
+     */
     protected $casts = [
         'id' => 'string',
     ];
@@ -176,7 +182,7 @@ final class Reacter extends Model implements
     /**
      * @param \Cog\Contracts\Love\Reactant\Models\Reactant $reactant
      * @param \Cog\Contracts\Love\ReactionType\Models\ReactionType $reactionType
-     * @return null|\Cog\Contracts\Love\Reaction\Models\Reaction|\Illuminate\Database\Eloquent\Model
+     * @return \Cog\Contracts\Love\Reaction\Models\Reaction|\Illuminate\Database\Eloquent\Model|null
      */
     private function findReaction(
         ReactantContract $reactant,

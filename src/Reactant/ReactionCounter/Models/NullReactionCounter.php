@@ -21,8 +21,14 @@ use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
 final class NullReactionCounter implements
     ReactionCounterContract
 {
+    /**
+     * @var ReactantContract
+     */
     private $reactant;
 
+    /**
+     * @var ReactionTypeContract
+     */
     private $reactionType;
 
     public function __construct(
