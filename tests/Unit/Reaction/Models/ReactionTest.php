@@ -181,7 +181,7 @@ final class ReactionTest extends TestCase
         ]);
 
         $assertReactant = $reaction->getReactant();
-        $this->assertTrue($assertReactant->is($reactant));
+        $this->assertTrue($reactant->is($assertReactant));
     }
 
     /** @test */
@@ -205,7 +205,7 @@ final class ReactionTest extends TestCase
         ]);
 
         $assertReacter = $reaction->getReacter();
-        $this->assertTrue($assertReacter->is($reacter));
+        $this->assertTrue($reacter->is($assertReacter));
     }
 
     /** @test */
@@ -229,7 +229,7 @@ final class ReactionTest extends TestCase
         ]);
 
         $assertType = $reaction->getType();
-        $this->assertTrue($assertType->is($type));
+        $this->assertTrue($type->is($assertType));
     }
 
     /** @test */
