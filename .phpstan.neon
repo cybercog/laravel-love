@@ -8,4 +8,6 @@ parameters:
           message: '#Variable \$factory might not be defined.#'
         - path: tests/Unit/*
           message: '#Function factory invoked with 1 parameter, 0 required.#'
+        - path: tests/Unit/*
+          message: '#Function factory invoked with 2 parameters, 0 required.#'
     reportUnmatchedIgnoredErrors: false # Remove when PHP 7.1 will be dropped
