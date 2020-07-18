@@ -18,7 +18,10 @@ use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
@@ -38,6 +41,18 @@ final class UpgradeV5ToV6 extends Command
      * @var string
      */
     protected $description = 'Upgrade Love package from v5 to v6';
+
+    /**
+     * @var Builder
+     */
+    private $queryBuilder;
+
+    public function __construct(Builder $queryBuilder)
+    {
+        parent::__construct();
+
+        $this->queryBuilder = $queryBuilder;
+    }
 
     /**
      * Execute the console command.
@@ -139,7 +154,7 @@ final class UpgradeV5ToV6 extends Command
         }
 
         foreach ($reacterableClasses as $class) {
-            /** @var \Illuminate\Database\Eloquent\Model[] $reacterables */
+            /** @var Collection<Model> $reacterables */
             $reacterables = $class::query()->get();
             $progress = $this->output->createProgressBar($reacterables->count());
             foreach ($reacterables as $reacterable) {
@@ -186,7 +201,7 @@ final class UpgradeV5ToV6 extends Command
         }
 
         foreach ($reactableClasses as $class) {
-            /** @var \Illuminate\Database\Eloquent\Model[] $reactables */
+            /** @var Collection<Model> $reactables */
             $reactables = $class::query()->get();
             $progress = $this->output->createProgressBar($reactables->count());
             foreach ($reactables as $reactable) {
@@ -210,9 +225,8 @@ final class UpgradeV5ToV6 extends Command
     private function populateReactions(): void
     {
         $this->info('Converting Likes & Dislikes to Reactions');
-        /** @var \Illuminate\Database\Query\Builder $query */
-        $query = DB::query();
-        $likes = $query
+        $likes = $this->queryBuilder
+            ->newQuery()
             ->select('*')
             ->from('love_likes')
             ->orderBy('created_at', 'asc')
@@ -232,7 +246,7 @@ final class UpgradeV5ToV6 extends Command
                 continue;
             }
 
-            /** @var \Cog\Contracts\Love\Reactable\Models\Reactable $reactable */
+            /** @var ReactableContract $reactable */
             $reactable = $class::whereKey($like->likeable_id)->firstOrFail();
 
             $userClass = $this->getUserClass();
@@ -243,7 +257,7 @@ final class UpgradeV5ToV6 extends Command
                 continue;
             }
 
-            /** @var \Cog\Contracts\Love\Reacterable\Models\Reacterable $reacterable */
+            /** @var ReacterableContract $reacterable */
             $reacterable = $userClass::whereKey($like->user_id)->firstOrFail();
             $reactionTypeName = $this->reactionTypeNameFromLikeTypeName($like->type_id);
 
@@ -279,19 +293,16 @@ final class UpgradeV5ToV6 extends Command
 
     private function collectLikeableTypes(): iterable
     {
-        /** @var \Illuminate\Database\Query\Builder $query */
-        $query = DB::query();
-        $types = $query
+        return $this->queryBuilder
+            ->newQuery()
             ->select('likeable_type')
             ->from('love_likes')
             ->groupBy('likeable_type')
             ->get()
             ->pluck('likeable_type');
-
-        return $types;
     }
 
-    private function collectLikerTypes(): iterable
+    private function collectLikerTypes(): array
     {
         return [
             $this->getUserClass(),
@@ -300,16 +311,13 @@ final class UpgradeV5ToV6 extends Command
 
     private function collectLikeTypes(): iterable
     {
-        /** @var \Illuminate\Database\Query\Builder $query */
-        $query = DB::query();
-        $types = $query
+        return $this->queryBuilder
+            ->newQuery()
             ->select('type_id')
             ->from('love_likes')
             ->groupBy('type_id')
             ->get()
             ->pluck('type_id');
-
-        return $types;
     }
 
     private function getUserClass(): string

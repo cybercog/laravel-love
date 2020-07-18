@@ -109,7 +109,7 @@ final class ReactionTypeTest extends TestCase
 
         $assertType = ReactionType::fromName('TestType');
 
-        $this->assertTrue($assertType->is($type));
+        $this->assertTrue($type->is($assertType));
     }
 
     /** @test */

@@ -464,14 +464,14 @@ final class ReactableTest extends TestCase
         $assertDesc = array_reverse($assertAsc);
         $this->assertSame($assertAsc, $reactablesOrderedAsc->map(function (Article $reactable) use ($reactionType1CountKey, $reactionType1WeightKey) {
             return [
-                'name' => $reactable->name,
+                'name' => $reactable->getAttributeValue('name'),
                 "$reactionType1CountKey" => $reactable->{$reactionType1CountKey},
                 "$reactionType1WeightKey" => $reactable->{$reactionType1WeightKey},
             ];
         })->toArray());
         $this->assertSame($assertDesc, $reactablesOrderedDesc->map(function (Article $reactable) use ($reactionType1CountKey, $reactionType1WeightKey) {
             return [
-                'name' => $reactable->name,
+                'name' => $reactable->getAttributeValue('name'),
                 "$reactionType1CountKey" => $reactable->{$reactionType1CountKey},
                 "$reactionType1WeightKey" => $reactable->{$reactionType1WeightKey},
             ];
@@ -537,14 +537,14 @@ final class ReactableTest extends TestCase
         $assertDesc = array_reverse($assertAsc);
         $this->assertSame($assertAsc, $reactablesOrderedAsc->map(function (Article $reactable) use ($reactionType1CountKey, $reactionType1WeightKey) {
             return [
-                'name' => $reactable->name,
+                'name' => $reactable->getAttributeValue('name'),
                 "$reactionType1CountKey" => $reactable->{$reactionType1CountKey},
                 "$reactionType1WeightKey" => $reactable->{$reactionType1WeightKey},
             ];
         })->toArray());
         $this->assertSame($assertDesc, $reactablesOrderedDesc->map(function (Article $reactable) use ($reactionType1CountKey, $reactionType1WeightKey) {
             return [
-                'name' => $reactable->name,
+                'name' => $reactable->getAttributeValue('name'),
                 "$reactionType1CountKey" => $reactable->{$reactionType1CountKey},
                 "$reactionType1WeightKey" => $reactable->{$reactionType1WeightKey},
             ];
@@ -759,8 +759,8 @@ final class ReactableTest extends TestCase
             ['name' => $reactable2->name, 'reaction_total_count' => '4'],
         ], $reactablesOrderedAsc->map(function (Article $reactable) {
             return [
-                'name' => $reactable->name,
-                'reaction_total_count' => $reactable->reaction_total_count,
+                'name' => $reactable->getAttributeValue('name'),
+                'reaction_total_count' => $reactable->getAttributeValue('reaction_total_count'),
             ];
         })->toArray());
     }
@@ -871,8 +871,8 @@ final class ReactableTest extends TestCase
             ['name' => $reactable2->name, 'reaction_total_weight' => '8'],
         ], $reactablesOrderedAsc->map(function (Article $reactable) {
             return [
-                'name' => $reactable->name,
-                'reaction_total_weight' => $reactable->reaction_total_weight,
+                'name' => $reactable->getAttributeValue('name'),
+                'reaction_total_weight' => $reactable->getAttributeValue('reaction_total_weight'),
             ];
         })->toArray());
     }
@@ -944,10 +944,10 @@ final class ReactableTest extends TestCase
             ],
         ], $reactablesOrderedAsc->map(function (Article $reactable) use ($reactionType1CountKey) {
             return [
-                'name' => $reactable->name,
+                'name' => $reactable->getAttributeValue('name'),
                 "$reactionType1CountKey" => $reactable->{$reactionType1CountKey},
-                'reaction_total_count' => $reactable->reaction_total_count,
-                'reaction_total_weight' => $reactable->reaction_total_weight,
+                'reaction_total_count' => $reactable->getAttributeValue('reaction_total_count'),
+                'reaction_total_weight' => $reactable->getAttributeValue('reaction_total_weight'),
             ];
         })->toArray());
     }
@@ -997,9 +997,9 @@ final class ReactableTest extends TestCase
             ],
         ], $reactablesOrderedAsc->map(function (Article $reactable) {
             return [
-                'name' => $reactable->name,
-                'reaction_total_count' => $reactable->reaction_total_count,
-                'reaction_total_weight' => $reactable->reaction_total_weight,
+                'name' => $reactable->getAttributeValue('name'),
+                'reaction_total_count' => $reactable->getAttributeValue('reaction_total_count'),
+                'reaction_total_weight' => $reactable->getAttributeValue('reaction_total_weight'),
             ];
         })->toArray());
     }
@@ -1052,7 +1052,7 @@ final class ReactableTest extends TestCase
             ],
         ], $reactablesOrderedAsc->map(function (Article $reactable) use ($reactionType1CountKey) {
             return [
-                'name' => $reactable->name,
+                'name' => $reactable->getAttributeValue('name'),
                 "$reactionType1CountKey" => $reactable->{$reactionType1CountKey},
             ];
         })->toArray());
@@ -1109,10 +1109,10 @@ final class ReactableTest extends TestCase
             ],
         ], $reactablesOrderedAsc->map(function (Article $reactable) use ($reactionType1CountKey) {
             return [
-                'name' => $reactable->name,
+                'name' => $reactable->getAttributeValue('name'),
                 "$reactionType1CountKey" => $reactable->{$reactionType1CountKey},
-                'reaction_total_count' => $reactable->reaction_total_count,
-                'reaction_total_weight' => $reactable->reaction_total_weight,
+                'reaction_total_count' => $reactable->getAttributeValue('reaction_total_count'),
+                'reaction_total_weight' => $reactable->getAttributeValue('reaction_total_weight'),
             ];
         })->toArray());
     }
@@ -1195,12 +1195,12 @@ final class ReactableTest extends TestCase
             ],
         ], $reactablesWithTypeCount->map(function (Article $reactable) use ($reactionType1WeightKey, $reactionType1CountKey, $reactionType2CountKey, $reactionType2WeightKey) {
             return [
-                'name' => $reactable->name,
+                'name' => $reactable->getAttributeValue('name'),
                 "$reactionType1CountKey" => $reactable->{$reactionType1CountKey},
                 "$reactionType1WeightKey" => $reactable->{$reactionType1WeightKey},
                 "$reactionType2CountKey" => $reactable->{$reactionType2CountKey},
                 "$reactionType2WeightKey" => $reactable->{$reactionType2WeightKey},
-                'reaction_total_weight' => $reactable->reaction_total_weight,
+                'reaction_total_weight' => $reactable->getAttributeValue('reaction_total_weight'),
             ];
         })->toArray());
     }
@@ -1279,7 +1279,7 @@ final class ReactableTest extends TestCase
             ],
         ], $reactablesWithTypeCount->map(function (Article $reactable) use ($reactionType1WeightKey, $reactionType1CountKey, $reactionType2CountKey, $reactionType2WeightKey) {
             return [
-                'name' => $reactable->name,
+                'name' => $reactable->getAttributeValue('name'),
                 "$reactionType1CountKey" => $reactable->{$reactionType1CountKey},
                 "$reactionType1WeightKey" => $reactable->{$reactionType1WeightKey},
                 "$reactionType2CountKey" => $reactable->{$reactionType2CountKey},

@@ -16,6 +16,7 @@ namespace Cog\Laravel\Love\Console\Commands;
 use Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid;
 use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -145,12 +146,12 @@ final class RegisterReactants extends Command
     /**
      * @param \Cog\Contracts\Love\Reactable\Models\Reactable|\Illuminate\Database\Eloquent\Model $reactableModel
      * @param array $modelIds
-     * @return iterable
+     * @return Collection
      */
     private function collectModels(
         ReactableContract $reactableModel,
         array $modelIds
-    ): iterable {
+    ): Collection {
         $query = $reactableModel
             ->query()
             ->whereNull('love_reactant_id');
@@ -162,7 +163,7 @@ final class RegisterReactants extends Command
         return $query->get();
     }
 
-    private function registerModelsAsReactants(iterable $models): void
+    private function registerModelsAsReactants(Collection $models): void
     {
         $collectedCount = $models->count();
         $progressBar = $this->output->createProgressBar($collectedCount);

@@ -728,7 +728,7 @@ final class ReactantTest extends TestCase
         /** @var \Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter $counter */
         $counter = $counters[0];
         $this->assertTrue($counter->isReactionOfType($reactionType));
-        $this->assertTrue($counter->getReactant()->is($reactant));
+        $this->assertTrue($reactant->is($counter->getReactant()));
         $this->assertSame(0, $counter->getCount());
         $this->assertSame(0.0, $counter->getWeight());
     }
@@ -748,13 +748,13 @@ final class ReactantTest extends TestCase
     /** @test */
     public function it_can_create_reaction_total(): void
     {
-        /** @var \Cog\Contracts\Love\Reactant\Models\Reactant $reactant */
+        /** @var Reactant $reactant */
         $reactant = factory(Reactant::class)->create();
 
         $reactant->createReactionTotal();
 
         $total = $reactant->getReactionTotal();
-        $this->assertTrue($total->getReactant()->is($reactant));
+        $this->assertTrue($reactant->is($total->getReactant()));
         $this->assertSame(0, $total->getCount());
         $this->assertSame(0.0, $total->getWeight());
     }

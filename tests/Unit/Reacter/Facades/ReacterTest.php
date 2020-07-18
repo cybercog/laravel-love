@@ -40,8 +40,8 @@ final class ReacterTest extends TestCase
 
         $assertReactions = $reacterFacade->getReactions();
 
-        $this->assertTrue($assertReactions->get(0)->is($reactions->get(0)));
-        $this->assertTrue($assertReactions->get(1)->is($reactions->get(1)));
+        $this->assertTrue($reactions->get(0)->is($assertReactions->get(0)));
+        $this->assertTrue($reactions->get(1)->is($assertReactions->get(1)));
     }
 
     /** @test */

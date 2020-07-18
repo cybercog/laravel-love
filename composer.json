@@ -69,6 +69,7 @@
         }
     },
     "scripts": {
+        "phpstan": "vendor/bin/phpstan analyse -c .phpstan.neon",
         "test": "vendor/bin/phpunit"
     },
     "config": {

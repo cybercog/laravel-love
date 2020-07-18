@@ -1,5 +1,8 @@
 parameters:
-    level: 0
+    level: 1
     paths:
         - src
         - tests
+    ignoreErrors:
+        - path: tests/database/factories/*
+          message: '#Variable \$factory might not be defined.#'
