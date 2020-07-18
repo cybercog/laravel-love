@@ -6,6 +6,8 @@ parameters:
     ignoreErrors:
         - path: tests/database/factories/*
           message: '#Variable \$factory might not be defined.#'
+        - path: tests/database/factories/*
+          message: '#Function factory invoked with 1 parameter, 0 required.#'
         - path: tests/Unit/*
           message: '#Function factory invoked with 1 parameter, 0 required.#'
         - path: tests/Unit/*
