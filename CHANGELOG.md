@@ -8,7 +8,7 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ### Added
 
-- Added Laravel 8 support
+- ([#176]) Added Laravel 8 support
 
 ## [8.4.0]
 
@@ -485,6 +485,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 [1.1.1]: https://github.com/cybercog/laravel-love/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/cybercog/laravel-love/compare/1.0.0...1.1.0
 
+[#176]: https://github.com/cybercog/laravel-love/pull/176
 [#165]: https://github.com/cybercog/laravel-love/pull/165
 [#161]: https://github.com/cybercog/laravel-love/pull/161
 [#158]: https://github.com/cybercog/laravel-love/pull/158
