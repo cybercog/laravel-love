@@ -444,7 +444,8 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 
 - Initial release
 
-[Unreleased]: https://github.com/cybercog/laravel-love/compare/8.4.0...master
+[Unreleased]: https://github.com/cybercog/laravel-love/compare/8.5.0...master
+[8.5.0]: https://github.com/cybercog/laravel-love/compare/8.4.0...8.5.0
 [8.4.0]: https://github.com/cybercog/laravel-love/compare/8.3.1...8.4.0
 [8.3.1]: https://github.com/cybercog/laravel-love/compare/8.3.0...8.3.1
 [8.3.0]: https://github.com/cybercog/laravel-love/compare/8.2.0...8.3.0
