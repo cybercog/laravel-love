@@ -15,6 +15,8 @@ before_script:
   - if [[ $setup = 'basic' ]]; then travis_retry composer install --prefer-dist --no-interaction; fi
   - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-stable; fi
   - if [[ $setup = 'lowest' ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-lowest --prefer-stable; fi
+  - if [ $(phpenv version-name) = '7.3' ]; then composer require laravel/legacy-factories --dev; fi
+  - if [ $(phpenv version-name) = '7.4' ]; then composer require laravel/legacy-factories --dev; fi
 
 script:
   - ./vendor/bin/phpstan analyse -c .phpstan.neon
