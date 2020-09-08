@@ -4,6 +4,12 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ## [Unreleased]
 
+## [8.5.0]
+
+### Added
+
+- Added Laravel 8 support
+
 ## [8.4.0]
 
 ### Added
