@@ -57,4 +57,20 @@ final class DecrementReactionAggregatesJob implements
         (new ReactionTotalService($this->reactant))
             ->removeReaction($this->reaction);
     }
+
+    /**
+     * @return ReactantContract
+     */
+    public function getReactant(): ReactantContract
+    {
+        return $this->reactant;
+    }
+
+    /**
+     * @return ReactionContract
+     */
+    public function getReaction(): ReactionContract
+    {
+        return $this->reaction;
+    }
 }
