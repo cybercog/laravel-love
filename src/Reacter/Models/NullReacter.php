@@ -13,24 +13,24 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reacter\Models;
 
-use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
+use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantInterface;
 use Cog\Contracts\Love\Reacter\Exceptions\ReacterInvalid;
-use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
-use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
-use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
+use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterInterface;
+use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableInterface;
+use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeInterface;
 use Illuminate\Support\Collection;
 use TypeError;
 
 final class NullReacter implements
-    ReacterContract
+    ReacterInterface
 {
     /**
-     * @var ReacterableContract
+     * @var ReacterableInterface
      */
     private $reacterable;
 
     public function __construct(
-        ReacterableContract $reacterable
+        ReacterableInterface $reacterable
     ) {
         $this->reacterable = $reacterable;
     }
@@ -40,7 +40,7 @@ final class NullReacter implements
         throw new TypeError();
     }
 
-    public function getReacterable(): ReacterableContract
+    public function getReacterable(): ReacterableInterface
     {
         return $this->reacterable;
     }
@@ -51,44 +51,44 @@ final class NullReacter implements
     }
 
     public function reactTo(
-        ReactantContract $reactant,
-        ReactionTypeContract $reactionType,
+        ReactantInterface $reactant,
+        ReactionTypeInterface $reactionType,
         ?float $rate = null
     ): void {
         throw ReacterInvalid::notExists();
     }
 
     public function unreactTo(
-        ReactantContract $reactant,
-        ReactionTypeContract $reactionType
+        ReactantInterface $reactant,
+        ReactionTypeInterface $reactionType
     ): void {
         throw ReacterInvalid::notExists();
     }
 
     public function hasReactedTo(
-        ReactantContract $reactant,
-        ?ReactionTypeContract $reactionType = null,
+        ReactantInterface $reactant,
+        ?ReactionTypeInterface $reactionType = null,
         ?float $rate = null
     ): bool {
         return false;
     }
 
     public function hasNotReactedTo(
-        ReactantContract $reactant,
-        ?ReactionTypeContract $reactionType = null,
+        ReactantInterface $reactant,
+        ?ReactionTypeInterface $reactionType = null,
         ?float $rate = null
     ): bool {
         return true;
     }
 
     public function isEqualTo(
-        ReacterContract $that
+        ReacterInterface $that
     ): bool {
         return $that instanceof self;
     }
 
     public function isNotEqualTo(
-        ReacterContract $that
+        ReacterInterface $that
     ): bool {
         return !$this->isEqualTo($that);
     }

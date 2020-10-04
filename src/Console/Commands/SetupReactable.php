@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Console\Commands;
 
-use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
+use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableInterface;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Support\Database\AddForeignColumnStub;
 use Cog\Laravel\Love\Support\Database\MigrationCreator;
@@ -170,7 +170,7 @@ final class SetupReactable extends Command
 
     private function isModelInvalid(Model $model): bool
     {
-        return !$model instanceof ReactableContract;
+        return !$model instanceof ReactableInterface;
     }
 
     private function getMigrationsPath(): string

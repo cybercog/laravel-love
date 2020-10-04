@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Console\Commands;
 
-use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
+use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableInterface;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\Support\Database\AddForeignColumnStub;
 use Cog\Laravel\Love\Support\Database\MigrationCreator;
@@ -170,7 +170,7 @@ final class SetupReacterable extends Command
 
     private function isModelInvalid(Model $model): bool
     {
-        return !$model instanceof ReacterableContract;
+        return !$model instanceof ReacterableInterface;
     }
 
     private function getMigrationsPath(): string

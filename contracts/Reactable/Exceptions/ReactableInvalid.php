@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Cog\Contracts\Love\Reactable\Exceptions;
 
 use Cog\Contracts\Love\Exceptions\LoveThrowable;
-use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
+use Cog\Contracts\Love\Reactable\Models\Reactable;
 use RuntimeException;
 
 final class ReactableInvalid extends RuntimeException implements
@@ -32,7 +32,7 @@ final class ReactableInvalid extends RuntimeException implements
     {
         return new self(sprintf(
             '[%s] must implement `%s` contract.',
-            $type, ReactableContract::class
+            $type, Reactable::class
         ));
     }
 }

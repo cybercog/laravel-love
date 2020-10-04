@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace Cog\Tests\Laravel\Love\Unit\Console\Commands;
 
 use Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid;
-use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
-use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
+use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantInterface;
+use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeInterface;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
@@ -907,8 +907,8 @@ final class RecountTest extends TestCase
     }
 
     private function reactionsCount(
-        ReactantContract $reactant,
-        ReactionTypeContract $reactionType
+        ReactantInterface $reactant,
+        ReactionTypeInterface $reactionType
     ): int {
         return $reactant
             ->getReactionCounterOfType($reactionType)
@@ -916,8 +916,8 @@ final class RecountTest extends TestCase
     }
 
     private function reactionsWeight(
-        ReactantContract $reactant,
-        ReactionTypeContract $reactionType
+        ReactantInterface $reactant,
+        ReactionTypeInterface $reactionType
     ): float {
         return $reactant
             ->getReactionCounterOfType($reactionType)
@@ -925,7 +925,7 @@ final class RecountTest extends TestCase
     }
 
     private function assertReactantLikesCount(
-        ReactantContract $reactant,
+        ReactantInterface $reactant,
         int $count
     ): void {
         $this->assertSame(
@@ -935,7 +935,7 @@ final class RecountTest extends TestCase
     }
 
     private function assertReactantDislikesCount(
-        ReactantContract $reactant,
+        ReactantInterface $reactant,
         int $count
     ): void {
         $this->assertSame(
@@ -945,7 +945,7 @@ final class RecountTest extends TestCase
     }
 
     private function assertReactantLikesWeight(
-        ReactantContract $reactant,
+        ReactantInterface $reactant,
         float $count
     ): void {
         $this->assertSame(
@@ -955,7 +955,7 @@ final class RecountTest extends TestCase
     }
 
     private function assertReactantDislikesWeight(
-        ReactantContract $reactant,
+        ReactantInterface $reactant,
         float $count
     ): void {
         $this->assertSame(
@@ -965,7 +965,7 @@ final class RecountTest extends TestCase
     }
 
     private function assertReactantTotalCount(
-        ReactantContract $reactant,
+        ReactantInterface $reactant,
         int $count
     ): void {
         $this->assertSame(
@@ -975,7 +975,7 @@ final class RecountTest extends TestCase
     }
 
     private function assertReactantTotalWeight(
-        ReactantContract $reactant,
+        ReactantInterface $reactant,
         float $count
     ): void {
         $this->assertSame(

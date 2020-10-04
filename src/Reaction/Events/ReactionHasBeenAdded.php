@@ -13,22 +13,22 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reaction\Events;
 
-use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
+use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionInterface;
 
 final class ReactionHasBeenAdded
 {
     /**
-     * @var ReactionContract
+     * @var ReactionInterface
      */
     private $reaction;
 
     public function __construct(
-        ReactionContract $reaction
+        ReactionInterface $reaction
     ) {
         $this->reaction = $reaction;
     }
 
-    public function getReaction(): ReactionContract
+    public function getReaction(): ReactionInterface
     {
         return $this->reaction;
     }

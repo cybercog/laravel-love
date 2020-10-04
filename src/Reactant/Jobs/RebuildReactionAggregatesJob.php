@@ -13,20 +13,20 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reactant\Jobs;
 
-use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
-use Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter as ReactionCounterContract;
-use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalContract;
-use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
+use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantInterface;
+use Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter as ReactionCounterInterface;
+use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalInterface;
+use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeInterface;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Services\ReactionCounterService;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue as ShouldQueueContract;
+use Illuminate\Contracts\Queue\ShouldQueue as ShouldQueueInterface;
 use Illuminate\Foundation\Bus\Dispatchable;
 
 final class RebuildReactionAggregatesJob implements
-    ShouldQueueContract
+    ShouldQueueInterface
 {
     use Dispatchable;
     use Queueable;
@@ -42,8 +42,8 @@ final class RebuildReactionAggregatesJob implements
     private $reactionType;
 
     public function __construct(
-        ReactantContract $reactant,
-        ?ReactionTypeContract $reactionType = null
+        ReactantInterface $reactant,
+        ?ReactionTypeInterface $reactionType = null
     ) {
         $this->reactant = $reactant;
         $this->reactionType = $reactionType;
@@ -93,7 +93,7 @@ final class RebuildReactionAggregatesJob implements
     }
 
     private function findOrCreateReactionTotal(
-    ): ReactionTotalContract {
+    ): ReactionTotalInterface {
         $reactionTotal = $this->reactant->getReactionTotal();
 
         if ($reactionTotal instanceof NullReactionTotal) {
@@ -139,11 +139,11 @@ final class RebuildReactionAggregatesJob implements
     /**
      * Determine if counter should not be rebuilt.
      *
-     * @param ReactionCounterContract $counter
+     * @param ReactionCounterInterface $counter
      * @return bool
      */
     private function shouldNotAffectCounter(
-        ReactionCounterContract $counter
+        ReactionCounterInterface $counter
     ): bool {
         return $this->reactionType !== null
             && $counter->isNotReactionOfType($this->reactionType);

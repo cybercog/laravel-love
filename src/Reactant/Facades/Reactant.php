@@ -13,22 +13,22 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reactant\Facades;
 
-use Cog\Contracts\Love\Reactant\Facades\Reactant as ReacterFacadeContract;
-use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
-use Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter as ReactionCounterContract;
-use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalContract;
-use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
+use Cog\Contracts\Love\Reactant\Facades\Reactant as ReacterFacadeInterface;
+use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantInterface;
+use Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter as ReactionCounterInterface;
+use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalInterface;
+use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableInterface;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 
 final class Reactant implements
-    ReacterFacadeContract
+    ReacterFacadeInterface
 {
     /**
-     * @var ReactantContract
+     * @var ReactantInterface
      */
     private $reactant;
 
-    public function __construct(ReactantContract $reactant)
+    public function __construct(ReactantInterface $reactant)
     {
         $this->reactant = $reactant;
     }
@@ -51,19 +51,19 @@ final class Reactant implements
 
     public function getReactionCounterOfType(
         string $reactionTypeName
-    ): ReactionCounterContract {
+    ): ReactionCounterInterface {
         return $this->reactant->getReactionCounterOfType(
             ReactionType::fromName($reactionTypeName)
         );
     }
 
-    public function getReactionTotal(): ReactionTotalContract
+    public function getReactionTotal(): ReactionTotalInterface
     {
         return $this->reactant->getReactionTotal();
     }
 
     public function isReactedBy(
-        ?ReacterableContract $reacterable = null,
+        ?ReacterableInterface $reacterable = null,
         ?string $reactionTypeName = null,
         ?float $rate = null
     ): bool {
@@ -81,7 +81,7 @@ final class Reactant implements
     }
 
     public function isNotReactedBy(
-        ?ReacterableContract $reacterable = null,
+        ?ReacterableInterface $reacterable = null,
         ?string $reactionTypeName = null,
         ?float $rate = null
     ): bool {

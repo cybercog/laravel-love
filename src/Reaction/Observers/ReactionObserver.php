@@ -16,17 +16,17 @@ namespace Cog\Laravel\Love\Reaction\Observers;
 use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenAdded;
 use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenRemoved;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
-use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
+use Illuminate\Contracts\Events\Dispatcher as DispatcherInterface;
 
 final class ReactionObserver
 {
     /**
-     * @var DispatcherContract
+     * @var DispatcherInterface
      */
     private $eventDispatcher;
 
     public function __construct(
-        DispatcherContract $eventDispatcher
+        DispatcherInterface $eventDispatcher
     ) {
         $this->eventDispatcher = $eventDispatcher;
     }

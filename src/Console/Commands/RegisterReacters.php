@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Cog\Laravel\Love\Console\Commands;
 
 use Cog\Contracts\Love\Reacterable\Exceptions\ReacterableInvalid;
-use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
+use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableInterface;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -94,14 +94,14 @@ final class RegisterReacters extends Command
      */
     private function reacterableModelFromType(
         string $modelType
-    ): ReacterableContract {
+    ): ReacterableInterface {
         if (!class_exists($modelType)) {
             $modelType = $this->findModelTypeInMorphMap($modelType);
         }
 
         $model = new $modelType();
 
-        if (!$model instanceof ReacterableContract) {
+        if (!$model instanceof ReacterableInterface) {
             throw ReacterableInvalid::notImplementInterface($modelType);
         }
 
@@ -149,7 +149,7 @@ final class RegisterReacters extends Command
      * @return Collection
      */
     private function collectModels(
-        ReacterableContract $reacterableModel,
+        ReacterableInterface $reacterableModel,
         array $modelIds
     ): Collection {
         $query = $reacterableModel

@@ -13,33 +13,33 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reactant\ReactionTotal\Services;
 
-use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
-use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalContract;
-use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
+use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantInterface;
+use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalInterface;
+use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionInterface;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
 
 final class ReactionTotalService
 {
     /**
-     * @var ReactionTotalContract
+     * @var ReactionTotalInterface
      */
     private $reactionTotal;
 
     public function __construct(
-        ReactantContract $reactant
+        ReactantInterface $reactant
     ) {
         $this->reactionTotal = $this->findOrCreateReactionTotalFor($reactant);
     }
 
     public function addReaction(
-        ReactionContract $reaction
+        ReactionInterface $reaction
     ): void {
         $this->reactionTotal->incrementCount(1);
         $this->reactionTotal->incrementWeight($reaction->getWeight());
     }
 
     public function removeReaction(
-        ReactionContract $reaction
+        ReactionInterface $reaction
     ): void {
         if ($this->reactionTotal->getCount() === 0) {
             return;
@@ -50,8 +50,8 @@ final class ReactionTotalService
     }
 
     private function findOrCreateReactionTotalFor(
-        ReactantContract $reactant
-    ): ReactionTotalContract {
+        ReactantInterface $reactant
+    ): ReactionTotalInterface {
         $total = $reactant->getReactionTotal();
 
         if ($total instanceof NullReactionTotal) {

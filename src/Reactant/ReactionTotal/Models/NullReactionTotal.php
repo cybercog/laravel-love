@@ -13,25 +13,25 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reactant\ReactionTotal\Models;
 
-use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
+use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantInterface;
 use Cog\Contracts\Love\Reactant\ReactionTotal\Exceptions\ReactionTotalInvalid;
-use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalContract;
+use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalInterface;
 
 final class NullReactionTotal implements
-    ReactionTotalContract
+    ReactionTotalInterface
 {
     /**
-     * @var ReactantContract
+     * @var ReactantInterface
      */
     private $reactant;
 
     public function __construct(
-        ReactantContract $reactant
+        ReactantInterface $reactant
     ) {
         $this->reactant = $reactant;
     }
 
-    public function getReactant(): ReactantContract
+    public function getReactant(): ReactantInterface
     {
         return $this->reactant;
     }

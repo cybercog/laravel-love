@@ -14,9 +14,9 @@ declare(strict_types=1);
 namespace Cog\Laravel\Love\Reactable\Models\Traits;
 
 use Cog\Contracts\Love\Reactable\Exceptions\AlreadyRegisteredAsLoveReactant;
-use Cog\Contracts\Love\Reactant\Facades\Reactant as ReactantFacadeContract;
-use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
-use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
+use Cog\Contracts\Love\Reactant\Facades\Reactant as ReactantFacadeInterface;
+use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantInterface;
+use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableInterface;
 use Cog\Laravel\Love\Reactable\Observers\ReactableObserver;
 use Cog\Laravel\Love\Reactant\Facades\Reactant as ReactantFacade;
 use Cog\Laravel\Love\Reactant\Models\NullReactant;
@@ -45,12 +45,12 @@ trait Reactable
         return $this->belongsTo(Reactant::class, 'love_reactant_id');
     }
 
-    public function getLoveReactant(): ReactantContract
+    public function getLoveReactant(): ReactantInterface
     {
         return $this->getAttribute('loveReactant') ?? new NullReactant($this);
     }
 
-    public function viaLoveReactant(): ReactantFacadeContract
+    public function viaLoveReactant(): ReactantFacadeInterface
     {
         return new ReactantFacade($this->getLoveReactant());
     }
@@ -82,7 +82,7 @@ trait Reactable
 
     public function scopeWhereReactedBy(
         Builder $query,
-        ReacterableContract $reacterable,
+        ReacterableInterface $reacterable,
         ?string $reactionTypeName = null
     ): Builder {
         return $query->whereHas('loveReactant.reactions', function (Builder $reactionsQuery) use ($reacterable, $reactionTypeName) {
@@ -95,7 +95,7 @@ trait Reactable
 
     public function scopeWhereNotReactedBy(
         Builder $query,
-        ReacterableContract $reacterable,
+        ReacterableInterface $reacterable,
         ?string $reactionTypeName = null
     ): Builder {
         return $query->whereDoesntHave('loveReactant.reactions', function (Builder $reactionsQuery) use ($reacterable, $reactionTypeName) {

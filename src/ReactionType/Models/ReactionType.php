@@ -14,13 +14,13 @@ declare(strict_types=1);
 namespace Cog\Laravel\Love\ReactionType\Models;
 
 use Cog\Contracts\Love\ReactionType\Exceptions\ReactionTypeInvalid;
-use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
+use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeInterface;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\Support\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class ReactionType extends Model implements
-    ReactionTypeContract
+    ReactionTypeInterface
 {
     public const MASS_DEFAULT = 0;
 
@@ -74,7 +74,7 @@ final class ReactionType extends Model implements
 
     public static function fromName(
         string $name
-    ): ReactionTypeContract {
+    ): ReactionTypeInterface {
         if (isset(self::$nameCache[$name])) {
             return self::$nameCache[$name];
         }
@@ -107,13 +107,13 @@ final class ReactionType extends Model implements
     }
 
     public function isEqualTo(
-        ReactionTypeContract $that
+        ReactionTypeInterface $that
     ): bool {
         return $this->getId() === $that->getId();
     }
 
     public function isNotEqualTo(
-        ReactionTypeContract $that
+        ReactionTypeInterface $that
     ): bool {
         return !$this->isEqualTo($that);
     }

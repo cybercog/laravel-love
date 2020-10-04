@@ -13,27 +13,27 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reactant\ReactionCounter\Services;
 
-use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
-use Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter as ReactionCounterContract;
-use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
-use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
+use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantInterface;
+use Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter as ReactionCounterInterface;
+use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionInterface;
+use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeInterface;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\NullReactionCounter;
 
 final class ReactionCounterService
 {
     /**
-     * @var ReactantContract
+     * @var ReactantInterface
      */
     private $reactant;
 
     public function __construct(
-        ReactantContract $reactant
+        ReactantInterface $reactant
     ) {
         $this->reactant = $reactant;
     }
 
     public function addReaction(
-        ReactionContract $reaction
+        ReactionInterface $reaction
     ): void {
         $counter = $this->findOrCreateCounterOfType($reaction->getType());
         $counter->incrementCount(1);
@@ -41,7 +41,7 @@ final class ReactionCounterService
     }
 
     public function removeReaction(
-        ReactionContract $reaction
+        ReactionInterface $reaction
     ): void {
         $counter = $this->findOrCreateCounterOfType($reaction->getType());
 
@@ -54,14 +54,14 @@ final class ReactionCounterService
     }
 
     private function findCounterOfType(
-        ReactionTypeContract $reactionType
-    ): ReactionCounterContract {
+        ReactionTypeInterface $reactionType
+    ): ReactionCounterInterface {
         return $this->reactant->getReactionCounterOfType($reactionType);
     }
 
     private function findOrCreateCounterOfType(
-        ReactionTypeContract $reactionType
-    ): ReactionCounterContract {
+        ReactionTypeInterface $reactionType
+    ): ReactionCounterInterface {
         $counter = $this->findCounterOfType($reactionType);
         if ($counter instanceof NullReactionCounter) {
             $this->reactant->createReactionCounterOfType($reactionType);

@@ -13,12 +13,12 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Stubs\Models;
 
-use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
+use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableInterface;
 use Cog\Laravel\Love\Reacterable\Models\Traits\Reacterable;
 use Illuminate\Database\Eloquent\Model;
 
 final class Bot extends Model implements
-    ReacterableContract
+    ReacterableInterface
 {
     use Reacterable;
 

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Unit\Reacterable\Observers;
 
-use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
+use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterInterface;
 use Cog\Laravel\Love\Reacter\Models\NullReacter;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
@@ -27,7 +27,7 @@ final class ReacterableObserverTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $this->assertInstanceOf(ReacterContract::class, $user->getLoveReacter());
+        $this->assertInstanceOf(ReacterInterface::class, $user->getLoveReacter());
     }
 
     /** @test */

@@ -15,7 +15,7 @@ namespace Cog\Laravel\Love\Reactant\Listeners;
 
 use Cog\Laravel\Love\Reactant\Jobs\IncrementReactionAggregatesJob;
 use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenAdded;
-use Illuminate\Contracts\Bus\Dispatcher as DispatcherContract;
+use Illuminate\Contracts\Bus\Dispatcher as DispatcherInterface;
 
 final class IncrementAggregates
 {
@@ -24,7 +24,7 @@ final class IncrementAggregates
      */
     private $dispatcher;
 
-    public function __construct(DispatcherContract $dispatcher)
+    public function __construct(DispatcherInterface $dispatcher)
     {
         $this->dispatcher = $dispatcher;
     }
