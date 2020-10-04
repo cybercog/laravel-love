@@ -15,7 +15,7 @@ namespace Cog\Laravel\Love\Reactant\Listeners;
 
 use Cog\Laravel\Love\Reactant\Jobs\DecrementReactionAggregatesJob;
 use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenRemoved;
-use Illuminate\Contracts\Bus\Dispatcher as DispatcherContract;
+use Illuminate\Contracts\Bus\Dispatcher as DispatcherInterface;
 
 final class DecrementAggregates
 {
@@ -24,7 +24,7 @@ final class DecrementAggregates
      */
     private $dispatcher;
 
-    public function __construct(DispatcherContract $dispatcher)
+    public function __construct(DispatcherInterface $dispatcher)
     {
         $this->dispatcher = $dispatcher;
     }

@@ -13,16 +13,16 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reactant\Models;
 
-use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
+use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableInterface;
 use Cog\Contracts\Love\Reactant\Exceptions\NotAssignedToReactable;
-use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
+use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantInterface;
 use Cog\Contracts\Love\Reactant\ReactionCounter\Exceptions\ReactionCounterDuplicate;
-use Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter as ReactionCounterContract;
+use Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter as ReactionCounterInterface;
 use Cog\Contracts\Love\Reactant\ReactionTotal\Exceptions\ReactionTotalDuplicate;
-use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalContract;
-use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
-use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
-use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
+use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalInterface;
+use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterInterface;
+use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionInterface;
+use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeInterface;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\NullReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
@@ -34,7 +34,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 final class Reactant extends Model implements
-    ReactantContract
+    ReactantInterface
 {
     protected $table = 'love_reactants';
 
@@ -77,7 +77,7 @@ final class Reactant extends Model implements
         return $this->getAttributeValue('id');
     }
 
-    public function getReactable(): ReactableContract
+    public function getReactable(): ReactableInterface
     {
         $reactable = $this->getAttribute('reactable');
 
@@ -99,8 +99,8 @@ final class Reactant extends Model implements
     }
 
     public function getReactionCounterOfType(
-        ReactionTypeContract $reactionType
-    ): ReactionCounterContract {
+        ReactionTypeInterface $reactionType
+    ): ReactionCounterInterface {
         // TODO: Test query count with eager loaded relation
         // TODO: Test query count without eager loaded relation
         $counter = $this
@@ -115,15 +115,15 @@ final class Reactant extends Model implements
         return $counter;
     }
 
-    public function getReactionTotal(): ReactionTotalContract
+    public function getReactionTotal(): ReactionTotalInterface
     {
         return $this->getAttribute('reactionTotal')
             ?? new NullReactionTotal($this);
     }
 
     public function isReactedBy(
-        ReacterContract $reacter,
-        ?ReactionTypeContract $reactionType = null,
+        ReacterInterface $reacter,
+        ?ReactionTypeInterface $reactionType = null,
         ?float $rate = null
     ): bool {
         if ($reacter->isNull()) {
@@ -134,7 +134,7 @@ final class Reactant extends Model implements
         if ($this->relationLoaded('reactions')) {
             return $this
                 ->getAttribute('reactions')
-                ->contains(function (ReactionContract $reaction) use ($reacter, $reactionType, $rate) {
+                ->contains(function (ReactionInterface $reaction) use ($reacter, $reactionType, $rate) {
                     if ($reaction->isNotByReacter($reacter)) {
                         return false;
                     }
@@ -165,22 +165,22 @@ final class Reactant extends Model implements
     }
 
     public function isNotReactedBy(
-        ReacterContract $reacter,
-        ?ReactionTypeContract $reactionType = null,
+        ReacterInterface $reacter,
+        ?ReactionTypeInterface $reactionType = null,
         ?float $rate = null
     ): bool {
         return !$this->isReactedBy($reacter, $reactionType, $rate);
     }
 
     public function isEqualTo(
-        ReactantContract $that
+        ReactantInterface $that
     ): bool {
         return $that->isNotNull()
             && $this->getId() === $that->getId();
     }
 
     public function isNotEqualTo(
-        ReactantContract $that
+        ReactantInterface $that
     ): bool {
         return !$this->isEqualTo($that);
     }
@@ -196,7 +196,7 @@ final class Reactant extends Model implements
     }
 
     public function createReactionCounterOfType(
-        ReactionTypeContract $reactionType
+        ReactionTypeInterface $reactionType
     ): void {
         if ($this->reactionCounters()->where('reaction_type_id', $reactionType->getId())->exists()) {
             throw ReactionCounterDuplicate::ofTypeForReactant($reactionType, $this);

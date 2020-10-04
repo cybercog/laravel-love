@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reacterable\Models\Traits;
 
-use Cog\Contracts\Love\Reacter\Facades\Reacter as ReacterFacadeContract;
-use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
+use Cog\Contracts\Love\Reacter\Facades\Reacter as ReacterFacadeInterface;
+use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterInterface;
 use Cog\Contracts\Love\Reacterable\Exceptions\AlreadyRegisteredAsLoveReacter;
 use Cog\Laravel\Love\Reacter\Facades\Reacter as ReacterFacade;
 use Cog\Laravel\Love\Reacter\Models\NullReacter;
@@ -37,12 +37,12 @@ trait Reacterable
         return $this->belongsTo(Reacter::class, 'love_reacter_id');
     }
 
-    public function getLoveReacter(): ReacterContract
+    public function getLoveReacter(): ReacterInterface
     {
         return $this->getAttribute('loveReacter') ?? new NullReacter($this);
     }
 
-    public function viaLoveReacter(): ReacterFacadeContract
+    public function viaLoveReacter(): ReacterFacadeInterface
     {
         return new ReacterFacade($this->getLoveReacter());
     }

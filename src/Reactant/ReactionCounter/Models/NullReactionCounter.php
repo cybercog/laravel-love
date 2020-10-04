@@ -13,50 +13,50 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reactant\ReactionCounter\Models;
 
-use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
+use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantInterface;
 use Cog\Contracts\Love\Reactant\ReactionCounter\Exceptions\ReactionCounterInvalid;
-use Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter as ReactionCounterContract;
-use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
+use Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter as ReactionCounterInterface;
+use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeInterface;
 
 final class NullReactionCounter implements
-    ReactionCounterContract
+    ReactionCounterInterface
 {
     /**
-     * @var ReactantContract
+     * @var ReactantInterface
      */
     private $reactant;
 
     /**
-     * @var ReactionTypeContract
+     * @var ReactionTypeInterface
      */
     private $reactionType;
 
     public function __construct(
-        ReactantContract $reactant,
-        ReactionTypeContract $reactionType
+        ReactantInterface $reactant,
+        ReactionTypeInterface $reactionType
     ) {
         $this->reactant = $reactant;
         $this->reactionType = $reactionType;
     }
 
-    public function getReactant(): ReactantContract
+    public function getReactant(): ReactantInterface
     {
         return $this->reactant;
     }
 
-    public function getReactionType(): ReactionTypeContract
+    public function getReactionType(): ReactionTypeInterface
     {
         return $this->reactionType;
     }
 
     public function isReactionOfType(
-        ReactionTypeContract $reactionType
+        ReactionTypeInterface $reactionType
     ): bool {
         return $this->getReactionType()->isEqualTo($reactionType);
     }
 
     public function isNotReactionOfType(
-        ReactionTypeContract $reactionType
+        ReactionTypeInterface $reactionType
     ): bool {
         return !$this->isReactionOfType($reactionType);
     }

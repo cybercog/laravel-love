@@ -14,21 +14,21 @@ declare(strict_types=1);
 namespace Cog\Laravel\Love\Reacter\Models;
 
 use Cog\Contracts\Love\Reactant\Exceptions\ReactantInvalid;
-use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
+use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantInterface;
 use Cog\Contracts\Love\Reacter\Exceptions\NotAssignedToReacterable;
-use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
-use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
+use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterInterface;
+use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableInterface;
 use Cog\Contracts\Love\Reaction\Exceptions\ReactionAlreadyExists;
 use Cog\Contracts\Love\Reaction\Exceptions\ReactionNotExists;
-use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
-use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
+use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionInterface;
+use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeInterface;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\Support\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 final class Reacter extends Model implements
-    ReacterContract
+    ReacterInterface
 {
     protected $table = 'love_reacters';
 
@@ -61,7 +61,7 @@ final class Reacter extends Model implements
         return $this->getAttributeValue('id');
     }
 
-    public function getReacterable(): ReacterableContract
+    public function getReacterable(): ReacterableInterface
     {
         $reacterable = $this->getAttribute('reacterable');
 
@@ -78,8 +78,8 @@ final class Reacter extends Model implements
     }
 
     public function reactTo(
-        ReactantContract $reactant,
-        ReactionTypeContract $reactionType,
+        ReactantInterface $reactant,
+        ReactionTypeInterface $reactionType,
         ?float $rate = null
     ): void {
         if ($reactant->isNull()) {
@@ -105,8 +105,8 @@ final class Reacter extends Model implements
     }
 
     public function unreactTo(
-        ReactantContract $reactant,
-        ReactionTypeContract $reactionType
+        ReactantInterface $reactant,
+        ReactionTypeInterface $reactionType
     ): void {
         if ($reactant->isNull()) {
             throw ReactantInvalid::notExists();
@@ -125,8 +125,8 @@ final class Reacter extends Model implements
     }
 
     public function hasReactedTo(
-        ReactantContract $reactant,
-        ?ReactionTypeContract $reactionType = null,
+        ReactantInterface $reactant,
+        ?ReactionTypeInterface $reactionType = null,
         ?float $rate = null
     ): bool {
         if ($reactant->isNull()) {
@@ -137,22 +137,22 @@ final class Reacter extends Model implements
     }
 
     public function hasNotReactedTo(
-        ReactantContract $reactant,
-        ?ReactionTypeContract $reactionType = null,
+        ReactantInterface $reactant,
+        ?ReactionTypeInterface $reactionType = null,
         ?float $rate = null
     ): bool {
         return $reactant->isNotReactedBy($this, $reactionType, $rate);
     }
 
     public function isEqualTo(
-        ReacterContract $that
+        ReacterInterface $that
     ): bool {
         return $that->isNotNull()
             && $this->getId() === $that->getId();
     }
 
     public function isNotEqualTo(
-        ReacterContract $that
+        ReacterInterface $that
     ): bool {
         return !$this->isEqualTo($that);
     }
@@ -168,8 +168,8 @@ final class Reacter extends Model implements
     }
 
     private function createReaction(
-        ReactantContract $reactant,
-        ReactionTypeContract $reactionType,
+        ReactantInterface $reactant,
+        ReactionTypeInterface $reactionType,
         ?float $rate = null
     ): void {
         $this->reactions()->create([
@@ -185,9 +185,9 @@ final class Reacter extends Model implements
      * @return \Cog\Contracts\Love\Reaction\Models\Reaction|\Illuminate\Database\Eloquent\Model|null
      */
     private function findReaction(
-        ReactantContract $reactant,
-        ReactionTypeContract $reactionType
-    ): ?ReactionContract {
+        ReactantInterface $reactant,
+        ReactionTypeInterface $reactionType
+    ): ?ReactionInterface {
         return $this
             ->reactions()
             ->where('reactant_id', $reactant->getId())

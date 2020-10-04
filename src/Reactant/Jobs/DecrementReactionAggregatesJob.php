@@ -13,16 +13,16 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reactant\Jobs;
 
-use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
-use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
+use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantInterface;
+use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionInterface;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Services\ReactionCounterService;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Services\ReactionTotalService;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue as ShouldQueueContract;
+use Illuminate\Contracts\Queue\ShouldQueue as ShouldQueueInterface;
 use Illuminate\Foundation\Bus\Dispatchable;
 
 final class DecrementReactionAggregatesJob implements
-    ShouldQueueContract
+    ShouldQueueInterface
 {
     use Dispatchable;
     use Queueable;
@@ -42,8 +42,8 @@ final class DecrementReactionAggregatesJob implements
      * @param \Cog\Contracts\Love\Reaction\Models\Reaction $reaction
      */
     public function __construct(
-        ReactantContract $reactant,
-        ReactionContract $reaction
+        ReactantInterface $reactant,
+        ReactionInterface $reaction
     ) {
         $this->reactant = $reactant;
         $this->reaction = $reaction;
@@ -59,17 +59,17 @@ final class DecrementReactionAggregatesJob implements
     }
 
     /**
-     * @return ReactantContract
+     * @return ReactantInterface
      */
-    public function getReactant(): ReactantContract
+    public function getReactant(): ReactantInterface
     {
         return $this->reactant;
     }
 
     /**
-     * @return ReactionContract
+     * @return ReactionInterface
      */
-    public function getReaction(): ReactionContract
+    public function getReaction(): ReactionInterface
     {
         return $this->reaction;
     }

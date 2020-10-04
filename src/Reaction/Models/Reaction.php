@@ -13,12 +13,12 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reaction\Models;
 
-use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
-use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
+use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantInterface;
+use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterInterface;
 use Cog\Contracts\Love\Reaction\Exceptions\RateInvalid;
 use Cog\Contracts\Love\Reaction\Exceptions\RateOutOfRange;
-use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionContract;
-use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
+use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionInterface;
+use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeInterface;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
@@ -26,7 +26,7 @@ use Cog\Laravel\Love\Support\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 final class Reaction extends Model implements
-    ReactionContract
+    ReactionInterface
 {
     public const RATE_DEFAULT = 1.0;
 
@@ -80,17 +80,17 @@ final class Reaction extends Model implements
         return $this->getAttributeValue('id');
     }
 
-    public function getReactant(): ReactantContract
+    public function getReactant(): ReactantInterface
     {
         return $this->getAttribute('reactant');
     }
 
-    public function getReacter(): ReacterContract
+    public function getReacter(): ReacterInterface
     {
         return $this->getAttribute('reacter');
     }
 
-    public function getType(): ReactionTypeContract
+    public function getType(): ReactionTypeInterface
     {
         return $this->getAttribute('type');
     }
@@ -116,37 +116,37 @@ final class Reaction extends Model implements
     }
 
     public function isOfType(
-        ReactionTypeContract $reactionType
+        ReactionTypeInterface $reactionType
     ): bool {
         return $this->getType()->isEqualTo($reactionType);
     }
 
     public function isNotOfType(
-        ReactionTypeContract $reactionType
+        ReactionTypeInterface $reactionType
     ): bool {
         return $this->getType()->isNotEqualTo($reactionType);
     }
 
     public function isToReactant(
-        ReactantContract $reactant
+        ReactantInterface $reactant
     ): bool {
         return $this->getReactant()->isEqualTo($reactant);
     }
 
     public function isNotToReactant(
-        ReactantContract $reactant
+        ReactantInterface $reactant
     ): bool {
         return !$this->isToReactant($reactant);
     }
 
     public function isByReacter(
-        ReacterContract $reacter
+        ReacterInterface $reacter
     ): bool {
         return $this->getReacter()->isEqualTo($reacter);
     }
 
     public function isNotByReacter(
-        ReacterContract $reacter
+        ReacterInterface $reacter
     ): bool {
         return !$this->isByReacter($reacter);
     }

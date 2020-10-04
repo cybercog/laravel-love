@@ -13,12 +13,12 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Stubs\Models;
 
-use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
+use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableInterface;
 use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
 use Illuminate\Database\Eloquent\Model;
 
 final class MorphMappedReactable extends Model implements
-    ReactableContract
+    ReactableInterface
 {
     use Reactable;
 

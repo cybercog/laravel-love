@@ -13,14 +13,14 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reactant\ReactionTotal\Models;
 
-use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
-use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalContract;
+use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantInterface;
+use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalInterface;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Support\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 final class ReactionTotal extends Model implements
-    ReactionTotalContract
+    ReactionTotalInterface
 {
     public const COUNT_DEFAULT = 0;
 
@@ -57,7 +57,7 @@ final class ReactionTotal extends Model implements
         return $this->belongsTo(Reactant::class, 'reactant_id');
     }
 
-    public function getReactant(): ReactantContract
+    public function getReactant(): ReactantInterface
     {
         return $this->getAttribute('reactant');
     }

@@ -13,28 +13,28 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reactant\Models;
 
-use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
+use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableInterface;
 use Cog\Contracts\Love\Reactant\Exceptions\ReactantInvalid;
-use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
-use Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter as ReactionCounterContract;
-use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalContract;
-use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterContract;
-use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
+use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantInterface;
+use Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter as ReactionCounterInterface;
+use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalInterface;
+use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterInterface;
+use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeInterface;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\NullReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
 use Illuminate\Support\Collection;
 use TypeError;
 
 final class NullReactant implements
-    ReactantContract
+    ReactantInterface
 {
     /**
-     * @var ReactableContract
+     * @var ReactableInterface
      */
     private $reactable;
 
     public function __construct(
-        ReactableContract $reactable
+        ReactableInterface $reactable
     ) {
         $this->reactable = $reactable;
     }
@@ -44,7 +44,7 @@ final class NullReactant implements
         throw new TypeError();
     }
 
-    public function getReactable(): ReactableContract
+    public function getReactable(): ReactableInterface
     {
         return $this->reactable;
     }
@@ -60,40 +60,40 @@ final class NullReactant implements
     }
 
     public function getReactionCounterOfType(
-        ReactionTypeContract $reactionType
-    ): ReactionCounterContract {
+        ReactionTypeInterface $reactionType
+    ): ReactionCounterInterface {
         return new NullReactionCounter($this, $reactionType);
     }
 
-    public function getReactionTotal(): ReactionTotalContract
+    public function getReactionTotal(): ReactionTotalInterface
     {
         return new NullReactionTotal($this);
     }
 
     public function isReactedBy(
-        ReacterContract $reacter,
-        ?ReactionTypeContract $reactionType = null,
+        ReacterInterface $reacter,
+        ?ReactionTypeInterface $reactionType = null,
         ?float $rate = null
     ): bool {
         return false;
     }
 
     public function isNotReactedBy(
-        ReacterContract $reacter,
-        ?ReactionTypeContract $reactionType = null,
+        ReacterInterface $reacter,
+        ?ReactionTypeInterface $reactionType = null,
         ?float $rate = null
     ): bool {
         return true;
     }
 
     public function isEqualTo(
-        ReactantContract $that
+        ReactantInterface $that
     ): bool {
         return $that instanceof self;
     }
 
     public function isNotEqualTo(
-        ReactantContract $that
+        ReactantInterface $that
     ): bool {
         return !$this->isEqualTo($that);
     }
@@ -109,7 +109,7 @@ final class NullReactant implements
     }
 
     public function createReactionCounterOfType(
-        ReactionTypeContract $reactionType
+        ReactionTypeInterface $reactionType
     ): void {
         throw ReactantInvalid::notExists();
     }

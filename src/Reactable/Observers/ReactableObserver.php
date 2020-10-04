@@ -13,12 +13,12 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reactable\Observers;
 
-use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
+use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableInterface;
 
 final class ReactableObserver
 {
     public function created(
-        ReactableContract $reactable
+        ReactableInterface $reactable
     ): void {
         if ($this->shouldRegisterAsReactantOnCreate($reactable)
             && $reactable->isNotRegisteredAsLoveReactant()) {
@@ -27,7 +27,7 @@ final class ReactableObserver
     }
 
     private function shouldRegisterAsReactantOnCreate(
-        ReactableContract $reactable
+        ReactableInterface $reactable
     ): bool {
         return !method_exists($reactable, 'shouldRegisterAsLoveReactantOnCreate')
             || $reactable->shouldRegisterAsLoveReactantOnCreate();

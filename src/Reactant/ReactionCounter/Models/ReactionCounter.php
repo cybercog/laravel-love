@@ -13,16 +13,16 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reactant\ReactionCounter\Models;
 
-use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantContract;
-use Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter as ReactionCounterContract;
-use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeContract;
+use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantInterface;
+use Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter as ReactionCounterInterface;
+use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeInterface;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Laravel\Love\Support\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 final class ReactionCounter extends Model implements
-    ReactionCounterContract
+    ReactionCounterInterface
 {
     public const COUNT_DEFAULT = 0;
 
@@ -65,24 +65,24 @@ final class ReactionCounter extends Model implements
         return $this->belongsTo(ReactionType::class, 'reaction_type_id');
     }
 
-    public function getReactant(): ReactantContract
+    public function getReactant(): ReactantInterface
     {
         return $this->getAttribute('reactant');
     }
 
-    public function getReactionType(): ReactionTypeContract
+    public function getReactionType(): ReactionTypeInterface
     {
         return $this->getAttribute('reactionType');
     }
 
     public function isReactionOfType(
-        ReactionTypeContract $reactionType
+        ReactionTypeInterface $reactionType
     ): bool {
         return $this->getReactionType()->isEqualTo($reactionType);
     }
 
     public function isNotReactionOfType(
-        ReactionTypeContract $reactionType
+        ReactionTypeInterface $reactionType
     ): bool {
         return !$this->isReactionOfType($reactionType);
     }

@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Console\Commands;
 
-use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableContract;
-use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableContract;
+use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableInterface;
+use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableInterface;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Console\Command;
@@ -145,7 +145,7 @@ final class UpgradeV5ToV6 extends Command
                 continue;
             }
 
-            if (!in_array(ReacterableContract::class, class_implements($class))) {
+            if (!in_array(ReacterableInterface::class, class_implements($class))) {
                 $this->warn("Class `{$class}` need to implement Reacterable contract.");
                 continue;
             }
@@ -192,7 +192,7 @@ final class UpgradeV5ToV6 extends Command
                 continue;
             }
 
-            if (!in_array(ReactableContract::class, class_implements($class))) {
+            if (!in_array(ReactableInterface::class, class_implements($class))) {
                 $this->warn("Class `{$class}` need to implement Reactable contract.");
                 continue;
             }
@@ -246,7 +246,7 @@ final class UpgradeV5ToV6 extends Command
                 continue;
             }
 
-            /** @var ReactableContract $reactable */
+            /** @var ReactableInterface $reactable */
             $reactable = $class::whereKey($like->likeable_id)->firstOrFail();
 
             $userClass = $this->getUserClass();
@@ -257,7 +257,7 @@ final class UpgradeV5ToV6 extends Command
                 continue;
             }
 
-            /** @var ReacterableContract $reacterable */
+            /** @var ReacterableInterface $reacterable */
             $reacterable = $userClass::whereKey($like->user_id)->firstOrFail();
             $reactionTypeName = $this->reactionTypeNameFromLikeTypeName($like->type_id);
 
