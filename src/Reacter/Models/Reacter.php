@@ -63,7 +63,7 @@ final class Reacter extends Model implements
 
     public function getReacterable(): ReacterableInterface
     {
-        $reacterable = $this->getAttribute('reacterable');
+        $reacterable = $this->getRelationValue('reacterable');
 
         if ($reacterable === null) {
             throw new NotAssignedToReacterable();
@@ -74,7 +74,7 @@ final class Reacter extends Model implements
 
     public function getReactions(): iterable
     {
-        return $this->getAttribute('reactions');
+        return $this->getRelationValue('reactions');
     }
 
     public function reactTo(

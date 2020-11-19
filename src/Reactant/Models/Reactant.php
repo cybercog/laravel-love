@@ -79,7 +79,7 @@ final class Reactant extends Model implements
 
     public function getReactable(): ReactableInterface
     {
-        $reactable = $this->getAttribute('reactable');
+        $reactable = $this->getRelationValue('reactable');
 
         if ($reactable === null) {
             throw new NotAssignedToReactable();
@@ -90,12 +90,12 @@ final class Reactant extends Model implements
 
     public function getReactions(): iterable
     {
-        return $this->getAttribute('reactions');
+        return $this->getRelationValue('reactions');
     }
 
     public function getReactionCounters(): iterable
     {
-        return $this->getAttribute('reactionCounters');
+        return $this->getRelationValue('reactionCounters');
     }
 
     public function getReactionCounterOfType(
@@ -104,7 +104,7 @@ final class Reactant extends Model implements
         // TODO: Test query count with eager loaded relation
         // TODO: Test query count without eager loaded relation
         $counter = $this
-            ->getAttribute('reactionCounters')
+            ->getRelationValue('reactionCounters')
             ->where('reaction_type_id', $reactionType->getId())
             ->first();
 
@@ -117,7 +117,7 @@ final class Reactant extends Model implements
 
     public function getReactionTotal(): ReactionTotalInterface
     {
-        return $this->getAttribute('reactionTotal')
+        return $this->getRelationValue('reactionTotal')
             ?? new NullReactionTotal($this);
     }
 
@@ -133,7 +133,7 @@ final class Reactant extends Model implements
         // TODO: Test if relation was loaded partially
         if ($this->relationLoaded('reactions')) {
             return $this
-                ->getAttribute('reactions')
+                ->getRelationValue('reactions')
                 ->contains(function (ReactionInterface $reaction) use ($reacter, $reactionType, $rate) {
                     if ($reaction->isNotByReacter($reacter)) {
                         return false;

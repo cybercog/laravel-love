@@ -82,17 +82,17 @@ final class Reaction extends Model implements
 
     public function getReactant(): ReactantInterface
     {
-        return $this->getAttribute('reactant');
+        return $this->getRelationValue('reactant');
     }
 
     public function getReacter(): ReacterInterface
     {
-        return $this->getAttribute('reacter');
+        return $this->getRelationValue('reacter');
     }
 
     public function getType(): ReactionTypeInterface
     {
-        return $this->getAttribute('type');
+        return $this->getRelationValue('type');
     }
 
     public function getRate(): float

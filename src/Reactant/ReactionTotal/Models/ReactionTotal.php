@@ -59,7 +59,7 @@ final class ReactionTotal extends Model implements
 
     public function getReactant(): ReactantInterface
     {
-        return $this->getAttribute('reactant');
+        return $this->getRelationValue('reactant');
     }
 
     public function getCount(): int

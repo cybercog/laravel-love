@@ -39,7 +39,7 @@ trait Reacterable
 
     public function getLoveReacter(): ReacterInterface
     {
-        return $this->getAttribute('loveReacter') ?? new NullReacter($this);
+        return $this->getRelationValue('loveReacter') ?? new NullReacter($this);
     }
 
     public function viaLoveReacter(): ReacterFacadeInterface

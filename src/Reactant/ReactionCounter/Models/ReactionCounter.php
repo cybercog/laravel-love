@@ -67,12 +67,12 @@ final class ReactionCounter extends Model implements
 
     public function getReactant(): ReactantInterface
     {
-        return $this->getAttribute('reactant');
+        return $this->getRelationValue('reactant');
     }
 
     public function getReactionType(): ReactionTypeInterface
     {
-        return $this->getAttribute('reactionType');
+        return $this->getRelationValue('reactionType');
     }
 
     public function isReactionOfType(

@@ -47,7 +47,7 @@ trait Reactable
 
     public function getLoveReactant(): ReactantInterface
     {
-        return $this->getAttribute('loveReactant') ?? new NullReactant($this);
+        return $this->getRelationValue('loveReactant') ?? new NullReactant($this);
     }
 
     public function viaLoveReactant(): ReactantFacadeInterface
