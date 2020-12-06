@@ -29,7 +29,7 @@ final class UpgradeV7ToV8 extends Command
      *
      * @var string
      */
-    protected $name = 'love:upgrade-v7-to-v8';
+    protected static $defaultName = 'love:upgrade-v7-to-v8';
 
     /**
      * The console command description.

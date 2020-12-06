@@ -33,7 +33,7 @@ final class UpgradeV5ToV6 extends Command
      *
      * @var string
      */
-    protected $name = 'love:upgrade-v5-to-v6';
+    protected static $defaultName = 'love:upgrade-v5-to-v6';
 
     /**
      * The console command description.
