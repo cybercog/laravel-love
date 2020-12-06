@@ -57,9 +57,9 @@ final class UpgradeV5ToV6 extends Command
     /**
      * Execute the console command.
      *
-     * @return void
+     * @return int
      */
-    public function handle(): void
+    public function handle(): int
     {
         $this->dbMigrate();
         $this->populateReactionTypes();
@@ -68,6 +68,8 @@ final class UpgradeV5ToV6 extends Command
         $this->populateReactions();
         $this->dbCleanup();
         $this->filesystemCleanup();
+
+        return 0;
     }
 
     private function dbMigrate(): void
