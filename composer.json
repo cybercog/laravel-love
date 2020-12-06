@@ -46,7 +46,7 @@
         "docs": "https://laravel-love.readme.io"
     },
     "require": {
-        "php": "^7.1.3",
+        "php": "^7.1.3|^8.0",
         "illuminate/database": "5.7.*|5.8.*|^6.0|^7.0|^8.0",
         "illuminate/support": "5.7.*|5.8.*|^6.0|^7.0|^8.0"
     },
