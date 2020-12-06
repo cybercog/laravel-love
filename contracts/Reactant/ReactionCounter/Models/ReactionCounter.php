@@ -22,9 +22,9 @@ interface ReactionCounter
 
     public function getReactionType(): ReactionType;
 
-    public function isReactionOfType(ReactionType $type): bool;
+    public function isReactionOfType(ReactionType $reactionType): bool;
 
-    public function isNotReactionOfType(ReactionType $type): bool;
+    public function isNotReactionOfType(ReactionType $reactionType): bool;
 
     public function getCount(): int;
 
