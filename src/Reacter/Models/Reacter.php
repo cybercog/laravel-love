@@ -95,10 +95,7 @@ final class Reacter extends Model implements
         }
 
         if ($rate === null) {
-            throw new ReactionAlreadyExists(sprintf(
-                'Reaction of type `%s` already exists.',
-                $reactionType->getName()
-            ));
+            throw ReactionAlreadyExists::ofType($reactionType);
         }
 
         $reaction->changeRate($rate);
