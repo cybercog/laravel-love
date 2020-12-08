@@ -25,7 +25,7 @@ final class ReactionTypeAdd extends Command
      *
      * @var string
      */
-    protected $name = 'love:reaction-type-add';
+    protected static $defaultName = 'love:reaction-type-add';
 
     /**
      * The console command description.

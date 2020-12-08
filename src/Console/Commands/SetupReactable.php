@@ -33,7 +33,7 @@ final class SetupReactable extends Command
      *
      * @var string
      */
-    protected $name = 'love:setup-reactable';
+    protected static $defaultName = 'love:setup-reactable';
 
     /**
      * The console command description.

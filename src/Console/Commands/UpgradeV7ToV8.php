@@ -29,7 +29,7 @@ final class UpgradeV7ToV8 extends Command
      *
      * @var string
      */
-    protected $name = 'love:upgrade-v7-to-v8';
+    protected static $defaultName = 'love:upgrade-v7-to-v8';
 
     /**
      * The console command description.
@@ -41,9 +41,9 @@ final class UpgradeV7ToV8 extends Command
     /**
      * Execute the console command.
      *
-     * @return void
+     * @return int
      */
-    public function handle(): void
+    public function handle(): int
     {
         $this->assertRequirements();
         $this->warn('Started Laravel Love v7 to v8 upgrade process.');
@@ -52,6 +52,8 @@ final class UpgradeV7ToV8 extends Command
         $this->dbChangeReactantReactionCounters();
         $this->dbChangeReactantReactionTotals();
         $this->info('Completed Laravel Love v7 to v8 upgrade process.');
+
+        return 0;
     }
 
     private function assertRequirements(): void

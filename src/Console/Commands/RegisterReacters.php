@@ -27,7 +27,7 @@ final class RegisterReacters extends Command
      *
      * @var string
      */
-    protected $name = 'love:register-reacters';
+    protected static $defaultName = 'love:register-reacters';
 
     /**
      * The console command description.

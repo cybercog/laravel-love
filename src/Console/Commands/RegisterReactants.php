@@ -27,7 +27,7 @@ final class RegisterReactants extends Command
      *
      * @var string
      */
-    protected $name = 'love:register-reactants';
+    protected static $defaultName = 'love:register-reactants';
 
     /**
      * The console command description.

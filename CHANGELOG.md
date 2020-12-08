@@ -4,6 +4,13 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ## [Unreleased]
 
+## [8.7.1] - 2020-12-06
+
+### Fixed
+
+- ([#186]) Improve CLI application performance by replacing `$name` with `$defaultName` static property in commands
+- ([#187]) Fixed inconsistency in method parameter names
+
 ## [8.7.0] - 2020-12-06
 
 ### Added
@@ -462,7 +469,8 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 
 - Initial release
 
-[Unreleased]: https://github.com/cybercog/laravel-love/compare/8.7.0...master
+[Unreleased]: https://github.com/cybercog/laravel-love/compare/8.7.1...master
+[8.7.1]: https://github.com/cybercog/laravel-love/compare/8.7.0...8.7.1
 [8.7.0]: https://github.com/cybercog/laravel-love/compare/8.6.1...8.7.0
 [8.6.1]: https://github.com/cybercog/laravel-love/compare/8.6.0...8.6.1
 [8.6.0]: https://github.com/cybercog/laravel-love/compare/8.5.0...8.6.0
@@ -507,6 +515,8 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 [1.1.1]: https://github.com/cybercog/laravel-love/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/cybercog/laravel-love/compare/1.0.0...1.1.0
 
+[#187]: https://github.com/cybercog/laravel-love/pull/187
+[#186]: https://github.com/cybercog/laravel-love/pull/186
 [#185]: https://github.com/cybercog/laravel-love/pull/185
 [#178]: https://github.com/cybercog/laravel-love/pull/178
 [#177]: https://github.com/cybercog/laravel-love/pull/177

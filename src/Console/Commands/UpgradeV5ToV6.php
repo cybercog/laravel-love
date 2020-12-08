@@ -33,7 +33,7 @@ final class UpgradeV5ToV6 extends Command
      *
      * @var string
      */
-    protected $name = 'love:upgrade-v5-to-v6';
+    protected static $defaultName = 'love:upgrade-v5-to-v6';
 
     /**
      * The console command description.
@@ -57,9 +57,9 @@ final class UpgradeV5ToV6 extends Command
     /**
      * Execute the console command.
      *
-     * @return void
+     * @return int
      */
-    public function handle(): void
+    public function handle(): int
     {
         $this->dbMigrate();
         $this->populateReactionTypes();
@@ -68,6 +68,8 @@ final class UpgradeV5ToV6 extends Command
         $this->populateReactions();
         $this->dbCleanup();
         $this->filesystemCleanup();
+
+        return 0;
     }
 
     private function dbMigrate(): void

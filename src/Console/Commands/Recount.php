@@ -30,7 +30,7 @@ final class Recount extends Command
      *
      * @var string
      */
-    protected $name = 'love:recount';
+    protected static $defaultName = 'love:recount';
 
     /**
      * The console command description.
