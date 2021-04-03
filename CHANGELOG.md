@@ -4,6 +4,16 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ## [Unreleased]
 
+## Removed
+
+- ([#196]) Dropped Laravel 5.7 support
+- ([#196]) Dropped Laravel 5.8 support
+
+## Fixed
+
+- ([#196]) Fixed CVE-2021-21263 vulnerability
+- ([#196]) Fixed GHSA-x7p5-p2c9-phvg vulnerability
+
 ## [8.7.1] - 2020-12-06
 
 ### Fixed
@@ -515,6 +525,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 [1.1.1]: https://github.com/cybercog/laravel-love/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/cybercog/laravel-love/compare/1.0.0...1.1.0
 
+[#196]: https://github.com/cybercog/laravel-love/pull/196
 [#187]: https://github.com/cybercog/laravel-love/pull/187
 [#186]: https://github.com/cybercog/laravel-love/pull/186
 [#185]: https://github.com/cybercog/laravel-love/pull/185
