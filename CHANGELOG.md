@@ -14,8 +14,6 @@ All notable changes to `laravel-love` will be documented in this file.
 - ([#196]) Fixed CVE-2021-21263 vulnerability
 - ([#196]) Fixed GHSA-x7p5-p2c9-phvg vulnerability
 
-- https://github.com/advisories/GHSA-x7p5-p2c9-phvg
-
 ## [8.7.1] - 2020-12-06
 
 ### Fixed
