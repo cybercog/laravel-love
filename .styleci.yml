@@ -4,3 +4,4 @@ disabled:
   - concat_without_spaces
   - phpdoc_no_package
   - logical_not_operators_with_successor_space
+  - laravel_phpdoc_alignment
