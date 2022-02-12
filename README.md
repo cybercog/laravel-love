@@ -54,6 +54,10 @@ Please see [UPGRADING](UPGRADING.md) for detailed upgrade instructions.
 - `Laravel Love` package is open-sourced software licensed under the [MIT license](LICENSE) by [Anton Komarev].
 - `Devil` logo image licensed under [Creative Commons 3.0](https://creativecommons.org/licenses/by/3.0/us/) by YuguDesign.
 
+## 🌟 Stargazers over time
+
+[![Stargazers over time](https://chart.yhype.me/github/repository-star/v1/MDEwOlJlcG9zaXRvcnkxMTYwNTgzMzY=.svg)](https://yhype.me?ref=github-cybercog-laravel-love)
+
 ## About CyberCog
 
 [CyberCog] is a Social Unity of enthusiasts. Research best solutions in product & software development is our passion.
