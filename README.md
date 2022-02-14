@@ -56,7 +56,7 @@ Please see [UPGRADING](UPGRADING.md) for detailed upgrade instructions.
 
 ## 🌟 Stargazers over time
 
-[![Stargazers over time](https://chart.yhype.me/github/repository-star/v1/MDEwOlJlcG9zaXRvcnkxMTYwNTgzMzY=.svg)](https://yhype.me?ref=github-repository-star-cumulative-cybercog-laravel-love)
+[![Stargazers over time](https://chart.yhype.me/github/repository-star/v1/MDEwOlJlcG9zaXRvcnkxMTYwNTgzMzY=.svg)](https://yhype.me?utm_source=github&utm_medium=cybercog-laravel-love&utm_content=repository-stars-cumulative)
 
 ## About CyberCog
 
