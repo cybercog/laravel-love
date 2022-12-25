@@ -16,17 +16,12 @@ namespace Cog\Laravel\Love\Console\Commands;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 
+#[AsCommand(name: 'love:reaction-type-add')]
 final class ReactionTypeAdd extends Command
 {
-    /**
-     * The console command name.
-     *
-     * @var string
-     */
-    protected static $defaultName = 'love:reaction-type-add';
-
     /**
      * The console command description.
      *

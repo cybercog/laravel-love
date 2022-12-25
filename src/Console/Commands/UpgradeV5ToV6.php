@@ -25,16 +25,11 @@ use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use Symfony\Component\Console\Attribute\AsCommand;
 
+#[AsCommand(name: 'love:upgrade-v5-to-v6')]
 final class UpgradeV5ToV6 extends Command
 {
-    /**
-     * The console command name.
-     *
-     * @var string
-     */
-    protected static $defaultName = 'love:upgrade-v5-to-v6';
-
     /**
      * The console command description.
      *

@@ -21,17 +21,12 @@ use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Bus\Dispatcher as DispatcherInterface;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 
+#[AsCommand(name: 'love:recount')]
 final class Recount extends Command
 {
-    /**
-     * The console command name.
-     *
-     * @var string
-     */
-    protected static $defaultName = 'love:recount';
-
     /**
      * The console command description.
      *
