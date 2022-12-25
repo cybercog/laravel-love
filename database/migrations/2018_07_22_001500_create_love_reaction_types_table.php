@@ -15,7 +15,7 @@ use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Laravel\Love\Support\Database\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-final class CreateLoveReactionTypesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -43,4 +43,4 @@ final class CreateLoveReactionTypesTable extends Migration
     {
         $this->schema->dropIfExists((new ReactionType())->getTable());
     }
-}
+};

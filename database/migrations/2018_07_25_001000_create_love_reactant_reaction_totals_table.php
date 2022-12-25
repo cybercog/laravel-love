@@ -15,7 +15,7 @@ use Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal;
 use Cog\Laravel\Love\Support\Database\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-final class CreateLoveReactantReactionTotalsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -48,4 +48,4 @@ final class CreateLoveReactantReactionTotalsTable extends Migration
     {
         $this->schema->dropIfExists((new ReactionTotal())->getTable());
     }
-}
+};
