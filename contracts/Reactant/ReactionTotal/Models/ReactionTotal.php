@@ -23,11 +23,19 @@ interface ReactionTotal
 
     public function getWeight(): float;
 
-    public function incrementCount(int $amount): void;
+    public function incrementCount(
+        int $amount,
+    ): void;
 
-    public function decrementCount(int $amount): void;
+    public function decrementCount(
+        int $amount,
+    ): void;
 
-    public function incrementWeight(float $amount): void;
+    public function incrementWeight(
+        float $amount,
+    ): void;
 
-    public function decrementWeight(float $amount): void;
+    public function decrementWeight(
+        float $amount,
+    ): void;
 }

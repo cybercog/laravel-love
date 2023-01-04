@@ -31,7 +31,7 @@ final class NullReactant implements
     private ReactableInterface $reactable;
 
     public function __construct(
-        ReactableInterface $reactable
+        ReactableInterface $reactable,
     ) {
         $this->reactable = $reactable;
     }
@@ -57,7 +57,7 @@ final class NullReactant implements
     }
 
     public function getReactionCounterOfType(
-        ReactionTypeInterface $reactionType
+        ReactionTypeInterface $reactionType,
     ): ReactionCounterInterface {
         return new NullReactionCounter($this, $reactionType);
     }
@@ -70,7 +70,7 @@ final class NullReactant implements
     public function isReactedBy(
         ReacterInterface $reacter,
         ?ReactionTypeInterface $reactionType = null,
-        ?float $rate = null
+        ?float $rate = null,
     ): bool {
         return false;
     }
@@ -78,19 +78,19 @@ final class NullReactant implements
     public function isNotReactedBy(
         ReacterInterface $reacter,
         ?ReactionTypeInterface $reactionType = null,
-        ?float $rate = null
+        ?float $rate = null,
     ): bool {
         return true;
     }
 
     public function isEqualTo(
-        ReactantInterface $that
+        ReactantInterface $that,
     ): bool {
         return $that instanceof self;
     }
 
     public function isNotEqualTo(
-        ReactantInterface $that
+        ReactantInterface $that,
     ): bool {
         return !$this->isEqualTo($that);
     }
@@ -106,7 +106,7 @@ final class NullReactant implements
     }
 
     public function createReactionCounterOfType(
-        ReactionTypeInterface $reactionType
+        ReactionTypeInterface $reactionType,
     ): void {
         throw ReactantInvalid::notExists();
     }

@@ -25,8 +25,9 @@ final class Reactant implements
 {
     private ReactantInterface $reactant;
 
-    public function __construct(ReactantInterface $reactant)
-    {
+    public function __construct(
+        ReactantInterface $reactant,
+    ) {
         $this->reactant = $reactant;
     }
 
@@ -47,7 +48,7 @@ final class Reactant implements
     }
 
     public function getReactionCounterOfType(
-        string $reactionTypeName
+        string $reactionTypeName,
     ): ReactionCounterInterface {
         return $this->reactant->getReactionCounterOfType(
             ReactionType::fromName($reactionTypeName)
@@ -62,7 +63,7 @@ final class Reactant implements
     public function isReactedBy(
         ?ReacterableInterface $reacterable = null,
         ?string $reactionTypeName = null,
-        ?float $rate = null
+        ?float $rate = null,
     ): bool {
         if ($reacterable === null) {
             return false;
@@ -80,7 +81,7 @@ final class Reactant implements
     public function isNotReactedBy(
         ?ReacterableInterface $reacterable = null,
         ?string $reactionTypeName = null,
-        ?float $rate = null
+        ?float $rate = null,
     ): bool {
         if ($reacterable === null) {
             return true;

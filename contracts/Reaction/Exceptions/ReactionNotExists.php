@@ -20,8 +20,9 @@ use RuntimeException;
 final class ReactionNotExists extends RuntimeException implements
     LoveThrowable
 {
-    public static function ofType(ReactionType $reactionType): self
-    {
+    public static function ofType(
+        ReactionType $reactionType,
+    ): self {
         return new self(
             sprintf(
                 'Reaction of type `%s` not exists.',

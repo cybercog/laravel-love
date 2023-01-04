@@ -73,25 +73,25 @@ final class ReactionTotal extends Model implements
     }
 
     public function incrementCount(
-        int $amount
+        int $amount,
     ): void {
         $this->increment('count', $amount);
     }
 
     public function decrementCount(
-        int $amount
+        int $amount,
     ): void {
         $this->decrement('count', $amount);
     }
 
     public function incrementWeight(
-        float $amount
+        float $amount,
     ): void {
         $this->increment('weight', $amount);
     }
 
     public function decrementWeight(
-        float $amount
+        float $amount,
     ): void {
         $this->decrement('weight', $amount);
     }

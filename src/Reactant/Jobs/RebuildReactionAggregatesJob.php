@@ -37,7 +37,7 @@ final class RebuildReactionAggregatesJob implements
 
     public function __construct(
         ReactantInterface $reactant,
-        ?ReactionTypeInterface $reactionType = null
+        ?ReactionTypeInterface $reactionType = null,
     ) {
         $this->reactant = $reactant;
         $this->reactionType = $reactionType;
@@ -134,7 +134,7 @@ final class RebuildReactionAggregatesJob implements
      * Determine if counter should not be rebuilt.
      */
     private function shouldNotAffectCounter(
-        ReactionCounterInterface $counter
+        ReactionCounterInterface $counter,
     ): bool {
         return $this->reactionType !== null
             && $counter->isNotReactionOfType($this->reactionType);

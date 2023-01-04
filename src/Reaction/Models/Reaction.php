@@ -106,7 +106,7 @@ final class Reaction extends Model implements
     }
 
     public function setRateAttribute(
-        ?float $rate
+        ?float $rate,
     ): void {
         if ($rate !== null && ($rate < self::RATE_MIN || $rate > self::RATE_MAX)) {
             throw RateOutOfRange::withValueBetween($rate, self::RATE_MIN, self::RATE_MAX);
@@ -116,43 +116,43 @@ final class Reaction extends Model implements
     }
 
     public function isOfType(
-        ReactionTypeInterface $reactionType
+        ReactionTypeInterface $reactionType,
     ): bool {
         return $this->getType()->isEqualTo($reactionType);
     }
 
     public function isNotOfType(
-        ReactionTypeInterface $reactionType
+        ReactionTypeInterface $reactionType,
     ): bool {
         return $this->getType()->isNotEqualTo($reactionType);
     }
 
     public function isToReactant(
-        ReactantInterface $reactant
+        ReactantInterface $reactant,
     ): bool {
         return $this->getReactant()->isEqualTo($reactant);
     }
 
     public function isNotToReactant(
-        ReactantInterface $reactant
+        ReactantInterface $reactant,
     ): bool {
         return !$this->isToReactant($reactant);
     }
 
     public function isByReacter(
-        ReacterInterface $reacter
+        ReacterInterface $reacter,
     ): bool {
         return $this->getReacter()->isEqualTo($reacter);
     }
 
     public function isNotByReacter(
-        ReacterInterface $reacter
+        ReacterInterface $reacter,
     ): bool {
         return !$this->isByReacter($reacter);
     }
 
     public function changeRate(
-        float $rate
+        float $rate,
     ): void {
         if ($this->getRate() === $rate) {
             throw RateInvalid::withSameValue($rate);

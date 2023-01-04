@@ -73,7 +73,7 @@ final class ReactionType extends Model implements
     }
 
     public static function fromName(
-        string $name
+        string $name,
     ): ReactionTypeInterface {
         if (isset(self::$nameCache[$name])) {
             return self::$nameCache[$name];
@@ -107,13 +107,13 @@ final class ReactionType extends Model implements
     }
 
     public function isEqualTo(
-        ReactionTypeInterface $that
+        ReactionTypeInterface $that,
     ): bool {
         return $this->getId() === $that->getId();
     }
 
     public function isNotEqualTo(
-        ReactionTypeInterface $that
+        ReactionTypeInterface $that,
     ): bool {
         return !$this->isEqualTo($that);
     }

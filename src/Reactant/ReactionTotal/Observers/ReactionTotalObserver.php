@@ -18,7 +18,7 @@ use Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal;
 final class ReactionTotalObserver
 {
     public function creating(
-        ReactionTotal $total
+        ReactionTotal $total,
     ): void {
         if ($total->getAttributeValue('count') === null) {
             $total->setAttribute('count', ReactionTotal::COUNT_DEFAULT);

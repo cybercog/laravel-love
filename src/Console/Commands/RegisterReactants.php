@@ -87,7 +87,7 @@ final class RegisterReactants extends Command
      * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
      */
     private function reactableModelFromType(
-        string $modelType
+        string $modelType,
     ): ReactableInterface {
         if (!class_exists($modelType)) {
             $modelType = $this->findModelTypeInMorphMap($modelType);
@@ -108,7 +108,7 @@ final class RegisterReactants extends Command
      * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
      */
     private function findModelTypeInMorphMap(
-        string $modelType
+        string $modelType,
     ): string {
         $morphMap = Relation::morphMap();
 
@@ -119,8 +119,9 @@ final class RegisterReactants extends Command
         return $morphMap[$modelType];
     }
 
-    private function normalizeIds(array $modelIds): array
-    {
+    private function normalizeIds(
+        array $modelIds,
+    ): array {
         if (!isset($modelIds[0])) {
             return $modelIds;
         }
@@ -141,7 +142,7 @@ final class RegisterReactants extends Command
      */
     private function collectModels(
         ReactableInterface $reactableModel,
-        array $modelIds
+        array $modelIds,
     ): Collection {
         $query = $reactableModel
             ->query()
@@ -154,8 +155,9 @@ final class RegisterReactants extends Command
         return $query->get();
     }
 
-    private function registerModelsAsReactants(Collection $models): void
-    {
+    private function registerModelsAsReactants(
+        Collection $models,
+    ): void {
         $collectedCount = $models->count();
         $progressBar = $this->output->createProgressBar($collectedCount);
 

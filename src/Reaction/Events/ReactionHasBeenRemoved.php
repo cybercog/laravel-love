@@ -20,7 +20,7 @@ final class ReactionHasBeenRemoved
     private ReactionInterface $reaction;
 
     public function __construct(
-        ReactionInterface $reaction
+        ReactionInterface $reaction,
     ) {
         $this->reaction = $reaction;
     }

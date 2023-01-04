@@ -20,11 +20,14 @@ use RuntimeException;
 final class ReactionAlreadyExists extends RuntimeException implements
     LoveThrowable
 {
-    public static function ofType(ReactionType $reactionType): self
-    {
-        return new self(sprintf(
-            'Reaction of type `%s` already exists.',
-            $reactionType->getName()
-        ));
+    public static function ofType(
+        ReactionType $reactionType,
+    ): self {
+        return new self(
+            sprintf(
+                'Reaction of type `%s` already exists.',
+                $reactionType->getName()
+            )
+        );
     }
 }

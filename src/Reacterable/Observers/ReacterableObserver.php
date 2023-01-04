@@ -18,7 +18,7 @@ use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableInterface;
 final class ReacterableObserver
 {
     public function created(
-        ReacterableInterface $reacterable
+        ReacterableInterface $reacterable,
     ): void {
         if ($this->shouldRegisterAsReacterOnCreate($reacterable)
             && $reacterable->isNotRegisteredAsLoveReacter()) {
@@ -27,7 +27,7 @@ final class ReacterableObserver
     }
 
     private function shouldRegisterAsReacterOnCreate(
-        ReacterableInterface $reacterable
+        ReacterableInterface $reacterable,
     ): bool {
         return !method_exists($reacterable, 'shouldRegisterAsLoveReacterOnCreate')
             || $reacterable->shouldRegisterAsLoveReacterOnCreate();

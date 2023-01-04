@@ -23,7 +23,7 @@ final class NullReactionTotal implements
     private ReactantInterface $reactant;
 
     public function __construct(
-        ReactantInterface $reactant
+        ReactantInterface $reactant,
     ) {
         $this->reactant = $reactant;
     }
@@ -44,25 +44,25 @@ final class NullReactionTotal implements
     }
 
     public function incrementCount(
-        int $amount
+        int $amount,
     ): void {
         throw ReactionTotalInvalid::notExists();
     }
 
     public function decrementCount(
-        int $amount
+        int $amount,
     ): void {
         throw ReactionTotalInvalid::notExists();
     }
 
     public function incrementWeight(
-        float $amount
+        float $amount,
     ): void {
         throw ReactionTotalInvalid::notExists();
     }
 
     public function decrementWeight(
-        float $amount
+        float $amount,
     ): void {
         throw ReactionTotalInvalid::notExists();
     }

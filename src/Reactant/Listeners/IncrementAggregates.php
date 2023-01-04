@@ -21,13 +21,15 @@ final class IncrementAggregates
 {
     private DispatcherInterface $dispatcher;
 
-    public function __construct(DispatcherInterface $dispatcher)
-    {
+    public function __construct(
+        DispatcherInterface $dispatcher,
+    ) {
         $this->dispatcher = $dispatcher;
     }
 
-    public function handle(ReactionHasBeenAdded $event): void
-    {
+    public function handle(
+        ReactionHasBeenAdded $event,
+    ): void {
         $reaction = $event->getReaction();
         $reactant = $reaction->getReactant();
 

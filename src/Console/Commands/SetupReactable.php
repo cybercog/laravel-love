@@ -154,16 +154,18 @@ final class SetupReactable extends Command
             ?? $this->resolveModel();
     }
 
-    private function sanitizeName(string $name): string
-    {
+    private function sanitizeName(
+        string $name,
+    ): string {
         $name = trim($name);
         $name = Str::studly($name);
 
         return $name;
     }
 
-    private function isModelInvalid(Model $model): bool
-    {
+    private function isModelInvalid(
+        Model $model,
+    ): bool {
         return !$model instanceof ReactableInterface;
     }
 

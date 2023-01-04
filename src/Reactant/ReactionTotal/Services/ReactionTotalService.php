@@ -23,20 +23,20 @@ final class ReactionTotalService
     private ReactionTotalInterface $reactionTotal;
 
     public function __construct(
-        ReactantInterface $reactant
+        ReactantInterface $reactant,
     ) {
         $this->reactionTotal = $this->findOrCreateReactionTotalFor($reactant);
     }
 
     public function addReaction(
-        ReactionInterface $reaction
+        ReactionInterface $reaction,
     ): void {
         $this->reactionTotal->incrementCount(1);
         $this->reactionTotal->incrementWeight($reaction->getWeight());
     }
 
     public function removeReaction(
-        ReactionInterface $reaction
+        ReactionInterface $reaction,
     ): void {
         if ($this->reactionTotal->getCount() === 0) {
             return;
@@ -47,7 +47,7 @@ final class ReactionTotalService
     }
 
     private function findOrCreateReactionTotalFor(
-        ReactantInterface $reactant
+        ReactantInterface $reactant,
     ): ReactionTotalInterface {
         $total = $reactant->getReactionTotal();
 

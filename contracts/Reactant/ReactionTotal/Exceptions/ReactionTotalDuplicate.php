@@ -21,11 +21,13 @@ final class ReactionTotalDuplicate extends RuntimeException implements
     LoveThrowable
 {
     public static function forReactant(
-        Reactant $reactant
+        Reactant $reactant,
     ): self {
-        return new self(sprintf(
-            'ReactionTotal for Reactant `%s` already exists.',
-            $reactant->getId()
-        ));
+        return new self(
+            sprintf(
+                'ReactionTotal for Reactant `%s` already exists.',
+                $reactant->getId()
+            )
+        );
     }
 }

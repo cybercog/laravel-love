@@ -99,7 +99,7 @@ final class Reactant extends Model implements
     }
 
     public function getReactionCounterOfType(
-        ReactionTypeInterface $reactionType
+        ReactionTypeInterface $reactionType,
     ): ReactionCounterInterface {
         // TODO: Test query count with eager loaded relation
         // TODO: Test query count without eager loaded relation
@@ -124,7 +124,7 @@ final class Reactant extends Model implements
     public function isReactedBy(
         ReacterInterface $reacter,
         ?ReactionTypeInterface $reactionType = null,
-        ?float $rate = null
+        ?float $rate = null,
     ): bool {
         if ($reacter->isNull()) {
             return false;
@@ -167,20 +167,20 @@ final class Reactant extends Model implements
     public function isNotReactedBy(
         ReacterInterface $reacter,
         ?ReactionTypeInterface $reactionType = null,
-        ?float $rate = null
+        ?float $rate = null,
     ): bool {
         return !$this->isReactedBy($reacter, $reactionType, $rate);
     }
 
     public function isEqualTo(
-        ReactantInterface $that
+        ReactantInterface $that,
     ): bool {
         return $that->isNotNull()
             && $this->getId() === $that->getId();
     }
 
     public function isNotEqualTo(
-        ReactantInterface $that
+        ReactantInterface $that,
     ): bool {
         return !$this->isEqualTo($that);
     }
@@ -196,7 +196,7 @@ final class Reactant extends Model implements
     }
 
     public function createReactionCounterOfType(
-        ReactionTypeInterface $reactionType
+        ReactionTypeInterface $reactionType,
     ): void {
         if ($this->reactionCounters()->where('reaction_type_id', $reactionType->getId())->exists()) {
             throw ReactionCounterDuplicate::ofTypeForReactant($reactionType, $this);

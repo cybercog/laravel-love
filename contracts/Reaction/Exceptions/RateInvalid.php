@@ -19,11 +19,14 @@ use UnexpectedValueException;
 final class RateInvalid extends UnexpectedValueException implements
     LoveThrowable
 {
-    public static function withSameValue(float $rate): self
-    {
-        return new self(sprintf(
-            'Invalid Reaction rate: `%s`. Can not change to same value.',
-            $rate
-        ));
+    public static function withSameValue(
+        float $rate,
+    ): self {
+        return new self(
+            sprintf(
+                'Invalid Reaction rate: `%s`. Can not change to same value.',
+                $rate
+            )
+        );
     }
 }

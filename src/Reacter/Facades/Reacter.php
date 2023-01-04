@@ -23,8 +23,9 @@ final class Reacter implements
 {
     private ReacterInterface $reacter;
 
-    public function __construct(ReacterInterface $reacter)
-    {
+    public function __construct(
+        ReacterInterface $reacter,
+    ) {
         $this->reacter = $reacter;
     }
 
@@ -39,7 +40,7 @@ final class Reacter implements
     public function reactTo(
         ReactableInterface $reactable,
         string $reactionTypeName,
-        ?float $rate = null
+        ?float $rate = null,
     ): void {
         $this->reacter->reactTo(
             $reactable->getLoveReactant(),
@@ -50,7 +51,7 @@ final class Reacter implements
 
     public function unreactTo(
         ReactableInterface $reactable,
-        string $reactionTypeName
+        string $reactionTypeName,
     ): void {
         $this->reacter->unreactTo(
             $reactable->getLoveReactant(),
@@ -61,7 +62,7 @@ final class Reacter implements
     public function hasReactedTo(
         ReactableInterface $reactable,
         ?string $reactionTypeName = null,
-        ?float $rate = null
+        ?float $rate = null,
     ): bool {
         $reactionType = $reactionTypeName === null ? null : ReactionType::fromName($reactionTypeName);
 
@@ -75,7 +76,7 @@ final class Reacter implements
     public function hasNotReactedTo(
         ReactableInterface $reactable,
         ?string $reactionTypeName = null,
-        ?float $rate = null
+        ?float $rate = null,
     ): bool {
         $reactionType = $reactionTypeName === null ? null : ReactionType::fromName($reactionTypeName);
 

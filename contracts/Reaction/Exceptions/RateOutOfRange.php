@@ -19,11 +19,18 @@ use OutOfRangeException;
 final class RateOutOfRange extends OutOfRangeException implements
     LoveThrowable
 {
-    public static function withValueBetween(float $rate, float $minimumRate, float $maximumRate): self
-    {
-        return new self(sprintf(
-            'Invalid Reaction rate: `%s`. Must be between `%s` and `%s`',
-            $rate, $minimumRate, $maximumRate
-        ));
+    public static function withValueBetween(
+        float $rate,
+        float $minimumRate,
+        float $maximumRate,
+    ): self {
+        return new self(
+            sprintf(
+                'Invalid Reaction rate: `%s`. Must be between `%s` and `%s`',
+                $rate,
+                $minimumRate,
+                $maximumRate
+            )
+        );
     }
 }
