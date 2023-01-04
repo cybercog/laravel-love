@@ -53,10 +53,12 @@ final class SetupReactable extends Command
         $isForeignColumnNullable = boolval($this->option('nullable'));
 
         if (!class_exists($model)) {
-            $this->error(sprintf(
-                'Model `%s` not exists.',
-                $model
-            ));
+            $this->error(
+                sprintf(
+                    'Model `%s` not exists.',
+                    $model
+                )
+            );
 
             return self::FAILURE;
         }
@@ -65,10 +67,12 @@ final class SetupReactable extends Command
         $model = new $model();
 
         if ($this->isModelInvalid($model)) {
-            $this->error(sprintf(
-                'Model `%s` does not implements Reactable interface.',
-                get_class($model)
-            ));
+            $this->error(
+                sprintf(
+                    'Model `%s` does not implements Reactable interface.',
+                    get_class($model)
+                )
+            );
 
             return self::FAILURE;
         }
@@ -80,19 +84,24 @@ final class SetupReactable extends Command
         $referencedColumn = $referencedModel->getKeyName();
 
         if (!$referencedSchema->hasTable($referencedTable)) {
-            $this->error(sprintf(
-                'Referenced table `%s` does not exists in database.',
-                $referencedTable
-            ));
+            $this->error(
+                sprintf(
+                    'Referenced table `%s` does not exists in database.',
+                    $referencedTable
+                )
+            );
 
             return self::FAILURE;
         }
 
         if (Schema::hasColumn($table, $foreignColumn)) {
-            $this->error(sprintf(
-                'Foreign column `%s` already exists in `%s` database table.',
-                $foreignColumn, $table
-            ));
+            $this->error(
+                sprintf(
+                    'Foreign column `%s` already exists in `%s` database table.',
+                    $foreignColumn,
+                    $table
+                )
+            );
 
             return self::FAILURE;
         }
