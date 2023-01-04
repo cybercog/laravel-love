@@ -26,12 +26,6 @@ final class IncrementAggregates
         $this->dispatcher = $dispatcher;
     }
 
-    /**
-     * Handle the event.
-     *
-     * @param  \Cog\Laravel\Love\Reaction\Events\ReactionHasBeenAdded  $event
-     * @return void
-     */
     public function handle(ReactionHasBeenAdded $event): void
     {
         $reaction = $event->getReaction();

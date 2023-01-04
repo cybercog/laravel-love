@@ -44,8 +44,6 @@ final class RegisterReacters extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
     public function handle(): int
     {
@@ -105,9 +103,6 @@ final class RegisterReacters extends Command
 
     /**
      * Find model type in morph mappings registry.
-     *
-     * @param string $modelType
-     * @return string
      *
      * @throws \Cog\Contracts\Love\Reacterable\Exceptions\ReacterableInvalid
      */

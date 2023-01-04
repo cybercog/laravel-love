@@ -33,8 +33,6 @@ abstract class Migration extends IlluminateMigration
 
     /**
      * Get the migration connection name.
-     *
-     * @return string|null
      */
     public function getConnection(): ?string
     {

@@ -48,8 +48,6 @@ final class UpgradeV5ToV6 extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
     public function handle(): int
     {

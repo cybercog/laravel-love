@@ -26,12 +26,6 @@ final class DecrementAggregates
         $this->dispatcher = $dispatcher;
     }
 
-    /**
-     * Handle the event.
-     *
-     * @param  \Cog\Laravel\Love\Reaction\Events\ReactionHasBeenRemoved  $event
-     * @return void
-     */
     public function handle(ReactionHasBeenRemoved $event): void
     {
         $reaction = $event->getReaction();

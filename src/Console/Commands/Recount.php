@@ -60,8 +60,6 @@ final class Recount extends Command
     /**
      * Execute the console command.
      *
-     * @return int
-     *
      * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
      */
     public function handle(
@@ -98,9 +96,6 @@ final class Recount extends Command
 
     /**
      * Normalize reactable model type.
-     *
-     * @param string $modelType
-     * @return string
      *
      * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
      */
@@ -139,9 +134,6 @@ final class Recount extends Command
     /**
      * Find model type in morph mappings registry.
      *
-     * @param string $modelType
-     * @return string
-     *
      * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
      */
     private function findModelTypeInMorphMap(
@@ -176,9 +168,6 @@ final class Recount extends Command
 
     /**
      * Write warning output that processing has been started.
-     *
-     * @param string|null $queueConnectionName
-     * @return void
      */
     private function warnProcessingStartedOn(
         ?string $queueConnectionName

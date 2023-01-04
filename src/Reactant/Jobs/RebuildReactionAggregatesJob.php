@@ -132,9 +132,6 @@ final class RebuildReactionAggregatesJob implements
 
     /**
      * Determine if counter should not be rebuilt.
-     *
-     * @param ReactionCounterInterface $counter
-     * @return bool
      */
     private function shouldNotAffectCounter(
         ReactionCounterInterface $counter
