@@ -39,7 +39,7 @@ final class ReactionTypeAdd extends Command
         if ($this->option('default')) {
             $this->createDefaultReactionTypes();
 
-            return 0;
+            return self::SUCCESS;
         }
 
         $name = $this->resolveName();
@@ -51,7 +51,7 @@ final class ReactionTypeAdd extends Command
                 $name
             ));
 
-            return 1;
+            return self::FAILURE;
         }
 
         if ($this->isReactionTypeNameExists($name)) {
@@ -60,12 +60,12 @@ final class ReactionTypeAdd extends Command
                 $name
             ));
 
-            return 1;
+            return self::FAILURE;
         }
 
         $this->createReactionType($name, $this->resolveMass());
 
-        return 0;
+        return self::SUCCESS;
     }
 
     /**

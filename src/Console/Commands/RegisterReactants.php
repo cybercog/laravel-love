@@ -53,7 +53,7 @@ final class RegisterReactants extends Command
         if ($reactableType === null) {
             $this->error('Option `--model` is required!');
 
-            return 1;
+            return self::FAILURE;
         }
 
         try {
@@ -73,10 +73,10 @@ final class RegisterReactants extends Command
         } catch (ReactableInvalid $exception) {
             $this->error($exception->getMessage());
 
-            return 1;
+            return self::FAILURE;
         }
 
-        return 0;
+        return self::SUCCESS;
     }
 
     /**

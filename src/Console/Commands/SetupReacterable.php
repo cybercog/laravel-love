@@ -65,7 +65,7 @@ final class SetupReacterable extends Command
                 $model
             ));
 
-            return 1;
+            return self::FAILURE;
         }
 
         /** @var \Illuminate\Database\Eloquent\Model $model */
@@ -77,7 +77,7 @@ final class SetupReacterable extends Command
                 get_class($model)
             ));
 
-            return 1;
+            return self::FAILURE;
         }
 
         $table = $model->getTable();
@@ -92,7 +92,7 @@ final class SetupReacterable extends Command
                 $referencedTable
             ));
 
-            return 1;
+            return self::FAILURE;
         }
 
         if (Schema::hasColumn($table, $foreignColumn)) {
@@ -101,7 +101,7 @@ final class SetupReacterable extends Command
                 $foreignColumn, $table
             ));
 
-            return 1;
+            return self::FAILURE;
         }
 
         try {
@@ -118,14 +118,14 @@ final class SetupReacterable extends Command
         } catch (FileNotFoundException $exception) {
             $this->error($exception->getMessage());
 
-            return 1;
+            return self::FAILURE;
         }
 
         $this->info('Migration created successfully!');
 
         $this->composer->dumpAutoloads();
 
-        return 0;
+        return self::SUCCESS;
     }
 
     /**

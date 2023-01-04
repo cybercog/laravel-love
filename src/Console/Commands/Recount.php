@@ -93,7 +93,7 @@ final class Recount extends Command
         }
         $this->getOutput()->progressFinish();
 
-        return 0;
+        return self::SUCCESS;
     }
 
     /**

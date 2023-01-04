@@ -48,7 +48,7 @@ final class UpgradeV7ToV8 extends Command
         $this->dbChangeReactantReactionTotals();
         $this->info('Completed Laravel Love v7 to v8 upgrade process.');
 
-        return 0;
+        return self::SUCCESS;
     }
 
     private function assertRequirements(): void
