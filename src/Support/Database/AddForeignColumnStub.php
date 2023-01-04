@@ -18,35 +18,17 @@ use Illuminate\Support\Str;
 
 final class AddForeignColumnStub
 {
-    /**
-     * @var Filesystem
-     */
-    private $files;
+    private Filesystem $files;
 
-    /**
-     * @var string
-     */
-    private $table;
+    private string $table;
 
-    /**
-     * @var string
-     */
-    private $referencedTable;
+    private string $referencedTable;
 
-    /**
-     * @var string
-     */
-    private $foreignColumn;
+    private string $foreignColumn;
 
-    /**
-     * @var bool
-     */
-    private $isForeignColumnNullable;
+    private bool $isForeignColumnNullable;
 
-    /**
-     * @var string
-     */
-    private $referencedColumn;
+    private string $referencedColumn;
 
     public function __construct(
         Filesystem $files,

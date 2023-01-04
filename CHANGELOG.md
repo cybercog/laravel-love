@@ -12,6 +12,7 @@ All notable changes to `laravel-love` will be documented in this file.
 
 - ([#215]) Migrated to console AsCommand attribute
 - ([#215]) Package generating anonymous class migrations now
+- ([#217]) Switched to native typed class properties 
 
 ### Removed
 

@@ -21,15 +21,9 @@ use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeInterface
 final class NullReactionCounter implements
     ReactionCounterInterface
 {
-    /**
-     * @var ReactantInterface
-     */
-    private $reactant;
+    private ReactantInterface $reactant;
 
-    /**
-     * @var ReactionTypeInterface
-     */
-    private $reactionType;
+    private ReactionTypeInterface $reactionType;
 
     public function __construct(
         ReactantInterface $reactant,

@@ -31,15 +31,9 @@ final class RebuildReactionAggregatesJob implements
     use Dispatchable;
     use Queueable;
 
-    /**
-     * @var \Cog\Contracts\Love\Reactant\Models\Reactant
-     */
-    private $reactant;
+    private ReactantInterface $reactant;
 
-    /**
-     * @var \Cog\Contracts\Love\ReactionType\Models\ReactionType|null
-     */
-    private $reactionType;
+    private ?ReactionTypeInterface $reactionType;
 
     public function __construct(
         ReactantInterface $reactant,

@@ -19,10 +19,7 @@ use Illuminate\Contracts\Bus\Dispatcher as DispatcherInterface;
 
 final class IncrementAggregates
 {
-    /**
-     * @var \Illuminate\Contracts\Bus\Dispatcher
-     */
-    private $dispatcher;
+    private DispatcherInterface $dispatcher;
 
     public function __construct(DispatcherInterface $dispatcher)
     {

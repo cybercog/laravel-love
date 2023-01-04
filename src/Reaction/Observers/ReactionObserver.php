@@ -20,10 +20,7 @@ use Illuminate\Contracts\Events\Dispatcher as DispatcherInterface;
 
 final class ReactionObserver
 {
-    /**
-     * @var DispatcherInterface
-     */
-    private $eventDispatcher;
+    private DispatcherInterface $eventDispatcher;
 
     public function __construct(
         DispatcherInterface $eventDispatcher

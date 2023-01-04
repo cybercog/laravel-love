@@ -24,10 +24,7 @@ use TypeError;
 final class NullReacter implements
     ReacterInterface
 {
-    /**
-     * @var ReacterableInterface
-     */
-    private $reacterable;
+    private ReacterableInterface $reacterable;
 
     public function __construct(
         ReacterableInterface $reacterable

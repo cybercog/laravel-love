@@ -37,10 +37,7 @@ final class UpgradeV5ToV6 extends Command
      */
     protected $description = 'Upgrade Love package from v5 to v6';
 
-    /**
-     * @var Builder
-     */
-    private $queryBuilder;
+    private Builder $queryBuilder;
 
     public function __construct(Builder $queryBuilder)
     {

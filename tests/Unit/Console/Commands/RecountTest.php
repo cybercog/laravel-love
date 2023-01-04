@@ -29,9 +29,9 @@ use Cog\Tests\Laravel\Love\TestCase;
 
 final class RecountTest extends TestCase
 {
-    private $likeType;
+    private ReactionType $likeType;
 
-    private $dislikeType;
+    private ReactionType $dislikeType;
 
     protected function setUp(): void
     {

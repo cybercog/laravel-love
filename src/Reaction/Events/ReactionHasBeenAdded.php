@@ -17,10 +17,7 @@ use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionInterface;
 
 final class ReactionHasBeenAdded
 {
-    /**
-     * @var ReactionInterface
-     */
-    private $reaction;
+    private ReactionInterface $reaction;
 
     public function __construct(
         ReactionInterface $reaction
