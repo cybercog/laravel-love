@@ -32,18 +32,14 @@ final class UpgradeV5ToV6 extends Command
 {
     private Builder $queryBuilder;
 
-    public function __construct(Builder $queryBuilder)
-    {
-        parent::__construct();
-
-        $this->queryBuilder = $queryBuilder;
-    }
-
     /**
      * Execute the console command.
      */
-    public function handle(): int
-    {
+    public function handle(
+        Builder $queryBuilder,
+    ): int {
+        $this->queryBuilder = $queryBuilder;
+
         $this->dbMigrate();
         $this->populateReactionTypes();
         $this->populateReacters();

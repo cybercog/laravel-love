@@ -36,17 +36,15 @@ final class SetupReacterable extends Command
 
     private Composer $composer;
 
-    public function __construct(Filesystem $files, MigrationCreator $creator, Composer $composer)
-    {
-        parent::__construct();
-
+    public function handle(
+        Filesystem $files,
+        MigrationCreator $creator,
+        Composer $composer,
+    ): int {
         $this->files = $files;
         $this->creator = $creator;
         $this->composer = $composer;
-    }
 
-    public function handle(): int
-    {
         $model = $this->resolveModel();
         $model = $this->sanitizeName($model);
         $foreignColumn = 'love_reacter_id';
