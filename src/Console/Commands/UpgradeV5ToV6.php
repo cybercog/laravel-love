@@ -64,24 +64,24 @@ final class UpgradeV5ToV6 extends Command
     {
         $this->info('Deleting old database tables');
         DB::statement(
-            <<<SQL
+            <<<'SQL'
             DROP TABLE love_like_counters;
             SQL
         );
         DB::statement(
-            <<<SQL
+            <<<'SQL'
             DROP TABLE love_likes;
             SQL
         );
         DB::statement(
-            <<<SQL
+            <<<'SQL'
             DELETE FROM migrations
             WHERE migration = '2016_09_02_153301_create_love_likes_table'
             LIMIT 1;
             SQL
         );
         DB::statement(
-            <<<SQL
+            <<<'SQL'
             DELETE FROM migrations
             WHERE migration = '2016_09_02_163301_create_love_like_counters_table'
             LIMIT 1;
