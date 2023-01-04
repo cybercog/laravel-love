@@ -55,20 +55,16 @@ final class Recount extends Command
         ];
     }
 
-    public function __construct(
-        DispatcherInterface $dispatcher
-    ) {
-        parent::__construct();
-        $this->dispatcher = $dispatcher;
-    }
-
     /**
      * Execute the console command.
      *
      * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
      */
-    public function handle(): int
-    {
+    public function handle(
+        DispatcherInterface $dispatcher,
+    ): int {
+        $this->dispatcher = $dispatcher;
+
         if ($reactableType = $this->option('model')) {
             $reactableType = $this->normalizeReactableModelType($reactableType);
         }
