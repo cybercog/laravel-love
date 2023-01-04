@@ -12,7 +12,8 @@ All notable changes to `laravel-love` will be documented in this file.
 
 - ([#215]) Migrated to console AsCommand attribute
 - ([#215]) Package generating anonymous class migrations now
-- ([#217]) Switched to native typed class properties 
+- ([#217]) Switched to native typed class properties
+- ([#218]) Switched to Symfony Console exit code constants
 
 ### Removed
 
@@ -559,6 +560,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 [1.1.1]: https://github.com/cybercog/laravel-love/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/cybercog/laravel-love/compare/1.0.0...1.1.0
 
+[#218]: https://github.com/cybercog/laravel-love/pull/218
 [#217]: https://github.com/cybercog/laravel-love/pull/217
 [#216]: https://github.com/cybercog/laravel-love/pull/216
 [#215]: https://github.com/cybercog/laravel-love/pull/215
