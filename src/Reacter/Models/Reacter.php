@@ -112,10 +112,7 @@ final class Reacter extends Model implements
         $reaction = $this->findReaction($reactant, $reactionType);
 
         if ($reaction === null) {
-            throw new ReactionNotExists(sprintf(
-                'Reaction of type `%s` not exists.',
-                $reactionType->getName()
-            ));
+            throw ReactionNotExists::ofType($reactionType);
         }
 
         $reaction->delete();

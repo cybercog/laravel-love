@@ -63,22 +63,30 @@ final class UpgradeV5ToV6 extends Command
     private function dbCleanup(): void
     {
         $this->info('Deleting old database tables');
-        DB::statement('
-            DROP TABLE `love_like_counters`;
-        ');
-        DB::statement('
-            DROP TABLE `love_likes`;
-        ');
-        DB::statement('
-            DELETE FROM `migrations`
-            WHERE `migration` = "2016_09_02_153301_create_love_likes_table"
+        DB::statement(
+            <<<SQL
+            DROP TABLE love_like_counters;
+            SQL
+        );
+        DB::statement(
+            <<<SQL
+            DROP TABLE love_likes;
+            SQL
+        );
+        DB::statement(
+            <<<SQL
+            DELETE FROM migrations
+            WHERE migration = '2016_09_02_153301_create_love_likes_table'
             LIMIT 1;
-        ');
-        DB::statement('
-            DELETE FROM `migrations`
-            WHERE `migration` = "2016_09_02_163301_create_love_like_counters_table"
+            SQL
+        );
+        DB::statement(
+            <<<SQL
+            DELETE FROM migrations
+            WHERE migration = '2016_09_02_163301_create_love_like_counters_table'
             LIMIT 1;
-        ');
+            SQL
+        );
     }
 
     private function filesystemCleanup(): void

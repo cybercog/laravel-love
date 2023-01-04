@@ -37,19 +37,13 @@ final class ReactionTypeAdd extends Command
         $name = $this->sanitizeName($name);
 
         if ($this->isNameInvalid($name)) {
-            $this->error(sprintf(
-                'Reaction type with name `%s` is invalid.',
-                $name
-            ));
+            $this->error("Reaction type with name `$name` is invalid.");
 
             return self::FAILURE;
         }
 
         if ($this->isReactionTypeNameExists($name)) {
-            $this->error(sprintf(
-                'Reaction type with name `%s` already exists.',
-                $name
-            ));
+            $this->error("Reaction type with name `$name` already exists.");
 
             return self::FAILURE;
         }
@@ -98,10 +92,7 @@ final class ReactionTypeAdd extends Command
 
         foreach ($types as $type) {
             if ($this->isReactionTypeNameExists($type['name'])) {
-                $this->line(sprintf(
-                    'Reaction type with name `%s` already exists.',
-                    $type['name']
-                ));
+                $this->line("Reaction type with name `{$type['name']}` already exists.");
                 continue;
             }
 
@@ -116,10 +107,7 @@ final class ReactionTypeAdd extends Command
             'mass' => $mass,
         ]);
 
-        $this->line(sprintf(
-            'Reaction type with name `%s` and mass `%d` was added.',
-            $name, $mass
-        ));
+        $this->line("Reaction type with name `$name` and mass `$mass` was added.");
     }
 
     private function resolveName(): string

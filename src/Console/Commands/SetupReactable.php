@@ -53,10 +53,7 @@ final class SetupReactable extends Command
         $isForeignColumnNullable = boolval($this->option('nullable'));
 
         if (!class_exists($model)) {
-            $this->error(sprintf(
-                'Model `%s` not exists.',
-                $model
-            ));
+            $this->error("Model `$model` not exists.");
 
             return self::FAILURE;
         }
@@ -65,10 +62,8 @@ final class SetupReactable extends Command
         $model = new $model();
 
         if ($this->isModelInvalid($model)) {
-            $this->error(sprintf(
-                'Model `%s` does not implements Reactable interface.',
-                get_class($model)
-            ));
+            $className = get_class($model);
+            $this->error("Model `$className` does not implements Reactable interface.");
 
             return self::FAILURE;
         }
@@ -80,19 +75,13 @@ final class SetupReactable extends Command
         $referencedColumn = $referencedModel->getKeyName();
 
         if (!$referencedSchema->hasTable($referencedTable)) {
-            $this->error(sprintf(
-                'Referenced table `%s` does not exists in database.',
-                $referencedTable
-            ));
+            $this->error("Referenced table `$referencedTable` does not exists in database.");
 
             return self::FAILURE;
         }
 
         if (Schema::hasColumn($table, $foreignColumn)) {
-            $this->error(sprintf(
-                'Foreign column `%s` already exists in `%s` database table.',
-                $foreignColumn, $table
-            ));
+            $this->error("Foreign column `$foreignColumn` already exists in `$table` database table.");
 
             return self::FAILURE;
         }

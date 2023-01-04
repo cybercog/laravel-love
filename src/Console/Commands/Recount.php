@@ -34,8 +34,8 @@ final class Recount extends Command
      *
      * @return array<int, InputOption>
      */
-    protected function getOptions(
-    ): array {
+    protected function getOptions(): array
+    {
         return [
             new InputOption(
                 name: 'model',
@@ -67,8 +67,8 @@ final class Recount extends Command
      *
      * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
      */
-    public function handle(
-    ): int {
+    public function handle(): int
+    {
         if ($reactableType = $this->option('model')) {
             $reactableType = $this->normalizeReactableModelType($reactableType);
         }

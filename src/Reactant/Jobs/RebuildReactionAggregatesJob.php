@@ -43,14 +43,14 @@ final class RebuildReactionAggregatesJob implements
         $this->reactionType = $reactionType;
     }
 
-    public function handle(
-    ): void {
+    public function handle(): void
+    {
         $this->recountReactionCounters();
         $this->recountReactionTotal();
     }
 
-    private function recountReactionCounters(
-    ): void {
+    private function recountReactionCounters(): void
+    {
         $this->resetCountersValues();
 
         $service = new ReactionCounterService($this->reactant);
@@ -61,8 +61,8 @@ final class RebuildReactionAggregatesJob implements
         }
     }
 
-    private function recountReactionTotal(
-    ): void {
+    private function recountReactionTotal(): void
+    {
         $counters = $this->reactant->getReactionCounters();
 
         if (count($counters) === 0) {
@@ -86,8 +86,8 @@ final class RebuildReactionAggregatesJob implements
         ]);
     }
 
-    private function findOrCreateReactionTotal(
-    ): ReactionTotalInterface {
+    private function findOrCreateReactionTotal(): ReactionTotalInterface
+    {
         $reactionTotal = $this->reactant->getReactionTotal();
 
         if ($reactionTotal instanceof NullReactionTotal) {
@@ -98,8 +98,8 @@ final class RebuildReactionAggregatesJob implements
         return $reactionTotal;
     }
 
-    private function resetCountersValues(
-    ): void {
+    private function resetCountersValues(): void
+    {
         $counters = $this->reactant->getReactionCounters();
 
         foreach ($counters as $counter) {
@@ -118,8 +118,8 @@ final class RebuildReactionAggregatesJob implements
     /**
      * @return \Cog\Laravel\Love\Reaction\Models\Reaction[]|\Illuminate\Database\Eloquent\Collection
      */
-    private function collectReactions(
-    ): iterable {
+    private function collectReactions(): iterable
+    {
         /** @var \Illuminate\Database\Eloquent\Builder $query */
         $query = $this->reactant->reactions();
 

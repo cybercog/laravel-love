@@ -85,12 +85,15 @@ trait Reactable
         ReacterableInterface $reacterable,
         ?string $reactionTypeName = null
     ): Builder {
-        return $query->whereHas('loveReactant.reactions', function (Builder $reactionsQuery) use ($reacterable, $reactionTypeName) {
-            $reactionsQuery->where('reacter_id', $reacterable->getLoveReacter()->getId());
-            if ($reactionTypeName !== null) {
-                $reactionsQuery->where('reaction_type_id', ReactionType::fromName($reactionTypeName)->getId());
+        return $query->whereHas(
+            'loveReactant.reactions',
+            function (Builder $reactionsQuery) use ($reacterable, $reactionTypeName) {
+                $reactionsQuery->where('reacter_id', $reacterable->getLoveReacter()->getId());
+                if ($reactionTypeName !== null) {
+                    $reactionsQuery->where('reaction_type_id', ReactionType::fromName($reactionTypeName)->getId());
+                }
             }
-        });
+        );
     }
 
     public function scopeWhereNotReactedBy(
@@ -98,12 +101,15 @@ trait Reactable
         ReacterableInterface $reacterable,
         ?string $reactionTypeName = null
     ): Builder {
-        return $query->whereDoesntHave('loveReactant.reactions', function (Builder $reactionsQuery) use ($reacterable, $reactionTypeName) {
-            $reactionsQuery->where('reacter_id', $reacterable->getLoveReacter()->getId());
-            if ($reactionTypeName !== null) {
-                $reactionsQuery->where('reaction_type_id', ReactionType::fromName($reactionTypeName)->getId());
+        return $query->whereDoesntHave(
+            'loveReactant.reactions',
+            function (Builder $reactionsQuery) use ($reacterable, $reactionTypeName) {
+                $reactionsQuery->where('reacter_id', $reacterable->getLoveReacter()->getId());
+                if ($reactionTypeName !== null) {
+                    $reactionsQuery->where('reaction_type_id', ReactionType::fromName($reactionTypeName)->getId());
+                }
             }
-        });
+        );
     }
 
     public function scopeJoinReactionCounterOfType(
@@ -119,10 +125,13 @@ trait Reactable
         $select[] = DB::raw("COALESCE({$alias}.weight, 0) as {$alias}_weight");
 
         return $query
-            ->leftJoin((new ReactionCounter())->getTable() . ' as '. $alias, function (JoinClause $join) use ($reactionType, $alias) {
-                $join->on("{$alias}.reactant_id", '=', "{$this->getTable()}.love_reactant_id");
-                $join->where("{$alias}.reaction_type_id", $reactionType->getId());
-            })
+            ->leftJoin(
+                (new ReactionCounter())->getTable() . ' as ' . $alias,
+                function (JoinClause $join) use ($reactionType, $alias) {
+                    $join->on("{$alias}.reactant_id", '=', "{$this->getTable()}.love_reactant_id");
+                    $join->where("{$alias}.reaction_type_id", $reactionType->getId());
+                }
+            )
             ->select($select);
     }
 
@@ -136,7 +145,12 @@ trait Reactable
         $select[] = DB::raw("COALESCE({$alias}.weight, 0) as {$alias}_weight");
 
         return $query
-            ->leftJoin((new ReactionTotal())->getTable() . ' as ' . $alias, "{$alias}.reactant_id", '=', "{$this->getTable()}.love_reactant_id")
+            ->leftJoin(
+                (new ReactionTotal())->getTable() . ' as ' . $alias,
+                "{$alias}.reactant_id",
+                '=',
+                "{$this->getTable()}.love_reactant_id"
+            )
             ->select($select);
     }
 }
