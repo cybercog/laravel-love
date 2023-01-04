@@ -83,7 +83,7 @@ abstract class TestCase extends OrchestraTestCase
     {
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
 
-        $this->artisan('migrate', ['--database' => 'sqlite'])->run();
+        $this->artisan('migrate')->run();
     }
 
     /**
