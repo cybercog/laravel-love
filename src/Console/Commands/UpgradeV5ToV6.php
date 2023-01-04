@@ -27,16 +27,9 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Attribute\AsCommand;
 
-#[AsCommand(name: 'love:upgrade-v5-to-v6')]
+#[AsCommand(name: 'love:upgrade-v5-to-v6', description: 'Upgrade Love package from v5 to v6')]
 final class UpgradeV5ToV6 extends Command
 {
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Upgrade Love package from v5 to v6';
-
     private Builder $queryBuilder;
 
     public function __construct(Builder $queryBuilder)

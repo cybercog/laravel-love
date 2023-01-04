@@ -21,24 +21,25 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 
-#[AsCommand(name: 'love:register-reactants')]
+#[AsCommand(name: 'love:register-reactants', description: 'Register Reactable models as Reactants')]
 final class RegisterReactants extends Command
 {
     /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Register Reactable models as Reactants';
-
-    /**
-     * @return array[]
+     * @return array<int, InputOption>
      */
     protected function getOptions(): array
     {
         return [
-            ['model', null, InputOption::VALUE_REQUIRED, 'The name of the Reactable model'],
-            ['ids', null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, '(optional) Comma-separated list of model IDs (e.g. `--ids=1,2,16,34`)'],
+            new InputOption(
+                name: 'model',
+                mode: InputOption::VALUE_REQUIRED,
+                description: 'The name of the Reactable model',
+            ),
+            new InputOption(
+                name: 'ids',
+                mode: InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
+                description: '(optional) Comma-separated list of model IDs (e.g. `--ids=1,2,16,34`)',
+            ),
         ];
     }
 

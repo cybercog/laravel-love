@@ -24,29 +24,34 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 
-#[AsCommand(name: 'love:recount')]
+#[AsCommand(name: 'love:recount', description: 'Recount reactions of the reactable models')]
 final class Recount extends Command
 {
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Recount reactions of the reactable models';
-
     private DispatcherInterface $dispatcher;
 
     /**
      * Get the console command options.
      *
-     * @return array[]
+     * @return array<int, InputOption>
      */
     protected function getOptions(
     ): array {
         return [
-            ['model', null, InputOption::VALUE_OPTIONAL, 'The name of the reactable model'],
-            ['type', null, InputOption::VALUE_OPTIONAL, 'The name of the reaction type'],
-            ['queue-connection', null, InputOption::VALUE_OPTIONAL, 'The name of the queue connection'],
+            new InputOption(
+                name: 'model',
+                mode: InputOption::VALUE_OPTIONAL,
+                description: 'The name of the reactable model',
+            ),
+            new InputOption(
+                name: 'type',
+                mode: InputOption::VALUE_OPTIONAL,
+                description: 'The name of the reaction type',
+            ),
+            new InputOption(
+                name: 'queue-connection',
+                mode: InputOption::VALUE_OPTIONAL,
+                description: 'The name of the queue connection',
+            ),
         ];
     }
 

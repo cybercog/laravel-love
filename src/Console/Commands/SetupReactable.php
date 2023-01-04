@@ -27,16 +27,9 @@ use Illuminate\Support\Str;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 
-#[AsCommand(name: 'love:setup-reactable')]
+#[AsCommand(name: 'love:setup-reactable', description: 'Set up reactable model')]
 final class SetupReactable extends Command
 {
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Set up reactable model';
-
     private Filesystem $files;
 
     private MigrationCreator $creator;
@@ -129,13 +122,21 @@ final class SetupReactable extends Command
     }
 
     /**
-     * @return array[]
+     * @return array<int, InputOption>
      */
     protected function getOptions(): array
     {
         return [
-            ['model', null, InputOption::VALUE_OPTIONAL, 'The name of the reactable model'],
-            ['nullable', null, InputOption::VALUE_NONE, 'Indicate if foreign column allows null values'],
+            new InputOption(
+                name: 'model',
+                mode: InputOption::VALUE_OPTIONAL,
+                description: 'The name of the reactable model',
+            ),
+            new InputOption(
+                name: 'nullable',
+                mode: InputOption::VALUE_NONE,
+                description: 'Indicate if foreign column allows null values',
+            ),
         ];
     }
 
