@@ -18,12 +18,7 @@ use InvalidArgumentException;
 
 final class MigrationCreator
 {
-    /**
-     * The filesystem instance.
-     *
-     * @var \Illuminate\Filesystem\Filesystem
-     */
-    protected $files;
+    private Filesystem $files;
 
     /**
      * Create a new migration creator instance.

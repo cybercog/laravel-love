@@ -37,20 +37,11 @@ final class SetupReactable extends Command
      */
     protected $description = 'Set up reactable model';
 
-    /**
-     * @var Filesystem
-     */
-    private $files;
+    private Filesystem $files;
 
-    /**
-     * @var MigrationCreator
-     */
-    private $creator;
+    private MigrationCreator $creator;
 
-    /**
-     * @var Composer
-     */
-    private $composer;
+    private Composer $composer;
 
     public function __construct(Filesystem $files, MigrationCreator $creator, Composer $composer)
     {

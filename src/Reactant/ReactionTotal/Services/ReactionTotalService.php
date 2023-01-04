@@ -20,10 +20,7 @@ use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
 
 final class ReactionTotalService
 {
-    /**
-     * @var ReactionTotalInterface
-     */
-    private $reactionTotal;
+    private ReactionTotalInterface $reactionTotal;
 
     public function __construct(
         ReactantInterface $reactant

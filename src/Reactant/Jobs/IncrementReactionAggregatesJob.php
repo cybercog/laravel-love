@@ -27,15 +27,9 @@ final class IncrementReactionAggregatesJob implements
     use Dispatchable;
     use Queueable;
 
-    /**
-     * @var \Cog\Contracts\Love\Reactant\Models\Reactant
-     */
-    private $reactant;
+    private ReactantInterface $reactant;
 
-    /**
-     * @var \Cog\Contracts\Love\Reaction\Models\Reaction
-     */
-    private $reaction;
+    private ReactionInterface $reaction;
 
     /**
      * @param \Cog\Contracts\Love\Reactant\Models\Reactant $reactant

@@ -34,10 +34,7 @@ final class Recount extends Command
      */
     protected $description = 'Recount reactions of the reactable models';
 
-    /**
-     * @var \Illuminate\Contracts\Bus\Dispatcher
-     */
-    private $dispatcher;
+    private DispatcherInterface $dispatcher;
 
     /**
      * Get the console command options.

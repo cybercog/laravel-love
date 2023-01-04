@@ -28,10 +28,7 @@ use TypeError;
 final class NullReactant implements
     ReactantInterface
 {
-    /**
-     * @var ReactableInterface
-     */
-    private $reactable;
+    private ReactableInterface $reactable;
 
     public function __construct(
         ReactableInterface $reactable

@@ -21,10 +21,7 @@ use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 final class Reacter implements
     ReacterFacadeInterface
 {
-    /**
-     * @var ReacterInterface
-     */
-    private $reacter;
+    private ReacterInterface $reacter;
 
     public function __construct(ReacterInterface $reacter)
     {

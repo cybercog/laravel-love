@@ -20,10 +20,7 @@ use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTo
 final class NullReactionTotal implements
     ReactionTotalInterface
 {
-    /**
-     * @var ReactantInterface
-     */
-    private $reactant;
+    private ReactantInterface $reactant;
 
     public function __construct(
         ReactantInterface $reactant
