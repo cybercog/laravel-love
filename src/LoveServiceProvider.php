@@ -34,8 +34,6 @@ final class LoveServiceProvider extends ServiceProvider
 {
     /**
      * Register the service provider.
-     *
-     * @return void
      */
     public function register(): void
     {
@@ -43,8 +41,6 @@ final class LoveServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap the application events.
-     *
-     * @return void
      */
     public function boot(): void
     {
@@ -57,8 +53,6 @@ final class LoveServiceProvider extends ServiceProvider
 
     /**
      * Determine if we should register default migrations.
-     *
-     * @return bool
      */
     private function shouldLoadDefaultMigrations(): bool
     {
@@ -67,8 +61,6 @@ final class LoveServiceProvider extends ServiceProvider
 
     /**
      * Register Love's models observers.
-     *
-     * @return void
      */
     private function registerObservers(): void
     {
@@ -79,8 +71,6 @@ final class LoveServiceProvider extends ServiceProvider
 
     /**
      * Register Love's console commands.
-     *
-     * @return void
      */
     private function registerConsoleCommands(): void
     {
@@ -100,8 +90,6 @@ final class LoveServiceProvider extends ServiceProvider
 
     /**
      * Setup the resource publishing groups for Love.
-     *
-     * @return void
      */
     private function registerPublishes(): void
     {
@@ -118,8 +106,6 @@ final class LoveServiceProvider extends ServiceProvider
 
     /**
      * Register the Love migrations.
-     *
-     * @return void
      */
     private function registerMigrations(): void
     {
@@ -130,8 +116,6 @@ final class LoveServiceProvider extends ServiceProvider
 
     /**
      * Merge Love configuration with the application configuration.
-     *
-     * @return void
      */
     private function configure(): void
     {

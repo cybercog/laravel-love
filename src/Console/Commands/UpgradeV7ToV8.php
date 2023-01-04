@@ -35,8 +35,6 @@ final class UpgradeV7ToV8 extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
     public function handle(): int
     {

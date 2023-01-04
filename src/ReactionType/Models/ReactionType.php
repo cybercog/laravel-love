@@ -52,7 +52,7 @@ final class ReactionType extends Model implements
     /**
      * @var array<self>
      */
-    private static $nameCache = [];
+    private static array $nameCache = [];
 
     protected static function boot(): void
     {

@@ -31,10 +31,6 @@ final class IncrementReactionAggregatesJob implements
 
     private ReactionInterface $reaction;
 
-    /**
-     * @param \Cog\Contracts\Love\Reactant\Models\Reactant $reactant
-     * @param \Cog\Contracts\Love\Reaction\Models\Reaction $reaction
-     */
     public function __construct(
         ReactantInterface $reactant,
         ReactionInterface $reaction
@@ -52,17 +48,11 @@ final class IncrementReactionAggregatesJob implements
             ->addReaction($this->reaction);
     }
 
-    /**
-     * @return ReactantInterface
-     */
     public function getReactant(): ReactantInterface
     {
         return $this->reactant;
     }
 
-    /**
-     * @return ReactionInterface
-     */
     public function getReaction(): ReactionInterface
     {
         return $this->reaction;

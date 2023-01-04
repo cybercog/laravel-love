@@ -20,12 +20,6 @@ final class MigrationCreator
 {
     private Filesystem $files;
 
-    /**
-     * Create a new migration creator instance.
-     *
-     * @param \Illuminate\Filesystem\Filesystem $files
-     * @return void
-     */
     public function __construct(Filesystem $files)
     {
         $this->files = $files;
@@ -33,10 +27,6 @@ final class MigrationCreator
 
     /**
      * Create a new migration at the given path.
-     *
-     * @param string $basePath
-     * @param \Cog\Laravel\Love\Support\Database\AddForeignColumnStub $migrationStub
-     * @return void
      *
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
@@ -53,9 +43,6 @@ final class MigrationCreator
     /**
      * Ensure that a migration with the given name doesn't already exist.
      *
-     * @param string $className
-     * @return void
-     *
      * @throws \InvalidArgumentException
      */
     private function ensureMigrationDoesntAlreadyExist(string $className): void
@@ -68,10 +55,6 @@ final class MigrationCreator
 
     /**
      * Get the full path to the migration.
-     *
-     * @param string $basePath
-     * @param string $name
-     * @return string
      */
     private function getPath(string $basePath, string $name): string
     {
@@ -80,8 +63,6 @@ final class MigrationCreator
 
     /**
      * Get the date prefix for the migration.
-     *
-     * @return string
      */
     private function getDatePrefix(): string
     {

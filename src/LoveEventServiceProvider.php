@@ -24,8 +24,6 @@ final class LoveEventServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application events.
-     *
-     * @return void
      */
     public function boot(): void
     {
@@ -34,8 +32,6 @@ final class LoveEventServiceProvider extends ServiceProvider
 
     /**
      * Register the Love event listeners.
-     *
-     * @return void
      */
     private function registerListeners(): void
     {
