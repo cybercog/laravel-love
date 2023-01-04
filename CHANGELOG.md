@@ -4,6 +4,18 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+
+- ([#215]) Migrated to console AsCommand attribute
+- ([#215]) Package generating anonymous class migrations now
+
+### Removed
+
+- ([#215]) Dropped PHP 7.x support
+- ([#215]) Dropped Laravel 6 support
+- ([#215]) Dropped Laravel 7 support
+- ([#215]) Dropped Laravel 8 support
+
 ## [8.9.0] - 2022-02-23
 
 ### Added
@@ -542,6 +554,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 [1.1.1]: https://github.com/cybercog/laravel-love/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/cybercog/laravel-love/compare/1.0.0...1.1.0
 
+[#215]: https://github.com/cybercog/laravel-love/pull/215
 [#206]: https://github.com/cybercog/laravel-love/pull/206
 [#197]: https://github.com/cybercog/laravel-love/pull/197
 [#196]: https://github.com/cybercog/laravel-love/pull/196
