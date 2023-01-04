@@ -20,19 +20,26 @@ use RuntimeException;
 final class ReacterableInvalid extends RuntimeException implements
     LoveThrowable
 {
-    public static function classNotExists(string $type): self
-    {
-        return new self(sprintf(
-            '[%s] class or morph map not found.',
-            $type
-        ));
+    public static function classNotExists(
+        string $type,
+    ): self {
+        return new self(
+            sprintf(
+                '[%s] class or morph map not found.',
+                $type
+            )
+        );
     }
 
-    public static function notImplementInterface(string $type): self
-    {
-        return new self(sprintf(
-            '[%s] must implement `%s` contract.',
-            $type, Reacterable::class
-        ));
+    public static function notImplementInterface(
+        string $type,
+    ): self {
+        return new self(
+            sprintf(
+                '[%s] must implement `%s` contract.',
+                $type,
+                Reacterable::class
+            )
+        );
     }
 }

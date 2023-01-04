@@ -115,8 +115,10 @@ final class ReactionTypeAdd extends Command
         }
     }
 
-    private function createReactionType(string $name, int $mass): void
-    {
+    private function createReactionType(
+        string $name,
+        int $mass,
+    ): void {
         ReactionType::query()->create([
             'name' => $name,
             'mass' => $mass,
@@ -147,23 +149,26 @@ final class ReactionTypeAdd extends Command
         return intval($mass);
     }
 
-    private function sanitizeName(string $name): string
-    {
+    private function sanitizeName(
+        string $name,
+    ): string {
         $name = trim($name);
         $name = Str::studly($name);
 
         return $name;
     }
 
-    private function isReactionTypeNameExists(string $name): bool
-    {
+    private function isReactionTypeNameExists(
+        string $name,
+    ): bool {
         return ReactionType::query()
             ->where('name', $name)
             ->exists();
     }
 
-    private function isNameInvalid(string $name): bool
-    {
+    private function isNameInvalid(
+        string $name,
+    ): bool {
         return preg_match('#^[A-Z][a-zA-Z0-9_]*$#', $name) === 0;
     }
 }

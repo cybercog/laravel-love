@@ -80,7 +80,7 @@ final class Reacter extends Model implements
     public function reactTo(
         ReactantInterface $reactant,
         ReactionTypeInterface $reactionType,
-        ?float $rate = null
+        ?float $rate = null,
     ): void {
         if ($reactant->isNull()) {
             throw ReactantInvalid::notExists();
@@ -103,7 +103,7 @@ final class Reacter extends Model implements
 
     public function unreactTo(
         ReactantInterface $reactant,
-        ReactionTypeInterface $reactionType
+        ReactionTypeInterface $reactionType,
     ): void {
         if ($reactant->isNull()) {
             throw ReactantInvalid::notExists();
@@ -121,7 +121,7 @@ final class Reacter extends Model implements
     public function hasReactedTo(
         ReactantInterface $reactant,
         ?ReactionTypeInterface $reactionType = null,
-        ?float $rate = null
+        ?float $rate = null,
     ): bool {
         if ($reactant->isNull()) {
             return false;
@@ -133,20 +133,20 @@ final class Reacter extends Model implements
     public function hasNotReactedTo(
         ReactantInterface $reactant,
         ?ReactionTypeInterface $reactionType = null,
-        ?float $rate = null
+        ?float $rate = null,
     ): bool {
         return $reactant->isNotReactedBy($this, $reactionType, $rate);
     }
 
     public function isEqualTo(
-        ReacterInterface $that
+        ReacterInterface $that,
     ): bool {
         return $that->isNotNull()
             && $this->getId() === $that->getId();
     }
 
     public function isNotEqualTo(
-        ReacterInterface $that
+        ReacterInterface $that,
     ): bool {
         return !$this->isEqualTo($that);
     }
@@ -164,7 +164,7 @@ final class Reacter extends Model implements
     private function createReaction(
         ReactantInterface $reactant,
         ReactionTypeInterface $reactionType,
-        ?float $rate = null
+        ?float $rate = null,
     ): void {
         $this->reactions()->create([
             'reaction_type_id' => $reactionType->getId(),
@@ -180,7 +180,7 @@ final class Reacter extends Model implements
      */
     private function findReaction(
         ReactantInterface $reactant,
-        ReactionTypeInterface $reactionType
+        ReactionTypeInterface $reactionType,
     ): ?ReactionInterface {
         return $this
             ->reactions()

@@ -18,7 +18,7 @@ use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 final class ReactionCounterObserver
 {
     public function creating(
-        ReactionCounter $counter
+        ReactionCounter $counter,
     ): void {
         if ($counter->getAttributeValue('count') === null) {
             $counter->setAttribute('count', ReactionCounter::COUNT_DEFAULT);

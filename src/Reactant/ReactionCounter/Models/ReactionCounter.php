@@ -76,13 +76,13 @@ final class ReactionCounter extends Model implements
     }
 
     public function isReactionOfType(
-        ReactionTypeInterface $reactionType
+        ReactionTypeInterface $reactionType,
     ): bool {
         return $this->getReactionType()->isEqualTo($reactionType);
     }
 
     public function isNotReactionOfType(
-        ReactionTypeInterface $reactionType
+        ReactionTypeInterface $reactionType,
     ): bool {
         return !$this->isReactionOfType($reactionType);
     }
@@ -98,25 +98,25 @@ final class ReactionCounter extends Model implements
     }
 
     public function incrementCount(
-        int $amount
+        int $amount,
     ): void {
         $this->increment('count', $amount);
     }
 
     public function decrementCount(
-        int $amount
+        int $amount,
     ): void {
         $this->decrement('count', $amount);
     }
 
     public function incrementWeight(
-        float $amount
+        float $amount,
     ): void {
         $this->increment('weight', $amount);
     }
 
     public function decrementWeight(
-        float $amount
+        float $amount,
     ): void {
         $this->decrement('weight', $amount);
     }

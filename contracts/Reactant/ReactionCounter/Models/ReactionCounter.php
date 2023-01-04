@@ -22,19 +22,31 @@ interface ReactionCounter
 
     public function getReactionType(): ReactionType;
 
-    public function isReactionOfType(ReactionType $reactionType): bool;
+    public function isReactionOfType(
+        ReactionType $reactionType,
+    ): bool;
 
-    public function isNotReactionOfType(ReactionType $reactionType): bool;
+    public function isNotReactionOfType(
+        ReactionType $reactionType,
+    ): bool;
 
     public function getCount(): int;
 
     public function getWeight(): float;
 
-    public function incrementCount(int $amount): void;
+    public function incrementCount(
+        int $amount,
+    ): void;
 
-    public function decrementCount(int $amount): void;
+    public function decrementCount(
+        int $amount,
+    ): void;
 
-    public function incrementWeight(float $amount): void;
+    public function incrementWeight(
+        float $amount,
+    ): void;
 
-    public function decrementWeight(float $amount): void;
+    public function decrementWeight(
+        float $amount,
+    ): void;
 }

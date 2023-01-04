@@ -20,8 +20,9 @@ final class MigrationCreator
 {
     private Filesystem $files;
 
-    public function __construct(Filesystem $files)
-    {
+    public function __construct(
+        Filesystem $files,
+    ) {
         $this->files = $files;
     }
 
@@ -30,8 +31,10 @@ final class MigrationCreator
      *
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    public function create(string $basePath, AddForeignColumnStub $migrationStub): void
-    {
+    public function create(
+        string $basePath,
+        AddForeignColumnStub $migrationStub,
+    ): void {
         $this->ensureMigrationDoesntAlreadyExist($migrationStub->getClass());
 
         $this->files->put(
@@ -45,8 +48,9 @@ final class MigrationCreator
      *
      * @throws \InvalidArgumentException
      */
-    private function ensureMigrationDoesntAlreadyExist(string $className): void
-    {
+    private function ensureMigrationDoesntAlreadyExist(
+        string $className,
+    ): void {
         if (class_exists($className)) {
             // TODO: (?) Throw custom exception?
             throw new InvalidArgumentException("Migration class `{$className}` already exists.");
@@ -56,8 +60,10 @@ final class MigrationCreator
     /**
      * Get the full path to the migration.
      */
-    private function getPath(string $basePath, string $name): string
-    {
+    private function getPath(
+        string $basePath,
+        string $name,
+    ): string {
         return sprintf('%s/%s_%s.php', $basePath, $this->getDatePrefix(), $name);
     }
 

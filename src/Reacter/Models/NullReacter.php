@@ -27,7 +27,7 @@ final class NullReacter implements
     private ReacterableInterface $reacterable;
 
     public function __construct(
-        ReacterableInterface $reacterable
+        ReacterableInterface $reacterable,
     ) {
         $this->reacterable = $reacterable;
     }
@@ -50,14 +50,14 @@ final class NullReacter implements
     public function reactTo(
         ReactantInterface $reactant,
         ReactionTypeInterface $reactionType,
-        ?float $rate = null
+        ?float $rate = null,
     ): void {
         throw ReacterInvalid::notExists();
     }
 
     public function unreactTo(
         ReactantInterface $reactant,
-        ReactionTypeInterface $reactionType
+        ReactionTypeInterface $reactionType,
     ): void {
         throw ReacterInvalid::notExists();
     }
@@ -65,7 +65,7 @@ final class NullReacter implements
     public function hasReactedTo(
         ReactantInterface $reactant,
         ?ReactionTypeInterface $reactionType = null,
-        ?float $rate = null
+        ?float $rate = null,
     ): bool {
         return false;
     }
@@ -73,19 +73,19 @@ final class NullReacter implements
     public function hasNotReactedTo(
         ReactantInterface $reactant,
         ?ReactionTypeInterface $reactionType = null,
-        ?float $rate = null
+        ?float $rate = null,
     ): bool {
         return true;
     }
 
     public function isEqualTo(
-        ReacterInterface $that
+        ReacterInterface $that,
     ): bool {
         return $that instanceof self;
     }
 
     public function isNotEqualTo(
-        ReacterInterface $that
+        ReacterInterface $that,
     ): bool {
         return !$this->isEqualTo($that);
     }

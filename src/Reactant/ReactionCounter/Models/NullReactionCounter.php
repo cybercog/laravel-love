@@ -27,7 +27,7 @@ final class NullReactionCounter implements
 
     public function __construct(
         ReactantInterface $reactant,
-        ReactionTypeInterface $reactionType
+        ReactionTypeInterface $reactionType,
     ) {
         $this->reactant = $reactant;
         $this->reactionType = $reactionType;
@@ -44,13 +44,13 @@ final class NullReactionCounter implements
     }
 
     public function isReactionOfType(
-        ReactionTypeInterface $reactionType
+        ReactionTypeInterface $reactionType,
     ): bool {
         return $this->getReactionType()->isEqualTo($reactionType);
     }
 
     public function isNotReactionOfType(
-        ReactionTypeInterface $reactionType
+        ReactionTypeInterface $reactionType,
     ): bool {
         return !$this->isReactionOfType($reactionType);
     }
@@ -66,25 +66,25 @@ final class NullReactionCounter implements
     }
 
     public function incrementCount(
-        int $amount
+        int $amount,
     ): void {
         throw ReactionCounterInvalid::notExists();
     }
 
     public function decrementCount(
-        int $amount
+        int $amount,
     ): void {
         throw ReactionCounterInvalid::notExists();
     }
 
     public function incrementWeight(
-        float $amount
+        float $amount,
     ): void {
         throw ReactionCounterInvalid::notExists();
     }
 
     public function decrementWeight(
-        float $amount
+        float $amount,
     ): void {
         throw ReactionCounterInvalid::notExists();
     }

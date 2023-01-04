@@ -19,11 +19,14 @@ use RuntimeException;
 final class ReactionTypeInvalid extends RuntimeException implements
     LoveThrowable
 {
-    public static function nameNotExists(string $name): self
-    {
-        return new self(sprintf(
-            'ReactionType with name `%s` not exists.',
-            $name
-        ));
+    public static function nameNotExists(
+        string $name,
+    ): self {
+        return new self(
+            sprintf(
+                'ReactionType with name `%s` not exists.',
+                $name
+            )
+        );
     }
 }

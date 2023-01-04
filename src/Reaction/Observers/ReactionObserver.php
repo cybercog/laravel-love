@@ -23,13 +23,13 @@ final class ReactionObserver
     private DispatcherInterface $eventDispatcher;
 
     public function __construct(
-        DispatcherInterface $eventDispatcher
+        DispatcherInterface $eventDispatcher,
     ) {
         $this->eventDispatcher = $eventDispatcher;
     }
 
     public function creating(
-        Reaction $reaction
+        Reaction $reaction,
     ): void {
         if ($reaction->getAttributeValue('rate') === null) {
             $reaction->setAttribute('rate', Reaction::RATE_DEFAULT);
@@ -37,7 +37,7 @@ final class ReactionObserver
     }
 
     public function created(
-        Reaction $reaction
+        Reaction $reaction,
     ): void {
         $this->eventDispatcher->dispatch(
             new ReactionHasBeenAdded($reaction)
@@ -45,7 +45,7 @@ final class ReactionObserver
     }
 
     public function deleted(
-        Reaction $reaction
+        Reaction $reaction,
     ): void {
         $this->eventDispatcher->dispatch(
             new ReactionHasBeenRemoved($reaction)

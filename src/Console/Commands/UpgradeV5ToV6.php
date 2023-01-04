@@ -318,13 +318,15 @@ final class UpgradeV5ToV6 extends Command
         return $class;
     }
 
-    private function reactionTypeNameFromLikeTypeName(string $name): string
-    {
+    private function reactionTypeNameFromLikeTypeName(
+        string $name,
+    ): string {
         return Str::studly(strtolower($name));
     }
 
-    private function deleteMigrationFiles(array $files): void
-    {
+    private function deleteMigrationFiles(
+        array $files,
+    ): void {
         foreach ($files as $file) {
             $file = database_path("migrations/{$file}");
             if (File::exists($file)) {

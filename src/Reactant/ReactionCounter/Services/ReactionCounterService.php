@@ -24,13 +24,13 @@ final class ReactionCounterService
     private ReactantInterface $reactant;
 
     public function __construct(
-        ReactantInterface $reactant
+        ReactantInterface $reactant,
     ) {
         $this->reactant = $reactant;
     }
 
     public function addReaction(
-        ReactionInterface $reaction
+        ReactionInterface $reaction,
     ): void {
         $counter = $this->findOrCreateCounterOfType($reaction->getType());
         $counter->incrementCount(1);
@@ -38,7 +38,7 @@ final class ReactionCounterService
     }
 
     public function removeReaction(
-        ReactionInterface $reaction
+        ReactionInterface $reaction,
     ): void {
         $counter = $this->findOrCreateCounterOfType($reaction->getType());
 
@@ -51,13 +51,13 @@ final class ReactionCounterService
     }
 
     private function findCounterOfType(
-        ReactionTypeInterface $reactionType
+        ReactionTypeInterface $reactionType,
     ): ReactionCounterInterface {
         return $this->reactant->getReactionCounterOfType($reactionType);
     }
 
     private function findOrCreateCounterOfType(
-        ReactionTypeInterface $reactionType
+        ReactionTypeInterface $reactionType,
     ): ReactionCounterInterface {
         $counter = $this->findCounterOfType($reactionType);
         if ($counter instanceof NullReactionCounter) {

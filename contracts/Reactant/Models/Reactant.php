@@ -35,23 +35,39 @@ interface Reactant
      */
     public function getReactionCounters(): iterable;
 
-    public function getReactionCounterOfType(ReactionType $reactionType): ReactionCounter;
+    public function getReactionCounterOfType(
+        ReactionType $reactionType,
+    ): ReactionCounter;
 
     public function getReactionTotal(): ReactionTotal;
 
-    public function isReactedBy(Reacter $reacter, ?ReactionType $reactionType = null, ?float $rate = null): bool;
+    public function isReactedBy(
+        Reacter $reacter,
+        ?ReactionType $reactionType = null,
+        ?float $rate = null,
+    ): bool;
 
-    public function isNotReactedBy(Reacter $reacter, ?ReactionType $reactionType = null, ?float $rate = null): bool;
+    public function isNotReactedBy(
+        Reacter $reacter,
+        ?ReactionType $reactionType = null,
+        ?float $rate = null,
+    ): bool;
 
-    public function isEqualTo(self $that): bool;
+    public function isEqualTo(
+        self $that,
+    ): bool;
 
-    public function isNotEqualTo(self $that): bool;
+    public function isNotEqualTo(
+        self $that,
+    ): bool;
 
     public function isNull(): bool;
 
     public function isNotNull(): bool;
 
-    public function createReactionCounterOfType(ReactionType $reactionType): void;
+    public function createReactionCounterOfType(
+        ReactionType $reactionType,
+    ): void;
 
     public function createReactionTotal(): void;
 }

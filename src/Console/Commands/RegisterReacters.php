@@ -87,7 +87,7 @@ final class RegisterReacters extends Command
      * @throws \Cog\Contracts\Love\Reacterable\Exceptions\ReacterableInvalid
      */
     private function reacterableModelFromType(
-        string $modelType
+        string $modelType,
     ): ReacterableInterface {
         if (!class_exists($modelType)) {
             $modelType = $this->findModelTypeInMorphMap($modelType);
@@ -108,7 +108,7 @@ final class RegisterReacters extends Command
      * @throws \Cog\Contracts\Love\Reacterable\Exceptions\ReacterableInvalid
      */
     private function findModelTypeInMorphMap(
-        string $modelType
+        string $modelType,
     ): string {
         $morphMap = Relation::morphMap();
 
@@ -119,8 +119,9 @@ final class RegisterReacters extends Command
         return $morphMap[$modelType];
     }
 
-    private function normalizeIds(array $modelIds): array
-    {
+    private function normalizeIds(
+        array $modelIds,
+    ): array {
         if (!isset($modelIds[0])) {
             return $modelIds;
         }
@@ -141,7 +142,7 @@ final class RegisterReacters extends Command
      */
     private function collectModels(
         ReacterableInterface $reacterableModel,
-        array $modelIds
+        array $modelIds,
     ): Collection {
         $query = $reacterableModel
             ->query()
@@ -154,8 +155,9 @@ final class RegisterReacters extends Command
         return $query->get();
     }
 
-    private function registerModelsAsReacters(Collection $models): void
-    {
+    private function registerModelsAsReacters(
+        Collection $models,
+    ): void {
         $collectedCount = $models->count();
         $progressBar = $this->output->createProgressBar($collectedCount);
 

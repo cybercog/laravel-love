@@ -21,13 +21,15 @@ final class DecrementAggregates
 {
     private DispatcherInterface $dispatcher;
 
-    public function __construct(DispatcherInterface $dispatcher)
-    {
+    public function __construct(
+        DispatcherInterface $dispatcher,
+    ) {
         $this->dispatcher = $dispatcher;
     }
 
-    public function handle(ReactionHasBeenRemoved $event): void
-    {
+    public function handle(
+        ReactionHasBeenRemoved $event,
+    ): void {
         $reaction = $event->getReaction();
         $reactant = $reaction->getReactant();
 

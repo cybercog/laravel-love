@@ -24,7 +24,7 @@ interface Reactant
     public function getReactionCounters(): iterable;
 
     public function getReactionCounterOfType(
-        string $reactionTypeName
+        string $reactionTypeName,
     ): ReactionCounter;
 
     public function getReactionTotal(): ReactionTotal;
@@ -32,12 +32,12 @@ interface Reactant
     public function isReactedBy(
         ?Reacterable $reacterable = null,
         ?string $reactionTypeName = null,
-        ?float $rate = null
+        ?float $rate = null,
     ): bool;
 
     public function isNotReactedBy(
         ?Reacterable $reacterable = null,
         ?string $reactionTypeName = null,
-        ?float $rate = null
+        ?float $rate = null,
     ): bool;
 }

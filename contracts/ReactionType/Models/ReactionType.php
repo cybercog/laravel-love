@@ -15,7 +15,9 @@ namespace Cog\Contracts\Love\ReactionType\Models;
 
 interface ReactionType
 {
-    public static function fromName(string $name): self;
+    public static function fromName(
+        string $name,
+    ): self;
 
     public function getId(): string;
 
@@ -23,7 +25,11 @@ interface ReactionType
 
     public function getMass(): int;
 
-    public function isEqualTo(self $that): bool;
+    public function isEqualTo(
+        self $that,
+    ): bool;
 
-    public function isNotEqualTo(self $that): bool;
+    public function isNotEqualTo(
+        self $that,
+    ): bool;
 }

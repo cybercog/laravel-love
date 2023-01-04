@@ -83,7 +83,7 @@ trait Reactable
     public function scopeWhereReactedBy(
         Builder $query,
         ReacterableInterface $reacterable,
-        ?string $reactionTypeName = null
+        ?string $reactionTypeName = null,
     ): Builder {
         return $query->whereHas(
             'loveReactant.reactions',
@@ -99,7 +99,7 @@ trait Reactable
     public function scopeWhereNotReactedBy(
         Builder $query,
         ReacterableInterface $reacterable,
-        ?string $reactionTypeName = null
+        ?string $reactionTypeName = null,
     ): Builder {
         return $query->whereDoesntHave(
             'loveReactant.reactions',
@@ -115,7 +115,7 @@ trait Reactable
     public function scopeJoinReactionCounterOfType(
         Builder $query,
         string $reactionTypeName,
-        ?string $alias = null
+        ?string $alias = null,
     ): Builder {
         $reactionType = ReactionType::fromName($reactionTypeName);
         $alias = $alias === null ? 'reaction_' . Str::snake($reactionType->getName()) : $alias;
@@ -137,7 +137,7 @@ trait Reactable
 
     public function scopeJoinReactionTotal(
         Builder $query,
-        ?string $alias = null
+        ?string $alias = null,
     ): Builder {
         $alias = $alias === null ? 'reaction_total' : $alias;
         $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];

@@ -101,7 +101,7 @@ final class Recount extends Command
      * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
      */
     private function normalizeReactableModelType(
-        string $modelType
+        string $modelType,
     ): string {
         return $this
             ->reactableModelFromType($modelType)
@@ -117,7 +117,7 @@ final class Recount extends Command
      * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
      */
     private function reactableModelFromType(
-        string $modelType
+        string $modelType,
     ): ReactableInterface {
         if (!class_exists($modelType)) {
             $modelType = $this->findModelTypeInMorphMap($modelType);
@@ -138,7 +138,7 @@ final class Recount extends Command
      * @throws \Cog\Contracts\Love\Reactable\Exceptions\ReactableInvalid
      */
     private function findModelTypeInMorphMap(
-        string $modelType
+        string $modelType,
     ): string {
         $morphMap = Relation::morphMap();
 
@@ -156,7 +156,7 @@ final class Recount extends Command
      * @return \Cog\Contracts\Love\Reactant\Models\Reactant[]|\Illuminate\Database\Eloquent\Collection
      */
     private function collectReactants(
-        ?string $reactableType = null
+        ?string $reactableType = null,
     ): iterable {
         $reactantsQuery = Reactant::query();
 
@@ -171,7 +171,7 @@ final class Recount extends Command
      * Write warning output that processing has been started.
      */
     private function warnProcessingStartedOn(
-        ?string $queueConnectionName
+        ?string $queueConnectionName,
     ): void {
         if ($queueConnectionName === 'sync') {
             $message = 'Rebuilding reaction aggregates synchronously.';

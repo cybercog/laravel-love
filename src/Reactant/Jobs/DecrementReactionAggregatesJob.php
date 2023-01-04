@@ -33,7 +33,7 @@ final class DecrementReactionAggregatesJob implements
 
     public function __construct(
         ReactantInterface $reactant,
-        ReactionInterface $reaction
+        ReactionInterface $reaction,
     ) {
         $this->reactant = $reactant;
         $this->reaction = $reaction;
