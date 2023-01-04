@@ -15,7 +15,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-final class DummyClass extends Migration
+return new class extends Migration
 {
     public function up(): void
     {
@@ -36,4 +36,4 @@ final class DummyClass extends Migration
             $table->dropColumn('DummyForeignColumn');
         });
     }
-}
+};
