@@ -61,7 +61,7 @@ final class UpgradeV5ToV6 extends Command
         $this->dbCleanup();
         $this->filesystemCleanup();
 
-        return 0;
+        return self::SUCCESS;
     }
 
     private function dbMigrate(): void
