@@ -19,16 +19,9 @@ use Illuminate\Support\Str;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 
-#[AsCommand(name: 'love:reaction-type-add')]
+#[AsCommand(name: 'love:reaction-type-add', description: 'Add Reaction Type to Laravel Love')]
 final class ReactionTypeAdd extends Command
 {
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Add Reaction Type to Laravel Love';
-
     /**
      * Execute the console command.
      */
@@ -44,19 +37,23 @@ final class ReactionTypeAdd extends Command
         $name = $this->sanitizeName($name);
 
         if ($this->isNameInvalid($name)) {
-            $this->error(sprintf(
-                'Reaction type with name `%s` is invalid.',
-                $name
-            ));
+            $this->error(
+                sprintf(
+                    'Reaction type with name `%s` is invalid.',
+                    $name
+                )
+            );
 
             return self::FAILURE;
         }
 
         if ($this->isReactionTypeNameExists($name)) {
-            $this->error(sprintf(
-                'Reaction type with name `%s` already exists.',
-                $name
-            ));
+            $this->error(
+                sprintf(
+                    'Reaction type with name `%s` already exists.',
+                    $name
+                )
+            );
 
             return self::FAILURE;
         }
@@ -67,14 +64,26 @@ final class ReactionTypeAdd extends Command
     }
 
     /**
-     * @return array[]
+     * @return array<int, InputOption>
      */
     protected function getOptions(): array
     {
         return [
-            ['default', null, InputOption::VALUE_NONE, 'Create default Like & Dislike reactions'],
-            ['name', null, InputOption::VALUE_OPTIONAL, 'The name of the reaction'],
-            ['mass', null, InputOption::VALUE_OPTIONAL, 'The mass of the reaction'],
+            new InputOption(
+                name: 'default',
+                mode: InputOption::VALUE_NONE,
+                description: 'Create default Like & Dislike reactions',
+            ),
+            new InputOption(
+                name: 'name',
+                mode: InputOption::VALUE_OPTIONAL,
+                description: 'The name of the reaction',
+            ),
+            new InputOption(
+                name: 'mass',
+                mode: InputOption::VALUE_OPTIONAL,
+                description: 'The mass of the reaction',
+            ),
         ];
     }
 
@@ -93,10 +102,12 @@ final class ReactionTypeAdd extends Command
 
         foreach ($types as $type) {
             if ($this->isReactionTypeNameExists($type['name'])) {
-                $this->line(sprintf(
-                    'Reaction type with name `%s` already exists.',
-                    $type['name']
-                ));
+                $this->line(
+                    sprintf(
+                        'Reaction type with name `%s` already exists.',
+                        $type['name']
+                    )
+                );
                 continue;
             }
 
@@ -111,10 +122,13 @@ final class ReactionTypeAdd extends Command
             'mass' => $mass,
         ]);
 
-        $this->line(sprintf(
-            'Reaction type with name `%s` and mass `%d` was added.',
-            $name, $mass
-        ));
+        $this->line(
+            sprintf(
+                'Reaction type with name `%s` and mass `%d` was added.',
+                $name,
+                $mass
+            )
+        );
     }
 
     private function resolveName(): string

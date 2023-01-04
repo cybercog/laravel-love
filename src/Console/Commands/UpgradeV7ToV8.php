@@ -23,16 +23,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Symfony\Component\Console\Attribute\AsCommand;
 
-#[AsCommand(name: 'love:upgrade-v7-to-v8')]
+#[AsCommand(name: 'love:upgrade-v7-to-v8', description: 'Upgrade Love package from v7 to v8')]
 final class UpgradeV7ToV8 extends Command
 {
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Upgrade Love package from v7 to v8';
-
     /**
      * Execute the console command.
      */
