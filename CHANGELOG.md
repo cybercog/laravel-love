@@ -4,6 +4,10 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- ([#216]) Added Docker Compose to quick development build
+
 ### Changed
 
 - ([#215]) Migrated to console AsCommand attribute
