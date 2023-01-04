@@ -21,16 +21,11 @@ use Illuminate\Database\Schema\Builder;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Symfony\Component\Console\Attribute\AsCommand;
 
+#[AsCommand(name: 'love:upgrade-v7-to-v8')]
 final class UpgradeV7ToV8 extends Command
 {
-    /**
-     * The console command name.
-     *
-     * @var string
-     */
-    protected static $defaultName = 'love:upgrade-v7-to-v8';
-
     /**
      * The console command description.
      *

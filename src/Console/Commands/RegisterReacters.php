@@ -18,17 +18,12 @@ use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableInterface;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 
+#[AsCommand(name: 'love:register-reacters')]
 final class RegisterReacters extends Command
 {
-    /**
-     * The console command name.
-     *
-     * @var string
-     */
-    protected static $defaultName = 'love:register-reacters';
-
     /**
      * The console command description.
      *

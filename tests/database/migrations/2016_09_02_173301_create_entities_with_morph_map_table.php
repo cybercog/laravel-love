@@ -15,7 +15,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-final class CreateEntitiesWithMorphMapTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -41,4 +41,4 @@ final class CreateEntitiesWithMorphMapTable extends Migration
     {
         Schema::dropIfExists('entities_with_morph_map');
     }
-}
+};

@@ -18,17 +18,12 @@ use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableInterface;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 
+#[AsCommand(name: 'love:register-reactants')]
 final class RegisterReactants extends Command
 {
-    /**
-     * The console command name.
-     *
-     * @var string
-     */
-    protected static $defaultName = 'love:register-reactants';
-
     /**
      * The console command description.
      *

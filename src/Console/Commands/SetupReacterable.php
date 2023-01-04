@@ -24,17 +24,12 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Composer;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 
+#[AsCommand(name: 'love:setup-reacterable')]
 final class SetupReacterable extends Command
 {
-    /**
-     * The console command name.
-     *
-     * @var string
-     */
-    protected static $defaultName = 'love:setup-reacterable';
-
     /**
      * The console command description.
      *
