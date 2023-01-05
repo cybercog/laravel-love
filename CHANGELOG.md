@@ -7,14 +7,16 @@ All notable changes to `laravel-love` will be documented in this file.
 ### Added
 
 - ([#216]) Added Docker Compose to quick development build
+- ([#188]) Added `scopeWhereReactedTo` model scope to `Reacterable` trait
+- ([#188]) Added `scopeWhereNotReactedTo` model scope to `Reacterable` trait
 
 ### Changed
 
+- ([#222]) Removed DI usage from Console commands constructors
 - ([#215]) Migrated to console AsCommand attribute
 - ([#215]) Package generating anonymous class migrations now
 - ([#217]) Switched to native typed class properties
 - ([#218]) Switched to Symfony Console exit code constants
-- ([#222]) Removed DI usage from Console commands constructors
 
 ### Removed
 
@@ -569,6 +571,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 [#206]: https://github.com/cybercog/laravel-love/pull/206
 [#197]: https://github.com/cybercog/laravel-love/pull/197
 [#196]: https://github.com/cybercog/laravel-love/pull/196
+[#188]: https://github.com/cybercog/laravel-love/pull/188
 [#187]: https://github.com/cybercog/laravel-love/pull/187
 [#186]: https://github.com/cybercog/laravel-love/pull/186
 [#185]: https://github.com/cybercog/laravel-love/pull/185
