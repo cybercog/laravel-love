@@ -17,6 +17,9 @@ use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableInterface;
 use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @method static ArticleEloquentBuilder query()
+ */
 final class Article extends Model implements
     ReactableInterface
 {
@@ -37,4 +40,10 @@ final class Article extends Model implements
     protected $fillable = [
         'name',
     ];
+
+    /** @inheritDoc */
+    public function newEloquentBuilder($query): ArticleEloquentBuilder
+    {
+        return new ArticleEloquentBuilder($query);
+    }
 }

@@ -16,18 +16,11 @@ namespace Cog\Laravel\Love\Reactable\Models\Traits;
 use Cog\Contracts\Love\Reactable\Exceptions\AlreadyRegisteredAsLoveReactant;
 use Cog\Contracts\Love\Reactant\Facades\Reactant as ReactantFacadeInterface;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantInterface;
-use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableInterface;
 use Cog\Laravel\Love\Reactable\Observers\ReactableObserver;
 use Cog\Laravel\Love\Reactant\Facades\Reactant as ReactantFacade;
 use Cog\Laravel\Love\Reactant\Models\NullReactant;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
-use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
-use Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal;
-use Cog\Laravel\Love\ReactionType\Models\ReactionType;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Query\JoinClause;
-use Illuminate\Support\Str;
 
 /**
  * @mixin \Cog\Contracts\Love\Reactable\Models\Reactable
@@ -77,79 +70,5 @@ trait Reactable
 
         $this->setAttribute('love_reactant_id', $reactant->getId());
         $this->save();
-    }
-
-    public function scopeWhereReactedBy(
-        Builder $query,
-        ReacterableInterface $reacterable,
-        ?string $reactionTypeName = null,
-    ): Builder {
-        return $query->whereHas(
-            'loveReactant.reactions',
-            function (Builder $reactionsQuery) use ($reacterable, $reactionTypeName) {
-                $reactionsQuery->where('reacter_id', $reacterable->getLoveReacter()->getId());
-                if ($reactionTypeName !== null) {
-                    $reactionsQuery->where('reaction_type_id', ReactionType::fromName($reactionTypeName)->getId());
-                }
-            }
-        );
-    }
-
-    public function scopeWhereNotReactedBy(
-        Builder $query,
-        ReacterableInterface $reacterable,
-        ?string $reactionTypeName = null,
-    ): Builder {
-        return $query->whereDoesntHave(
-            'loveReactant.reactions',
-            function (Builder $reactionsQuery) use ($reacterable, $reactionTypeName) {
-                $reactionsQuery->where('reacter_id', $reacterable->getLoveReacter()->getId());
-                if ($reactionTypeName !== null) {
-                    $reactionsQuery->where('reaction_type_id', ReactionType::fromName($reactionTypeName)->getId());
-                }
-            }
-        );
-    }
-
-    public function scopeJoinReactionCounterOfType(
-        Builder $query,
-        string $reactionTypeName,
-        ?string $alias = null,
-    ): Builder {
-        $reactionType = ReactionType::fromName($reactionTypeName);
-        $alias = $alias === null ? 'reaction_' . Str::snake($reactionType->getName()) : $alias;
-
-        $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
-        $select[] = $query->raw("COALESCE({$alias}.count, 0) as {$alias}_count");
-        $select[] = $query->raw("COALESCE({$alias}.weight, 0) as {$alias}_weight");
-
-        return $query
-            ->leftJoin(
-                (new ReactionCounter())->getTable() . ' as ' . $alias,
-                function (JoinClause $join) use ($reactionType, $alias) {
-                    $join->on("{$alias}.reactant_id", '=', "{$this->getTable()}.love_reactant_id");
-                    $join->where("{$alias}.reaction_type_id", $reactionType->getId());
-                }
-            )
-            ->select($select);
-    }
-
-    public function scopeJoinReactionTotal(
-        Builder $query,
-        ?string $alias = null,
-    ): Builder {
-        $alias = $alias === null ? 'reaction_total' : $alias;
-        $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
-        $select[] = $query->raw("COALESCE({$alias}.count, 0) as {$alias}_count");
-        $select[] = $query->raw("COALESCE({$alias}.weight, 0) as {$alias}_weight");
-
-        return $query
-            ->leftJoin(
-                (new ReactionTotal())->getTable() . ' as ' . $alias,
-                "{$alias}.reactant_id",
-                '=',
-                "{$this->getTable()}.love_reactant_id"
-            )
-            ->select($select);
     }
 }

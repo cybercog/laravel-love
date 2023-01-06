@@ -19,6 +19,9 @@ use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
 use Cog\Laravel\Love\Reacterable\Models\Traits\Reacterable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * @method static UserEloquentBuilder query()
+ */
 final class User extends Authenticatable implements
     ReacterableInterface,
     ReactableInterface
@@ -41,4 +44,10 @@ final class User extends Authenticatable implements
     protected $fillable = [
         'name',
     ];
+
+    /** @inheritDoc */
+    public function newEloquentBuilder($query): UserEloquentBuilder
+    {
+        return new UserEloquentBuilder($query);
+    }
 }

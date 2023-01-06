@@ -1,10 +1,41 @@
 # Upgrade Guide
 
+- [From v8 to v9](#from-v8-to-v9)
 - [From v7 to v8](#from-v7-to-v8)
 - [From v6 to v7](#from-v6-to-v7)
 - [From v5 to v6](#from-v5-to-v6)
 - [From v4 to v5](#from-v4-to-v5)
 - [From v3 to v4](#from-v3-to-v4)
+
+## From v8 to v9
+
+Release v9 has new Eloquent model local scopes approach described in ([#226](https://github.com/cybercog/laravel-love/discussions/226#discussioncomment-4612667)).
+
+Reactable trait methods `scopeWhereReactedBy`, `scopeWhereNotReactedBy`, `scopeJoinReactionCounterOfType`, `scopeJoinReactionTotal`
+were moved to `ReactableEloquentBuilderTrait`.
+
+To start using them you have to create custom Eloquent Builder class, use trait in it and declare
+that it should be used in your model as default query builder in `newEloquentBuilder` method:
+
+```php
+/**
+ * @method static UserEloquentBuilder query()
+ */
+class User extends Model
+{
+    public function newEloquentBuilder($query): UserEloquentBuilder
+    {
+        return new UserEloquentBuilder($query);
+    }
+}
+
+class UserEloquentBuilder extends \Illuminate\Database\Eloquent\Builder
+{
+    use \Cog\Laravel\Love\Reactable\ReactableEloquentBuilderTrait;
+
+    // Other User model local query scopes
+}
+```
 
 ## From v7 to v8
 

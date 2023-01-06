@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Cog\Laravel\Love\Reacterable\Models\Traits;
 
-use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableInterface;
 use Cog\Contracts\Love\Reacter\Facades\Reacter as ReacterFacadeInterface;
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterInterface;
 use Cog\Contracts\Love\Reacterable\Exceptions\AlreadyRegisteredAsLoveReacter;
@@ -21,8 +20,6 @@ use Cog\Laravel\Love\Reacter\Facades\Reacter as ReacterFacade;
 use Cog\Laravel\Love\Reacter\Models\NullReacter;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\Reacterable\Observers\ReacterableObserver;
-use Cog\Laravel\Love\ReactionType\Models\ReactionType;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -73,37 +70,5 @@ trait Reacterable
 
         $this->setAttribute('love_reacter_id', $reacter->getId());
         $this->save();
-    }
-
-    public function scopeWhereReactedTo(
-        Builder $query,
-        ReactableInterface $reactable,
-        ?string $reactionTypeName = null,
-    ): Builder {
-        return $query->whereHas(
-            'loveReacter.reactions',
-            function (Builder $reactionsQuery) use ($reactable, $reactionTypeName) {
-                $reactionsQuery->where('reactant_id', $reactable->getLoveReactant()->getId());
-                if ($reactionTypeName !== null) {
-                    $reactionsQuery->where('reaction_type_id', ReactionType::fromName($reactionTypeName)->getId());
-                }
-            }
-        );
-    }
-
-    public function scopeWhereNotReactedTo(
-        Builder $query,
-        ReactableInterface $reactable,
-        ?string $reactionTypeName = null,
-    ): Builder {
-        return $query->whereDoesntHave(
-            'loveReacter.reactions',
-            function (Builder $reactionsQuery) use ($reactable, $reactionTypeName) {
-                $reactionsQuery->where('reactant_id', $reactable->getLoveReactant()->getId());
-                if ($reactionTypeName !== null) {
-                    $reactionsQuery->where('reaction_type_id', ReactionType::fromName($reactionTypeName)->getId());
-                }
-            }
-        );
     }
 }
