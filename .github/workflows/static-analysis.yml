@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: true
 
-    name: ${{ matrix.directory == 'src' && 'Source Code' || 'Types' }}
+    name: Source Code
 
     steps:
       - name: Checkout code
