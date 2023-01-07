@@ -54,7 +54,7 @@
         "mockery/mockery": "^1.0",
         "orchestra/database": "^7.0",
         "orchestra/testbench": "^7.0",
-        "phpstan/phpstan": "^0.12.29",
+        "phpstan/phpstan": "^1.9",
         "phpunit/phpunit": "^9.0"
     },
     "autoload": {
