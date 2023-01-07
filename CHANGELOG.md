@@ -7,13 +7,13 @@ All notable changes to `laravel-love` will be documented in this file.
 ### Added
 
 - ([#216]) Added Docker Compose to quick development build
-- ([#188]) Added `scopeWhereReactedTo` model scope to `Reacterable` trait
-- ([#188]) Added `scopeWhereNotReactedTo` model scope to `Reacterable` trait
+- ([#188]) Added `whereReactedTo` model scope to Reacterable models
+- ([#188]) Added `whereNotReactedTo` model scope to Reacterable models
 
 ### Changed
 
-- ([#222]) Removed DI usage from Console commands constructors
-- ([#215]) Migrated to console AsCommand attribute
+- ([#222]) Removed DI usage from console commands constructors
+- ([#215]) Migrated to console `AsCommand` attribute
 - ([#215]) Package generating anonymous class migrations now
 - ([#217]) Switched to native typed class properties
 - ([#218]) Switched to Symfony Console exit code constants
