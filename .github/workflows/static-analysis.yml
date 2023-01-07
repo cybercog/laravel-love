@@ -1,0 +1,38 @@
+name: static analysis
+
+on:
+  push:
+    branches:
+      - master
+      - '*.x'
+  pull_request:
+
+jobs:
+  types:
+    runs-on: ubuntu-22.04
+
+    strategy:
+      fail-fast: true
+
+    name: ${{ matrix.directory == 'src' && 'Source Code' || 'Types' }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+          tools: composer:v2
+          coverage: none
+
+      - name: Install dependencies
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 5
+          max_attempts: 5
+          command: composer update --prefer-stable --prefer-dist --no-interaction --no-progress
+
+      - name: Execute type checking
+        run: vendor/bin/phpstan --configuration=".phpstan.neon"
