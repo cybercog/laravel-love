@@ -82,7 +82,10 @@ final class Recount extends Command
 
         $reactants = $this->collectReactants($reactableType);
 
-        $this->warnProcessingStartedOn($queueConnectionName);
+        $this->warn(
+            "Rebuilding reaction aggregates using `$queueConnectionName` queue connection."
+        );
+
         $this->getOutput()->progressStart($reactants->count());
         foreach ($reactants as $reactant) {
             $this->dispatcher->dispatch(
@@ -167,23 +170,5 @@ final class Recount extends Command
         }
 
         return $reactantsQuery->get();
-    }
-
-    /**
-     * Write warning output that processing has been started.
-     */
-    private function warnProcessingStartedOn(
-        ?string $queueConnectionName,
-    ): void {
-        if ($queueConnectionName === 'sync') {
-            $message = 'Rebuilding reaction aggregates synchronously.';
-        } else {
-            $message = sprintf(
-                'Adding rebuild reaction aggregates to the `%s` queue connection.',
-                $queueConnectionName
-            );
-        }
-
-        $this->warn($message);
     }
 }
