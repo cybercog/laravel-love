@@ -80,11 +80,11 @@ final class Recount extends Command
             $queueConnectionName = $appConfigRepository->get('queue.default');
         }
 
-        $reactants = $this->collectReactants($reactableType);
-
         $this->warn(
             "Rebuilding reaction aggregates using `$queueConnectionName` queue connection."
         );
+
+        $reactants = $this->collectReactants($reactableType);
 
         $this->getOutput()->progressStart($reactants->count());
         foreach ($reactants as $reactant) {
