@@ -48,7 +48,7 @@ final class SetupReacterable extends Command
         $model = $this->resolveModel();
         $model = $this->sanitizeName($model);
         $foreignColumn = 'love_reacter_id';
-        $isForeignColumnNullable = boolval($this->option('nullable'));
+        $isForeignColumnNullable = boolval($this->option('not-nullable')) === false;
 
         if (!class_exists($model)) {
             $this->error(
@@ -140,9 +140,9 @@ final class SetupReacterable extends Command
                 description: 'The name of the reacterable model',
             ),
             new InputOption(
-                name: 'nullable',
+                name: 'not-nullable',
                 mode: InputOption::VALUE_NONE,
-                description: 'Indicate if foreign column allows null values',
+                description: 'Indicate if foreign column does not allow null values',
             ),
         ];
     }

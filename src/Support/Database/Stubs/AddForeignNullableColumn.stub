@@ -20,7 +20,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('DummyTable', function (Blueprint $table) {
-            $table->unsignedBigInteger('DummyForeignColumn')->nullable();
+            $table->foreignId('DummyForeignColumn')->nullable();
 
             $table
                 ->foreign('DummyForeignColumn')
