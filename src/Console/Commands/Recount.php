@@ -20,6 +20,7 @@ use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Bus\Dispatcher as DispatcherInterface;
+use Illuminate\Contracts\Config\Repository as AppConfigRepositoryInterface;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
@@ -62,6 +63,7 @@ final class Recount extends Command
      */
     public function handle(
         DispatcherInterface $dispatcher,
+        AppConfigRepositoryInterface $appConfigRepository,
     ): int {
         $this->dispatcher = $dispatcher;
 
@@ -75,12 +77,15 @@ final class Recount extends Command
 
         $queueConnectionName = $this->option('queue-connection');
         if ($queueConnectionName === null || $queueConnectionName === '') {
-            $queueConnectionName = 'sync';
+            $queueConnectionName = $appConfigRepository->get('queue.default');
         }
+
+        $this->warn(
+            "Rebuilding reaction aggregates using `$queueConnectionName` queue connection."
+        );
 
         $reactants = $this->collectReactants($reactableType);
 
-        $this->warnProcessingStartedOn($queueConnectionName);
         $this->getOutput()->progressStart($reactants->count());
         foreach ($reactants as $reactant) {
             $this->dispatcher->dispatch(
@@ -165,23 +170,5 @@ final class Recount extends Command
         }
 
         return $reactantsQuery->get();
-    }
-
-    /**
-     * Write warning output that processing has been started.
-     */
-    private function warnProcessingStartedOn(
-        ?string $queueConnectionName,
-    ): void {
-        if ($queueConnectionName === 'sync') {
-            $message = 'Rebuilding reaction aggregates synchronously.';
-        } else {
-            $message = sprintf(
-                'Adding rebuild reaction aggregates to the `%s` queue connection.',
-                $queueConnectionName
-            );
-        }
-
-        $this->warn($message);
     }
 }
