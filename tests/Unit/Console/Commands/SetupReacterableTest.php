@@ -51,11 +51,11 @@ final class SetupReacterableTest extends TestCase
     }
 
     /** @test */
-    public function it_can_create_migration_for_reacterable_model_with_nullable_column(): void
+    public function it_can_create_migration_for_reacterable_model_with_not_nullable_column(): void
     {
         $status = $this->artisan('love:setup-reacterable', [
             '--model' => Person::class,
-            '--nullable' => true,
+            '--not-nullable' => true,
         ]);
 
         $this->assertSame(0, $status);
