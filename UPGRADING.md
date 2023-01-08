@@ -11,6 +11,8 @@
 
 Release v9 has new Eloquent model local scopes approach described in ([#226](https://github.com/cybercog/laravel-love/discussions/226#discussioncomment-4612667)).
 
+### Scopes breaking changes
+
 Reactable trait methods `scopeWhereReactedBy`, `scopeWhereNotReactedBy`, `scopeJoinReactionCounterOfType`, `scopeJoinReactionTotal`
 were moved to `ReactableEloquentBuilderTrait`.
 
@@ -35,6 +37,17 @@ class UserEloquentBuilder extends \Illuminate\Database\Eloquent\Builder
 
     // Other User model local query scopes
 }
+```
+
+### Console commands breaking changes
+
+Command `love:recount` does not use `sync` connection by default now.
+It uses `queue.default` config value.
+
+To force run synchronous statistics recount use `--queue-connection=sync` option.
+
+```shell
+php artisan love:recount --model="App\User" --queue-connection=sync
 ```
 
 ## From v7 to v8
