@@ -12,6 +12,10 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ### Changed
 
+- ([#231]) Console command `love:setup-reactable` generates migration with nullable column `love_reactant_id` by default
+- ([#231]) Console command `love:setup-reactable` option `--nullable` replaced with `--not-nullable`
+- ([#231]) Console command `love:setup-reacterable` generates migration with nullable column `love_reacter_id` by default
+- ([#231]) Console command `love:setup-reacterable` option `--nullable` replaced with `--not-nullable`
 - ([#222]) Removed DI usage from console commands constructors
 - ([#215]) Migrated to console `AsCommand` attribute
 - ([#215]) Package generating anonymous class migrations now
@@ -563,6 +567,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 [1.1.1]: https://github.com/cybercog/laravel-love/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/cybercog/laravel-love/compare/1.0.0...1.1.0
 
+[#231]: https://github.com/cybercog/laravel-love/pull/231
 [#222]: https://github.com/cybercog/laravel-love/pull/222
 [#218]: https://github.com/cybercog/laravel-love/pull/218
 [#217]: https://github.com/cybercog/laravel-love/pull/217
