@@ -27,7 +27,6 @@ use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Query\JoinClause;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 /**
@@ -121,8 +120,8 @@ trait Reactable
         $alias = $alias === null ? 'reaction_' . Str::snake($reactionType->getName()) : $alias;
 
         $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
-        $select[] = DB::raw("COALESCE({$alias}.count, 0) as {$alias}_count");
-        $select[] = DB::raw("COALESCE({$alias}.weight, 0) as {$alias}_weight");
+        $select[] = $query->raw("COALESCE({$alias}.count, 0) as {$alias}_count");
+        $select[] = $query->raw("COALESCE({$alias}.weight, 0) as {$alias}_weight");
 
         return $query
             ->leftJoin(
@@ -141,8 +140,8 @@ trait Reactable
     ): Builder {
         $alias = $alias === null ? 'reaction_total' : $alias;
         $select = $query->getQuery()->columns ?? ["{$this->getTable()}.*"];
-        $select[] = DB::raw("COALESCE({$alias}.count, 0) as {$alias}_count");
-        $select[] = DB::raw("COALESCE({$alias}.weight, 0) as {$alias}_weight");
+        $select[] = $query->raw("COALESCE({$alias}.count, 0) as {$alias}_count");
+        $select[] = $query->raw("COALESCE({$alias}.weight, 0) as {$alias}_weight");
 
         return $query
             ->leftJoin(
