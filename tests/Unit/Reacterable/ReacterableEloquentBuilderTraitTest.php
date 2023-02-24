@@ -27,7 +27,7 @@ final class ReacterableEloquentBuilderTraitTest extends TestCase
     /** @test */
     public function it_can_scope_reacted_to_reactable(): void
     {
-        factory(Reacter::class)->create(); // Needed to has not same ids with Reacter
+        factory(Reacter::class)->create(); // Needed to have not same ids with Reacter
         $reactionType = factory(ReactionType::class)->create();
         $reacterable1 = factory(User::class)->create();
         $reacterable2 = factory(User::class)->create();
@@ -75,7 +75,7 @@ final class ReacterableEloquentBuilderTraitTest extends TestCase
     /** @test */
     public function it_can_scope_reacted_to_reactable_and_reaction_type(): void
     {
-        factory(Reacter::class)->create(); // Needed to has not same ids with Reacter
+        factory(Reacter::class)->create(); // Needed to have not same ids with Reacter
         $reactionType1 = factory(ReactionType::class)->create();
         $reactionType2 = factory(ReactionType::class)->create();
         $reacterable1 = factory(User::class)->create();
@@ -146,7 +146,7 @@ final class ReacterableEloquentBuilderTraitTest extends TestCase
     /** @test */
     public function it_can_scope_not_reacted_to_reactable(): void
     {
-        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        factory(Reactant::class)->create(); // Needed to have not same ids with Reactant
         $reactionType = factory(ReactionType::class)->create();
         $reacterable1 = factory(User::class)->create();
         $reacterable2 = factory(User::class)->create();
@@ -192,7 +192,7 @@ final class ReacterableEloquentBuilderTraitTest extends TestCase
     /** @test */
     public function it_can_scope_not_reacted_to_reactable_and_reaction_type(): void
     {
-        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        factory(Reactant::class)->create(); // Needed to have not same ids with Reactant
         $reactionType1 = factory(ReactionType::class)->create();
         $reactionType2 = factory(ReactionType::class)->create();
         $reacterable1 = factory(User::class)->create();
@@ -263,7 +263,7 @@ final class ReacterableEloquentBuilderTraitTest extends TestCase
     /** @test */
     public function it_can_scope_reacted_to_reactable_between_datetime_range(): void
     {
-        factory(Reacter::class)->create(); // Needed to has not same ids with Reacter
+        factory(Reacter::class)->create(); // Needed to have not same ids with Reacter
         $reactionType = factory(ReactionType::class)->create();
         $reacterable1 = factory(User::class)->create();
         $reacterable2 = factory(User::class)->create();

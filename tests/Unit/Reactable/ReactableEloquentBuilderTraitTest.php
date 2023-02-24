@@ -26,7 +26,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
     /** @test */
     public function it_can_scope_by_reacterable(): void
     {
-        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        factory(Reactant::class)->create(); // Needed to have not same ids with Reactant
         $reactionType = factory(ReactionType::class)->create();
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
@@ -74,7 +74,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
     /** @test */
     public function it_can_scope_by_reacterable_and_reaction_type(): void
     {
-        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        factory(Reactant::class)->create(); // Needed to have not same ids with Reactant
         $reactionType1 = factory(ReactionType::class)->create();
         $reactionType2 = factory(ReactionType::class)->create();
         $reactable1 = factory(Article::class)->create();
@@ -145,7 +145,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
     /** @test */
     public function it_can_scope_not_reacted_by_reacterable(): void
     {
-        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        factory(Reactant::class)->create(); // Needed to have not same ids with Reactant
         $reactionType = factory(ReactionType::class)->create();
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
@@ -191,7 +191,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
     /** @test */
     public function it_can_scope_not_reacted_by_reacterable_and_reaction_type(): void
     {
-        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        factory(Reactant::class)->create(); // Needed to have not same ids with Reactant
         $reactionType1 = factory(ReactionType::class)->create();
         $reactionType2 = factory(ReactionType::class)->create();
         $reactable1 = factory(Article::class)->create();
@@ -262,7 +262,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
     /** @test */
     public function it_can_get_reactables_join_reaction_counter_with_type(): void
     {
-        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        factory(Reactant::class)->create(); // Needed to have not same ids with Reactant
         $reactionType1 = factory(ReactionType::class)->create([
             'mass' => 2,
         ]);
@@ -334,7 +334,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
     /** @test */
     public function it_can_get_reactables_join_reaction_counter_with_type_when_type_contains_multiple_words(): void
     {
-        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        factory(Reactant::class)->create(); // Needed to have not same ids with Reactant
         $reactionType1 = factory(ReactionType::class)->create([
             'name' => 'SuperLike',
             'mass' => 2,
@@ -407,7 +407,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
     /** @test */
     public function it_select_default_reactable_columns_on_get_reactable_join_reaction_counter_with_type(): void
     {
-        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        factory(Reactant::class)->create(); // Needed to have not same ids with Reactant
         $reactionType1 = factory(ReactionType::class)->create();
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
@@ -442,7 +442,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
     /** @test */
     public function it_can_select_custom_reactable_columns_on_get_reactable_join_reactions_count_with_type(): void
     {
-        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        factory(Reactant::class)->create(); // Needed to have not same ids with Reactant
         $reactionType1 = factory(ReactionType::class)->create([
             'mass' => 2,
         ]);
@@ -481,7 +481,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
     /** @test */
     public function it_can_order_by_total_reactions_count(): void
     {
-        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        factory(Reactant::class)->create(); // Needed to have not same ids with Reactant
         $reactionType = factory(ReactionType::class)->create();
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
@@ -515,7 +515,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
     /** @test */
     public function it_can_order_by_total_reactions_count_with_custom_alias(): void
     {
-        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        factory(Reactant::class)->create(); // Needed to have not same ids with Reactant
         $reactionType = factory(ReactionType::class)->create();
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
@@ -549,7 +549,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
     /** @test */
     public function it_select_default_reactable_columns_on_order_by_total_reactions_count(): void
     {
-        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        factory(Reactant::class)->create(); // Needed to have not same ids with Reactant
         $reactionType = factory(ReactionType::class)->create();
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
@@ -582,7 +582,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
     /** @test */
     public function it_can_select_custom_reactable_columns_on_order_by_total_reactions_count(): void
     {
-        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        factory(Reactant::class)->create(); // Needed to have not same ids with Reactant
         $reactionType = factory(ReactionType::class)->create();
         $reactable1 = factory(Article::class)->create();
         $reactable2 = factory(Article::class)->create();
@@ -621,7 +621,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
     /** @test */
     public function it_can_order_by_reactions_weight(): void
     {
-        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        factory(Reactant::class)->create(); // Needed to have not same ids with Reactant
         $reactionType = factory(ReactionType::class)->create([
             'mass' => 2,
         ]);
@@ -657,7 +657,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
     /** @test */
     public function it_select_default_reactable_columns_on_order_by_reactions_weight(): void
     {
-        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        factory(Reactant::class)->create(); // Needed to have not same ids with Reactant
         $reactionType = factory(ReactionType::class)->create([
             'mass' => 2,
         ]);
@@ -692,7 +692,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
     /** @test */
     public function it_can_select_custom_reactable_columns_on_order_by_reactions_weight(): void
     {
-        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        factory(Reactant::class)->create(); // Needed to have not same ids with Reactant
         $reactionType = factory(ReactionType::class)->create([
             'mass' => 2,
         ]);
@@ -733,7 +733,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
     /** @test */
     public function it_chain_join_reaction_counter_with_type_and_join_reaction_total(): void
     {
-        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        factory(Reactant::class)->create(); // Needed to have not same ids with Reactant
         $reactionType1 = factory(ReactionType::class)->create([
             'mass' => 2,
         ]);
@@ -808,7 +808,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
     /** @test */
     public function it_include_reaction_total_null_values_replaced_with_zero(): void
     {
-        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        factory(Reactant::class)->create(); // Needed to have not same ids with Reactant
         $reactionType1 = factory(ReactionType::class)->create([
             'mass' => 2,
         ]);
@@ -860,7 +860,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
     /** @test */
     public function it_include_reaction_counter_null_values_replaced_with_zero(): void
     {
-        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        factory(Reactant::class)->create(); // Needed to have not same ids with Reactant
         $reactionType1 = factory(ReactionType::class)->create([
             'mass' => 2,
         ]);
@@ -914,7 +914,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
     /** @test */
     public function it_include_null_counter_and_total_values_in_chain_join_reaction_counter_with_type_and_join_reaction_total(): void
     {
-        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        factory(Reactant::class)->create(); // Needed to have not same ids with Reactant
         $reactionType1 = factory(ReactionType::class)->create([
             'mass' => 2,
         ]);
@@ -973,7 +973,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
     /** @test */
     public function it_can_chain_multiple_join_reaction_counter_of_type(): void
     {
-        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        factory(Reactant::class)->create(); // Needed to have not same ids with Reactant
         $reactionType1 = factory(ReactionType::class)->create([
             'name' => 'Like',
             'mass' => 2,
@@ -1061,7 +1061,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
     /** @test */
     public function it_can_chain_multiple_join_reaction_counter_of_type_with_custom_aliases(): void
     {
-        factory(Reactant::class)->create(); // Needed to has not same ids with Reactant
+        factory(Reactant::class)->create(); // Needed to have not same ids with Reactant
         $reactionType1 = factory(ReactionType::class)->create([
             'name' => 'Like',
             'mass' => 2,
