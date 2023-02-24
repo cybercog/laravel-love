@@ -16,6 +16,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v8-to-v9) to migrate code.
 - ([#216]) Added Docker Compose to quick development build
 - ([#227]) Added `whereReactedTo` model scope to Reacterable models
 - ([#227]) Added `whereNotReactedTo` model scope to Reacterable models
+- ([#227]) Added `whereReactedToBetween` model scope to Reacterable models
 
 ### Changed
 
