@@ -18,21 +18,20 @@ use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenAdded;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\TestCase;
-use Illuminate\Foundation\Testing\Concerns\MocksApplicationServices;
+use Illuminate\Support\Facades\Event;
 
 final class ReactionHasBeenAddedTest extends TestCase
 {
-    use MocksApplicationServices;
-
     /** @test */
     public function it_fires_reaction_has_been_added_event(): void
     {
-        $this->expectsEvents(ReactionHasBeenAdded::class);
-
+        Event::fake([ReactionHasBeenAdded::class]);
         $reactionType = factory(ReactionType::class)->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
 
         $reacter->reactTo($reactant, $reactionType);
+
+        Event::assertDispatched(ReactionHasBeenAdded::class);
     }
 }

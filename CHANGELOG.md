@@ -6,6 +6,7 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ### Added
 
+- ([#234]) Added Laravel 10 support
 - ([#216]) Added Docker Compose to quick development build
 - ([#188]) Added `whereReactedTo` model scope to Reacterable models
 - ([#188]) Added `whereNotReactedTo` model scope to Reacterable models
@@ -568,6 +569,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 [1.1.1]: https://github.com/cybercog/laravel-love/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/cybercog/laravel-love/compare/1.0.0...1.1.0
 
+[#234]: https://github.com/cybercog/laravel-love/pull/234
 [#233]: https://github.com/cybercog/laravel-love/pull/233
 [#231]: https://github.com/cybercog/laravel-love/pull/231
 [#222]: https://github.com/cybercog/laravel-love/pull/222
