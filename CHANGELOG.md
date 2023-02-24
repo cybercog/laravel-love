@@ -4,15 +4,20 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ## [Unreleased]
 
+Code has breaking changes because of Eloquent Model local scopes refactoring.
+
+Follow [upgrade instructions](UPGRADING.md#from-v8-to-v9) to migrate code.
+
 ### Added
 
 - ([#234]) Added Laravel 10 support
 - ([#216]) Added Docker Compose to quick development build
-- ([#188]) Added `whereReactedTo` model scope to Reacterable models
-- ([#188]) Added `whereNotReactedTo` model scope to Reacterable models
+- ([#227]) Added `whereReactedTo` model scope to Reacterable models
+- ([#227]) Added `whereNotReactedTo` model scope to Reacterable models
 
 ### Changed
 
+- ([#227]) Extracted Reactable model scopes to `ReactableEloquentBuilderTrait`
 - ([#231]) Console command `love:setup-reactable` generates migration with nullable column `love_reactant_id` by default
 - ([#231]) Console command `love:setup-reactable` option `--nullable` replaced with `--not-nullable`
 - ([#231]) Console command `love:setup-reacterable` generates migration with nullable column `love_reacter_id` by default
@@ -572,6 +577,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 [#234]: https://github.com/cybercog/laravel-love/pull/234
 [#233]: https://github.com/cybercog/laravel-love/pull/233
 [#231]: https://github.com/cybercog/laravel-love/pull/231
+[#227]: https://github.com/cybercog/laravel-love/pull/227
 [#222]: https://github.com/cybercog/laravel-love/pull/222
 [#218]: https://github.com/cybercog/laravel-love/pull/218
 [#217]: https://github.com/cybercog/laravel-love/pull/217
