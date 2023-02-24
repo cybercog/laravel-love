@@ -4,6 +4,8 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ## [Unreleased]
 
+## [9.0.0] - 2023-02-24
+
 Code has breaking changes because of Eloquent Model local scopes refactoring.
 
 Follow [upgrade instructions](UPGRADING.md#from-v8-to-v9) to migrate code.
@@ -525,7 +527,8 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 
 - Initial release
 
-[Unreleased]: https://github.com/cybercog/laravel-love/compare/8.9.0...master
+[Unreleased]: https://github.com/cybercog/laravel-love/compare/9.0.0...master
+[9.0.0]: https://github.com/cybercog/laravel-love/compare/8.9.0...9.0.0
 [8.9.0]: https://github.com/cybercog/laravel-love/compare/8.8.1...8.9.0
 [8.8.1]: https://github.com/cybercog/laravel-love/compare/8.8.0...8.8.1
 [8.8.0]: https://github.com/cybercog/laravel-love/compare/8.7.1...8.8.0
