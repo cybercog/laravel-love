@@ -17,8 +17,6 @@ jobs:
             php: 8.2
           - laravel: 10.*
             php: 8.0
-          - laravel: 10.*
-            dependency-version: prefer-lowest
         include:
           - laravel: 9.*
             testbench: 7.*
