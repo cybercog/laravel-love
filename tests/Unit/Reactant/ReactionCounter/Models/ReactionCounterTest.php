@@ -78,7 +78,7 @@ final class ReactionCounterTest extends TestCase
     {
         $reactant = factory(Reactant::class)->create();
 
-        $counter = factory(ReactionCounter::class)->create([
+        $counter = ReactionCounter::factory()->create([
             'reactant_id' => $reactant->getId(),
         ]);
 
@@ -90,7 +90,7 @@ final class ReactionCounterTest extends TestCase
     {
         $reactionType = ReactionType::factory()->create();
 
-        $counter = factory(ReactionCounter::class)->create([
+        $counter = ReactionCounter::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
         ]);
 
@@ -102,7 +102,7 @@ final class ReactionCounterTest extends TestCase
     {
         $reactant = factory(Reactant::class)->create();
 
-        $counter = factory(ReactionCounter::class)->create([
+        $counter = ReactionCounter::factory()->create([
             'reactant_id' => $reactant->getId(),
         ]);
 
@@ -124,7 +124,7 @@ final class ReactionCounterTest extends TestCase
     {
         $reactionType = ReactionType::factory()->create();
 
-        $counter = factory(ReactionCounter::class)->create([
+        $counter = ReactionCounter::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
         ]);
 
@@ -146,7 +146,7 @@ final class ReactionCounterTest extends TestCase
     {
         $reactionType = ReactionType::factory()->create();
         $anotherReactionType = ReactionType::factory()->create();
-        $counter = factory(ReactionCounter::class)->create([
+        $counter = ReactionCounter::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
         ]);
 
@@ -162,7 +162,7 @@ final class ReactionCounterTest extends TestCase
     {
         $reactionType = ReactionType::factory()->create();
         $anotherReactionType = ReactionType::factory()->create();
-        $counter = factory(ReactionCounter::class)->create([
+        $counter = ReactionCounter::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
         ]);
 
@@ -212,7 +212,7 @@ final class ReactionCounterTest extends TestCase
     /** @test */
     public function it_can_increment_count(): void
     {
-        $counter = factory(ReactionCounter::class)->create([
+        $counter = ReactionCounter::factory()->create([
             'count' => 0,
         ]);
 
@@ -224,7 +224,7 @@ final class ReactionCounterTest extends TestCase
     /** @test */
     public function it_can_increment_count_many_times(): void
     {
-        $counter = factory(ReactionCounter::class)->create([
+        $counter = ReactionCounter::factory()->create([
             'count' => 0,
         ]);
 
@@ -237,7 +237,7 @@ final class ReactionCounterTest extends TestCase
     /** @test */
     public function it_can_decrement_count(): void
     {
-        $counter = factory(ReactionCounter::class)->create([
+        $counter = ReactionCounter::factory()->create([
             'count' => 10,
         ]);
 
@@ -249,7 +249,7 @@ final class ReactionCounterTest extends TestCase
     /** @test */
     public function it_can_decrement_count_many_times(): void
     {
-        $counter = factory(ReactionCounter::class)->create([
+        $counter = ReactionCounter::factory()->create([
             'count' => 10,
         ]);
 
@@ -262,7 +262,7 @@ final class ReactionCounterTest extends TestCase
     /** @test */
     public function it_can_increment_weight(): void
     {
-        $counter = factory(ReactionCounter::class)->create([
+        $counter = ReactionCounter::factory()->create([
             'weight' => 0,
         ]);
 
@@ -274,7 +274,7 @@ final class ReactionCounterTest extends TestCase
     /** @test */
     public function it_can_increment_weight_many_times(): void
     {
-        $counter = factory(ReactionCounter::class)->create([
+        $counter = ReactionCounter::factory()->create([
             'weight' => 0,
         ]);
 
@@ -287,7 +287,7 @@ final class ReactionCounterTest extends TestCase
     /** @test */
     public function it_can_decrement_weight(): void
     {
-        $counter = factory(ReactionCounter::class)->create([
+        $counter = ReactionCounter::factory()->create([
             'weight' => 10,
         ]);
 
@@ -299,7 +299,7 @@ final class ReactionCounterTest extends TestCase
     /** @test */
     public function it_can_decrement_weight_many_times(): void
     {
-        $counter = factory(ReactionCounter::class)->create([
+        $counter = ReactionCounter::factory()->create([
             'weight' => 10,
         ]);
 

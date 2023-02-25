@@ -91,7 +91,7 @@ final class ReactionTest extends TestCase
     /** @test */
     public function it_casts_id_to_string(): void
     {
-        $reaction = factory(Reaction::class)->make([
+        $reaction = Reaction::factory()->make([
             'id' => 4,
         ]);
 
@@ -115,7 +115,7 @@ final class ReactionTest extends TestCase
     {
         $type = ReactionType::factory()->create();
 
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'reaction_type_id' => $type->getId(),
         ]);
 
@@ -128,7 +128,7 @@ final class ReactionTest extends TestCase
         $reactionType = ReactionType::factory()->create();
         $reactant = factory(Reactant::class)->create();
 
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactant->getId(),
         ]);
@@ -141,7 +141,7 @@ final class ReactionTest extends TestCase
     {
         $reacter = factory(Reacter::class)->create();
 
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'reacter_id' => $reacter->getId(),
         ]);
 
@@ -151,7 +151,7 @@ final class ReactionTest extends TestCase
     /** @test */
     public function it_can_get_id(): void
     {
-        $reaction = factory(Reaction::class)->make([
+        $reaction = Reaction::factory()->make([
             'id' => '4',
         ]);
 
@@ -175,7 +175,7 @@ final class ReactionTest extends TestCase
         $reactant = factory(Reactant::class)->create();
 
         /** @var \Cog\Laravel\Love\Reaction\Models\Reaction $reaction */
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactant->getId(),
         ]);
@@ -200,7 +200,7 @@ final class ReactionTest extends TestCase
         $reacter = factory(Reacter::class)->create();
 
         /** @var \Cog\Laravel\Love\Reaction\Models\Reaction $reaction */
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'reacter_id' => $reacter->getId(),
         ]);
 
@@ -224,7 +224,7 @@ final class ReactionTest extends TestCase
         $type = ReactionType::factory()->create();
 
         /** @var \Cog\Laravel\Love\Reaction\Models\Reaction $reaction */
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'reaction_type_id' => $type->getId(),
         ]);
 
@@ -246,7 +246,7 @@ final class ReactionTest extends TestCase
     public function it_can_get_rate(): void
     {
         /** @var \Cog\Laravel\Love\Reaction\Models\Reaction $reaction */
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'rate' => 2.0,
         ]);
 
@@ -263,7 +263,7 @@ final class ReactionTest extends TestCase
         ]);
 
         /** @var \Cog\Laravel\Love\Reaction\Models\Reaction $reaction */
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
         ]);
 
@@ -278,7 +278,7 @@ final class ReactionTest extends TestCase
         ]);
 
         /** @var \Cog\Laravel\Love\Reaction\Models\Reaction $reaction */
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'rate' => 1.02,
         ]);
@@ -291,7 +291,7 @@ final class ReactionTest extends TestCase
     {
         $reactionType1 = ReactionType::factory()->create();
         $reactionType2 = ReactionType::factory()->create();
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'reaction_type_id' => $reactionType1->getId(),
         ]);
 
@@ -307,7 +307,7 @@ final class ReactionTest extends TestCase
     {
         $reactionType1 = ReactionType::factory()->create();
         $reactionType2 = ReactionType::factory()->create();
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'reaction_type_id' => $reactionType1->getId(),
         ]);
 
@@ -325,7 +325,7 @@ final class ReactionTest extends TestCase
         Event::fake();
         $reactant1 = factory(Reactant::class)->create();
         $reactant2 = factory(Reactant::class)->create();
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'reactant_id' => $reactant1->getId(),
         ]);
 
@@ -343,7 +343,7 @@ final class ReactionTest extends TestCase
         Event::fake();
         $reactant = factory(Reactant::class)->create();
         $nullReactant = new NullReactant(new Article());
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'reactant_id' => $reactant->getId(),
         ]);
 
@@ -359,7 +359,7 @@ final class ReactionTest extends TestCase
         Event::fake();
         $reactant1 = factory(Reactant::class)->create();
         $reactant2 = factory(Reactant::class)->create();
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'reactant_id' => $reactant1->getId(),
         ]);
 
@@ -377,7 +377,7 @@ final class ReactionTest extends TestCase
         Event::fake();
         $reactant = factory(Reactant::class)->create();
         $nullReactant = new NullReactant(new Article());
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'reactant_id' => $reactant->getId(),
         ]);
 
@@ -391,7 +391,7 @@ final class ReactionTest extends TestCase
     {
         $reacter1 = factory(Reacter::class)->create();
         $reacter2 = factory(Reacter::class)->create();
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'reacter_id' => $reacter1->getId(),
         ]);
 
@@ -407,7 +407,7 @@ final class ReactionTest extends TestCase
     {
         $reacter1 = factory(Reacter::class)->create();
         $nullReacter = new NullReacter(new User());
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'reacter_id' => $reacter1->getId(),
         ]);
 
@@ -421,7 +421,7 @@ final class ReactionTest extends TestCase
     {
         $reacter1 = factory(Reacter::class)->create();
         $reacter2 = factory(Reacter::class)->create();
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'reacter_id' => $reacter1->getId(),
         ]);
 
@@ -437,7 +437,7 @@ final class ReactionTest extends TestCase
     {
         $reacter1 = factory(Reacter::class)->create();
         $nullReacter = new NullReacter(new User());
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'reacter_id' => $reacter1->getId(),
         ]);
 
@@ -449,7 +449,7 @@ final class ReactionTest extends TestCase
     /** @test */
     public function it_can_change_rate(): void
     {
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'rate' => 1.0,
         ]);
 
@@ -463,7 +463,7 @@ final class ReactionTest extends TestCase
     {
         $this->expectException(RateOutOfRange::class);
 
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'rate' => 1.0,
         ]);
 
@@ -475,7 +475,7 @@ final class ReactionTest extends TestCase
     {
         $this->expectException(RateOutOfRange::class);
 
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'rate' => 1.0,
         ]);
 
@@ -487,7 +487,7 @@ final class ReactionTest extends TestCase
     {
         $this->expectException(RateInvalid::class);
 
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'rate' => 1.0,
         ]);
 

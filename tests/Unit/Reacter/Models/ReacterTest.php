@@ -71,7 +71,7 @@ final class ReacterTest extends TestCase
     {
         $reacter = factory(Reacter::class)->create();
 
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'reacter_id' => $reacter->getId(),
         ]);
 
@@ -84,7 +84,7 @@ final class ReacterTest extends TestCase
     {
         $reacter = factory(Reacter::class)->create();
 
-        $reactions = factory(Reaction::class, 2)->create([
+        $reactions = Reaction::factory()->count(2)->create([
             'reacter_id' => $reacter->getId(),
         ]);
 
@@ -144,7 +144,7 @@ final class ReacterTest extends TestCase
     {
         $reacter = factory(Reacter::class)->create();
 
-        $reactions = factory(Reaction::class, 2)->create([
+        $reactions = Reaction::factory()->count(2)->create([
             'reacter_id' => $reacter->getId(),
         ]);
 
@@ -269,7 +269,7 @@ final class ReacterTest extends TestCase
         $reactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'reaction_type_id' => $reactionType,
             'reactant_id' => $reactant->getId(),
             'reacter_id' => $reacter->getId(),
@@ -313,11 +313,11 @@ final class ReacterTest extends TestCase
         $reactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType,
             'reacter_id' => $reacter->getId(),
         ]);
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType,
             'reactant_id' => $reactant->getId(),
         ]);
@@ -331,7 +331,7 @@ final class ReacterTest extends TestCase
         $reactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reacter_id' => $reacter->getId(),
             'reactant_id' => $reactant->getId(),
@@ -370,11 +370,11 @@ final class ReacterTest extends TestCase
         $reactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reacter_id' => $reacter->getId(),
         ]);
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactant->getId(),
         ]);
@@ -412,7 +412,7 @@ final class ReacterTest extends TestCase
         $reactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reacter_id' => $reacter->getId(),
             'reactant_id' => $reactant->getId(),
@@ -454,12 +454,12 @@ final class ReacterTest extends TestCase
         $otherReactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $otherReactionType->getId(),
             'reacter_id' => $reacter->getId(),
             'reactant_id' => $reactant->getId(),
         ]);
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactant->getId(),
         ]);
@@ -498,7 +498,7 @@ final class ReacterTest extends TestCase
     {
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reacter_id' => $reacter->getId(),
             'reactant_id' => $reactant->getId(),
             'rate' => 2.0,
@@ -536,12 +536,12 @@ final class ReacterTest extends TestCase
     {
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reacter_id' => $reacter->getId(),
             'reactant_id' => $reactant->getId(),
             'rate' => 2.2,
         ]);
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reactant_id' => $reactant->getId(),
             'rate' => 2.0,
         ]);
@@ -579,7 +579,7 @@ final class ReacterTest extends TestCase
         $reactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reacter_id' => $reacter->getId(),
             'reactant_id' => $reactant->getId(),
@@ -622,13 +622,13 @@ final class ReacterTest extends TestCase
         $otherReactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $otherReactionType->getId(),
             'reacter_id' => $reacter->getId(),
             'reactant_id' => $reactant->getId(),
             'rate' => 2.2,
         ]);
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactant->getId(),
             'rate' => 2.0,

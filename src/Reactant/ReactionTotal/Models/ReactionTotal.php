@@ -17,11 +17,14 @@ use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantInterface;
 use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalInterface;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Support\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 final class ReactionTotal extends Model implements
     ReactionTotalInterface
 {
+    use HasFactory;
+
     public const COUNT_DEFAULT = 0;
 
     public const WEIGHT_DEFAULT = 0.0;

@@ -32,11 +32,11 @@ final class ReactionCounterServiceTest extends TestCase
         ]);
         $reactant = factory(Reactant::class)->create();
         $service = new ReactionCounterService($reactant);
-        $reaction1 = factory(Reaction::class)->create([
+        $reaction1 = Reaction::factory()->create([
             'reactant_id' => $reactant->getId(),
             'reaction_type_id' => $reactionType->getId(),
         ]);
-        $reaction2 = factory(Reaction::class)->create([
+        $reaction2 = Reaction::factory()->create([
             'reactant_id' => $reactant->getId(),
             'reaction_type_id' => $reactionType->getId(),
         ]);
@@ -57,18 +57,18 @@ final class ReactionCounterServiceTest extends TestCase
             'mass' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
-        $counter = factory(ReactionCounter::class)->create([
+        $counter = ReactionCounter::factory()->create([
             'reactant_id' => $reactant->getId(),
             'reaction_type_id' => $reactionType->getId(),
             'count' => 4,
             'weight' => 16,
         ]);
         $service = new ReactionCounterService($reactant);
-        $reaction1 = factory(Reaction::class)->create([
+        $reaction1 = Reaction::factory()->create([
             'reactant_id' => $reactant->getId(),
             'reaction_type_id' => $reactionType->getId(),
         ]);
-        $reaction2 = factory(Reaction::class)->create([
+        $reaction2 = Reaction::factory()->create([
             'reactant_id' => $reactant->getId(),
             'reaction_type_id' => $reactionType->getId(),
         ]);
@@ -88,12 +88,12 @@ final class ReactionCounterServiceTest extends TestCase
 
         $reactionType = ReactionType::factory()->create();
         $reactant = factory(Reactant::class)->create();
-        $counter = factory(ReactionCounter::class)->create([
+        $counter = ReactionCounter::factory()->create([
             'reactant_id' => $reactant->getId(),
             'reaction_type_id' => $reactionType->getId(),
         ]);
         $service = new ReactionCounterService($reactant);
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'reactant_id' => $reactant->getId(),
             'reaction_type_id' => $reactionType->getId(),
         ]);
@@ -111,16 +111,16 @@ final class ReactionCounterServiceTest extends TestCase
             'mass' => -4,
         ]);
         $reactant = factory(Reactant::class)->create();
-        $counter = factory(ReactionCounter::class)->create([
+        $counter = ReactionCounter::factory()->create([
             'reactant_id' => $reactant->getId(),
             'reaction_type_id' => $reactionType->getId(),
         ]);
         $service = new ReactionCounterService($reactant);
-        $reaction1 = factory(Reaction::class)->create([
+        $reaction1 = Reaction::factory()->create([
             'reactant_id' => $reactant->getId(),
             'reaction_type_id' => $reactionType->getId(),
         ]);
-        $reaction2 = factory(Reaction::class)->create([
+        $reaction2 = Reaction::factory()->create([
             'reactant_id' => $reactant->getId(),
             'reaction_type_id' => $reactionType->getId(),
         ]);
@@ -142,7 +142,7 @@ final class ReactionCounterServiceTest extends TestCase
         ]);
         $reactant = factory(Reactant::class)->create();
         $initialCounters = $reactant->reactionCounters;
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'reactant_id' => $reactant->getId(),
             'reaction_type_id' => $reactionType->getId(),
         ]);
@@ -167,7 +167,7 @@ final class ReactionCounterServiceTest extends TestCase
         $reactant = factory(Reactant::class)->create();
         $initialCounters = $reactant->reactionCounters;
         $service = new ReactionCounterService($reactant);
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'reactant_id' => $reactant->getId(),
             'reaction_type_id' => $reactionType->getId(),
         ]);

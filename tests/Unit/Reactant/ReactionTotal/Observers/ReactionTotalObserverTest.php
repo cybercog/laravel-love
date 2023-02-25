@@ -21,7 +21,7 @@ final class ReactionTotalObserverTest extends TestCase
     /** @test */
     public function it_sets_default_count_value_when_count_value_is_null(): void
     {
-        $total = factory(ReactionTotal::class)->create([
+        $total = ReactionTotal::factory()->create([
             'count' => null,
         ]);
 
@@ -31,7 +31,7 @@ final class ReactionTotalObserverTest extends TestCase
     /** @test */
     public function it_sets_default_weight_value_when_weight_value_is_null(): void
     {
-        $total = factory(ReactionTotal::class)->create([
+        $total = ReactionTotal::factory()->create([
             'weight' => null,
         ]);
 

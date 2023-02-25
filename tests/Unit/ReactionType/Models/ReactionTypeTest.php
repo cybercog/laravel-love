@@ -78,7 +78,7 @@ final class ReactionTypeTest extends TestCase
     {
         $type = ReactionType::factory()->create();
 
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'reaction_type_id' => $type->getId(),
         ]);
 
@@ -91,7 +91,7 @@ final class ReactionTypeTest extends TestCase
     {
         $type = ReactionType::factory()->create();
 
-        $reactions = factory(Reaction::class, 2)->create([
+        $reactions = Reaction::factory()->count(2)->create([
             'reaction_type_id' => $type->getId(),
         ]);
 

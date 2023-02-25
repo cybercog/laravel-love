@@ -34,22 +34,22 @@ final class ReacterableEloquentBuilderTraitTest extends TestCase
         $reacterable3 = User::factory()->create();
         $reactable1 = Article::factory()->create();
         $reactable2 = Article::factory()->create();
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactable1->getLoveReactant()->getId(),
             'reacter_id' => $reacterable1->getLoveReacter()->getId(),
         ]);
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactable1->getLoveReactant()->getId(),
             'reacter_id' => $reacterable2->getLoveReacter()->getId(),
         ]);
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactable1->getLoveReactant()->getId(),
             'reacter_id' => $reacterable3->getLoveReacter()->getId(),
         ]);
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactable2->getLoveReactant()->getId(),
             'reacter_id' => $reacterable3->getLoveReacter()->getId(),
@@ -83,32 +83,32 @@ final class ReacterableEloquentBuilderTraitTest extends TestCase
         $reacterable3 = User::factory()->create();
         $reactable1 = Article::factory()->create();
         $reactable2 = Article::factory()->create();
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType1->getId(),
             'reactant_id' => $reactable1->getLoveReactant()->getId(),
             'reacter_id' => $reacterable1->getLoveReacter()->getId(),
         ]);
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType2->getId(),
             'reactant_id' => $reactable1->getLoveReactant()->getId(),
             'reacter_id' => $reacterable2->getLoveReacter()->getId(),
         ]);
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType2->getId(),
             'reactant_id' => $reactable2->getLoveReactant()->getId(),
             'reacter_id' => $reacterable1->getLoveReacter()->getId(),
         ]);
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType1->getId(),
             'reactant_id' => $reactable2->getLoveReactant()->getId(),
             'reacter_id' => $reacterable2->getLoveReacter()->getId(),
         ]);
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType1->getId(),
             'reactant_id' => $reactable1->getLoveReactant()->getId(),
             'reacter_id' => $reacterable3->getLoveReacter()->getId(),
         ]);
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType1->getId(),
             'reactant_id' => $reactable2->getLoveReactant()->getId(),
             'reacter_id' => $reacterable3->getLoveReacter()->getId(),
@@ -153,22 +153,22 @@ final class ReacterableEloquentBuilderTraitTest extends TestCase
         $reacterable3 = User::factory()->create();
         $reactable1 = Article::factory()->create();
         $reactable2 = Article::factory()->create();
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactable1->getLoveReactant()->getId(),
             'reacter_id' => $reacterable1->getLoveReacter()->getId(),
         ]);
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactable2->getLoveReactant()->getId(),
             'reacter_id' => $reacterable2->getLoveReacter()->getId(),
         ]);
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactable1->getLoveReactant()->getId(),
             'reacter_id' => $reacterable3->getLoveReacter()->getId(),
         ]);
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactable2->getLoveReactant()->getId(),
             'reacter_id' => $reacterable3->getLoveReacter()->getId(),
@@ -200,32 +200,32 @@ final class ReacterableEloquentBuilderTraitTest extends TestCase
         $reacterable3 = User::factory()->create();
         $reactable1 = Article::factory()->create();
         $reactable2 = Article::factory()->create();
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType1->getId(),
             'reactant_id' => $reactable1->getLoveReactant()->getId(),
             'reacter_id' => $reacterable1->getLoveReacter()->getId(),
         ]);
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType2->getId(),
             'reactant_id' => $reactable1->getLoveReactant()->getId(),
             'reacter_id' => $reacterable2->getLoveReacter()->getId(),
         ]);
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType2->getId(),
             'reactant_id' => $reactable2->getLoveReactant()->getId(),
             'reacter_id' => $reacterable1->getLoveReacter()->getId(),
         ]);
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType1->getId(),
             'reactant_id' => $reactable2->getLoveReactant()->getId(),
             'reacter_id' => $reacterable2->getLoveReacter()->getId(),
         ]);
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType1->getId(),
             'reactant_id' => $reactable1->getLoveReactant()->getId(),
             'reacter_id' => $reacterable3->getLoveReacter()->getId(),
         ]);
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType1->getId(),
             'reactant_id' => $reactable2->getLoveReactant()->getId(),
             'reacter_id' => $reacterable3->getLoveReacter()->getId(),
@@ -274,25 +274,25 @@ final class ReacterableEloquentBuilderTraitTest extends TestCase
         $reactedAt2 = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2022-03-28 00:00:00');
         $reactedAt3 = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2022-03-28 23:59:59');
         $reactedAt4 = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2022-03-29 00:00:00');
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactable1->getLoveReactant()->getId(),
             'reacter_id' => $reacterable1->getLoveReacter()->getId(),
             'created_at' => $reactedAt1,
         ]);
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactable1->getLoveReactant()->getId(),
             'reacter_id' => $reacterable2->getLoveReacter()->getId(),
             'created_at' => $reactedAt2,
         ]);
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactable1->getLoveReactant()->getId(),
             'reacter_id' => $reacterable3->getLoveReacter()->getId(),
             'created_at' => $reactedAt3,
         ]);
-        factory(Reaction::class)->create([
+        Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactable1->getLoveReactant()->getId(),
             'reacter_id' => $reacterable4->getLoveReacter()->getId(),

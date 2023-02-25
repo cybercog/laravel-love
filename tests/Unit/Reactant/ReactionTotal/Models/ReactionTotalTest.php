@@ -67,7 +67,7 @@ final class ReactionTotalTest extends TestCase
     {
         $reactant = factory(Reactant::class)->create();
 
-        $total = factory(ReactionTotal::class)->create([
+        $total = ReactionTotal::factory()->create([
             'reactant_id' => $reactant->getId(),
         ]);
 
@@ -79,7 +79,7 @@ final class ReactionTotalTest extends TestCase
     {
         $reactant = factory(Reactant::class)->create();
 
-        $total = factory(ReactionTotal::class)->create([
+        $total = ReactionTotal::factory()->create([
             'reactant_id' => $reactant->getId(),
         ]);
 
@@ -135,7 +135,7 @@ final class ReactionTotalTest extends TestCase
     /** @test */
     public function it_can_increment_count(): void
     {
-        $total = factory(ReactionTotal::class)->create([
+        $total = ReactionTotal::factory()->create([
             'count' => 0,
         ]);
 
@@ -147,7 +147,7 @@ final class ReactionTotalTest extends TestCase
     /** @test */
     public function it_can_increment_count_many_times(): void
     {
-        $total = factory(ReactionTotal::class)->create([
+        $total = ReactionTotal::factory()->create([
             'count' => 0,
         ]);
 
@@ -160,7 +160,7 @@ final class ReactionTotalTest extends TestCase
     /** @test */
     public function it_can_decrement_count(): void
     {
-        $total = factory(ReactionTotal::class)->create([
+        $total = ReactionTotal::factory()->create([
             'count' => 10,
         ]);
 
@@ -172,7 +172,7 @@ final class ReactionTotalTest extends TestCase
     /** @test */
     public function it_can_decrement_count_many_times(): void
     {
-        $total = factory(ReactionTotal::class)->create([
+        $total = ReactionTotal::factory()->create([
             'count' => 10,
         ]);
 
@@ -185,7 +185,7 @@ final class ReactionTotalTest extends TestCase
     /** @test */
     public function it_can_increment_weight(): void
     {
-        $total = factory(ReactionTotal::class)->create([
+        $total = ReactionTotal::factory()->create([
             'weight' => 0,
         ]);
 
@@ -197,7 +197,7 @@ final class ReactionTotalTest extends TestCase
     /** @test */
     public function it_can_increment_weight_many_times(): void
     {
-        $total = factory(ReactionTotal::class)->create([
+        $total = ReactionTotal::factory()->create([
             'weight' => 0,
         ]);
 
@@ -210,7 +210,7 @@ final class ReactionTotalTest extends TestCase
     /** @test */
     public function it_can_decrement_weight(): void
     {
-        $total = factory(ReactionTotal::class)->create([
+        $total = ReactionTotal::factory()->create([
             'weight' => 10,
         ]);
 
@@ -222,7 +222,7 @@ final class ReactionTotalTest extends TestCase
     /** @test */
     public function it_can_decrement_weight_many_times(): void
     {
-        $total = factory(ReactionTotal::class)->create([
+        $total = ReactionTotal::factory()->create([
             'weight' => 10,
         ]);
 
