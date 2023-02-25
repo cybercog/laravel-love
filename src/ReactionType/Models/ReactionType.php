@@ -17,11 +17,14 @@ use Cog\Contracts\Love\ReactionType\Exceptions\ReactionTypeInvalid;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeInterface;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\Support\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class ReactionType extends Model implements
     ReactionTypeInterface
 {
+    use HasFactory;
+
     public const MASS_DEFAULT = 0;
 
     protected $table = 'love_reaction_types';

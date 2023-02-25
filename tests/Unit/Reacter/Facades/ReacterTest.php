@@ -49,8 +49,8 @@ final class ReacterTest extends TestCase
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(Article::class)->create();
-        $reactionType = factory(ReactionType::class)->create();
+        $reactable = Article::factory()->create();
+        $reactionType = ReactionType::factory()->create();
 
         $reacterFacade->reactTo($reactable, $reactionType->getName());
 
@@ -65,8 +65,8 @@ final class ReacterTest extends TestCase
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(User::class)->create();
-        $reactionType = factory(ReactionType::class)->create();
+        $reactable = User::factory()->create();
+        $reactionType = ReactionType::factory()->create();
 
         $reacterFacade->reactTo($reactable, $reactionType->getName());
 
@@ -80,8 +80,8 @@ final class ReacterTest extends TestCase
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(User::class)->create();
-        $reactionType = factory(ReactionType::class)->create();
+        $reactable = User::factory()->create();
+        $reactionType = ReactionType::factory()->create();
 
         $reacterFacade->reactTo($reactable, $reactionType->getName(), 2.0);
 
@@ -95,8 +95,8 @@ final class ReacterTest extends TestCase
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(User::class)->create();
-        $reactionType = factory(ReactionType::class)->create();
+        $reactable = User::factory()->create();
+        $reactionType = ReactionType::factory()->create();
 
         $reacterFacade->reactTo($reactable, $reactionType->getName());
         $reacterFacade->reactTo($reactable, $reactionType->getName(), 2.0);
@@ -113,8 +113,8 @@ final class ReacterTest extends TestCase
 
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(User::class)->create();
-        $reactionType = factory(ReactionType::class)->create();
+        $reactable = User::factory()->create();
+        $reactionType = ReactionType::factory()->create();
 
         $reacterFacade->reactTo($reactable, $reactionType->getName(), 2.0);
         $reacterFacade->reactTo($reactable, $reactionType->getName(), 2.0);
@@ -127,7 +127,7 @@ final class ReacterTest extends TestCase
 
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(User::class)->create();
+        $reactable = User::factory()->create();
 
         $reacterFacade->reactTo($reactable, 'NotExist');
     }
@@ -139,8 +139,8 @@ final class ReacterTest extends TestCase
 
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(ArticleWithoutAutoReactantCreate::class)->create();
-        $reactionType = factory(ReactionType::class)->create();
+        $reactable = ArticleWithoutAutoReactantCreate::factory()->create();
+        $reactionType = ReactionType::factory()->create();
 
         $reacterFacade->reactTo($reactable, $reactionType->getName());
     }
@@ -153,7 +153,7 @@ final class ReacterTest extends TestCase
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = new Article();
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
 
         $reacterFacade->reactTo($reactable, $reactionType->getName());
     }
@@ -165,8 +165,8 @@ final class ReacterTest extends TestCase
 
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(Article::class)->create();
-        $reactionType = factory(ReactionType::class)->create();
+        $reactable = Article::factory()->create();
+        $reactionType = ReactionType::factory()->create();
 
         $reacterFacade->reactTo($reactable, $reactionType->getName());
         $reacterFacade->reactTo($reactable, $reactionType->getName());
@@ -177,8 +177,8 @@ final class ReacterTest extends TestCase
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(Article::class)->create();
-        $reactionType = factory(ReactionType::class)->create();
+        $reactable = Article::factory()->create();
+        $reactionType = ReactionType::factory()->create();
         $reactant = $reactable->getLoveReactant();
         $reaction = factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType,
@@ -199,7 +199,7 @@ final class ReacterTest extends TestCase
 
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(Article::class)->create();
+        $reactable = Article::factory()->create();
 
         $reacterFacade->unreactTo($reactable, 'NotExist');
     }
@@ -211,8 +211,8 @@ final class ReacterTest extends TestCase
 
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(ArticleWithoutAutoReactantCreate::class)->create();
-        $reactionType = factory(ReactionType::class)->create();
+        $reactable = ArticleWithoutAutoReactantCreate::factory()->create();
+        $reactionType = ReactionType::factory()->create();
 
         $reacterFacade->unreactTo($reactable, $reactionType->getName());
     }
@@ -225,7 +225,7 @@ final class ReacterTest extends TestCase
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = new Article();
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
 
         $reacterFacade->unreactTo($reactable, $reactionType->getName());
     }
@@ -237,9 +237,9 @@ final class ReacterTest extends TestCase
 
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(Article::class)->create();
+        $reactable = Article::factory()->create();
         $reactant = $reactable->getLoveReactant();
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType,
             'reacter_id' => $reacter->getId(),
@@ -257,9 +257,9 @@ final class ReacterTest extends TestCase
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(Article::class)->create();
+        $reactable = Article::factory()->create();
         $reactant = $reactable->getLoveReactant();
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType->getId(),
             'reacter_id' => $reacter->getId(),
@@ -276,7 +276,7 @@ final class ReacterTest extends TestCase
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(ArticleWithoutAutoReactantCreate::class)->create();
+        $reactable = ArticleWithoutAutoReactantCreate::factory()->create();
 
         $isReacted = $reacterFacade->hasReactedTo($reactable);
 
@@ -300,9 +300,9 @@ final class ReacterTest extends TestCase
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(Article::class)->create();
+        $reactable = Article::factory()->create();
         $reactant = $reactable->getLoveReactant();
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType->getId(),
             'reacter_id' => $reacter->getId(),
@@ -322,7 +322,7 @@ final class ReacterTest extends TestCase
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(ArticleWithoutAutoReactantCreate::class)->create();
+        $reactable = ArticleWithoutAutoReactantCreate::factory()->create();
 
         $isNotReacted = $reacterFacade->hasNotReactedTo($reactable);
 
@@ -346,9 +346,9 @@ final class ReacterTest extends TestCase
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(Article::class)->create();
+        $reactable = Article::factory()->create();
         $reactant = $reactable->getLoveReactant();
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType->getId(),
             'reacter_id' => $reacter->getId(),
@@ -365,8 +365,8 @@ final class ReacterTest extends TestCase
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(ArticleWithoutAutoReactantCreate::class)->create();
-        $reactionType = factory(ReactionType::class)->create();
+        $reactable = ArticleWithoutAutoReactantCreate::factory()->create();
+        $reactionType = ReactionType::factory()->create();
 
         $isReacted = $reacterFacade->hasReactedTo($reactable, $reactionType->getName());
 
@@ -379,7 +379,7 @@ final class ReacterTest extends TestCase
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = new Article();
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
 
         $isReacted = $reacterFacade->hasReactedTo($reactable, $reactionType->getName());
 
@@ -393,7 +393,7 @@ final class ReacterTest extends TestCase
 
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(Article::class)->create();
+        $reactable = Article::factory()->create();
 
         $reacterFacade->hasReactedTo($reactable, 'NotExist');
     }
@@ -403,10 +403,10 @@ final class ReacterTest extends TestCase
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(Article::class)->create();
+        $reactable = Article::factory()->create();
         $reactant = $reactable->getLoveReactant();
-        $reactionType = factory(ReactionType::class)->create();
-        $otherReactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
+        $otherReactionType = ReactionType::factory()->create();
         factory(Reaction::class)->create([
             'reaction_type_id' => $otherReactionType->getId(),
             'reacter_id' => $reacter->getId(),
@@ -427,8 +427,8 @@ final class ReacterTest extends TestCase
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(ArticleWithoutAutoReactantCreate::class)->create();
-        $reactionType = factory(ReactionType::class)->create();
+        $reactable = ArticleWithoutAutoReactantCreate::factory()->create();
+        $reactionType = ReactionType::factory()->create();
 
         $isNotReacted = $reacterFacade->hasNotReactedTo($reactable, $reactionType->getName());
 
@@ -441,7 +441,7 @@ final class ReacterTest extends TestCase
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = new Article();
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
 
         $isNotReacted = $reacterFacade->hasNotReactedTo($reactable, $reactionType->getName());
 
@@ -455,7 +455,7 @@ final class ReacterTest extends TestCase
 
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(Article::class)->create();
+        $reactable = Article::factory()->create();
 
         $reacterFacade->hasNotReactedTo($reactable, 'NotExist');
     }
@@ -465,7 +465,7 @@ final class ReacterTest extends TestCase
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(Article::class)->create();
+        $reactable = Article::factory()->create();
         $reactant = $reactable->getLoveReactant();
         factory(Reaction::class)->create([
             'reacter_id' => $reacter->getId(),
@@ -483,7 +483,7 @@ final class ReacterTest extends TestCase
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(ArticleWithoutAutoReactantCreate::class)->create();
+        $reactable = ArticleWithoutAutoReactantCreate::factory()->create();
 
         $isReacted = $reacterFacade->hasReactedTo($reactable, null, 2.0);
 
@@ -507,7 +507,7 @@ final class ReacterTest extends TestCase
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(Article::class)->create();
+        $reactable = Article::factory()->create();
         $reactant = $reactable->getLoveReactant();
         factory(Reaction::class)->create([
             'reacter_id' => $reacter->getId(),
@@ -529,7 +529,7 @@ final class ReacterTest extends TestCase
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(ArticleWithoutAutoReactantCreate::class)->create();
+        $reactable = ArticleWithoutAutoReactantCreate::factory()->create();
 
         $isNotReacted = $reacterFacade->hasNotReactedTo($reactable, null, 2.0);
 
@@ -553,9 +553,9 @@ final class ReacterTest extends TestCase
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(Article::class)->create();
+        $reactable = Article::factory()->create();
         $reactant = $reactable->getLoveReactant();
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType->getId(),
             'reacter_id' => $reacter->getId(),
@@ -573,8 +573,8 @@ final class ReacterTest extends TestCase
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(ArticleWithoutAutoReactantCreate::class)->create();
-        $reactionType = factory(ReactionType::class)->create();
+        $reactable = ArticleWithoutAutoReactantCreate::factory()->create();
+        $reactionType = ReactionType::factory()->create();
 
         $isReacted = $reacterFacade->hasReactedTo($reactable, $reactionType->getName(), 2.0);
 
@@ -587,7 +587,7 @@ final class ReacterTest extends TestCase
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = new Article();
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
 
         $isReacted = $reacterFacade->hasReactedTo($reactable, $reactionType->getName(), 2.0);
 
@@ -601,7 +601,7 @@ final class ReacterTest extends TestCase
 
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(Article::class)->create();
+        $reactable = Article::factory()->create();
 
         $reacterFacade->hasReactedTo($reactable, 'NotExist', 2.0);
     }
@@ -611,10 +611,10 @@ final class ReacterTest extends TestCase
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(Article::class)->create();
+        $reactable = Article::factory()->create();
         $reactant = $reactable->getLoveReactant();
-        $reactionType = factory(ReactionType::class)->create();
-        $otherReactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
+        $otherReactionType = ReactionType::factory()->create();
         factory(Reaction::class)->create([
             'reaction_type_id' => $otherReactionType->getId(),
             'reacter_id' => $reacter->getId(),
@@ -637,8 +637,8 @@ final class ReacterTest extends TestCase
     {
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(ArticleWithoutAutoReactantCreate::class)->create();
-        $reactionType = factory(ReactionType::class)->create();
+        $reactable = ArticleWithoutAutoReactantCreate::factory()->create();
+        $reactionType = ReactionType::factory()->create();
 
         $isNotReacted = $reacterFacade->hasNotReactedTo($reactable, $reactionType->getName(), 2.0);
 
@@ -651,7 +651,7 @@ final class ReacterTest extends TestCase
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = new Article();
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
 
         $isNotReacted = $reacterFacade->hasNotReactedTo($reactable, $reactionType->getName(), 2.0);
 
@@ -665,7 +665,7 @@ final class ReacterTest extends TestCase
 
         $reacter = factory(Reacter::class)->create();
         $reacterFacade = new ReacterFacade($reacter);
-        $reactable = factory(Article::class)->create();
+        $reactable = Article::factory()->create();
 
         $reacterFacade->hasNotReactedTo($reactable, 'NotExist', 2.0);
     }

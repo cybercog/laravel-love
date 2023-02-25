@@ -27,8 +27,8 @@ final class RegisterReactersTest extends TestCase
     {
         Bot::unsetEventDispatcher();
         User::unsetEventDispatcher();
-        $botReactables = factory(Bot::class, 3)->create();
-        $userReactables = factory(User::class, 3)->create();
+        $botReactables = Bot::factory()->count(3)->create();
+        $userReactables = User::factory()->count(3)->create();
         $reactersCount = Reacter::query()->count();
         $command = $this->artisan(RegisterReacters::class, [
             '--model' => Bot::class,
@@ -51,8 +51,8 @@ final class RegisterReactersTest extends TestCase
     {
         MorphMappedReacterable::unsetEventDispatcher();
         User::unsetEventDispatcher();
-        $morphMappedReactables = factory(MorphMappedReacterable::class, 3)->create();
-        $userReactables = factory(User::class, 3)->create();
+        $morphMappedReactables = MorphMappedReacterable::factory()->count(3)->create();
+        $userReactables = User::factory()->count(3)->create();
         $reactersCount = Reacter::query()->count();
         $command = $this->artisan(RegisterReacters::class, [
             '--model' => 'morph-mapped-reacterable',
@@ -75,10 +75,10 @@ final class RegisterReactersTest extends TestCase
     {
         Bot::unsetEventDispatcher();
         User::unsetEventDispatcher();
-        $botReactables = factory(Bot::class, 3)->create();
+        $botReactables = Bot::factory()->count(3)->create();
         $firstBotReactable = $botReactables->get(0);
         $lastBotReactable = $botReactables->get(2);
-        $userReactables = factory(User::class, 3)->create();
+        $userReactables = User::factory()->count(3)->create();
         $reactersCount = Reacter::query()->count();
         $command = $this->artisan(RegisterReacters::class, [
             '--model' => Bot::class,
@@ -105,10 +105,10 @@ final class RegisterReactersTest extends TestCase
     {
         Bot::unsetEventDispatcher();
         User::unsetEventDispatcher();
-        $botReactables = factory(Bot::class, 3)->create();
+        $botReactables = Bot::factory()->count(3)->create();
         $firstBotReactable = $botReactables->get(0);
         $lastBotReactable = $botReactables->get(2);
-        $userReactables = factory(User::class, 3)->create();
+        $userReactables = User::factory()->count(3)->create();
         $reactersCount = Reacter::query()->count();
         $command = $this->artisan(RegisterReacters::class, [
             '--model' => Bot::class,
@@ -130,8 +130,8 @@ final class RegisterReactersTest extends TestCase
     /** @test */
     public function it_not_create_duplicate_reacters(): void
     {
-        factory(Bot::class, 3)->create();
-        factory(User::class, 3)->create();
+        Bot::factory()->count(3)->create();
+        User::factory()->count(3)->create();
         $reactersCount = Reacter::query()->count();
         $command = $this->artisan(RegisterReacters::class, [
             '--model' => Bot::class,

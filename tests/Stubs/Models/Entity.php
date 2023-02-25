@@ -15,11 +15,13 @@ namespace Cog\Tests\Laravel\Love\Stubs\Models;
 
 use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableInterface;
 use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 final class Entity extends Model implements
     ReactableInterface
 {
+    use HasFactory;
     use Reactable;
 
     /**

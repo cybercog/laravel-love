@@ -15,11 +15,13 @@ namespace Cog\Tests\Laravel\Love\Stubs\Models;
 
 use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableInterface;
 use Cog\Laravel\Love\Reacterable\Models\Traits\Reacterable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 final class Bot extends Model implements
     ReacterableInterface
 {
+    use HasFactory;
     use Reacterable;
 
     /**

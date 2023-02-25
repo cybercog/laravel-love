@@ -31,7 +31,7 @@ final class ReacterableTest extends TestCase
             'type' => (new User())->getMorphClass(),
         ]);
 
-        $reacterable = factory(User::class)->create([
+        $reacterable = User::factory()->create([
             'love_reacter_id' => $reacter->getId(),
         ]);
 
@@ -45,7 +45,7 @@ final class ReacterableTest extends TestCase
             'type' => (new User())->getMorphClass(),
         ]);
 
-        $reacterable = factory(User::class)->create([
+        $reacterable = User::factory()->create([
             'love_reacter_id' => $reacter->getId(),
         ]);
 
@@ -68,7 +68,7 @@ final class ReacterableTest extends TestCase
         $reacter = factory(Reacter::class)->create([
             'type' => (new User())->getMorphClass(),
         ]);
-        $reacterable = factory(User::class)->create([
+        $reacterable = User::factory()->create([
             'love_reacter_id' => $reacter->getId(),
         ]);
 
@@ -123,7 +123,7 @@ final class ReacterableTest extends TestCase
             'type' => (new User())->getMorphClass(),
         ]);
         $notRegisteredReacterable = new User();
-        $registeredReacterable = factory(User::class)->create([
+        $registeredReacterable = User::factory()->create([
             'love_reacter_id' => $reacter->getId(),
         ]);
 
@@ -138,7 +138,7 @@ final class ReacterableTest extends TestCase
             'type' => (new User())->getMorphClass(),
         ]);
         $notRegisteredReacterable = new User();
-        $registeredReacterable = factory(User::class)->create([
+        $registeredReacterable = User::factory()->create([
             'love_reacter_id' => $reacter->getId(),
         ]);
 
@@ -150,7 +150,7 @@ final class ReacterableTest extends TestCase
     public function it_can_register_as_love_reacter(): void
     {
         Event::fake();
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $user->registerAsLoveReacter();
 
@@ -162,7 +162,7 @@ final class ReacterableTest extends TestCase
     {
         $this->expectException(AlreadyRegisteredAsLoveReacter::class);
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $user->registerAsLoveReacter();
     }

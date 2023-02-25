@@ -25,7 +25,7 @@ final class NullReactionCounterTest extends TestCase
     /** @test */
     public function it_can_get_count(): void
     {
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $counter = new NullReactionCounter(new NullReactant(new Article()), $reactionType);
 
         $counterCount = $counter->getCount();
@@ -36,7 +36,7 @@ final class NullReactionCounterTest extends TestCase
     /** @test */
     public function it_can_get_weight(): void
     {
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $counter = new NullReactionCounter(new NullReactant(new Article()), $reactionType);
 
         $counterWeight = $counter->getWeight();
@@ -48,7 +48,7 @@ final class NullReactionCounterTest extends TestCase
     public function it_can_get_reactant(): void
     {
         $reactant = new NullReactant(new Article());
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $counter = new NullReactionCounter($reactant, $reactionType);
 
         $assertReactant = $counter->getReactant();
@@ -60,7 +60,7 @@ final class NullReactionCounterTest extends TestCase
     public function it_can_get_reaction_type(): void
     {
         $reactant = new NullReactant(new Article());
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $counter = new NullReactionCounter($reactant, $reactionType);
 
         $assertReactionType = $counter->getReactionType();
@@ -72,8 +72,8 @@ final class NullReactionCounterTest extends TestCase
     public function it_can_check_is_reaction_of_type(): void
     {
         $reactant = new NullReactant(new Article());
-        $reactionType = factory(ReactionType::class)->create();
-        $anotherReactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
+        $anotherReactionType = ReactionType::factory()->create();
         $counter = new NullReactionCounter($reactant, $reactionType);
 
         $true = $counter->isReactionOfType($reactionType);
@@ -87,8 +87,8 @@ final class NullReactionCounterTest extends TestCase
     public function it_can_check_is_not_reaction_of_type(): void
     {
         $reactant = new NullReactant(new Article());
-        $reactionType = factory(ReactionType::class)->create();
-        $anotherReactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
+        $anotherReactionType = ReactionType::factory()->create();
         $counter = new NullReactionCounter($reactant, $reactionType);
 
         $true = $counter->isNotReactionOfType($anotherReactionType);
@@ -103,7 +103,7 @@ final class NullReactionCounterTest extends TestCase
     {
         $this->expectException(ReactionCounterInvalid::class);
 
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $counter = new NullReactionCounter(new NullReactant(new Article()), $reactionType);
 
         $counter->incrementCount(2);
@@ -114,7 +114,7 @@ final class NullReactionCounterTest extends TestCase
     {
         $this->expectException(ReactionCounterInvalid::class);
 
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $counter = new NullReactionCounter(new NullReactant(new Article()), $reactionType);
 
         $counter->decrementCount(2);
@@ -125,7 +125,7 @@ final class NullReactionCounterTest extends TestCase
     {
         $this->expectException(ReactionCounterInvalid::class);
 
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $counter = new NullReactionCounter(new NullReactant(new Article()), $reactionType);
 
         $counter->incrementWeight(2);
@@ -136,7 +136,7 @@ final class NullReactionCounterTest extends TestCase
     {
         $this->expectException(ReactionCounterInvalid::class);
 
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $counter = new NullReactionCounter(new NullReactant(new Article()), $reactionType);
 
         $counter->decrementWeight(2);

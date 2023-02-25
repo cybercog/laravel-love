@@ -65,7 +65,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Cog\\Tests\\Laravel\\Love\\": "tests/"
+            "Cog\\Tests\\Laravel\\Love\\": "tests/",
+            "Cog\\Tests\\Laravel\\Love\\Database\\Factories\\": "tests/database/factories/"
         }
     },
     "scripts": {

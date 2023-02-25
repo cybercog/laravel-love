@@ -23,7 +23,7 @@ $factory->define(Reactant::class, function (Faker $faker) {
 });
 
 $factory->afterCreatingState(Reactant::class, 'withReactable', function (Reactant $reactant, Faker $faker) {
-    factory(Article::class)->create([
+    Article::factory()->create([
         'love_reactant_id' => $reactant->getId(),
     ]);
 });

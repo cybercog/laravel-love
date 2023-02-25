@@ -49,10 +49,10 @@ final class ReactionTypeAddTest extends TestCase
     /** @test */
     public function it_not_creates_default_like_and_dislike_types_when_already_exists(): void
     {
-        factory(ReactionType::class)->create([
+        ReactionType::factory()->create([
             'name' => 'Like',
         ]);
-        factory(ReactionType::class)->create([
+        ReactionType::factory()->create([
             'name' => 'Dislike',
         ]);
         $typesCount = ReactionType::query()->count();
@@ -67,7 +67,7 @@ final class ReactionTypeAddTest extends TestCase
     /** @test */
     public function it_creates_only_missing_default_types_when_one_already_exists(): void
     {
-        factory(ReactionType::class)->create([
+        ReactionType::factory()->create([
             'name' => 'Like',
         ]);
         $typesCount = ReactionType::query()->count();
@@ -113,7 +113,7 @@ final class ReactionTypeAddTest extends TestCase
     /** @test */
     public function it_cannot_create_type_when_name_exists(): void
     {
-        factory(ReactionType::class)->create([
+        ReactionType::factory()->create([
             'name' => 'TestName',
         ]);
         $typesCount = ReactionType::query()->count();
@@ -128,7 +128,7 @@ final class ReactionTypeAddTest extends TestCase
     /** @test */
     public function it_cannot_create_type_when_name_exists_in_other_text_case(): void
     {
-        factory(ReactionType::class)->create([
+        ReactionType::factory()->create([
             'name' => 'TestName',
         ]);
         $typesCount = ReactionType::query()->count();

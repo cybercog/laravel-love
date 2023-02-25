@@ -59,7 +59,7 @@ final class ReacterTest extends TestCase
             'type' => (new User())->getMorphClass(),
         ]);
 
-        $reacterable = factory(User::class)->create([
+        $reacterable = User::factory()->create([
             'love_reacter_id' => $reacter->getId(),
         ]);
 
@@ -120,7 +120,7 @@ final class ReacterTest extends TestCase
             'type' => (new User())->getMorphClass(),
         ]);
 
-        $reacterable = factory(User::class)->create([
+        $reacterable = User::factory()->create([
             'love_reacter_id' => $reacter->getId(),
         ]);
 
@@ -156,9 +156,9 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_react_to_reactant_without_rate(): void
     {
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
-        $reactable = factory(Article::class)->create();
+        $reactable = Article::factory()->create();
         $reactant = $reactable->loveReactant;
 
         $reacter->reactTo($reactant, $reactionType);
@@ -172,9 +172,9 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_react_to_reactant_which_reacter_too(): void
     {
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
-        $reactable = factory(User::class)->create();
+        $reactable = User::factory()->create();
         $reactant = $reactable->loveReactant;
 
         $reacter->reactTo($reactant, $reactionType);
@@ -187,7 +187,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_react_to_reactable_with_rate(): void
     {
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
 
@@ -201,7 +201,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_change_reaction_rate_with_react_to_when_reaction_already_exists(): void
     {
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
 
@@ -218,7 +218,7 @@ final class ReacterTest extends TestCase
     {
         $this->expectException(RateInvalid::class);
 
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
 
@@ -231,7 +231,7 @@ final class ReacterTest extends TestCase
     {
         $this->expectException(ReactantInvalid::class);
 
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = new NullReactant(new Article());
 
@@ -243,7 +243,7 @@ final class ReacterTest extends TestCase
     {
         $this->expectException(ReactantInvalid::class);
 
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = Reactant::query()->make();
 
@@ -255,7 +255,7 @@ final class ReacterTest extends TestCase
     {
         $this->expectException(ReactionAlreadyExists::class);
 
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
 
@@ -266,7 +266,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_unreact_to_reactant(): void
     {
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
         $reaction = factory(Reaction::class)->create([
@@ -286,7 +286,7 @@ final class ReacterTest extends TestCase
     {
         $this->expectException(ReactantInvalid::class);
 
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = new NullReactant(new Article());
 
@@ -298,7 +298,7 @@ final class ReacterTest extends TestCase
     {
         $this->expectException(ReactantInvalid::class);
 
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = Reactant::query()->make();
 
@@ -310,7 +310,7 @@ final class ReacterTest extends TestCase
     {
         $this->expectException(ReactionNotExists::class);
 
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
         factory(Reaction::class)->create([
@@ -328,7 +328,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_reacted_to_reactant(): void
     {
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
         factory(Reaction::class)->create([
@@ -367,7 +367,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_not_reacted_to_reactant(): void
     {
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
         factory(Reaction::class)->create([
@@ -409,7 +409,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_reacted_to_reactant_with_type(): void
     {
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
         factory(Reaction::class)->create([
@@ -426,7 +426,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_reacted_to_reactant_with_type_when_reactant_is_null_object(): void
     {
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = new NullReactant(new Article());
 
@@ -438,7 +438,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_reacted_to_reactant_with_type_when_reactant_is_not_persisted(): void
     {
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = Reactant::query()->make();
 
@@ -450,8 +450,8 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_not_reacted_to_reactant_with_type(): void
     {
-        $reactionType = factory(ReactionType::class)->create();
-        $otherReactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
+        $otherReactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
         factory(Reaction::class)->create([
@@ -472,7 +472,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_not_reacted_to_reactant_with_type_when_reactant_is_null_object(): void
     {
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = new NullReactant(new Article());
 
@@ -484,7 +484,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_not_reacted_to_reactant_with_type_when_reactant_is_not_persisted(): void
     {
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = Reactant::query()->make();
 
@@ -576,7 +576,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_reacted_to_reactant_with_type_and_rate(): void
     {
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
         factory(Reaction::class)->create([
@@ -594,7 +594,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_reacted_to_reactant_with_type_and_rate_when_reactant_is_null_object(): void
     {
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = new NullReactant(new Article());
 
@@ -606,7 +606,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_reacted_to_reactant_with_type_and_rate_when_reactant_is_not_persisted(): void
     {
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = Reactant::query()->make();
 
@@ -618,8 +618,8 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_not_reacted_to_reactant_with_type_and_rate(): void
     {
-        $reactionType = factory(ReactionType::class)->create();
-        $otherReactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
+        $otherReactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = factory(Reactant::class)->create();
         factory(Reaction::class)->create([
@@ -642,7 +642,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_not_reacted_to_reactant_with_type_and_rate_when_reactant_is_null_object(): void
     {
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = new NullReactant(new Article());
 
@@ -654,7 +654,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_not_reacted_to_reactant_with_type_and_rate_when_reactant_is_not_persisted(): void
     {
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reacter = factory(Reacter::class)->create();
         $reactant = Reactant::query()->make();
 

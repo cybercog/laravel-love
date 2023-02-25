@@ -30,7 +30,7 @@ final class ReactableTest extends TestCase
             'type' => (new Article())->getMorphClass(),
         ]);
 
-        $reactable = factory(Article::class)->create([
+        $reactable = Article::factory()->create([
             'love_reactant_id' => $reactant->getId(),
         ]);
 
@@ -44,7 +44,7 @@ final class ReactableTest extends TestCase
             'type' => (new Article())->getMorphClass(),
         ]);
 
-        $reactable = factory(Article::class)->create([
+        $reactable = Article::factory()->create([
             'love_reactant_id' => $reactant->getId(),
         ]);
 
@@ -67,7 +67,7 @@ final class ReactableTest extends TestCase
         $reactant = factory(Reactant::class)->create([
             'type' => (new Article())->getMorphClass(),
         ]);
-        $reactable = factory(Article::class)->create([
+        $reactable = Article::factory()->create([
             'love_reactant_id' => $reactant->getId(),
         ]);
 
@@ -122,7 +122,7 @@ final class ReactableTest extends TestCase
             'type' => (new Article())->getMorphClass(),
         ]);
         $notRegisteredReactable = new Article();
-        $registeredReactable = factory(Article::class)->create([
+        $registeredReactable = Article::factory()->create([
             'love_reactant_id' => $reactant->getId(),
         ]);
 
@@ -137,7 +137,7 @@ final class ReactableTest extends TestCase
             'type' => (new Article())->getMorphClass(),
         ]);
         $notRegisteredReactable = new Article();
-        $registeredReactable = factory(Article::class)->create([
+        $registeredReactable = Article::factory()->create([
             'love_reactant_id' => $reactant->getId(),
         ]);
 
@@ -149,7 +149,7 @@ final class ReactableTest extends TestCase
     public function it_can_register_as_love_reactant(): void
     {
         Event::fake();
-        $article = factory(Article::class)->create();
+        $article = Article::factory()->create();
 
         $article->registerAsLoveReactant();
 
@@ -161,7 +161,7 @@ final class ReactableTest extends TestCase
     {
         $this->expectException(AlreadyRegisteredAsLoveReactant::class);
 
-        $article = factory(Article::class)->create();
+        $article = Article::factory()->create();
 
         $article->registerAsLoveReactant();
     }

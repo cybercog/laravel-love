@@ -94,7 +94,7 @@ final class NullReactantTest extends TestCase
     public function it_can_get_reaction_counter_of_type_null_object_when_reaction_counter_not_exist(): void
     {
         $reactant = new NullReactant(new Article());
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
 
         $counter = $reactant->getReactionCounterOfType($reactionType);
 
@@ -105,7 +105,7 @@ final class NullReactantTest extends TestCase
     public function it_can_get_reaction_counter_of_type_null_object_with_same_reactant(): void
     {
         $reactant = new NullReactant(new Article());
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
 
         $counter = $reactant->getReactionCounterOfType($reactionType);
 
@@ -117,7 +117,7 @@ final class NullReactantTest extends TestCase
     public function it_can_get_reaction_counter_of_type_null_object_with_same_reaction_type(): void
     {
         $reactant = new NullReactant(new Article());
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
 
         $counter = $reactant->getReactionCounterOfType($reactionType);
 
@@ -314,7 +314,7 @@ final class NullReactantTest extends TestCase
         $this->expectException(ReactantInvalid::class);
 
         $reactant = new NullReactant(new Article());
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
 
         $reactant->createReactionCounterOfType($reactionType);
     }

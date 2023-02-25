@@ -20,6 +20,6 @@ use Faker\Generator as Faker;
 $factory->define(ReactionCounter::class, function (Faker $faker) {
     return [
         'reactant_id' => factory(Reactant::class),
-        'reaction_type_id' => factory(ReactionType::class),
+        'reaction_type_id' => ReactionType::factory(),
     ];
 });

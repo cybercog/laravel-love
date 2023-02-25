@@ -39,11 +39,11 @@ final class RecountTest extends TestCase
 
         $this->withoutMockingConsoleOutput();
 
-        $this->likeType = factory(ReactionType::class)->create([
+        $this->likeType = ReactionType::factory()->create([
             'name' => 'Like',
             'mass' => 2,
         ]);
-        $this->dislikeType = factory(ReactionType::class)->create([
+        $this->dislikeType = ReactionType::factory()->create([
             'name' => 'Dislike',
             'mass' => -2,
         ]);
@@ -986,13 +986,13 @@ final class RecountTest extends TestCase
 
     private function seedTestData(): array
     {
-        $reactant1 = factory(Entity::class)->create()
+        $reactant1 = Entity::factory()->create()
             ->getLoveReactant();
-        $reactant2 = factory(MorphMappedReactable::class)->create()
+        $reactant2 = MorphMappedReactable::factory()->create()
             ->getLoveReactant();
-        $reactant3 = factory(Article::class)->create()
+        $reactant3 = Article::factory()->create()
             ->getLoveReactant();
-        $reactant4 = factory(MorphMappedReactable::class)->create()
+        $reactant4 = MorphMappedReactable::factory()->create()
             ->getLoveReactant();
 
         $reacter1 = factory(Reacter::class)->create();

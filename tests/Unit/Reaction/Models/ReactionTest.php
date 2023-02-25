@@ -113,7 +113,7 @@ final class ReactionTest extends TestCase
     /** @test */
     public function it_can_belong_to_type(): void
     {
-        $type = factory(ReactionType::class)->create();
+        $type = ReactionType::factory()->create();
 
         $reaction = factory(Reaction::class)->create([
             'reaction_type_id' => $type->getId(),
@@ -125,7 +125,7 @@ final class ReactionTest extends TestCase
     /** @test */
     public function it_can_belong_to_reactant(): void
     {
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reactant = factory(Reactant::class)->create();
 
         $reaction = factory(Reaction::class)->create([
@@ -171,7 +171,7 @@ final class ReactionTest extends TestCase
     /** @test */
     public function it_can_get_reactant(): void
     {
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reactant = factory(Reactant::class)->create();
 
         /** @var \Cog\Laravel\Love\Reaction\Models\Reaction $reaction */
@@ -221,7 +221,7 @@ final class ReactionTest extends TestCase
     /** @test */
     public function it_can_get_type(): void
     {
-        $type = factory(ReactionType::class)->create();
+        $type = ReactionType::factory()->create();
 
         /** @var \Cog\Laravel\Love\Reaction\Models\Reaction $reaction */
         $reaction = factory(Reaction::class)->create([
@@ -258,7 +258,7 @@ final class ReactionTest extends TestCase
     /** @test */
     public function it_can_get_weight(): void
     {
-        $reactionType = factory(ReactionType::class)->create([
+        $reactionType = ReactionType::factory()->create([
             'mass' => 4,
         ]);
 
@@ -273,7 +273,7 @@ final class ReactionTest extends TestCase
     /** @test */
     public function it_can_get_weight_affected_by_rate(): void
     {
-        $reactionType = factory(ReactionType::class)->create([
+        $reactionType = ReactionType::factory()->create([
             'mass' => 4,
         ]);
 
@@ -289,8 +289,8 @@ final class ReactionTest extends TestCase
     /** @test */
     public function it_can_check_if_reaction_is_of_type(): void
     {
-        $reactionType1 = factory(ReactionType::class)->create();
-        $reactionType2 = factory(ReactionType::class)->create();
+        $reactionType1 = ReactionType::factory()->create();
+        $reactionType2 = ReactionType::factory()->create();
         $reaction = factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType1->getId(),
         ]);
@@ -305,8 +305,8 @@ final class ReactionTest extends TestCase
     /** @test */
     public function it_can_check_if_reaction_is_not_of_type(): void
     {
-        $reactionType1 = factory(ReactionType::class)->create();
-        $reactionType2 = factory(ReactionType::class)->create();
+        $reactionType1 = ReactionType::factory()->create();
+        $reactionType2 = ReactionType::factory()->create();
         $reaction = factory(Reaction::class)->create([
             'reaction_type_id' => $reactionType1->getId(),
         ]);

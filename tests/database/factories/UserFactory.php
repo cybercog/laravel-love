@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Love.
+ * This file is part of Laravel Ban.
  *
  * (c) Anton Komarev <anton@komarev.com>
  *
@@ -11,12 +11,24 @@
 
 declare(strict_types=1);
 
-use Cog\Tests\Laravel\Love\Stubs\Models\User;
-use Faker\Generator as Faker;
+namespace Cog\Tests\Laravel\Love\Database\Factories;
 
-/* @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(User::class, function (Faker $faker) {
-    return [
-        'name' => $faker->name,
-    ];
-});
+use Cog\Tests\Laravel\Love\Stubs\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+final class UserFactory extends Factory
+{
+    protected $model = User::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+            'name' => $this->faker->name(),
+        ];
+    }
+}

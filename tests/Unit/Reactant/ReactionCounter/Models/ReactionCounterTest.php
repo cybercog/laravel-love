@@ -88,7 +88,7 @@ final class ReactionCounterTest extends TestCase
     /** @test */
     public function it_can_belong_to_reaction_type(): void
     {
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
 
         $counter = factory(ReactionCounter::class)->create([
             'reaction_type_id' => $reactionType->getId(),
@@ -122,7 +122,7 @@ final class ReactionCounterTest extends TestCase
     /** @test */
     public function it_can_get_reaction_type(): void
     {
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
 
         $counter = factory(ReactionCounter::class)->create([
             'reaction_type_id' => $reactionType->getId(),
@@ -144,8 +144,8 @@ final class ReactionCounterTest extends TestCase
     /** @test */
     public function it_can_check_is_reaction_of_type(): void
     {
-        $reactionType = factory(ReactionType::class)->create();
-        $anotherReactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
+        $anotherReactionType = ReactionType::factory()->create();
         $counter = factory(ReactionCounter::class)->create([
             'reaction_type_id' => $reactionType->getId(),
         ]);
@@ -160,8 +160,8 @@ final class ReactionCounterTest extends TestCase
     /** @test */
     public function it_can_check_is_not_reaction_of_type(): void
     {
-        $reactionType = factory(ReactionType::class)->create();
-        $anotherReactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
+        $anotherReactionType = ReactionType::factory()->create();
         $counter = factory(ReactionCounter::class)->create([
             'reaction_type_id' => $reactionType->getId(),
         ]);

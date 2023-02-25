@@ -26,7 +26,7 @@ final class ReactionTotalServiceTest extends TestCase
     /** @test */
     public function it_can_add_reaction(): void
     {
-        $reactionType = factory(ReactionType::class)->create([
+        $reactionType = ReactionType::factory()->create([
             'mass' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
@@ -52,7 +52,7 @@ final class ReactionTotalServiceTest extends TestCase
     /** @test */
     public function it_can_remove_reaction(): void
     {
-        $reactionType = factory(ReactionType::class)->create([
+        $reactionType = ReactionType::factory()->create([
             'mass' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
@@ -84,7 +84,7 @@ final class ReactionTotalServiceTest extends TestCase
     {
         Event::fake(); // To not fire ReactionObserver & Reactant methods
 
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reactant = factory(Reactant::class)->create();
         $total = factory(ReactionTotal::class)->create([
             'reactant_id' => $reactant->getId(),
@@ -103,7 +103,7 @@ final class ReactionTotalServiceTest extends TestCase
     /** @test */
     public function it_can_add_reaction_with_negative_weight(): void
     {
-        $reactionType = factory(ReactionType::class)->create([
+        $reactionType = ReactionType::factory()->create([
             'mass' => -4,
         ]);
         $reactant = factory(Reactant::class)->create();
@@ -130,7 +130,7 @@ final class ReactionTotalServiceTest extends TestCase
     public function it_creates_total_on_add_reaction_when_total_not_exists(): void
     {
         Event::fake(); // Prevent total auto creation
-        $reactionType = factory(ReactionType::class)->create([
+        $reactionType = ReactionType::factory()->create([
             'mass' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
@@ -152,7 +152,7 @@ final class ReactionTotalServiceTest extends TestCase
     public function it_creates_total_on_remove_reaction_when_total_not_exists(): void
     {
         Event::fake(); // Prevent total auto creation
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reactant = factory(Reactant::class)->create();
         $service = new ReactionTotalService($reactant);
         $reaction = factory(Reaction::class)->create([

@@ -75,9 +75,9 @@ final class NullReacterTest extends TestCase
     {
         $this->expectException(ReacterInvalid::class);
 
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reacter = new NullReacter(new Bot());
-        $reactable = factory(Article::class)->create();
+        $reactable = Article::factory()->create();
         $reactant = $reactable->loveReactant;
 
         $reacter->reactTo($reactant, $reactionType);
@@ -88,7 +88,7 @@ final class NullReacterTest extends TestCase
     {
         $this->expectException(ReacterInvalid::class);
 
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reacter = new NullReacter(new Bot());
         $reactant = new NullReactant(new Article());
 
@@ -100,9 +100,9 @@ final class NullReacterTest extends TestCase
     {
         $this->expectException(ReacterInvalid::class);
 
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reacter = new NullReacter(new Bot());
-        $reactable = factory(Article::class)->create();
+        $reactable = Article::factory()->create();
         $reactant = $reactable->loveReactant;
 
         $reacter->unreactTo($reactant, $reactionType);
@@ -113,7 +113,7 @@ final class NullReacterTest extends TestCase
     {
         $this->expectException(ReacterInvalid::class);
 
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reacter = new NullReacter(new Bot());
         $reactant = new NullReactant(new Article());
 

@@ -54,7 +54,7 @@ final class ReactionTypeTest extends TestCase
     /** @test */
     public function it_casts_id_to_string(): void
     {
-        $type = factory(ReactionType::class)->make([
+        $type = ReactionType::factory()->make([
             'id' => 4,
         ]);
 
@@ -76,7 +76,7 @@ final class ReactionTypeTest extends TestCase
     /** @test */
     public function it_can_has_reaction(): void
     {
-        $type = factory(ReactionType::class)->create();
+        $type = ReactionType::factory()->create();
 
         $reaction = factory(Reaction::class)->create([
             'reaction_type_id' => $type->getId(),
@@ -89,7 +89,7 @@ final class ReactionTypeTest extends TestCase
     /** @test */
     public function it_can_has_many_reactions(): void
     {
-        $type = factory(ReactionType::class)->create();
+        $type = ReactionType::factory()->create();
 
         $reactions = factory(Reaction::class, 2)->create([
             'reaction_type_id' => $type->getId(),
@@ -103,7 +103,7 @@ final class ReactionTypeTest extends TestCase
     /** @test */
     public function it_can_instantiate_reaction_type_from_name(): void
     {
-        $type = factory(ReactionType::class)->create([
+        $type = ReactionType::factory()->create([
             'name' => 'TestType',
         ]);
 
@@ -115,7 +115,7 @@ final class ReactionTypeTest extends TestCase
     /** @test */
     public function it_can_get_id(): void
     {
-        $type = factory(ReactionType::class)->make([
+        $type = ReactionType::factory()->make([
             'id' => '4',
         ]);
 
@@ -173,8 +173,8 @@ final class ReactionTypeTest extends TestCase
     /** @test */
     public function it_can_check_is_equal_to(): void
     {
-        $type = factory(ReactionType::class)->create();
-        $otherType = factory(ReactionType::class)->create();
+        $type = ReactionType::factory()->create();
+        $otherType = ReactionType::factory()->create();
 
         $this->assertTrue($type->isEqualTo($type));
         $this->assertFalse($type->isEqualTo($otherType));
@@ -183,8 +183,8 @@ final class ReactionTypeTest extends TestCase
     /** @test */
     public function it_can_check_is_not_equal_to(): void
     {
-        $type = factory(ReactionType::class)->create();
-        $otherType = factory(ReactionType::class)->create();
+        $type = ReactionType::factory()->create();
+        $otherType = ReactionType::factory()->create();
 
         $this->assertFalse($type->isNotEqualTo($type));
         $this->assertTrue($type->isNotEqualTo($otherType));
@@ -195,7 +195,7 @@ final class ReactionTypeTest extends TestCase
     {
         $this->expectException(ReactionTypeInvalid::class);
 
-        factory(ReactionType::class)->create();
+        ReactionType::factory()->create();
 
         ReactionType::fromName('NotExistType');
     }
@@ -203,10 +203,10 @@ final class ReactionTypeTest extends TestCase
     /** @test */
     public function it_should_not_perform_database_queries_on_instantiation_from_name(): void
     {
-        factory(ReactionType::class)->create([
+        ReactionType::factory()->create([
             'name' => 'LikeType',
         ]);
-        factory(ReactionType::class)->create([
+        ReactionType::factory()->create([
             'name' => 'DislikeType',
         ]);
         $db = $this->app->make(ConnectionInterface::class);
@@ -229,7 +229,7 @@ final class ReactionTypeTest extends TestCase
     /** @test */
     public function it_updates_type_in_registry_if_model_was_changed(): void
     {
-        $type = factory(ReactionType::class)->create([
+        $type = ReactionType::factory()->create([
             'name' => 'TestRegistryUpdate',
             'mass' => 4,
         ]);
@@ -251,7 +251,7 @@ final class ReactionTypeTest extends TestCase
     {
         $this->expectException(ReactionTypeInvalid::class);
 
-        $type = factory(ReactionType::class)->create([
+        $type = ReactionType::factory()->create([
             'name' => 'TestRegistryDelete',
         ]);
         $type->delete();

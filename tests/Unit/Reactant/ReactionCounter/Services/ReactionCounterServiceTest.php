@@ -27,7 +27,7 @@ final class ReactionCounterServiceTest extends TestCase
     public function it_can_add_reaction(): void
     {
         Event::fake(); // To not fire `ReactionObserver` methods
-        $reactionType = factory(ReactionType::class)->create([
+        $reactionType = ReactionType::factory()->create([
             'mass' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
@@ -53,7 +53,7 @@ final class ReactionCounterServiceTest extends TestCase
     public function it_can_remove_reaction(): void
     {
         Event::fake(); // To not fire `ReactionObserver` methods
-        $reactionType = factory(ReactionType::class)->create([
+        $reactionType = ReactionType::factory()->create([
             'mass' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
@@ -86,7 +86,7 @@ final class ReactionCounterServiceTest extends TestCase
     {
         Event::fake(); // To not fire `ReactionObserver` methods
 
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
         $reactant = factory(Reactant::class)->create();
         $counter = factory(ReactionCounter::class)->create([
             'reactant_id' => $reactant->getId(),
@@ -107,7 +107,7 @@ final class ReactionCounterServiceTest extends TestCase
     public function it_can_add_reaction_with_negative_weight(): void
     {
         Event::fake(); // To not fire `ReactionObserver` methods
-        $reactionType = factory(ReactionType::class)->create([
+        $reactionType = ReactionType::factory()->create([
             'mass' => -4,
         ]);
         $reactant = factory(Reactant::class)->create();
@@ -137,7 +137,7 @@ final class ReactionCounterServiceTest extends TestCase
     public function it_creates_counter_on_add_reaction_when_counter_not_exists(): void
     {
         Event::fake(); // To not fire `ReactionObserver` methods
-        $reactionType = factory(ReactionType::class)->create([
+        $reactionType = ReactionType::factory()->create([
             'mass' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
@@ -161,7 +161,7 @@ final class ReactionCounterServiceTest extends TestCase
     {
         Event::fake(); // To not fire `ReactionObserver` methods
 
-        $reactionType = factory(ReactionType::class)->create([
+        $reactionType = ReactionType::factory()->create([
             'mass' => 4,
         ]);
         $reactant = factory(Reactant::class)->create();
