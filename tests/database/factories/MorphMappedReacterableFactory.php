@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Database\Factories;
 
-use Cog\Tests\Laravel\Love\Stubs\Models\Bot;
 use Cog\Tests\Laravel\Love\Stubs\Models\MorphMappedReacterable;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
