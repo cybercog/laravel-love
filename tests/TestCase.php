@@ -95,7 +95,6 @@ abstract class TestCase extends OrchestraTestCase
         Factory::guessFactoryNamesUsing(function (string $modelName) {
             return 'Cog\\Tests\\Laravel\\Love\\Database\\Factories\\' . class_basename($modelName) . 'Factory';
         });
-        $this->withFactories(__DIR__ . '/database/factories');
     }
 
     /**

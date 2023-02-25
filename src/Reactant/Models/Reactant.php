@@ -29,6 +29,7 @@ use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\Support\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -36,6 +37,8 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 final class Reactant extends Model implements
     ReactantInterface
 {
+    use HasFactory;
+
     protected $table = 'love_reactants';
 
     /**

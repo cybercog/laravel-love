@@ -27,8 +27,8 @@ final class ReactionHasBeenAddedTest extends TestCase
     {
         Event::fake([ReactionHasBeenAdded::class]);
         $reactionType = ReactionType::factory()->create();
-        $reacter = factory(Reacter::class)->create();
-        $reactant = factory(Reactant::class)->create();
+        $reacter = Reacter::factory()->create();
+        $reactant = Reactant::factory()->create();
 
         $reacter->reactTo($reactant, $reactionType);
 

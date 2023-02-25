@@ -76,7 +76,7 @@ final class ReactionCounterTest extends TestCase
     /** @test */
     public function it_can_belong_to_reactant(): void
     {
-        $reactant = factory(Reactant::class)->create();
+        $reactant = Reactant::factory()->create();
 
         $counter = ReactionCounter::factory()->create([
             'reactant_id' => $reactant->getId(),
@@ -100,7 +100,7 @@ final class ReactionCounterTest extends TestCase
     /** @test */
     public function it_can_get_reactant(): void
     {
-        $reactant = factory(Reactant::class)->create();
+        $reactant = Reactant::factory()->create();
 
         $counter = ReactionCounter::factory()->create([
             'reactant_id' => $reactant->getId(),

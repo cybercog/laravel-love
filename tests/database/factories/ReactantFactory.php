@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Love.
+ * This file is part of Laravel Ban.
  *
  * (c) Anton Komarev <anton@komarev.com>
  *
@@ -11,19 +11,25 @@
 
 declare(strict_types=1);
 
+namespace Cog\Tests\Laravel\Love\Database\Factories;
+
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-/* @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(Reactant::class, function (Faker $faker) {
-    return [
-        'type' => (new Article())->getMorphClass(),
-    ];
-});
+final class ReactantFactory extends Factory
+{
+    protected $model = Reactant::class;
 
-$factory->afterCreatingState(Reactant::class, 'withReactable', function (Reactant $reactant, Faker $faker) {
-    Article::factory()->create([
-        'love_reactant_id' => $reactant->getId(),
-    ]);
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+            'type' => (new Article())->getMorphClass(),
+        ];
+    }
+}

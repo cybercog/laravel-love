@@ -27,7 +27,7 @@ final class ReacterableTest extends TestCase
     /** @test */
     public function it_can_belong_to_love_reacter(): void
     {
-        $reacter = factory(Reacter::class)->create([
+        $reacter = Reacter::factory()->create([
             'type' => (new User())->getMorphClass(),
         ]);
 
@@ -41,7 +41,7 @@ final class ReacterableTest extends TestCase
     /** @test */
     public function it_can_get_love_reacter(): void
     {
-        $reacter = factory(Reacter::class)->create([
+        $reacter = Reacter::factory()->create([
             'type' => (new User())->getMorphClass(),
         ]);
 
@@ -65,7 +65,7 @@ final class ReacterableTest extends TestCase
     /** @test */
     public function it_can_get_reacter_facade(): void
     {
-        $reacter = factory(Reacter::class)->create([
+        $reacter = Reacter::factory()->create([
             'type' => (new User())->getMorphClass(),
         ]);
         $reacterable = User::factory()->create([
@@ -102,7 +102,7 @@ final class ReacterableTest extends TestCase
     /** @test */
     public function it_not_create_new_reacter_if_manually_registered_reacterable_as_reacter_on_create(): void
     {
-        $reacter = factory(Reacter::class)->create([
+        $reacter = Reacter::factory()->create([
             'type' => (new Bot())->getMorphClass(),
         ]);
         $reacterable = new Bot([
@@ -119,7 +119,7 @@ final class ReacterableTest extends TestCase
     /** @test */
     public function it_can_check_if_registered_as_love_reacter(): void
     {
-        $reacter = factory(Reacter::class)->create([
+        $reacter = Reacter::factory()->create([
             'type' => (new User())->getMorphClass(),
         ]);
         $notRegisteredReacterable = new User();
@@ -134,7 +134,7 @@ final class ReacterableTest extends TestCase
     /** @test */
     public function it_can_check_if_not_registered_as_love_reacter(): void
     {
-        $reacter = factory(Reacter::class)->create([
+        $reacter = Reacter::factory()->create([
             'type' => (new User())->getMorphClass(),
         ]);
         $notRegisteredReacterable = new User();

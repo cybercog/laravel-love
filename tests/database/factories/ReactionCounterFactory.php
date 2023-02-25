@@ -30,7 +30,7 @@ final class ReactionCounterFactory extends Factory
     public function definition(): array
     {
         return [
-            'reactant_id' => factory(Reactant::class)->create(),
+            'reactant_id' => Reactant::factory(),
             'reaction_type_id' => ReactionType::factory(),
         ];
     }

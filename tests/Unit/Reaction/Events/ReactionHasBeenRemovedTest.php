@@ -27,8 +27,8 @@ final class ReactionHasBeenRemovedTest extends TestCase
     {
         Event::fake([ReactionHasBeenRemoved::class]);
         $reactionType = ReactionType::factory()->create();
-        $reacter = factory(Reacter::class)->create();
-        $reactant = factory(Reactant::class)->create();
+        $reacter = Reacter::factory()->create();
+        $reactant = Reactant::factory()->create();
         $reacter->reactTo($reactant, $reactionType);
 
         $reacter->unreactTo($reactant, $reactionType);

@@ -30,7 +30,7 @@ final class ReactionCounterServiceTest extends TestCase
         $reactionType = ReactionType::factory()->create([
             'mass' => 4,
         ]);
-        $reactant = factory(Reactant::class)->create();
+        $reactant = Reactant::factory()->create();
         $service = new ReactionCounterService($reactant);
         $reaction1 = Reaction::factory()->create([
             'reactant_id' => $reactant->getId(),
@@ -56,7 +56,7 @@ final class ReactionCounterServiceTest extends TestCase
         $reactionType = ReactionType::factory()->create([
             'mass' => 4,
         ]);
-        $reactant = factory(Reactant::class)->create();
+        $reactant = Reactant::factory()->create();
         $counter = ReactionCounter::factory()->create([
             'reactant_id' => $reactant->getId(),
             'reaction_type_id' => $reactionType->getId(),
@@ -87,7 +87,7 @@ final class ReactionCounterServiceTest extends TestCase
         Event::fake(); // To not fire `ReactionObserver` methods
 
         $reactionType = ReactionType::factory()->create();
-        $reactant = factory(Reactant::class)->create();
+        $reactant = Reactant::factory()->create();
         $counter = ReactionCounter::factory()->create([
             'reactant_id' => $reactant->getId(),
             'reaction_type_id' => $reactionType->getId(),
@@ -110,7 +110,7 @@ final class ReactionCounterServiceTest extends TestCase
         $reactionType = ReactionType::factory()->create([
             'mass' => -4,
         ]);
-        $reactant = factory(Reactant::class)->create();
+        $reactant = Reactant::factory()->create();
         $counter = ReactionCounter::factory()->create([
             'reactant_id' => $reactant->getId(),
             'reaction_type_id' => $reactionType->getId(),
@@ -140,7 +140,7 @@ final class ReactionCounterServiceTest extends TestCase
         $reactionType = ReactionType::factory()->create([
             'mass' => 4,
         ]);
-        $reactant = factory(Reactant::class)->create();
+        $reactant = Reactant::factory()->create();
         $initialCounters = $reactant->reactionCounters;
         $reaction = Reaction::factory()->create([
             'reactant_id' => $reactant->getId(),
@@ -164,7 +164,7 @@ final class ReactionCounterServiceTest extends TestCase
         $reactionType = ReactionType::factory()->create([
             'mass' => 4,
         ]);
-        $reactant = factory(Reactant::class)->create();
+        $reactant = Reactant::factory()->create();
         $initialCounters = $reactant->reactionCounters;
         $service = new ReactionCounterService($reactant);
         $reaction = Reaction::factory()->create([

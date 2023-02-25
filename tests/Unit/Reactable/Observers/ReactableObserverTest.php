@@ -33,7 +33,7 @@ final class ReactableObserverTest extends TestCase
     /** @test */
     public function it_not_creates_new_reactant_on_created_if_already_exist(): void
     {
-        $reactant = factory(Reactant::class)->create();
+        $reactant = Reactant::factory()->create();
         $article = Article::factory()->create([
             'love_reactant_id' => $reactant->getId(),
         ]);

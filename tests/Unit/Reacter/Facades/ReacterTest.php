@@ -32,7 +32,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_get_reactions(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reactions = Reaction::factory()->count(2)->create([
             'reacter_id' => $reacter->getId(),
         ]);
@@ -47,7 +47,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_react_to_reactable_without_rate(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = Article::factory()->create();
         $reactionType = ReactionType::factory()->create();
@@ -63,7 +63,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_react_to_reactable_which_reacterable_too(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = User::factory()->create();
         $reactionType = ReactionType::factory()->create();
@@ -78,7 +78,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_react_to_reactable_with_rate(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = User::factory()->create();
         $reactionType = ReactionType::factory()->create();
@@ -93,7 +93,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_change_reaction_rate_with_react_to_when_reaction_already_exists(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = User::factory()->create();
         $reactionType = ReactionType::factory()->create();
@@ -111,7 +111,7 @@ final class ReacterTest extends TestCase
     {
         $this->expectException(RateInvalid::class);
 
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = User::factory()->create();
         $reactionType = ReactionType::factory()->create();
@@ -125,7 +125,7 @@ final class ReacterTest extends TestCase
     {
         $this->expectException(ReactionTypeInvalid::class);
 
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = User::factory()->create();
 
@@ -137,7 +137,7 @@ final class ReacterTest extends TestCase
     {
         $this->expectException(ReactantInvalid::class);
 
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = ArticleWithoutAutoReactantCreate::factory()->create();
         $reactionType = ReactionType::factory()->create();
@@ -150,7 +150,7 @@ final class ReacterTest extends TestCase
     {
         $this->expectException(ReactantInvalid::class);
 
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = new Article();
         $reactionType = ReactionType::factory()->create();
@@ -163,7 +163,7 @@ final class ReacterTest extends TestCase
     {
         $this->expectException(ReactionAlreadyExists::class);
 
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = Article::factory()->create();
         $reactionType = ReactionType::factory()->create();
@@ -175,7 +175,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_unreact_to_reactable(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = Article::factory()->create();
         $reactionType = ReactionType::factory()->create();
@@ -197,7 +197,7 @@ final class ReacterTest extends TestCase
     {
         $this->expectException(ReactionTypeInvalid::class);
 
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = Article::factory()->create();
 
@@ -209,7 +209,7 @@ final class ReacterTest extends TestCase
     {
         $this->expectException(ReactantInvalid::class);
 
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = ArticleWithoutAutoReactantCreate::factory()->create();
         $reactionType = ReactionType::factory()->create();
@@ -222,7 +222,7 @@ final class ReacterTest extends TestCase
     {
         $this->expectException(ReactantInvalid::class);
 
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = new Article();
         $reactionType = ReactionType::factory()->create();
@@ -235,7 +235,7 @@ final class ReacterTest extends TestCase
     {
         $this->expectException(ReactionNotExists::class);
 
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = Article::factory()->create();
         $reactant = $reactable->getLoveReactant();
@@ -255,7 +255,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_reacted_to_reactable(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = Article::factory()->create();
         $reactant = $reactable->getLoveReactant();
@@ -274,7 +274,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_reacted_to_reactable_when_reactable_is_not_registered_as_reactant(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = ArticleWithoutAutoReactantCreate::factory()->create();
 
@@ -286,7 +286,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_reacted_to_reactable_when_reactable_is_not_persisted(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = new Article();
 
@@ -298,7 +298,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_not_reacted_to_reactable(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = Article::factory()->create();
         $reactant = $reactable->getLoveReactant();
@@ -320,7 +320,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_not_reacted_to_reactable_when_reactable_is_not_registered_as_reactant(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = ArticleWithoutAutoReactantCreate::factory()->create();
 
@@ -332,7 +332,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_not_reacted_to_reactable_when_reactable_is_not_persisted(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = new Article();
 
@@ -344,7 +344,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_reacted_to_reactable_with_type(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = Article::factory()->create();
         $reactant = $reactable->getLoveReactant();
@@ -363,7 +363,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_reacted_to_reactable_with_type_when_reactable_is_not_registered_as_reactant(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = ArticleWithoutAutoReactantCreate::factory()->create();
         $reactionType = ReactionType::factory()->create();
@@ -376,7 +376,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_reacted_to_reactable_with_type_when_reactable_is_not_persisted(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = new Article();
         $reactionType = ReactionType::factory()->create();
@@ -391,7 +391,7 @@ final class ReacterTest extends TestCase
     {
         $this->expectException(ReactionTypeInvalid::class);
 
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = Article::factory()->create();
 
@@ -401,7 +401,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_not_reacted_to_reactable_with_type(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = Article::factory()->create();
         $reactant = $reactable->getLoveReactant();
@@ -425,7 +425,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_not_reacted_to_reactable_with_type_when_reactable_is_not_registered_as_reactant(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = ArticleWithoutAutoReactantCreate::factory()->create();
         $reactionType = ReactionType::factory()->create();
@@ -438,7 +438,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_not_reacted_to_reactable_with_type_when_reactable_is_not_persisted(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = new Article();
         $reactionType = ReactionType::factory()->create();
@@ -453,7 +453,7 @@ final class ReacterTest extends TestCase
     {
         $this->expectException(ReactionTypeInvalid::class);
 
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = Article::factory()->create();
 
@@ -463,7 +463,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_reacted_to_reactable_with_rate(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = Article::factory()->create();
         $reactant = $reactable->getLoveReactant();
@@ -481,7 +481,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_reacted_to_reactable_with_rate_when_reactable_is_not_registered_as_reactant(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = ArticleWithoutAutoReactantCreate::factory()->create();
 
@@ -493,7 +493,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_reacted_to_reactable_with_rate_when_reactable_is_not_persisted(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = new Article();
 
@@ -505,7 +505,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_not_reacted_to_reactable_with_rate(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = Article::factory()->create();
         $reactant = $reactable->getLoveReactant();
@@ -527,7 +527,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_not_reacted_to_reactable_with_rate_when_reactable_is_not_registered_as_reactant(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = ArticleWithoutAutoReactantCreate::factory()->create();
 
@@ -539,7 +539,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_not_reacted_to_reactable_with_rate_when_reactable_is_not_persisted(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = new Article();
 
@@ -551,7 +551,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_reacted_to_reactable_with_type_and_rate(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = Article::factory()->create();
         $reactant = $reactable->getLoveReactant();
@@ -571,7 +571,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_reacted_to_reactable_with_type_and_rate_when_reactable_is_not_registered_as_reactant(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = ArticleWithoutAutoReactantCreate::factory()->create();
         $reactionType = ReactionType::factory()->create();
@@ -584,7 +584,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_reacted_to_reactable_with_type_and_rate_when_reactable_is_not_persisted(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = new Article();
         $reactionType = ReactionType::factory()->create();
@@ -599,7 +599,7 @@ final class ReacterTest extends TestCase
     {
         $this->expectException(ReactionTypeInvalid::class);
 
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = Article::factory()->create();
 
@@ -609,7 +609,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_not_reacted_to_reactable_with_type_and_rate(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = Article::factory()->create();
         $reactant = $reactable->getLoveReactant();
@@ -635,7 +635,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_not_reacted_to_reactable_with_type_and_rate_when_reactable_is_not_registered_as_reactant(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = ArticleWithoutAutoReactantCreate::factory()->create();
         $reactionType = ReactionType::factory()->create();
@@ -648,7 +648,7 @@ final class ReacterTest extends TestCase
     /** @test */
     public function it_can_check_has_not_reacted_to_reactable_with_type_and_rate_when_reactable_is_not_persisted(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = new Article();
         $reactionType = ReactionType::factory()->create();
@@ -663,7 +663,7 @@ final class ReacterTest extends TestCase
     {
         $this->expectException(ReactionTypeInvalid::class);
 
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $reacterFacade = new ReacterFacade($reacter);
         $reactable = Article::factory()->create();
 

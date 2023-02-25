@@ -768,8 +768,8 @@ final class RecountTest extends TestCase
     /** @test */
     public function it_not_delete_reaction_counters_on_recount(): void
     {
-        $reactant1 = factory(Reactant::class)->create();
-        $reactant2 = factory(Reactant::class)->create();
+        $reactant1 = Reactant::factory()->create();
+        $reactant2 = Reactant::factory()->create();
         Reaction::factory()->count(2)->create([
             'reaction_type_id' => $this->likeType->getKey(),
             'reactant_id' => $reactant1,
@@ -792,8 +792,8 @@ final class RecountTest extends TestCase
     /** @test */
     public function it_resets_reaction_counters_count_on_recount(): void
     {
-        $reactant1 = factory(Reactant::class)->create();
-        $reactant2 = factory(Reactant::class)->create();
+        $reactant1 = Reactant::factory()->create();
+        $reactant2 = Reactant::factory()->create();
         Reaction::factory()->count(2)->create([
             'reaction_type_id' => $this->likeType->getKey(),
             'reactant_id' => $reactant1,
@@ -815,8 +815,8 @@ final class RecountTest extends TestCase
     /** @test */
     public function it_resets_reaction_counters_weight_on_recount(): void
     {
-        $reactant1 = factory(Reactant::class)->create();
-        $reactant2 = factory(Reactant::class)->create();
+        $reactant1 = Reactant::factory()->create();
+        $reactant2 = Reactant::factory()->create();
         Reaction::factory()->count(2)->create([
             'reaction_type_id' => $this->likeType->getKey(),
             'reactant_id' => $reactant1,
@@ -838,8 +838,8 @@ final class RecountTest extends TestCase
     /** @test */
     public function it_not_delete_reaction_total_on_recount(): void
     {
-        $reactant1 = factory(Reactant::class)->create();
-        $reactant2 = factory(Reactant::class)->create();
+        $reactant1 = Reactant::factory()->create();
+        $reactant2 = Reactant::factory()->create();
         Reaction::factory()->count(2)->create([
             'reaction_type_id' => $this->likeType->getKey(),
             'reactant_id' => $reactant1,
@@ -863,8 +863,8 @@ final class RecountTest extends TestCase
     /** @test */
     public function it_resets_reaction_total_count_on_recount(): void
     {
-        $reactant1 = factory(Reactant::class)->create();
-        $reactant2 = factory(Reactant::class)->create();
+        $reactant1 = Reactant::factory()->create();
+        $reactant2 = Reactant::factory()->create();
         Reaction::factory()->count(2)->create([
             'reaction_type_id' => $this->likeType->getKey(),
             'reactant_id' => $reactant1,
@@ -886,8 +886,8 @@ final class RecountTest extends TestCase
     /** @test */
     public function it_resets_reaction_total_weight_on_recount(): void
     {
-        $reactant1 = factory(Reactant::class)->create();
-        $reactant2 = factory(Reactant::class)->create();
+        $reactant1 = Reactant::factory()->create();
+        $reactant2 = Reactant::factory()->create();
         Reaction::factory()->count(2)->create([
             'reaction_type_id' => $this->likeType->getKey(),
             'reactant_id' => $reactant1,
@@ -995,10 +995,10 @@ final class RecountTest extends TestCase
         $reactant4 = MorphMappedReactable::factory()->create()
             ->getLoveReactant();
 
-        $reacter1 = factory(Reacter::class)->create();
-        $reacter2 = factory(Reacter::class)->create();
-        $reacter3 = factory(Reacter::class)->create();
-        $reacter4 = factory(Reacter::class)->create();
+        $reacter1 = Reacter::factory()->create();
+        $reacter2 = Reacter::factory()->create();
+        $reacter3 = Reacter::factory()->create();
+        $reacter4 = Reacter::factory()->create();
 
         $reacter1->reactTo($reactant1, $this->likeType);
         $reacter2->reactTo($reactant1, $this->likeType);

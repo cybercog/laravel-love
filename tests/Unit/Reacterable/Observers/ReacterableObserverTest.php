@@ -33,7 +33,7 @@ final class ReacterableObserverTest extends TestCase
     /** @test */
     public function it_not_creates_new_reacter_on_created_if_already_exist(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
         $user = User::factory()->create([
             'love_reacter_id' => $reacter->getId(),
         ]);

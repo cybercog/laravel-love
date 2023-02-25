@@ -26,7 +26,7 @@ final class ReactableTest extends TestCase
     /** @test */
     public function it_can_belong_to_love_reactant(): void
     {
-        $reactant = factory(Reactant::class)->create([
+        $reactant = Reactant::factory()->create([
             'type' => (new Article())->getMorphClass(),
         ]);
 
@@ -40,7 +40,7 @@ final class ReactableTest extends TestCase
     /** @test */
     public function it_can_get_love_reactant(): void
     {
-        $reactant = factory(Reactant::class)->create([
+        $reactant = Reactant::factory()->create([
             'type' => (new Article())->getMorphClass(),
         ]);
 
@@ -64,7 +64,7 @@ final class ReactableTest extends TestCase
     /** @test */
     public function it_can_get_reactant_facade(): void
     {
-        $reactant = factory(Reactant::class)->create([
+        $reactant = Reactant::factory()->create([
             'type' => (new Article())->getMorphClass(),
         ]);
         $reactable = Article::factory()->create([
@@ -101,7 +101,7 @@ final class ReactableTest extends TestCase
     /** @test */
     public function it_not_create_new_reactant_if_manually_registered_reactable_as_reactant_on_create(): void
     {
-        $reactant = factory(Reactant::class)->create([
+        $reactant = Reactant::factory()->create([
             'type' => (new Article())->getMorphClass(),
         ]);
         $reactable = new Article([
@@ -118,7 +118,7 @@ final class ReactableTest extends TestCase
     /** @test */
     public function it_can_check_if_registered_as_reactant(): void
     {
-        $reactant = factory(Reactant::class)->create([
+        $reactant = Reactant::factory()->create([
             'type' => (new Article())->getMorphClass(),
         ]);
         $notRegisteredReactable = new Article();
@@ -133,7 +133,7 @@ final class ReactableTest extends TestCase
     /** @test */
     public function it_can_check_if_not_registered_as_reactant(): void
     {
-        $reactant = factory(Reactant::class)->create([
+        $reactant = Reactant::factory()->create([
             'type' => (new Article())->getMorphClass(),
         ]);
         $notRegisteredReactable = new Article();

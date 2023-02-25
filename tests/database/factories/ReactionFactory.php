@@ -32,8 +32,8 @@ final class ReactionFactory extends Factory
     {
         return [
             'reaction_type_id' => ReactionType::factory(),
-            'reactant_id' => factory(Reactant::class)->create(),
-            'reacter_id' => factory(Reacter::class)->create(),
+            'reactant_id' => Reactant::factory(),
+            'reacter_id' => Reacter::factory(),
         ];
     }
 }

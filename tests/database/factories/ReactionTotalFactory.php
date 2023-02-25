@@ -29,7 +29,7 @@ final class ReactionTotalFactory extends Factory
     public function definition(): array
     {
         return [
-            'reactant_id' => factory(Reactant::class)->create(),
+            'reactant_id' => Reactant::factory(),
         ];
     }
 }

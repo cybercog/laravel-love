@@ -126,7 +126,7 @@ final class ReactionTest extends TestCase
     public function it_can_belong_to_reactant(): void
     {
         $reactionType = ReactionType::factory()->create();
-        $reactant = factory(Reactant::class)->create();
+        $reactant = Reactant::factory()->create();
 
         $reaction = Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
@@ -139,7 +139,7 @@ final class ReactionTest extends TestCase
     /** @test */
     public function it_can_belong_to_reacter(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
 
         $reaction = Reaction::factory()->create([
             'reacter_id' => $reacter->getId(),
@@ -172,7 +172,7 @@ final class ReactionTest extends TestCase
     public function it_can_get_reactant(): void
     {
         $reactionType = ReactionType::factory()->create();
-        $reactant = factory(Reactant::class)->create();
+        $reactant = Reactant::factory()->create();
 
         /** @var \Cog\Laravel\Love\Reaction\Models\Reaction $reaction */
         $reaction = Reaction::factory()->create([
@@ -197,7 +197,7 @@ final class ReactionTest extends TestCase
     /** @test */
     public function it_can_get_reacter(): void
     {
-        $reacter = factory(Reacter::class)->create();
+        $reacter = Reacter::factory()->create();
 
         /** @var \Cog\Laravel\Love\Reaction\Models\Reaction $reaction */
         $reaction = Reaction::factory()->create([
@@ -323,8 +323,8 @@ final class ReactionTest extends TestCase
     {
         // To skip counters creation
         Event::fake();
-        $reactant1 = factory(Reactant::class)->create();
-        $reactant2 = factory(Reactant::class)->create();
+        $reactant1 = Reactant::factory()->create();
+        $reactant2 = Reactant::factory()->create();
         $reaction = Reaction::factory()->create([
             'reactant_id' => $reactant1->getId(),
         ]);
@@ -341,7 +341,7 @@ final class ReactionTest extends TestCase
     {
         // To skip counters creation
         Event::fake();
-        $reactant = factory(Reactant::class)->create();
+        $reactant = Reactant::factory()->create();
         $nullReactant = new NullReactant(new Article());
         $reaction = Reaction::factory()->create([
             'reactant_id' => $reactant->getId(),
@@ -357,8 +357,8 @@ final class ReactionTest extends TestCase
     {
         // To skip counters creation
         Event::fake();
-        $reactant1 = factory(Reactant::class)->create();
-        $reactant2 = factory(Reactant::class)->create();
+        $reactant1 = Reactant::factory()->create();
+        $reactant2 = Reactant::factory()->create();
         $reaction = Reaction::factory()->create([
             'reactant_id' => $reactant1->getId(),
         ]);
@@ -375,7 +375,7 @@ final class ReactionTest extends TestCase
     {
         // To skip counters creation
         Event::fake();
-        $reactant = factory(Reactant::class)->create();
+        $reactant = Reactant::factory()->create();
         $nullReactant = new NullReactant(new Article());
         $reaction = Reaction::factory()->create([
             'reactant_id' => $reactant->getId(),
@@ -389,8 +389,8 @@ final class ReactionTest extends TestCase
     /** @test */
     public function it_can_check_if_reaction_is_by_reacter(): void
     {
-        $reacter1 = factory(Reacter::class)->create();
-        $reacter2 = factory(Reacter::class)->create();
+        $reacter1 = Reacter::factory()->create();
+        $reacter2 = Reacter::factory()->create();
         $reaction = Reaction::factory()->create([
             'reacter_id' => $reacter1->getId(),
         ]);
@@ -405,7 +405,7 @@ final class ReactionTest extends TestCase
     /** @test */
     public function it_can_check_if_reaction_is_by_reacter_when_reacter_is_null_object(): void
     {
-        $reacter1 = factory(Reacter::class)->create();
+        $reacter1 = Reacter::factory()->create();
         $nullReacter = new NullReacter(new User());
         $reaction = Reaction::factory()->create([
             'reacter_id' => $reacter1->getId(),
@@ -419,8 +419,8 @@ final class ReactionTest extends TestCase
     /** @test */
     public function it_can_check_if_reaction_is_not_by_reacter(): void
     {
-        $reacter1 = factory(Reacter::class)->create();
-        $reacter2 = factory(Reacter::class)->create();
+        $reacter1 = Reacter::factory()->create();
+        $reacter2 = Reacter::factory()->create();
         $reaction = Reaction::factory()->create([
             'reacter_id' => $reacter1->getId(),
         ]);
@@ -435,7 +435,7 @@ final class ReactionTest extends TestCase
     /** @test */
     public function it_can_check_if_reaction_is_not_by_reacter_when_reacter_is_null_object(): void
     {
-        $reacter1 = factory(Reacter::class)->create();
+        $reacter1 = Reacter::factory()->create();
         $nullReacter = new NullReacter(new User());
         $reaction = Reaction::factory()->create([
             'reacter_id' => $reacter1->getId(),
