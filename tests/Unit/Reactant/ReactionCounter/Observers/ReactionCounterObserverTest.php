@@ -21,7 +21,7 @@ final class ReactionCounterObserverTest extends TestCase
     /** @test */
     public function it_sets_default_count_value_when_count_value_is_null(): void
     {
-        $counter = factory(ReactionCounter::class)->create([
+        $counter = ReactionCounter::factory()->create([
             'count' => null,
         ]);
 
@@ -31,7 +31,7 @@ final class ReactionCounterObserverTest extends TestCase
     /** @test */
     public function it_sets_default_weight_value_when_weight_value_is_null(): void
     {
-        $counter = factory(ReactionCounter::class)->create([
+        $counter = ReactionCounter::factory()->create([
             'weight' => null,
         ]);
 

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Love.
+ * This file is part of Laravel Ban.
  *
  * (c) Anton Komarev <anton@komarev.com>
  *
@@ -11,13 +11,25 @@
 
 declare(strict_types=1);
 
-use Cog\Laravel\Love\ReactionType\Models\ReactionType;
-use Faker\Generator as Faker;
+namespace Cog\Tests\Laravel\Love\Database\Factories;
 
-/* @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(ReactionType::class, function (Faker $faker) {
-    return [
-        'name' => implode('', $faker->words),
-        'mass' => $faker->numberBetween(-128, 127),
-    ];
-});
+use Cog\Laravel\Love\ReactionType\Models\ReactionType;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+final class ReactionTypeFactory extends Factory
+{
+    protected $model = ReactionType::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+            'name' => implode('', $this->faker->words()),
+            'mass' => $this->faker->numberBetween(-128, 127),
+        ];
+    }
+}

@@ -24,12 +24,15 @@ use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionInterface;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeInterface;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\Support\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 final class Reacter extends Model implements
     ReacterInterface
 {
+    use HasFactory;
+
     protected $table = 'love_reacters';
 
     /**

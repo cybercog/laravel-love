@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Love.
+ * This file is part of Laravel Ban.
  *
  * (c) Anton Komarev <anton@komarev.com>
  *
@@ -11,19 +11,25 @@
 
 declare(strict_types=1);
 
+namespace Cog\Tests\Laravel\Love\Database\Factories;
+
 use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-/* @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(Reacter::class, function (Faker $faker) {
-    return [
-        'type' => (new User())->getMorphClass(),
-    ];
-});
+final class ReacterFactory extends Factory
+{
+    protected $model = Reacter::class;
 
-$factory->afterCreatingState(Reacter::class, 'withReacterable', function (Reacter $reacter, Faker $faker) {
-    factory(User::class)->create([
-        'love_reacter_id' => $reacter->getId(),
-    ]);
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+            'type' => (new User())->getMorphClass(),
+        ];
+    }
+}

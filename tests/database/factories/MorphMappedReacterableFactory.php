@@ -13,12 +13,12 @@ declare(strict_types=1);
 
 namespace Cog\Tests\Laravel\Love\Database\Factories;
 
-use Cog\Tests\Laravel\Love\Stubs\Models\UserWithoutAutoReacterCreate;
+use Cog\Tests\Laravel\Love\Stubs\Models\MorphMappedReacterable;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-final class UserWithoutAutoReacterCreateFactory extends Factory
+final class MorphMappedReacterableFactory extends Factory
 {
-    protected $model = UserWithoutAutoReacterCreate::class;
+    protected $model = MorphMappedReacterable::class;
 
     /**
      * Define the model's default state.

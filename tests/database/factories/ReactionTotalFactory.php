@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Laravel Love.
+ * This file is part of Laravel Ban.
  *
  * (c) Anton Komarev <anton@komarev.com>
  *
@@ -11,13 +11,25 @@
 
 declare(strict_types=1);
 
+namespace Cog\Tests\Laravel\Love\Database\Factories;
+
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-/* @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(ReactionTotal::class, function (Faker $faker) {
-    return [
-        'reactant_id' => factory(Reactant::class),
-    ];
-});
+final class ReactionTotalFactory extends Factory
+{
+    protected $model = ReactionTotal::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+            'reactant_id' => Reactant::factory(),
+        ];
+    }
+}

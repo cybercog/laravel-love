@@ -27,11 +27,11 @@ final class ReacterableTest extends TestCase
     /** @test */
     public function it_can_belong_to_love_reacter(): void
     {
-        $reacter = factory(Reacter::class)->create([
+        $reacter = Reacter::factory()->create([
             'type' => (new User())->getMorphClass(),
         ]);
 
-        $reacterable = factory(User::class)->create([
+        $reacterable = User::factory()->create([
             'love_reacter_id' => $reacter->getId(),
         ]);
 
@@ -41,11 +41,11 @@ final class ReacterableTest extends TestCase
     /** @test */
     public function it_can_get_love_reacter(): void
     {
-        $reacter = factory(Reacter::class)->create([
+        $reacter = Reacter::factory()->create([
             'type' => (new User())->getMorphClass(),
         ]);
 
-        $reacterable = factory(User::class)->create([
+        $reacterable = User::factory()->create([
             'love_reacter_id' => $reacter->getId(),
         ]);
 
@@ -65,10 +65,10 @@ final class ReacterableTest extends TestCase
     /** @test */
     public function it_can_get_reacter_facade(): void
     {
-        $reacter = factory(Reacter::class)->create([
+        $reacter = Reacter::factory()->create([
             'type' => (new User())->getMorphClass(),
         ]);
-        $reacterable = factory(User::class)->create([
+        $reacterable = User::factory()->create([
             'love_reacter_id' => $reacter->getId(),
         ]);
 
@@ -102,7 +102,7 @@ final class ReacterableTest extends TestCase
     /** @test */
     public function it_not_create_new_reacter_if_manually_registered_reacterable_as_reacter_on_create(): void
     {
-        $reacter = factory(Reacter::class)->create([
+        $reacter = Reacter::factory()->create([
             'type' => (new Bot())->getMorphClass(),
         ]);
         $reacterable = new Bot([
@@ -119,11 +119,11 @@ final class ReacterableTest extends TestCase
     /** @test */
     public function it_can_check_if_registered_as_love_reacter(): void
     {
-        $reacter = factory(Reacter::class)->create([
+        $reacter = Reacter::factory()->create([
             'type' => (new User())->getMorphClass(),
         ]);
         $notRegisteredReacterable = new User();
-        $registeredReacterable = factory(User::class)->create([
+        $registeredReacterable = User::factory()->create([
             'love_reacter_id' => $reacter->getId(),
         ]);
 
@@ -134,11 +134,11 @@ final class ReacterableTest extends TestCase
     /** @test */
     public function it_can_check_if_not_registered_as_love_reacter(): void
     {
-        $reacter = factory(Reacter::class)->create([
+        $reacter = Reacter::factory()->create([
             'type' => (new User())->getMorphClass(),
         ]);
         $notRegisteredReacterable = new User();
-        $registeredReacterable = factory(User::class)->create([
+        $registeredReacterable = User::factory()->create([
             'love_reacter_id' => $reacter->getId(),
         ]);
 
@@ -150,7 +150,7 @@ final class ReacterableTest extends TestCase
     public function it_can_register_as_love_reacter(): void
     {
         Event::fake();
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $user->registerAsLoveReacter();
 
@@ -162,7 +162,7 @@ final class ReacterableTest extends TestCase
     {
         $this->expectException(AlreadyRegisteredAsLoveReacter::class);
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $user->registerAsLoveReacter();
     }

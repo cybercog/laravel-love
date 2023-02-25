@@ -25,7 +25,7 @@ final class ReactableObserverTest extends TestCase
     /** @test */
     public function it_creates_reactant_on_created(): void
     {
-        $article = factory(Article::class)->create();
+        $article = Article::factory()->create();
 
         $this->assertInstanceOf(ReactantInterface::class, $article->getLoveReactant());
     }
@@ -33,8 +33,8 @@ final class ReactableObserverTest extends TestCase
     /** @test */
     public function it_not_creates_new_reactant_on_created_if_already_exist(): void
     {
-        $reactant = factory(Reactant::class)->create();
-        $article = factory(Article::class)->create([
+        $reactant = Reactant::factory()->create();
+        $article = Article::factory()->create([
             'love_reactant_id' => $reactant->getId(),
         ]);
 
@@ -45,7 +45,7 @@ final class ReactableObserverTest extends TestCase
     /** @test */
     public function it_not_creates_new_reactant_on_created_if_opted_out(): void
     {
-        $article = factory(ArticleWithoutAutoReactantCreate::class)->create();
+        $article = ArticleWithoutAutoReactantCreate::factory()->create();
 
         $this->assertSame(0, Reactant::query()->count());
         $this->assertInstanceOf(NullReactant::class, $article->getLoveReactant());

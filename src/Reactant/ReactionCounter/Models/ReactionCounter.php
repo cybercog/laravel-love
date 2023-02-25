@@ -19,11 +19,14 @@ use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeInterface
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Laravel\Love\Support\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 final class ReactionCounter extends Model implements
     ReactionCounterInterface
 {
+    use HasFactory;
+
     public const COUNT_DEFAULT = 0;
 
     public const WEIGHT_DEFAULT = 0.0;

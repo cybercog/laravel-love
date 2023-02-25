@@ -17,6 +17,7 @@ use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableInterface;
 use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableInterface;
 use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
 use Cog\Laravel\Love\Reacterable\Models\Traits\Reacterable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
@@ -26,6 +27,7 @@ final class User extends Authenticatable implements
     ReacterableInterface,
     ReactableInterface
 {
+    use HasFactory;
     use Reactable;
     use Reacterable;
 

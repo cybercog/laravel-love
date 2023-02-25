@@ -94,7 +94,7 @@ final class NullReactantTest extends TestCase
     public function it_can_get_reaction_counter_of_type_null_object_when_reaction_counter_not_exist(): void
     {
         $reactant = new NullReactant(new Article());
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
 
         $counter = $reactant->getReactionCounterOfType($reactionType);
 
@@ -105,7 +105,7 @@ final class NullReactantTest extends TestCase
     public function it_can_get_reaction_counter_of_type_null_object_with_same_reactant(): void
     {
         $reactant = new NullReactant(new Article());
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
 
         $counter = $reactant->getReactionCounterOfType($reactionType);
 
@@ -117,7 +117,7 @@ final class NullReactantTest extends TestCase
     public function it_can_get_reaction_counter_of_type_null_object_with_same_reaction_type(): void
     {
         $reactant = new NullReactant(new Article());
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
 
         $counter = $reactant->getReactionCounterOfType($reactionType);
 
@@ -167,7 +167,7 @@ final class NullReactantTest extends TestCase
     public function it_can_check_is_equal_to_not_null_object_reactant(): void
     {
         $nullReactant = new NullReactant(new Article());
-        $reactant = factory(Reactant::class)->create();
+        $reactant = Reactant::factory()->create();
 
         $this->assertFalse($nullReactant->isEqualTo($reactant));
     }
@@ -202,7 +202,7 @@ final class NullReactantTest extends TestCase
     public function it_can_check_is_not_equal_to_not_null_object_reactant(): void
     {
         $nullReactant = new NullReactant(new Article());
-        $reactant = factory(Reactant::class)->create();
+        $reactant = Reactant::factory()->create();
 
         $this->assertTrue($nullReactant->isNotEqualTo($reactant));
     }
@@ -220,7 +220,7 @@ final class NullReactantTest extends TestCase
     public function it_can_check_is_reacted_by(): void
     {
         $reactant = new NullReactant(new Article());
-        $reacter = factory(Reacter::class)->make();
+        $reacter = Reacter::factory()->make();
 
         $isReacted = $reactant->isReactedBy($reacter);
 
@@ -231,7 +231,7 @@ final class NullReactantTest extends TestCase
     public function it_can_check_is_not_reacted_by(): void
     {
         $reactant = new NullReactant(new Article());
-        $reacter = factory(Reacter::class)->make();
+        $reacter = Reacter::factory()->make();
 
         $isReacted = $reactant->isNotReactedBy($reacter);
 
@@ -242,7 +242,7 @@ final class NullReactantTest extends TestCase
     public function it_can_check_is_reacted_by_with_type(): void
     {
         $reactant = new NullReactant(new Article());
-        $reacter = factory(Reacter::class)->make();
+        $reacter = Reacter::factory()->make();
         $reactionType = new ReactionType();
 
         $isReacted = $reactant->isReactedBy($reacter, $reactionType);
@@ -254,7 +254,7 @@ final class NullReactantTest extends TestCase
     public function it_can_check_is_not_reacted_by_with_type(): void
     {
         $reactant = new NullReactant(new Article());
-        $reacter = factory(Reacter::class)->make();
+        $reacter = Reacter::factory()->make();
         $reactionType = new ReactionType();
 
         $isReacted = $reactant->isNotReactedBy($reacter, $reactionType);
@@ -266,7 +266,7 @@ final class NullReactantTest extends TestCase
     public function it_can_check_is_reacted_by_with_rate(): void
     {
         $reactant = new NullReactant(new Article());
-        $reacter = factory(Reacter::class)->make();
+        $reacter = Reacter::factory()->make();
 
         $isReacted = $reactant->isReactedBy($reacter, null, 2.0);
 
@@ -277,7 +277,7 @@ final class NullReactantTest extends TestCase
     public function it_can_check_is_not_reacted_by_with_rate(): void
     {
         $reactant = new NullReactant(new Article());
-        $reacter = factory(Reacter::class)->make();
+        $reacter = Reacter::factory()->make();
 
         $isReacted = $reactant->isNotReactedBy($reacter, null, 2.0);
 
@@ -288,7 +288,7 @@ final class NullReactantTest extends TestCase
     public function it_can_check_is_reacted_by_with_type_and_rate(): void
     {
         $reactant = new NullReactant(new Article());
-        $reacter = factory(Reacter::class)->make();
+        $reacter = Reacter::factory()->make();
         $reactionType = new ReactionType();
 
         $isReacted = $reactant->isReactedBy($reacter, $reactionType, 2.0);
@@ -300,7 +300,7 @@ final class NullReactantTest extends TestCase
     public function it_can_check_is_not_reacted_by_with_type_and_rate(): void
     {
         $reactant = new NullReactant(new Article());
-        $reacter = factory(Reacter::class)->make();
+        $reacter = Reacter::factory()->make();
         $reactionType = new ReactionType();
 
         $isReacted = $reactant->isNotReactedBy($reacter, $reactionType, 2.0);
@@ -314,7 +314,7 @@ final class NullReactantTest extends TestCase
         $this->expectException(ReactantInvalid::class);
 
         $reactant = new NullReactant(new Article());
-        $reactionType = factory(ReactionType::class)->create();
+        $reactionType = ReactionType::factory()->create();
 
         $reactant->createReactionCounterOfType($reactionType);
     }

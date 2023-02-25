@@ -27,8 +27,8 @@ final class RegisterReactantsTest extends TestCase
     {
         Article::unsetEventDispatcher();
         User::unsetEventDispatcher();
-        $articleReactables = factory(Article::class, 3)->create();
-        $userReactables = factory(User::class, 3)->create();
+        $articleReactables = Article::factory()->count(3)->create();
+        $userReactables = User::factory()->count(3)->create();
         $reactantsCount = Reactant::query()->count();
         $command = $this->artisan(RegisterReactants::class, [
             '--model' => Article::class,
@@ -51,8 +51,8 @@ final class RegisterReactantsTest extends TestCase
     {
         MorphMappedReactable::unsetEventDispatcher();
         User::unsetEventDispatcher();
-        $morphMappedReactables = factory(MorphMappedReactable::class, 3)->create();
-        $userReactables = factory(User::class, 3)->create();
+        $morphMappedReactables = MorphMappedReactable::factory()->count(3)->create();
+        $userReactables = User::factory()->count(3)->create();
         $reactantsCount = Reactant::query()->count();
         $command = $this->artisan(RegisterReactants::class, [
             '--model' => 'morph-mapped-reactable',
@@ -75,10 +75,10 @@ final class RegisterReactantsTest extends TestCase
     {
         Article::unsetEventDispatcher();
         User::unsetEventDispatcher();
-        $articleReactables = factory(Article::class, 3)->create();
+        $articleReactables = Article::factory()->count(3)->create();
         $firstArticleReactable = $articleReactables->get(0);
         $lastArticleReactable = $articleReactables->get(2);
-        $userReactables = factory(User::class, 3)->create();
+        $userReactables = User::factory()->count(3)->create();
         $reactantsCount = Reactant::query()->count();
         $command = $this->artisan(RegisterReactants::class, [
             '--model' => Article::class,
@@ -105,10 +105,10 @@ final class RegisterReactantsTest extends TestCase
     {
         Article::unsetEventDispatcher();
         User::unsetEventDispatcher();
-        $articleReactables = factory(Article::class, 3)->create();
+        $articleReactables = Article::factory()->count(3)->create();
         $firstArticleReactable = $articleReactables->get(0);
         $lastArticleReactable = $articleReactables->get(2);
-        $userReactables = factory(User::class, 3)->create();
+        $userReactables = User::factory()->count(3)->create();
         $reactantsCount = Reactant::query()->count();
         $command = $this->artisan(RegisterReactants::class, [
             '--model' => Article::class,
@@ -130,8 +130,8 @@ final class RegisterReactantsTest extends TestCase
     /** @test */
     public function it_not_create_duplicate_reactants(): void
     {
-        factory(Article::class, 3)->create();
-        factory(User::class, 3)->create();
+        Article::factory()->count(3)->create();
+        User::factory()->count(3)->create();
         $reactantsCount = Reactant::query()->count();
         $command = $this->artisan(RegisterReactants::class, [
             '--model' => Article::class,

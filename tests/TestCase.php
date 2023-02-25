@@ -18,6 +18,7 @@ use Cog\Laravel\Love\LoveServiceProvider;
 use Cog\Tests\Laravel\Love\Stubs\Models\MorphMappedReactable;
 use Cog\Tests\Laravel\Love\Stubs\Models\MorphMappedReacterable;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Filesystem\Filesystem;
 use Mockery;
@@ -91,7 +92,9 @@ abstract class TestCase extends OrchestraTestCase
      */
     private function registerPackageFactories(): void
     {
-        $this->withFactories(__DIR__ . '/database/factories');
+        Factory::guessFactoryNamesUsing(function (string $modelName) {
+            return 'Cog\\Tests\\Laravel\\Love\\Database\\Factories\\' . class_basename($modelName) . 'Factory';
+        });
     }
 
     /**

@@ -26,17 +26,17 @@ final class ReactionTotalServiceTest extends TestCase
     /** @test */
     public function it_can_add_reaction(): void
     {
-        $reactionType = factory(ReactionType::class)->create([
+        $reactionType = ReactionType::factory()->create([
             'mass' => 4,
         ]);
-        $reactant = factory(Reactant::class)->create();
+        $reactant = Reactant::factory()->create();
         $service = new ReactionTotalService($reactant);
         Event::fake(); // To not fire ReactionObserver methods
-        $reaction1 = factory(Reaction::class)->create([
+        $reaction1 = Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactant->getId(),
         ]);
-        $reaction2 = factory(Reaction::class)->create([
+        $reaction2 = Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactant->getId(),
         ]);
@@ -52,22 +52,22 @@ final class ReactionTotalServiceTest extends TestCase
     /** @test */
     public function it_can_remove_reaction(): void
     {
-        $reactionType = factory(ReactionType::class)->create([
+        $reactionType = ReactionType::factory()->create([
             'mass' => 4,
         ]);
-        $reactant = factory(Reactant::class)->create();
-        $total = factory(ReactionTotal::class)->create([
+        $reactant = Reactant::factory()->create();
+        $total = ReactionTotal::factory()->create([
             'reactant_id' => $reactant->getId(),
             'count' => 4,
             'weight' => 16,
         ]);
         $service = new ReactionTotalService($reactant);
         Event::fake(); // To not fire ReactionObserver methods
-        $reaction1 = factory(Reaction::class)->create([
+        $reaction1 = Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactant->getId(),
         ]);
-        $reaction2 = factory(Reaction::class)->create([
+        $reaction2 = Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactant->getId(),
         ]);
@@ -84,13 +84,13 @@ final class ReactionTotalServiceTest extends TestCase
     {
         Event::fake(); // To not fire ReactionObserver & Reactant methods
 
-        $reactionType = factory(ReactionType::class)->create();
-        $reactant = factory(Reactant::class)->create();
-        $total = factory(ReactionTotal::class)->create([
+        $reactionType = ReactionType::factory()->create();
+        $reactant = Reactant::factory()->create();
+        $total = ReactionTotal::factory()->create([
             'reactant_id' => $reactant->getId(),
         ]);
         $service = new ReactionTotalService($reactant);
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactant->getId(),
         ]);
@@ -103,17 +103,17 @@ final class ReactionTotalServiceTest extends TestCase
     /** @test */
     public function it_can_add_reaction_with_negative_weight(): void
     {
-        $reactionType = factory(ReactionType::class)->create([
+        $reactionType = ReactionType::factory()->create([
             'mass' => -4,
         ]);
-        $reactant = factory(Reactant::class)->create();
+        $reactant = Reactant::factory()->create();
         $service = new ReactionTotalService($reactant);
         Event::fake(); // To not fire ReactionObserver methods
-        $reaction1 = factory(Reaction::class)->create([
+        $reaction1 = Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactant->getId(),
         ]);
-        $reaction2 = factory(Reaction::class)->create([
+        $reaction2 = Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactant->getId(),
         ]);
@@ -130,12 +130,12 @@ final class ReactionTotalServiceTest extends TestCase
     public function it_creates_total_on_add_reaction_when_total_not_exists(): void
     {
         Event::fake(); // Prevent total auto creation
-        $reactionType = factory(ReactionType::class)->create([
+        $reactionType = ReactionType::factory()->create([
             'mass' => 4,
         ]);
-        $reactant = factory(Reactant::class)->create();
+        $reactant = Reactant::factory()->create();
         $service = new ReactionTotalService($reactant);
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactant->getId(),
         ]);
@@ -152,10 +152,10 @@ final class ReactionTotalServiceTest extends TestCase
     public function it_creates_total_on_remove_reaction_when_total_not_exists(): void
     {
         Event::fake(); // Prevent total auto creation
-        $reactionType = factory(ReactionType::class)->create();
-        $reactant = factory(Reactant::class)->create();
+        $reactionType = ReactionType::factory()->create();
+        $reactant = Reactant::factory()->create();
         $service = new ReactionTotalService($reactant);
-        $reaction = factory(Reaction::class)->create([
+        $reaction = Reaction::factory()->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactant->getId(),
         ]);

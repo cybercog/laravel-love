@@ -23,11 +23,14 @@ use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Laravel\Love\Support\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 final class Reaction extends Model implements
     ReactionInterface
 {
+    use HasFactory;
+
     public const RATE_DEFAULT = 1.0;
 
     public const RATE_MIN = 0.01;
