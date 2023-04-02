@@ -43,14 +43,14 @@ interface Reactant
 
     public function isReactedBy(
         Reacter $reacter,
-        ?ReactionType $reactionType = null,
-        ?float $rate = null,
+        ReactionType | null $reactionType = null,
+        float | null $rate = null,
     ): bool;
 
     public function isNotReactedBy(
         Reacter $reacter,
-        ?ReactionType $reactionType = null,
-        ?float $rate = null,
+        ReactionType | null $reactionType = null,
+        float | null $rate = null,
     ): bool;
 
     public function isEqualTo(

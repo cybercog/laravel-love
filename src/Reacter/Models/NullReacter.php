@@ -50,7 +50,7 @@ final class NullReacter implements
     public function reactTo(
         ReactantInterface $reactant,
         ReactionTypeInterface $reactionType,
-        ?float $rate = null,
+        float | null $rate = null,
     ): void {
         throw ReacterInvalid::notExists();
     }
@@ -64,16 +64,16 @@ final class NullReacter implements
 
     public function hasReactedTo(
         ReactantInterface $reactant,
-        ?ReactionTypeInterface $reactionType = null,
-        ?float $rate = null,
+        ReactionTypeInterface | null $reactionType = null,
+        float | null $rate = null,
     ): bool {
         return false;
     }
 
     public function hasNotReactedTo(
         ReactantInterface $reactant,
-        ?ReactionTypeInterface $reactionType = null,
-        ?float $rate = null,
+        ReactionTypeInterface | null $reactionType = null,
+        float | null $rate = null,
     ): bool {
         return true;
     }

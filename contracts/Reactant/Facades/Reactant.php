@@ -30,14 +30,14 @@ interface Reactant
     public function getReactionTotal(): ReactionTotal;
 
     public function isReactedBy(
-        ?Reacterable $reacterable = null,
-        ?string $reactionTypeName = null,
-        ?float $rate = null,
+        Reacterable | null $reacterable = null,
+        string | null $reactionTypeName = null,
+        float | null $rate = null,
     ): bool;
 
     public function isNotReactedBy(
-        ?Reacterable $reacterable = null,
-        ?string $reactionTypeName = null,
-        ?float $rate = null,
+        Reacterable | null $reacterable = null,
+        string | null $reactionTypeName = null,
+        float | null $rate = null,
     ): bool;
 }

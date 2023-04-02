@@ -83,7 +83,7 @@ final class Reacter extends Model implements
     public function reactTo(
         ReactantInterface $reactant,
         ReactionTypeInterface $reactionType,
-        ?float $rate = null,
+        float | null $rate = null,
     ): void {
         if ($reactant->isNull()) {
             throw ReactantInvalid::notExists();
@@ -123,8 +123,8 @@ final class Reacter extends Model implements
 
     public function hasReactedTo(
         ReactantInterface $reactant,
-        ?ReactionTypeInterface $reactionType = null,
-        ?float $rate = null,
+        ReactionTypeInterface | null $reactionType = null,
+        float | null $rate = null,
     ): bool {
         if ($reactant->isNull()) {
             return false;
@@ -135,8 +135,8 @@ final class Reacter extends Model implements
 
     public function hasNotReactedTo(
         ReactantInterface $reactant,
-        ?ReactionTypeInterface $reactionType = null,
-        ?float $rate = null,
+        ReactionTypeInterface | null $reactionType = null,
+        float | null $rate = null,
     ): bool {
         return $reactant->isNotReactedBy($this, $reactionType, $rate);
     }
@@ -167,7 +167,7 @@ final class Reacter extends Model implements
     private function createReaction(
         ReactantInterface $reactant,
         ReactionTypeInterface $reactionType,
-        ?float $rate = null,
+        float | null $rate = null,
     ): void {
         $this->reactions()->create([
             'reaction_type_id' => $reactionType->getId(),
@@ -184,7 +184,7 @@ final class Reacter extends Model implements
     private function findReaction(
         ReactantInterface $reactant,
         ReactionTypeInterface $reactionType,
-    ): ?ReactionInterface {
+    ): ReactionInterface | null {
         return $this
             ->reactions()
             ->where('reactant_id', $reactant->getId())

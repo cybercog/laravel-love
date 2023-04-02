@@ -61,9 +61,9 @@ final class Reactant implements
     }
 
     public function isReactedBy(
-        ?ReacterableInterface $reacterable = null,
-        ?string $reactionTypeName = null,
-        ?float $rate = null,
+        ReacterableInterface | null $reacterable = null,
+        string | null $reactionTypeName = null,
+        float | null $rate = null,
     ): bool {
         if ($reacterable === null) {
             return false;
@@ -79,9 +79,9 @@ final class Reactant implements
     }
 
     public function isNotReactedBy(
-        ?ReacterableInterface $reacterable = null,
-        ?string $reactionTypeName = null,
-        ?float $rate = null,
+        ReacterableInterface | null $reacterable = null,
+        string | null $reactionTypeName = null,
+        float | null $rate = null,
     ): bool {
         if ($reacterable === null) {
             return true;

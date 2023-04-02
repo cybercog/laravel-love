@@ -126,8 +126,8 @@ final class Reactant extends Model implements
 
     public function isReactedBy(
         ReacterInterface $reacter,
-        ?ReactionTypeInterface $reactionType = null,
-        ?float $rate = null,
+        ReactionTypeInterface | null $reactionType = null,
+        float | null $rate = null,
     ): bool {
         if ($reacter->isNull()) {
             return false;
@@ -169,8 +169,8 @@ final class Reactant extends Model implements
 
     public function isNotReactedBy(
         ReacterInterface $reacter,
-        ?ReactionTypeInterface $reactionType = null,
-        ?float $rate = null,
+        ReactionTypeInterface | null $reactionType = null,
+        float | null $rate = null,
     ): bool {
         return !$this->isReactedBy($reacter, $reactionType, $rate);
     }

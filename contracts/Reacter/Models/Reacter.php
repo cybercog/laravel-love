@@ -31,7 +31,7 @@ interface Reacter
     public function reactTo(
         Reactant $reactant,
         ReactionType $reactionType,
-        ?float $rate = null,
+        float | null $rate = null,
     ): void;
 
     public function unreactTo(
@@ -41,14 +41,14 @@ interface Reacter
 
     public function hasReactedTo(
         Reactant $reactant,
-        ?ReactionType $reactionType = null,
-        ?float $rate = null,
+        ReactionType | null $reactionType = null,
+        float | null $rate = null,
     ): bool;
 
     public function hasNotReactedTo(
         Reactant $reactant,
-        ?ReactionType $reactionType = null,
-        ?float $rate = null,
+        ReactionType | null $reactionType = null,
+        float | null $rate = null,
     ): bool;
 
     public function isEqualTo(
