@@ -18,6 +18,7 @@ use Cog\Contracts\Love\Reactant\Exceptions\ReactantInvalid;
 use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantInterface;
 use Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter as ReactionCounterInterface;
 use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalInterface;
+use Cog\Contracts\Love\Reacter\Models\Reacter;
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterInterface;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeInterface;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\NullReactionCounter;
@@ -48,6 +49,12 @@ final class NullReactant implements
 
     public function getReactions(): iterable
     {
+        return new Collection();
+    }
+
+    public function getReactionsBy(
+        Reacter $reacter,
+    ): iterable {
         return new Collection();
     }
 

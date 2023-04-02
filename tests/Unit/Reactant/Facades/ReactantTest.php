@@ -19,6 +19,7 @@ use Cog\Laravel\Love\Reactant\ReactionCounter\Models\NullReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal;
+use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
@@ -39,6 +40,27 @@ final class ReactantTest extends TestCase
 
         $assertReactions = $reactantFacade->getReactions();
 
+        $this->assertTrue($assertReactions->get(0)->is($reactions->get(0)));
+        $this->assertTrue($assertReactions->get(1)->is($reactions->get(1)));
+    }
+
+    /** @test */
+    public function it_can_get_reactions_by_user(): void
+    {
+        $reactant = Reactant::factory()->create();
+        $reacter = Reacter::factory()->create();
+        $reactions = Reaction::factory()->count(2)->create([
+            'reactant_id' => $reactant->getId(),
+            'reacter_id' => $reacter->getId(),
+        ]);
+        Reaction::factory()->count(3)->create([
+            'reactant_id' => $reactant->getId(),
+        ]);
+        $reactantFacade = new ReactantFacade($reactant);
+
+        $assertReactions = $reactantFacade->getReactions();
+
+        $this->assertCount(2, $reactions);
         $this->assertTrue($assertReactions->get(0)->is($reactions->get(0)));
         $this->assertTrue($assertReactions->get(1)->is($reactions->get(1)));
     }

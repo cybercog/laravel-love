@@ -28,6 +28,7 @@ use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\Stubs\Models\Bot;
+use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Support\Facades\Event;
 use TypeError;
@@ -198,6 +199,44 @@ final class ReactantTest extends TestCase
 
         $this->assertTrue($assertReactions->get(0)->is($reactions->get(0)));
         $this->assertTrue($assertReactions->get(1)->is($reactions->get(1)));
+    }
+
+    /** @test */
+    public function it_can_get_reactions_by_reacter(): void
+    {
+        $reactionType = ReactionType::factory()->create();
+        $reactant = Reactant::factory()->create();
+        $reacter = Reacter::factory()->create();
+
+        $reactions = Reaction::factory()->count(2)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
+            'reacter_id' => $reacter->getId(),
+        ]);
+        Reaction::factory()->count(3)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
+        ]);
+
+        $assertReactions = $reactant->getReactionsBy($reacter);
+        $this->assertTrue($assertReactions->get(0)->is($reactions->get(0)));
+        $this->assertTrue($assertReactions->get(1)->is($reactions->get(1)));
+    }
+
+    /** @test */
+    public function it_can_get_reactions_by_null_reacter(): void
+    {
+        $reactionType = ReactionType::factory()->create();
+        $reactant = Reactant::factory()->create();
+        $nullReacter = new NullReacter(new User());
+
+        $reactions = Reaction::factory()->count(3)->create([
+            'reaction_type_id' => $reactionType->getId(),
+            'reactant_id' => $reactant->getId(),
+        ]);
+
+        $assertReactions = $reactant->getReactionsBy($nullReacter);
+        $this->assertCount(0, $assertReactions);
     }
 
     /** @test */
