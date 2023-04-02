@@ -34,7 +34,7 @@ abstract class Migration extends IlluminateMigration
     /**
      * Get the migration connection name.
      */
-    public function getConnection(): ?string
+    public function getConnection(): string | null
     {
         return Config::get('love.storage.database.connection');
     }

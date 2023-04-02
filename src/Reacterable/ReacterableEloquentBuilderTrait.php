@@ -26,7 +26,7 @@ trait ReacterableEloquentBuilderTrait
 {
     public function whereReactedTo(
         ReactableInterface $reactable,
-        ?string $reactionTypeName = null,
+        string | null $reactionTypeName = null,
     ): Builder {
         return $this->whereHas(
             'loveReacter.reactions',
@@ -51,7 +51,7 @@ trait ReacterableEloquentBuilderTrait
 
     public function whereNotReactedTo(
         ReactableInterface $reactable,
-        ?string $reactionTypeName = null,
+        string | null $reactionTypeName = null,
     ): Builder {
         return $this->whereDoesntHave(
             'loveReacter.reactions',
@@ -78,7 +78,7 @@ trait ReacterableEloquentBuilderTrait
         ReactableInterface $reactable,
         DateTimeInterface $reactedAtFrom,
         DateTimeInterface $reactedAtTo,
-        ?string $reactionTypeName = null,
+        string | null $reactionTypeName = null,
     ): Builder {
         return $this->whereHas(
             'loveReacter.reactions',
