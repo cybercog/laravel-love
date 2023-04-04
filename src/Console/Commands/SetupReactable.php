@@ -54,8 +54,8 @@ final class SetupReactable extends Command
             $this->error(
                 sprintf(
                     'Model `%s` not exists.',
-                    $model
-                )
+                    $model,
+                ),
             );
 
             return self::FAILURE;
@@ -68,8 +68,8 @@ final class SetupReactable extends Command
             $this->error(
                 sprintf(
                     'Model `%s` does not implements Reactable interface.',
-                    get_class($model)
-                )
+                    get_class($model),
+                ),
             );
 
             return self::FAILURE;
@@ -85,8 +85,8 @@ final class SetupReactable extends Command
             $this->error(
                 sprintf(
                     'Referenced table `%s` does not exists in database.',
-                    $referencedTable
-                )
+                    $referencedTable,
+                ),
             );
 
             return self::FAILURE;
@@ -97,8 +97,8 @@ final class SetupReactable extends Command
                 sprintf(
                     'Foreign column `%s` already exists in `%s` database table.',
                     $foreignColumn,
-                    $table
-                )
+                    $table,
+                ),
             );
 
             return self::FAILURE;

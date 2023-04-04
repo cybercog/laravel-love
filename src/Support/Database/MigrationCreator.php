@@ -39,7 +39,7 @@ final class MigrationCreator
 
         $this->files->put(
             $this->getPath($basePath, $migrationStub->getFilename()),
-            $migrationStub->getPopulatedContent()
+            $migrationStub->getPopulatedContent(),
         );
     }
 

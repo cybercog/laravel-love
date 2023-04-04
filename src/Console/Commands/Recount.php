@@ -81,7 +81,7 @@ final class Recount extends Command
         }
 
         $this->warn(
-            "Rebuilding reaction aggregates using `$queueConnectionName` queue connection."
+            "Rebuilding reaction aggregates using `$queueConnectionName` queue connection.",
         );
 
         $reactants = $this->collectReactants($reactableType);
@@ -90,7 +90,7 @@ final class Recount extends Command
         foreach ($reactants as $reactant) {
             $this->dispatcher->dispatch(
                 (new RebuildReactionAggregatesJob($reactant, $reactionType))
-                    ->onConnection($queueConnectionName)
+                    ->onConnection($queueConnectionName),
             );
 
             $this->getOutput()->progressAdvance();
