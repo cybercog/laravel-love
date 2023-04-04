@@ -40,8 +40,8 @@ final class ReactionTypeAdd extends Command
             $this->error(
                 sprintf(
                     'Reaction type with name `%s` is invalid.',
-                    $name
-                )
+                    $name,
+                ),
             );
 
             return self::FAILURE;
@@ -51,8 +51,8 @@ final class ReactionTypeAdd extends Command
             $this->error(
                 sprintf(
                     'Reaction type with name `%s` already exists.',
-                    $name
-                )
+                    $name,
+                ),
             );
 
             return self::FAILURE;
@@ -105,8 +105,8 @@ final class ReactionTypeAdd extends Command
                 $this->line(
                     sprintf(
                         'Reaction type with name `%s` already exists.',
-                        $type['name']
-                    )
+                        $type['name'],
+                    ),
                 );
                 continue;
             }
@@ -128,8 +128,8 @@ final class ReactionTypeAdd extends Command
             sprintf(
                 'Reaction type with name `%s` and mass `%d` was added.',
                 $name,
-                $mass
-            )
+                $mass,
+            ),
         );
     }
 

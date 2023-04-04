@@ -25,8 +25,8 @@ final class ReactionTypeInvalid extends RuntimeException implements
         return new self(
             sprintf(
                 'ReactionType with name `%s` not exists.',
-                $name
-            )
+                $name,
+            ),
         );
     }
 }

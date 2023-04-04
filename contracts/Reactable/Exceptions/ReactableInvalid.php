@@ -26,8 +26,8 @@ final class ReactableInvalid extends RuntimeException implements
         return new self(
             sprintf(
                 '[%s] class or morph map not found.',
-                $type
-            )
+                $type,
+            ),
         );
     }
 
@@ -38,8 +38,8 @@ final class ReactableInvalid extends RuntimeException implements
             sprintf(
                 '[%s] must implement `%s` contract.',
                 $type,
-                Reactable::class
-            )
+                Reactable::class,
+            ),
         );
     }
 }

@@ -51,7 +51,7 @@ final class Reactant implements
         string $reactionTypeName,
     ): ReactionCounterInterface {
         return $this->reactant->getReactionCounterOfType(
-            ReactionType::fromName($reactionTypeName)
+            ReactionType::fromName($reactionTypeName),
         );
     }
 
@@ -74,7 +74,7 @@ final class Reactant implements
         return $this->reactant->isReactedBy(
             $reacterable->getLoveReacter(),
             $reactionType,
-            $rate
+            $rate,
         );
     }
 
@@ -92,7 +92,7 @@ final class Reactant implements
         return $this->reactant->isNotReactedBy(
             $reacterable->getLoveReacter(),
             $reactionType,
-            $rate
+            $rate,
         );
     }
 }

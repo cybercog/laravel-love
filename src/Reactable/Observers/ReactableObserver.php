@@ -20,8 +20,10 @@ final class ReactableObserver
     public function created(
         ReactableInterface $reactable,
     ): void {
-        if ($this->shouldRegisterAsReactantOnCreate($reactable)
-            && $reactable->isNotRegisteredAsLoveReactant()) {
+        if (
+            $this->shouldRegisterAsReactantOnCreate($reactable)
+            && $reactable->isNotRegisteredAsLoveReactant()
+        ) {
             $reactable->registerAsLoveReactant();
         }
     }

@@ -40,7 +40,7 @@ final class ReactionObserver
         Reaction $reaction,
     ): void {
         $this->eventDispatcher->dispatch(
-            new ReactionHasBeenAdded($reaction)
+            new ReactionHasBeenAdded($reaction),
         );
     }
 
@@ -48,7 +48,7 @@ final class ReactionObserver
         Reaction $reaction,
     ): void {
         $this->eventDispatcher->dispatch(
-            new ReactionHasBeenRemoved($reaction)
+            new ReactionHasBeenRemoved($reaction),
         );
     }
 }

@@ -29,8 +29,8 @@ final class RateOutOfRange extends OutOfRangeException implements
                 'Invalid Reaction rate: `%s`. Must be between `%s` and `%s`',
                 $rate,
                 $minimumRate,
-                $maximumRate
-            )
+                $maximumRate,
+            ),
         );
     }
 }

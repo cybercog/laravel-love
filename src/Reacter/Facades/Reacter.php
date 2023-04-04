@@ -45,7 +45,7 @@ final class Reacter implements
         $this->reacter->reactTo(
             $reactable->getLoveReactant(),
             ReactionType::fromName($reactionTypeName),
-            $rate
+            $rate,
         );
     }
 
@@ -55,7 +55,7 @@ final class Reacter implements
     ): void {
         $this->reacter->unreactTo(
             $reactable->getLoveReactant(),
-            ReactionType::fromName($reactionTypeName)
+            ReactionType::fromName($reactionTypeName),
         );
     }
 
@@ -69,7 +69,7 @@ final class Reacter implements
         return $this->reacter->hasReactedTo(
             $reactable->getLoveReactant(),
             $reactionType,
-            $rate
+            $rate,
         );
     }
 
@@ -83,7 +83,7 @@ final class Reacter implements
         return $this->reacter->hasNotReactedTo(
             $reactable->getLoveReactant(),
             $reactionType,
-            $rate
+            $rate,
         );
     }
 }

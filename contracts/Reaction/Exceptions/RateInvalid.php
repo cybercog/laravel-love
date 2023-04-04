@@ -25,8 +25,8 @@ final class RateInvalid extends UnexpectedValueException implements
         return new self(
             sprintf(
                 'Invalid Reaction rate: `%s`. Can not change to same value.',
-                $rate
-            )
+                $rate,
+            ),
         );
     }
 }

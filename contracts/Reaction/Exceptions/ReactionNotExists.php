@@ -26,8 +26,8 @@ final class ReactionNotExists extends RuntimeException implements
         return new self(
             sprintf(
                 'Reaction of type `%s` not exists.',
-                $reactionType->getName()
-            )
+                $reactionType->getName(),
+            ),
         );
     }
 }

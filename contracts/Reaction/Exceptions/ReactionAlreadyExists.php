@@ -26,8 +26,8 @@ final class ReactionAlreadyExists extends RuntimeException implements
         return new self(
             sprintf(
                 'Reaction of type `%s` already exists.',
-                $reactionType->getName()
-            )
+                $reactionType->getName(),
+            ),
         );
     }
 }

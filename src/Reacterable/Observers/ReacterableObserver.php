@@ -20,8 +20,10 @@ final class ReacterableObserver
     public function created(
         ReacterableInterface $reacterable,
     ): void {
-        if ($this->shouldRegisterAsReacterOnCreate($reacterable)
-            && $reacterable->isNotRegisteredAsLoveReacter()) {
+        if (
+            $this->shouldRegisterAsReacterOnCreate($reacterable)
+            && $reacterable->isNotRegisteredAsLoveReacter()
+        ) {
             $reacterable->registerAsLoveReacter();
         }
     }

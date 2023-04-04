@@ -34,7 +34,7 @@ final class DecrementAggregates
         $reactant = $reaction->getReactant();
 
         $this->dispatcher->dispatch(
-            new DecrementReactionAggregatesJob($reactant, $reaction)
+            new DecrementReactionAggregatesJob($reactant, $reaction),
         );
     }
 }
