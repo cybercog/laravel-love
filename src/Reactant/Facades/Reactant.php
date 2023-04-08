@@ -34,7 +34,8 @@ final class Reactant implements
     /**
      * @return iterable|\Cog\Contracts\Love\Reaction\Models\Reaction[]
      */
-    public function getReactions(): iterable {
+    public function getReactions(): iterable
+    {
         return $this->reactant->getReactions();
     }
 
