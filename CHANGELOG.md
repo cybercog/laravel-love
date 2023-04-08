@@ -4,8 +4,8 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ## [Unreleased]
 
-- ([#240]) Added `getReactionsBy` to Reacter Facade
-- ([#240]) Added `getReactionsBy` to Reacter Model
+- ([#240]) Added `getReactionsBy` method to Reacter Facade
+- ([#240]) Added `getReactionsBy` method to Reacter Model
 
 ## [9.0.0] - 2023-02-24
 
