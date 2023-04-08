@@ -44,6 +44,27 @@ final class ReactantTest extends TestCase
     }
 
     /** @test */
+    public function it_can_get_reactions_by_user(): void
+    {
+        $reactant = Reactant::factory()->create();
+        $reacterable = User::factory()->create();
+        $reactions = Reaction::factory()->count(2)->create([
+            'reactant_id' => $reactant->getId(),
+            'reacter_id' => $reacterable->getLoveReacter()->getId(),
+        ]);
+        Reaction::factory()->count(3)->create([
+            'reactant_id' => $reactant->getId(),
+        ]);
+        $reactantFacade = new ReactantFacade($reactant);
+
+        $assertReactions = $reactantFacade->getReactionsBy($reacterable);
+
+        $this->assertCount(2, $assertReactions);
+        $this->assertTrue($assertReactions->get(0)->is($reactions->get(0)));
+        $this->assertTrue($assertReactions->get(1)->is($reactions->get(1)));
+    }
+
+    /** @test */
     public function it_can_get_reaction_counters(): void
     {
         $reactant = Reactant::factory()->create();

@@ -31,6 +31,13 @@ interface Reactant
     public function getReactions(): iterable;
 
     /**
+     * @return iterable|\Cog\Contracts\Love\Reaction\Models\Reaction[]
+     */
+    public function getReactionsBy(
+        Reacter $reacter,
+    ): iterable;
+
+    /**
      * @return iterable|\Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter[]
      */
     public function getReactionCounters(): iterable;

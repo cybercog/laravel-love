@@ -20,6 +20,7 @@ use Cog\Contracts\Love\Reactant\ReactionCounter\Exceptions\ReactionCounterDuplic
 use Cog\Contracts\Love\Reactant\ReactionCounter\Models\ReactionCounter as ReactionCounterInterface;
 use Cog\Contracts\Love\Reactant\ReactionTotal\Exceptions\ReactionTotalDuplicate;
 use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalInterface;
+use Cog\Contracts\Love\Reacter\Models\Reacter;
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterInterface;
 use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionInterface;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeInterface;
@@ -33,6 +34,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Support\Collection;
 
 final class Reactant extends Model implements
     ReactantInterface
@@ -94,6 +96,26 @@ final class Reactant extends Model implements
     public function getReactions(): iterable
     {
         return $this->getAttribute('reactions');
+    }
+
+    /**
+     * @return iterable|\Cog\Contracts\Love\Reaction\Models\Reaction[]
+     */
+    public function getReactionsBy(
+        Reacter $reacter,
+    ): iterable {
+        if ($reacter->isNull()) {
+            return new Collection();
+        }
+
+        // TODO: Test if relation was loaded partially
+        if ($this->relationLoaded('reactions')) {
+            return $this
+                ->getAttribute('reactions')
+                ->contains(fn (ReactionInterface $reaction) => $reaction->isByReacter($reacter));
+        }
+
+        return $this->reactions()->where('reacter_id', $reacter->getId())->get();
     }
 
     public function getReactionCounters(): iterable
