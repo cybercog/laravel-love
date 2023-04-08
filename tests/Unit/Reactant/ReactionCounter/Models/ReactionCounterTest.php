@@ -32,7 +32,27 @@ final class ReactionCounterTest extends TestCase
     }
 
     /** @test */
+    public function it_can_fill_count_as_float(): void
+    {
+        $counter = new ReactionCounter([
+            'count' => 4.0,
+        ]);
+
+        $this->assertSame(4, $counter->getAttribute('count'));
+    }
+
+    /** @test */
     public function it_can_fill_weight(): void
+    {
+        $counter = new ReactionCounter([
+            'weight' => 4.1,
+        ]);
+
+        $this->assertSame(4.1, $counter->getAttribute('weight'));
+    }
+
+    /** @test */
+    public function it_can_fill_weight_as_int(): void
     {
         $counter = new ReactionCounter([
             'weight' => 4,
@@ -52,6 +72,16 @@ final class ReactionCounterTest extends TestCase
     }
 
     /** @test */
+    public function it_casts_null_count_to_default_value(): void
+    {
+        $counter = ReactionCounter::factory()->create([
+            'count' => null,
+        ]);
+
+        $this->assertSame(ReactionCounter::COUNT_DEFAULT, $counter->getCount());
+    }
+
+    /** @test */
     public function it_casts_count_to_integer(): void
     {
         $counter = new ReactionCounter([
@@ -60,6 +90,16 @@ final class ReactionCounterTest extends TestCase
 
         $this->assertSame(4, $counter->getAttribute('count'));
         $this->assertSame(4, $counter->getCount());
+    }
+
+    /** @test */
+    public function it_casts_null_weight_to_default_value(): void
+    {
+        $counter = ReactionCounter::factory()->create([
+            'weight' => null,
+        ]);
+
+        $this->assertSame(ReactionCounter::WEIGHT_DEFAULT, $counter->getWeight());
     }
 
     /** @test */

@@ -31,13 +31,43 @@ final class ReactionTotalTest extends TestCase
     }
 
     /** @test */
+    public function it_can_fill_count_as_float(): void
+    {
+        $total = new ReactionTotal([
+            'count' => 4.0,
+        ]);
+
+        $this->assertSame(4, $total->getAttribute('count'));
+    }
+
+    /** @test */
     public function it_can_fill_weight(): void
+    {
+        $total = new ReactionTotal([
+            'weight' => 4.1,
+        ]);
+
+        $this->assertSame(4.1, $total->getAttribute('weight'));
+    }
+
+    /** @test */
+    public function it_can_fill_weight_as_int(): void
     {
         $total = new ReactionTotal([
             'weight' => 4,
         ]);
 
         $this->assertSame(4.0, $total->getAttribute('weight'));
+    }
+
+    /** @test */
+    public function it_casts_null_count_to_default_value(): void
+    {
+        $total = ReactionTotal::factory()->create([
+            'count' => null,
+        ]);
+
+        $this->assertSame(ReactionTotal::COUNT_DEFAULT, $total->getCount());
     }
 
     /** @test */
@@ -49,6 +79,16 @@ final class ReactionTotalTest extends TestCase
 
         $this->assertSame(4, $total->getAttribute('count'));
         $this->assertSame(4, $total->getCount());
+    }
+
+    /** @test */
+    public function it_casts_null_weight_to_default_value(): void
+    {
+        $total = ReactionTotal::factory()->create([
+            'weight' => null,
+        ]);
+
+        $this->assertSame(ReactionTotal::WEIGHT_DEFAULT, $total->getWeight());
     }
 
     /** @test */
