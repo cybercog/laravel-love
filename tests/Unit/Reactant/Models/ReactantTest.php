@@ -219,6 +219,7 @@ final class ReactantTest extends TestCase
         ]);
 
         $assertReactions = $reactant->getReactionsBy($reacter);
+        $this->assertCount(2, $assertReactions);
         $this->assertTrue($assertReactions->get(0)->is($reactions->get(0)));
         $this->assertTrue($assertReactions->get(1)->is($reactions->get(1)));
     }
@@ -230,7 +231,7 @@ final class ReactantTest extends TestCase
         $reactant = Reactant::factory()->create();
         $nullReacter = new NullReacter(new User());
 
-        $reactions = Reaction::factory()->count(3)->create([
+        Reaction::factory()->count(3)->create([
             'reaction_type_id' => $reactionType->getId(),
             'reactant_id' => $reactant->getId(),
         ]);
