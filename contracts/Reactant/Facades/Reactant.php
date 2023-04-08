@@ -21,6 +21,10 @@ interface Reactant
 {
     public function getReactions(): iterable;
 
+    public function getReactionsBy(
+        Reacterable $reacterable,
+    ): iterable;
+
     public function getReactionCounters(): iterable;
 
     public function getReactionCounterOfType(
