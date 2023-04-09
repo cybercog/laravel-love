@@ -32,9 +32,7 @@ final class Reaction extends Model implements
     use HasFactory;
 
     public const RATE_DEFAULT = 1.0;
-
     public const RATE_MIN = 0.01;
-
     public const RATE_MAX = 99.99;
 
     protected $table = 'love_reactions';
