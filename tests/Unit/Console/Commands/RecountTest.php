@@ -906,6 +906,27 @@ final class RecountTest extends TestCase
         $this->assertSame(0.0, $reactant2->reactionTotal->weight);
     }
 
+    /** @test */
+    public function it_sums_reaction_total_weight_with_floating_point_issue(): void
+    {
+        $reactionType = ReactionType::factory()->create(['mass' => 1]);
+        $reactant = Reactant::factory()->create();
+        Reaction::factory()->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant,
+            'rate' => 0.2,
+        ]);
+        Reaction::factory()->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant,
+            'rate' => 0.1,
+        ]);
+
+        $this->artisan('love:recount');
+
+        $this->assertSame(0.3, $reactant->reactionTotal->weight);
+    }
+
     private function reactionsCount(
         ReactantInterface $reactant,
         ReactionTypeInterface $reactionType
