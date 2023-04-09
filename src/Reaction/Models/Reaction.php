@@ -115,7 +115,7 @@ final class Reaction extends Model implements
             throw RateOutOfRange::withValueBetween($rate, self::RATE_MIN, self::RATE_MAX);
         }
 
-        $this->attributes['rate'] = $rate;
+        $this->attributes['rate'] = $rate ?? self::RATE_DEFAULT;
     }
 
     public function isOfType(

@@ -232,7 +232,7 @@ final class ReactionCounterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_create_model_with_zero_count(): void
+    public function it_can_create_counter_with_zero_count(): void
     {
         $counter1 = ReactionCounter::factory()->create();
         $counter2 = ReactionCounter::factory()->create([
@@ -244,7 +244,7 @@ final class ReactionCounterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_create_model_with_zero_weight(): void
+    public function it_can_create_counter_with_zero_weight(): void
     {
         $counter1 = ReactionCounter::factory()->create();
         $counter2 = ReactionCounter::factory()->create([

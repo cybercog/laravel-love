@@ -28,14 +28,6 @@ final class ReactionObserver
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    public function creating(
-        Reaction $reaction,
-    ): void {
-        if ($reaction->getAttributeValue('rate') === null) {
-            $reaction->setAttribute('rate', Reaction::RATE_DEFAULT);
-        }
-    }
-
     public function created(
         Reaction $reaction,
     ): void {
