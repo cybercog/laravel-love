@@ -56,7 +56,7 @@ final class ReactionTest extends TestCase
             'rate' => 4.0,
         ]);
 
-        $this->assertSame(4.0, $reaction->getAttribute('rate'));
+        $this->assertSame(4.0, $reaction->getRate());
     }
 
     /** @test */
@@ -80,34 +80,55 @@ final class ReactionTest extends TestCase
     }
 
     /** @test */
-    public function it_has_default_rate_value(): void
-    {
-        $reaction = new Reaction();
-
-        $this->assertSame(Reaction::RATE_DEFAULT, $reaction->getAttribute('rate'));
-        $this->assertSame(Reaction::RATE_DEFAULT, $reaction->getRate());
-    }
-
-    /** @test */
     public function it_casts_id_to_string(): void
     {
         $reaction = Reaction::factory()->make([
             'id' => 4,
         ]);
 
-        $this->assertSame('4', $reaction->getAttribute('id'));
         $this->assertSame('4', $reaction->getId());
     }
 
     /** @test */
-    public function it_casts_rate_to_float(): void
+    public function it_casts_int_rate_to_float(): void
     {
         $reaction = new Reaction([
             'rate' => '4',
         ]);
 
-        $this->assertSame(4.0, $reaction->getAttribute('rate'));
         $this->assertSame(4.0, $reaction->getRate());
+    }
+
+    /** @test */
+    public function it_casts_string_rate_to_float(): void
+    {
+        $reaction1 = new Reaction([
+            'rate' => '4',
+        ]);
+        $reaction2 = new Reaction([
+            'rate' => '4.1',
+        ]);
+
+        $this->assertSame(4.0, $reaction1->getRate());
+        $this->assertSame(4.1, $reaction2->getRate());
+    }
+
+    /** @test */
+    public function it_casts_null_rate_to_default_value(): void
+    {
+        $reaction = Reaction::factory()->create([
+            'rate' => null,
+        ]);
+
+        $this->assertSame(Reaction::RATE_DEFAULT, $reaction->getRate());
+    }
+
+    /** @test */
+    public function it_casts_not_set_rate_to_default_value(): void
+    {
+        $reaction = new Reaction();
+
+        $this->assertSame(Reaction::RATE_DEFAULT, $reaction->getRate());
     }
 
     /** @test */
@@ -146,16 +167,6 @@ final class ReactionTest extends TestCase
         ]);
 
         $this->assertTrue($reaction->reacter->is($reacter));
-    }
-
-    /** @test */
-    public function it_can_get_id(): void
-    {
-        $reaction = Reaction::factory()->make([
-            'id' => '4',
-        ]);
-
-        $this->assertSame('4', $reaction->getId());
     }
 
     /** @test */
@@ -240,19 +251,6 @@ final class ReactionTest extends TestCase
         $reaction = new Reaction();
 
         $reaction->getType();
-    }
-
-    /** @test */
-    public function it_can_get_rate(): void
-    {
-        /** @var \Cog\Laravel\Love\Reaction\Models\Reaction $reaction */
-        $reaction = Reaction::factory()->create([
-            'rate' => 2.0,
-        ]);
-
-        $assertRate = $reaction->getRate();
-
-        $this->assertSame(2.0, $assertRate);
     }
 
     /** @test */
