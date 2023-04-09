@@ -116,7 +116,7 @@ final class ReactionTest extends TestCase
     /** @test */
     public function it_casts_null_rate_to_default_value(): void
     {
-        $reaction = Reaction::factory()->create([
+        $reaction = new Reaction([
             'rate' => null,
         ]);
 
@@ -129,6 +129,18 @@ final class ReactionTest extends TestCase
         $reaction = new Reaction();
 
         $this->assertSame(Reaction::RATE_DEFAULT, $reaction->getRate());
+    }
+
+    /** @test */
+    public function it_can_create_reaction_with_default_value(): void
+    {
+        $reaction1 = Reaction::factory()->create();
+        $reaction2 = Reaction::factory()->create([
+            'rate' => null,
+        ]);
+
+        $this->assertSame(Reaction::RATE_DEFAULT, $reaction1->getRate());
+        $this->assertSame(Reaction::RATE_DEFAULT, $reaction2->getRate());
     }
 
     /** @test */

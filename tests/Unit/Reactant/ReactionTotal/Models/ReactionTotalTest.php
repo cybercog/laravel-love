@@ -155,7 +155,7 @@ final class ReactionTotalTest extends TestCase
     }
 
     /** @test */
-    public function it_can_create_model_with_zero_count(): void
+    public function it_can_create_total_with_zero_count(): void
     {
         $total1 = ReactionTotal::factory()->create();
         $total2 = ReactionTotal::factory()->create([
@@ -167,7 +167,7 @@ final class ReactionTotalTest extends TestCase
     }
 
     /** @test */
-    public function it_can_create_model_with_zero_weight(): void
+    public function it_can_create_total_with_zero_weight(): void
     {
         $total1 = ReactionTotal::factory()->create();
         $total2 = ReactionTotal::factory()->create([
