@@ -163,6 +163,7 @@ final class RegisterReacters extends Command
 
         foreach ($models as $model) {
             $model->registerAsLoveReacter();
+            $model->save();
             $progressBar->advance();
         }
 

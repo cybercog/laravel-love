@@ -69,6 +69,5 @@ trait Reacterable
         ]);
 
         $this->setAttribute('love_reacter_id', $reacter->getId());
-        $this->save();
     }
 }

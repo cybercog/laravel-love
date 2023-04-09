@@ -17,7 +17,7 @@ use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableInterface;
 
 final class ReactableObserver
 {
-    public function created(
+    public function creating(
         ReactableInterface $reactable,
     ): void {
         if (
