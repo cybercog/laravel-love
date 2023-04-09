@@ -4,8 +4,15 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
 - ([#240]) Added `getReactionsBy` method to Reacter Facade
 - ([#240]) Added `getReactionsBy` method to Reacter Model
+
+### Removed
+
+- ([#247]) Removed `ReactionCounterObserver`
+- ([#247]) Removed `ReactionTotalObserver`
 
 ## [9.0.0] - 2023-02-24
 
@@ -581,6 +588,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 [1.1.1]: https://github.com/cybercog/laravel-love/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/cybercog/laravel-love/compare/1.0.0...1.1.0
 
+[#247]: https://github.com/cybercog/laravel-love/pull/247
 [#240]: https://github.com/cybercog/laravel-love/pull/240
 [#234]: https://github.com/cybercog/laravel-love/pull/234
 [#233]: https://github.com/cybercog/laravel-love/pull/233
