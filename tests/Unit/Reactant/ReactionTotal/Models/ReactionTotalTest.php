@@ -91,11 +91,15 @@ final class ReactionTotalTest extends TestCase
     /** @test */
     public function it_casts_string_weight_to_float(): void
     {
-        $total = new ReactionTotal([
+        $total1 = new ReactionTotal([
             'weight' => '4',
         ]);
+        $total2 = new ReactionTotal([
+            'weight' => '4.1',
+        ]);
 
-        $this->assertSame(4.0, $total->getWeight());
+        $this->assertSame(4.0, $total1->getWeight());
+        $this->assertSame(4.1, $total2->getWeight());
     }
 
     /** @test */

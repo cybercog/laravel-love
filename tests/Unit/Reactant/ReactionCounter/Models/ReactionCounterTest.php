@@ -102,11 +102,15 @@ final class ReactionCounterTest extends TestCase
     /** @test */
     public function it_casts_string_weight_to_float(): void
     {
-        $counter = new ReactionCounter([
+        $counter1 = new ReactionCounter([
             'weight' => '4',
         ]);
+        $counter2 = new ReactionCounter([
+            'weight' => '4.1',
+        ]);
 
-        $this->assertSame(4.0, $counter->getWeight());
+        $this->assertSame(4.0, $counter1->getWeight());
+        $this->assertSame(4.1, $counter2->getWeight());
     }
 
     /** @test */
