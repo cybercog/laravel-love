@@ -63,7 +63,7 @@ final class ReactionTotalTest extends TestCase
     /** @test */
     public function it_casts_null_count_to_zero(): void
     {
-        $total = ReactionTotal::factory()->create([
+        $total = new ReactionTotal([
             'count' => null,
         ]);
 
@@ -105,7 +105,7 @@ final class ReactionTotalTest extends TestCase
     /** @test */
     public function it_casts_null_weight_to_zero(): void
     {
-        $total = ReactionTotal::factory()->create([
+        $total = new ReactionTotal([
             'weight' => null,
         ]);
 
@@ -152,6 +152,30 @@ final class ReactionTotalTest extends TestCase
         $total = new ReactionTotal();
 
         $total->getReactant();
+    }
+
+    /** @test */
+    public function it_can_create_model_with_zero_count(): void
+    {
+        $total1 = ReactionTotal::factory()->create();
+        $total2 = ReactionTotal::factory()->create([
+            'count' => null,
+        ]);
+
+        $this->assertSame(0, $total1->getCount());
+        $this->assertSame(0, $total2->getCount());
+    }
+
+    /** @test */
+    public function it_can_create_model_with_zero_weight(): void
+    {
+        $total1 = ReactionTotal::factory()->create();
+        $total2 = ReactionTotal::factory()->create([
+            'weight' => null,
+        ]);
+
+        $this->assertSame(0.0, $total1->getWeight());
+        $this->assertSame(0.0, $total2->getWeight());
     }
 
     /** @test */
