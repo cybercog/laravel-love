@@ -100,13 +100,13 @@ final class ReactionTotal extends Model implements
     }
 
     public function setCountAttribute(
-        mixed $count,
+        int | null $count,
     ): void {
         $this->attributes['count'] = $count ?? self::COUNT_DEFAULT;
     }
 
     public function setWeightAttribute(
-        mixed $weight,
+        float | null $weight,
     ): void {
         $this->attributes['weight'] = $weight ?? self::WEIGHT_DEFAULT;
     }
