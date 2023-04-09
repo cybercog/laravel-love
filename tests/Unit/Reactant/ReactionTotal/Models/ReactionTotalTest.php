@@ -27,17 +27,7 @@ final class ReactionTotalTest extends TestCase
             'count' => 4,
         ]);
 
-        $this->assertSame(4, $total->getAttribute('count'));
-    }
-
-    /** @test */
-    public function it_can_fill_count_as_float(): void
-    {
-        $total = new ReactionTotal([
-            'count' => 4.0,
-        ]);
-
-        $this->assertSame(4, $total->getAttribute('count'));
+        $this->assertSame(4, $total->getCount());
     }
 
     /** @test */
@@ -47,59 +37,83 @@ final class ReactionTotalTest extends TestCase
             'weight' => 4.1,
         ]);
 
-        $this->assertSame(4.1, $total->getAttribute('weight'));
+        $this->assertSame(4.1, $total->getWeight());
     }
 
     /** @test */
-    public function it_can_fill_weight_as_int(): void
+    public function it_casts_float_count_to_int(): void
     {
         $total = new ReactionTotal([
-            'weight' => 4,
+            'count' => 4.0,
         ]);
 
-        $this->assertSame(4.0, $total->getAttribute('weight'));
+        $this->assertSame(4, $total->getCount());
     }
 
     /** @test */
-    public function it_casts_null_count_to_default_value(): void
-    {
-        $total = ReactionTotal::factory()->create([
-            'count' => null,
-        ]);
-
-        $this->assertSame(ReactionTotal::COUNT_DEFAULT, $total->getCount());
-    }
-
-    /** @test */
-    public function it_casts_count_to_integer(): void
+    public function it_casts_string_count_to_int(): void
     {
         $total = new ReactionTotal([
             'count' => '4',
         ]);
 
-        $this->assertSame(4, $total->getAttribute('count'));
         $this->assertSame(4, $total->getCount());
     }
 
     /** @test */
-    public function it_casts_null_weight_to_default_value(): void
+    public function it_casts_null_count_to_zero(): void
     {
         $total = ReactionTotal::factory()->create([
-            'weight' => null,
+            'count' => null,
         ]);
 
-        $this->assertSame(ReactionTotal::WEIGHT_DEFAULT, $total->getWeight());
+        $this->assertSame(0, $total->getCount());
     }
 
     /** @test */
-    public function it_casts_weight_to_float(): void
+    public function it_casts_not_set_count_to_zero(): void
+    {
+        $total = new ReactionTotal();
+
+        $this->assertSame(0, $total->getCount());
+    }
+
+    /** @test */
+    public function it_casts_int_weight_to_float(): void
+    {
+        $total = new ReactionTotal([
+            'weight' => 4,
+        ]);
+
+        $this->assertSame(4.0, $total->getWeight());
+    }
+
+    /** @test */
+    public function it_casts_string_weight_to_float(): void
     {
         $total = new ReactionTotal([
             'weight' => '4',
         ]);
 
-        $this->assertSame(4.0, $total->getAttribute('weight'));
         $this->assertSame(4.0, $total->getWeight());
+    }
+
+    /** @test */
+    public function it_casts_null_weight_to_zero(): void
+    {
+        $total = ReactionTotal::factory()->create([
+            'weight' => null,
+        ]);
+
+        $this->assertSame(0.0, $total->getWeight());
+    }
+
+    /** @test */
+    public function it_casts_not_set_weight_to_zero(): void
+    {
+        $total = new ReactionTotal();
+
+        $this->assertSame(0.0, $total->getWeight());
     }
 
     /** @test */
@@ -134,42 +148,6 @@ final class ReactionTotalTest extends TestCase
         $total = new ReactionTotal();
 
         $total->getReactant();
-    }
-
-    /** @test */
-    public function it_can_get_count(): void
-    {
-        $total = new ReactionTotal([
-            'count' => '4',
-        ]);
-
-        $this->assertSame(4, $total->getCount());
-    }
-
-    /** @test */
-    public function it_can_get_count_if_not_set(): void
-    {
-        $total = new ReactionTotal();
-
-        $this->assertSame(0, $total->getCount());
-    }
-
-    /** @test */
-    public function it_can_get_weight(): void
-    {
-        $total = new ReactionTotal([
-            'weight' => '4',
-        ]);
-
-        $this->assertSame(4.0, $total->getWeight());
-    }
-
-    /** @test */
-    public function it_can_get_weight_if_not_set(): void
-    {
-        $total = new ReactionTotal();
-
-        $this->assertSame(0.0, $total->getWeight());
     }
 
     /** @test */
