@@ -74,7 +74,7 @@ final class ReactionCounterTest extends TestCase
     /** @test */
     public function it_casts_null_count_to_zero(): void
     {
-        $counter = ReactionCounter::factory()->create([
+        $counter = new ReactionCounter([
             'count' => null,
         ]);
 
@@ -116,7 +116,7 @@ final class ReactionCounterTest extends TestCase
     /** @test */
     public function it_casts_null_weight_to_zero(): void
     {
-        $counter = ReactionCounter::factory()->create([
+        $counter = new ReactionCounter([
             'weight' => null,
         ]);
 
@@ -229,6 +229,30 @@ final class ReactionCounterTest extends TestCase
 
         $this->assertTrue($true);
         $this->assertFalse($false);
+    }
+
+    /** @test */
+    public function it_can_create_model_with_zero_count(): void
+    {
+        $counter1 = ReactionCounter::factory()->create();
+        $counter2 = ReactionCounter::factory()->create([
+            'count' => null,
+        ]);
+
+        $this->assertSame(0, $counter1->getCount());
+        $this->assertSame(0, $counter2->getCount());
+    }
+
+    /** @test */
+    public function it_can_create_model_with_zero_weight(): void
+    {
+        $counter1 = ReactionCounter::factory()->create();
+        $counter2 = ReactionCounter::factory()->create([
+            'weight' => null,
+        ]);
+
+        $this->assertSame(0.0, $counter1->getWeight());
+        $this->assertSame(0.0, $counter2->getWeight());
     }
 
     /** @test */

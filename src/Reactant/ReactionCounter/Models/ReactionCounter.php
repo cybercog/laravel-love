@@ -123,4 +123,16 @@ final class ReactionCounter extends Model implements
     ): void {
         $this->decrement('weight', $amount);
     }
+
+    public function setCountAttribute(
+        int | null $count,
+    ): void {
+        $this->attributes['count'] = $count ?? self::COUNT_DEFAULT;
+    }
+
+    public function setWeightAttribute(
+        float | null $weight,
+    ): void {
+        $this->attributes['weight'] = $weight ?? self::WEIGHT_DEFAULT;
+    }
 }
