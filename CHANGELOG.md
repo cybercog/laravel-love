@@ -11,8 +11,9 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ### Removed
 
-- ([#247]) Removed `ReactionCounterObserver`
-- ([#247]) Removed `ReactionTotalObserver`
+- ([#247]) Removed `ReactionCounterObserver` class
+- ([#247]) Removed `ReactionTotalObserver` class
+- ([#248]) Removed `ReactionObserver::creating` method
 
 ## [9.0.0] - 2023-02-24
 
@@ -588,6 +589,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 [1.1.1]: https://github.com/cybercog/laravel-love/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/cybercog/laravel-love/compare/1.0.0...1.1.0
 
+[#248]: https://github.com/cybercog/laravel-love/pull/248
 [#247]: https://github.com/cybercog/laravel-love/pull/247
 [#240]: https://github.com/cybercog/laravel-love/pull/240
 [#234]: https://github.com/cybercog/laravel-love/pull/234
