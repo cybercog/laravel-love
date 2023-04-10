@@ -35,12 +35,7 @@ final class Reacter extends Model implements
 
     protected $table = 'love_reacters';
 
-    /**
-     * @var string[]
-     */
-    protected $fillable = [
-        'type',
-    ];
+    protected static $unguarded = true;
 
     /**
      * @var string[]
