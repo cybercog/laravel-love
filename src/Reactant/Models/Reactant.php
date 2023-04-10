@@ -43,12 +43,7 @@ final class Reactant extends Model implements
 
     protected $table = 'love_reactants';
 
-    /**
-     * @var string[]
-     */
-    protected $fillable = [
-        'type',
-    ];
+    protected static $unguarded = true;
 
     /**
      * @var string[]

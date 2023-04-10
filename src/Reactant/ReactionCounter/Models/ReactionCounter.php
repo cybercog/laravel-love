@@ -33,21 +33,14 @@ final class ReactionCounter extends Model implements
 
     protected $table = 'love_reactant_reaction_counters';
 
+    protected static $unguarded = true;
+
     /**
-     * @var array<int|float>
+     * @var array<string, int|float>
      */
     protected $attributes = [
         'count' => self::COUNT_DEFAULT,
         'weight' => self::WEIGHT_DEFAULT,
-    ];
-
-    /**
-     * @var string[]
-     */
-    protected $fillable = [
-        'reaction_type_id',
-        'count',
-        'weight',
     ];
 
     /**

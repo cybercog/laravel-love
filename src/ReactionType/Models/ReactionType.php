@@ -29,19 +29,13 @@ final class ReactionType extends Model implements
 
     protected $table = 'love_reaction_types';
 
+    protected static $unguarded = true;
+
     /**
-     * @var int[]
+     * @var array<string, int>
      */
     protected $attributes = [
         'mass' => self::MASS_DEFAULT,
-    ];
-
-    /**
-     * @var string[]
-     */
-    protected $fillable = [
-        'name',
-        'mass',
     ];
 
     /**
