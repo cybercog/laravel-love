@@ -17,6 +17,7 @@ use Cog\Contracts\Love\ReactionType\Exceptions\ReactionTypeInvalid;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeInterface;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\Support\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -38,13 +39,21 @@ final class ReactionType extends Model implements
         'mass' => self::MASS_DEFAULT,
     ];
 
-    /**
-     * @var string[]
-     */
-    protected $casts = [
-        'id' => 'string',
-        'mass' => 'integer',
-    ];
+    public function id(): Attribute
+    {
+        return new Attribute(
+            get: fn (string | null $value) => $value,
+            set: fn (string | null $value) => $value,
+        );
+    }
+
+    public function mass(): Attribute
+    {
+        return new Attribute(
+            get: fn (int | null $value) => $value ?? self::MASS_DEFAULT,
+            set: fn (int | null $value) => $value ?? self::MASS_DEFAULT,
+        );
+    }
 
     /**
      * @var array<self>

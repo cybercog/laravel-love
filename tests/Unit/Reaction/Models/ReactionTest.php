@@ -82,7 +82,7 @@ final class ReactionTest extends TestCase
     /** @test */
     public function it_casts_id_to_string(): void
     {
-        $reaction = Reaction::factory()->make([
+        $reaction = new Reaction([
             'id' => 4,
         ]);
 

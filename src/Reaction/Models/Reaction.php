@@ -23,6 +23,7 @@ use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Laravel\Love\Support\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -46,13 +47,31 @@ final class Reaction extends Model implements
         'rate' => self::RATE_DEFAULT,
     ];
 
-    /**
-     * @var string[]
-     */
-    protected $casts = [
-        'id' => 'string',
-        'rate' => 'float',
-    ];
+    public function id(): Attribute
+    {
+        return new Attribute(
+            get: fn (string | null $value) => $value,
+            set: fn (string | null $value) => $value,
+        );
+    }
+
+    public function rate(): Attribute
+    {
+        return new Attribute(
+            get: fn (float | null $value) => $value ?? self::RATE_DEFAULT,
+            set: function (float | null $value) {
+                if ($value !== null && ($value < self::RATE_MIN || $value > self::RATE_MAX)) {
+                    throw RateOutOfRange::withValueBetween(
+                        $value,
+                        self::RATE_MIN,
+                        self::RATE_MAX,
+                    );
+                }
+
+                return $value ?? self::RATE_DEFAULT;
+            },
+        );
+    }
 
     public function reactant(): BelongsTo
     {
@@ -97,16 +116,6 @@ final class Reaction extends Model implements
     public function getWeight(): float
     {
         return $this->getType()->getMass() * $this->getRate();
-    }
-
-    public function setRateAttribute(
-        float | null $rate,
-    ): void {
-        if ($rate !== null && ($rate < self::RATE_MIN || $rate > self::RATE_MAX)) {
-            throw RateOutOfRange::withValueBetween($rate, self::RATE_MIN, self::RATE_MAX);
-        }
-
-        $this->attributes['rate'] = $rate ?? self::RATE_DEFAULT;
     }
 
     public function isOfType(
