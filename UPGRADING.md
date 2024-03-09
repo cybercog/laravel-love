@@ -1,11 +1,21 @@
 # Upgrade Guide
 
+- [From v9 to v10](#from-v9-to-v10)
 - [From v8 to v9](#from-v8-to-v9)
 - [From v7 to v8](#from-v7-to-v8)
 - [From v6 to v7](#from-v6-to-v7)
 - [From v5 to v6](#from-v5-to-v6)
 - [From v4 to v5](#from-v4-to-v5)
 - [From v3 to v4](#from-v3-to-v4)
+
+## From v9 to v10
+
+`ReactionCounterObserver`, `ReactionTotalObserver` & `ReactionObserver::creating` were removed.
+Default values of `ReactionCounter`, `ReactionTotal` & `Reaction` models are defined inside models now.
+If you are using default models from the package, it is not a breaking change.
+
+All package models are unguarded now. If you are passing all values without validation,
+you should refactor code which passing to them.
 
 ## From v8 to v9
 
