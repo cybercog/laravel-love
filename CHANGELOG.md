@@ -6,6 +6,7 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ### Added
 
+- ([#258]) Added Laravel 11 support
 - ([#240]) Added `getReactionsBy` method to Reacter Facade
 - ([#240]) Added `getReactionsBy` method to Reacter Model
 
@@ -593,6 +594,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 [1.1.1]: https://github.com/cybercog/laravel-love/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/cybercog/laravel-love/compare/1.0.0...1.1.0
 
+[#258]: https://github.com/cybercog/laravel-love/pull/258
 [#252]: https://github.com/cybercog/laravel-love/pull/252
 [#248]: https://github.com/cybercog/laravel-love/pull/248
 [#247]: https://github.com/cybercog/laravel-love/pull/247

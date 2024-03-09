@@ -1,35 +1,34 @@
 version: "3.9"
 services:
-  app:
-    container_name: laravel-love-app
-    image: laravel-love-app
+  php81:
+    container_name: laravel-love-lib-81
+    image: laravel-love-lib-81
     build:
       context: ./
-      dockerfile: ./.docker/php/Dockerfile
-    restart: unless-stopped
+      dockerfile: ./.docker/php/php81/Dockerfile
+    tty: true
     working_dir: /app
     volumes:
       - ./:/app
-      - ./.docker/php/www.conf:/usr/local/etc/php-fpm.d/www.conf:ro
-    networks:
-      - laravel-love
 
-  nginx:
-    container_name: laravel-love-nginx
-    image: nginx:1.21-alpine
-    restart: unless-stopped
-    depends_on:
-      - app
-    ports:
-      - "80:80"
-    environment:
-      VIRTUAL_HOST: app.laravel-love.localhost
+  php82:
+    container_name: laravel-love-lib-82
+    image: laravel-love-lib-82
+    build:
+      context: ./
+      dockerfile: ./.docker/php/php82/Dockerfile
+    tty: true
+    working_dir: /app
     volumes:
-      - ./.docker/nginx/app.laravel-love.80.conf:/etc/nginx/conf.d/app.laravel-love.80.conf:ro
-      - ./public:/app/public:ro
-    networks:
-      - laravel-love
+      - ./:/app
 
-networks:
-  laravel-love:
-    driver: bridge
+  php83:
+    container_name: laravel-love-lib-83
+    image: laravel-love-lib-83
+    build:
+      context: ./
+      dockerfile: ./.docker/php/php83/Dockerfile
+    tty: true
+    working_dir: /app
+    volumes:
+      - ./:/app
