@@ -48,7 +48,7 @@ final class Reactant extends Model implements
 
     public function id(): Attribute
     {
-        return Attribute::make(
+        return new Attribute(
             get: fn (string | null $value) => $value,
             set: fn (string | null $value) => $value,
         );
