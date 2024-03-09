@@ -4,6 +4,8 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ## [Unreleased]
 
+## [10.0.0] - 2024-03-09
+
 ### Added
 
 - ([#258]) Added Laravel 11 support
@@ -545,7 +547,8 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 
 - Initial release
 
-[Unreleased]: https://github.com/cybercog/laravel-love/compare/9.0.0...master
+[Unreleased]: https://github.com/cybercog/laravel-love/compare/10.0.0...master
+[10.0.0]: https://github.com/cybercog/laravel-love/compare/9.0.0...10.0.0
 [9.0.0]: https://github.com/cybercog/laravel-love/compare/8.9.0...9.0.0
 [8.9.0]: https://github.com/cybercog/laravel-love/compare/8.8.1...8.9.0
 [8.8.1]: https://github.com/cybercog/laravel-love/compare/8.8.0...8.8.1
