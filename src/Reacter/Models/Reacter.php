@@ -24,6 +24,7 @@ use Cog\Contracts\Love\Reaction\Models\Reaction as ReactionInterface;
 use Cog\Contracts\Love\ReactionType\Models\ReactionType as ReactionTypeInterface;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\Support\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -37,12 +38,13 @@ final class Reacter extends Model implements
 
     protected static $unguarded = true;
 
-    /**
-     * @var string[]
-     */
-    protected $casts = [
-        'id' => 'string',
-    ];
+    public function id(): Attribute
+    {
+        return new Attribute(
+            get: fn (string | null $value) => $value,
+            set: fn (string | null $value) => $value,
+        );
+    }
 
     public function reacterable(): MorphTo
     {

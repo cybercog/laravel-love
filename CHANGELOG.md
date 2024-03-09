@@ -12,6 +12,7 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ### Changed
 
+- ([#251]) Changed Models attributes casting style
 - ([#252]) All Models are unguarded now
 
 ### Removed
@@ -596,6 +597,7 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 
 [#258]: https://github.com/cybercog/laravel-love/pull/258
 [#252]: https://github.com/cybercog/laravel-love/pull/252
+[#251]: https://github.com/cybercog/laravel-love/pull/251
 [#248]: https://github.com/cybercog/laravel-love/pull/248
 [#247]: https://github.com/cybercog/laravel-love/pull/247
 [#240]: https://github.com/cybercog/laravel-love/pull/240

@@ -17,6 +17,7 @@ use Cog\Contracts\Love\Reactant\Models\Reactant as ReactantInterface;
 use Cog\Contracts\Love\Reactant\ReactionTotal\Models\ReactionTotal as ReactionTotalInterface;
 use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Support\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -41,13 +42,21 @@ final class ReactionTotal extends Model implements
         'weight' => self::WEIGHT_DEFAULT,
     ];
 
-    /**
-     * @var string[]
-     */
-    protected $casts = [
-        'count' => 'integer',
-        'weight' => 'float',
-    ];
+    public function count(): Attribute
+    {
+        return new Attribute(
+            get: fn (int | null $value) => $value ?? self::COUNT_DEFAULT,
+            set: fn (int | null $value) => $value ?? self::COUNT_DEFAULT,
+        );
+    }
+
+    public function weight(): Attribute
+    {
+        return new Attribute(
+            get: fn (float | null $value) => $value ?? self::WEIGHT_DEFAULT,
+            set: fn (float | null $value) => $value ?? self::WEIGHT_DEFAULT,
+        );
+    }
 
     public function reactant(): BelongsTo
     {
@@ -91,17 +100,5 @@ final class ReactionTotal extends Model implements
         float $amount,
     ): void {
         $this->decrement('weight', $amount);
-    }
-
-    public function setCountAttribute(
-        int | null $count,
-    ): void {
-        $this->attributes['count'] = $count ?? self::COUNT_DEFAULT;
-    }
-
-    public function setWeightAttribute(
-        float | null $weight,
-    ): void {
-        $this->attributes['weight'] = $weight ?? self::WEIGHT_DEFAULT;
     }
 }
