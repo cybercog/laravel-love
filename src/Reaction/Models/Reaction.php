@@ -49,7 +49,7 @@ final class Reaction extends Model implements
 
     public function id(): Attribute
     {
-        return new Attribute(
+        return Attribute::make(
             get: fn (string | null $value) => $value,
             set: fn (string | null $value) => $value,
         );
@@ -57,7 +57,7 @@ final class Reaction extends Model implements
 
     public function rate(): Attribute
     {
-        return new Attribute(
+        return Attribute::make(
             get: fn (float | null $value) => $value ?? self::RATE_DEFAULT,
             set: function (float | null $value) {
                 if ($value !== null && ($value < self::RATE_MIN || $value > self::RATE_MAX)) {

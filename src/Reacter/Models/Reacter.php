@@ -40,7 +40,7 @@ final class Reacter extends Model implements
 
     public function id(): Attribute
     {
-        return new Attribute(
+        return Attribute::make(
             get: fn (string | null $value) => $value,
             set: fn (string | null $value) => $value,
         );

@@ -46,7 +46,7 @@ final class ReactionCounter extends Model implements
 
     public function count(): Attribute
     {
-        return new Attribute(
+        return Attribute::make(
             get: fn (int | null $value) => $value ?? self::COUNT_DEFAULT,
             set: fn (int | null $value) => $value ?? self::COUNT_DEFAULT,
         );
@@ -54,7 +54,7 @@ final class ReactionCounter extends Model implements
 
     public function weight(): Attribute
     {
-        return new Attribute(
+        return Attribute::make(
             get: fn (float | null $value) => $value ?? self::WEIGHT_DEFAULT,
             set: fn (float | null $value) => $value ?? self::WEIGHT_DEFAULT,
         );

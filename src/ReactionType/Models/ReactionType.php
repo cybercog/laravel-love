@@ -41,7 +41,7 @@ final class ReactionType extends Model implements
 
     public function id(): Attribute
     {
-        return new Attribute(
+        return Attribute::make(
             get: fn (string | null $value) => $value,
             set: fn (string | null $value) => $value,
         );
@@ -49,7 +49,7 @@ final class ReactionType extends Model implements
 
     public function mass(): Attribute
     {
-        return new Attribute(
+        return Attribute::make(
             get: fn (int | null $value) => $value ?? self::MASS_DEFAULT,
             set: fn (int | null $value) => $value ?? self::MASS_DEFAULT,
         );
