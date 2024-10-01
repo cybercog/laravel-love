@@ -20,13 +20,15 @@
         <env name="CACHE_DRIVER" value="array"/>
         <env name="SESSION_DRIVER" value="array"/>
         <env name="QUEUE_DRIVER" value="sync"/>
-        <env name="DB_CONNECTION" value="testing"/>
-        <env name="DB_DATABASE" value=":memory:"/>
+        <env name="DB_CONNECTION" value="mysql"/>
+        <env name="DB_DATABASE" value="love-test-database"/>
+        <env name="DB_PASSWORD" value="password"/>
         <server name="APP_ENV" value="testing"/>
         <server name="CACHE_DRIVER" value="array"/>
         <server name="SESSION_DRIVER" value="array"/>
         <server name="QUEUE_DRIVER" value="sync"/>
-        <server name="DB_CONNECTION" value="testing"/>
-        <server name="DB_DATABASE" value=":memory:"/>
+        <env name="DB_CONNECTION" value="mysql"/>
+        <env name="DB_DATABASE" value="love-test-database"/>
+        <env name="DB_PASSWORD" value="password"/>
     </php>
 </phpunit>
