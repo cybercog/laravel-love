@@ -12,8 +12,8 @@
 declare(strict_types=1);
 
 use Cog\Laravel\Love\Reactant\Models\Reactant;
-use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
+use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Laravel\Love\Support\Database\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
