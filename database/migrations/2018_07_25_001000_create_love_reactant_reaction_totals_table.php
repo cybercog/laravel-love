@@ -11,6 +11,7 @@
 
 declare(strict_types=1);
 
+use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal;
 use Cog\Laravel\Love\Support\Database\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -32,7 +33,7 @@ return new class extends Migration
             $table
                 ->foreign('reactant_id')
                 ->references('id')
-                ->on('love_reactants')
+                ->on((new Reactant())->getTable())
                 ->onDelete('cascade');
         });
     }
