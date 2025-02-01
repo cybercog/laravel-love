@@ -17,6 +17,8 @@ use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
+use Cog\Tests\Laravel\Love\Stubs\Models\Entity;
+use Cog\Tests\Laravel\Love\Stubs\Models\MorphableEntity;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Support\Str;
@@ -1137,6 +1139,82 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
                 "$reactionType1WeightKey" => $reactable->{$reactionType1WeightKey},
                 "$reactionType2CountKey" => $reactable->{$reactionType2CountKey},
                 "$reactionType2WeightKey" => $reactable->{$reactionType2WeightKey},
+            ];
+        })->toArray());
+    }
+
+    /** @test */
+    public function it_breaks_when_join_reaction_counter_with_type_is_used_with_count_on_morphables(): void
+    {
+        Reactant::factory()->create(); // Needed to have not same ids with Reactant
+
+        $reactionType1 = ReactionType::factory()->create([
+            'name' => 'Like',
+            'mass' => 2,
+        ]);
+        $reactionType2 = ReactionType::factory()->create([
+            'mass' => 1,
+        ]);
+        $reactable1 = Article::factory()->has(MorphableEntity::factory()->count(3))->create();
+        $reactable2 = Article::factory()->has(MorphableEntity::factory()->count(2))->create();
+        $reactable3 = Article::factory()->has(MorphableEntity::factory()->count(4))->create();
+        Reaction::factory()->count(2)->create([
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable1->getLoveReactant()->getId(),
+        ]);
+        Reaction::factory()->count(3)->create([
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable2->getLoveReactant()->getId(),
+        ]);
+        Reaction::factory()->count(1)->create([
+            'reaction_type_id' => $reactionType1->getId(),
+            'reactant_id' => $reactable3->getLoveReactant()->getId(),
+        ]);
+        Reaction::factory()->count(4)->create([
+            'reaction_type_id' => $reactionType2->getId(),
+            'reactant_id' => $reactable1->getLoveReactant()->getId(),
+        ]);
+        Reaction::factory()->count(5)->create([
+            'reaction_type_id' => $reactionType2->getId(),
+            'reactant_id' => $reactable2->getLoveReactant()->getId(),
+        ]);
+        Reaction::factory()->count(6)->create([
+            'reaction_type_id' => $reactionType2->getId(),
+            'reactant_id' => $reactable3->getLoveReactant()->getId(),
+        ]);
+
+        $reactionType1CountKey = 'reaction_' . Str::snake($reactionType1->getName()) . '_count';
+        $reactionType1WeightKey = 'reaction_' . Str::snake($reactionType1->getName()) . '_weight';
+
+        $reactablesOrderedAsc = Article::query()
+            ->withCount(['morphableEntities'])
+            ->joinReactionCounterOfType($reactionType1->getName())
+            ->orderBy($reactionType1CountKey, 'asc')
+            ->get();
+
+        $reactablesOrderedDesc = Article::query()
+            ->joinReactionCounterOfType($reactionType1->getName())
+            ->orderBy($reactionType1CountKey, 'desc')
+            ->get();
+
+        $assertAsc = [
+            ['name' => $reactable3->name, "$reactionType1CountKey" => 1, "$reactionType1WeightKey" => 2],
+            ['name' => $reactable1->name, "$reactionType1CountKey" => 2, "$reactionType1WeightKey" => 4],
+            ['name' => $reactable2->name, "$reactionType1CountKey" => 3, "$reactionType1WeightKey" => 6],
+        ];
+        $assertDesc = array_reverse($assertAsc);
+        $this->assertEquals($assertAsc, $reactablesOrderedAsc->map(function (Article $reactable) use ($reactionType1CountKey, $reactionType1WeightKey) {
+            return [
+                'name' => $reactable->getAttributeValue('name'),
+                "$reactionType1CountKey" => $reactable->{$reactionType1CountKey},
+                "$reactionType1WeightKey" => $reactable->{$reactionType1WeightKey},
+            ];
+        })->toArray());
+        $this->assertEquals($assertDesc, $reactablesOrderedDesc->map(function (Article $reactable) use ($reactionType1CountKey, $reactionType1WeightKey) {
+            return [
+                'name' => $reactable->getAttributeValue('name'),
+                "$reactionType1CountKey" => $reactable->{$reactionType1CountKey},
+                "$reactionType1WeightKey" => $reactable->{$reactionType1WeightKey},
             ];
         })->toArray());
     }
