@@ -906,6 +906,43 @@ final class RecountTest extends TestCase
         $this->assertSame(0.0, $reactant2->reactionTotal->weight);
     }
 
+    /** @test */
+    public function it_sums_reaction_total_weight_with_floating_point_issue(): void
+    {
+        $reactionType = ReactionType::factory()->create(['mass' => 1]);
+        $reactant1 = Reactant::factory()->create();
+        $reactant2 = Reactant::factory()->create();
+        Reaction::factory()->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant1,
+            'rate' => 0.2,
+        ]);
+        Reaction::factory()->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant1,
+            'rate' => 0.1,
+        ]);
+        Reaction::factory()->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant2,
+            'rate' => 0.01,
+        ]);
+        Reaction::factory()->create([
+            'reaction_type_id' => $reactionType->getKey(),
+            'reactant_id' => $reactant2,
+            'rate' => 0.01,
+        ]);
+
+        $this->artisan('love:recount');
+
+        /**
+         * @see https://www.php.net/manual/en/language.types.float.php#language.types.float.comparison
+         */
+        $epsilon = 0.0000000000000001;
+        $this->assertTrue(abs($reactant1->reactionTotal->weight - 0.3) < $epsilon);
+        $this->assertTrue(abs($reactant2->reactionTotal->weight - 0.02) < $epsilon);
+    }
+
     private function reactionsCount(
         ReactantInterface $reactant,
         ReactionTypeInterface $reactionType
