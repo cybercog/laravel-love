@@ -163,6 +163,7 @@ final class RegisterReactants extends Command
 
         foreach ($models as $model) {
             $model->registerAsLoveReactant();
+            $model->save();
             $progressBar->advance();
         }
 
