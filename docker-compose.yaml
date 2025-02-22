@@ -32,3 +32,14 @@ services:
     working_dir: /app
     volumes:
       - ./:/app
+
+  php84:
+    container_name: laravel-love-lib-84
+    image: laravel-love-lib-84
+    build:
+      context: ./
+      dockerfile: ./.docker/php/php84/Dockerfile
+    tty: true
+    working_dir: /app
+    volumes:
+      - ./:/app
