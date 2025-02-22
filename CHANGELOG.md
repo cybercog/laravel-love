@@ -6,7 +6,10 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ## [10.1.0] - 2025-02-22
 
+### Added
+
 - ([#262]) Added Laravel 12 support
+- ([#263]) Added PHP 8.4 tests
 
 ## [10.0.0] - 2024-03-09
 
