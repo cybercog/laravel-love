@@ -4,6 +4,13 @@ All notable changes to `laravel-love` will be documented in this file.
 
 ## [Unreleased]
 
+## [10.1.0] - 2025-02-22
+
+### Added
+
+- ([#262]) Added Laravel 12 support
+- ([#263]) Added PHP 8.4 tests
+
 ## [10.0.0] - 2024-03-09
 
 ### Added
@@ -547,7 +554,8 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 
 - Initial release
 
-[Unreleased]: https://github.com/cybercog/laravel-love/compare/10.0.0...master
+[Unreleased]: https://github.com/cybercog/laravel-love/compare/10.1.0...master
+[10.1.0]: https://github.com/cybercog/laravel-love/compare/10.0.0...10.1.0
 [10.0.0]: https://github.com/cybercog/laravel-love/compare/9.0.0...10.0.0
 [9.0.0]: https://github.com/cybercog/laravel-love/compare/8.9.0...9.0.0
 [8.9.0]: https://github.com/cybercog/laravel-love/compare/8.8.1...8.9.0
@@ -598,6 +606,8 @@ Follow [upgrade instructions](UPGRADING.md#from-v5-to-v6) to migrate database to
 [1.1.1]: https://github.com/cybercog/laravel-love/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/cybercog/laravel-love/compare/1.0.0...1.1.0
 
+[#263]: https://github.com/cybercog/laravel-love/pull/263
+[#262]: https://github.com/cybercog/laravel-love/pull/262
 [#258]: https://github.com/cybercog/laravel-love/pull/258
 [#252]: https://github.com/cybercog/laravel-love/pull/252
 [#251]: https://github.com/cybercog/laravel-love/pull/251
