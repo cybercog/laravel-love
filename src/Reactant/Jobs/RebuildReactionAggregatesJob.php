@@ -70,12 +70,14 @@ final class RebuildReactionAggregatesJob implements
         }
 
         $totalCount = ReactionTotal::COUNT_DEFAULT;
-        $totalWeight = ReactionTotal::WEIGHT_DEFAULT;
+        $totalWeight = 0;
 
         foreach ($counters as $counter) {
             $totalCount += $counter->getCount();
-            $totalWeight += $counter->getWeight();
+            $totalWeight += intval($counter->getWeight() * 100);
         }
+
+        $totalWeight = $totalWeight / 100;
 
         $reactionTotal = $this->findOrCreateReactionTotal();
 
