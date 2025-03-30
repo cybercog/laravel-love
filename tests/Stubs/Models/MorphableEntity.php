@@ -17,12 +17,8 @@ use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableInterface;
 use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 
-/**
- * @method static ArticleEloquentBuilder query()
- */
-final class Article extends Model implements
+final class MorphableEntity extends Model implements
     ReactableInterface
 {
     use HasFactory;
@@ -33,7 +29,7 @@ final class Article extends Model implements
      *
      * @var string
      */
-    protected $table = 'articles';
+    protected $table = 'morphable_entities';
 
     /**
      * The attributes that are mass assignable.
@@ -43,15 +39,4 @@ final class Article extends Model implements
     protected $fillable = [
         'name',
     ];
-
-    /** @inheritDoc */
-    public function newEloquentBuilder($query): ArticleEloquentBuilder
-    {
-        return new ArticleEloquentBuilder($query);
-    }
-
-    public function morphableEntities(): MorphMany
-    {
-        return $this->morphMany(MorphableEntity::class, 'morphable');
-    }
 }
