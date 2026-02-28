@@ -19,13 +19,10 @@ use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenAdded;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Support\Facades\Event;
-use PHPUnit\Framework\Attributes\Test;
 
 final class ReactionHasBeenAddedTest extends TestCase
 {
-    #[Test]
-    /** @test */
-    public function it_fires_reaction_has_been_added_event(): void
+    public function test_fires_reaction_has_been_added_event(): void
     {
         Event::fake([ReactionHasBeenAdded::class]);
         $reactionType = ReactionType::factory()->create();

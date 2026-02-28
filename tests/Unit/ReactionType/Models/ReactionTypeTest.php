@@ -19,13 +19,10 @@ use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Database\ConnectionInterface;
 use TypeError;
-use PHPUnit\Framework\Attributes\Test;
 
 final class ReactionTypeTest extends TestCase
 {
-    #[Test]
-    /** @test */
-    public function it_can_fill_name(): void
+    public function test_can_fill_name(): void
     {
         $type = new ReactionType([
             'name' => 'TestType',
@@ -34,9 +31,7 @@ final class ReactionTypeTest extends TestCase
         $this->assertSame('TestType', $type->getAttribute('name'));
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_fill_mass(): void
+    public function test_can_fill_mass(): void
     {
         $type = new ReactionType([
             'mass' => 4,
@@ -45,9 +40,7 @@ final class ReactionTypeTest extends TestCase
         $this->assertSame(4, $type->getAttribute('mass'));
     }
 
-    #[Test]
-    /** @test */
-    public function it_has_default_rate_value(): void
+    public function test_has_default_rate_value(): void
     {
         $type = new ReactionType();
 
@@ -55,9 +48,7 @@ final class ReactionTypeTest extends TestCase
         $this->assertSame(ReactionType::MASS_DEFAULT, $type->getMass());
     }
 
-    #[Test]
-    /** @test */
-    public function it_casts_id_to_string(): void
+    public function test_casts_id_to_string(): void
     {
         $type = ReactionType::factory()->make([
             'id' => 4,
@@ -67,9 +58,7 @@ final class ReactionTypeTest extends TestCase
         $this->assertSame('4', $type->getId());
     }
 
-    #[Test]
-    /** @test */
-    public function it_casts_mass_to_integer(): void
+    public function test_casts_mass_to_integer(): void
     {
         $type = new ReactionType([
             'mass' => '4',
@@ -79,9 +68,7 @@ final class ReactionTypeTest extends TestCase
         $this->assertSame(4, $type->getMass());
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_has_reaction(): void
+    public function test_can_has_reaction(): void
     {
         $type = ReactionType::factory()->create();
 
@@ -93,9 +80,7 @@ final class ReactionTypeTest extends TestCase
         $this->assertTrue($assertReaction->is($reaction));
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_has_many_reactions(): void
+    public function test_can_has_many_reactions(): void
     {
         $type = ReactionType::factory()->create();
 
@@ -108,9 +93,7 @@ final class ReactionTypeTest extends TestCase
         $this->assertTrue($assertReactions->get(1)->is($reactions->get(1)));
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_instantiate_reaction_type_from_name(): void
+    public function test_can_instantiate_reaction_type_from_name(): void
     {
         $type = ReactionType::factory()->create([
             'name' => 'TestType',
@@ -121,9 +104,7 @@ final class ReactionTypeTest extends TestCase
         $this->assertTrue($type->is($assertType));
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_get_id(): void
+    public function test_can_get_id(): void
     {
         $type = ReactionType::factory()->make([
             'id' => '4',
@@ -132,9 +113,7 @@ final class ReactionTypeTest extends TestCase
         $this->assertSame('4', $type->getId());
     }
 
-    #[Test]
-    /** @test */
-    public function it_throws_exception_on_get_id_when_id_is_null(): void
+    public function test_throws_exception_on_get_id_when_id_is_null(): void
     {
         $this->expectException(TypeError::class);
 
@@ -143,9 +122,7 @@ final class ReactionTypeTest extends TestCase
         $type->getId();
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_get_name(): void
+    public function test_can_get_name(): void
     {
         $type = new ReactionType([
             'name' => 'TestType',
@@ -154,9 +131,7 @@ final class ReactionTypeTest extends TestCase
         $this->assertSame('TestType', $type->getName());
     }
 
-    #[Test]
-    /** @test */
-    public function it_throws_exception_on_get_name_when_name_is_null(): void
+    public function test_throws_exception_on_get_name_when_name_is_null(): void
     {
         $this->expectException(TypeError::class);
 
@@ -165,9 +140,7 @@ final class ReactionTypeTest extends TestCase
         $type->getName();
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_get_mass(): void
+    public function test_can_get_mass(): void
     {
         $type = new ReactionType([
             'mass' => '4',
@@ -176,18 +149,14 @@ final class ReactionTypeTest extends TestCase
         $this->assertSame(4, $type->getMass());
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_get_mass_when_mass_is_null(): void
+    public function test_can_get_mass_when_mass_is_null(): void
     {
         $type = new ReactionType();
 
         $this->assertSame(0, $type->getMass());
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_check_is_equal_to(): void
+    public function test_can_check_is_equal_to(): void
     {
         $type = ReactionType::factory()->create();
         $otherType = ReactionType::factory()->create();
@@ -196,9 +165,7 @@ final class ReactionTypeTest extends TestCase
         $this->assertFalse($type->isEqualTo($otherType));
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_check_is_not_equal_to(): void
+    public function test_can_check_is_not_equal_to(): void
     {
         $type = ReactionType::factory()->create();
         $otherType = ReactionType::factory()->create();
@@ -207,9 +174,7 @@ final class ReactionTypeTest extends TestCase
         $this->assertTrue($type->isNotEqualTo($otherType));
     }
 
-    #[Test]
-    /** @test */
-    public function it_throws_exception_if_instantiate_reaction_type_from_not_exist_name(): void
+    public function test_throws_exception_if_instantiate_reaction_type_from_not_exist_name(): void
     {
         $this->expectException(ReactionTypeInvalid::class);
 
@@ -218,9 +183,7 @@ final class ReactionTypeTest extends TestCase
         ReactionType::fromName('NotExistType');
     }
 
-    #[Test]
-    /** @test */
-    public function it_should_not_perform_database_queries_on_instantiation_from_name(): void
+    public function test_should_not_perform_database_queries_on_instantiation_from_name(): void
     {
         ReactionType::factory()->create([
             'name' => 'LikeType',
@@ -245,9 +208,7 @@ final class ReactionTypeTest extends TestCase
         $this->assertSame('DislikeType', $dislike3->getName());
     }
 
-    #[Test]
-    /** @test */
-    public function it_updates_type_in_registry_if_model_was_changed(): void
+    public function test_updates_type_in_registry_if_model_was_changed(): void
     {
         $type = ReactionType::factory()->create([
             'name' => 'TestRegistryUpdate',
@@ -266,9 +227,7 @@ final class ReactionTypeTest extends TestCase
         $this->assertSame(8, $typeFromRegistry->getMass());
     }
 
-    #[Test]
-    /** @test */
-    public function it_deletes_type_from_registry_if_model_was_deleted(): void
+    public function test_deletes_type_from_registry_if_model_was_deleted(): void
     {
         $this->expectException(ReactionTypeInvalid::class);
 

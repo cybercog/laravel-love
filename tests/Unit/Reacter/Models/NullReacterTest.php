@@ -25,13 +25,10 @@ use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Support\Collection;
 use TypeError;
-use PHPUnit\Framework\Attributes\Test;
 
 final class NullReacterTest extends TestCase
 {
-    #[Test]
-    /** @test */
-    public function it_throws_exception_on_get_id_when_id_is_null(): void
+    public function test_throws_exception_on_get_id_when_id_is_null(): void
     {
         $this->expectException(TypeError::class);
 
@@ -40,9 +37,7 @@ final class NullReacterTest extends TestCase
         $reacter->getId();
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_get_reacterable(): void
+    public function test_can_get_reacterable(): void
     {
         $reacterable = new User();
         $reacter = new NullReacter($reacterable);
@@ -52,9 +47,7 @@ final class NullReacterTest extends TestCase
         $this->assertSame($reacterable, $assertReacterable);
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_get_reactions(): void
+    public function test_can_get_reactions(): void
     {
         $reacter = new NullReacter(new User());
 
@@ -64,9 +57,7 @@ final class NullReacterTest extends TestCase
         $this->assertIsIterable($reactions);
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_get_reactions_collection(): void
+    public function test_can_get_reactions_collection(): void
     {
         $reacter = new NullReacter(new User());
 
@@ -75,9 +66,7 @@ final class NullReacterTest extends TestCase
         $this->assertInstanceOf(Collection::class, $reactions);
     }
 
-    #[Test]
-    /** @test */
-    public function it_throws_reactant_invalid_on_react_to(): void
+    public function test_throws_reactant_invalid_on_react_to(): void
     {
         $this->expectException(ReacterInvalid::class);
 
@@ -89,9 +78,7 @@ final class NullReacterTest extends TestCase
         $reacter->reactTo($reactant, $reactionType);
     }
 
-    #[Test]
-    /** @test */
-    public function it_throws_reactant_invalid_on_react_to_when_reactant_is_null_object(): void
+    public function test_throws_reactant_invalid_on_react_to_when_reactant_is_null_object(): void
     {
         $this->expectException(ReacterInvalid::class);
 
@@ -102,9 +89,7 @@ final class NullReacterTest extends TestCase
         $reacter->reactTo($reactant, $reactionType);
     }
 
-    #[Test]
-    /** @test */
-    public function it_throws_reactant_invalid_on_unreact_to(): void
+    public function test_throws_reactant_invalid_on_unreact_to(): void
     {
         $this->expectException(ReacterInvalid::class);
 
@@ -116,9 +101,7 @@ final class NullReacterTest extends TestCase
         $reacter->unreactTo($reactant, $reactionType);
     }
 
-    #[Test]
-    /** @test */
-    public function it_throws_reactant_invalid_on_unreact_to_when_reactant_is_null_object(): void
+    public function test_throws_reactant_invalid_on_unreact_to_when_reactant_is_null_object(): void
     {
         $this->expectException(ReacterInvalid::class);
 
@@ -129,18 +112,14 @@ final class NullReacterTest extends TestCase
         $reacter->unreactTo($reactant, $reactionType);
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_check_is_equal_to_self(): void
+    public function test_can_check_is_equal_to_self(): void
     {
         $nullReacter = new NullReacter(new User());
 
         $this->assertTrue($nullReacter->isEqualTo($nullReacter));
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_check_is_equal_to_other_null_object_reacter(): void
+    public function test_can_check_is_equal_to_other_null_object_reacter(): void
     {
         $nullReacter = new NullReacter(new User());
         $otherNullReacter = new NullReacter(new User());
@@ -148,9 +127,7 @@ final class NullReacterTest extends TestCase
         $this->assertTrue($nullReacter->isEqualTo($otherNullReacter));
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_check_is_equal_to_not_null_object_reacter(): void
+    public function test_can_check_is_equal_to_not_null_object_reacter(): void
     {
         $nullReacter = new NullReacter(new User());
         $reacter = Reacter::factory()->create();
@@ -158,9 +135,7 @@ final class NullReacterTest extends TestCase
         $this->assertFalse($nullReacter->isEqualTo($reacter));
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_check_is_equal_to_not_null_object_reacter_and_not_persisted(): void
+    public function test_can_check_is_equal_to_not_null_object_reacter_and_not_persisted(): void
     {
         $nullReacter = new NullReacter(new User());
         $reacter = new Reacter();
@@ -168,18 +143,14 @@ final class NullReacterTest extends TestCase
         $this->assertFalse($nullReacter->isEqualTo($reacter));
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_check_is_not_equal_to_self(): void
+    public function test_can_check_is_not_equal_to_self(): void
     {
         $nullReacter = new NullReacter(new User());
 
         $this->assertFalse($nullReacter->isNotEqualTo($nullReacter));
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_check_is_not_equal_to_other_null_object_reacter(): void
+    public function test_can_check_is_not_equal_to_other_null_object_reacter(): void
     {
         $nullReacter = new NullReacter(new User());
         $otherNullReacter = new NullReacter(new User());
@@ -187,9 +158,7 @@ final class NullReacterTest extends TestCase
         $this->assertFalse($nullReacter->isNotEqualTo($otherNullReacter));
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_check_is_not_equal_to_not_null_object_reacter(): void
+    public function test_can_check_is_not_equal_to_not_null_object_reacter(): void
     {
         $nullReacter = new NullReacter(new User());
         $reacter = Reacter::factory()->create();
@@ -197,9 +166,7 @@ final class NullReacterTest extends TestCase
         $this->assertTrue($nullReacter->isNotEqualTo($reacter));
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_check_is_not_equal_to_not_null_object_reacter_and_not_persisted(): void
+    public function test_can_check_is_not_equal_to_not_null_object_reacter_and_not_persisted(): void
     {
         $nullReacter = new NullReacter(new User());
         $reacter = new Reacter();
@@ -207,9 +174,7 @@ final class NullReacterTest extends TestCase
         $this->assertTrue($nullReacter->isNotEqualTo($reacter));
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_check_has_reacted_to(): void
+    public function test_can_check_has_reacted_to(): void
     {
         $reacterable = new User();
         $reacter = new NullReacter($reacterable);
@@ -220,9 +185,7 @@ final class NullReacterTest extends TestCase
         $this->assertFalse($isReacted);
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_check_has_not_reacted_to(): void
+    public function test_can_check_has_not_reacted_to(): void
     {
         $reacterable = new User();
         $reacter = new NullReacter($reacterable);
@@ -233,9 +196,7 @@ final class NullReacterTest extends TestCase
         $this->assertTrue($isReacted);
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_check_has_reacted_to_with_type(): void
+    public function test_can_check_has_reacted_to_with_type(): void
     {
         $reacterable = new User();
         $reacter = new NullReacter($reacterable);
@@ -247,9 +208,7 @@ final class NullReacterTest extends TestCase
         $this->assertFalse($isReacted);
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_check_has_not_reacted_to_with_type(): void
+    public function test_can_check_has_not_reacted_to_with_type(): void
     {
         $reacterable = new User();
         $reacter = new NullReacter($reacterable);
@@ -261,9 +220,7 @@ final class NullReacterTest extends TestCase
         $this->assertTrue($isReacted);
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_check_has_reacted_to_with_rate(): void
+    public function test_can_check_has_reacted_to_with_rate(): void
     {
         $reacterable = new User();
         $reacter = new NullReacter($reacterable);
@@ -274,9 +231,7 @@ final class NullReacterTest extends TestCase
         $this->assertFalse($isReacted);
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_check_has_not_reacted_to_with_rate(): void
+    public function test_can_check_has_not_reacted_to_with_rate(): void
     {
         $reacterable = new User();
         $reacter = new NullReacter($reacterable);
@@ -287,9 +242,7 @@ final class NullReacterTest extends TestCase
         $this->assertTrue($isReacted);
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_check_has_reacted_to_with_type_and_rate(): void
+    public function test_can_check_has_reacted_to_with_type_and_rate(): void
     {
         $reacterable = new User();
         $reacter = new NullReacter($reacterable);
@@ -301,9 +254,7 @@ final class NullReacterTest extends TestCase
         $this->assertFalse($isReacted);
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_check_has_not_reacted_to_with_type_and_rate(): void
+    public function test_can_check_has_not_reacted_to_with_type_and_rate(): void
     {
         $reacterable = new User();
         $reacter = new NullReacter($reacterable);
@@ -315,18 +266,14 @@ final class NullReacterTest extends TestCase
         $this->assertTrue($isReacted);
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_check_is_null(): void
+    public function test_can_check_is_null(): void
     {
         $reacter = new NullReacter(new User());
 
         $this->assertTrue($reacter->isNull());
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_check_is_not_null(): void
+    public function test_can_check_is_not_null(): void
     {
         $reacter = new NullReacter(new User());
 

@@ -21,13 +21,10 @@ use Cog\Tests\Laravel\Love\Stubs\Models\Bot;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Support\Facades\Event;
-use PHPUnit\Framework\Attributes\Test;
 
 final class ReacterableTest extends TestCase
 {
-    #[Test]
-    /** @test */
-    public function it_can_belong_to_love_reacter(): void
+    public function test_can_belong_to_love_reacter(): void
     {
         $reacter = Reacter::factory()->create([
             'type' => (new User())->getMorphClass(),
@@ -40,9 +37,7 @@ final class ReacterableTest extends TestCase
         $this->assertTrue($reacterable->loveReacter->is($reacter));
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_get_love_reacter(): void
+    public function test_can_get_love_reacter(): void
     {
         $reacter = Reacter::factory()->create([
             'type' => (new User())->getMorphClass(),
@@ -55,9 +50,7 @@ final class ReacterableTest extends TestCase
         $this->assertTrue($reacterable->getLoveReacter()->is($reacter));
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_get_reacter_null_object_when_reacter_is_null(): void
+    public function test_can_get_reacter_null_object_when_reacter_is_null(): void
     {
         $reacterable = new User();
 
@@ -66,9 +59,7 @@ final class ReacterableTest extends TestCase
         $this->assertInstanceOf(NullReacter::class, $reacter);
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_get_reacter_facade(): void
+    public function test_can_get_reacter_facade(): void
     {
         $reacter = Reacter::factory()->create([
             'type' => (new User())->getMorphClass(),
@@ -82,9 +73,7 @@ final class ReacterableTest extends TestCase
         $this->assertInstanceOf(ReacterFacade::class, $reacterFacade);
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_get_reacter_facade_when_reacter_is_null(): void
+    public function test_can_get_reacter_facade_when_reacter_is_null(): void
     {
         $reacterable = new User();
 
@@ -93,9 +82,7 @@ final class ReacterableTest extends TestCase
         $this->assertInstanceOf(ReacterFacade::class, $reacterFacade);
     }
 
-    #[Test]
-    /** @test */
-    public function it_register_reacterable_as_reacter_on_create(): void
+    public function test_register_reacterable_as_reacter_on_create(): void
     {
         $reacterable = new Bot([
             'name' => 'TestBot',
@@ -106,9 +93,7 @@ final class ReacterableTest extends TestCase
         $this->assertInstanceOf(Reacter::class, $reacterable->getLoveReacter());
     }
 
-    #[Test]
-    /** @test */
-    public function it_not_create_new_reacter_if_manually_registered_reacterable_as_reacter_on_create(): void
+    public function test_not_create_new_reacter_if_manually_registered_reacterable_as_reacter_on_create(): void
     {
         $reacter = Reacter::factory()->create([
             'type' => (new Bot())->getMorphClass(),
@@ -124,9 +109,7 @@ final class ReacterableTest extends TestCase
         $this->assertInstanceOf(Reacter::class, $reacterable->getLoveReacter());
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_check_if_registered_as_love_reacter(): void
+    public function test_can_check_if_registered_as_love_reacter(): void
     {
         $reacter = Reacter::factory()->create([
             'type' => (new User())->getMorphClass(),
@@ -140,9 +123,7 @@ final class ReacterableTest extends TestCase
         $this->assertFalse($notRegisteredReacterable->isRegisteredAsLoveReacter());
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_check_if_not_registered_as_love_reacter(): void
+    public function test_can_check_if_not_registered_as_love_reacter(): void
     {
         $reacter = Reacter::factory()->create([
             'type' => (new User())->getMorphClass(),
@@ -156,9 +137,7 @@ final class ReacterableTest extends TestCase
         $this->assertTrue($notRegisteredReacterable->isNotRegisteredAsLoveReacter());
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_register_as_love_reacter(): void
+    public function test_can_register_as_love_reacter(): void
     {
         Event::fake();
         $user = User::factory()->create();
@@ -168,9 +147,7 @@ final class ReacterableTest extends TestCase
         $this->assertInstanceOf(Reacter::class, $user->getLoveReacter());
     }
 
-    #[Test]
-    /** @test */
-    public function it_throws_exception_on_register_as_love_reacter_when_already_registered(): void
+    public function test_throws_exception_on_register_as_love_reacter_when_already_registered(): void
     {
         $this->expectException(AlreadyRegisteredAsLoveReacter::class);
 

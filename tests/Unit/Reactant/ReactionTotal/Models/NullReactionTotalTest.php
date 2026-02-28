@@ -18,13 +18,10 @@ use Cog\Laravel\Love\Reactant\Models\NullReactant;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\TestCase;
-use PHPUnit\Framework\Attributes\Test;
 
 final class NullReactionTotalTest extends TestCase
 {
-    #[Test]
-    /** @test */
-    public function it_can_get_count(): void
+    public function test_can_get_count(): void
     {
         $reactant = new NullReactant(new Article());
         $total = new NullReactionTotal($reactant);
@@ -34,9 +31,7 @@ final class NullReactionTotalTest extends TestCase
         $this->assertSame(0, $totalCount);
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_get_weight(): void
+    public function test_can_get_weight(): void
     {
         $reactant = new NullReactant(new Article());
         $total = new NullReactionTotal($reactant);
@@ -46,9 +41,7 @@ final class NullReactionTotalTest extends TestCase
         $this->assertSame(0.0, $totalWeight);
     }
 
-    #[Test]
-    /** @test */
-    public function it_can_get_reactant(): void
+    public function test_can_get_reactant(): void
     {
         $reactable = new Article();
         $reactant = new NullReactant($reactable);
@@ -59,9 +52,7 @@ final class NullReactionTotalTest extends TestCase
         $this->assertSame($reactant, $assertReactant);
     }
 
-    #[Test]
-    /** @test */
-    public function it_throws_exception_on_increment_count(): void
+    public function test_throws_exception_on_increment_count(): void
     {
         $this->expectException(ReactionTotalInvalid::class);
 
@@ -70,9 +61,7 @@ final class NullReactionTotalTest extends TestCase
         $total->incrementCount(2);
     }
 
-    #[Test]
-    /** @test */
-    public function it_throws_exception_on_decrement_count(): void
+    public function test_throws_exception_on_decrement_count(): void
     {
         $this->expectException(ReactionTotalInvalid::class);
 
@@ -81,9 +70,7 @@ final class NullReactionTotalTest extends TestCase
         $total->decrementCount(2);
     }
 
-    #[Test]
-    /** @test */
-    public function it_throws_exception_on_increment_weight(): void
+    public function test_throws_exception_on_increment_weight(): void
     {
         $this->expectException(ReactionTotalInvalid::class);
 
@@ -92,9 +79,7 @@ final class NullReactionTotalTest extends TestCase
         $total->incrementWeight(2);
     }
 
-    #[Test]
-    /** @test */
-    public function it_throws_exception_on_decrement_weight(): void
+    public function test_throws_exception_on_decrement_weight(): void
     {
         $this->expectException(ReactionTotalInvalid::class);
 

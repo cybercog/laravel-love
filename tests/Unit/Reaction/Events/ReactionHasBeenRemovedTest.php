@@ -19,13 +19,10 @@ use Cog\Laravel\Love\Reaction\Events\ReactionHasBeenRemoved;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Support\Facades\Event;
-use PHPUnit\Framework\Attributes\Test;
 
 final class ReactionHasBeenRemovedTest extends TestCase
 {
-    #[Test]
-    /** @test */
-    public function it_fire_reaction_has_been_removed_event(): void
+    public function test_fire_reaction_has_been_removed_event(): void
     {
         Event::fake([ReactionHasBeenRemoved::class]);
         $reactionType = ReactionType::factory()->create();
