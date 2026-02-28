@@ -50,16 +50,16 @@ final class Reaction extends Model implements
     public function id(): Attribute
     {
         return new Attribute(
-            get: fn (string | null $value) => $value,
-            set: fn (string | null $value) => $value,
+            get: fn (?string $value) => $value,
+            set: fn (?string $value) => $value,
         );
     }
 
     public function rate(): Attribute
     {
         return new Attribute(
-            get: fn (float | null $value) => $value ?? self::RATE_DEFAULT,
-            set: function (float | null $value) {
+            get: fn (?float $value) => $value ?? self::RATE_DEFAULT,
+            set: function (?float $value) {
                 if ($value !== null && ($value < self::RATE_MIN || $value > self::RATE_MAX)) {
                     throw RateOutOfRange::withValueBetween(
                         $value,

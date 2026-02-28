@@ -45,16 +45,16 @@ final class ReactionTotal extends Model implements
     public function count(): Attribute
     {
         return new Attribute(
-            get: fn (int | null $value) => $value ?? self::COUNT_DEFAULT,
-            set: fn (int | null $value) => $value ?? self::COUNT_DEFAULT,
+            get: fn (?int $value) => $value ?? self::COUNT_DEFAULT,
+            set: fn (?int $value) => $value ?? self::COUNT_DEFAULT,
         );
     }
 
     public function weight(): Attribute
     {
         return new Attribute(
-            get: fn (float | null $value) => $value ?? self::WEIGHT_DEFAULT,
-            set: fn (float | null $value) => $value ?? self::WEIGHT_DEFAULT,
+            get: fn (?float $value) => $value ?? self::WEIGHT_DEFAULT,
+            set: fn (?float $value) => $value ?? self::WEIGHT_DEFAULT,
         );
     }
 

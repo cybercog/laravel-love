@@ -28,7 +28,7 @@ trait ReactableEloquentBuilderTrait
 {
     public function whereReactedBy(
         ReacterableInterface $reacterable,
-        string | null $reactionTypeName = null,
+        ?string $reactionTypeName = null,
     ): Builder {
         return $this->whereHas(
             'loveReactant.reactions',
@@ -53,7 +53,7 @@ trait ReactableEloquentBuilderTrait
 
     public function whereNotReactedBy(
         ReacterableInterface $reacterable,
-        string | null $reactionTypeName = null,
+        ?string $reactionTypeName = null,
     ): Builder {
         return $this->whereDoesntHave(
             'loveReactant.reactions',
@@ -78,7 +78,7 @@ trait ReactableEloquentBuilderTrait
 
     public function joinReactionCounterOfType(
         string $reactionTypeName,
-        string | null $alias = null,
+        ?string $alias = null,
     ): Builder {
         $reactionType = ReactionType::fromName($reactionTypeName);
         $alias = $alias === null
@@ -111,7 +111,7 @@ trait ReactableEloquentBuilderTrait
     }
 
     public function joinReactionTotal(
-        string | null $alias = null,
+        ?string $alias = null,
     ): Builder {
         $alias = $alias === null
             ? 'reaction_total'

@@ -161,7 +161,7 @@ final class Recount extends Command
      * @return \Cog\Contracts\Love\Reactant\Models\Reactant[]|\Illuminate\Database\Eloquent\Collection
      */
     private function collectReactants(
-        string | null $reactableType = null,
+        ?string $reactableType = null,
     ): iterable {
         $reactantsQuery = Reactant::query();
 

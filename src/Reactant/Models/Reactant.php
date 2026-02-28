@@ -49,8 +49,8 @@ final class Reactant extends Model implements
     public function id(): Attribute
     {
         return new Attribute(
-            get: fn (string | null $value) => $value,
-            set: fn (string | null $value) => $value,
+            get: fn (?string $value) => $value,
+            set: fn (?string $value) => $value,
         );
     }
 
@@ -145,8 +145,8 @@ final class Reactant extends Model implements
 
     public function isReactedBy(
         ReacterInterface $reacter,
-        ReactionTypeInterface | null $reactionType = null,
-        float | null $rate = null,
+        ?ReactionTypeInterface $reactionType = null,
+        ?float $rate = null,
     ): bool {
         if ($reacter->isNull()) {
             return false;
@@ -188,8 +188,8 @@ final class Reactant extends Model implements
 
     public function isNotReactedBy(
         ReacterInterface $reacter,
-        ReactionTypeInterface | null $reactionType = null,
-        float | null $rate = null,
+        ?ReactionTypeInterface $reactionType = null,
+        ?float $rate = null,
     ): bool {
         return !$this->isReactedBy($reacter, $reactionType, $rate);
     }

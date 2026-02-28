@@ -22,7 +22,7 @@ interface Reacter
     public function reactTo(
         Reactable $reactable,
         string $reactionTypeName,
-        float | null $rate = null,
+        ?float $rate = null,
     ): void;
 
     public function unreactTo(
@@ -32,13 +32,13 @@ interface Reacter
 
     public function hasReactedTo(
         Reactable $reactable,
-        string | null $reactionTypeName = null,
-        float | null $rate = null,
+        ?string $reactionTypeName = null,
+        ?float $rate = null,
     ): bool;
 
     public function hasNotReactedTo(
         Reactable $reactable,
-        string | null $reactionTypeName = null,
-        float | null $rate = null,
+        ?string $reactionTypeName = null,
+        ?float $rate = null,
     ): bool;
 }

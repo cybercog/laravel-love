@@ -41,8 +41,8 @@ final class Reacter extends Model implements
     public function id(): Attribute
     {
         return new Attribute(
-            get: fn (string | null $value) => $value,
-            set: fn (string | null $value) => $value,
+            get: fn (?string $value) => $value,
+            set: fn (?string $value) => $value,
         );
     }
 
@@ -80,7 +80,7 @@ final class Reacter extends Model implements
     public function reactTo(
         ReactantInterface $reactant,
         ReactionTypeInterface $reactionType,
-        float | null $rate = null,
+        ?float $rate = null,
     ): void {
         if ($reactant->isNull()) {
             throw ReactantInvalid::notExists();
@@ -120,8 +120,8 @@ final class Reacter extends Model implements
 
     public function hasReactedTo(
         ReactantInterface $reactant,
-        ReactionTypeInterface | null $reactionType = null,
-        float | null $rate = null,
+        ?ReactionTypeInterface $reactionType = null,
+        ?float $rate = null,
     ): bool {
         if ($reactant->isNull()) {
             return false;
@@ -132,8 +132,8 @@ final class Reacter extends Model implements
 
     public function hasNotReactedTo(
         ReactantInterface $reactant,
-        ReactionTypeInterface | null $reactionType = null,
-        float | null $rate = null,
+        ?ReactionTypeInterface $reactionType = null,
+        ?float $rate = null,
     ): bool {
         return $reactant->isNotReactedBy($this, $reactionType, $rate);
     }
@@ -164,7 +164,7 @@ final class Reacter extends Model implements
     private function createReaction(
         ReactantInterface $reactant,
         ReactionTypeInterface $reactionType,
-        float | null $rate = null,
+        ?float $rate = null,
     ): void {
         $this->reactions()->create([
             'reaction_type_id' => $reactionType->getId(),
@@ -181,7 +181,7 @@ final class Reacter extends Model implements
     private function findReaction(
         ReactantInterface $reactant,
         ReactionTypeInterface $reactionType,
-    ): ReactionInterface | null {
+    ): ?ReactionInterface {
         return $this
             ->reactions()
             ->where('reactant_id', $reactant->getId())
