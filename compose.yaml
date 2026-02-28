@@ -1,0 +1,55 @@
+services:
+  php81:
+    container_name: laravel-love-lib-81
+    image: laravel-love-lib-81
+    build:
+      context: ./
+      dockerfile: ./.docker/php81.Dockerfile
+    tty: true
+    working_dir: /app
+    volumes:
+      - ./:/app
+
+  php82:
+    container_name: laravel-love-lib-82
+    image: laravel-love-lib-82
+    build:
+      context: ./
+      dockerfile: ./.docker/php82.Dockerfile
+    tty: true
+    working_dir: /app
+    volumes:
+      - ./:/app
+
+  php83:
+    container_name: laravel-love-lib-83
+    image: laravel-love-lib-83
+    build:
+      context: ./
+      dockerfile: ./.docker/php83.Dockerfile
+    tty: true
+    working_dir: /app
+    volumes:
+      - ./:/app
+
+  php84:
+    container_name: laravel-love-lib-84
+    image: laravel-love-lib-84
+    build:
+      context: ./
+      dockerfile: ./.docker/php84.Dockerfile
+    tty: true
+    working_dir: /app
+    volumes:
+      - ./:/app
+
+  php85:
+    container_name: laravel-love-lib-85
+    image: laravel-love-lib-85
+    build:
+      context: ./
+      dockerfile: ./.docker/php85.Dockerfile
+    tty: true
+    working_dir: /app
+    volumes:
+      - ./:/app
