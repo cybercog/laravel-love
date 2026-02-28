@@ -20,9 +20,11 @@ use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Support\Facades\Event;
+use PHPUnit\Framework\Attributes\Test;
 
 final class ReactableTest extends TestCase
 {
+    #[Test]
     /** @test */
     public function it_can_belong_to_love_reactant(): void
     {
@@ -37,6 +39,7 @@ final class ReactableTest extends TestCase
         $this->assertTrue($reactable->loveReactant->is($reactant));
     }
 
+    #[Test]
     /** @test */
     public function it_can_get_love_reactant(): void
     {
@@ -51,6 +54,7 @@ final class ReactableTest extends TestCase
         $this->assertTrue($reactable->getLoveReactant()->is($reactant));
     }
 
+    #[Test]
     /** @test */
     public function it_can_get_reactant_null_object_when_reactant_is_null(): void
     {
@@ -61,6 +65,7 @@ final class ReactableTest extends TestCase
         $this->assertInstanceOf(NullReactant::class, $reactant);
     }
 
+    #[Test]
     /** @test */
     public function it_can_get_reactant_facade(): void
     {
@@ -76,6 +81,7 @@ final class ReactableTest extends TestCase
         $this->assertInstanceOf(ReactantFacade::class, $reactantFacade);
     }
 
+    #[Test]
     /** @test */
     public function it_can_get_reactant_facade_when_reactant_is_null(): void
     {
@@ -86,6 +92,7 @@ final class ReactableTest extends TestCase
         $this->assertInstanceOf(ReactantFacade::class, $reactantFacade);
     }
 
+    #[Test]
     /** @test */
     public function it_register_reactable_as_reactant_on_create(): void
     {
@@ -98,6 +105,7 @@ final class ReactableTest extends TestCase
         $this->assertInstanceOf(Reactant::class, $reactable->getLoveReactant());
     }
 
+    #[Test]
     /** @test */
     public function it_not_create_new_reactant_if_manually_registered_reactable_as_reactant_on_create(): void
     {
@@ -115,6 +123,7 @@ final class ReactableTest extends TestCase
         $this->assertInstanceOf(Reactant::class, $reactable->getLoveReactant());
     }
 
+    #[Test]
     /** @test */
     public function it_can_check_if_registered_as_reactant(): void
     {
@@ -130,6 +139,7 @@ final class ReactableTest extends TestCase
         $this->assertFalse($notRegisteredReactable->isRegisteredAsLoveReactant());
     }
 
+    #[Test]
     /** @test */
     public function it_can_check_if_not_registered_as_reactant(): void
     {
@@ -145,6 +155,7 @@ final class ReactableTest extends TestCase
         $this->assertTrue($notRegisteredReactable->isNotRegisteredAsLoveReactant());
     }
 
+    #[Test]
     /** @test */
     public function it_can_register_as_love_reactant(): void
     {
@@ -156,6 +167,7 @@ final class ReactableTest extends TestCase
         $this->assertInstanceOf(Reactant::class, $article->getLoveReactant());
     }
 
+    #[Test]
     /** @test */
     public function it_throws_exception_on_register_as_love_reactant_when_already_registered(): void
     {

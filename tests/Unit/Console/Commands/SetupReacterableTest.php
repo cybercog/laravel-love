@@ -20,6 +20,7 @@ use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
+use PHPUnit\Framework\Attributes\Test;
 
 final class SetupReacterableTest extends TestCase
 {
@@ -37,6 +38,7 @@ final class SetupReacterableTest extends TestCase
         $this->deletePublishedMigrations();
     }
 
+    #[Test]
     /** @test */
     public function it_can_create_migration_for_reacterable_model(): void
     {
@@ -50,6 +52,7 @@ final class SetupReacterableTest extends TestCase
         // Cannot add a NOT NULL column with default value NULL
     }
 
+    #[Test]
     /** @test */
     public function it_can_create_migration_for_reacterable_model_with_not_nullable_column(): void
     {
@@ -64,6 +67,7 @@ final class SetupReacterableTest extends TestCase
         $this->assertTrue(Schema::hasColumn('people', 'love_reacter_id'));
     }
 
+    #[Test]
     /** @test */
     public function it_cannot_create_migration_for_reacterable_model_when_model_not_exists(): void
     {
@@ -75,6 +79,7 @@ final class SetupReacterableTest extends TestCase
         $this->assertFalse($this->isMigrationFileExists('add_love_reacter_id_to_not_exists_table'));
     }
 
+    #[Test]
     /** @test */
     public function it_cannot_create_migration_for_reacterable_model_when_model_not_implements_reacterable_contract(): void
     {
@@ -86,6 +91,7 @@ final class SetupReacterableTest extends TestCase
         $this->assertFalse($this->isMigrationFileExists('add_love_reacter_id_to_articles_table'));
     }
 
+    #[Test]
     /** @test */
     public function it_cannot_create_migration_for_reacterable_model_when_reacters_table_not_exists(): void
     {
@@ -98,6 +104,7 @@ final class SetupReacterableTest extends TestCase
         $this->assertFalse($this->isMigrationFileExists('add_love_reacter_id_to_people_table'));
     }
 
+    #[Test]
     /** @test */
     public function it_cannot_create_migration_for_reacterable_model_when_column_already_exists(): void
     {

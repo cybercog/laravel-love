@@ -18,9 +18,11 @@ use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 final class ReactionObserverTest extends TestCase
 {
+    #[Test]
     /** @test */
     public function it_creates_counter_on_reaction_created_when_counter_not_exists(): void
     {
@@ -42,6 +44,7 @@ final class ReactionObserverTest extends TestCase
         $this->assertSame(4.0, $assertCounters->get(0)->weight);
     }
 
+    #[Test]
     /** @test */
     public function it_not_creates_counter_on_reaction_created_when_counter_already_exists(): void
     {
@@ -62,6 +65,7 @@ final class ReactionObserverTest extends TestCase
         $this->assertTrue($assertCounters->get(0)->is($counter));
     }
 
+    #[Test]
     /** @test */
     public function it_increment_reactions_count_on_reaction_created(): void
     {
@@ -80,6 +84,7 @@ final class ReactionObserverTest extends TestCase
         $this->assertSame(1, $counter->fresh()->count);
     }
 
+    #[Test]
     /** @test */
     public function it_not_creates_counter_on_reaction_deleted(): void
     {
@@ -99,6 +104,7 @@ final class ReactionObserverTest extends TestCase
         $this->assertSame(0.0, $assertCounters->get(0)->weight);
     }
 
+    #[Test]
     /** @test */
     public function it_decrement_reactions_count_on_reaction_deleted(): void
     {
@@ -118,6 +124,7 @@ final class ReactionObserverTest extends TestCase
         $this->assertSame(1, $counter->fresh()->count);
     }
 
+    #[Test]
     /** @test */
     public function it_increment_reactions_weight_on_reaction_created(): void
     {
@@ -138,6 +145,7 @@ final class ReactionObserverTest extends TestCase
         $this->assertSame(8.0, $counter->fresh()->weight);
     }
 
+    #[Test]
     /** @test */
     public function it_decrement_reactions_weight_on_reaction_deleted(): void
     {
@@ -159,6 +167,7 @@ final class ReactionObserverTest extends TestCase
         $this->assertSame(8.0, $counter->fresh()->weight);
     }
 
+    #[Test]
     /** @test */
     public function it_increment_reactions_weight_on_reaction_with_negative_weight_created(): void
     {
@@ -179,6 +188,7 @@ final class ReactionObserverTest extends TestCase
         $this->assertSame(-8.0, $counter->fresh()->weight);
     }
 
+    #[Test]
     /** @test */
     public function it_decrement_reactions_weight_on_reaction_with_negative_weight_deleted(): void
     {
@@ -200,6 +210,7 @@ final class ReactionObserverTest extends TestCase
         $this->assertSame(-8.0, $counter->fresh()->weight);
     }
 
+    #[Test]
     /** @test */
     public function it_increment_reactions_total_count_on_reaction_created(): void
     {
@@ -215,6 +226,7 @@ final class ReactionObserverTest extends TestCase
         $this->assertSame(1, $total->count);
     }
 
+    #[Test]
     /** @test */
     public function it_decrement_reactions_total_count_on_reaction_deleted(): void
     {
@@ -231,6 +243,7 @@ final class ReactionObserverTest extends TestCase
         $this->assertSame(1, $total->count);
     }
 
+    #[Test]
     /** @test */
     public function it_increment_reactions_total_weight_on_reaction_created(): void
     {
@@ -248,6 +261,7 @@ final class ReactionObserverTest extends TestCase
         $this->assertSame(8.0, $total->weight);
     }
 
+    #[Test]
     /** @test */
     public function it_decrement_reactions_total_weight_on_reaction_deleted(): void
     {
@@ -266,6 +280,7 @@ final class ReactionObserverTest extends TestCase
         $this->assertSame(8.0, $total->weight);
     }
 
+    #[Test]
     /** @test */
     public function it_increment_reactions_total_weight_on_reaction_with_negative_weight_created(): void
     {
@@ -283,6 +298,7 @@ final class ReactionObserverTest extends TestCase
         $this->assertSame(-8.0, $total->weight);
     }
 
+    #[Test]
     /** @test */
     public function it_decrement_reactions_total_weight_on_reaction_with_negative_weight_deleted(): void
     {

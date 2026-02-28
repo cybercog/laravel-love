@@ -19,9 +19,11 @@ use Cog\Laravel\Love\Reactant\ReactionCounter\Models\NullReactionCounter;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 final class NullReactionCounterTest extends TestCase
 {
+    #[Test]
     /** @test */
     public function it_can_get_count(): void
     {
@@ -33,6 +35,7 @@ final class NullReactionCounterTest extends TestCase
         $this->assertSame(0, $counterCount);
     }
 
+    #[Test]
     /** @test */
     public function it_can_get_weight(): void
     {
@@ -44,6 +47,7 @@ final class NullReactionCounterTest extends TestCase
         $this->assertSame(0.0, $counterWeight);
     }
 
+    #[Test]
     /** @test */
     public function it_can_get_reactant(): void
     {
@@ -56,6 +60,7 @@ final class NullReactionCounterTest extends TestCase
         $this->assertSame($reactant, $assertReactant);
     }
 
+    #[Test]
     /** @test */
     public function it_can_get_reaction_type(): void
     {
@@ -68,6 +73,7 @@ final class NullReactionCounterTest extends TestCase
         $this->assertSame($reactionType, $assertReactionType);
     }
 
+    #[Test]
     /** @test */
     public function it_can_check_is_reaction_of_type(): void
     {
@@ -83,6 +89,7 @@ final class NullReactionCounterTest extends TestCase
         $this->assertFalse($false);
     }
 
+    #[Test]
     /** @test */
     public function it_can_check_is_not_reaction_of_type(): void
     {
@@ -98,6 +105,7 @@ final class NullReactionCounterTest extends TestCase
         $this->assertFalse($false);
     }
 
+    #[Test]
     /** @test */
     public function it_throws_exception_on_increment_count(): void
     {
@@ -109,6 +117,7 @@ final class NullReactionCounterTest extends TestCase
         $counter->incrementCount(2);
     }
 
+    #[Test]
     /** @test */
     public function it_throws_exception_on_decrement_count(): void
     {
@@ -120,6 +129,7 @@ final class NullReactionCounterTest extends TestCase
         $counter->decrementCount(2);
     }
 
+    #[Test]
     /** @test */
     public function it_throws_exception_on_increment_weight(): void
     {
@@ -131,6 +141,7 @@ final class NullReactionCounterTest extends TestCase
         $counter->incrementWeight(2);
     }
 
+    #[Test]
     /** @test */
     public function it_throws_exception_on_decrement_weight(): void
     {

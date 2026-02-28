@@ -19,9 +19,11 @@ use Cog\Laravel\Love\Reacter\Models\Reacter;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\Stubs\Models\UserWithoutAutoReacterCreate;
 use Cog\Tests\Laravel\Love\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 final class ReacterableObserverTest extends TestCase
 {
+    #[Test]
     /** @test */
     public function it_creates_reacter_on_created(): void
     {
@@ -30,6 +32,7 @@ final class ReacterableObserverTest extends TestCase
         $this->assertInstanceOf(ReacterInterface::class, $user->getLoveReacter());
     }
 
+    #[Test]
     /** @test */
     public function it_not_creates_new_reacter_on_created_if_already_exist(): void
     {
@@ -42,6 +45,7 @@ final class ReacterableObserverTest extends TestCase
         $this->assertTrue($user->getLoveReacter()->is($reacter));
     }
 
+    #[Test]
     /** @test */
     public function it_not_creates_new_reacter_on_created_if_opted_out(): void
     {

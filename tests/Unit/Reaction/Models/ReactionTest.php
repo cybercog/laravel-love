@@ -26,9 +26,11 @@ use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Support\Facades\Event;
 use TypeError;
+use PHPUnit\Framework\Attributes\Test;
 
 final class ReactionTest extends TestCase
 {
+    #[Test]
     /** @test */
     public function it_can_fill_reactant_id(): void
     {
@@ -39,6 +41,7 @@ final class ReactionTest extends TestCase
         $this->assertSame(4, $reaction->getAttribute('reactant_id'));
     }
 
+    #[Test]
     /** @test */
     public function it_can_fill_reaction_type_id(): void
     {
@@ -49,6 +52,7 @@ final class ReactionTest extends TestCase
         $this->assertSame(4, $reaction->getAttribute('reaction_type_id'));
     }
 
+    #[Test]
     /** @test */
     public function it_can_fill_rate(): void
     {
@@ -59,6 +63,7 @@ final class ReactionTest extends TestCase
         $this->assertSame(4.0, $reaction->getRate());
     }
 
+    #[Test]
     /** @test */
     public function it_throws_rate_out_of_range_on_fill_rate_with_underflow_value(): void
     {
@@ -69,6 +74,7 @@ final class ReactionTest extends TestCase
         ]);
     }
 
+    #[Test]
     /** @test */
     public function it_throws_rate_out_of_range_on_fill_rate_with_overflow_value(): void
     {
@@ -79,6 +85,7 @@ final class ReactionTest extends TestCase
         ]);
     }
 
+    #[Test]
     /** @test */
     public function it_casts_id_to_string(): void
     {
@@ -89,6 +96,7 @@ final class ReactionTest extends TestCase
         $this->assertSame('4', $reaction->getId());
     }
 
+    #[Test]
     /** @test */
     public function it_casts_int_rate_to_float(): void
     {
@@ -99,6 +107,7 @@ final class ReactionTest extends TestCase
         $this->assertSame(4.0, $reaction->getRate());
     }
 
+    #[Test]
     /** @test */
     public function it_casts_string_rate_to_float(): void
     {
@@ -113,6 +122,7 @@ final class ReactionTest extends TestCase
         $this->assertSame(4.1, $reaction2->getRate());
     }
 
+    #[Test]
     /** @test */
     public function it_casts_null_rate_to_default_value(): void
     {
@@ -123,6 +133,7 @@ final class ReactionTest extends TestCase
         $this->assertSame(Reaction::RATE_DEFAULT, $reaction->getRate());
     }
 
+    #[Test]
     /** @test */
     public function it_casts_not_set_rate_to_default_value(): void
     {
@@ -131,6 +142,7 @@ final class ReactionTest extends TestCase
         $this->assertSame(Reaction::RATE_DEFAULT, $reaction->getRate());
     }
 
+    #[Test]
     /** @test */
     public function it_can_create_reaction_with_default_value(): void
     {
@@ -143,6 +155,7 @@ final class ReactionTest extends TestCase
         $this->assertSame(Reaction::RATE_DEFAULT, $reaction2->getRate());
     }
 
+    #[Test]
     /** @test */
     public function it_can_belong_to_type(): void
     {
@@ -155,6 +168,7 @@ final class ReactionTest extends TestCase
         $this->assertTrue($reaction->type->is($type));
     }
 
+    #[Test]
     /** @test */
     public function it_can_belong_to_reactant(): void
     {
@@ -169,6 +183,7 @@ final class ReactionTest extends TestCase
         $this->assertTrue($reaction->reactant->is($reactant));
     }
 
+    #[Test]
     /** @test */
     public function it_can_belong_to_reacter(): void
     {
@@ -181,6 +196,7 @@ final class ReactionTest extends TestCase
         $this->assertTrue($reaction->reacter->is($reacter));
     }
 
+    #[Test]
     /** @test */
     public function it_throws_exception_on_get_id_when_id_is_null(): void
     {
@@ -191,6 +207,7 @@ final class ReactionTest extends TestCase
         $reaction->getId();
     }
 
+    #[Test]
     /** @test */
     public function it_can_get_reactant(): void
     {
@@ -207,6 +224,7 @@ final class ReactionTest extends TestCase
         $this->assertTrue($reactant->is($assertReactant));
     }
 
+    #[Test]
     /** @test */
     public function it_throws_exception_on_get_type_when_reactant_is_null(): void
     {
@@ -217,6 +235,7 @@ final class ReactionTest extends TestCase
         $reaction->getReactant();
     }
 
+    #[Test]
     /** @test */
     public function it_can_get_reacter(): void
     {
@@ -231,6 +250,7 @@ final class ReactionTest extends TestCase
         $this->assertTrue($reacter->is($assertReacter));
     }
 
+    #[Test]
     /** @test */
     public function it_throws_exception_on_get_type_when_reacter_is_null(): void
     {
@@ -241,6 +261,7 @@ final class ReactionTest extends TestCase
         $reaction->getReacter();
     }
 
+    #[Test]
     /** @test */
     public function it_can_get_type(): void
     {
@@ -255,6 +276,7 @@ final class ReactionTest extends TestCase
         $this->assertTrue($type->is($assertType));
     }
 
+    #[Test]
     /** @test */
     public function it_throws_exception_on_get_type_when_type_is_null(): void
     {
@@ -265,6 +287,7 @@ final class ReactionTest extends TestCase
         $reaction->getType();
     }
 
+    #[Test]
     /** @test */
     public function it_can_get_weight(): void
     {
@@ -280,6 +303,7 @@ final class ReactionTest extends TestCase
         $this->assertSame(4.0, $reaction->getWeight());
     }
 
+    #[Test]
     /** @test */
     public function it_can_get_weight_affected_by_rate(): void
     {
@@ -296,6 +320,7 @@ final class ReactionTest extends TestCase
         $this->assertSame(4.08, $reaction->getWeight());
     }
 
+    #[Test]
     /** @test */
     public function it_can_check_if_reaction_is_of_type(): void
     {
@@ -312,6 +337,7 @@ final class ReactionTest extends TestCase
         $this->assertFalse($false);
     }
 
+    #[Test]
     /** @test */
     public function it_can_check_if_reaction_is_not_of_type(): void
     {
@@ -328,6 +354,7 @@ final class ReactionTest extends TestCase
         $this->assertFalse($false);
     }
 
+    #[Test]
     /** @test */
     public function it_can_check_if_reaction_is_to_reactant(): void
     {
@@ -346,6 +373,7 @@ final class ReactionTest extends TestCase
         $this->assertFalse($false);
     }
 
+    #[Test]
     /** @test */
     public function it_can_check_if_reaction_is_to_reactant_when_reactant_is_null_object(): void
     {
@@ -362,6 +390,7 @@ final class ReactionTest extends TestCase
         $this->assertFalse($true);
     }
 
+    #[Test]
     /** @test */
     public function it_can_check_if_reaction_is_not_to_reactant(): void
     {
@@ -380,6 +409,7 @@ final class ReactionTest extends TestCase
         $this->assertFalse($false);
     }
 
+    #[Test]
     /** @test */
     public function it_can_check_if_reaction_is_not_to_reactant_when_reactant_is_null_object(): void
     {
@@ -396,6 +426,7 @@ final class ReactionTest extends TestCase
         $this->assertTrue($true);
     }
 
+    #[Test]
     /** @test */
     public function it_can_check_if_reaction_is_by_reacter(): void
     {
@@ -412,6 +443,7 @@ final class ReactionTest extends TestCase
         $this->assertFalse($false);
     }
 
+    #[Test]
     /** @test */
     public function it_can_check_if_reaction_is_by_reacter_when_reacter_is_null_object(): void
     {
@@ -426,6 +458,7 @@ final class ReactionTest extends TestCase
         $this->assertFalse($true);
     }
 
+    #[Test]
     /** @test */
     public function it_can_check_if_reaction_is_not_by_reacter(): void
     {
@@ -442,6 +475,7 @@ final class ReactionTest extends TestCase
         $this->assertFalse($false);
     }
 
+    #[Test]
     /** @test */
     public function it_can_check_if_reaction_is_not_by_reacter_when_reacter_is_null_object(): void
     {
@@ -456,6 +490,7 @@ final class ReactionTest extends TestCase
         $this->assertTrue($true);
     }
 
+    #[Test]
     /** @test */
     public function it_can_change_rate(): void
     {
@@ -468,6 +503,7 @@ final class ReactionTest extends TestCase
         $this->assertSame(2.0, $reaction->rate);
     }
 
+    #[Test]
     /** @test */
     public function it_throws_rate_out_of_range_on_change_rate_with_overflow_value(): void
     {
@@ -480,6 +516,7 @@ final class ReactionTest extends TestCase
         $reaction->changeRate(Reaction::RATE_MAX + 0.01);
     }
 
+    #[Test]
     /** @test */
     public function it_throws_rate_out_of_range_on_change_rate_with_underflow_value(): void
     {
@@ -492,6 +529,7 @@ final class ReactionTest extends TestCase
         $reaction->changeRate(Reaction::RATE_MIN - 0.01);
     }
 
+    #[Test]
     /** @test */
     public function it_throws_rate_invalid_on_change_rate_with_same_value(): void
     {

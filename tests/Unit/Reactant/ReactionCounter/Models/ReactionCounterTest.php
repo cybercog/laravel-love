@@ -18,9 +18,11 @@ use Cog\Laravel\Love\Reactant\ReactionCounter\Models\ReactionCounter;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\TestCase;
 use TypeError;
+use PHPUnit\Framework\Attributes\Test;
 
 final class ReactionCounterTest extends TestCase
 {
+    #[Test]
     /** @test */
     public function it_can_fill_count(): void
     {
@@ -31,6 +33,7 @@ final class ReactionCounterTest extends TestCase
         $this->assertSame(4, $counter->getCount());
     }
 
+    #[Test]
     /** @test */
     public function it_can_fill_weight(): void
     {
@@ -41,6 +44,7 @@ final class ReactionCounterTest extends TestCase
         $this->assertSame(4.1, $counter->getWeight());
     }
 
+    #[Test]
     /** @test */
     public function it_can_fill_reaction_type_id(): void
     {
@@ -51,6 +55,7 @@ final class ReactionCounterTest extends TestCase
         $this->assertSame(4, $counter->getAttribute('reaction_type_id'));
     }
 
+    #[Test]
     /** @test */
     public function it_casts_float_count_to_int(): void
     {
@@ -61,6 +66,7 @@ final class ReactionCounterTest extends TestCase
         $this->assertSame(4, $counter->getCount());
     }
 
+    #[Test]
     /** @test */
     public function it_casts_string_count_to_int(): void
     {
@@ -71,6 +77,7 @@ final class ReactionCounterTest extends TestCase
         $this->assertSame(4, $counter->getCount());
     }
 
+    #[Test]
     /** @test */
     public function it_casts_null_count_to_zero(): void
     {
@@ -81,6 +88,7 @@ final class ReactionCounterTest extends TestCase
         $this->assertSame(0, $counter->getCount());
     }
 
+    #[Test]
     /** @test */
     public function it_casts_not_set_count_to_zero(): void
     {
@@ -89,6 +97,7 @@ final class ReactionCounterTest extends TestCase
         $this->assertSame(0, $counter->getCount());
     }
 
+    #[Test]
     /** @test */
     public function it_casts_int_weight_to_float(): void
     {
@@ -99,6 +108,7 @@ final class ReactionCounterTest extends TestCase
         $this->assertSame(4.0, $counter->getWeight());
     }
 
+    #[Test]
     /** @test */
     public function it_casts_string_weight_to_float(): void
     {
@@ -113,6 +123,7 @@ final class ReactionCounterTest extends TestCase
         $this->assertSame(4.1, $counter2->getWeight());
     }
 
+    #[Test]
     /** @test */
     public function it_casts_null_weight_to_zero(): void
     {
@@ -123,6 +134,7 @@ final class ReactionCounterTest extends TestCase
         $this->assertSame(0.0, $counter->getWeight());
     }
 
+    #[Test]
     /** @test */
     public function it_casts_not_set_weight_to_zero(): void
     {
@@ -131,6 +143,7 @@ final class ReactionCounterTest extends TestCase
         $this->assertSame(0.0, $counter->getWeight());
     }
 
+    #[Test]
     /** @test */
     public function it_can_belong_to_reactant(): void
     {
@@ -143,6 +156,7 @@ final class ReactionCounterTest extends TestCase
         $this->assertTrue($counter->reactant->is($reactant));
     }
 
+    #[Test]
     /** @test */
     public function it_can_belong_to_reaction_type(): void
     {
@@ -155,6 +169,7 @@ final class ReactionCounterTest extends TestCase
         $this->assertTrue($counter->reactionType->is($reactionType));
     }
 
+    #[Test]
     /** @test */
     public function it_can_get_reactant(): void
     {
@@ -167,6 +182,7 @@ final class ReactionCounterTest extends TestCase
         $this->assertTrue($counter->getReactant()->is($reactant));
     }
 
+    #[Test]
     /** @test */
     public function it_throws_exception_on_get_reactant_when_reactant_is_null(): void
     {
@@ -177,6 +193,7 @@ final class ReactionCounterTest extends TestCase
         $counter->getReactant();
     }
 
+    #[Test]
     /** @test */
     public function it_can_get_reaction_type(): void
     {
@@ -189,6 +206,7 @@ final class ReactionCounterTest extends TestCase
         $this->assertTrue($counter->getReactionType()->is($reactionType));
     }
 
+    #[Test]
     /** @test */
     public function it_throws_exception_on_get_reaction_type_when_reaction_type_is_null(): void
     {
@@ -199,6 +217,7 @@ final class ReactionCounterTest extends TestCase
         $counter->getReactionType();
     }
 
+    #[Test]
     /** @test */
     public function it_can_check_is_reaction_of_type(): void
     {
@@ -215,6 +234,7 @@ final class ReactionCounterTest extends TestCase
         $this->assertFalse($false);
     }
 
+    #[Test]
     /** @test */
     public function it_can_check_is_not_reaction_of_type(): void
     {
@@ -231,6 +251,7 @@ final class ReactionCounterTest extends TestCase
         $this->assertFalse($false);
     }
 
+    #[Test]
     /** @test */
     public function it_can_create_counter_with_zero_count(): void
     {
@@ -243,6 +264,7 @@ final class ReactionCounterTest extends TestCase
         $this->assertSame(0, $counter2->getCount());
     }
 
+    #[Test]
     /** @test */
     public function it_can_create_counter_with_zero_weight(): void
     {
@@ -255,6 +277,7 @@ final class ReactionCounterTest extends TestCase
         $this->assertSame(0.0, $counter2->getWeight());
     }
 
+    #[Test]
     /** @test */
     public function it_can_increment_count(): void
     {
@@ -267,6 +290,7 @@ final class ReactionCounterTest extends TestCase
         $this->assertSame(2, $counter->getCount());
     }
 
+    #[Test]
     /** @test */
     public function it_can_increment_count_many_times(): void
     {
@@ -280,6 +304,7 @@ final class ReactionCounterTest extends TestCase
         $this->assertSame(5, $counter->getCount());
     }
 
+    #[Test]
     /** @test */
     public function it_can_decrement_count(): void
     {
@@ -292,6 +317,7 @@ final class ReactionCounterTest extends TestCase
         $this->assertSame(8, $counter->getCount());
     }
 
+    #[Test]
     /** @test */
     public function it_can_decrement_count_many_times(): void
     {
@@ -305,6 +331,7 @@ final class ReactionCounterTest extends TestCase
         $this->assertSame(5, $counter->getCount());
     }
 
+    #[Test]
     /** @test */
     public function it_can_increment_weight(): void
     {
@@ -317,6 +344,7 @@ final class ReactionCounterTest extends TestCase
         $this->assertSame(2.0, $counter->getWeight());
     }
 
+    #[Test]
     /** @test */
     public function it_can_increment_weight_many_times(): void
     {
@@ -330,6 +358,7 @@ final class ReactionCounterTest extends TestCase
         $this->assertSame(5.0, $counter->getWeight());
     }
 
+    #[Test]
     /** @test */
     public function it_can_decrement_weight(): void
     {
@@ -342,6 +371,7 @@ final class ReactionCounterTest extends TestCase
         $this->assertSame(8.0, $counter->getWeight());
     }
 
+    #[Test]
     /** @test */
     public function it_can_decrement_weight_many_times(): void
     {

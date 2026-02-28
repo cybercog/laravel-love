@@ -15,9 +15,11 @@ namespace Cog\Tests\Laravel\Love\Unit\Console\Commands;
 
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 final class ReactionTypeAddTest extends TestCase
 {
+    #[Test]
     /** @test */
     public function it_creates_only_two_default_types(): void
     {
@@ -29,6 +31,7 @@ final class ReactionTypeAddTest extends TestCase
         $this->assertSame($typesCount + 2, ReactionType::query()->count());
     }
 
+    #[Test]
     /** @test */
     public function it_can_create_default_like_and_dislike_types(): void
     {
@@ -46,6 +49,7 @@ final class ReactionTypeAddTest extends TestCase
         $this->assertTrue($dislikeExists);
     }
 
+    #[Test]
     /** @test */
     public function it_not_creates_default_like_and_dislike_types_when_already_exists(): void
     {
@@ -64,6 +68,7 @@ final class ReactionTypeAddTest extends TestCase
         $this->assertSame($typesCount, ReactionType::query()->count());
     }
 
+    #[Test]
     /** @test */
     public function it_creates_only_missing_default_types_when_one_already_exists(): void
     {
@@ -78,6 +83,7 @@ final class ReactionTypeAddTest extends TestCase
         $this->assertSame($typesCount + 1, ReactionType::query()->count());
     }
 
+    #[Test]
     /** @test */
     public function it_can_create_type_with_name_argument(): void
     {
@@ -94,6 +100,7 @@ final class ReactionTypeAddTest extends TestCase
         $this->assertSame('TestName', $reactionType->getName());
     }
 
+    #[Test]
     /** @test */
     public function it_convert_type_name_to_studly_case(): void
     {
@@ -110,6 +117,7 @@ final class ReactionTypeAddTest extends TestCase
         $this->assertSame('TestName', $reactionType->getName());
     }
 
+    #[Test]
     /** @test */
     public function it_cannot_create_type_when_name_exists(): void
     {
@@ -125,6 +133,7 @@ final class ReactionTypeAddTest extends TestCase
         $this->assertSame($typesCount, ReactionType::query()->count());
     }
 
+    #[Test]
     /** @test */
     public function it_cannot_create_type_when_name_exists_in_other_text_case(): void
     {
@@ -140,6 +149,7 @@ final class ReactionTypeAddTest extends TestCase
         $this->assertSame($typesCount, ReactionType::query()->count());
     }
 
+    #[Test]
     /** @test */
     public function it_can_create_type_with_mass_argument(): void
     {
@@ -156,6 +166,7 @@ final class ReactionTypeAddTest extends TestCase
         $this->assertSame(-4, $reactionType->getMass());
     }
 
+    #[Test]
     /** @test */
     public function it_not_creates_default_types_without_default_option(): void
     {
@@ -172,6 +183,7 @@ final class ReactionTypeAddTest extends TestCase
         $this->assertFalse(ReactionType::query()->where('name', 'Dislike')->exists());
     }
 
+    #[Test]
     /** @test */
     public function it_has_valid_output_after_default_types_add(): void
     {
@@ -182,6 +194,7 @@ final class ReactionTypeAddTest extends TestCase
             ->assertExitCode(0);
     }
 
+    #[Test]
     /** @test */
     public function it_asks_for_name_if_name_argument_not_exists(): void
     {
@@ -196,6 +209,7 @@ final class ReactionTypeAddTest extends TestCase
         $this->assertSame('TestName', $reactionType->getName());
     }
 
+    #[Test]
     /** @test */
     public function it_throws_error_if_name_question_answered_with_null(): void
     {
@@ -209,6 +223,7 @@ final class ReactionTypeAddTest extends TestCase
         $this->assertSame($typesCount, ReactionType::query()->count());
     }
 
+    #[Test]
     /** @test */
     public function it_throws_error_if_name_question_answered_with_whitespace(): void
     {
@@ -222,6 +237,7 @@ final class ReactionTypeAddTest extends TestCase
         $this->assertSame($typesCount, ReactionType::query()->count());
     }
 
+    #[Test]
     /** @test */
     public function it_asks_for_mass_if_mass_argument_not_exists(): void
     {
@@ -236,6 +252,7 @@ final class ReactionTypeAddTest extends TestCase
         $this->assertSame(4, $reactionType->getMass());
     }
 
+    #[Test]
     /** @test */
     public function it_creates_type_with_default_mass_if_not_answered(): void
     {
@@ -250,6 +267,7 @@ final class ReactionTypeAddTest extends TestCase
         $this->assertSame(ReactionType::MASS_DEFAULT, $reactionType->getMass());
     }
 
+    #[Test]
     /** @test */
     public function it_has_valid_output_after_type_add(): void
     {

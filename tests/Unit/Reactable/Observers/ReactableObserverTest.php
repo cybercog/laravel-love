@@ -19,9 +19,11 @@ use Cog\Laravel\Love\Reactant\Models\Reactant;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\Stubs\Models\ArticleWithoutAutoReactantCreate;
 use Cog\Tests\Laravel\Love\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 final class ReactableObserverTest extends TestCase
 {
+    #[Test]
     /** @test */
     public function it_creates_reactant_on_created(): void
     {
@@ -30,6 +32,7 @@ final class ReactableObserverTest extends TestCase
         $this->assertInstanceOf(ReactantInterface::class, $article->getLoveReactant());
     }
 
+    #[Test]
     /** @test */
     public function it_not_creates_new_reactant_on_created_if_already_exist(): void
     {
@@ -42,6 +45,7 @@ final class ReactableObserverTest extends TestCase
         $this->assertTrue($article->getLoveReactant()->is($reactant));
     }
 
+    #[Test]
     /** @test */
     public function it_not_creates_new_reactant_on_created_if_opted_out(): void
     {

@@ -20,9 +20,11 @@ use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Support\Str;
+use PHPUnit\Framework\Attributes\Test;
 
 final class ReactableEloquentBuilderTraitTest extends TestCase
 {
+    #[Test]
     /** @test */
     public function it_can_scope_by_reacterable(): void
     {
@@ -71,6 +73,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
         ], $reactedByReacterable2->pluck('id')->toArray());
     }
 
+    #[Test]
     /** @test */
     public function it_can_scope_by_reacterable_and_reaction_type(): void
     {
@@ -142,6 +145,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
         ], $reactedByReacterable2WithReactionType2->pluck('id')->toArray());
     }
 
+    #[Test]
     /** @test */
     public function it_can_scope_not_reacted_by_reacterable(): void
     {
@@ -188,6 +192,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
         ], $reactedByReacterable2->pluck('id')->toArray());
     }
 
+    #[Test]
     /** @test */
     public function it_can_scope_not_reacted_by_reacterable_and_reaction_type(): void
     {
@@ -259,6 +264,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
         ], $reactedByReacterable2WithReactionType2->pluck('id')->toArray());
     }
 
+    #[Test]
     /** @test */
     public function it_can_get_reactables_join_reaction_counter_with_type(): void
     {
@@ -331,6 +337,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
         })->toArray());
     }
 
+    #[Test]
     /** @test */
     public function it_can_get_reactables_join_reaction_counter_with_type_when_type_contains_multiple_words(): void
     {
@@ -404,6 +411,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
         })->toArray());
     }
 
+    #[Test]
     /** @test */
     public function it_select_default_reactable_columns_on_get_reactable_join_reaction_counter_with_type(): void
     {
@@ -439,6 +447,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
         ], $reactablesOrderedAsc->pluck('name', 'id')->toArray());
     }
 
+    #[Test]
     /** @test */
     public function it_can_select_custom_reactable_columns_on_get_reactable_join_reactions_count_with_type(): void
     {
@@ -478,6 +487,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
         ], $reactablesOrderedAsc->toArray());
     }
 
+    #[Test]
     /** @test */
     public function it_can_order_by_total_reactions_count(): void
     {
@@ -512,6 +522,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
         $this->assertEquals([4, 2, 1], $reactablesOrderedDesc->pluck('reaction_total_count')->toArray());
     }
 
+    #[Test]
     /** @test */
     public function it_can_order_by_total_reactions_count_with_custom_alias(): void
     {
@@ -546,6 +557,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
         $this->assertEquals([4, 2, 1], $reactablesOrderedDesc->pluck('custom_alias_count')->toArray());
     }
 
+    #[Test]
     /** @test */
     public function it_select_default_reactable_columns_on_order_by_total_reactions_count(): void
     {
@@ -579,6 +591,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
         ], $reactablesOrderedAsc->pluck('name', 'id')->toArray());
     }
 
+    #[Test]
     /** @test */
     public function it_can_select_custom_reactable_columns_on_order_by_total_reactions_count(): void
     {
@@ -618,6 +631,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
         })->toArray());
     }
 
+    #[Test]
     /** @test */
     public function it_can_order_by_reactions_weight(): void
     {
@@ -654,6 +668,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
         $this->assertEquals([8, 4, 2], $reactablesOrderedDesc->pluck('reaction_total_weight')->toArray());
     }
 
+    #[Test]
     /** @test */
     public function it_select_default_reactable_columns_on_order_by_reactions_weight(): void
     {
@@ -689,6 +704,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
         ], $reactablesOrderedAsc->pluck('name', 'id')->toArray());
     }
 
+    #[Test]
     /** @test */
     public function it_can_select_custom_reactable_columns_on_order_by_reactions_weight(): void
     {
@@ -730,6 +746,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
         })->toArray());
     }
 
+    #[Test]
     /** @test */
     public function it_chain_join_reaction_counter_with_type_and_join_reaction_total(): void
     {
@@ -805,6 +822,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
         })->toArray());
     }
 
+    #[Test]
     /** @test */
     public function it_include_reaction_total_null_values_replaced_with_zero(): void
     {
@@ -857,6 +875,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
         })->toArray());
     }
 
+    #[Test]
     /** @test */
     public function it_include_reaction_counter_null_values_replaced_with_zero(): void
     {
@@ -911,6 +930,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
         })->toArray());
     }
 
+    #[Test]
     /** @test */
     public function it_include_null_counter_and_total_values_in_chain_join_reaction_counter_with_type_and_join_reaction_total(): void
     {
@@ -970,6 +990,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
         })->toArray());
     }
 
+    #[Test]
     /** @test */
     public function it_can_chain_multiple_join_reaction_counter_of_type(): void
     {
@@ -1058,6 +1079,7 @@ final class ReactableEloquentBuilderTraitTest extends TestCase
         })->toArray());
     }
 
+    #[Test]
     /** @test */
     public function it_can_chain_multiple_join_reaction_counter_of_type_with_custom_aliases(): void
     {

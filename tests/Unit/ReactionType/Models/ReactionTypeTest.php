@@ -19,9 +19,11 @@ use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Database\ConnectionInterface;
 use TypeError;
+use PHPUnit\Framework\Attributes\Test;
 
 final class ReactionTypeTest extends TestCase
 {
+    #[Test]
     /** @test */
     public function it_can_fill_name(): void
     {
@@ -32,6 +34,7 @@ final class ReactionTypeTest extends TestCase
         $this->assertSame('TestType', $type->getAttribute('name'));
     }
 
+    #[Test]
     /** @test */
     public function it_can_fill_mass(): void
     {
@@ -42,6 +45,7 @@ final class ReactionTypeTest extends TestCase
         $this->assertSame(4, $type->getAttribute('mass'));
     }
 
+    #[Test]
     /** @test */
     public function it_has_default_rate_value(): void
     {
@@ -51,6 +55,7 @@ final class ReactionTypeTest extends TestCase
         $this->assertSame(ReactionType::MASS_DEFAULT, $type->getMass());
     }
 
+    #[Test]
     /** @test */
     public function it_casts_id_to_string(): void
     {
@@ -62,6 +67,7 @@ final class ReactionTypeTest extends TestCase
         $this->assertSame('4', $type->getId());
     }
 
+    #[Test]
     /** @test */
     public function it_casts_mass_to_integer(): void
     {
@@ -73,6 +79,7 @@ final class ReactionTypeTest extends TestCase
         $this->assertSame(4, $type->getMass());
     }
 
+    #[Test]
     /** @test */
     public function it_can_has_reaction(): void
     {
@@ -86,6 +93,7 @@ final class ReactionTypeTest extends TestCase
         $this->assertTrue($assertReaction->is($reaction));
     }
 
+    #[Test]
     /** @test */
     public function it_can_has_many_reactions(): void
     {
@@ -100,6 +108,7 @@ final class ReactionTypeTest extends TestCase
         $this->assertTrue($assertReactions->get(1)->is($reactions->get(1)));
     }
 
+    #[Test]
     /** @test */
     public function it_can_instantiate_reaction_type_from_name(): void
     {
@@ -112,6 +121,7 @@ final class ReactionTypeTest extends TestCase
         $this->assertTrue($type->is($assertType));
     }
 
+    #[Test]
     /** @test */
     public function it_can_get_id(): void
     {
@@ -122,6 +132,7 @@ final class ReactionTypeTest extends TestCase
         $this->assertSame('4', $type->getId());
     }
 
+    #[Test]
     /** @test */
     public function it_throws_exception_on_get_id_when_id_is_null(): void
     {
@@ -132,6 +143,7 @@ final class ReactionTypeTest extends TestCase
         $type->getId();
     }
 
+    #[Test]
     /** @test */
     public function it_can_get_name(): void
     {
@@ -142,6 +154,7 @@ final class ReactionTypeTest extends TestCase
         $this->assertSame('TestType', $type->getName());
     }
 
+    #[Test]
     /** @test */
     public function it_throws_exception_on_get_name_when_name_is_null(): void
     {
@@ -152,6 +165,7 @@ final class ReactionTypeTest extends TestCase
         $type->getName();
     }
 
+    #[Test]
     /** @test */
     public function it_can_get_mass(): void
     {
@@ -162,6 +176,7 @@ final class ReactionTypeTest extends TestCase
         $this->assertSame(4, $type->getMass());
     }
 
+    #[Test]
     /** @test */
     public function it_can_get_mass_when_mass_is_null(): void
     {
@@ -170,6 +185,7 @@ final class ReactionTypeTest extends TestCase
         $this->assertSame(0, $type->getMass());
     }
 
+    #[Test]
     /** @test */
     public function it_can_check_is_equal_to(): void
     {
@@ -180,6 +196,7 @@ final class ReactionTypeTest extends TestCase
         $this->assertFalse($type->isEqualTo($otherType));
     }
 
+    #[Test]
     /** @test */
     public function it_can_check_is_not_equal_to(): void
     {
@@ -190,6 +207,7 @@ final class ReactionTypeTest extends TestCase
         $this->assertTrue($type->isNotEqualTo($otherType));
     }
 
+    #[Test]
     /** @test */
     public function it_throws_exception_if_instantiate_reaction_type_from_not_exist_name(): void
     {
@@ -200,6 +218,7 @@ final class ReactionTypeTest extends TestCase
         ReactionType::fromName('NotExistType');
     }
 
+    #[Test]
     /** @test */
     public function it_should_not_perform_database_queries_on_instantiation_from_name(): void
     {
@@ -226,6 +245,7 @@ final class ReactionTypeTest extends TestCase
         $this->assertSame('DislikeType', $dislike3->getName());
     }
 
+    #[Test]
     /** @test */
     public function it_updates_type_in_registry_if_model_was_changed(): void
     {
@@ -246,6 +266,7 @@ final class ReactionTypeTest extends TestCase
         $this->assertSame(8, $typeFromRegistry->getMass());
     }
 
+    #[Test]
     /** @test */
     public function it_deletes_type_from_registry_if_model_was_deleted(): void
     {

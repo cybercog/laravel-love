@@ -19,9 +19,11 @@ use Cog\Tests\Laravel\Love\Stubs\Models\Bot;
 use Cog\Tests\Laravel\Love\Stubs\Models\MorphMappedReacterable;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 final class RegisterReactersTest extends TestCase
 {
+    #[Test]
     /** @test */
     public function it_can_create_reacters_for_all_models_of_type(): void
     {
@@ -46,6 +48,7 @@ final class RegisterReactersTest extends TestCase
         }
     }
 
+    #[Test]
     /** @test */
     public function it_can_create_reacters_for_all_models_of_type_with_morph_map(): void
     {
@@ -70,6 +73,7 @@ final class RegisterReactersTest extends TestCase
         }
     }
 
+    #[Test]
     /** @test */
     public function it_can_create_reacters_for_specific_model_ids(): void
     {
@@ -100,6 +104,7 @@ final class RegisterReactersTest extends TestCase
         $this->assertFalse($userReactables->get(2)->fresh()->isRegisteredAsLoveReacter());
     }
 
+    #[Test]
     /** @test */
     public function it_can_create_reacters_for_specific_model_ids_delimited_with_comma(): void
     {
@@ -127,6 +132,7 @@ final class RegisterReactersTest extends TestCase
         $this->assertFalse($userReactables->get(2)->fresh()->isRegisteredAsLoveReacter());
     }
 
+    #[Test]
     /** @test */
     public function it_not_create_duplicate_reacters(): void
     {

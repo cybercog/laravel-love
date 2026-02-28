@@ -21,9 +21,11 @@ use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\TestCase;
 use DateTimeImmutable;
+use PHPUnit\Framework\Attributes\Test;
 
 final class ReacterableEloquentBuilderTraitTest extends TestCase
 {
+    #[Test]
     /** @test */
     public function it_can_scope_reacted_to_reactable(): void
     {
@@ -72,6 +74,7 @@ final class ReacterableEloquentBuilderTraitTest extends TestCase
         ], $reactedToReactable2->pluck('id')->toArray());
     }
 
+    #[Test]
     /** @test */
     public function it_can_scope_reacted_to_reactable_and_reaction_type(): void
     {
@@ -143,6 +146,7 @@ final class ReacterableEloquentBuilderTraitTest extends TestCase
         ], $reactedToReactable2WithReactionType2->pluck('id')->toArray());
     }
 
+    #[Test]
     /** @test */
     public function it_can_scope_not_reacted_to_reactable(): void
     {
@@ -189,6 +193,7 @@ final class ReacterableEloquentBuilderTraitTest extends TestCase
         ], $reactedToReactable2->pluck('id')->toArray());
     }
 
+    #[Test]
     /** @test */
     public function it_can_scope_not_reacted_to_reactable_and_reaction_type(): void
     {
@@ -260,6 +265,7 @@ final class ReacterableEloquentBuilderTraitTest extends TestCase
         ], $reactedToReactable2WithReactionType2->pluck('id')->toArray());
     }
 
+    #[Test]
     /** @test */
     public function it_can_scope_reacted_to_reactable_between_datetime_range(): void
     {

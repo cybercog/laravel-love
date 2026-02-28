@@ -20,9 +20,11 @@ use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Cog\Tests\Laravel\Love\TestCase;
 use Illuminate\Support\Facades\Event;
+use PHPUnit\Framework\Attributes\Test;
 
 final class ReactionTotalServiceTest extends TestCase
 {
+    #[Test]
     /** @test */
     public function it_can_add_reaction(): void
     {
@@ -49,6 +51,7 @@ final class ReactionTotalServiceTest extends TestCase
         $this->assertSame(8.0, $total->weight);
     }
 
+    #[Test]
     /** @test */
     public function it_can_remove_reaction(): void
     {
@@ -79,6 +82,7 @@ final class ReactionTotalServiceTest extends TestCase
         $this->assertSame(8.0, $total->fresh()->weight);
     }
 
+    #[Test]
     /** @test */
     public function it_not_makes_count_below_zero_on_decrement_count(): void
     {
@@ -100,6 +104,7 @@ final class ReactionTotalServiceTest extends TestCase
         $this->assertSame(0, $total->fresh()->getCount());
     }
 
+    #[Test]
     /** @test */
     public function it_can_add_reaction_with_negative_weight(): void
     {
@@ -126,6 +131,7 @@ final class ReactionTotalServiceTest extends TestCase
         $this->assertSame(-8.0, $total->weight);
     }
 
+    #[Test]
     /** @test */
     public function it_creates_total_on_add_reaction_when_total_not_exists(): void
     {
@@ -148,6 +154,7 @@ final class ReactionTotalServiceTest extends TestCase
         $this->assertSame(4.0, $total->weight);
     }
 
+    #[Test]
     /** @test */
     public function it_creates_total_on_remove_reaction_when_total_not_exists(): void
     {

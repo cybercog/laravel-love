@@ -18,9 +18,11 @@ use Cog\Laravel\Love\Reactant\Models\NullReactant;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
 use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 final class NullReactionTotalTest extends TestCase
 {
+    #[Test]
     /** @test */
     public function it_can_get_count(): void
     {
@@ -32,6 +34,7 @@ final class NullReactionTotalTest extends TestCase
         $this->assertSame(0, $totalCount);
     }
 
+    #[Test]
     /** @test */
     public function it_can_get_weight(): void
     {
@@ -43,6 +46,7 @@ final class NullReactionTotalTest extends TestCase
         $this->assertSame(0.0, $totalWeight);
     }
 
+    #[Test]
     /** @test */
     public function it_can_get_reactant(): void
     {
@@ -55,6 +59,7 @@ final class NullReactionTotalTest extends TestCase
         $this->assertSame($reactant, $assertReactant);
     }
 
+    #[Test]
     /** @test */
     public function it_throws_exception_on_increment_count(): void
     {
@@ -65,6 +70,7 @@ final class NullReactionTotalTest extends TestCase
         $total->incrementCount(2);
     }
 
+    #[Test]
     /** @test */
     public function it_throws_exception_on_decrement_count(): void
     {
@@ -75,6 +81,7 @@ final class NullReactionTotalTest extends TestCase
         $total->decrementCount(2);
     }
 
+    #[Test]
     /** @test */
     public function it_throws_exception_on_increment_weight(): void
     {
@@ -85,6 +92,7 @@ final class NullReactionTotalTest extends TestCase
         $total->incrementWeight(2);
     }
 
+    #[Test]
     /** @test */
     public function it_throws_exception_on_decrement_weight(): void
     {
