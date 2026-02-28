@@ -16,6 +16,7 @@ namespace Cog\Laravel\Love\Reacterable\Models\Traits;
 use Cog\Contracts\Love\Reacter\Facades\Reacter as ReacterFacadeInterface;
 use Cog\Contracts\Love\Reacter\Models\Reacter as ReacterInterface;
 use Cog\Contracts\Love\Reacterable\Exceptions\AlreadyRegisteredAsLoveReacter;
+use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableInterface;
 use Cog\Laravel\Love\Reacter\Facades\Reacter as ReacterFacade;
 use Cog\Laravel\Love\Reacter\Models\NullReacter;
 use Cog\Laravel\Love\Reacter\Models\Reacter;
@@ -29,7 +30,9 @@ trait Reacterable
 {
     protected static function bootReacterable(): void
     {
-        static::observe(ReacterableObserver::class);
+        static::created(function (ReacterableInterface $reacterable) {
+            (new ReacterableObserver())->created($reacterable);
+        });
     }
 
     public function loveReacter(): BelongsTo
