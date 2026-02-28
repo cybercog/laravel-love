@@ -40,7 +40,7 @@ final class Reacter implements
     public function reactTo(
         ReactableInterface $reactable,
         string $reactionTypeName,
-        float | null $rate = null,
+        ?float $rate = null,
     ): void {
         $this->reacter->reactTo(
             $reactable->getLoveReactant(),
@@ -61,8 +61,8 @@ final class Reacter implements
 
     public function hasReactedTo(
         ReactableInterface $reactable,
-        string | null $reactionTypeName = null,
-        float | null $rate = null,
+        ?string $reactionTypeName = null,
+        ?float $rate = null,
     ): bool {
         $reactionType = $reactionTypeName === null ? null : ReactionType::fromName($reactionTypeName);
 
@@ -75,8 +75,8 @@ final class Reacter implements
 
     public function hasNotReactedTo(
         ReactableInterface $reactable,
-        string | null $reactionTypeName = null,
-        float | null $rate = null,
+        ?string $reactionTypeName = null,
+        ?float $rate = null,
     ): bool {
         $reactionType = $reactionTypeName === null ? null : ReactionType::fromName($reactionTypeName);
 

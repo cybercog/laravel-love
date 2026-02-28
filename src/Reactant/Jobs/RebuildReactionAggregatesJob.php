@@ -33,11 +33,11 @@ final class RebuildReactionAggregatesJob implements
 
     private ReactantInterface $reactant;
 
-    private ReactionTypeInterface | null $reactionType;
+    private ?ReactionTypeInterface $reactionType;
 
     public function __construct(
         ReactantInterface $reactant,
-        ReactionTypeInterface | null $reactionType = null,
+        ?ReactionTypeInterface $reactionType = null,
     ) {
         $this->reactant = $reactant;
         $this->reactionType = $reactionType;

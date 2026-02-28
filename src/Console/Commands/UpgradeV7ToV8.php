@@ -111,7 +111,7 @@ final class UpgradeV7ToV8 extends Command
         return DB::connection($this->getDatabaseConnection());
     }
 
-    private function getDatabaseConnection(): string | null
+    private function getDatabaseConnection(): ?string
     {
         return Config::get('love.storage.database.connection');
     }
