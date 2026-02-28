@@ -37,8 +37,7 @@ final class SetupReactableTest extends TestCase
         $this->deletePublishedMigrations();
     }
 
-    /** @test */
-    public function it_can_create_migration_for_reactable_model(): void
+    public function test_can_create_migration_for_reactable_model(): void
     {
         $status = $this->artisan('love:setup-reactable', [
             '--model' => Person::class,
@@ -50,8 +49,7 @@ final class SetupReactableTest extends TestCase
         // Cannot add a NOT NULL column with default value NULL
     }
 
-    /** @test */
-    public function it_can_create_migration_for_reactable_model_with_not_nullable_column(): void
+    public function test_can_create_migration_for_reactable_model_with_not_nullable_column(): void
     {
         $status = $this->artisan('love:setup-reactable', [
             '--model' => Person::class,
@@ -64,8 +62,7 @@ final class SetupReactableTest extends TestCase
         $this->assertTrue(Schema::hasColumn('people', 'love_reactant_id'));
     }
 
-    /** @test */
-    public function it_cannot_create_migration_for_reactable_model_when_model_not_exists(): void
+    public function test_cannot_create_migration_for_reactable_model_when_model_not_exists(): void
     {
         $status = $this->artisan('love:setup-reactable', [
             '--model' => 'NotExists',
@@ -75,8 +72,7 @@ final class SetupReactableTest extends TestCase
         $this->assertFalse($this->isMigrationFileExists('add_love_reactant_id_to_not_exists_table'));
     }
 
-    /** @test */
-    public function it_cannot_create_migration_for_reactable_model_when_model_not_implements_reactable_contract(): void
+    public function test_cannot_create_migration_for_reactable_model_when_model_not_implements_reactable_contract(): void
     {
         $status = $this->artisan('love:setup-reactable', [
             '--model' => Bot::class,
@@ -86,8 +82,7 @@ final class SetupReactableTest extends TestCase
         $this->assertFalse($this->isMigrationFileExists('add_love_reactant_id_to_bots_table'));
     }
 
-    /** @test */
-    public function it_cannot_create_migration_for_reactable_model_when_reactants_table_not_exists(): void
+    public function test_cannot_create_migration_for_reactable_model_when_reactants_table_not_exists(): void
     {
         Schema::drop('love_reactants');
         $status = $this->artisan('love:setup-reactable', [
@@ -98,8 +93,7 @@ final class SetupReactableTest extends TestCase
         $this->assertFalse($this->isMigrationFileExists('add_love_reactant_id_to_people_table'));
     }
 
-    /** @test */
-    public function it_cannot_create_migration_for_reactable_model_when_column_already_exists(): void
+    public function test_cannot_create_migration_for_reactable_model_when_column_already_exists(): void
     {
         $status = $this->artisan('love:setup-reactable', [
             '--model' => Article::class,

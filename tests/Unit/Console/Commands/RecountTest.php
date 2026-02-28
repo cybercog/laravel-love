@@ -49,8 +49,7 @@ final class RecountTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function it_can_recount_reactions_of_one_reaction_type_for_any_reactable_type_when_counters_not_exists(): void
+    public function test_can_recount_reactions_of_one_reaction_type_for_any_reactable_type_when_counters_not_exists(): void
     {
         [
             $reactant1,
@@ -93,8 +92,7 @@ final class RecountTest extends TestCase
         $this->assertReactantTotalWeight($reactant4, 2.0);
     }
 
-    /** @test */
-    public function it_can_recount_reactions_of_one_reaction_type_for_any_reactable_type_when_counters_exists(): void
+    public function test_can_recount_reactions_of_one_reaction_type_for_any_reactable_type_when_counters_exists(): void
     {
         [
             $reactant1,
@@ -136,8 +134,7 @@ final class RecountTest extends TestCase
         $this->assertReactantTotalWeight($reactant4, -2);
     }
 
-    /** @test */
-    public function it_can_recount_reactions_of_one_reaction_type_for_one_reactable_type_when_counters_not_exists(): void
+    public function test_can_recount_reactions_of_one_reaction_type_for_one_reactable_type_when_counters_not_exists(): void
     {
         [
             $reactant1,
@@ -180,8 +177,7 @@ final class RecountTest extends TestCase
         $this->assertReactantTotalWeight($reactant4, -2);
     }
 
-    /** @test */
-    public function it_can_recount_reactions_of_one_reaction_type_for_one_reactable_type_when_counters_exists(): void
+    public function test_can_recount_reactions_of_one_reaction_type_for_one_reactable_type_when_counters_exists(): void
     {
         [
             $reactant1,
@@ -223,8 +219,7 @@ final class RecountTest extends TestCase
         $this->assertReactantTotalWeight($reactant4, -2);
     }
 
-    /** @test */
-    public function it_can_recount_reactions_of_one_reaction_type_for_one_reactable_morph_type_when_counters_not_exists(): void
+    public function test_can_recount_reactions_of_one_reaction_type_for_one_reactable_morph_type_when_counters_not_exists(): void
     {
         [
             $reactant1,
@@ -267,8 +262,7 @@ final class RecountTest extends TestCase
         $this->assertReactantTotalWeight($reactant4, 2);
     }
 
-    /** @test */
-    public function it_can_recount_reactions_of_one_reaction_type_for_one_reactable_morph_type_when_counters_exists(): void
+    public function test_can_recount_reactions_of_one_reaction_type_for_one_reactable_morph_type_when_counters_exists(): void
     {
         [
             $reactant1,
@@ -310,8 +304,7 @@ final class RecountTest extends TestCase
         $this->assertReactantTotalWeight($reactant4, -2);
     }
 
-    /** @test */
-    public function it_can_recount_reactions_of_one_reaction_type_for_one_reactable_fqcn_morph_type_when_counters_not_exists(): void
+    public function test_can_recount_reactions_of_one_reaction_type_for_one_reactable_fqcn_morph_type_when_counters_not_exists(): void
     {
         [
             $reactant1,
@@ -354,8 +347,7 @@ final class RecountTest extends TestCase
         $this->assertReactantTotalWeight($reactant4, 2);
     }
 
-    /** @test */
-    public function it_can_recount_reactions_of_one_reaction_type_for_one_reactable_fqcn_morph_type_when_counters_exists(): void
+    public function test_can_recount_reactions_of_one_reaction_type_for_one_reactable_fqcn_morph_type_when_counters_exists(): void
     {
         [
             $reactant1,
@@ -397,8 +389,7 @@ final class RecountTest extends TestCase
         $this->assertReactantTotalWeight($reactant4, -2);
     }
 
-    /** @test */
-    public function it_can_recount_reactions_of_any_reaction_type_for_any_reactable_type_when_counters_not_exists(): void
+    public function test_can_recount_reactions_of_any_reaction_type_for_any_reactable_type_when_counters_not_exists(): void
     {
         [
             $reactant1,
@@ -439,8 +430,7 @@ final class RecountTest extends TestCase
         $this->assertReactantTotalWeight($reactant4, -2);
     }
 
-    /** @test */
-    public function it_can_recount_reactions_of_any_reaction_type_for_any_reactable_type_when_counters_exists(): void
+    public function test_can_recount_reactions_of_any_reaction_type_for_any_reactable_type_when_counters_exists(): void
     {
         [
             $reactant1,
@@ -480,8 +470,7 @@ final class RecountTest extends TestCase
         $this->assertReactantTotalWeight($reactant4, -2);
     }
 
-    /** @test */
-    public function it_can_recount_reactions_of_any_reaction_type_for_one_reactable_type_when_counters_not_exists(): void
+    public function test_can_recount_reactions_of_any_reaction_type_for_one_reactable_type_when_counters_not_exists(): void
     {
         [
             $reactant1,
@@ -524,8 +513,7 @@ final class RecountTest extends TestCase
         $this->assertReactantTotalWeight($reactant4, -2);
     }
 
-    /** @test */
-    public function it_can_recount_reactions_of_any_reaction_type_for_one_reactable_type_when_counters_exists(): void
+    public function test_can_recount_reactions_of_any_reaction_type_for_one_reactable_type_when_counters_exists(): void
     {
         [
             $reactant1,
@@ -567,8 +555,7 @@ final class RecountTest extends TestCase
         $this->assertReactantTotalWeight($reactant4, -2);
     }
 
-    /** @test */
-    public function it_can_recount_reactions_of_any_reaction_type_for_one_reactable_morph_type_when_counters_not_exists(): void
+    public function test_can_recount_reactions_of_any_reaction_type_for_one_reactable_morph_type_when_counters_not_exists(): void
     {
         [
             $reactant1,
@@ -611,8 +598,7 @@ final class RecountTest extends TestCase
         $this->assertReactantTotalWeight($reactant4, -2);
     }
 
-    /** @test */
-    public function it_can_recount_reactions_of_any_reaction_type_for_one_reactable_morph_type_when_counters_exists(): void
+    public function test_can_recount_reactions_of_any_reaction_type_for_one_reactable_morph_type_when_counters_exists(): void
     {
         [
             $reactant1,
@@ -654,8 +640,7 @@ final class RecountTest extends TestCase
         $this->assertReactantTotalWeight($reactant4, -2);
     }
 
-    /** @test */
-    public function it_can_recount_reactions_of_any_reaction_type_for_one_reactable_fqcn_morph_type_when_counters_not_exists(): void
+    public function test_can_recount_reactions_of_any_reaction_type_for_one_reactable_fqcn_morph_type_when_counters_not_exists(): void
     {
         [
             $reactant1,
@@ -698,8 +683,7 @@ final class RecountTest extends TestCase
         $this->assertReactantTotalWeight($reactant4, -2);
     }
 
-    /** @test */
-    public function it_can_recount_reactions_of_any_reaction_type_for_one_reactable_fqcn_morph_type_when_counters_exists(): void
+    public function test_can_recount_reactions_of_any_reaction_type_for_one_reactable_fqcn_morph_type_when_counters_exists(): void
     {
         [
             $reactant1,
@@ -741,8 +725,7 @@ final class RecountTest extends TestCase
         $this->assertReactantTotalWeight($reactant4, -2);
     }
 
-    /** @test */
-    public function it_throws_reactable_invalid_exception_on_not_exist_morph_map(): void
+    public function test_throws_reactable_invalid_exception_on_not_exist_morph_map(): void
     {
         $this->expectException(ReactableInvalid::class);
 
@@ -753,8 +736,7 @@ final class RecountTest extends TestCase
         $this->assertSame(1, $status);
     }
 
-    /** @test */
-    public function it_throws_reactable_invalid_exception_if_class_not_implemented_reactable_interface(): void
+    public function test_throws_reactable_invalid_exception_if_class_not_implemented_reactable_interface(): void
     {
         $this->expectException(ReactableInvalid::class);
 
@@ -765,8 +747,7 @@ final class RecountTest extends TestCase
         $this->assertSame(1, $status);
     }
 
-    /** @test */
-    public function it_not_delete_reaction_counters_on_recount(): void
+    public function test_not_delete_reaction_counters_on_recount(): void
     {
         $reactant1 = Reactant::factory()->create();
         $reactant2 = Reactant::factory()->create();
@@ -789,8 +770,7 @@ final class RecountTest extends TestCase
         $this->assertTrue($reactant2->reactionCounters->first()->is($reactantCounter2));
     }
 
-    /** @test */
-    public function it_resets_reaction_counters_count_on_recount(): void
+    public function test_resets_reaction_counters_count_on_recount(): void
     {
         $reactant1 = Reactant::factory()->create();
         $reactant2 = Reactant::factory()->create();
@@ -812,8 +792,7 @@ final class RecountTest extends TestCase
         $this->assertSame(0, $reactant2->reactionCounters->first()->count);
     }
 
-    /** @test */
-    public function it_resets_reaction_counters_weight_on_recount(): void
+    public function test_resets_reaction_counters_weight_on_recount(): void
     {
         $reactant1 = Reactant::factory()->create();
         $reactant2 = Reactant::factory()->create();
@@ -835,8 +814,7 @@ final class RecountTest extends TestCase
         $this->assertSame(0.0, $reactant2->reactionCounters->first()->weight);
     }
 
-    /** @test */
-    public function it_not_delete_reaction_total_on_recount(): void
+    public function test_not_delete_reaction_total_on_recount(): void
     {
         $reactant1 = Reactant::factory()->create();
         $reactant2 = Reactant::factory()->create();
@@ -860,8 +838,7 @@ final class RecountTest extends TestCase
         $this->assertTrue($reactant2->reactionTotal->is($reactantTotal2));
     }
 
-    /** @test */
-    public function it_resets_reaction_total_count_on_recount(): void
+    public function test_resets_reaction_total_count_on_recount(): void
     {
         $reactant1 = Reactant::factory()->create();
         $reactant2 = Reactant::factory()->create();
@@ -883,8 +860,7 @@ final class RecountTest extends TestCase
         $this->assertSame(0, $reactant2->reactionTotal->count);
     }
 
-    /** @test */
-    public function it_resets_reaction_total_weight_on_recount(): void
+    public function test_resets_reaction_total_weight_on_recount(): void
     {
         $reactant1 = Reactant::factory()->create();
         $reactant2 = Reactant::factory()->create();

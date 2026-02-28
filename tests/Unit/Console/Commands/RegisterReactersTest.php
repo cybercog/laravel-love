@@ -22,8 +22,7 @@ use Cog\Tests\Laravel\Love\TestCase;
 
 final class RegisterReactersTest extends TestCase
 {
-    /** @test */
-    public function it_can_create_reacters_for_all_models_of_type(): void
+    public function test_can_create_reacters_for_all_models_of_type(): void
     {
         Bot::unsetEventDispatcher();
         User::unsetEventDispatcher();
@@ -46,8 +45,7 @@ final class RegisterReactersTest extends TestCase
         }
     }
 
-    /** @test */
-    public function it_can_create_reacters_for_all_models_of_type_with_morph_map(): void
+    public function test_can_create_reacters_for_all_models_of_type_with_morph_map(): void
     {
         MorphMappedReacterable::unsetEventDispatcher();
         User::unsetEventDispatcher();
@@ -70,8 +68,7 @@ final class RegisterReactersTest extends TestCase
         }
     }
 
-    /** @test */
-    public function it_can_create_reacters_for_specific_model_ids(): void
+    public function test_can_create_reacters_for_specific_model_ids(): void
     {
         Bot::unsetEventDispatcher();
         User::unsetEventDispatcher();
@@ -100,8 +97,7 @@ final class RegisterReactersTest extends TestCase
         $this->assertFalse($userReactables->get(2)->fresh()->isRegisteredAsLoveReacter());
     }
 
-    /** @test */
-    public function it_can_create_reacters_for_specific_model_ids_delimited_with_comma(): void
+    public function test_can_create_reacters_for_specific_model_ids_delimited_with_comma(): void
     {
         Bot::unsetEventDispatcher();
         User::unsetEventDispatcher();
@@ -127,8 +123,7 @@ final class RegisterReactersTest extends TestCase
         $this->assertFalse($userReactables->get(2)->fresh()->isRegisteredAsLoveReacter());
     }
 
-    /** @test */
-    public function it_not_create_duplicate_reacters(): void
+    public function test_not_create_duplicate_reacters(): void
     {
         Bot::factory()->count(3)->create();
         User::factory()->count(3)->create();

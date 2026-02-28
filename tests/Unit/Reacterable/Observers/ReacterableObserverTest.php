@@ -22,16 +22,14 @@ use Cog\Tests\Laravel\Love\TestCase;
 
 final class ReacterableObserverTest extends TestCase
 {
-    /** @test */
-    public function it_creates_reacter_on_created(): void
+    public function test_creates_reacter_on_created(): void
     {
         $user = User::factory()->create();
 
         $this->assertInstanceOf(ReacterInterface::class, $user->getLoveReacter());
     }
 
-    /** @test */
-    public function it_not_creates_new_reacter_on_created_if_already_exist(): void
+    public function test_not_creates_new_reacter_on_created_if_already_exist(): void
     {
         $reacter = Reacter::factory()->create();
         $user = User::factory()->create([
@@ -42,8 +40,7 @@ final class ReacterableObserverTest extends TestCase
         $this->assertTrue($user->getLoveReacter()->is($reacter));
     }
 
-    /** @test */
-    public function it_not_creates_new_reacter_on_created_if_opted_out(): void
+    public function test_not_creates_new_reacter_on_created_if_opted_out(): void
     {
         $user = UserWithoutAutoReacterCreate::factory()->create();
 

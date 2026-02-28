@@ -22,8 +22,7 @@ use Illuminate\Support\Facades\Event;
 
 final class ReactionHasBeenRemovedTest extends TestCase
 {
-    /** @test */
-    public function it_fire_reaction_has_been_removed_event(): void
+    public function test_fire_reaction_has_been_removed_event(): void
     {
         Event::fake([ReactionHasBeenRemoved::class]);
         $reactionType = ReactionType::factory()->create();

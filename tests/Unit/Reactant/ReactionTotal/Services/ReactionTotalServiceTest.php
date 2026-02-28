@@ -23,8 +23,7 @@ use Illuminate\Support\Facades\Event;
 
 final class ReactionTotalServiceTest extends TestCase
 {
-    /** @test */
-    public function it_can_add_reaction(): void
+    public function test_can_add_reaction(): void
     {
         $reactionType = ReactionType::factory()->create([
             'mass' => 4,
@@ -49,8 +48,7 @@ final class ReactionTotalServiceTest extends TestCase
         $this->assertSame(8.0, $total->weight);
     }
 
-    /** @test */
-    public function it_can_remove_reaction(): void
+    public function test_can_remove_reaction(): void
     {
         $reactionType = ReactionType::factory()->create([
             'mass' => 4,
@@ -79,8 +77,7 @@ final class ReactionTotalServiceTest extends TestCase
         $this->assertSame(8.0, $total->fresh()->weight);
     }
 
-    /** @test */
-    public function it_not_makes_count_below_zero_on_decrement_count(): void
+    public function test_not_makes_count_below_zero_on_decrement_count(): void
     {
         Event::fake(); // To not fire ReactionObserver & Reactant methods
 
@@ -100,8 +97,7 @@ final class ReactionTotalServiceTest extends TestCase
         $this->assertSame(0, $total->fresh()->getCount());
     }
 
-    /** @test */
-    public function it_can_add_reaction_with_negative_weight(): void
+    public function test_can_add_reaction_with_negative_weight(): void
     {
         $reactionType = ReactionType::factory()->create([
             'mass' => -4,
@@ -126,8 +122,7 @@ final class ReactionTotalServiceTest extends TestCase
         $this->assertSame(-8.0, $total->weight);
     }
 
-    /** @test */
-    public function it_creates_total_on_add_reaction_when_total_not_exists(): void
+    public function test_creates_total_on_add_reaction_when_total_not_exists(): void
     {
         Event::fake(); // Prevent total auto creation
         $reactionType = ReactionType::factory()->create([
@@ -148,8 +143,7 @@ final class ReactionTotalServiceTest extends TestCase
         $this->assertSame(4.0, $total->weight);
     }
 
-    /** @test */
-    public function it_creates_total_on_remove_reaction_when_total_not_exists(): void
+    public function test_creates_total_on_remove_reaction_when_total_not_exists(): void
     {
         Event::fake(); // Prevent total auto creation
         $reactionType = ReactionType::factory()->create();

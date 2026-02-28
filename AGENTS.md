@@ -4,7 +4,7 @@ This file provides guidance to LLM Agents when working with code in this reposit
 
 ## Project Overview
 
-Laravel Love is a PHP package (`cybercog/laravel-love`) that adds reaction functionality (like, dislike, upvote, etc.) to Laravel Eloquent models. It supports Laravel 9-12 and PHP 8.0-8.4.
+Laravel Love is a PHP package (`cybercog/laravel-love`) that adds reaction functionality (like, dislike, upvote, etc.) to Laravel Eloquent models. It supports Laravel 9-13 and PHP 8.0-8.5.
 
 ## Commands
 

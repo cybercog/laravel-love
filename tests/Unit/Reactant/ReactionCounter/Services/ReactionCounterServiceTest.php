@@ -23,8 +23,7 @@ use Illuminate\Support\Facades\Event;
 
 final class ReactionCounterServiceTest extends TestCase
 {
-    /** @test */
-    public function it_can_add_reaction(): void
+    public function test_can_add_reaction(): void
     {
         Event::fake(); // To not fire `ReactionObserver` methods
         $reactionType = ReactionType::factory()->create([
@@ -49,8 +48,7 @@ final class ReactionCounterServiceTest extends TestCase
         $this->assertSame(8.0, $counter->weight);
     }
 
-    /** @test */
-    public function it_can_remove_reaction(): void
+    public function test_can_remove_reaction(): void
     {
         Event::fake(); // To not fire `ReactionObserver` methods
         $reactionType = ReactionType::factory()->create([
@@ -81,8 +79,7 @@ final class ReactionCounterServiceTest extends TestCase
         $this->assertSame(8.0, $counter->weight);
     }
 
-    /** @test */
-    public function it_not_makes_count_below_zero_on_decrement_count(): void
+    public function test_not_makes_count_below_zero_on_decrement_count(): void
     {
         Event::fake(); // To not fire `ReactionObserver` methods
 
@@ -103,8 +100,7 @@ final class ReactionCounterServiceTest extends TestCase
         $this->assertSame(0, $counter->fresh()->getCount());
     }
 
-    /** @test */
-    public function it_can_add_reaction_with_negative_weight(): void
+    public function test_can_add_reaction_with_negative_weight(): void
     {
         Event::fake(); // To not fire `ReactionObserver` methods
         $reactionType = ReactionType::factory()->create([
@@ -133,8 +129,7 @@ final class ReactionCounterServiceTest extends TestCase
         $this->assertSame(-8.0, $counter->weight);
     }
 
-    /** @test */
-    public function it_creates_counter_on_add_reaction_when_counter_not_exists(): void
+    public function test_creates_counter_on_add_reaction_when_counter_not_exists(): void
     {
         Event::fake(); // To not fire `ReactionObserver` methods
         $reactionType = ReactionType::factory()->create([
@@ -156,8 +151,7 @@ final class ReactionCounterServiceTest extends TestCase
         $this->assertSame(4.0, $reactant->reactionCounters->get(0)->weight);
     }
 
-    /** @test */
-    public function it_creates_counter_on_remove_reaction_when_counter_not_exists(): void
+    public function test_creates_counter_on_remove_reaction_when_counter_not_exists(): void
     {
         Event::fake(); // To not fire `ReactionObserver` methods
 

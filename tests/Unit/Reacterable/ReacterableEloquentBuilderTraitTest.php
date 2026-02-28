@@ -24,8 +24,7 @@ use DateTimeImmutable;
 
 final class ReacterableEloquentBuilderTraitTest extends TestCase
 {
-    /** @test */
-    public function it_can_scope_reacted_to_reactable(): void
+    public function test_can_scope_reacted_to_reactable(): void
     {
         Reacter::factory()->create(); // Needed to have not same ids with Reacter
         $reactionType = ReactionType::factory()->create();
@@ -72,8 +71,7 @@ final class ReacterableEloquentBuilderTraitTest extends TestCase
         ], $reactedToReactable2->pluck('id')->toArray());
     }
 
-    /** @test */
-    public function it_can_scope_reacted_to_reactable_and_reaction_type(): void
+    public function test_can_scope_reacted_to_reactable_and_reaction_type(): void
     {
         Reacter::factory()->create(); // Needed to have not same ids with Reacter
         $reactionType1 = ReactionType::factory()->create();
@@ -143,8 +141,7 @@ final class ReacterableEloquentBuilderTraitTest extends TestCase
         ], $reactedToReactable2WithReactionType2->pluck('id')->toArray());
     }
 
-    /** @test */
-    public function it_can_scope_not_reacted_to_reactable(): void
+    public function test_can_scope_not_reacted_to_reactable(): void
     {
         Reactant::factory()->create(); // Needed to have not same ids with Reactant
         $reactionType = ReactionType::factory()->create();
@@ -189,8 +186,7 @@ final class ReacterableEloquentBuilderTraitTest extends TestCase
         ], $reactedToReactable2->pluck('id')->toArray());
     }
 
-    /** @test */
-    public function it_can_scope_not_reacted_to_reactable_and_reaction_type(): void
+    public function test_can_scope_not_reacted_to_reactable_and_reaction_type(): void
     {
         Reactant::factory()->create(); // Needed to have not same ids with Reactant
         $reactionType1 = ReactionType::factory()->create();
@@ -260,8 +256,7 @@ final class ReacterableEloquentBuilderTraitTest extends TestCase
         ], $reactedToReactable2WithReactionType2->pluck('id')->toArray());
     }
 
-    /** @test */
-    public function it_can_scope_reacted_to_reactable_between_datetime_range(): void
+    public function test_can_scope_reacted_to_reactable_between_datetime_range(): void
     {
         Reacter::factory()->create(); // Needed to have not same ids with Reacter
         $reactionType = ReactionType::factory()->create();

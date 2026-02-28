@@ -20,8 +20,7 @@ use TypeError;
 
 final class ReactionTotalTest extends TestCase
 {
-    /** @test */
-    public function it_can_fill_count(): void
+    public function test_can_fill_count(): void
     {
         $total = new ReactionTotal([
             'count' => 4,
@@ -30,8 +29,7 @@ final class ReactionTotalTest extends TestCase
         $this->assertSame(4, $total->getCount());
     }
 
-    /** @test */
-    public function it_can_fill_weight(): void
+    public function test_can_fill_weight(): void
     {
         $total = new ReactionTotal([
             'weight' => 4.1,
@@ -40,8 +38,7 @@ final class ReactionTotalTest extends TestCase
         $this->assertSame(4.1, $total->getWeight());
     }
 
-    /** @test */
-    public function it_casts_float_count_to_int(): void
+    public function test_casts_float_count_to_int(): void
     {
         $total = new ReactionTotal([
             'count' => 4.0,
@@ -50,8 +47,7 @@ final class ReactionTotalTest extends TestCase
         $this->assertSame(4, $total->getCount());
     }
 
-    /** @test */
-    public function it_casts_string_count_to_int(): void
+    public function test_casts_string_count_to_int(): void
     {
         $total = new ReactionTotal([
             'count' => '4',
@@ -60,8 +56,7 @@ final class ReactionTotalTest extends TestCase
         $this->assertSame(4, $total->getCount());
     }
 
-    /** @test */
-    public function it_casts_null_count_to_zero(): void
+    public function test_casts_null_count_to_zero(): void
     {
         $total = new ReactionTotal([
             'count' => null,
@@ -70,16 +65,14 @@ final class ReactionTotalTest extends TestCase
         $this->assertSame(0, $total->getCount());
     }
 
-    /** @test */
-    public function it_casts_not_set_count_to_zero(): void
+    public function test_casts_not_set_count_to_zero(): void
     {
         $total = new ReactionTotal();
 
         $this->assertSame(0, $total->getCount());
     }
 
-    /** @test */
-    public function it_casts_int_weight_to_float(): void
+    public function test_casts_int_weight_to_float(): void
     {
         $total = new ReactionTotal([
             'weight' => 4,
@@ -88,8 +81,7 @@ final class ReactionTotalTest extends TestCase
         $this->assertSame(4.0, $total->getWeight());
     }
 
-    /** @test */
-    public function it_casts_string_weight_to_float(): void
+    public function test_casts_string_weight_to_float(): void
     {
         $total1 = new ReactionTotal([
             'weight' => '4',
@@ -102,8 +94,7 @@ final class ReactionTotalTest extends TestCase
         $this->assertSame(4.1, $total2->getWeight());
     }
 
-    /** @test */
-    public function it_casts_null_weight_to_zero(): void
+    public function test_casts_null_weight_to_zero(): void
     {
         $total = new ReactionTotal([
             'weight' => null,
@@ -112,16 +103,14 @@ final class ReactionTotalTest extends TestCase
         $this->assertSame(0.0, $total->getWeight());
     }
 
-    /** @test */
-    public function it_casts_not_set_weight_to_zero(): void
+    public function test_casts_not_set_weight_to_zero(): void
     {
         $total = new ReactionTotal();
 
         $this->assertSame(0.0, $total->getWeight());
     }
 
-    /** @test */
-    public function it_can_belong_to_reactant(): void
+    public function test_can_belong_to_reactant(): void
     {
         $reactant = Reactant::factory()->create();
 
@@ -132,8 +121,7 @@ final class ReactionTotalTest extends TestCase
         $this->assertTrue($total->reactant->is($reactant));
     }
 
-    /** @test */
-    public function it_can_get_reactant(): void
+    public function test_can_get_reactant(): void
     {
         $reactant = Reactant::factory()->create();
 
@@ -144,8 +132,7 @@ final class ReactionTotalTest extends TestCase
         $this->assertTrue($total->getReactant()->is($reactant));
     }
 
-    /** @test */
-    public function it_throws_exception_on_get_reactant_when_reactant_is_null(): void
+    public function test_throws_exception_on_get_reactant_when_reactant_is_null(): void
     {
         $this->expectException(TypeError::class);
 
@@ -154,8 +141,7 @@ final class ReactionTotalTest extends TestCase
         $total->getReactant();
     }
 
-    /** @test */
-    public function it_can_create_total_with_zero_count(): void
+    public function test_can_create_total_with_zero_count(): void
     {
         $total1 = ReactionTotal::factory()->create();
         $total2 = ReactionTotal::factory()->create([
@@ -166,8 +152,7 @@ final class ReactionTotalTest extends TestCase
         $this->assertSame(0, $total2->getCount());
     }
 
-    /** @test */
-    public function it_can_create_total_with_zero_weight(): void
+    public function test_can_create_total_with_zero_weight(): void
     {
         $total1 = ReactionTotal::factory()->create();
         $total2 = ReactionTotal::factory()->create([
@@ -178,8 +163,7 @@ final class ReactionTotalTest extends TestCase
         $this->assertSame(0.0, $total2->getWeight());
     }
 
-    /** @test */
-    public function it_can_increment_count(): void
+    public function test_can_increment_count(): void
     {
         $total = ReactionTotal::factory()->create([
             'count' => 0,
@@ -190,8 +174,7 @@ final class ReactionTotalTest extends TestCase
         $this->assertSame(2, $total->getCount());
     }
 
-    /** @test */
-    public function it_can_increment_count_many_times(): void
+    public function test_can_increment_count_many_times(): void
     {
         $total = ReactionTotal::factory()->create([
             'count' => 0,
@@ -203,8 +186,7 @@ final class ReactionTotalTest extends TestCase
         $this->assertSame(5, $total->getCount());
     }
 
-    /** @test */
-    public function it_can_decrement_count(): void
+    public function test_can_decrement_count(): void
     {
         $total = ReactionTotal::factory()->create([
             'count' => 10,
@@ -215,8 +197,7 @@ final class ReactionTotalTest extends TestCase
         $this->assertSame(8, $total->getCount());
     }
 
-    /** @test */
-    public function it_can_decrement_count_many_times(): void
+    public function test_can_decrement_count_many_times(): void
     {
         $total = ReactionTotal::factory()->create([
             'count' => 10,
@@ -228,8 +209,7 @@ final class ReactionTotalTest extends TestCase
         $this->assertSame(5, $total->getCount());
     }
 
-    /** @test */
-    public function it_can_increment_weight(): void
+    public function test_can_increment_weight(): void
     {
         $total = ReactionTotal::factory()->create([
             'weight' => 0,
@@ -240,8 +220,7 @@ final class ReactionTotalTest extends TestCase
         $this->assertSame(2.0, $total->getWeight());
     }
 
-    /** @test */
-    public function it_can_increment_weight_many_times(): void
+    public function test_can_increment_weight_many_times(): void
     {
         $total = ReactionTotal::factory()->create([
             'weight' => 0,
@@ -253,8 +232,7 @@ final class ReactionTotalTest extends TestCase
         $this->assertSame(5.0, $total->getWeight());
     }
 
-    /** @test */
-    public function it_can_decrement_weight(): void
+    public function test_can_decrement_weight(): void
     {
         $total = ReactionTotal::factory()->create([
             'weight' => 10,
@@ -265,8 +243,7 @@ final class ReactionTotalTest extends TestCase
         $this->assertSame(8.0, $total->getWeight());
     }
 
-    /** @test */
-    public function it_can_decrement_weight_many_times(): void
+    public function test_can_decrement_weight_many_times(): void
     {
         $total = ReactionTotal::factory()->create([
             'weight' => 10,

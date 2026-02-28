@@ -28,8 +28,7 @@ use Illuminate\Support\Facades\Event;
 
 final class ReactantTest extends TestCase
 {
-    /** @test */
-    public function it_can_get_reactions(): void
+    public function test_can_get_reactions(): void
     {
         $reactant = Reactant::factory()->create();
         $reactions = Reaction::factory()->count(2)->create([
@@ -43,8 +42,7 @@ final class ReactantTest extends TestCase
         $this->assertTrue($assertReactions->get(1)->is($reactions->get(1)));
     }
 
-    /** @test */
-    public function it_can_get_reactions_by_user(): void
+    public function test_can_get_reactions_by_user(): void
     {
         $reactant = Reactant::factory()->create();
         $reacterable = User::factory()->create();
@@ -64,8 +62,7 @@ final class ReactantTest extends TestCase
         $this->assertTrue($assertReactions->get(1)->is($reactions->get(1)));
     }
 
-    /** @test */
-    public function it_can_get_reaction_counters(): void
+    public function test_can_get_reaction_counters(): void
     {
         $reactant = Reactant::factory()->create();
         $counters = ReactionCounter::factory()->count(2)->create([
@@ -79,8 +76,7 @@ final class ReactantTest extends TestCase
         $this->assertTrue($assertCounters->get(1)->is($counters->get(1)));
     }
 
-    /** @test */
-    public function it_can_get_reaction_counter_of_type(): void
+    public function test_can_get_reaction_counter_of_type(): void
     {
         $reactant = Reactant::factory()->create();
         $reactionType = ReactionType::factory()->create();
@@ -98,8 +94,7 @@ final class ReactantTest extends TestCase
         $this->assertTrue($counter->is($assertCounter));
     }
 
-    /** @test */
-    public function it_can_get_null_object_reaction_counter_of_type(): void
+    public function test_can_get_null_object_reaction_counter_of_type(): void
     {
         Event::fake(); // Prevent total auto creation
         $reactant = Reactant::factory()->create();
@@ -111,8 +106,7 @@ final class ReactantTest extends TestCase
         $this->assertInstanceOf(NullReactionCounter::class, $counter);
     }
 
-    /** @test */
-    public function it_can_get_null_object_reaction_counter_of_type_with_same_reactant(): void
+    public function test_can_get_null_object_reaction_counter_of_type_with_same_reactant(): void
     {
         Event::fake(); // Prevent total auto creation
         $reactant = Reactant::factory()->create();
@@ -125,8 +119,7 @@ final class ReactantTest extends TestCase
         $this->assertSame($reactant, $counter->getReactant());
     }
 
-    /** @test */
-    public function it_can_get_null_object_reaction_counter_of_type_with_same_reaction_type(): void
+    public function test_can_get_null_object_reaction_counter_of_type_with_same_reaction_type(): void
     {
         Event::fake(); // Prevent total auto creation
         $reactant = Reactant::factory()->create();
@@ -139,8 +132,7 @@ final class ReactantTest extends TestCase
         $this->assertSame($reactionType->getId(), $counter->getReactionType()->getId());
     }
 
-    /** @test */
-    public function it_can_get_reaction_total(): void
+    public function test_can_get_reaction_total(): void
     {
         Event::fake(); // Prevent total auto creation
         $reactant = Reactant::factory()->create();
@@ -154,8 +146,7 @@ final class ReactantTest extends TestCase
         $this->assertTrue($total->is($assertTotal));
     }
 
-    /** @test */
-    public function it_can_get_null_object_reaction_total(): void
+    public function test_can_get_null_object_reaction_total(): void
     {
         Event::fake(); // Prevent total auto creation
         $reactant = Reactant::factory()->create();
@@ -166,8 +157,7 @@ final class ReactantTest extends TestCase
         $this->assertInstanceOf(NullReactionTotal::class, $assertTotal);
     }
 
-    /** @test */
-    public function it_can_get_null_object_reaction_total_with_same_reactant(): void
+    public function test_can_get_null_object_reaction_total_with_same_reactant(): void
     {
         Event::fake(); // Prevent total auto creation
         $reactant = Reactant::factory()->create();
@@ -179,8 +169,7 @@ final class ReactantTest extends TestCase
         $this->assertSame($reactant, $assertTotal->getReactant());
     }
 
-    /** @test */
-    public function it_can_check_is_reacted_by_reacterable(): void
+    public function test_can_check_is_reacted_by_reacterable(): void
     {
         $reactionType = ReactionType::factory()->create();
         $reacterable = User::factory()->create();
@@ -198,8 +187,7 @@ final class ReactantTest extends TestCase
         $this->assertTrue($isReacted);
     }
 
-    /** @test */
-    public function it_can_check_is_reacted_by_reacterable_when_reacter_is_null(): void
+    public function test_can_check_is_reacted_by_reacterable_when_reacter_is_null(): void
     {
         $reactant = Reactant::factory()->create();
         $reactantFacade = new ReactantFacade($reactant);
@@ -209,8 +197,7 @@ final class ReactantTest extends TestCase
         $this->assertFalse($isReacted);
     }
 
-    /** @test */
-    public function it_can_check_is_reacted_by_reacterable_when_reacter_is_null_object(): void
+    public function test_can_check_is_reacted_by_reacterable_when_reacter_is_null_object(): void
     {
         $reacterable = UserWithoutAutoReacterCreate::factory()->create();
         $reactant = Reactant::factory()->create();
@@ -221,8 +208,7 @@ final class ReactantTest extends TestCase
         $this->assertFalse($isReacted);
     }
 
-    /** @test */
-    public function it_can_check_is_reacted_by_reacterable_when_reacter_is_not_persisted(): void
+    public function test_can_check_is_reacted_by_reacterable_when_reacter_is_not_persisted(): void
     {
         $reacterable = new User();
         $reactant = Reactant::factory()->create();
@@ -233,8 +219,7 @@ final class ReactantTest extends TestCase
         $this->assertFalse($isReacted);
     }
 
-    /** @test */
-    public function it_can_check_is_not_reacted_by_reacterable(): void
+    public function test_can_check_is_not_reacted_by_reacterable(): void
     {
         $reactionType = ReactionType::factory()->create();
         $reacterable = User::factory()->create();
@@ -255,8 +240,7 @@ final class ReactantTest extends TestCase
         $this->assertTrue($isNotReacted);
     }
 
-    /** @test */
-    public function it_can_check_is_not_reacted_by_reacterable_when_reacter_is_null(): void
+    public function test_can_check_is_not_reacted_by_reacterable_when_reacter_is_null(): void
     {
         $reactant = Reactant::factory()->create();
         $reactantFacade = new ReactantFacade($reactant);
@@ -266,8 +250,7 @@ final class ReactantTest extends TestCase
         $this->assertTrue($isNotReacted);
     }
 
-    /** @test */
-    public function it_can_check_is_not_reacted_by_reacterable_when_reacter_is_null_object(): void
+    public function test_can_check_is_not_reacted_by_reacterable_when_reacter_is_null_object(): void
     {
         $reacterable = UserWithoutAutoReacterCreate::factory()->create();
         $reactant = Reactant::factory()->create();
@@ -278,8 +261,7 @@ final class ReactantTest extends TestCase
         $this->assertTrue($isNotReacted);
     }
 
-    /** @test */
-    public function it_can_check_is_not_reacted_by_reacterable_when_reacter_is_not_persisted(): void
+    public function test_can_check_is_not_reacted_by_reacterable_when_reacter_is_not_persisted(): void
     {
         $reacterable = new User();
         $reactant = Reactant::factory()->create();
@@ -290,8 +272,7 @@ final class ReactantTest extends TestCase
         $this->assertTrue($isNotReacted);
     }
 
-    /** @test */
-    public function it_can_check_is_reacted_by_reacterable_with_type(): void
+    public function test_can_check_is_reacted_by_reacterable_with_type(): void
     {
         $reactionType = ReactionType::factory()->create();
         $reacterable = User::factory()->create();
@@ -309,8 +290,7 @@ final class ReactantTest extends TestCase
         $this->assertTrue($isReacted);
     }
 
-    /** @test */
-    public function it_can_check_is_reacted_by_reacterable_with_type_when_reacter_is_null_object(): void
+    public function test_can_check_is_reacted_by_reacterable_with_type_when_reacter_is_null_object(): void
     {
         $reactionType = ReactionType::factory()->create();
         $reacterable = UserWithoutAutoReacterCreate::factory()->create();
@@ -322,8 +302,7 @@ final class ReactantTest extends TestCase
         $this->assertFalse($isReacted);
     }
 
-    /** @test */
-    public function it_can_check_is_reacted_by_reacterable_with_type_when_reacter_is_not_persisted(): void
+    public function test_can_check_is_reacted_by_reacterable_with_type_when_reacter_is_not_persisted(): void
     {
         $reactionType = ReactionType::factory()->create();
         $reacterable = new User();
@@ -335,8 +314,7 @@ final class ReactantTest extends TestCase
         $this->assertFalse($isReacted);
     }
 
-    /** @test */
-    public function it_can_check_is_not_reacted_by_reacterable_with_type(): void
+    public function test_can_check_is_not_reacted_by_reacterable_with_type(): void
     {
         $reactionType = ReactionType::factory()->create();
         $otherReactionType = ReactionType::factory()->create();
@@ -359,8 +337,7 @@ final class ReactantTest extends TestCase
         $this->assertTrue($isNotReacted);
     }
 
-    /** @test */
-    public function it_can_check_is_not_reacted_by_reacterable_with_type_when_reacter_is_null_object(): void
+    public function test_can_check_is_not_reacted_by_reacterable_with_type_when_reacter_is_null_object(): void
     {
         $reactionType = ReactionType::factory()->create();
         $reacterable = UserWithoutAutoReacterCreate::factory()->create();
@@ -372,8 +349,7 @@ final class ReactantTest extends TestCase
         $this->assertTrue($isNotReacted);
     }
 
-    /** @test */
-    public function it_can_check_is_not_reacted_by_reacterable_with_type_when_reacter_is_not_persisted(): void
+    public function test_can_check_is_not_reacted_by_reacterable_with_type_when_reacter_is_not_persisted(): void
     {
         $reactionType = ReactionType::factory()->create();
         $reacterable = new User();
@@ -385,8 +361,7 @@ final class ReactantTest extends TestCase
         $this->assertTrue($isNotReacted);
     }
 
-    /** @test */
-    public function it_can_check_is_reacted_by_reacterable_with_rate(): void
+    public function test_can_check_is_reacted_by_reacterable_with_rate(): void
     {
         $reacterable = User::factory()->create();
         $reacter = $reacterable->getLoveReacter();
@@ -403,8 +378,7 @@ final class ReactantTest extends TestCase
         $this->assertTrue($isReacted);
     }
 
-    /** @test */
-    public function it_can_check_is_reacted_by_reacterable_with_rate_when_reacter_is_null_object(): void
+    public function test_can_check_is_reacted_by_reacterable_with_rate_when_reacter_is_null_object(): void
     {
         $reacterable = UserWithoutAutoReacterCreate::factory()->create();
         $reactant = Reactant::factory()->create();
@@ -415,8 +389,7 @@ final class ReactantTest extends TestCase
         $this->assertFalse($isReacted);
     }
 
-    /** @test */
-    public function it_can_check_is_reacted_by_reacterable_with_rate_when_reacter_is_not_persisted(): void
+    public function test_can_check_is_reacted_by_reacterable_with_rate_when_reacter_is_not_persisted(): void
     {
         $reacterable = new User();
         $reactant = Reactant::factory()->create();
@@ -427,8 +400,7 @@ final class ReactantTest extends TestCase
         $this->assertFalse($isReacted);
     }
 
-    /** @test */
-    public function it_can_check_is_not_reacted_by_reacterable_with_rate(): void
+    public function test_can_check_is_not_reacted_by_reacterable_with_rate(): void
     {
         $reacterable = User::factory()->create();
         $reacter = $reacterable->getLoveReacter();
@@ -449,8 +421,7 @@ final class ReactantTest extends TestCase
         $this->assertTrue($isNotReacted);
     }
 
-    /** @test */
-    public function it_can_check_is_not_reacted_by_reacterable_with_rate_when_reacter_is_null_object(): void
+    public function test_can_check_is_not_reacted_by_reacterable_with_rate_when_reacter_is_null_object(): void
     {
         $reacterable = UserWithoutAutoReacterCreate::factory()->create();
         $reactant = Reactant::factory()->create();
@@ -461,8 +432,7 @@ final class ReactantTest extends TestCase
         $this->assertTrue($isNotReacted);
     }
 
-    /** @test */
-    public function it_can_check_is_not_reacted_by_reacterable_with_rate_when_reacter_is_not_persisted(): void
+    public function test_can_check_is_not_reacted_by_reacterable_with_rate_when_reacter_is_not_persisted(): void
     {
         $reacterable = new User();
         $reactant = Reactant::factory()->create();
@@ -473,8 +443,7 @@ final class ReactantTest extends TestCase
         $this->assertTrue($isNotReacted);
     }
 
-    /** @test */
-    public function it_can_check_is_reacted_by_reacterable_with_type_and_rate(): void
+    public function test_can_check_is_reacted_by_reacterable_with_type_and_rate(): void
     {
         $reactionType = ReactionType::factory()->create();
         $reacterable = User::factory()->create();
@@ -493,8 +462,7 @@ final class ReactantTest extends TestCase
         $this->assertTrue($isReacted);
     }
 
-    /** @test */
-    public function it_can_check_is_reacted_by_reacterable_with_type_and_rate_when_reacter_is_null_object(): void
+    public function test_can_check_is_reacted_by_reacterable_with_type_and_rate_when_reacter_is_null_object(): void
     {
         $reactionType = ReactionType::factory()->create();
         $reacterable = UserWithoutAutoReacterCreate::factory()->create();
@@ -506,8 +474,7 @@ final class ReactantTest extends TestCase
         $this->assertFalse($isReacted);
     }
 
-    /** @test */
-    public function it_can_check_is_reacted_by_reacterable_with_type_and_rate_when_reacter_is_not_persisted(): void
+    public function test_can_check_is_reacted_by_reacterable_with_type_and_rate_when_reacter_is_not_persisted(): void
     {
         $reactionType = ReactionType::factory()->create();
         $reacterable = new User();
@@ -519,8 +486,7 @@ final class ReactantTest extends TestCase
         $this->assertFalse($isReacted);
     }
 
-    /** @test */
-    public function it_can_check_is_not_reacted_by_reacterable_with_type_and_rate(): void
+    public function test_can_check_is_not_reacted_by_reacterable_with_type_and_rate(): void
     {
         $reactionType = ReactionType::factory()->create();
         $otherReactionType = ReactionType::factory()->create();
@@ -545,8 +511,7 @@ final class ReactantTest extends TestCase
         $this->assertTrue($isNotReacted);
     }
 
-    /** @test */
-    public function it_can_check_is_not_reacted_by_reacterable_with_type_and_rate_when_reacter_is_null_object(): void
+    public function test_can_check_is_not_reacted_by_reacterable_with_type_and_rate_when_reacter_is_null_object(): void
     {
         $reactionType = ReactionType::factory()->create();
         $reacterable = UserWithoutAutoReacterCreate::factory()->create();
@@ -558,8 +523,7 @@ final class ReactantTest extends TestCase
         $this->assertTrue($isNotReacted);
     }
 
-    /** @test */
-    public function it_can_check_is_not_reacted_by_reacterable_with_type_and_rate_when_reacter_is_not_persisted(): void
+    public function test_can_check_is_not_reacted_by_reacterable_with_type_and_rate_when_reacter_is_not_persisted(): void
     {
         $reactionType = ReactionType::factory()->create();
         $reacterable = new User();
