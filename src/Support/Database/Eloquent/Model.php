@@ -16,7 +16,7 @@ namespace Cog\Laravel\Love\Support\Database\Eloquent;
 use Illuminate\Database\Eloquent\Model as IlluminateModel;
 use Illuminate\Support\Facades\Config;
 
-abstract class Model extends IlluminateModel
+class Model extends IlluminateModel
 {
     /**
      * Get the current connection name for the model.
