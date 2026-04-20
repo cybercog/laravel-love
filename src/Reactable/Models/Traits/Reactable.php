@@ -74,6 +74,5 @@ trait Reactable
         ]);
 
         $this->setAttribute('love_reactant_id', $reactant->getId());
-        $this->save();
     }
 }
