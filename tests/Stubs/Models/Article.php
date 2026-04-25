@@ -17,6 +17,7 @@ use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableInterface;
 use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**
  * @method static ArticleEloquentBuilder query()
@@ -47,5 +48,10 @@ final class Article extends Model implements
     public function newEloquentBuilder($query): ArticleEloquentBuilder
     {
         return new ArticleEloquentBuilder($query);
+    }
+
+    public function morphableEntities(): MorphMany
+    {
+        return $this->morphMany(MorphableEntity::class, 'morphable');
     }
 }
