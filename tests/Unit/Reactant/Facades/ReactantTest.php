@@ -21,6 +21,7 @@ use Cog\Laravel\Love\Reactant\ReactionTotal\Models\NullReactionTotal;
 use Cog\Laravel\Love\Reactant\ReactionTotal\Models\ReactionTotal;
 use Cog\Laravel\Love\Reaction\Models\Reaction;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
+use Cog\Tests\Laravel\Love\Stubs\Models\Article;
 use Cog\Tests\Laravel\Love\Stubs\Models\User;
 use Cog\Tests\Laravel\Love\Stubs\Models\UserWithoutAutoReacterCreate;
 use Cog\Tests\Laravel\Love\TestCase;
@@ -60,6 +61,39 @@ final class ReactantTest extends TestCase
         $this->assertCount(2, $assertReactions);
         $this->assertTrue($assertReactions->get(0)->is($reactions->get(0)));
         $this->assertTrue($assertReactions->get(1)->is($reactions->get(1)));
+    }
+
+    public function test_can_get_reactions_by_user_when_reactions_are_eager_loaded(): void
+    {
+        $article = Article::factory()->create();
+        $user = User::factory()->create();
+        $otherUser = User::factory()->create();
+        ReactionType::factory()->create(['name' => 'Like']);
+        ReactionType::factory()->create(['name' => 'Dislike']);
+        $otherUser->viaLoveReacter()->reactTo($article, 'Like');
+        $user->viaLoveReacter()->reactTo($article, 'Like');
+        $user->viaLoveReacter()->reactTo($article, 'Dislike');
+        $expectedReactions = $article->viaLoveReactant()->getReactionsBy($user);
+        $article = Article::with('loveReactant.reactions')->findOrFail($article->getKey());
+
+        $reactions = $article->viaLoveReactant()->getReactionsBy($user);
+
+        $this->assertCount(2, $reactions);
+        $this->assertSame($expectedReactions->modelKeys(), $reactions->values()->modelKeys());
+    }
+
+    public function test_can_get_empty_reactions_by_user_when_reactions_are_eager_loaded(): void
+    {
+        $article = Article::factory()->create();
+        $user = User::factory()->create();
+        $otherUser = User::factory()->create();
+        ReactionType::factory()->create(['name' => 'Like']);
+        $otherUser->viaLoveReacter()->reactTo($article, 'Like');
+        $article = Article::with('loveReactant.reactions')->findOrFail($article->getKey());
+
+        $reactions = $article->viaLoveReactant()->getReactionsBy($user);
+
+        $this->assertCount(0, $reactions);
     }
 
     public function test_can_get_reaction_counters(): void
