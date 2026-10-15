@@ -109,7 +109,7 @@ final class Reactant extends Model implements
         if ($this->relationLoaded('reactions')) {
             return $this
                 ->getAttribute('reactions')
-                ->contains(fn (ReactionInterface $reaction) => $reaction->isByReacter($reacter));
+                ->filter(fn (ReactionInterface $reaction) => $reaction->isByReacter($reacter));
         }
 
         return $this->reactions()->where('reacter_id', $reacter->getId())->get();
